@@ -1,0 +1,53 @@
+
+// colors
+$thead-bg-color: #3f3f3f;
+$app-red: #b22028;
+$app-gray: #BFBFBF;
+$app-light-gray: #4D4F54;
+$app-title-gray: #8A8A8A;
+$app-disabled-gray: #E7E7E7;
+
+$app-bg: #F4F4F4;
+$app-body-text: #323232;
+
+@mixin boxShadow {
+  box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.5);
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+// Screen size variables
+$screen-xs-min: 425px; 
+$screen-sm-min: 600px; 
+$screen-md-min: 960px; 
+$screen-lg-min: 1280px; 
+$screen-xl-min: 1920px; 
+
+// Mixins
+@mixin xs {
+  @media (max-width: #{$screen-xs-min}) {
+    @content;
+  }
+} // Tiny devices
+@mixin sm {
+  @media (max-width: #{$screen-sm-min}) {
+    @content;
+  }
+} // Small devices
+@mixin md {
+  @media (max-width: #{$screen-md-min}) {
+    @content;
+  }
+} // Medium devices
+@mixin lg {
+  @media (max-width: #{$screen-lg-min}) {
+    @content;
+  }
+} // Large devices
+@mixin xl {
+  @media (min-width: #{$screen-xl-min}) {
+    @content;
+  }
+} // Extra large devices

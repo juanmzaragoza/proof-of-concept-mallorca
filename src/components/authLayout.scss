@@ -1,0 +1,119 @@
+@import "./../config";
+
+.auth-pages-layout {
+  text-align: center;
+
+  @include sm{
+    overflow-y: scroll;
+  }
+
+  .auth-pages-top-bar{
+    background-color: #fff;
+    margin-top: 75px;
+    width: 100%;
+  }
+
+  .auth-card{
+    background-color: rgba(0, 0, 0, 0.55);
+    color: white;
+    margin: 75px auto 20px auto;
+    display: flex;
+    padding: 20px;
+    border-radius: 10px;
+    width: 360px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    min-height: 370px;
+  }
+
+  .welcome-message{
+    h4{
+      color: white;
+      line-height: 36px;
+    }
+  }
+
+  .reset-link {
+    color: $app-red;
+    font-size: 12px;
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  
+  .reg-invite{
+    margin-top: 0;
+    font-size: 16px;
+    line-height: 24px;
+    color: #CCC3C3;
+  
+    a{
+      color: $app-red;
+      text-decoration: underline;
+    }
+  }
+  
+}
+
+form.auth-form {
+  display: flex;
+  flex-direction: column;
+  
+  .auth-inputs {
+    // width: 300px;
+    margin: 10px 0;
+    background: rgba(255, 255, 255, 0.2);
+    transition: 0.3s ease-in;
+
+    fieldset {
+      display: none;
+    }
+
+    input{
+      color: $app-gray;
+    }
+
+    &.Mui-focused{
+      background-color: #fff;
+      input{
+        color: #323232;
+      }
+    }
+  }
+}
+
+.instruction-text{
+  padding: 0 10px;
+
+  .punch-line{
+    color: $app-red;
+    font-weight: 600;
+    font-size: 16px;
+  }
+  
+  p{
+    font-size: 14px;
+  }
+}
+
+
+#login {
+  .auth-warning {
+    color: $app-red;
+    font-size: 12px;
+  }
+}
+
+button.accessBtn {
+  color: #fff;
+  margin: 25px auto;
+  display: block;
+  font-weight: 600;
+  line-height: 24px;
+  font-size: 16px;
+  cursor: pointer;
+  text-transform: unset;
+  background-color: $app-red;
+  padding: 5px 25px;
+}
