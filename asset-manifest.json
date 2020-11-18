@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/proof-concept-malloca/static/css/main.1779176e.chunk.css",
+    "main.js": "/proof-concept-malloca/static/js/main.a0869d3e.chunk.js",
+    "main.js.map": "/proof-concept-malloca/static/js/main.a0869d3e.chunk.js.map",
+    "runtime-main.js": "/proof-concept-malloca/static/js/runtime-main.6d733bd2.js",
+    "runtime-main.js.map": "/proof-concept-malloca/static/js/runtime-main.6d733bd2.js.map",
+    "static/js/2.47d5c27e.chunk.js": "/proof-concept-malloca/static/js/2.47d5c27e.chunk.js",
+    "static/js/2.47d5c27e.chunk.js.map": "/proof-concept-malloca/static/js/2.47d5c27e.chunk.js.map",
+    "static/js/3.5bbcd2ea.chunk.js": "/proof-concept-malloca/static/js/3.5bbcd2ea.chunk.js",
+    "static/js/3.5bbcd2ea.chunk.js.map": "/proof-concept-malloca/static/js/3.5bbcd2ea.chunk.js.map",
+    "index.html": "/proof-concept-malloca/index.html",
+    "static/css/main.1779176e.chunk.css.map": "/proof-concept-malloca/static/css/main.1779176e.chunk.css.map",
+    "static/js/2.47d5c27e.chunk.js.LICENSE.txt": "/proof-concept-malloca/static/js/2.47d5c27e.chunk.js.LICENSE.txt",
+    "static/media/landingBg.e82601eb.png": "/proof-concept-malloca/static/media/landingBg.e82601eb.png",
+    "static/media/logo.103b5fa1.svg": "/proof-concept-malloca/static/media/logo.103b5fa1.svg",
+    "static/media/logo.b5764008.png": "/proof-concept-malloca/static/media/logo.b5764008.png",
+    "static/media/logoLanding2.133f003f.png": "/proof-concept-malloca/static/media/logoLanding2.133f003f.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6d733bd2.js",
+    "static/js/2.47d5c27e.chunk.js",
+    "static/css/main.1779176e.chunk.css",
+    "static/js/main.a0869d3e.chunk.js"
+  ]
+}
