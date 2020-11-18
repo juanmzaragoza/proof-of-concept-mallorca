@@ -5,6 +5,7 @@ import {
   CustomGrouping,
   FilteringState,
   IntegratedFiltering,
+  Table,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -18,6 +19,10 @@ import {
 } from '@devexpress/dx-react-grid-material-ui';
 
 import { Loading } from './Loading';
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
+
+import {ActionsColumn} from "./ActionsColumn";
 
 const URL = 'https://js.devexpress.com/Demos/Mvc/api/DataGridWebApi/Orders';
 
@@ -74,13 +79,20 @@ const CustomTable = (props) => {
   const [columns] = useState([
     { name: 'ShipCountry', title: 'Country' },
     { name: 'ShipCity', title: 'City' },
-    { name: 'ShipAddress', title: 'Address' },
-    { name: 'actions', title: 'Actions' },
-  ]);
-  const [groupingStateColumnExtensions] = useState([
-    { columnName: 'actions', groupingEnabled: false },
+    { name: 'ShipAddress', title: 'Address' }
   ]);
   const { grouping, loading } = state;
+
+  const actions = [
+    {
+      icon: <DeleteIcon/>,
+      action: id => alert('edit id: ' + id)
+    },
+    {
+      icon: <EditIcon/>,
+      action: id => alert('edit id: ' + id)
+    }
+  ];
 
   const changeGrouping = (value) => {
     dispatch({ type: 'CHANGE_GROUPING', payload: value });
@@ -136,7 +148,6 @@ const CustomTable = (props) => {
               onGroupingChange={changeGrouping}
               expandedGroups={expandedGroups}
               onExpandedGroupsChange={setExpandedGroups}
-              columnExtensions={groupingStateColumnExtensions}
           />
           <CustomGrouping
               getChildGroups={getChildGroups}
@@ -150,12 +161,16 @@ const CustomTable = (props) => {
               onFiltersChange={changeFilters} />
           <IntegratedFiltering />
           {/***************************/}
+          <Table />
+
           <VirtualTable />
           <TableHeaderRow />
           <TableFilterRow />
           <TableGroupRow />
           <Toolbar />
           <GroupingPanel showGroupingControls />
+          <ActionsColumn title="Actions" actions={actions} />
+
         </Grid>
         {loading && <Loading />}
       </Paper>
