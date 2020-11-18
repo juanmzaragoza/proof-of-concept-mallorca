@@ -15,6 +15,7 @@ import MomentUtils from '@date-io/moment';
 import { theme } from './constants/theme';
 import Login from './pages/Login';
 import CustomTable from './components/CustomTable';
+import Layout from "./Layout";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -33,7 +34,7 @@ function App() {
                 <Switch>
                   {/* <Route exact path='/admin' component={Login} /> */}
                   <Route exact path='/login' component={Login} />
-                  <Route exact path='/' component={CustomTable} />
+                  <Route exact path='/' component={Layout} />
                   {/*TODO()<Route exact path='/forgot-password' component={Recovery} />
                   <Route exact path='/reset-password' component={ResetPassword} />
                   <Route exact path='/sign-up' component={Registration} />
