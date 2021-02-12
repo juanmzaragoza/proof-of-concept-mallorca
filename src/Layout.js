@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import clsx from 'clsx';
 import { useHistory } from "react-router-dom";
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -19,11 +19,11 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Badge from "@material-ui/core/Badge";
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import {AccountCircle ,More} from "@material-ui/icons";
-import {FormControl, InputLabel, ListSubheader, Select} from "@material-ui/core";
 
 import DrawerMenu from "./components/DrawerMenu";
 
 import {drawerWidth} from "./constants/styles";
+import EnterpriseGroupSelect from "./components/EnterpriseGroupSelect";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -102,38 +102,11 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
-  enterpriseSelector: {
-    minWidth: '180px',
-    marginRight: '10px',
-    color: 'white'
-  },
-  enterpriseSelectorLabel: {
-    color: 'white',
-    fontWeight: '600',
-    marginTop: '5px',
-  },
-  enterpriseSelectorSelect: {
-    '&:before': {
-      borderColor: 'white',
-      color: 'white'
-    },
-    '&:after': {
-      borderColor: 'white',
-      color: 'white'
-    },
-    marginTop: '5px',
-    marginBottom: '15px'
-  },
-  enterpriseSelectorIcon: {
-    fill: 'white',
-  },
 }));
 
 const Layout = ({ children, ...props}) => {
   const classes = useStyles();
-  const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const [enterpriseGroup, setEnterpriseGroup] = useState(0);
 
   const history = useHistory();
 
@@ -256,36 +229,8 @@ const Layout = ({ children, ...props}) => {
 
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <FormControl className={classes.enterpriseSelector}>
-                <InputLabel className={classes.enterpriseSelectorLabel} htmlFor="grouped-select">Enterprise's Group</InputLabel>
-                <Select
-                  className={classes.enterpriseSelectorSelect}
-                  defaultValue=""
-                  id="grouped-select"
-                  inputProps={{
-                    classes: {
-                      icon: classes.enterpriseSelectorIcon,
-                    },
-                  }}
-                  MenuProps={{
-                    anchorOrigin: {
-                      vertical: "bottom",
-                      horizontal: "left"
-                    },
-                    getContentAnchorEl: null
-                  }}>
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <ListSubheader>Aguilo</ListSubheader>
-                  <MenuItem value={1}>Aguilo Emp</MenuItem>
-                  <ListSubheader>Limit</ListSubheader>
-                  <MenuItem value={2}>Limit Tecnologies</MenuItem>
-                  <MenuItem value={3}>LIMIT TECNOLOGIES S.L.</MenuItem>
-                  <MenuItem value={4}>Test</MenuItem>
-                </Select>
-              </FormControl>
-              <IconButton aria-label="show 17 new notifications" color="inherit">
+              <EnterpriseGroupSelect></EnterpriseGroupSelect>
+              <IconButton aria-label="cecocloud apps" color="inherit">
                 <AppsIcon />
               </IconButton>
               <IconButton
