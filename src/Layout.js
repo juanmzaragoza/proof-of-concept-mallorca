@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import clsx from 'clsx';
 import { useHistory } from "react-router-dom";
 
@@ -19,6 +19,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import AppsIcon from '@material-ui/icons/Apps';
+import CloudQueueIcon from '@material-ui/icons/CloudQueue';
 import Route from "react-router-dom/es/Route";
 import CustomTable from "./components/CustomTable";
 import Menu from "@material-ui/core/Menu";
@@ -26,12 +28,16 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Badge from "@material-ui/core/Badge";
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import {AccountCircle ,More} from "@material-ui/icons";
+import {FormControl, InputLabel, ListSubheader, Select} from "@material-ui/core";
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+  },
+  title: {
+    marginLeft: '10px'
   },
   grow: {
     flexGrow: 1,
@@ -103,12 +109,38 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  enterpriseSelector: {
+    minWidth: '180px',
+    marginRight: '10px',
+    color: 'white'
+  },
+  enterpriseSelectorLabel: {
+    color: 'white',
+    fontWeight: '600',
+    marginTop: '5px',
+  },
+  enterpriseSelectorSelect: {
+    '&:before': {
+      borderColor: 'white',
+      color: 'white'
+    },
+    '&:after': {
+      borderColor: 'white',
+      color: 'white'
+    },
+    marginTop: '5px',
+    marginBottom: '15px'
+  },
+  enterpriseSelectorIcon: {
+    fill: 'white',
+  },
 }));
 
 const Layout = ({ children, ...props}) => {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [enterpriseGroup, setEnterpriseGroup] = useState(0);
 
   const history = useHistory();
 
@@ -159,7 +191,6 @@ const Layout = ({ children, ...props}) => {
           onClose={handleMenuClose}
       >
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={handleMenuClose}>My account</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
   );
@@ -225,21 +256,44 @@ const Layout = ({ children, ...props}) => {
               <MenuIcon />
             </IconButton>
 
+            <CloudQueueIcon></CloudQueueIcon>
             <Typography className={classes.title} variant="h6" noWrap>
-              Material-UI
+              Cecocloud
             </Typography>
 
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <IconButton aria-label="show 4 new mails" color="inherit">
-                <Badge badgeContent={4} color="secondary">
-                  <MailIcon />
-                </Badge>
-              </IconButton>
+              <FormControl className={classes.enterpriseSelector}>
+                <InputLabel className={classes.enterpriseSelectorLabel} htmlFor="grouped-select">Enterprise's Group</InputLabel>
+                <Select
+                  className={classes.enterpriseSelectorSelect}
+                  defaultValue=""
+                  id="grouped-select"
+                  inputProps={{
+                    classes: {
+                      icon: classes.enterpriseSelectorIcon,
+                    },
+                  }}
+                  MenuProps={{
+                    anchorOrigin: {
+                      vertical: "bottom",
+                      horizontal: "left"
+                    },
+                    getContentAnchorEl: null
+                  }}>
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <ListSubheader>Aguilo</ListSubheader>
+                  <MenuItem value={1}>Aguilo Emp</MenuItem>
+                  <ListSubheader>Limit</ListSubheader>
+                  <MenuItem value={2}>Limit Tecnologies</MenuItem>
+                  <MenuItem value={3}>LIMIT TECNOLOGIES S.L.</MenuItem>
+                  <MenuItem value={4}>Test</MenuItem>
+                </Select>
+              </FormControl>
               <IconButton aria-label="show 17 new notifications" color="inherit">
-                <Badge badgeContent={17} color="secondary">
-                  <NotificationsIcon />
-                </Badge>
+                <AppsIcon />
               </IconButton>
               <IconButton
                   edge="end"
