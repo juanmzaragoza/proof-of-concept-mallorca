@@ -1,5 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
+import { useHistory } from "react-router-dom";
+
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -108,6 +110,8 @@ const Layout = ({ children, ...props}) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  const history = useHistory();
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -139,6 +143,10 @@ const Layout = ({ children, ...props}) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleLogout = () => {
+    history.push("/login");
+  };
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
       <Menu
@@ -152,6 +160,7 @@ const Layout = ({ children, ...props}) => {
       >
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
         <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
   );
 

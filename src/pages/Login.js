@@ -1,7 +1,9 @@
+import React, {useState} from 'react';
+import { useHistory } from "react-router-dom";
+
 import Card from '@material-ui/core/Card';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
-import React, {useState} from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 
@@ -15,9 +17,12 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  const history = useHistory();
+
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(email, password)
+    console.log(email, password);
+    history.push("/");
   };
 
   return (
@@ -60,8 +65,6 @@ const Login = () => {
 
           {error && <p className='auth-warning'>Invalid Email or Password</p>}
           <Link className='reset-link' to='/forgot-password' >Forgot password?</Link>
-
-
           <Button type='submit' color='secondary' variant='outlined' className='accessBtn'>
             Login
           </Button>
