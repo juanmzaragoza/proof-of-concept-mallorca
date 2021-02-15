@@ -7,6 +7,8 @@ import {
   IntegratedFiltering,
   Table, SortingState,
   IntegratedSorting,
+  PagingState,
+  CustomPaging,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -17,6 +19,7 @@ import {
   DragDropProvider,
   Toolbar,
   TableFilterRow,
+  PagingPanel
 } from '@devexpress/dx-react-grid-material-ui';
 
 import { Loading } from './Loading';
@@ -76,6 +79,11 @@ function reducer(state, { type, payload }) {
         ...state,
         sorting: payload
       }
+    case 'CHANGE_LOADING':
+      return {
+        ...state,
+        loading: payload
+      }
     default:
       return state;
   }
@@ -88,6 +96,11 @@ const CustomTable = (props) => {
     { name: 'ShipCity', title: 'City' },
     { name: 'ShipAddress', title: 'Address' }
   ]);
+
+  const [totalCount, setTotalCount] = useState(0);
+  const [pageSize] = useState(3);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [lastQuery, setLastQuery] = useState();
   const { grouping, loading } = state;
 
   const actions = [
@@ -117,9 +130,13 @@ const CustomTable = (props) => {
     dispatch({ type: 'CHANGE_SORTING', payload: value});
   }
 
+  const changeLoading = (value) => {
+    dispatch({ type: 'CHANGE_LOADING', payload: value});
+  }
+
   const getQueryString = () => {
     if (!grouping.length) return URL;
-    let queryString = `${URL}`;
+    let queryString = `${URL}&take=${pageSize}&skip=${pageSize * currentPage}`;
 
     const groupConfig = grouping
         .map(columnGrouping => ({
@@ -135,6 +152,20 @@ const CustomTable = (props) => {
         }));
       const sortingStr = JSON.stringify(sortingConfig);
       queryString = `${queryString}&sort=${escape(`${sortingStr}`)}`;
+    }
+
+    if (queryString !== lastQuery && !loading) {
+      changeLoading(true);
+      fetch(queryString)
+        .then(response => response.json())
+        .then(({ data, totalCount: newTotalCount }) => {
+          dispatch({ type: 'FETCH_SUCCESS', payload: data });
+          console.log(data, newTotalCount)
+          setTotalCount(newTotalCount);
+          changeLoading(false);
+        })
+        .catch(() => changeLoading(false));
+      setLastQuery(queryString);
     }
 
     return `${queryString}?group=${JSON.stringify(groupConfig)}`;
@@ -190,6 +221,16 @@ const CustomTable = (props) => {
               onFiltersChange={changeFilters} />
           <IntegratedFiltering />
           {/***************************/}
+          {/* Paging configuration */}
+          <PagingState
+            currentPage={currentPage}
+            onCurrentPageChange={setCurrentPage}
+            pageSize={pageSize}
+          />
+          <CustomPaging
+            totalCount={totalCount}
+          />
+          {/***************************/}
           <Table />
 
           <VirtualTable />
@@ -199,6 +240,7 @@ const CustomTable = (props) => {
           <Toolbar />
           <GroupingPanel showGroupingControls />
           <ActionsColumn title="Actions" actions={actions} />
+          <PagingPanel />
 
         </Grid>
         {loading && <Loading />}
