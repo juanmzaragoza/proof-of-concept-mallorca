@@ -5,7 +5,8 @@ import {
   CustomGrouping,
   FilteringState,
   IntegratedFiltering,
-  Table,
+  Table, SortingState,
+  IntegratedSorting,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -37,6 +38,7 @@ const initialState = {
   tempGrouping: null,
   tempExpandedGroups: null,
   loading: true,
+  sorting: []
 };
 
 function reducer(state, { type, payload }) {
@@ -69,6 +71,11 @@ function reducer(state, { type, payload }) {
         ...state,
         loading: false,
       };
+    case 'CHANGE_SORTING':
+      return {
+        ...state,
+        sorting: payload
+      }
     default:
       return state;
   }
@@ -106,15 +113,31 @@ const CustomTable = (props) => {
     dispatch({ type: 'SET_EXPANDED_GROUPS', payload: value });
   };
 
+  const changeSorting = (value) => {
+    dispatch({ type: 'CHANGE_SORTING', payload: value});
+  }
+
   const getQueryString = () => {
     if (!grouping.length) return URL;
+    let queryString = `${URL}`;
 
     const groupConfig = grouping
         .map(columnGrouping => ({
           selector: columnGrouping.columnName,
           isExpanded: true,
         }));
-    return `${URL}?group=${JSON.stringify(groupConfig)}`;
+
+    if (sorting.length) {
+      const sortingConfig = sorting
+        .map(({ columnName, direction }) => ({
+          selector: columnName,
+          desc: direction === 'desc',
+        }));
+      const sortingStr = JSON.stringify(sortingConfig);
+      queryString = `${queryString}&sort=${escape(`${sortingStr}`)}`;
+    }
+
+    return `${queryString}?group=${JSON.stringify(groupConfig)}`;
   };
 
   const loadData = () => {
@@ -132,7 +155,7 @@ const CustomTable = (props) => {
   useEffect(() => loadData());
 
   const {
-    data, expandedGroups, tempGrouping, tempExpandedGroups,
+    data, expandedGroups, tempGrouping, tempExpandedGroups, sorting
   } = state;
   return (
       <Paper style={{ position: 'relative' }}>
@@ -141,6 +164,12 @@ const CustomTable = (props) => {
             columns={columns}
             getRowId={getRowId}
         >
+          {/* Sorting configuration */}
+          <SortingState
+            sorting={sorting}
+            onSortingChange={changeSorting} />
+          <IntegratedSorting />
+          {/***************************/}
           {/* Grouping configuration */}
           <DragDropProvider />
           <GroupingState
@@ -164,7 +193,7 @@ const CustomTable = (props) => {
           <Table />
 
           <VirtualTable />
-          <TableHeaderRow />
+          <TableHeaderRow showSortingControls />
           <TableFilterRow />
           <TableGroupRow />
           <Toolbar />
