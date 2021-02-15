@@ -52,7 +52,7 @@ const initialState = {
   expandedGroups: [],
   tempGrouping: null,
   tempExpandedGroups: null,
-  loading: true,
+  loading: false,
   sorting: []
 };
 
@@ -110,7 +110,7 @@ const CustomTable = (props) => {
   ]);
 
   const [totalCount, setTotalCount] = useState(0);
-  const [pageSize] = useState(3);
+  const [pageSize] = useState(5);
   const [currentPage, setCurrentPage] = useState(0);
   const [lastQuery, setLastQuery] = useState();
   const { grouping, loading } = state;
@@ -146,15 +146,15 @@ const CustomTable = (props) => {
     dispatch({ type: 'CHANGE_LOADING', payload: value});
   }
 
-  const getQueryString = () => {
-    if (!grouping.length) return URL;
-    let queryString = `${URL}&take=${pageSize}&skip=${pageSize * currentPage}`;
+  const loadData = () => {
+    //if (!loading) return;
+    let queryString = `${URL}?take=${pageSize}&skip=${pageSize * currentPage}`;
 
-    const groupConfig = grouping
+    /*const groupConfig = grouping
         .map(columnGrouping => ({
           selector: columnGrouping.columnName,
           isExpanded: true,
-        }));
+        }));*/
 
     if (sorting.length) {
       const sortingConfig = sorting
@@ -172,27 +172,16 @@ const CustomTable = (props) => {
         .then(response => response.json())
         .then(({ data, totalCount: newTotalCount }) => {
           dispatch({ type: 'FETCH_SUCCESS', payload: data });
-          console.log(data, newTotalCount)
-          setTotalCount(newTotalCount);
+          //TODO() un-hardcoding this -> totalCount comes empty
+          setTotalCount(100);
           changeLoading(false);
         })
-        .catch(() => changeLoading(false));
+        .catch(() => {
+          dispatch({ type: 'FETCH_ERROR' });
+          changeLoading(false);
+        });
       setLastQuery(queryString);
     }
-
-    return `${queryString}?group=${JSON.stringify(groupConfig)}`;
-  };
-
-  const loadData = () => {
-    if (!loading) return;
-
-    const queryString = getQueryString();
-    fetch(queryString, { mode: 'cors' })
-        .then(response => response.json())
-        .then((orders) => {
-          dispatch({ type: 'FETCH_SUCCESS', payload: orders.data });
-        })
-        .catch(() => dispatch({ type: 'FETCH_ERROR' }));
   };
 
   useEffect(() => loadData());
@@ -215,10 +204,10 @@ const CustomTable = (props) => {
               marginTop: '5px'
             }}>
             <IconButton aria-label="refesh">
-              <RefreshIcon fontSize="medium" />
+              <RefreshIcon fontSize="default" />
             </IconButton>
             <IconButton aria-label="add">
-              <AddIcon fontSize="medium" />
+              <AddIcon fontSize="default" />
             </IconButton>
             <FormControl>
               <Select
@@ -276,7 +265,7 @@ const CustomTable = (props) => {
           <IntegratedSorting />
           {/***************************/}
           {/* Grouping configuration */}
-          <DragDropProvider />
+          {/*<DragDropProvider />
           <GroupingState
               grouping={grouping}
               onGroupingChange={changeGrouping}
@@ -310,9 +299,9 @@ const CustomTable = (props) => {
           <VirtualTable />
           <TableHeaderRow showSortingControls />
           <TableFilterRow />
-          <TableGroupRow />
+          {/*<TableGroupRow />
           <Toolbar />
-          <GroupingPanel showGroupingControls />
+          <GroupingPanel showGroupingControls />*/}
           <ActionsColumn title="Actions" actions={actions} />
           <PagingPanel />
 

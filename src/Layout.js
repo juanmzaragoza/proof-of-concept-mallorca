@@ -12,7 +12,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import MailIcon from '@material-ui/icons/Mail';
 import AppsIcon from '@material-ui/icons/Apps';
 import CloudQueueIcon from '@material-ui/icons/CloudQueue';
-import Route from "react-router-dom/es/Route";
+import { Route } from "react-router-dom";
 import CustomTable from "./components/CustomTable";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
