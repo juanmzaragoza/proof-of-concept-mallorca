@@ -1,5 +1,6 @@
 import React, { useReducer, useState, useEffect } from 'react';
 import Paper from '@material-ui/core/Paper';
+import { default as GridContainer } from '@material-ui/core/Grid';
 import {
   GroupingState,
   CustomGrouping,
@@ -27,6 +28,17 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 import {ActionsColumn} from "./ActionsColumn";
+import IconButton from "@material-ui/core/IconButton";
+import RefreshIcon from '@material-ui/icons/Refresh';
+import AddIcon from '@material-ui/icons/Add';
+import SearchIcon from '@material-ui/icons/Search';
+import ReplyIcon from '@material-ui/icons/Reply';
+import ClearIcon from '@material-ui/icons/Clear';
+import ImportExportIcon from '@material-ui/icons/ImportExport';
+
+import FormControl from "@material-ui/core/FormControl";
+import {FilledInput, Input, InputLabel, ListItemIcon, MenuItem, Select} from "@material-ui/core";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 const URL = 'https://js.devexpress.com/Demos/Mvc/api/DataGridWebApi/Orders';
 
@@ -190,6 +202,68 @@ const CustomTable = (props) => {
   } = state;
   return (
       <Paper style={{ position: 'relative' }}>
+        <GridContainer container style={{
+          backgroundColor: '#f2f2f2',
+          padding: '20px'}}>
+          <GridContainer item xs={5}>
+            <h1 style={{ color: '#6f6f6f' }}>Marcajes</h1>
+          </GridContainer>
+          <GridContainer item xs={2}>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: '5px'
+            }}>
+            <IconButton aria-label="refesh">
+              <RefreshIcon fontSize="medium" />
+            </IconButton>
+            <IconButton aria-label="add">
+              <AddIcon fontSize="medium" />
+            </IconButton>
+            <FormControl>
+              <Select
+                value={""}
+                onChange={(e) => console.log(e)}
+                displayEmpty
+                inputProps={{ 'aria-label': 'Without label' }}
+              >
+                <MenuItem value="">
+                  <em>Acciones</em>
+                </MenuItem>
+                <MenuItem value={10}>
+                  <ListItemIcon>
+                    <ClearIcon fontSize="small" />
+                  </ListItemIcon>
+                  Limpiar Filtro
+                </MenuItem>
+                <MenuItem value={20}>
+                  <ListItemIcon>
+                    <ImportExportIcon fontSize="small" />
+                  </ListItemIcon>
+                  Importar
+                </MenuItem>
+                <MenuItem value={30}>
+                  <ListItemIcon>
+                    <ReplyIcon fontSize="small" />
+                  </ListItemIcon>
+                  Exportar
+                </MenuItem>
+              </Select>
+            </FormControl>
+            </div>
+          </GridContainer>
+          <GridContainer item xs={5}>
+            <FormControl fullWidth variant="filled">
+              <InputLabel htmlFor="filled-adornment-amount">Búsqueda</InputLabel>
+              <FilledInput
+                id="filled-adornment-amount"
+                value={""}
+                onChange={e => console.log(e)}
+                endAdornment={<InputAdornment position="end"><SearchIcon></SearchIcon></InputAdornment>}
+              />
+            </FormControl>
+          </GridContainer>
+        </GridContainer>
         <Grid
             rows={data}
             columns={columns}
