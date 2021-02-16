@@ -14,7 +14,6 @@ import MomentUtils from '@date-io/moment';
 
 import { theme } from './constants/theme';
 import Login from './pages/Login';
-import CustomTable from './components/CustomTable';
 import Layout from "./Layout";
 
 function App() {
