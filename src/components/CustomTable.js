@@ -1,33 +1,25 @@
 import React, { useReducer, useState, useEffect } from 'react';
-import Paper from '@material-ui/core/Paper';
 import { default as GridContainer } from '@material-ui/core/Grid';
 import {
-  GroupingState,
-  CustomGrouping,
   FilteringState,
   IntegratedFiltering,
-  Table, SortingState,
+  SortingState,
   IntegratedSorting,
   PagingState,
   CustomPaging,
+  EditingState,
 } from '@devexpress/dx-react-grid';
 import {
+  Table,
   Grid,
-  VirtualTable,
   TableHeaderRow,
-  TableGroupRow,
-  GroupingPanel,
-  DragDropProvider,
-  Toolbar,
   TableFilterRow,
-  PagingPanel
+  PagingPanel,
+  TableInlineCellEditing,
 } from '@devexpress/dx-react-grid-material-ui';
 
-import { Loading } from './Loading';
-import EditIcon from "@material-ui/icons/Edit";
+import Paper from '@material-ui/core/Paper';
 import DeleteIcon from "@material-ui/icons/Delete";
-
-import {ActionsColumn} from "./ActionsColumn";
 import IconButton from "@material-ui/core/IconButton";
 import RefreshIcon from '@material-ui/icons/Refresh';
 import AddIcon from '@material-ui/icons/Add';
@@ -37,48 +29,29 @@ import ClearIcon from '@material-ui/icons/Clear';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
 
 import FormControl from "@material-ui/core/FormControl";
-import {FilledInput, Input, InputLabel, ListItemIcon, MenuItem, Select} from "@material-ui/core";
+import {FilledInput, InputLabel, ListItemIcon, MenuItem, Select} from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
+
+import {ActionsColumn} from "./ActionsColumn";
+import { Loading } from './Loading';
 
 const URL = 'https://js.devexpress.com/Demos/Mvc/api/DataGridWebApi/Orders';
 
 const getRowId = row => row.OrderID;
-const getChildGroups = groups => groups
-    .map(group => ({ key: group.key, childRows: group.items }));
 
 const initialState = {
   data: [],
-  grouping: [],
-  expandedGroups: [],
-  tempGrouping: null,
-  tempExpandedGroups: null,
   loading: false,
   sorting: []
 };
 
 function reducer(state, { type, payload }) {
-  const { grouping, expandedGroups, tempGrouping } = state;
 
   switch (type) {
-    case 'CHANGE_GROUPING':
-      return {
-        ...state,
-        loading: true,
-        grouping: payload,
-        tempGrouping: tempGrouping === null ? grouping : tempGrouping,
-        tempExpandedGroups: expandedGroups,
-      };
-    case 'SET_EXPANDED_GROUPS':
-      return {
-        ...state,
-        expandedGroups: payload,
-      };
     case 'FETCH_SUCCESS':
       return {
         ...state,
         data: payload,
-        tempGrouping: null,
-        tempExpandedGroups: null,
         loading: false,
       };
     case 'FETCH_ERROR':
@@ -113,29 +86,17 @@ const CustomTable = (props) => {
   const [pageSize] = useState(5);
   const [currentPage, setCurrentPage] = useState(0);
   const [lastQuery, setLastQuery] = useState();
-  const { grouping, loading } = state;
+  const { loading } = state;
 
   const actions = [
     {
       icon: <DeleteIcon/>,
-      action: id => alert('edit id: ' + id)
-    },
-    {
-      icon: <EditIcon/>,
-      action: id => alert('edit id: ' + id)
+      action: row => commitChanges({ deleted: [getRowId(row)] })
     }
   ];
 
-  const changeGrouping = (value) => {
-    dispatch({ type: 'CHANGE_GROUPING', payload: value });
-  };
-
   const changeFilters = (filters) => {
     console.log(filters);
-  };
-
-  const setExpandedGroups = (value) => {
-    dispatch({ type: 'SET_EXPANDED_GROUPS', payload: value });
   };
 
   const changeSorting = (value) => {
@@ -147,14 +108,8 @@ const CustomTable = (props) => {
   }
 
   const loadData = () => {
-    //if (!loading) return;
-    let queryString = `${URL}?take=${pageSize}&skip=${pageSize * currentPage}`;
 
-    /*const groupConfig = grouping
-        .map(columnGrouping => ({
-          selector: columnGrouping.columnName,
-          isExpanded: true,
-        }));*/
+    let queryString = `${URL}?take=${pageSize}&skip=${pageSize * currentPage}`;
 
     if (sorting.length) {
       const sortingConfig = sorting
@@ -186,8 +141,25 @@ const CustomTable = (props) => {
 
   useEffect(() => loadData());
 
+  const FocusableCell = ({ onClick, ...restProps }) => (
+    <Table.Cell {...restProps} tabIndex={0} onFocus={onClick} />
+  );
+
+  const commitChanges = ({ changed, deleted }) => {
+    let changedRows;
+    if (changed) {
+      changedRows = data.map(row => changed[getRowId(row)] ? { ...row, ...changed[getRowId(row)] } : row);
+    }
+    if (deleted) {
+      const deletedSet = new Set(deleted);
+      changedRows = data.filter(row => !deletedSet.has(getRowId(row)));
+    }
+
+    dispatch({ type: 'FETCH_SUCCESS', payload: changedRows });
+  };
+
   const {
-    data, expandedGroups, tempGrouping, tempExpandedGroups, sorting
+    data, sorting
   } = state;
   return (
       <Paper style={{ position: 'relative' }}>
@@ -264,20 +236,6 @@ const CustomTable = (props) => {
             onSortingChange={changeSorting} />
           <IntegratedSorting />
           {/***************************/}
-          {/* Grouping configuration */}
-          {/*<DragDropProvider />
-          <GroupingState
-              grouping={grouping}
-              onGroupingChange={changeGrouping}
-              expandedGroups={expandedGroups}
-              onExpandedGroupsChange={setExpandedGroups}
-          />
-          <CustomGrouping
-              getChildGroups={getChildGroups}
-              grouping={tempGrouping}
-              expandedGroups={tempExpandedGroups}
-          />
-          {/***************************/}
           {/* Filtering configuration */}
           <FilteringState
               defaultFilters={[]}
@@ -294,14 +252,12 @@ const CustomTable = (props) => {
             totalCount={totalCount}
           />
           {/***************************/}
-          <Table />
+          <EditingState onCommitChanges={commitChanges} />
 
-          <VirtualTable />
+          <Table cellComponent={FocusableCell} />
           <TableHeaderRow showSortingControls />
           <TableFilterRow />
-          {/*<TableGroupRow />
-          <Toolbar />
-          <GroupingPanel showGroupingControls />*/}
+          <TableInlineCellEditing selectTextOnEditStart/>
           <ActionsColumn title="Actions" actions={actions} />
           <PagingPanel />
 
