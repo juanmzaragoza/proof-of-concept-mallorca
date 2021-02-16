@@ -74,7 +74,7 @@ function reducer(state, { type, payload }) {
   }
 }
 
-const CustomTable = (props) => {
+const ReactGrid = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [columns] = useState([
     { name: 'ShipCountry', title: 'Country' },
@@ -162,19 +162,19 @@ const CustomTable = (props) => {
     data, sorting
   } = state;
   return (
-      <Paper style={{ position: 'relative' }}>
-        <GridContainer container style={{
-          backgroundColor: '#f2f2f2',
-          padding: '20px'}}>
-          <GridContainer item xs={5}>
-            <h1 style={{ color: '#6f6f6f' }}>Marcajes</h1>
-          </GridContainer>
-          <GridContainer item xs={2}>
-            <div style={{
-              display: 'flex',
-              justifyContent: 'center',
-              marginTop: '5px'
-            }}>
+    <Paper style={{ position: 'relative' }}>
+      <GridContainer container style={{
+        backgroundColor: '#f2f2f2',
+        padding: '20px'}}>
+        <GridContainer item xs={5}>
+          <h1 style={{ color: '#6f6f6f' }}>Marcajes</h1>
+        </GridContainer>
+        <GridContainer item xs={2}>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '5px'
+          }}>
             <IconButton aria-label="refesh">
               <RefreshIcon fontSize="default" />
             </IconButton>
@@ -211,60 +211,60 @@ const CustomTable = (props) => {
                 </MenuItem>
               </Select>
             </FormControl>
-            </div>
-          </GridContainer>
-          <GridContainer item xs={5}>
-            <FormControl fullWidth variant="filled">
-              <InputLabel htmlFor="filled-adornment-amount">Búsqueda</InputLabel>
-              <FilledInput
-                id="filled-adornment-amount"
-                value={""}
-                onChange={e => console.log(e)}
-                endAdornment={<InputAdornment position="end"><SearchIcon></SearchIcon></InputAdornment>}
-              />
-            </FormControl>
-          </GridContainer>
+          </div>
         </GridContainer>
-        <Grid
-            rows={data}
-            columns={columns}
-            getRowId={getRowId}
-        >
-          {/* Sorting configuration */}
-          <SortingState
-            sorting={sorting}
-            onSortingChange={changeSorting} />
-          <IntegratedSorting />
-          {/***************************/}
-          {/* Filtering configuration */}
-          <FilteringState
-              defaultFilters={[]}
-              onFiltersChange={changeFilters} />
-          <IntegratedFiltering />
-          {/***************************/}
-          {/* Paging configuration */}
-          <PagingState
-            currentPage={currentPage}
-            onCurrentPageChange={setCurrentPage}
-            pageSize={pageSize}
-          />
-          <CustomPaging
-            totalCount={totalCount}
-          />
-          {/***************************/}
-          <EditingState onCommitChanges={commitChanges} />
+        <GridContainer item xs={5}>
+          <FormControl fullWidth variant="filled">
+            <InputLabel htmlFor="filled-adornment-amount">Búsqueda</InputLabel>
+            <FilledInput
+              id="filled-adornment-amount"
+              value={""}
+              onChange={e => console.log(e)}
+              endAdornment={<InputAdornment position="end"><SearchIcon></SearchIcon></InputAdornment>}
+            />
+          </FormControl>
+        </GridContainer>
+      </GridContainer>
+      <Grid
+        rows={data}
+        columns={columns}
+        getRowId={getRowId}
+      >
+        {/* Sorting configuration */}
+        <SortingState
+          sorting={sorting}
+          onSortingChange={changeSorting} />
+        <IntegratedSorting />
+        {/***************************/}
+        {/* Filtering configuration */}
+        <FilteringState
+          defaultFilters={[]}
+          onFiltersChange={changeFilters} />
+        <IntegratedFiltering />
+        {/***************************/}
+        {/* Paging configuration */}
+        <PagingState
+          currentPage={currentPage}
+          onCurrentPageChange={setCurrentPage}
+          pageSize={pageSize}
+        />
+        <CustomPaging
+          totalCount={totalCount}
+        />
+        {/***************************/}
+        <EditingState onCommitChanges={commitChanges} />
 
-          <Table cellComponent={FocusableCell} />
-          <TableHeaderRow showSortingControls />
-          <TableFilterRow />
-          <TableInlineCellEditing selectTextOnEditStart/>
-          <ActionsColumn title="Actions" actions={actions} />
-          <PagingPanel />
+        <Table cellComponent={FocusableCell} />
+        <TableHeaderRow showSortingControls />
+        <TableFilterRow />
+        <TableInlineCellEditing selectTextOnEditStart/>
+        <ActionsColumn title="Actions" actions={actions} />
+        <PagingPanel />
 
-        </Grid>
-        {loading && <Loading />}
-      </Paper>
+      </Grid>
+      {loading && <Loading />}
+    </Paper>
   );
 };
 
-export default CustomTable;
+export default ReactGrid;
