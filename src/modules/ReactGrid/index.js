@@ -1,4 +1,6 @@
 import React, { useReducer, useState, useEffect } from 'react';
+import PropTypes from "prop-types";
+
 import { default as GridContainer } from '@material-ui/core/Grid';
 import {
   FilteringState,
@@ -76,11 +78,7 @@ function reducer(state, { type, payload }) {
 
 const ReactGrid = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [columns] = useState([
-    { name: 'ShipCountry', title: 'Country' },
-    { name: 'ShipCity', title: 'City' },
-    { name: 'ShipAddress', title: 'Address' }
-  ]);
+  const [columns] = useState(props.configuration.columns);
 
   const [totalCount, setTotalCount] = useState(0);
   const [pageSize] = useState(5);
@@ -161,13 +159,16 @@ const ReactGrid = (props) => {
   const {
     data, sorting
   } = state;
+  const {
+    title
+  } = props.configuration;
   return (
     <Paper style={{ position: 'relative' }}>
       <GridContainer container style={{
         backgroundColor: '#f2f2f2',
         padding: '20px'}}>
         <GridContainer item xs={5}>
-          <h1 style={{ color: '#6f6f6f' }}>Marcajes</h1>
+          <h1 style={{ color: '#6f6f6f' }}>{title}</h1>
         </GridContainer>
         <GridContainer item xs={2}>
           <div style={{
@@ -265,6 +266,16 @@ const ReactGrid = (props) => {
       {loading && <Loading />}
     </Paper>
   );
+};
+
+ReactGrid.propTypes = {
+  configuration: PropTypes.shape({
+    title: PropTypes.string,
+    columns: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string,
+      title: PropTypes.string
+    }))
+  })
 };
 
 export default ReactGrid;

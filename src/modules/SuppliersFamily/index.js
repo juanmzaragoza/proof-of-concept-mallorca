@@ -1,8 +1,17 @@
 import React from 'react';
-import ReactGrid from "../ReactGrid";
+import ReactGrid from '../ReactGrid';
+
+const configuration = {
+  title: 'Familias proveedor',
+  columns: [
+    { name: 'ShipCountry', title: 'Código' },
+    { name: 'ShipCity', title: 'Nombre' },
+    { name: 'ShipAddress', title: 'Address' }
+  ]
+};
 
 const SuppliersFamily = () => (
-  <ReactGrid />
+  <ReactGrid configuration={configuration} />
 );
 
 export default {
