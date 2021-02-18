@@ -4,9 +4,8 @@ import ReactGrid from '../ReactGrid';
 const configuration = {
   title: 'Familias proveedor',
   columns: [
-    { name: 'ShipCountry', title: 'Código' },
-    { name: 'ShipCity', title: 'Nombre' },
-    { name: 'ShipAddress', title: 'Address' }
+    { name: 'codi', title: 'Código' },
+    { name: 'nom', title: 'Nombre' },
   ]
 };
 

@@ -36,10 +36,11 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 
 import {ActionsColumn} from "./ActionsColumn";
 import { Loading } from './Loading';
+import CreateUpdateForm from "./CreateUpdateForm";
 
 const URL = 'https://js.devexpress.com/Demos/Mvc/api/DataGridWebApi/Orders';
 
-const getRowId = row => row.OrderID;
+const getRowId = row => row.id;
 
 const initialState = {
   data: [],
@@ -84,6 +85,9 @@ const ReactGrid = (props) => {
   const [pageSize] = useState(5);
   const [currentPage, setCurrentPage] = useState(0);
   const [lastQuery, setLastQuery] = useState();
+
+  const [openAddNew, setOpenAddNew] = useState(false);
+
   const { loading } = state;
 
   const actions = [
@@ -105,7 +109,7 @@ const ReactGrid = (props) => {
     dispatch({ type: 'CHANGE_LOADING', payload: value});
   }
 
-  const loadData = () => {
+  /*const loadData = () => {
 
     let queryString = `${URL}?take=${pageSize}&skip=${pageSize * currentPage}`;
 
@@ -127,6 +131,32 @@ const ReactGrid = (props) => {
           dispatch({ type: 'FETCH_SUCCESS', payload: data });
           //TODO() un-hardcoding this -> totalCount comes empty
           setTotalCount(100);
+          changeLoading(false);
+        })
+        .catch(() => {
+          dispatch({ type: 'FETCH_ERROR' });
+          changeLoading(false);
+        });
+      setLastQuery(queryString);
+    }
+  };*/
+
+  const loadData = () => {
+    const URL = 'http://10.35.3.44:8083/api/fact/familiesProveidor';
+    let queryString = `${URL}?size=${pageSize}&page=${currentPage}`;
+    if (queryString !== lastQuery && !loading) {
+      changeLoading(true);
+      fetch(queryString,{
+        method: 'GET',
+        headers: new Headers({
+          'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjZWNvY2xvdWQiLCJhdWQiOiJhdXRoIiwic3ViIjoiYWRtaW4iLCJleHAiOjE2MTM2NTExOTksIm5hbWUiOiJBZG1pbmlzdHJhZG9yIEFkbWluIiwiZW1haWwiOiJhZG1pbkBsaW1pdC5lcyIsInJleHAiOjE2MTYyMzk1OTksInJvbCI6WyJBRE1JTiJdLCJzZXNzaW9uIjp7ImkiOjQ0MywiZSI6OTg3fX0.htsSONnzdYNFqYAtqRSTfMY63kjy_5sR0Lh3__zlzP_x8NL1TvcCRU8VB35UeXgfm6HmHk9Jcozj5J-QCA-1ug'
+        }),
+      })
+        .then(response => response.json())
+        .then(({ _embedded, page }) => {
+          dispatch({ type: 'FETCH_SUCCESS', payload: _embedded.familiaProveidors });
+          //TODO() un-hardcoding this -> totalCount comes empty
+          setTotalCount(page.totalElements);
           changeLoading(false);
         })
         .catch(() => {
@@ -179,7 +209,7 @@ const ReactGrid = (props) => {
             <IconButton aria-label="refesh">
               <RefreshIcon fontSize="default" />
             </IconButton>
-            <IconButton aria-label="add">
+            <IconButton aria-label="add" onClick={() => setOpenAddNew(true)}>
               <AddIcon fontSize="default" />
             </IconButton>
             <FormControl>
@@ -264,6 +294,10 @@ const ReactGrid = (props) => {
 
       </Grid>
       {loading && <Loading />}
+      <CreateUpdateForm
+        title={title}
+        open={openAddNew}
+        handleClose={() => setOpenAddNew(false)}/>
     </Paper>
   );
 };
