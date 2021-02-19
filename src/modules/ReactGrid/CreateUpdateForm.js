@@ -39,10 +39,6 @@ const CreateUpdateForm = ({ title }) => {
               console.log(err.field)
               setFormErrors({...formErrors, [err.field]: {message: err.defaultMessage}});
             }
-          } else if(status === 500) {
-            window.alert("INTERVAL SERVER ERROR");
-          } else if(status === 403){
-            window.alert("FORBIDDEN")
           }
         });
     }
@@ -180,10 +176,6 @@ const CreateUpdateForm = ({ title }) => {
             console.log(err.field)
             setFormErrors({...formErrors, [err.field]: {message: err.defaultMessage}});
           }
-        } else if(status === 500) {
-          window.alert("INTERVAL SERVER ERROR");
-        } else if(status === 403){
-          window.alert("FORBIDDEN")
         }
       });
   };
@@ -204,13 +196,8 @@ const CreateUpdateForm = ({ title }) => {
         const data = error.response.data;
         if(status === 400){
           for (const err of data.errors) {
-            console.log(err.field)
             setFormErrors({...formErrors, [err.field]: {message: err.defaultMessage}});
           }
-        } else if(status === 500) {
-          window.alert("INTERVAL SERVER ERROR");
-        } else if(status === 403){
-          window.alert("FORBIDDEN")
         }
       });
   }

@@ -13,7 +13,7 @@ Axios.defaults.baseURL = 'http://10.35.3.44:8083/';
 Axios.interceptors.request.use(function (conf) {
   // Do something before request is sent
   conf.headers = {
-    Authorization: authToken(),
+    "Authorization": authToken(),
     "Content-Type": "application/json",
   }
 
@@ -23,5 +23,16 @@ Axios.interceptors.request.use(function (conf) {
   return Promise.reject(error);
 });
 
+Axios.interceptors.response.use(undefined, function (error) {
+  const status = error.response.status;
+  if(status === 401) {
+    window.alert("UNAUTHORIZED");
+  } else if(status === 500) {
+    window.alert("INTERVAL SERVER ERROR");
+  } else if(status === 403){
+    window.alert("FORBIDDEN")
+  }
+  return Promise.reject(error);
+});
 
 export default Axios;
