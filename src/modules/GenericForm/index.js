@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import {Grid, Input, Paper, TextField} from '@material-ui/core';
 import FormControl from "@material-ui/core/FormControl";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
-    margin: '1% 0',
-    marginTop: '5%'
+    margin: '1% 0'
   },
   formControlsFilledInput: {
     width: '100%',
@@ -68,7 +66,7 @@ const GenericForm = (props) => {
                 required={Boolean(required)}
                 error={onBlur[key] && Boolean(error)}
                 helperText={onBlur[key] && Boolean(error)? error.message:''}
-                onBlur={() => setOnBlur({[key]: true})}
+                onBlur={() => setOnBlur({...onBlur, [key]: true})}
                 type={"text"} />
             </FormControl>
           </Grid>

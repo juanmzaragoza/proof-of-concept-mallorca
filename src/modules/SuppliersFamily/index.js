@@ -1,5 +1,10 @@
 import React from 'react';
 import ReactGrid from '../ReactGrid';
+import {Route, Switch} from "react-router-dom";
+import CreateUpdateForm from "../ReactGrid/CreateUpdateForm";
+import Paper from "@material-ui/core/Paper";
+
+const URL = '/familia-proveedores';
 
 const configuration = {
   title: 'Familias proveedor',
@@ -9,13 +14,30 @@ const configuration = {
   ]
 };
 
+const SuppliersFamilyList = () => {
+  return (
+    <ReactGrid configuration={configuration} />
+  );
+}
+
+const SuppliersFamilyCreate = () => {
+  return (
+    <CreateUpdateForm title={configuration.title} />
+  )
+};
+
 const SuppliersFamily = () => (
-  <ReactGrid configuration={configuration} />
+  <Paper style={{ position: 'relative' }}>
+    <Switch>
+      <Route exact path={`${URL}`} component={SuppliersFamilyList}></Route>
+      <Route path={`${URL}/create`} component={SuppliersFamilyCreate}></Route>
+    </Switch>
+  </Paper>
 );
 
 export default {
   routeProps: {
-    path: '/familia-proveedores',
+    path: `${URL}`,
     component: SuppliersFamily
   },
   name: 'SuppliersFamily',

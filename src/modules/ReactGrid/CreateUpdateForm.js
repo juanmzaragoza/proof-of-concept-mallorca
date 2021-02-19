@@ -1,27 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import {AppBar, Dialog, DialogContent, Slide} from "@material-ui/core";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-
-import CloseIcon from '@material-ui/icons/Close';
+import {useHistory} from "react-router-dom";
 import PropTypes from "prop-types";
+
 import GenericForm from "../GenericForm";
-
-const useStyles = makeStyles((theme) => ({
-  title: {
-    marginLeft: theme.spacing(2),
-    flex: 1,
-  },
-}));
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+import Axios from "../services/Axios";
+import {ContentHeaderCreate} from "./ContentHeader";
 
 const CreateUpdateForm = ({ title, open, handleClose }) => {
+  const history = useHistory();
   const [submitFromOutside, setSubmitFromOutside] = useState();
   const [formData, setFormData] = useState();
   const [formErrors, setFormErrors] = useState();
@@ -32,7 +18,9 @@ const CreateUpdateForm = ({ title, open, handleClose }) => {
     }
   },[submitFromOutside]);
 
-  const classes = useStyles();
+  const getError = (key) => {
+    return formErrors && formErrors[key]? formErrors[key]:"";
+  }
 
   const configuration = [
     {
@@ -46,7 +34,7 @@ const CreateUpdateForm = ({ title, open, handleClose }) => {
         xs: 12,
         md: 4
       },
-      error: formErrors? formErrors['codi']:""
+      error: getError('codi')
     },
     {
       placeHolder: "Nombre",
@@ -59,7 +47,7 @@ const CreateUpdateForm = ({ title, open, handleClose }) => {
         xs: 12,
         md: 4
       },
-      error: formErrors? formErrors['nom']:""
+      error: getError('nom')
     },
     {
       placeHolder: "Ctaprcmp",
@@ -72,7 +60,7 @@ const CreateUpdateForm = ({ title, open, handleClose }) => {
         xs: 12,
         md: 4
       },
-      error: formErrors? formErrors['ctaprcmp']:""
+      error: getError('ctaprcmp')
     },
     {
       placeHolder: "Observaciones",
@@ -85,7 +73,7 @@ const CreateUpdateForm = ({ title, open, handleClose }) => {
         xs: 12,
         md: 4
       },
-      error: formErrors? formErrors['observacions']:""
+      error: getError('observacions')
     },
     {
       placeHolder: "Tipasicmp",
@@ -98,7 +86,7 @@ const CreateUpdateForm = ({ title, open, handleClose }) => {
         xs: 12,
         md: 4
       },
-      error: formErrors? formErrors['tipasicmp']:""
+      error: getError('tipasicmp')
     },
     {
       placeHolder: "Dricmp",
@@ -111,7 +99,7 @@ const CreateUpdateForm = ({ title, open, handleClose }) => {
         xs: 12,
         md: 4
       },
-      error: formErrors? formErrors['dricmp']:""
+      error: getError('dricmp')
     },
     {
       placeHolder: "Driprfcmp",
@@ -124,57 +112,44 @@ const CreateUpdateForm = ({ title, open, handleClose }) => {
         xs: 12,
         md: 4
       },
-      error: formErrors? formErrors['driprfcmp']:""
+      error: getError('driprfcmp')
     },
   ];
 
   const handleSubmit = () => {
-    const queryString = 'http://10.35.3.44:8083/api/fact/familiesProveidor';
-    fetch(queryString,{
-      method: 'POST',
+    const queryString = 'api/fact/familiesProveidor';
+    Axios.post(queryString,JSON.stringify(formData),{
       headers: new Headers({
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjZWNvY2xvdWQiLCJhdWQiOiJhdXRoIiwic3ViIjoiYWRtaW4iLCJleHAiOjE2MTM2NzM4OTYsIm5hbWUiOiJBZG1pbmlzdHJhZG9yIEFkbWluIiwiZW1haWwiOiJhZG1pbkBsaW1pdC5lcyIsInJleHAiOjE2MTYyNjIyOTYsInJvbCI6WyJBRE1JTiJdLCJzZXNzaW9uIjp7ImkiOjQ0MywiZSI6OTg3fX0.xtMfHFX5uOb-NToX61-0Pm5Orc8tv03p4QHZqYqecsW7j1k9gPYzh3JHfuZIlwxrM0OHUWclXkK55x2kZAlRVA'
       }),
-      body: JSON.stringify(formData),
     })
-      .then(response => response.json())
-      .then(({status, errors, ...rest}) => {
+      .then(({status, data, ...rest}) => {
+        history.goBack();
+      })
+      .catch(error => {
+        const status = error.response.status;
+        const data = error.response.data;
         if(status === 400){
-          for (const err of errors) {
+          for (const err of data.errors) {
+            console.log(err.field)
             setFormErrors({...formErrors, [err.field]: {message: err.defaultMessage}});
           }
-        } else if(status === 500){
-          window.alert("INTERVAL SERVER ERRROR");
-        } else {
-          handleClose();
+        } else if(status === 500) {
+          window.alert("INTERVAL SERVER ERROR");
+        } else if(status === 403){
+          window.alert("FORBIDDEN")
         }
-      })
-      .catch(() => {
       });
   };
 
   return (
-    <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-      <AppBar className={classes.appBar}>
-        <Toolbar>
-          <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
-            <CloseIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            { title }
-          </Typography>
-          <Button autoFocus color="inherit" onClick={() => setSubmitFromOutside(true)}>
-            save
-          </Button>
-        </Toolbar>
-      </AppBar>
-      <DialogContent>
-        <GenericForm formComponents={configuration} submitFromOutside={submitFromOutside} onSubmit={() => handleSubmit(formData)}/>
-      </DialogContent>
-    </Dialog>
+    <>
+      <ContentHeaderCreate title={title} onClick={() => setSubmitFromOutside(true)} />
+      <GenericForm formComponents={configuration} submitFromOutside={submitFromOutside} onSubmit={() => handleSubmit(formData)}/>
+    </>
   );
+
 };
 
 CreateUpdateForm.propTypes = {

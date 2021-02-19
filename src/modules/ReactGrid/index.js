@@ -1,7 +1,6 @@
 import React, { useReducer, useState, useEffect } from 'react';
 import PropTypes from "prop-types";
 
-import { default as GridContainer } from '@material-ui/core/Grid';
 import {
   FilteringState,
   IntegratedFiltering,
@@ -20,23 +19,12 @@ import {
   TableInlineCellEditing,
 } from '@devexpress/dx-react-grid-material-ui';
 
-import Paper from '@material-ui/core/Paper';
 import DeleteIcon from "@material-ui/icons/Delete";
-import IconButton from "@material-ui/core/IconButton";
-import RefreshIcon from '@material-ui/icons/Refresh';
-import AddIcon from '@material-ui/icons/Add';
-import SearchIcon from '@material-ui/icons/Search';
-import ReplyIcon from '@material-ui/icons/Reply';
-import ClearIcon from '@material-ui/icons/Clear';
-import ImportExportIcon from '@material-ui/icons/ImportExport';
-
-import FormControl from "@material-ui/core/FormControl";
-import {FilledInput, InputLabel, ListItemIcon, MenuItem, Select} from "@material-ui/core";
-import InputAdornment from "@material-ui/core/InputAdornment";
 
 import {ActionsColumn} from "./ActionsColumn";
 import { Loading } from './Loading';
-import CreateUpdateForm from "./CreateUpdateForm";
+import Axios from "../services/Axios";
+import { ContentHeaderList } from "./ContentHeader";
 
 const URL = 'https://js.devexpress.com/Demos/Mvc/api/DataGridWebApi/Orders';
 
@@ -85,8 +73,6 @@ const ReactGrid = (props) => {
   const [pageSize] = useState(5);
   const [currentPage, setCurrentPage] = useState(0);
   const [lastQuery, setLastQuery] = useState();
-
-  const [openAddNew, setOpenAddNew] = useState(false);
 
   const { loading } = state;
 
@@ -142,18 +128,13 @@ const ReactGrid = (props) => {
   };*/
 
   const loadData = () => {
-    const URL = 'http://10.35.3.44:8083/api/fact/familiesProveidor';
+    const URL = 'api/fact/familiesProveidor';
     let queryString = `${URL}?size=${pageSize}&page=${currentPage}`;
     if (queryString !== lastQuery && !loading) {
       changeLoading(true);
-      fetch(queryString,{
-        method: 'GET',
-        headers: new Headers({
-          'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjZWNvY2xvdWQiLCJhdWQiOiJhdXRoIiwic3ViIjoiYWRtaW4iLCJleHAiOjE2MTM2NTExOTksIm5hbWUiOiJBZG1pbmlzdHJhZG9yIEFkbWluIiwiZW1haWwiOiJhZG1pbkBsaW1pdC5lcyIsInJleHAiOjE2MTYyMzk1OTksInJvbCI6WyJBRE1JTiJdLCJzZXNzaW9uIjp7ImkiOjQ0MywiZSI6OTg3fX0.htsSONnzdYNFqYAtqRSTfMY63kjy_5sR0Lh3__zlzP_x8NL1TvcCRU8VB35UeXgfm6HmHk9Jcozj5J-QCA-1ug'
-        }),
-      })
-        .then(response => response.json())
-        .then(({ _embedded, page }) => {
+      Axios.get(queryString)
+        .then(({data}) => data)
+        .then(({_embedded, page}) => {
           dispatch({ type: 'FETCH_SUCCESS', payload: _embedded.familiaProveidors });
           //TODO() un-hardcoding this -> totalCount comes empty
           setTotalCount(page.totalElements);
@@ -193,69 +174,8 @@ const ReactGrid = (props) => {
     title
   } = props.configuration;
   return (
-    <Paper style={{ position: 'relative' }}>
-      <GridContainer container style={{
-        backgroundColor: '#f2f2f2',
-        padding: '20px'}}>
-        <GridContainer item xs={5}>
-          <h1 style={{ color: '#6f6f6f' }}>{title}</h1>
-        </GridContainer>
-        <GridContainer item xs={2}>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginTop: '5px'
-          }}>
-            <IconButton aria-label="refesh">
-              <RefreshIcon fontSize="default" />
-            </IconButton>
-            <IconButton aria-label="add" onClick={() => setOpenAddNew(true)}>
-              <AddIcon fontSize="default" />
-            </IconButton>
-            <FormControl>
-              <Select
-                value={""}
-                onChange={(e) => console.log(e)}
-                displayEmpty
-                inputProps={{ 'aria-label': 'Without label' }}
-              >
-                <MenuItem value="">
-                  <em>Acciones</em>
-                </MenuItem>
-                <MenuItem value={10}>
-                  <ListItemIcon>
-                    <ClearIcon fontSize="small" />
-                  </ListItemIcon>
-                  Limpiar Filtro
-                </MenuItem>
-                <MenuItem value={20}>
-                  <ListItemIcon>
-                    <ImportExportIcon fontSize="small" />
-                  </ListItemIcon>
-                  Importar
-                </MenuItem>
-                <MenuItem value={30}>
-                  <ListItemIcon>
-                    <ReplyIcon fontSize="small" />
-                  </ListItemIcon>
-                  Exportar
-                </MenuItem>
-              </Select>
-            </FormControl>
-          </div>
-        </GridContainer>
-        <GridContainer item xs={5}>
-          <FormControl fullWidth variant="filled">
-            <InputLabel htmlFor="filled-adornment-amount">Búsqueda</InputLabel>
-            <FilledInput
-              id="filled-adornment-amount"
-              value={""}
-              onChange={e => console.log(e)}
-              endAdornment={<InputAdornment position="end"><SearchIcon></SearchIcon></InputAdornment>}
-            />
-          </FormControl>
-        </GridContainer>
-      </GridContainer>
+    <>
+      <ContentHeaderList title={title} />
       <Grid
         rows={data}
         columns={columns}
@@ -294,11 +214,7 @@ const ReactGrid = (props) => {
 
       </Grid>
       {loading && <Loading />}
-      <CreateUpdateForm
-        title={title}
-        open={openAddNew}
-        handleClose={() => setOpenAddNew(false)}/>
-    </Paper>
+    </>
   );
 };
 
