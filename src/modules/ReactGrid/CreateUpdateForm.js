@@ -1,16 +1,52 @@
 import React, {useEffect, useState} from 'react';
-import {useHistory} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import PropTypes from "prop-types";
 
 import GenericForm from "../GenericForm";
 import Axios from "../services/Axios";
 import {ContentHeaderCreate} from "./ContentHeader";
 
-const CreateUpdateForm = ({ title, open, handleClose }) => {
+const CreateUpdateForm = ({ title }) => {
   const history = useHistory();
-  const [submitFromOutside, setSubmitFromOutside] = useState();
+  const [submitFromOutside, setSubmitFromOutside] = useState(false);
   const [formData, setFormData] = useState();
-  const [formErrors, setFormErrors] = useState();
+  const [formErrors, setFormErrors] = useState({});
+
+  const { id } = useParams();
+
+  const isEditable = () => {
+    return !!id;
+  };
+
+  useEffect(() => {
+    //TODO(): request for id and populate data
+    if(isEditable()){
+      const queryString = `api/fact/familiesProveidor/${id}`;
+      Axios.get(queryString,{
+        headers: new Headers({
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }),
+      })
+        .then(({status, data, ...rest}) => {
+          setFormData(data);
+        })
+        .catch(error => {
+          const status = error.response.status;
+          const data = error.response.data;
+          if(status === 400){
+            for (const err of data.errors) {
+              console.log(err.field)
+              setFormErrors({...formErrors, [err.field]: {message: err.defaultMessage}});
+            }
+          } else if(status === 500) {
+            window.alert("INTERVAL SERVER ERROR");
+          } else if(status === 403){
+            window.alert("FORBIDDEN")
+          }
+        });
+    }
+  },[]);
 
   useEffect(() => {
     if(submitFromOutside){
@@ -34,7 +70,8 @@ const CreateUpdateForm = ({ title, open, handleClose }) => {
         xs: 12,
         md: 4
       },
-      error: getError('codi')
+      error: getError('codi'),
+      noEditable: isEditable()
     },
     {
       placeHolder: "Nombre",
@@ -117,6 +154,14 @@ const CreateUpdateForm = ({ title, open, handleClose }) => {
   ];
 
   const handleSubmit = () => {
+    if(isEditable()){
+      update();
+    } else{
+      create();
+    }
+  };
+
+  const create = () => {
     const queryString = 'api/fact/familiesProveidor';
     Axios.post(queryString,JSON.stringify(formData),{
       headers: new Headers({
@@ -143,6 +188,34 @@ const CreateUpdateForm = ({ title, open, handleClose }) => {
       });
   };
 
+  const update = () => {
+    const queryString = `api/fact/familiesProveidor/${id}`;
+    Axios.put(queryString,JSON.stringify(formData),{
+      headers: new Headers({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }),
+    })
+      .then(({status, data, ...rest}) => {
+        debugger
+        history.goBack();
+      })
+      .catch(error => {
+        const status = error.response.status;
+        const data = error.response.data;
+        if(status === 400){
+          for (const err of data.errors) {
+            console.log(err.field)
+            setFormErrors({...formErrors, [err.field]: {message: err.defaultMessage}});
+          }
+        } else if(status === 500) {
+          window.alert("INTERVAL SERVER ERROR");
+        } else if(status === 403){
+          window.alert("FORBIDDEN")
+        }
+      });
+  }
+
   return (
     <>
       <ContentHeaderCreate title={title} onClick={() => setSubmitFromOutside(true)} />
@@ -153,8 +226,7 @@ const CreateUpdateForm = ({ title, open, handleClose }) => {
 };
 
 CreateUpdateForm.propTypes = {
-  open: PropTypes.bool,
-  handleClose: PropTypes.func
+  title: PropTypes.string
 };
 
 export default CreateUpdateForm;

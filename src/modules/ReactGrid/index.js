@@ -20,11 +20,13 @@ import {
 } from '@devexpress/dx-react-grid-material-ui';
 
 import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 
 import {ActionsColumn} from "./ActionsColumn";
 import { Loading } from './Loading';
 import Axios from "../services/Axios";
 import { ContentHeaderList } from "./ContentHeader";
+import {useHistory} from "react-router-dom";
 
 const URL = 'https://js.devexpress.com/Demos/Mvc/api/DataGridWebApi/Orders';
 
@@ -67,6 +69,7 @@ function reducer(state, { type, payload }) {
 
 const ReactGrid = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const history = useHistory();
   const [columns] = useState(props.configuration.columns);
 
   const [totalCount, setTotalCount] = useState(0);
@@ -78,9 +81,13 @@ const ReactGrid = (props) => {
 
   const actions = [
     {
-      icon: <DeleteIcon/>,
+      icon: <DeleteIcon />,
       action: row => commitChanges({ deleted: [getRowId(row)] })
-    }
+    },
+    {
+      icon: <EditIcon />,
+      action: row => history.push(`${history.location.pathname}/${row.id}`)
+    },
   ];
 
   const changeFilters = (filters) => {
@@ -209,7 +216,7 @@ const ReactGrid = (props) => {
         <TableHeaderRow showSortingControls />
         <TableFilterRow />
         <TableInlineCellEditing selectTextOnEditStart/>
-        <ActionsColumn title="Actions" actions={actions} />
+        <ActionsColumn title="Actions" actions={data && data.length?actions:[]} />
         <PagingPanel />
 
       </Grid>

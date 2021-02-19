@@ -31,6 +31,7 @@ const SuppliersFamily = () => (
     <Switch>
       <Route exact path={`${URL}`} component={SuppliersFamilyList}></Route>
       <Route path={`${URL}/create`} component={SuppliersFamilyCreate}></Route>
+      <Route path={`${URL}/:id`} component={SuppliersFamilyCreate}></Route>
     </Switch>
   </Paper>
 );

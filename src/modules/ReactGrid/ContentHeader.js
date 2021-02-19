@@ -120,62 +120,14 @@ export const ContentHeaderCreate = ({ title, onClick }) => {
     {
       id: 1,
       breakpoints: {
-        xs: 5
+        xs: 3
       },
       content: <HeaderHeading><IconButton onClick={() => {history.goBack()}}><ChevronLeft /></IconButton>{title}</HeaderHeading>
     },
     {
       id: 2,
       breakpoints: {
-        xs: 6
-      },
-      content: <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        marginTop: '5px'
-      }}>
-        <IconButton aria-label="refesh">
-          <RefreshIcon fontSize="default" />
-        </IconButton>
-        <IconButton aria-label="add" onClick={() => {}}>
-          <AddIcon fontSize="default" />
-        </IconButton>
-        <FormControl>
-          <Select
-            value={""}
-            onChange={(e) => console.log(e)}
-            displayEmpty
-            inputProps={{ 'aria-label': 'Without label' }}
-          >
-            <MenuItem value="">
-              <em>Acciones</em>
-            </MenuItem>
-            <MenuItem value={10}>
-              <ListItemIcon>
-                <ClearIcon fontSize="small" />
-              </ListItemIcon>
-              Limpiar Filtro
-            </MenuItem>
-            <MenuItem value={20}>
-              <ListItemIcon>
-                <ImportExportIcon fontSize="small" />
-              </ListItemIcon>
-              Importar
-            </MenuItem>
-            <MenuItem value={30}>
-              <ListItemIcon>
-                <ReplyIcon fontSize="small" />
-              </ListItemIcon>
-              Exportar
-            </MenuItem>
-          </Select>
-        </FormControl>
-      </div>
-    },
-    {
-      id: 3,
-      breakpoints: {
-        xs: 1
+        xs: 9
       },
       style: {
         display: 'flex',

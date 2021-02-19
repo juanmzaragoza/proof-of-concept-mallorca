@@ -46,7 +46,8 @@ const GenericForm = (props) => {
       placeHolder,
       required,
       breakpoints,
-      error
+      error,
+      noEditable
     } = params;
     switch(params.type) {
       case 'input':
@@ -67,7 +68,8 @@ const GenericForm = (props) => {
                 error={onBlur[key] && Boolean(error)}
                 helperText={onBlur[key] && Boolean(error)? error.message:''}
                 onBlur={() => setOnBlur({...onBlur, [key]: true})}
-                type={"text"} />
+                type={"text"}
+                disabled={noEditable}/>
             </FormControl>
           </Grid>
         );
