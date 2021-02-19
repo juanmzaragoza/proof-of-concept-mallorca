@@ -197,7 +197,6 @@ const CreateUpdateForm = ({ title }) => {
       }),
     })
       .then(({status, data, ...rest}) => {
-        debugger
         history.goBack();
       })
       .catch(error => {

@@ -82,7 +82,7 @@ const ReactGrid = (props) => {
   const actions = [
     {
       icon: <DeleteIcon />,
-      action: row => commitChanges({ deleted: [getRowId(row)] })
+      action: row => deleteData(row)
     },
     {
       icon: <EditIcon />,
@@ -101,6 +101,30 @@ const ReactGrid = (props) => {
   const changeLoading = (value) => {
     dispatch({ type: 'CHANGE_LOADING', payload: value});
   }
+
+  const deleteData = (row) => {
+    const queryString = `api/fact/familiesProveidor/${row.id}`;
+    Axios.delete(queryString,{
+      headers: new Headers({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }),
+    })
+      .then(({status, data, ...rest}) => {
+        commitChanges({ deleted: [getRowId(row)] });
+      })
+      .catch(error => {
+        const status = error.response.status;
+        const data = error.response.data;
+        if(status === 400){
+          window.alert("BAD REQUEST ERROR");
+        } else if(status === 500) {
+          window.alert("INTERVAL SERVER ERROR");
+        } else if(status === 403){
+          window.alert("FORBIDDEN")
+        }
+      });
+  };
 
   /*const loadData = () => {
 
