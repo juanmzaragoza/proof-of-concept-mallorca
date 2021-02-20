@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory, useParams} from "react-router-dom";
 import PropTypes from "prop-types";
+import {withSnackbar} from "notistack";
 
 import GenericForm from "../GenericForm";
 import Axios from "../services/Axios";
 import {ContentHeaderCreate} from "./ContentHeader";
 
-const CreateUpdateForm = ({ title }) => {
+const CreateUpdateForm = ({ title, enqueueSnackbar }) => {
   const history = useHistory();
   const [submitFromOutside, setSubmitFromOutside] = useState(false);
   const [formData, setFormData] = useState();
@@ -19,7 +20,6 @@ const CreateUpdateForm = ({ title }) => {
   };
 
   useEffect(() => {
-    //TODO(): request for id and populate data
     if(isEditable()){
       const queryString = `api/fact/familiesProveidor/${id}`;
       Axios.get(queryString,{
@@ -33,13 +33,10 @@ const CreateUpdateForm = ({ title }) => {
         })
         .catch(error => {
           const status = error.response.status;
-          const data = error.response.data;
           if(status === 400){
-            for (const err of data.errors) {
-              console.log(err.field)
-              setFormErrors({...formErrors, [err.field]: {message: err.defaultMessage}});
-            }
+            enqueueSnackbar("Ups! Algo ha salido mal :(", {variant: 'error'});
           }
+          history.goBack();
         });
     }
   },[]);
@@ -159,7 +156,7 @@ const CreateUpdateForm = ({ title }) => {
 
   const create = () => {
     const queryString = 'api/fact/familiesProveidor';
-    Axios.post(queryString,JSON.stringify(formData),{
+    Axios.post(queryString, JSON.stringify(formData),{
       headers: new Headers({
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -167,16 +164,10 @@ const CreateUpdateForm = ({ title }) => {
     })
       .then(({status, data, ...rest}) => {
         history.goBack();
+        enqueueSnackbar("Registro creado correctamente", {variant: 'success'});
       })
       .catch(error => {
-        const status = error.response.status;
-        const data = error.response.data;
-        if(status === 400){
-          for (const err of data.errors) {
-            console.log(err.field)
-            setFormErrors({...formErrors, [err.field]: {message: err.defaultMessage}});
-          }
-        }
+        handlePersistError(error.response);
       });
   };
 
@@ -190,16 +181,20 @@ const CreateUpdateForm = ({ title }) => {
     })
       .then(({status, data, ...rest}) => {
         history.goBack();
+        enqueueSnackbar("Registro actualizado correctamente", {variant: 'success'});
       })
       .catch(error => {
-        const status = error.response.status;
-        const data = error.response.data;
-        if(status === 400){
-          for (const err of data.errors) {
-            setFormErrors({...formErrors, [err.field]: {message: err.defaultMessage}});
-          }
-        }
+        handlePersistError(error.response);
       });
+  }
+
+  const handlePersistError = ({ status, data}) => {
+    if(status === 400){
+      for (const err of data.errors) {
+        setFormErrors({...formErrors, [err.field]: {message: err.defaultMessage}});
+      }
+    }
+    enqueueSnackbar("Revise los datos e intente nuevamente...", {variant: 'error'});
   }
 
   return (
@@ -215,4 +210,4 @@ CreateUpdateForm.propTypes = {
   title: PropTypes.string
 };
 
-export default CreateUpdateForm;
+export default withSnackbar(CreateUpdateForm);

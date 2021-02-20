@@ -1,5 +1,6 @@
 import React, { useReducer, useState, useEffect } from 'react';
 import PropTypes from "prop-types";
+import {withSnackbar} from "notistack";
 
 import {
   FilteringState,
@@ -67,10 +68,10 @@ function reducer(state, { type, payload }) {
   }
 }
 
-const ReactGrid = (props) => {
+const ReactGrid = ({ configuration, enqueueSnackbar }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const history = useHistory();
-  const [columns] = useState(props.configuration.columns);
+  const [columns] = useState(configuration.columns);
 
   const [totalCount, setTotalCount] = useState(0);
   const [pageSize] = useState(5);
@@ -115,9 +116,8 @@ const ReactGrid = (props) => {
       })
       .catch(error => {
         const status = error.response.status;
-        const data = error.response.data;
         if(status === 400){
-          window.alert("BAD REQUEST ERROR");
+          enqueueSnackbar("Ups! Algo ha salido mal :(", {variant: 'error'});
         } else if(status === 500) {
           window.alert("INTERVAL SERVER ERROR");
         } else if(status === 403){
@@ -174,6 +174,7 @@ const ReactGrid = (props) => {
         .catch(() => {
           dispatch({ type: 'FETCH_ERROR' });
           changeLoading(false);
+          enqueueSnackbar("Ups! Algo ha salido mal :(", {variant: 'error'});
         });
       setLastQuery(queryString);
     }
@@ -203,7 +204,7 @@ const ReactGrid = (props) => {
   } = state;
   const {
     title
-  } = props.configuration;
+  } = configuration;
   return (
     <>
       <ContentHeaderList title={title} />
@@ -259,4 +260,4 @@ ReactGrid.propTypes = {
   })
 };
 
-export default ReactGrid;
+export default withSnackbar(ReactGrid);
