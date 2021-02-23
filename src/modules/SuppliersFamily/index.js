@@ -6,7 +6,7 @@ import Paper from "@material-ui/core/Paper";
 
 const URL = '/familia-proveedores';
 
-const configuration = {
+const listConfiguration = {
   title: 'Familias proveedor',
   columns: [
     { name: 'codi', title: 'Código' },
@@ -14,15 +14,89 @@ const configuration = {
   ]
 };
 
+const createConfiguration = [
+  {
+    placeHolder: "Código",
+    type: 'input',
+    key: 'codi',
+    required: true,
+    breakpoints: {
+      xs: 12,
+      md: 4
+    },
+    noEditable: true
+  },
+  {
+    placeHolder: "Nombre",
+    type: 'input',
+    key: 'nom',
+    required: true,
+    breakpoints: {
+      xs: 12,
+      md: 4
+    },
+  },
+  {
+    placeHolder: "Ctaprcmp",
+    type: 'input',
+    key: 'ctaprcmp',
+    required: true,
+    breakpoints: {
+      xs: 12,
+      md: 4
+    },
+  },
+  {
+    placeHolder: "Observaciones",
+    type: 'input',
+    key: 'observacions',
+    required: true,
+    breakpoints: {
+      xs: 12,
+      md: 4
+    },
+  },
+  {
+    placeHolder: "Tipasicmp",
+    type: 'input',
+    key: 'tipasicmp',
+    required: true,
+    breakpoints: {
+      xs: 12,
+      md: 4
+    },
+  },
+  {
+    placeHolder: "Dricmp",
+    type: 'input',
+    key: 'dricmp',
+    required: true,
+    breakpoints: {
+      xs: 12,
+      md: 4
+    },
+  },
+  {
+    placeHolder: "Driprfcmp",
+    type: 'input',
+    key: 'driprfcmp',
+    required: true,
+    breakpoints: {
+      xs: 12,
+      md: 4
+    },
+  },
+];
+
 const SuppliersFamilyList = () => {
   return (
-    <ReactGrid configuration={configuration} />
+    <ReactGrid configuration={listConfiguration} />
   );
 }
 
 const SuppliersFamilyCreate = () => {
   return (
-    <CreateUpdateForm title={configuration.title} />
+    <CreateUpdateForm title={listConfiguration.title} configuration={createConfiguration} />
   )
 };
 

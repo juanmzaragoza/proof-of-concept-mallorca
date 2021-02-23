@@ -7,11 +7,12 @@ import GenericForm from "../GenericForm";
 import Axios from "../services/Axios";
 import {ContentHeaderCreate} from "./ContentHeader";
 
-const CreateUpdateForm = ({ title, enqueueSnackbar }) => {
+const CreateUpdateForm = ({ title, enqueueSnackbar, configuration }) => {
   const history = useHistory();
   const [submitFromOutside, setSubmitFromOutside] = useState(false);
   const [formData, setFormData] = useState();
   const [formErrors, setFormErrors] = useState({});
+  const [editMode, setEditMode] = useState(false);
 
   const { id } = useParams();
 
@@ -21,6 +22,7 @@ const CreateUpdateForm = ({ title, enqueueSnackbar }) => {
 
   useEffect(() => {
     if(isEditable()){
+      setEditMode(true);
       const queryString = `api/fact/familiesProveidor/${id}`;
       Axios.get(queryString,{
         headers: new Headers({
@@ -39,7 +41,7 @@ const CreateUpdateForm = ({ title, enqueueSnackbar }) => {
           history.goBack();
         });
     }
-  },[]);
+  },[id]);
 
   useEffect(() => {
     if(submitFromOutside){
@@ -47,116 +49,17 @@ const CreateUpdateForm = ({ title, enqueueSnackbar }) => {
     }
   },[submitFromOutside]);
 
-  const getError = (key) => {
-    return formErrors && formErrors[key]? formErrors[key]:"";
-  }
-
-  const configuration = [
-    {
-      placeHolder: "Código",
-      onChange: data => setFormData({...formData, codi: data}),
-      type: 'input',
-      key: 'codi',
-      value: formData? formData['codi']:"",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 4
-      },
-      error: getError('codi'),
-      noEditable: isEditable()
-    },
-    {
-      placeHolder: "Nombre",
-      onChange: data => setFormData({...formData, nom: data}),
-      type: 'input',
-      key: 'nom',
-      value: formData? formData['nom']:"",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 4
-      },
-      error: getError('nom')
-    },
-    {
-      placeHolder: "Ctaprcmp",
-      onChange: data => setFormData({...formData, ctaprcmp: data}),
-      type: 'input',
-      key: 'ctaprcmp',
-      value: formData? formData['ctaprcmp']:"",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 4
-      },
-      error: getError('ctaprcmp')
-    },
-    {
-      placeHolder: "Observaciones",
-      onChange: data => setFormData({...formData, observacions: data}),
-      type: 'input',
-      key: 'observacions',
-      value: formData? formData['observacions']:"",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 4
-      },
-      error: getError('observacions')
-    },
-    {
-      placeHolder: "Tipasicmp",
-      onChange: data => setFormData({...formData, tipasicmp: data}),
-      type: 'input',
-      key: 'tipasicmp',
-      value: formData? formData['tipasicmp']:"",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 4
-      },
-      error: getError('tipasicmp')
-    },
-    {
-      placeHolder: "Dricmp",
-      onChange: data => setFormData({...formData, dricmp: data}),
-      type: 'input',
-      key: 'dricmp',
-      value: formData? formData['dricmp']:"",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 4
-      },
-      error: getError('dricmp')
-    },
-    {
-      placeHolder: "Driprfcmp",
-      onChange: data => setFormData({...formData, driprfcmp: data}),
-      type: 'input',
-      key: 'driprfcmp',
-      value: formData? formData['driprfcmp']:"",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 4
-      },
-      error: getError('driprfcmp')
-    },
-  ];
-
-  const handleSubmit = () => {
+  const handleSubmit = (data) => {
     if(isEditable()){
-      update();
+      update(data);
     } else{
-      create();
+      create(data);
     }
   };
 
-  const create = () => {
+  const create = (data) => {
     const queryString = 'api/fact/familiesProveidor';
-    Axios.post(queryString, JSON.stringify(formData),{
+    Axios.post(queryString, JSON.stringify(data),{
       headers: new Headers({
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -171,9 +74,9 @@ const CreateUpdateForm = ({ title, enqueueSnackbar }) => {
       });
   };
 
-  const update = () => {
+  const update = (data) => {
     const queryString = `api/fact/familiesProveidor/${id}`;
-    Axios.put(queryString,JSON.stringify(formData),{
+    Axios.put(queryString,JSON.stringify(data),{
       headers: new Headers({
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -189,7 +92,7 @@ const CreateUpdateForm = ({ title, enqueueSnackbar }) => {
   }
 
   const handlePersistError = ({ status, data}) => {
-    if(status === 400){
+    if(status === 400 && data.errors){
       for (const err of data.errors) {
         setFormErrors({...formErrors, [err.field]: {message: err.defaultMessage}});
       }
@@ -200,14 +103,33 @@ const CreateUpdateForm = ({ title, enqueueSnackbar }) => {
   return (
     <>
       <ContentHeaderCreate title={title} onClick={() => setSubmitFromOutside(true)} />
-      <GenericForm formComponents={configuration} submitFromOutside={submitFromOutside} onSubmit={() => handleSubmit(formData)}/>
+      <GenericForm
+        editMode={editMode}
+        setFormData={setFormData}
+        formData={formData}
+        formErrors={formErrors}
+        formComponents={configuration}
+        submitFromOutside={submitFromOutside}
+        onSubmit={(data) => handleSubmit(data)} />
     </>
   );
 
 };
 
 CreateUpdateForm.propTypes = {
-  title: PropTypes.string
+  title: PropTypes.string,
+  configuration: PropTypes.arrayOf(PropTypes.shape({
+    placeHolder: PropTypes.string,
+    type: PropTypes.string,
+    key: PropTypes.string,
+    required: PropTypes.bool,
+    breakpoints: PropTypes.shape({
+      xs: PropTypes.number,
+      sm: PropTypes.number,
+      md: PropTypes.number,
+      lg: PropTypes.number,
+    })
+  }))
 };
 
 export default withSnackbar(CreateUpdateForm);
