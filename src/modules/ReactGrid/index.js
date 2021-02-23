@@ -28,8 +28,7 @@ import { Loading } from './Loading';
 import Axios from "../services/Axios";
 import { ContentHeaderList } from "./ContentHeader";
 import {useHistory} from "react-router-dom";
-
-const URL = 'https://js.devexpress.com/Demos/Mvc/api/DataGridWebApi/Orders';
+import {FormattedMessage} from "react-intl";
 
 const getRowId = row => row.id;
 
@@ -174,7 +173,10 @@ const ReactGrid = ({ configuration, enqueueSnackbar }) => {
         .catch(() => {
           dispatch({ type: 'FETCH_ERROR' });
           changeLoading(false);
-          enqueueSnackbar("Ups! Algo ha salido mal :(", {variant: 'error'});
+          enqueueSnackbar(<FormattedMessage
+            id="FamiliaProveedores.error.algo_salio_mal"
+            defaultMessage="Ups! Algo ha salido mal :("
+          />, {variant: 'error'});
         });
       setLastQuery(queryString);
     }
@@ -241,7 +243,10 @@ const ReactGrid = ({ configuration, enqueueSnackbar }) => {
         <TableHeaderRow showSortingControls />
         <TableFilterRow />
         <TableInlineCellEditing selectTextOnEditStart/>
-        <ActionsColumn title="Actions" actions={data && data.length?actions:[]} />
+        <ActionsColumn title={<FormattedMessage
+          id="FamiliaProveedores.ContentHeader.actions_column"
+          defaultMessage="Acciones"
+        />} actions={data && data.length?actions:[]} />
         <PagingPanel />
 
       </Grid>

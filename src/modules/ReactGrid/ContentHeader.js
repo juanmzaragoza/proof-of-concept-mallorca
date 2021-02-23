@@ -12,6 +12,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import {useHistory} from "react-router-dom";
 import {ChevronLeft, Save} from "@material-ui/icons";
+import {FormattedMessage} from "react-intl";
 
 export const ContentHeader = ({ grids }) => {
   return (
@@ -68,25 +69,37 @@ export const ContentHeaderList = ({ title }) => {
             inputProps={{ 'aria-label': 'Without label' }}
           >
             <MenuItem value="">
-              <em>Acciones</em>
+              <em><FormattedMessage
+                id="FamiliaProveedores.ContentHeader.acciones"
+                defaultMessage="Acciones"
+              /></em>
             </MenuItem>
             <MenuItem value={10}>
               <ListItemIcon>
                 <ClearIcon fontSize="small" />
               </ListItemIcon>
-              Limpiar Filtro
+              <FormattedMessage
+                id="FamiliaProveedores.ContentHeader.limpiar_filtro"
+                defaultMessage="Limpiar Filtro"
+              />
             </MenuItem>
             <MenuItem value={20}>
               <ListItemIcon>
                 <ImportExportIcon fontSize="small" />
               </ListItemIcon>
-              Importar
+              <FormattedMessage
+                id="FamiliaProveedores.ContentHeader.importar"
+                defaultMessage="Importar"
+              />
             </MenuItem>
             <MenuItem value={30}>
               <ListItemIcon>
                 <ReplyIcon fontSize="small" />
               </ListItemIcon>
-              Exportar
+              <FormattedMessage
+                id="FamiliaProveedores.ContentHeader.exportar"
+                defaultMessage="Exportar"
+              />
             </MenuItem>
           </Select>
         </FormControl>
@@ -98,7 +111,10 @@ export const ContentHeaderList = ({ title }) => {
         xs: 5
       },
       content: <FormControl fullWidth variant="filled">
-        <InputLabel htmlFor="filled-adornment-amount">Búsqueda</InputLabel>
+        <InputLabel htmlFor="filled-adornment-amount"><FormattedMessage
+          id="FamiliaProveedores.ContentHeader.busqueda"
+          defaultMessage="Búsqueda"
+        /></InputLabel>
         <FilledInput
           id="filled-adornment-amount"
           value={""}

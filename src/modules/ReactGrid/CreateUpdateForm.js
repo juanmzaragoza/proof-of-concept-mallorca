@@ -6,6 +6,7 @@ import {withSnackbar} from "notistack";
 import GenericForm from "../GenericForm";
 import Axios from "../services/Axios";
 import {ContentHeaderCreate} from "./ContentHeader";
+import {FormattedMessage} from "react-intl";
 
 const CreateUpdateForm = ({ title, enqueueSnackbar, formConfiguration, url }) => {
   const history = useHistory();
@@ -36,7 +37,10 @@ const CreateUpdateForm = ({ title, enqueueSnackbar, formConfiguration, url }) =>
         .catch(error => {
           const status = error.response.status;
           if(status === 400){
-            enqueueSnackbar("Ups! Algo ha salido mal :(", {variant: 'error'});
+            enqueueSnackbar(<FormattedMessage
+              id="FamiliaProveedores.CreateUpdateForm.algo_salio_mal"
+              defaultMessage="Ups! Algo ha salido mal :("
+            />, {variant: 'error'});
           }
           history.goBack();
         });
@@ -67,7 +71,10 @@ const CreateUpdateForm = ({ title, enqueueSnackbar, formConfiguration, url }) =>
     })
       .then(({status, data, ...rest}) => {
         history.goBack();
-        enqueueSnackbar("Registro creado correctamente", {variant: 'success'});
+        enqueueSnackbar(<FormattedMessage
+          id="FamiliaProveedores.CreateUpdateForm.creacion_correcta"
+          defaultMessage="Registro creado correctamente"
+        />, {variant: 'success'});
       })
       .catch(error => {
         handlePersistError(error.response);
@@ -84,7 +91,10 @@ const CreateUpdateForm = ({ title, enqueueSnackbar, formConfiguration, url }) =>
     })
       .then(({status, data, ...rest}) => {
         history.goBack();
-        enqueueSnackbar("Registro actualizado correctamente", {variant: 'success'});
+        enqueueSnackbar(<FormattedMessage
+          id="FamiliaProveedores.CreateUpdateForm.actualizacion_correcta"
+          defaultMessage="Registro actualizado correctamente"
+        />, {variant: 'success'});
       })
       .catch(error => {
         handlePersistError(error.response);
@@ -97,7 +107,10 @@ const CreateUpdateForm = ({ title, enqueueSnackbar, formConfiguration, url }) =>
         setFormErrors({...formErrors, [err.field]: {message: err.defaultMessage}});
       }
     }
-    enqueueSnackbar("Revise los datos e intente nuevamente...", {variant: 'error'});
+    enqueueSnackbar(<FormattedMessage
+      id="FamiliaProveedores.CreateUpdateForm.revise_datos"
+      defaultMessage="Revise los datos e intente nuevamente..."
+    />, {variant: 'error'});
   }
 
   return (

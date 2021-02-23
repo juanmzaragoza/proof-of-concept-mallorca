@@ -1,6 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
-import React, {useState} from 'react';
+import React from 'react';
 import {
   Route,
   BrowserRouter as Router,
@@ -16,7 +15,6 @@ import Login from './pages/Login';
 import Layout from "./Layout";
 
 function App() {
-  const [loading, setLoading] = useState(false);
   return (
       <Router>
         <MuiThemeProvider theme={theme}>
