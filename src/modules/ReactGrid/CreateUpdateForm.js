@@ -7,7 +7,7 @@ import GenericForm from "../GenericForm";
 import Axios from "../services/Axios";
 import {ContentHeaderCreate} from "./ContentHeader";
 
-const CreateUpdateForm = ({ title, enqueueSnackbar, configuration }) => {
+const CreateUpdateForm = ({ title, enqueueSnackbar, formConfiguration, url }) => {
   const history = useHistory();
   const [submitFromOutside, setSubmitFromOutside] = useState(false);
   const [formData, setFormData] = useState();
@@ -23,7 +23,7 @@ const CreateUpdateForm = ({ title, enqueueSnackbar, configuration }) => {
   useEffect(() => {
     if(isEditable()){
       setEditMode(true);
-      const queryString = `api/fact/familiesProveidor/${id}`;
+      const queryString = `${url}/${id}`;
       Axios.get(queryString,{
         headers: new Headers({
           'Accept': 'application/json',
@@ -58,7 +58,7 @@ const CreateUpdateForm = ({ title, enqueueSnackbar, configuration }) => {
   };
 
   const create = (data) => {
-    const queryString = 'api/fact/familiesProveidor';
+    const queryString = `${url}`;
     Axios.post(queryString, JSON.stringify(data),{
       headers: new Headers({
         'Accept': 'application/json',
@@ -75,7 +75,7 @@ const CreateUpdateForm = ({ title, enqueueSnackbar, configuration }) => {
   };
 
   const update = (data) => {
-    const queryString = `api/fact/familiesProveidor/${id}`;
+    const queryString = `${url}/${id}`;
     Axios.put(queryString,JSON.stringify(data),{
       headers: new Headers({
         'Accept': 'application/json',
@@ -108,7 +108,7 @@ const CreateUpdateForm = ({ title, enqueueSnackbar, configuration }) => {
         setFormData={setFormData}
         formData={formData}
         formErrors={formErrors}
-        formComponents={configuration}
+        formComponents={formConfiguration}
         submitFromOutside={submitFromOutside}
         onSubmit={(data) => handleSubmit(data)} />
     </>
@@ -118,7 +118,7 @@ const CreateUpdateForm = ({ title, enqueueSnackbar, configuration }) => {
 
 CreateUpdateForm.propTypes = {
   title: PropTypes.string,
-  configuration: PropTypes.arrayOf(PropTypes.shape({
+  formConfiguration: PropTypes.arrayOf(PropTypes.shape({
     placeHolder: PropTypes.string,
     type: PropTypes.string,
     key: PropTypes.string,
@@ -129,7 +129,8 @@ CreateUpdateForm.propTypes = {
       md: PropTypes.number,
       lg: PropTypes.number,
     })
-  }))
+  })),
+  url: PropTypes.string.isRequired
 };
 
 export default withSnackbar(CreateUpdateForm);

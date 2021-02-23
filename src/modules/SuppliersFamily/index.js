@@ -96,7 +96,7 @@ const SuppliersFamilyList = () => {
 
 const SuppliersFamilyCreate = () => {
   return (
-    <CreateUpdateForm title={listConfiguration.title} configuration={createConfiguration} />
+    <CreateUpdateForm title={listConfiguration.title} formConfiguration={createConfiguration} url={'api/fact/familiesProveidor'} />
   )
 };
 
