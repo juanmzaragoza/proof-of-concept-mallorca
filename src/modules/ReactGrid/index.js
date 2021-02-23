@@ -25,7 +25,7 @@ import EditIcon from "@material-ui/icons/Edit";
 
 import {ActionsColumn} from "./ActionsColumn";
 import { Loading } from './Loading';
-import Axios from "../services/Axios";
+import Axios from "../../services/Axios";
 import { ContentHeaderList } from "./ContentHeader";
 import {useHistory} from "react-router-dom";
 import {FormattedMessage} from "react-intl";
@@ -174,7 +174,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar }) => {
           dispatch({ type: 'FETCH_ERROR' });
           changeLoading(false);
           enqueueSnackbar(<FormattedMessage
-            id="FamiliaProveedores.error.algo_salio_mal"
+            id="ReactGrid.error.algo_salio_mal"
             defaultMessage="Ups! Algo ha salido mal :("
           />, {variant: 'error'});
         });
@@ -244,7 +244,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar }) => {
         <TableFilterRow />
         <TableInlineCellEditing selectTextOnEditStart/>
         <ActionsColumn title={<FormattedMessage
-          id="FamiliaProveedores.ContentHeader.actions_column"
+          id="ReactGrid.ContentHeader.actions_column"
           defaultMessage="Acciones"
         />} actions={data && data.length?actions:[]} />
         <PagingPanel />

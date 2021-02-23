@@ -70,7 +70,7 @@ export const ContentHeaderList = ({ title }) => {
           >
             <MenuItem value="">
               <em><FormattedMessage
-                id="FamiliaProveedores.ContentHeader.acciones"
+                id="ContentHeader.acciones"
                 defaultMessage="Acciones"
               /></em>
             </MenuItem>
@@ -79,7 +79,7 @@ export const ContentHeaderList = ({ title }) => {
                 <ClearIcon fontSize="small" />
               </ListItemIcon>
               <FormattedMessage
-                id="FamiliaProveedores.ContentHeader.limpiar_filtro"
+                id="ContentHeader.limpiar_filtro"
                 defaultMessage="Limpiar Filtro"
               />
             </MenuItem>
@@ -88,7 +88,7 @@ export const ContentHeaderList = ({ title }) => {
                 <ImportExportIcon fontSize="small" />
               </ListItemIcon>
               <FormattedMessage
-                id="FamiliaProveedores.ContentHeader.importar"
+                id="ContentHeader.importar"
                 defaultMessage="Importar"
               />
             </MenuItem>
@@ -97,7 +97,7 @@ export const ContentHeaderList = ({ title }) => {
                 <ReplyIcon fontSize="small" />
               </ListItemIcon>
               <FormattedMessage
-                id="FamiliaProveedores.ContentHeader.exportar"
+                id="ContentHeader.exportar"
                 defaultMessage="Exportar"
               />
             </MenuItem>
@@ -112,7 +112,7 @@ export const ContentHeaderList = ({ title }) => {
       },
       content: <FormControl fullWidth variant="filled">
         <InputLabel htmlFor="filled-adornment-amount"><FormattedMessage
-          id="FamiliaProveedores.ContentHeader.busqueda"
+          id="ContentHeader.busqueda"
           defaultMessage="Búsqueda"
         /></InputLabel>
         <FilledInput

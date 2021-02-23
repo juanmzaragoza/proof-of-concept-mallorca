@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import {withSnackbar} from "notistack";
 
 import GenericForm from "../GenericForm";
-import Axios from "../services/Axios";
+import Axios from "../../services/Axios";
 import {ContentHeaderCreate} from "./ContentHeader";
 import {FormattedMessage} from "react-intl";
 
@@ -38,7 +38,7 @@ const CreateUpdateForm = ({ title, enqueueSnackbar, formConfiguration, url }) =>
           const status = error.response.status;
           if(status === 400){
             enqueueSnackbar(<FormattedMessage
-              id="FamiliaProveedores.CreateUpdateForm.algo_salio_mal"
+              id="CreateUpdateForm.algo_salio_mal"
               defaultMessage="Ups! Algo ha salido mal :("
             />, {variant: 'error'});
           }
@@ -72,7 +72,7 @@ const CreateUpdateForm = ({ title, enqueueSnackbar, formConfiguration, url }) =>
       .then(({status, data, ...rest}) => {
         history.goBack();
         enqueueSnackbar(<FormattedMessage
-          id="FamiliaProveedores.CreateUpdateForm.creacion_correcta"
+          id="CreateUpdateForm.creacion_correcta"
           defaultMessage="Registro creado correctamente"
         />, {variant: 'success'});
       })
@@ -92,7 +92,7 @@ const CreateUpdateForm = ({ title, enqueueSnackbar, formConfiguration, url }) =>
       .then(({status, data, ...rest}) => {
         history.goBack();
         enqueueSnackbar(<FormattedMessage
-          id="FamiliaProveedores.CreateUpdateForm.actualizacion_correcta"
+          id="CreateUpdateForm.actualizacion_correcta"
           defaultMessage="Registro actualizado correctamente"
         />, {variant: 'success'});
       })
@@ -108,7 +108,7 @@ const CreateUpdateForm = ({ title, enqueueSnackbar, formConfiguration, url }) =>
       }
     }
     enqueueSnackbar(<FormattedMessage
-      id="FamiliaProveedores.CreateUpdateForm.revise_datos"
+      id="CreateUpdateForm.revise_datos"
       defaultMessage="Revise los datos e intente nuevamente..."
     />, {variant: 'error'});
   }

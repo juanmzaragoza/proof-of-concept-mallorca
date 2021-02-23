@@ -24,7 +24,7 @@ Axios.interceptors.request.use(function (conf) {
 });
 //TODO(): check this https://medium.com/neyasistechnology/react-handling-errors-with-axios-interceptor-and-redux-6e523fda3706
 // is an idea about how we can handle of a more generic and independent way the error handled
-Axios.interceptors.response.use(undefined, function (error) {
+/*Axios.interceptors.response.use(undefined, function (error) {
   const status = error.response.status;
   if(status === 401) {
     window.alert("UNAUTHORIZED");
@@ -34,6 +34,6 @@ Axios.interceptors.response.use(undefined, function (error) {
     window.alert("FORBIDDEN")
   }
   return Promise.reject(error);
-});
+});*/
 
 export default Axios;
