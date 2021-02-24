@@ -25,7 +25,7 @@ import EditIcon from "@material-ui/icons/Edit";
 
 import {ActionsColumn} from "./ActionsColumn";
 import { Loading } from './Loading';
-import Axios from "../../services/Axios";
+import Axios from "../../Axios";
 import { ContentHeaderList } from "./ContentHeader";
 import {useHistory} from "react-router-dom";
 import {FormattedMessage, injectIntl} from "react-intl";

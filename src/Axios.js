@@ -5,7 +5,7 @@ import axios from "axios";
 const Axios = axios.create();
 
 //const authToken = () => 'Bearer ' + getPlainFrom('token');
-const authToken = () => 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjZWNvY2xvdWQiLCJhdWQiOiJhdXRoIiwic3ViIjoiYWRtaW4iLCJleHAiOjE2MTQwNDIyMTMsIm5hbWUiOiJBZG1pbmlzdHJhZG9yIEFkbWluIiwiZW1haWwiOiJhZG1pbkBsaW1pdC5lcyIsInJleHAiOjE2MTY2MzA2MTMsInJvbCI6WyJBRE1JTiJdLCJzZXNzaW9uIjp7ImkiOjQ0MywiZSI6OTg3fX0.sPYOOYWVYyXejxK7CwB1fBAS2oJYI5fYqi4KGAcqO-0Gy1UX3O2AViOzt32TvXkos2-IqUHulQWJQm9rJBphRw';
+const authToken = () => 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjZWNvY2xvdWQiLCJhdWQiOiJhdXRoIiwic3ViIjoiYWRtaW4iLCJleHAiOjE2MTQxNzU0OTAsIm5hbWUiOiJBZG1pbmlzdHJhZG9yIEFkbWluIiwiZW1haWwiOiJhZG1pbkBsaW1pdC5lcyIsInJleHAiOjE2MTY3NjM4OTAsInJvbCI6WyJBRE1JTiJdLCJzZXNzaW9uIjp7ImkiOjQ0MywiZSI6OTg3fX0.0hMCPYhPjddoBdt01R7kgEAHz5XYiEQ7jutlJNpxEknRD-imoWH7rxS_oWRxNHONV96BmNxaoy2-kxCYJlwPAw';
 
 //Axios.defaults.baseURL = config.apiRoot;
 Axios.defaults.baseURL = 'http://10.35.3.44:8083/';

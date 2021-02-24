@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import {withSnackbar} from "notistack";
 
 import GenericForm from "../GenericForm";
-import Axios from "../../services/Axios";
+import Axios from "../../Axios";
 import {ContentHeaderCreate} from "./ContentHeader";
 import {injectIntl} from "react-intl";
 
