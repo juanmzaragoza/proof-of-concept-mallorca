@@ -11,7 +11,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 
 import { theme } from './constants/theme';
-import Login from './pages/Login';
+import Login from './modules/Login';
 import Layout from "./Layout";
 
 function App() {
