@@ -28,7 +28,7 @@ import { Loading } from './Loading';
 import Axios from "../../services/Axios";
 import { ContentHeaderList } from "./ContentHeader";
 import {useHistory} from "react-router-dom";
-import {FormattedMessage} from "react-intl";
+import {FormattedMessage, injectIntl} from "react-intl";
 
 const getRowId = row => row.id;
 
@@ -67,7 +67,7 @@ function reducer(state, { type, payload }) {
   }
 }
 
-const ReactGrid = ({ configuration, enqueueSnackbar }) => {
+const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const history = useHistory();
   const [columns] = useState(configuration.columns);
@@ -173,10 +173,10 @@ const ReactGrid = ({ configuration, enqueueSnackbar }) => {
         .catch(() => {
           dispatch({ type: 'FETCH_ERROR' });
           changeLoading(false);
-          enqueueSnackbar(<FormattedMessage
-            id="ReactGrid.error.algo_salio_mal"
-            defaultMessage="Ups! Algo ha salido mal :("
-          />, {variant: 'error'});
+          enqueueSnackbar(props.intl.formatMessage({
+            id: "ReactGrid.error.algo_salio_mal",
+            defaultMessage: "Ups! Algo ha salido mal :("
+          }), {variant: 'error'});
         });
       setLastQuery(queryString);
     }
@@ -243,10 +243,10 @@ const ReactGrid = ({ configuration, enqueueSnackbar }) => {
         <TableHeaderRow showSortingControls />
         <TableFilterRow />
         <TableInlineCellEditing selectTextOnEditStart/>
-        <ActionsColumn title={<FormattedMessage
-          id="ReactGrid.ContentHeader.actions_column"
-          defaultMessage="Acciones"
-        />} actions={data && data.length?actions:[]} />
+        <ActionsColumn title={props.intl.formatMessage({
+          id: "ReactGrid.ContentHeader.actions_column",
+          defaultMessage: "Acciones"
+        })} actions={data && data.length?actions:[]} />
         <PagingPanel />
 
       </Grid>
@@ -265,4 +265,4 @@ ReactGrid.propTypes = {
   })
 };
 
-export default withSnackbar(ReactGrid);
+export default withSnackbar(injectIntl(ReactGrid));

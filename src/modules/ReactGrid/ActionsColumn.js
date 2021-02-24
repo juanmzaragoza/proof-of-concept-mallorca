@@ -74,7 +74,8 @@ ActionsColumn.propTypes = {
     icon: PropTypes.node,
     action: PropTypes.func.isRequired
   })).isRequired,
-  width: PropTypes.number
+  width: PropTypes.number,
+  title: PropTypes.string
 };
 ActionsColumn.defaultProps = {
   width: 240,

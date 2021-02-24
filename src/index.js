@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {IntlProvider} from "react-intl";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {IntlProvider} from "react-intl";
 
 //TODO() itntl https://www.freecodecamp.org/news/setting-up-internationalization-in-react-from-start-to-finish-6cb94a7af725/
 ReactDOM.render(

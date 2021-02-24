@@ -6,9 +6,9 @@ import {withSnackbar} from "notistack";
 import GenericForm from "../GenericForm";
 import Axios from "../../services/Axios";
 import {ContentHeaderCreate} from "./ContentHeader";
-import {FormattedMessage} from "react-intl";
+import {injectIntl} from "react-intl";
 
-const CreateUpdateForm = ({ title, enqueueSnackbar, formConfiguration, url }) => {
+const CreateUpdateForm = ({ title, enqueueSnackbar, formConfiguration, url, ...props }) => {
   const history = useHistory();
   const [submitFromOutside, setSubmitFromOutside] = useState(false);
   const [formData, setFormData] = useState();
@@ -37,10 +37,10 @@ const CreateUpdateForm = ({ title, enqueueSnackbar, formConfiguration, url }) =>
         .catch(error => {
           const status = error.response.status;
           if(status === 400){
-            enqueueSnackbar(<FormattedMessage
-              id="CreateUpdateForm.algo_salio_mal"
-              defaultMessage="Ups! Algo ha salido mal :("
-            />, {variant: 'error'});
+            enqueueSnackbar(props.intl.formatMessage({
+              id: "CreateUpdateForm.algo_salio_mal",
+              defaultMessage: "Ups! Algo ha salido mal :("
+            }), {variant: 'error'});
           }
           history.goBack();
         });
@@ -71,10 +71,10 @@ const CreateUpdateForm = ({ title, enqueueSnackbar, formConfiguration, url }) =>
     })
       .then(({status, data, ...rest}) => {
         history.goBack();
-        enqueueSnackbar(<FormattedMessage
-          id="CreateUpdateForm.creacion_correcta"
-          defaultMessage="Registro creado correctamente"
-        />, {variant: 'success'});
+        enqueueSnackbar(props.intl.formatMessage({
+          id: "CreateUpdateForm.creacion_correcta",
+          defaultMessage: "Registro creado correctamente"
+        }), {variant: 'success'});
       })
       .catch(error => {
         handlePersistError(error.response);
@@ -91,10 +91,10 @@ const CreateUpdateForm = ({ title, enqueueSnackbar, formConfiguration, url }) =>
     })
       .then(({status, data, ...rest}) => {
         history.goBack();
-        enqueueSnackbar(<FormattedMessage
-          id="CreateUpdateForm.actualizacion_correcta"
-          defaultMessage="Registro actualizado correctamente"
-        />, {variant: 'success'});
+        enqueueSnackbar(props.intl.formatMessage({
+          id: "CreateUpdateForm.actualizacion_correcta",
+          defaultMessage: "Registro actualizado correctamente"
+        }), {variant: 'success'});
       })
       .catch(error => {
         handlePersistError(error.response);
@@ -107,10 +107,10 @@ const CreateUpdateForm = ({ title, enqueueSnackbar, formConfiguration, url }) =>
         setFormErrors({...formErrors, [err.field]: {message: err.defaultMessage}});
       }
     }
-    enqueueSnackbar(<FormattedMessage
-      id="CreateUpdateForm.revise_datos"
-      defaultMessage="Revise los datos e intente nuevamente..."
-    />, {variant: 'error'});
+    enqueueSnackbar(props.intl.formatMessage({
+      id: "CreateUpdateForm.revise_datos",
+      defaultMessage: "Revise los datos e intente nuevamente..."
+    }), {variant: 'error'});
   }
 
   return (
@@ -146,4 +146,4 @@ CreateUpdateForm.propTypes = {
   url: PropTypes.string.isRequired
 };
 
-export default withSnackbar(CreateUpdateForm);
+export default withSnackbar(injectIntl(CreateUpdateForm));
