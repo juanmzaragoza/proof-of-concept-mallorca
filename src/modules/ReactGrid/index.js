@@ -26,9 +26,8 @@ import EditIcon from "@material-ui/icons/Edit";
 import {ActionsColumn} from "./ActionsColumn";
 import { Loading } from './Loading';
 import Axios from "../../Axios";
-import { ContentHeaderList } from "./ContentHeader";
 import {useHistory} from "react-router-dom";
-import {FormattedMessage, injectIntl} from "react-intl";
+import {injectIntl} from "react-intl";
 
 const getRowId = row => row.id;
 
@@ -103,7 +102,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
   }
 
   const deleteData = (row) => {
-    const queryString = `api/fact/familiesProveidor/${row.id}`;
+    const queryString = `${configuration.URL}/${row.id}`;
     Axios.delete(queryString,{
       headers: new Headers({
         'Accept': 'application/json',
@@ -158,8 +157,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
   };*/
 
   const loadData = () => {
-    const URL = 'api/fact/familiesProveidor';
-    let queryString = `${URL}?size=${pageSize}&page=${currentPage}`;
+    let queryString = `${configuration.URL}?size=${pageSize}&page=${currentPage}`;
     if (queryString !== lastQuery && !loading) {
       changeLoading(true);
       Axios.get(queryString)
@@ -204,12 +202,8 @@ const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
   const {
     data, sorting
   } = state;
-  const {
-    title
-  } = configuration;
   return (
     <>
-      <ContentHeaderList title={title} />
       <Grid
         rows={data}
         columns={columns}
@@ -261,7 +255,8 @@ ReactGrid.propTypes = {
     columns: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string,
       title: PropTypes.string
-    }))
+    })),
+    URL: PropTypes.string.isRequired
   })
 };
 

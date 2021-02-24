@@ -6,6 +6,7 @@ import {People} from "@material-ui/icons";
 import ReactGrid from '../ReactGrid';
 import {Route, Switch} from "react-router-dom";
 import CreateUpdateForm from "../ReactGrid/CreateUpdateForm";
+import {ContentHeaderList} from "../ReactGrid/ContentHeader";
 
 const URL = '/familia-proveedores';
 
@@ -28,10 +29,14 @@ const SuppliersFamilyList = (props) => {
           defaultMessage: "Nombre"
         })
       },
-    ]
+    ],
+    URL: 'api/fact/familiesProveidor'
   };
   return (
-    <ReactGrid configuration={listConfiguration} />
+    <>
+      <ContentHeaderList title={listConfiguration.title} />
+      <ReactGrid configuration={listConfiguration} />
+    </>
   );
 }
 const SuppliersFamilyListIntl = injectIntl(SuppliersFamilyList);
