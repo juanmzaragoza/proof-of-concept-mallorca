@@ -156,7 +156,7 @@ const SuppliersFamily = () => (
   </Paper>
 );
 
-export default {
+const component = {
   routeProps: {
     path: `${URL}`,
     component: SuppliersFamily
@@ -164,3 +164,4 @@ export default {
   name: 'SuppliersFamily',
   icon: <People />
 }
+export default component;

@@ -238,7 +238,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
         <TableFilterRow />
         <TableInlineCellEditing selectTextOnEditStart/>
         <ActionsColumn title={props.intl.formatMessage({
-          id: "ReactGrid.ContentHeader.actions_column",
+          id: "ReactGrid.actions_column",
           defaultMessage: "Acciones"
         })} actions={data && data.length?actions:[]} />
         <PagingPanel />

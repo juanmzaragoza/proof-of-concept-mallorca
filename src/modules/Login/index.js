@@ -15,7 +15,7 @@ import AuthLayout from 'components/AuthLayout';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(false);
+  const [error, ] = useState(false);
 
   const history = useHistory();
 

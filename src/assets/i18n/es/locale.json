@@ -1,0 +1,18 @@
+{
+  "FamiliaProveedores.titulo": "Familia Proveedores",
+  "FamiliaProveedores.codigo": "Código",
+  "FamiliaProveedores.nombre": "Nombre",
+  "ContentHeader.acciones": "Acciones",
+  "ContentHeader.busqueda": "Búsqueda",
+  "ReactGrid.actions_column": "Acciones",
+  "ReactGrid.error.algo_salio_mal": "Ups! Algo ha salido mal :(",
+  "FamiliaProveedores.driprfcmp": "Driprfcmp",
+  "FamiliaProveedores.dricmp": "Dricmp",
+  "FamiliaProveedores.tipasicmp": "Tipasicmp",
+  "FamiliaProveedores.observaciones": "Observaciones",
+  "FamiliaProveedores.ctaprcmp": "Ctaprcmp",
+  "CreateUpdateForm.creacion_correcta": "Registro creado correctamente",
+  "CreateUpdateForm.actualizacion_correcta": "Registro actualizado correctamente",
+  "CreateUpdateForm.revise_datos": "Revise los datos e intente nuevamente..."
+
+}

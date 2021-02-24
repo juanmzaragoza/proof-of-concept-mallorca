@@ -38,7 +38,7 @@ const CreateUpdateForm = ({ title, enqueueSnackbar, formConfiguration, url, ...p
           const status = error.response.status;
           if(status === 400){
             enqueueSnackbar(props.intl.formatMessage({
-              id: "CreateUpdateForm.algo_salio_mal",
+              id: "ReactGrid.error.algo_salio_mal",
               defaultMessage: "Ups! Algo ha salido mal :("
             }), {variant: 'error'});
           }

@@ -6,6 +6,7 @@ import {Route, Switch} from "react-router-dom";
 
 import {ContentHeaderList} from "modules/ReactGrid/ContentHeader";
 import ReactGrid from "../ReactGrid";
+import AdvancedFilters from "./AdvancedFilters";
 
 const URL = '/articulos';
 
@@ -43,7 +44,7 @@ const ArticlesList = (props) => {
         id: "Articulos.titulo",
         defaultMessage: "Articulos"
       })} />
-      <div>Advanced filters</div>
+      <AdvancedFilters />
       <ReactGrid configuration={listConfiguration} />
     </>
   )
