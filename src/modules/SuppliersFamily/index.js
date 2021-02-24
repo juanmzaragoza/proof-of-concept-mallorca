@@ -1,6 +1,7 @@
 import React from 'react';
-import Paper from "@material-ui/core/Paper";
 import {FormattedMessage} from "react-intl";
+import Paper from "@material-ui/core/Paper";
+import {People} from "@material-ui/icons";
 
 import ReactGrid from '../ReactGrid';
 import {Route, Switch} from "react-router-dom";
@@ -150,4 +151,5 @@ export default {
     component: SuppliersFamily
   },
   name: 'SuppliersFamily',
+  icon: <People />
 }
