@@ -163,7 +163,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
       Axios.get(queryString)
         .then(({data}) => data)
         .then(({_embedded, page}) => {
-          dispatch({ type: 'FETCH_SUCCESS', payload: _embedded.familiaProveidors });
+          dispatch({ type: 'FETCH_SUCCESS', payload: _embedded[configuration.listKey] });
           //TODO() un-hardcoding this -> totalCount comes empty
           setTotalCount(page.totalElements);
           changeLoading(false);
@@ -256,7 +256,8 @@ ReactGrid.propTypes = {
       name: PropTypes.string,
       title: PropTypes.string
     })),
-    URL: PropTypes.string.isRequired
+    URL: PropTypes.string.isRequired,
+    listKey: PropTypes.string.isRequired
   })
 };
 

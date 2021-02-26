@@ -11,7 +11,7 @@ const useStyles = makeStyles({
   },
   formControlsFilledInput: {
     width: '100%',
-    padding: '20px'
+    padding: '10px'
   },
 });
 
@@ -47,7 +47,8 @@ const GenericForm = (props) => {
       placeHolder,
       required,
       breakpoints,
-      noEditable
+      noEditable,
+      variant
     } = params;
     const error = getError(key);
     switch(params.type) {
@@ -61,6 +62,8 @@ const GenericForm = (props) => {
                 lg={breakpoints? breakpoints.lg:false} >
             <FormControl className={formControlsFilledInput} variant="filled">
               <TextField
+                variant={variant? variant:'standard'}
+                size="small"
                 onChange={e => props.setFormData({...props.formData, [key]: e.currentTarget.value})}
                 value={props.formData && props.formData[key]? props.formData[key]:""}
                 label={placeHolder}
@@ -78,25 +81,34 @@ const GenericForm = (props) => {
     }
   }
 
+  const withPaper = (component) => {
+    return !props.emptyPaper?
+      (<Paper>
+        {component}
+      </Paper>)
+      :
+      (component)
+  };
+
   const {
     formComponents
   } = props;
   return (
     <div className={root}>
-      <Paper>
+      {withPaper(
         <form ref={formRef} onSubmit={(e) => {
           e.preventDefault();
           if (props.onSubmit) props.onSubmit(props.formData);
         }}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={12} container spacing={1}>{/* BEGINING of 1st Column */}
+          <Grid container spacing={1}>
+            <Grid item xs={12} sm={12} container style={props.fieldsContainerStyles}>{/* BEGINING of 1st Column */}
               {
                 formComponents.map((component, index) => <React.Fragment key={index}>{renderField(component)}</React.Fragment>)
               }
             </Grid>
           </Grid>
         </form>
-      </Paper>
+      )}
     </div>
   )
 };
@@ -108,7 +120,8 @@ GenericForm.propTypes = {
   setFormData: PropTypes.func,
   formErrors: PropTypes.object,
   submitFromOutside: PropTypes.bool,
-  editMode: PropTypes.bool
-
+  editMode: PropTypes.bool,
+  emptyPaper: PropTypes.bool,
+  fieldsContainerStyles: PropTypes.string
 };
 export default GenericForm;

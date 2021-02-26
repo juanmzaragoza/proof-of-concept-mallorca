@@ -1,17 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {IntlProvider} from "react-intl";
+import {Provider} from "react-redux";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import messages from 'assets/i18n/es/locale.json';
+import store from "redux/store.js";
 
 //TODO() itntl https://www.freecodecamp.org/news/setting-up-internationalization-in-react-from-start-to-finish-6cb94a7af725/
 ReactDOM.render(
   <React.StrictMode>
-    <IntlProvider messages={messages} locale={'es'}>
-      <App />
-    </IntlProvider>
+    <Provider store={store}>
+      <IntlProvider messages={messages} locale={'es'}>
+        <App />
+      </IntlProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -13,6 +13,13 @@
   "FamiliaProveedores.ctaprcmp": "Ctaprcmp",
   "CreateUpdateForm.creacion_correcta": "Registro creado correctamente",
   "CreateUpdateForm.actualizacion_correcta": "Registro actualizado correctamente",
-  "CreateUpdateForm.revise_datos": "Revise los datos e intente nuevamente..."
-
+  "CreateUpdateForm.revise_datos": "Revise los datos e intente nuevamente...",
+  "Proveedores.titulo": "Proveedores",
+  "Proveedores.codigo": "Código",
+  "Proveedores.nombre_comercial": "Nombre Comercial",
+  "Proveedores.nombre_fiscal": "Nombre Fiscal",
+  "Proveedores.nif": "NIF",
+  "Proveedores.familia": "Familia",
+  "Proveedores.alias": "Alias",
+  "Proveedores.activo": "Activo"
 }

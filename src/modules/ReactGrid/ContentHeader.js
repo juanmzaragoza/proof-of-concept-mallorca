@@ -19,7 +19,7 @@ export const ContentHeader = ({ grids }) => {
     <Grid container
       style={{
         backgroundColor: '#f2f2f2',
-        padding: '20px'
+        padding: '10px 20px 0px 20px'
       }}
     >
       {grids.map(grid => (
@@ -67,6 +67,7 @@ export const ContentHeaderList = ({ title }) => {
             onChange={(e) => console.log(e)}
             displayEmpty
             inputProps={{ 'aria-label': 'Without label' }}
+            size={"small"}
           >
             <MenuItem value="">
               <em><FormattedMessage
@@ -118,6 +119,7 @@ export const ContentHeaderList = ({ title }) => {
         <FilledInput
           id="filled-adornment-amount"
           value={""}
+          size={"small"}
           onChange={e => console.log(e)}
           endAdornment={<InputAdornment position="end"><SearchIcon></SearchIcon></InputAdornment>}
         />

@@ -7,42 +7,56 @@ import {Route, Switch} from "react-router-dom";
 import {ContentHeaderList} from "modules/ReactGrid/ContentHeader";
 import ReactGrid from "../ReactGrid";
 import AdvancedFilters from "./AdvancedFilters";
+import * as API from "redux/api";
 
-const URL = '/articulos';
+const URL = '/proveedores';
 
-const ArticlesList = (props) => {
+const SuppliersList = (props) => {
   const listConfiguration = {
     title: props.intl.formatMessage({
-      id: "Articulos.titulo",
-      defaultMessage: "Articulos"
+      id: "Proveedores.titulo",
+      defaultMessage: "Proveedores"
     }),
     columns: [
       { name: 'codi',
         title: props.intl.formatMessage({
-          id: "Articulos.codigo",
+          id: "Proveedores.codigo",
           defaultMessage: "Código"
         })
       },
-      { name: 'nom',
+      { name: 'nomComercial',
         title: props.intl.formatMessage({
-          id: "Articulos.nombre",
-          defaultMessage: "Nombre"
+          id: "Proveedores.nombre_comercial",
+          defaultMessage: "Nombre Comercial"
         })
       },
-      { name: 'act',
+      { name: 'descCodiNom',
         title: props.intl.formatMessage({
-          id: "Articulos.activo",
-          defaultMessage: "Activo"
+          id: "Proveedores.nif",
+          defaultMessage: "NIF"
+        })
+      },
+      { name: 'id',
+        title: props.intl.formatMessage({
+          id: "Proveedores.familia",
+          defaultMessage: "Familia"
+        })
+      },
+      { name: 'nomFiscal',
+        title: props.intl.formatMessage({
+          id: "Proveedores.alias",
+          defaultMessage: "Alias"
         })
       },
     ],
-    URL: 'api/fact/articulos'
+    URL: API.suppliers,
+    listKey: 'proveidors'
   };
   return (
     <>
       <ContentHeaderList title={props.intl.formatMessage({
-        id: "Articulos.titulo",
-        defaultMessage: "Articulos"
+        id: "Proveedores.titulo",
+        defaultMessage: "Proveedores"
       })} />
       <AdvancedFilters />
       <ReactGrid configuration={listConfiguration} />
@@ -50,12 +64,12 @@ const ArticlesList = (props) => {
   )
 };
 
-const ArticlesListIntl = injectIntl(ArticlesList);
+const SuppliersListIntl = injectIntl(SuppliersList);
 
-const Articles = () => (
+const Suppliers = () => (
   <Paper style={{ position: 'relative' }}>
     <Switch>
-      <Route exact path={`${URL}`} component={ArticlesListIntl}></Route>
+      <Route exact path={`${URL}`} component={SuppliersListIntl}></Route>
       {/*<Route path={`${URL}/create`} component={SuppliersFamilyCreateIntl}></Route>
       <Route path={`${URL}/:id`} component={SuppliersFamilyCreateIntl}></Route>*/}
     </Switch>
@@ -65,8 +79,8 @@ const Articles = () => (
 export default {
   routeProps: {
     path: `${URL}`,
-    component: Articles
+    component: Suppliers
   },
-  name: 'Articles',
+  name: 'Suppliers',
   icon: <LocalMall />
 }

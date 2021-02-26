@@ -30,7 +30,8 @@ const SuppliersFamilyList = (props) => {
         })
       },
     ],
-    URL: 'api/fact/familiesProveidor'
+    URL: 'api/fact/familiesProveidor',
+    listKey: 'familiaProveidors'
   };
   return (
     <>

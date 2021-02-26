@@ -123,7 +123,8 @@ const CreateUpdateForm = ({ title, enqueueSnackbar, formConfiguration, url, ...p
         formErrors={formErrors}
         formComponents={formConfiguration}
         submitFromOutside={submitFromOutside}
-        onSubmit={(data) => handleSubmit(data)} />
+        onSubmit={(data) => handleSubmit(data)}
+        fieldsContainerStyles={{padding: '10px 40px 40px 40px'}}/>
     </>
   );
 
