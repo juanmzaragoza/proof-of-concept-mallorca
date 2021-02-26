@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
-import {Grid, Paper, TextField} from '@material-ui/core';
+import {FormHelperText, Grid, InputLabel, Paper, Select, TextField} from '@material-ui/core';
 import FormControl from "@material-ui/core/FormControl";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
@@ -41,44 +41,65 @@ const GenericForm = (props) => {
     return props.formErrors && props.formErrors[key]? props.formErrors[key]:"";
   }
 
-  const renderField = params => {
-    const {
-      key,
-      placeHolder,
-      required,
-      breakpoints,
-      noEditable,
-      variant
-    } = params;
+  const getField = ({type, variant, placeHolder, required, key, noEditable, selector}) => {
     const error = getError(key);
-    switch(params.type) {
+    switch(type) {
       case 'input':
         return (
-          <Grid item
-                key={key}
-                xs={breakpoints? breakpoints.xs:12}
-                sm={breakpoints? breakpoints.sm:false}
-                md={breakpoints? breakpoints.md:false}
-                lg={breakpoints? breakpoints.lg:false} >
-            <FormControl className={formControlsFilledInput} variant="filled">
-              <TextField
-                variant={variant? variant:'standard'}
-                size="small"
-                onChange={e => props.setFormData({...props.formData, [key]: e.currentTarget.value})}
-                value={props.formData && props.formData[key]? props.formData[key]:""}
-                label={placeHolder}
-                required={Boolean(required)}
-                error={onBlur[key] && Boolean(error)}
-                helperText={onBlur[key] && Boolean(error)? error.message:''}
-                onBlur={() => setOnBlur({...onBlur, [key]: true})}
-                type={"text"}
-                disabled={props.editMode && noEditable}/>
-            </FormControl>
-          </Grid>
+          <TextField
+            variant={variant ? variant : 'standard'}
+            size="small"
+            onChange={e => props.setFormData({...props.formData, [key]: e.currentTarget.value})}
+            value={props.formData && props.formData[key] ? props.formData[key] : ""}
+            label={placeHolder}
+            required={Boolean(required)}
+            error={onBlur[key] && Boolean(error)}
+            helperText={onBlur[key] && Boolean(error) ? error.message : ''}
+            onBlur={() => setOnBlur({...onBlur, [key]: true})}
+            type={"text"}
+            disabled={props.editMode && noEditable}/>
         );
+      case 'select':
+        return (
+        <>
+          <InputLabel htmlFor={key}>{placeHolder}</InputLabel>
+          <Select
+            variant={variant ? variant : 'outlined'}
+            value={props.formData && props.formData[key] ? props.formData[key] : ""}
+            onChange={e => props.setFormData({...props.formData, [key]: e.currentTarget.value})}
+            required={required}
+            inputProps={{
+              name: placeHolder,
+              id: key,
+            }}
+          >
+            <option aria-label="None" value="" />
+            {selector && selector.options.map(option => <option key={option.value} value={option.value}>{option.label}</option>) }
+          </Select>
+          {onBlur[key] && Boolean(error)? <FormHelperText>{error.message}</FormHelperText>:null}
+        </>
+        )
       default:
         return;
     }
+  };
+
+  const renderField = params => {
+    const {
+      key,
+      breakpoints,
+    } = params;
+    return (
+      <Grid item
+            key={key}
+            xs={breakpoints? breakpoints.xs:12}
+            sm={breakpoints? breakpoints.sm:false}
+            md={breakpoints? breakpoints.md:false}
+            lg={breakpoints? breakpoints.lg:false} >
+        <FormControl className={formControlsFilledInput} variant="filled" error={Boolean(getError(key))}>
+          {getField(params)}
+        </FormControl>
+      </Grid>)
   }
 
   const withPaper = (component) => {
