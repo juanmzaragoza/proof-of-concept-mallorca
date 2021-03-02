@@ -4,15 +4,14 @@ import IconButton from "@material-ui/core/IconButton";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import AddIcon from "@material-ui/icons/Add";
 import FormControl from "@material-ui/core/FormControl";
-import {FilledInput, InputLabel, ListItemIcon, MenuItem, Select} from "@material-ui/core";
-import ClearIcon from "@material-ui/icons/Clear";
-import ImportExportIcon from "@material-ui/icons/ImportExport";
-import ReplyIcon from "@material-ui/icons/Reply";
+import {FilledInput, InputLabel} from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import {useHistory} from "react-router-dom";
 import {ChevronLeft, Save} from "@material-ui/icons";
 import {FormattedMessage} from "react-intl";
+import DeleteIcon from "@material-ui/icons/Delete";
+import IconMenu from "../common/IconMenu";
 
 export const ContentHeader = ({ grids }) => {
   return (
@@ -61,49 +60,14 @@ export const ContentHeaderList = ({ title }) => {
         <IconButton aria-label="add" onClick={() => history.push(`${history.location.pathname}/create`)}>
           <AddIcon fontSize="default" />
         </IconButton>
-        <FormControl>
-          <Select
-            value={""}
-            onChange={(e) => console.log(e)}
-            displayEmpty
-            inputProps={{ 'aria-label': 'Without label' }}
-            size={"small"}
-          >
-            <MenuItem value="">
-              <em><FormattedMessage
-                id="ContentHeader.acciones"
-                defaultMessage="Acciones"
-              /></em>
-            </MenuItem>
-            <MenuItem value={10}>
-              <ListItemIcon>
-                <ClearIcon fontSize="small" />
-              </ListItemIcon>
-              <FormattedMessage
-                id="ContentHeader.limpiar_filtro"
-                defaultMessage="Limpiar Filtro"
-              />
-            </MenuItem>
-            <MenuItem value={20}>
-              <ListItemIcon>
-                <ImportExportIcon fontSize="small" />
-              </ListItemIcon>
-              <FormattedMessage
-                id="ContentHeader.importar"
-                defaultMessage="Importar"
-              />
-            </MenuItem>
-            <MenuItem value={30}>
-              <ListItemIcon>
-                <ReplyIcon fontSize="small" />
-              </ListItemIcon>
-              <FormattedMessage
-                id="ContentHeader.exportar"
-                defaultMessage="Exportar"
-              />
-            </MenuItem>
-          </Select>
-        </FormControl>
+        <IconButton aria-label="delete">
+          <DeleteIcon fontSize="default" />
+        </IconButton>
+        <IconMenu options={[
+          {key: 1, label: 'Limpiar Filtros'},
+          {key: 2, label: 'Importar'},
+          {key: 3, label: 'Exportar'}
+        ]} />
       </div>
     },
     {
