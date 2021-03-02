@@ -1,8 +1,23 @@
 import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
-import {FormHelperText, Grid, InputLabel, Paper, Select, TextField} from '@material-ui/core';
+import './styles.scss';
+
+import {
+  Checkbox,
+  FormControlLabel,
+  FormHelperText, FormLabel,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Radio,
+  RadioGroup,
+  Select,
+  TextField
+} from '@material-ui/core';
 import FormControl from "@material-ui/core/FormControl";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import PovElement from "./PovElement";
 
 const useStyles = makeStyles({
   root: {
@@ -41,7 +56,7 @@ const GenericForm = (props) => {
     return props.formErrors && props.formErrors[key]? props.formErrors[key]:"";
   }
 
-  const getField = ({type, variant, placeHolder, required, key, noEditable, selector}) => {
+  const getField = ({type, variant, placeHolder, required, key, noEditable, selector, disabled}) => {
     const error = getError(key);
     switch(type) {
       case 'input':
@@ -57,16 +72,18 @@ const GenericForm = (props) => {
             helperText={onBlur[key] && Boolean(error) ? error.message : ''}
             onBlur={() => setOnBlur({...onBlur, [key]: true})}
             type={"text"}
-            disabled={props.editMode && noEditable}/>
+            disabled={props.editMode && noEditable || disabled}/>
         );
       case 'select':
         return (
         <>
-          <InputLabel htmlFor={key}>{placeHolder}</InputLabel>
+          <InputLabel id={`${key}-select-label`} style={{padding: '10px'}}>{placeHolder}</InputLabel>
           <Select
+            labelId={`${key}-select-label`}
+            id={key}
             variant={variant ? variant : 'outlined'}
             value={props.formData && props.formData[key] ? props.formData[key] : ""}
-            onChange={e => props.setFormData({...props.formData, [key]: e.currentTarget.value})}
+            onChange={e => props.setFormData({...props.formData, [key]: e.target.value})}
             required={required}
             inputProps={{
               name: placeHolder,
@@ -74,11 +91,51 @@ const GenericForm = (props) => {
             }}
           >
             <option aria-label="None" value="" />
-            {selector && selector.options.map(option => <option key={option.value} value={option.value}>{option.label}</option>) }
+            {selector && selector.options.map(option => <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>) }
           </Select>
           {onBlur[key] && Boolean(error)? <FormHelperText>{error.message}</FormHelperText>:null}
         </>
+        );
+      case 'checkbox':
+        return (
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={props.formData && props.formData[key] ? props.formData[key] : false}
+                onChange={e => props.setFormData({...props.formData, [key]: e.currentTarget.checked})}
+                name={key}
+                color="primary"
+              />
+            }
+            label={placeHolder}
+          />
+        );
+      case 'radio':
+        return (
+          <>
+            <FormLabel component="legend">{placeHolder}</FormLabel>
+            <RadioGroup aria-label="gender"
+                        name="gender1"
+                        value={props.formData && props.formData[key] ? props.formData[key] : ""}
+                        onChange={e => props.setFormData({...props.formData, [key]: e.currentTarget.value})}>
+              {selector && selector.options.map(option => <FormControlLabel key={option.value} value={option.value} control={<Radio />} label={option.label} />) }
+            </RadioGroup>
+          </>
         )
+      case 'POV':
+        return (
+          <PovElement
+            id={key}
+            label={placeHolder}
+            onChange={e => {
+              e.stopPropagation();
+              props.setFormData({...props.formData, [key]: e.target.value})
+            }}
+            value={props.formData && props.formData[key] ? props.formData[key] : ""}
+            setValue={e => props.setFormData({...props.formData, [key]: e.value})}
+            variant={variant}
+            options={selector.options} />
+        );
       default:
         return;
     }
@@ -143,6 +200,7 @@ GenericForm.propTypes = {
   submitFromOutside: PropTypes.bool,
   editMode: PropTypes.bool,
   emptyPaper: PropTypes.bool,
-  fieldsContainerStyles: PropTypes.string
+  fieldsContainerStyles: PropTypes.string,
+  selector: PropTypes.object
 };
 export default GenericForm;

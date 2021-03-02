@@ -21,5 +21,20 @@
   "Proveedores.nif": "NIF",
   "Proveedores.familia": "Familia",
   "Proveedores.alias": "Alias",
-  "Proveedores.activo": "Activo"
+  "Proveedores.activo": "Activo",
+  "Proveedores.pais": "País",
+  "Proveedores.comercial": "Comercial",
+  "Proveedores.idioma": "Idioma",
+  "Proveedores.tipoDoc": "Tipo Documento",
+  "Proveedores.Direccion.tipoVia": "Tipo Vía",
+  "Proveedores.Direccion.domicilio": "Domicilio",
+  "Proveedores.Direccion.numero": "Número",
+  "Proveedores.Direccion.esc": "Esc.",
+  "Proveedores.Direccion.piso": "Piso",
+  "Proveedores.Direccion.puerta": "Puerta",
+  "Proveedores.Direccion.direccionCompleta": "Dirección Completa",
+  "Proveedores.Direccion.codPostal": "Código Postal",
+  "Proveedores.Direccion.poblacion": "Población",
+  "Forms.cancel": "Cancelar",
+  "Forms.guardar": "Guardar"
 }
