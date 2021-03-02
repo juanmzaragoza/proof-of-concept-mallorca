@@ -3,7 +3,7 @@ import "./styles.scss";
 const OutlinedContainer = ({ title, children }) => {
   return(
     <div className="outlined-container">
-      {title? <div className="title">{title}</div>:null}
+      {title? <span className="title">{title}</span>:null}
       {children}
     </div>
   )
