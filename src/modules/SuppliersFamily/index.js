@@ -1,21 +1,30 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {injectIntl} from "react-intl";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {Route, Switch} from "react-router-dom";
+
 import Paper from "@material-ui/core/Paper";
 import {People} from "@material-ui/icons";
 
 import ReactGrid from '../ReactGrid';
-import {Route, Switch} from "react-router-dom";
 import CreateUpdateForm from "../ReactGrid/CreateUpdateForm";
-import {ContentHeaderList} from "../ReactGrid/ContentHeader";
+import {setFormConfig, setListingConfig} from "../../redux/pageHeader";
 
 const URL = '/familia-proveedores';
 
-const SuppliersFamilyList = (props) => {
+const SuppliersFamilyList = ({ actions, ...props }) => {
+
+  useEffect(() => {
+    actions.setListingConfig({
+      title: props.intl.formatMessage({
+        id: "FamiliaProveedores.titulo",
+        defaultMessage: "Familias proveedor"
+      }),
+    });
+  },[]);
+
   const listConfiguration = {
-    title: props.intl.formatMessage({
-      id: "FamiliaProveedores.titulo",
-      defaultMessage: "Familias proveedor"
-    }),
     columns: [
       { name: 'codi',
         title: props.intl.formatMessage({
@@ -34,13 +43,19 @@ const SuppliersFamilyList = (props) => {
     listKey: 'familiaProveidors'
   };
   return (
-    <>
-      <ContentHeaderList title={listConfiguration.title} />
-      <ReactGrid configuration={listConfiguration} />
-    </>
+    <ReactGrid configuration={listConfiguration} />
   );
 }
-const SuppliersFamilyListIntl = injectIntl(SuppliersFamilyList);
+
+const mapDispatchToProps = (dispatch, props) => {
+  const actions = {
+    setListingConfig: bindActionCreators(setListingConfig, dispatch),
+    setFormConfig: bindActionCreators(setFormConfig, dispatch)
+  };
+  return { actions };
+};
+
+const SuppliersFamilyListIntl = injectIntl(connect(null,mapDispatchToProps)(SuppliersFamilyList));
 
 const SuppliersFamilyCreate = (props) => {
   const createConfiguration = [

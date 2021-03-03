@@ -233,7 +233,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
         {/***************************/}
         <EditingState onCommitChanges={commitChanges} />
 
-        <Table cellComponent={FocusableCell} />
+        <Table cellComponent={FocusableCell} noDataText={"HOla"} />
         <TableHeaderRow showSortingControls />
         <TableFilterRow />
         <TableInlineCellEditing selectTextOnEditStart/>

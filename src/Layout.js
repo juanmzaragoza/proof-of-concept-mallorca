@@ -24,6 +24,7 @@ import DrawerMenu from "./components/DrawerMenu";
 
 import {drawerWidth} from "./constants/styles";
 import EnterpriseGroupSelect from "./components/EnterpriseGroupSelect";
+import PageHeader from "modules/PageHeader";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -266,7 +267,7 @@ const Layout = ({ children, ...props}) => {
             })}
         >
           <div className={classes.drawerHeader} />
-
+          <PageHeader />
           <Switch>
             <Redirect exact from={'/'} to={'familia-proveedores'} />
             {modules

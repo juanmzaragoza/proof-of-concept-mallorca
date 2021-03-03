@@ -1,17 +1,30 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {LocalMall} from "@material-ui/icons";
 import {injectIntl} from "react-intl";
-import Paper from "@material-ui/core/Paper";
 import {Route, Switch} from "react-router-dom";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
 
-import {ContentHeaderList} from "modules/ReactGrid/ContentHeader";
+import Paper from "@material-ui/core/Paper";
 import ReactGrid from "../ReactGrid";
 import AdvancedFilters from "./AdvancedFilters";
+import SuppliersForm from "./SuppliersForm";
 import * as API from "redux/api";
+import {setListingConfig} from "redux/pageHeader";
 
 const URL = '/proveedores';
 
-const SuppliersList = (props) => {
+const SuppliersList = ({actions, ...props}) => {
+
+  useEffect(() => {
+    actions.setListingConfig({
+      title: props.intl.formatMessage({
+        id: "Proveedores.titulo",
+        defaultMessage: "Proveedores"
+      }),
+    });
+  },[]);
+
   const listConfiguration = {
     title: props.intl.formatMessage({
       id: "Proveedores.titulo",
@@ -54,24 +67,27 @@ const SuppliersList = (props) => {
   };
   return (
     <>
-      <ContentHeaderList title={props.intl.formatMessage({
-        id: "Proveedores.titulo",
-        defaultMessage: "Proveedores"
-      })} />
       <AdvancedFilters />
       <ReactGrid configuration={listConfiguration} />
     </>
   )
 };
 
-const SuppliersListIntl = injectIntl(SuppliersList);
+const mapDispatchToProps = (dispatch, props) => {
+  const actions = {
+    setListingConfig: bindActionCreators(setListingConfig, dispatch)
+  };
+  return { actions };
+};
+
+const SuppliersListIntl = injectIntl(connect(null,mapDispatchToProps)(SuppliersList));
 
 const Suppliers = () => (
   <Paper style={{ position: 'relative' }}>
     <Switch>
       <Route exact path={`${URL}`} component={SuppliersListIntl}></Route>
-      {/*<Route path={`${URL}/create`} component={SuppliersFamilyCreateIntl}></Route>
-      <Route path={`${URL}/:id`} component={SuppliersFamilyCreateIntl}></Route>*/}
+      <Route path={`${URL}/create`} component={SuppliersForm}></Route>
+      {/*<Route path={`${URL}/:id`} component={SuppliersFamilyCreateIntl}></Route>*/}
     </Switch>
   </Paper>
 );

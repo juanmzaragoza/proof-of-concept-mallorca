@@ -1,14 +1,17 @@
 import React, {useEffect, useState} from 'react';
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
 import {useHistory, useParams} from "react-router-dom";
 import PropTypes from "prop-types";
 import {withSnackbar} from "notistack";
+import {injectIntl} from "react-intl";
 
 import GenericForm from "../GenericForm";
 import Axios from "../../Axios";
-import {ContentHeaderCreate} from "./ContentHeader";
-import {injectIntl} from "react-intl";
 
-const CreateUpdateForm = ({ title, enqueueSnackbar, formConfiguration, url, ...props }) => {
+import {setFormConfig} from "redux/pageHeader";
+
+const CreateUpdateForm = ({ actions, title, enqueueSnackbar, formConfiguration, url, ...props }) => {
   const history = useHistory();
   const [submitFromOutside, setSubmitFromOutside] = useState(false);
   const [formData, setFormData] = useState();
@@ -20,6 +23,13 @@ const CreateUpdateForm = ({ title, enqueueSnackbar, formConfiguration, url, ...p
   const isEditable = () => {
     return !!id;
   };
+
+  useEffect(() => {
+    actions.setFormConfig({
+      title: title,
+      onClick: () => setSubmitFromOutside(true)
+    })
+  },[]);
 
   useEffect(() => {
     if(isEditable()){
@@ -114,18 +124,15 @@ const CreateUpdateForm = ({ title, enqueueSnackbar, formConfiguration, url, ...p
   }
 
   return (
-    <>
-      <ContentHeaderCreate title={title} onClick={() => setSubmitFromOutside(true)} />
-      <GenericForm
-        editMode={editMode}
-        setFormData={setFormData}
-        formData={formData}
-        formErrors={formErrors}
-        formComponents={formConfiguration}
-        submitFromOutside={submitFromOutside}
-        onSubmit={(data) => handleSubmit(data)}
-        fieldsContainerStyles={{padding: '10px 40px 40px 40px'}}/>
-    </>
+    <GenericForm
+      editMode={editMode}
+      setFormData={setFormData}
+      formData={formData}
+      formErrors={formErrors}
+      formComponents={formConfiguration}
+      submitFromOutside={submitFromOutside}
+      onSubmit={(data) => handleSubmit(data)}
+      fieldsContainerStyles={{padding: '10px 40px 40px 40px'}}/>
   );
 
 };
@@ -147,4 +154,11 @@ CreateUpdateForm.propTypes = {
   url: PropTypes.string.isRequired
 };
 
-export default withSnackbar(injectIntl(CreateUpdateForm));
+const mapDispatchToProps = (dispatch, props) => {
+  const actions = {
+    setFormConfig: bindActionCreators(setFormConfig, dispatch)
+  };
+  return { actions };
+};
+
+export default withSnackbar(injectIntl(connect(null, mapDispatchToProps)(CreateUpdateForm)));
