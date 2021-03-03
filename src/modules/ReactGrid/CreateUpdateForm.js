@@ -9,7 +9,7 @@ import {injectIntl} from "react-intl";
 import GenericForm from "../GenericForm";
 import Axios from "../../Axios";
 
-import {setFormConfig} from "redux/pageHeader";
+import {setBreadcrumbHeader, setFormConfig} from "redux/pageHeader";
 
 const CreateUpdateForm = ({ actions, title, enqueueSnackbar, formConfiguration, url, ...props }) => {
   const history = useHistory();
@@ -28,11 +28,13 @@ const CreateUpdateForm = ({ actions, title, enqueueSnackbar, formConfiguration, 
     actions.setFormConfig({
       title: title,
       onClick: () => setSubmitFromOutside(true)
-    })
+    });
+    actions.setBreadcrumbHeader([{title: title, href: "/"}, {title: "Nuevo"}]);
   },[]);
 
   useEffect(() => {
     if(isEditable()){
+      actions.setBreadcrumbHeader([{title: title, href: "/"}, {title: "Modificar"}]);
       setEditMode(true);
       const queryString = `${url}/${id}`;
       Axios.get(queryString,{
@@ -156,7 +158,8 @@ CreateUpdateForm.propTypes = {
 
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
-    setFormConfig: bindActionCreators(setFormConfig, dispatch)
+    setFormConfig: bindActionCreators(setFormConfig, dispatch),
+    setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch)
   };
   return { actions };
 };

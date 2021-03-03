@@ -13,6 +13,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import IconMenu from "modules/common/IconMenu";
 import ContentHeader from "./ContentHeader";
 import HeadingHeader from "./HeadingHeader";
+import BreadcrumbHeader from "./BreadcrumbHeader";
 
 export const ListingHeader = ({ config: { title } }) => {
   const history = useHistory();
@@ -22,7 +23,7 @@ export const ListingHeader = ({ config: { title } }) => {
       breakpoints: {
         xs: 5
       },
-      content: <HeadingHeader>{title}</HeadingHeader>
+      content: <BreadcrumbHeader config={[{title: "Proveedores", href:"/proveedores"}]}/>
     },
     {
       id: 2,

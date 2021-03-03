@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import GeneralTab from "./GeneralTab";
 import ConfigurableTabs from "modules/common/ConfigurableTabs";
 
-import {setFormConfig} from "redux/pageHeader";
+import {setBreadcrumbHeader, setFormConfig} from "redux/pageHeader";
 
 
 const tabs = [
@@ -74,7 +74,12 @@ const SuppliersForm = ({ actions }) => {
       onClick: () => {
         console.log("hola")
       }
-    })
+    });
+    actions.setBreadcrumbHeader([
+      {title: "Proveedores", href:"/proveedores"},
+      {title: "Un Nombre", href:"hol"},
+      {title: "General"}
+    ]);
   },[]);
 
   return (
@@ -86,7 +91,8 @@ const SuppliersForm = ({ actions }) => {
 
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
-    setFormConfig: bindActionCreators(setFormConfig, dispatch)
+    setFormConfig: bindActionCreators(setFormConfig, dispatch),
+    setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch)
   };
   return { actions };
 };

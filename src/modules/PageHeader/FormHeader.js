@@ -1,21 +1,19 @@
 import React from "react";
-import {useHistory} from "react-router-dom";
 
 import IconButton from "@material-ui/core/IconButton";
-import {ChevronLeft, Save} from "@material-ui/icons";
+import {Save} from "@material-ui/icons";
 
 import ContentHeader from "./ContentHeader";
-import HeadingHeader from "./HeadingHeader";
+import BreadcrumbHeader from "./BreadcrumbHeader";
 
 const FormHeader = ({ config: {title, onClick} }) => {
-  const history = useHistory();
   const list = [
     {
       id: 1,
       breakpoints: {
         xs: 3
       },
-      content: <HeadingHeader><IconButton onClick={() => {history.goBack()}}><ChevronLeft /></IconButton>{title}</HeadingHeader>
+      content: <BreadcrumbHeader />
     },
     {
       id: 2,

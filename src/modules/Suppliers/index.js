@@ -10,7 +10,7 @@ import ReactGrid from "../ReactGrid";
 import AdvancedFilters from "./AdvancedFilters";
 import SuppliersForm from "./SuppliersForm";
 import * as API from "redux/api";
-import {setListingConfig} from "redux/pageHeader";
+import {setBreadcrumbHeader, setListingConfig} from "redux/pageHeader";
 
 const URL = '/proveedores';
 
@@ -23,6 +23,9 @@ const SuppliersList = ({actions, ...props}) => {
         defaultMessage: "Proveedores"
       }),
     });
+    actions.setBreadcrumbHeader([
+      {title: "Proveedores", href:"/proveedores"}
+    ]);
   },[]);
 
   const listConfiguration = {
@@ -75,7 +78,8 @@ const SuppliersList = ({actions, ...props}) => {
 
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
-    setListingConfig: bindActionCreators(setListingConfig, dispatch)
+    setListingConfig: bindActionCreators(setListingConfig, dispatch),
+    setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch)
   };
   return { actions };
 };

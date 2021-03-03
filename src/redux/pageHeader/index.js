@@ -1,7 +1,8 @@
 //Action types
 const SET_LISTING_CONFIG = "SET_LISTING_CONFIG";
 const SET_FORM_CONFIG = "SET_FORM_CONFIG";
-const RESET_FILTERS = "RESET_ADVANCED_FILTERS";
+const RESET_ALL_HEADER = "RESET_ALL_HEADER";
+const SET_BREADCRUMB_HEADER = "SET_BREADCRUMB_HEADER";
 
 //Functions
 
@@ -20,10 +21,18 @@ export function setFormConfig(payload) {
   }
 }
 
+export function setBreadcrumbHeader(payload){
+  return {
+    type: SET_BREADCRUMB_HEADER,
+    payload
+  }
+}
+
 //Reducers
 const initialState = {
   listingConfig: false,
-  formConfig: false
+  formConfig: false,
+  breadcrumbs: []
 };
 
 export default (state = initialState, action) => {
@@ -32,8 +41,10 @@ export default (state = initialState, action) => {
       return { ...state, formConfig: false, listingConfig: {...action.payload} };
     case SET_FORM_CONFIG:
       return { ...state, formConfig: {...action.payload}, listingConfig: false };
-    case RESET_FILTERS:
-      return { filters: {} };
+    case SET_BREADCRUMB_HEADER:
+      return { ...state, breadcrumbs: action.payload };
+    case RESET_ALL_HEADER:
+      return initialState;
     case "RESET":
       return initialState;
     default:

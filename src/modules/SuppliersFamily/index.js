@@ -9,7 +9,7 @@ import {People} from "@material-ui/icons";
 
 import ReactGrid from '../ReactGrid';
 import CreateUpdateForm from "../ReactGrid/CreateUpdateForm";
-import {setFormConfig, setListingConfig} from "../../redux/pageHeader";
+import {setBreadcrumbHeader, setFormConfig, setListingConfig} from "../../redux/pageHeader";
 
 const URL = '/familia-proveedores';
 
@@ -22,6 +22,12 @@ const SuppliersFamilyList = ({ actions, ...props }) => {
         defaultMessage: "Familias proveedor"
       }),
     });
+    actions.setBreadcrumbHeader([
+      {title: props.intl.formatMessage({
+          id: "FamiliaProveedores.titulo",
+          defaultMessage: "Familias proveedor"
+        }), href:"/familia-proveedores"}
+    ]);
   },[]);
 
   const listConfiguration = {
@@ -50,7 +56,7 @@ const SuppliersFamilyList = ({ actions, ...props }) => {
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
     setListingConfig: bindActionCreators(setListingConfig, dispatch),
-    setFormConfig: bindActionCreators(setFormConfig, dispatch)
+    setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch)
   };
   return { actions };
 };
