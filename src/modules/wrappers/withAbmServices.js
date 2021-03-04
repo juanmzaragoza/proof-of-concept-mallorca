@@ -4,7 +4,8 @@ import {injectIntl} from "react-intl";
 import {withSnackbar} from "notistack";
 import {useHistory} from "react-router-dom";
 import {connect} from "react-redux";
-import {compose} from "redux";
+import {bindActionCreators, compose} from "redux";
+import {addError} from "../../redux/genericForm";
 
 const withAbmServices = (PassedComponent) => {
 
@@ -61,9 +62,11 @@ const withAbmServices = (PassedComponent) => {
     const handlePersistError = ({status, data}) => {
       if (status === 400 && data.errors) {
         for (const err of data.errors) {
-          props.setFormErrors({...props.formErrors, [err.field]: {message: err.defaultMessage}});
+          //props.setFormErrors({...props.formErrors, [err.field]: {message: err.defaultMessage}});
+          props.addError({[err.field]: {message: err.defaultMessage}});
         }
       }
+      window.alert("HOLA")
       props.enqueueSnackbar(props.intl.formatMessage({
         id: "CreateUpdateForm.revise_datos",
         defaultMessage: "Revise los datos e intente nuevamente..."
@@ -81,12 +84,9 @@ const withAbmServices = (PassedComponent) => {
 
   const mapDispatchToProps = (dispatch, props) => {
     const actions = {
-      /*TODO(): setFormErrors:
-         setFormConfig: bindActionCreators(setFormConfig, dispatch),
-      setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch),
-      setSubmitFromOutside: bindActionCreators(setFireSaveFromHeader, dispatch),*/
+      addError: bindActionCreators(addError, dispatch)
     };
-    return { };
+    return actions;
   };
 
   return compose(

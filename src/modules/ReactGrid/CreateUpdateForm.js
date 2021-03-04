@@ -12,19 +12,20 @@ import Axios from "../../Axios";
 
 import {setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig} from "redux/pageHeader";
 import {getFireSave} from "redux/pageHeader/selectors";
+import {getErrors} from "../../redux/genericForm/selectors";
 
 const CreateUpdateForm = ({
       title, //props
       formConfiguration,
       url,
-      actions, //rdeux
+      actions, //redux
       submitFromOutside,
+      formErrors,
       enqueueSnackbar, //withSackBar
       services, //withServices
       ...props }) => {
   const history = useHistory();
   const [formData, setFormData] = useState();
-  const [formErrors, setFormErrors] = useState({});
   const [editMode, setEditMode] = useState(false);
 
   const { id } = useParams();
@@ -120,7 +121,8 @@ CreateUpdateForm.propTypes = {
 
 const mapStateToProps = (state, props) => {
   return {
-    submitFromOutside: getFireSave(state)
+    submitFromOutside: getFireSave(state),
+    formErrors: getErrors(state)
   };
 };
 
