@@ -1,7 +1,7 @@
 import React from "react";
 
 import IconButton from "@material-ui/core/IconButton";
-import {Save} from "@material-ui/icons";
+import {Save, Undo, Delete, ChevronLeft, ChevronRight} from "@material-ui/icons";
 
 import ContentHeader from "./ContentHeader";
 import BreadcrumbHeader from "./BreadcrumbHeader";
@@ -24,9 +24,28 @@ const FormHeader = ({ config: {title, onClick} }) => {
         display: 'flex',
         flexDirection: 'row-reverse'
       },
-      content: <IconButton onClick={onClick}>
-        <Save />
-      </IconButton>
+      content: <div>
+        <IconButton onClick={onClick}>
+          <Save />
+        </IconButton>
+        <IconButton >
+          <Undo />
+        </IconButton>
+        <IconButton >
+          <Delete />
+        </IconButton>
+        <span>
+          <IconButton disabled>
+            <ChevronLeft />
+          </IconButton>
+          <span>
+            1 / 250
+          </span>
+          <IconButton >
+            <ChevronRight />
+          </IconButton>
+        </span>
+      </div>
     },
   ];
 
