@@ -202,7 +202,7 @@ GenericForm.propTypes = {
   submitFromOutside: PropTypes.bool,
   editMode: PropTypes.bool,
   emptyPaper: PropTypes.bool,
-  fieldsContainerStyles: PropTypes.string,
+  fieldsContainerStyles: PropTypes.object,
   selector: PropTypes.object
 };
 export default GenericForm;
