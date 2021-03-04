@@ -1,12 +1,17 @@
 import React from "react";
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
 
 import IconButton from "@material-ui/core/IconButton";
 import {Save, Undo, Delete, ChevronLeft, ChevronRight} from "@material-ui/icons";
 
 import ContentHeader from "./ContentHeader";
 import BreadcrumbHeader from "./BreadcrumbHeader";
+import {bindActionCreators} from "redux";
+import {setFireSaveFromHeader} from "redux/pageHeader";
 
-const FormHeader = ({ config: {title, onClick} }) => {
+
+const FormHeader = ({ actions }) => {
   const list = [
     {
       id: 1,
@@ -25,7 +30,7 @@ const FormHeader = ({ config: {title, onClick} }) => {
         flexDirection: 'row-reverse'
       },
       content: <div>
-        <IconButton onClick={onClick}>
+        <IconButton onClick={() => actions.onClickOnSave(true)}>
           <Save />
         </IconButton>
         <IconButton >
@@ -54,4 +59,17 @@ const FormHeader = ({ config: {title, onClick} }) => {
   );
 }
 
-export default FormHeader;
+FormHeader.propTypes = {
+  actions: PropTypes.shape({
+    onClickOnSave: PropTypes.func
+  }),
+}
+
+const mapDispatchToProps = (dispatch, props) => {
+  const actions = {
+    onClickOnSave: bindActionCreators(setFireSaveFromHeader, dispatch),
+  };
+  return { actions };
+};
+
+export default connect(null,mapDispatchToProps)(FormHeader);

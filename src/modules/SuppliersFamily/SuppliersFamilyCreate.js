@@ -99,10 +99,11 @@ const SuppliersFamilyCreate = (props) => {
   ];
   return (
     <CreateUpdateForm title={props.intl.formatMessage({
-      id: "FamiliaProveedores.titulo",
-      defaultMessage: "Familias proveedor"
-    })}
-                      formConfiguration={createConfiguration} url={'api/fact/familiesProveidor'} />
+                        id: "FamiliaProveedores.titulo",
+                        defaultMessage: "Familias proveedor"
+                      })}
+                      formConfiguration={createConfiguration}
+                      url={'api/fact/familiesProveidor'} />
   )
 };
 

@@ -117,7 +117,8 @@ const GenericForm = (props) => {
             <RadioGroup aria-label="gender"
                         name="gender1"
                         value={props.formData && props.formData[key] ? props.formData[key] : ""}
-                        onChange={e => props.setFormData({...props.formData, [key]: e.currentTarget.value})}>
+                        onChange={e => props.setFormData({...props.formData, [key]: e.currentTarget.value})}
+                        required={required} >
               {selector && selector.options.map(option => <FormControlLabel key={option.value} value={option.value} control={<Radio />} label={option.label} />) }
             </RadioGroup>
           </>
@@ -134,7 +135,8 @@ const GenericForm = (props) => {
             value={props.formData && props.formData[key] ? props.formData[key] : ""}
             setValue={e => props.setFormData({...props.formData, [key]: e.value})}
             variant={variant}
-            options={selector.options} />
+            options={selector.options}
+            required={Boolean(required)} />
         );
       default:
         return;

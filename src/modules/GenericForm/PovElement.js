@@ -28,6 +28,7 @@ const PovElement =(props) => {
       label={props.label}
       onChange={props.onChange}
       value={props.value}
+      required={props.required}
       variant={props.variant ? props.variant : "outlined"}
       InputProps={{
         startAdornment: (

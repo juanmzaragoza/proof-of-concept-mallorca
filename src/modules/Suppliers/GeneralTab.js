@@ -13,7 +13,6 @@ const GeneralTab = ({...props}) => {
   useEffect(() => {
     const getString = (key) => formData[key]? formData[key]:"";
     formData['concat'] = getString('domicilio')+" "+getString('numero')+" "+getString('esc')+" "+getString('piso')+" "+getString('puerta');
-
   },[formData]);
 
   const suppliersConfig = [
@@ -427,7 +426,9 @@ const GeneralTab = ({...props}) => {
       component: <GenericForm formComponents={addressConfig}
                               emptyPaper={true}
                               formData={formData}
-                              setFormData={setFormData} />
+                              setFormData={setFormData}
+                              submitFromOutside={props.submitFromOutside}
+                              onSubmit={() => window.alert("FIRED 2!!!")} />
     },
     {
       label: "Direcciones Comerciales",
@@ -453,7 +454,9 @@ const GeneralTab = ({...props}) => {
           <GenericForm formComponents={suppliersConfig}
                        emptyPaper={true}
                        formData={formData}
-                       setFormData={setFormData} />
+                       setFormData={setFormData}
+                       submitFromOutside={props.submitFromOutside}
+                       onSubmit={() => window.alert("FIRED!!!")}/>
         </OutlinedContainer>
       </Grid>
       <Grid xs={12} item>
