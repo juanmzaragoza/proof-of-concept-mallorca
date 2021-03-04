@@ -21,7 +21,7 @@ const BreadcrumbHeader = ({ config }) => {
             {c.title}
           </Link>
           :
-          <Typography key={index}  className="header-breadcrumb-nolink"  color="textPrimary">{c.title}</Typography>)}
+          <Typography key={index} className="header-breadcrumb-nolink"  color="textPrimary">{c.title}</Typography>)}
       </Breadcrumbs>
     </HeadingHeader>
   )
