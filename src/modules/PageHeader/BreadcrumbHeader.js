@@ -16,22 +16,22 @@ const BreadcrumbHeader = ({ config }) => {
   return (
     <HeadingHeader>
       <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb">
-        {config.map(c => c.href?
-          <Link className="header-breadcrumb-link"  color="inherit" href={c.href} onClick={() => {}}>
+        {config.map((c, index) => c.href?
+          <Link key={index} className="header-breadcrumb-link"  color="inherit" href={c.href} onClick={() => {}}>
             {c.title}
           </Link>
           :
-          <Typography className="header-breadcrumb-nolink"  color="textPrimary">{c.title}</Typography>)}
+          <Typography key={index}  className="header-breadcrumb-nolink"  color="textPrimary">{c.title}</Typography>)}
       </Breadcrumbs>
     </HeadingHeader>
   )
 }
 
 BreadcrumbHeader.propTypes = {
-  config: PropTypes.shape({
+  config: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
     href: PropTypes.string
-  })
+  }))
 };
 
 const mapStateToProps = (state, props) => {
