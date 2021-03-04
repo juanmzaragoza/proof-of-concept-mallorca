@@ -5,10 +5,10 @@ import axios from "axios";
 const Axios = axios.create();
 
 //const authToken = () => 'Bearer ' + getPlainFrom('token');
-const authToken = () => 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjZWNvY2xvdWQiLCJhdWQiOiJhdXRoIiwic3ViIjoiYWRtaW4iLCJleHAiOjE2MTQ4NjQ3NTQsIm5hbWUiOiJBZG1pbmlzdHJhZG9yIEFkbWluIiwiZW1haWwiOiJhZG1pbkBsaW1pdC5lcyIsInJleHAiOjE2MTc0NTMxNTQsInJvbCI6WyJBRE1JTiJdLCJzZXNzaW9uIjp7ImkiOjQ0MywiZSI6OTg3fX0.1HiZyz8TENQnZZkYR8ucyQEN_yTZ0f_GVXwJfHwe30vzfnQGKRg4GlIrruE-0d9ew8ezEZOs0KEcsoUeebj1UA';
+const authToken = () => 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjZWNvY2xvdWQiLCJhdWQiOiJhdXRoIiwic3ViIjoiYWRtaW4iLCJleHAiOjE2MTQ4Nzg0MzksIm5hbWUiOiJBZG1pbmlzdHJhZG9yIEFkbWluIiwiZW1haWwiOiJhZG1pbkBsaW1pdC5lcyIsInJleHAiOjE2MTc0NjY4MzksInJvbCI6WyJBRE1JTiJdLCJzZXNzaW9uIjp7ImkiOjQ0MywiZSI6OTg1fX0.huD63zbSPnPpzPs7C6FtyFUjrJ5tyVV6FhZqP7l3IA5NSriZIlTxh4XJovMgO8AFZxmQthoVylPHQ1f-RtLXAA';
 
 //Axios.defaults.baseURL = config.apiRoot;
-Axios.defaults.baseURL = 'http://10.35.3.44:8083/';
+Axios.defaults.baseURL = 'https://10.35.3.44:8083/';
 
 Axios.interceptors.request.use(function (conf) {
   // Do something before request is sent
