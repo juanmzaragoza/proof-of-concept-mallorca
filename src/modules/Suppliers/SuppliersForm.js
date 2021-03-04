@@ -11,54 +11,59 @@ import Typography from "@material-ui/core/Typography";
 import GeneralTab from "./GeneralTab";
 import ConfigurableTabs from "modules/common/ConfigurableTabs";
 
-import {setBreadcrumbHeader, setFormConfig} from "redux/pageHeader";
+import {setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig} from "redux/pageHeader";
+import {getFireSave} from "redux/pageHeader/selectors";
 
+const SuppliersForm = ({ actions, submitFromOutside }) => {
 
-const tabs = [
-  {
-    label: "General",
-    key: 0,
-    component: <GeneralTab />
-  },
-  {
-    label: "Contactos",
-    key: 1,
-    component: "Contactos"
-  },
-  {
-    label: "Contabilidad",
-    key: 2,
-    component: "Contabilidad"
-  },
-  {
-    label: "Facturación",
-    key: 3,
-    component: "Facturación"
-  },
-  {
-    label: "Personalización",
-    key: 4,
-    component: "Personalización"
-  },
-  {
-    label: "Documentos",
-    key: 5,
-    component: "Documentos"
-  },
-  {
-    label: "Precios Coste",
-    key: 6,
-    component: "Precios Coste"
-  },
-  {
-    label: "Series",
-    key: 7,
-    component: "Series"
-  },
-];
+  const tabs = [
+    {
+      label: "General",
+      key: 0,
+      component: <GeneralTab submitFromOutside={submitFromOutside} />
+    },
+    {
+      label: "Contactos",
+      key: 1,
+      component: "Contactos"
+    },
+    {
+      label: "Contabilidad",
+      key: 2,
+      component: "Contabilidad"
+    },
+    {
+      label: "Facturación",
+      key: 3,
+      component: "Facturación"
+    },
+    {
+      label: "Personalización",
+      key: 4,
+      component: "Personalización"
+    },
+    {
+      label: "Documentos",
+      key: 5,
+      component: "Documentos"
+    },
+    {
+      label: "Precios Coste",
+      key: 6,
+      component: "Precios Coste"
+    },
+    {
+      label: "Series",
+      key: 7,
+      component: "Series"
+    },
+  ];
 
-
-const SuppliersForm = ({ actions }) => {
+  useEffect(() => {
+    if(submitFromOutside){
+      actions.setSubmitFromOutside(false);
+    }
+  },[submitFromOutside]);
 
   useEffect(() => {
     actions.setFormConfig({
@@ -89,13 +94,20 @@ const SuppliersForm = ({ actions }) => {
   )
 };
 
+const mapStateToProps = (state, props) => {
+  return {
+    submitFromOutside: getFireSave(state)
+  };
+};
+
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
     setFormConfig: bindActionCreators(setFormConfig, dispatch),
-    setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch)
+    setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch),
+    setSubmitFromOutside: bindActionCreators(setFireSaveFromHeader, dispatch),
   };
   return { actions };
 };
 
-const component = injectIntl(connect(null, mapDispatchToProps)(SuppliersForm));
+const component = injectIntl(connect(mapStateToProps, mapDispatchToProps)(SuppliersForm));
 export default component;

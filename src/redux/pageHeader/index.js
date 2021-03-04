@@ -3,6 +3,7 @@ const SET_LISTING_CONFIG = "SET_LISTING_CONFIG";
 const SET_FORM_CONFIG = "SET_FORM_CONFIG";
 const RESET_ALL_HEADER = "RESET_ALL_HEADER";
 const SET_BREADCRUMB_HEADER = "SET_BREADCRUMB_HEADER";
+const SET_FIRE_SAVE_FROM_HEADER = "SET_FIRE_SAVE_FROM_HEADER";
 
 //Functions
 
@@ -28,10 +29,18 @@ export function setBreadcrumbHeader(payload){
   }
 }
 
+export function setFireSaveFromHeader(payload){
+  return {
+    type: SET_FIRE_SAVE_FROM_HEADER,
+    payload
+  }
+}
+
 //Reducers
 const initialState = {
   listingConfig: false,
   formConfig: false,
+  fireSave: false,
   breadcrumbs: []
 };
 
@@ -43,6 +52,8 @@ export default (state = initialState, action) => {
       return { ...state, formConfig: {...action.payload}, listingConfig: false };
     case SET_BREADCRUMB_HEADER:
       return { ...state, breadcrumbs: action.payload };
+    case SET_FIRE_SAVE_FROM_HEADER:
+      return { ...state, fireSave: action.payload };
     case RESET_ALL_HEADER:
       return initialState;
     case "RESET":
