@@ -70,11 +70,12 @@ export class ActionsColumn extends React.PureComponent {
   }
 }
 ActionsColumn.propTypes = {
-  actions: PropTypes.arrayOf(PropTypes.PropTypes.shape({
+  actions: PropTypes.arrayOf(PropTypes.shape({
     icon: PropTypes.node,
     action: PropTypes.func.isRequired
   })).isRequired,
-  width: PropTypes.number
+  width: PropTypes.number,
+  title: PropTypes.string
 };
 ActionsColumn.defaultProps = {
   width: 240,

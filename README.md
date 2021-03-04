@@ -68,3 +68,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## For Development
+
+### Axios interceptor
+
+In the `services/Axios` module, you will find two interceptors. One to handle the action before the request and another one to process the errors from the server. Please, modify these files to change the behavior of the error handler.

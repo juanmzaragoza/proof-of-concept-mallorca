@@ -7,15 +7,15 @@ import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 
-import Logo from "./../assets/img/logo.png";
+import Logo from "assets/img/logo.png";
 
-import Password from '../components/password.input';
-import AuthLayout from '../components/AuthLayout';
+import Password from 'components/password.input';
+import AuthLayout from 'components/AuthLayout';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [error, ] = useState(false);
 
   const history = useHistory();
 
@@ -37,29 +37,29 @@ const Login = () => {
         <form autoComplete='off' className='auth-form' onSubmit={handleLogin}>
           <FormControl>
             <OutlinedInput
-                placeholder='Email'
-                error={error}
-                fullWidth
-                variant='outlined'
-                className='auth-inputs'
-                onChange={(e) => setEmail(e.currentTarget.value)}
-                value={email}
-                type='email'
-                autoFocus={true}
-                required
+              placeholder='Email'
+              error={error}
+              fullWidth
+              variant='outlined'
+              className='auth-inputs'
+              onChange={(e) => setEmail(e.currentTarget.value)}
+              value={email}
+              type='email'
+              autoFocus={true}
+              required
             />
           </FormControl>
           <FormControl>
             <Password
-                required
-                fullWidth
-                error={error}
-                placeholder='Password'
-                variant='outlined'
-                className='auth-inputs'
-                notched={false}
-                onChange={(e) => setPassword(e.currentTarget.value)}
-                value={password}
+              required
+              fullWidth
+              error={error}
+              placeholder='Password'
+              variant='outlined'
+              className='auth-inputs'
+              notched={false}
+              onChange={(e) => setPassword(e.currentTarget.value)}
+              value={password}
             />
           </FormControl>
 

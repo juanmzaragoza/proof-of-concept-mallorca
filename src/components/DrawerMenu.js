@@ -13,7 +13,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Drawer from "@material-ui/core/Drawer";
 import {makeStyles, useTheme} from "@material-ui/core/styles";
 
+import modules from "modules";
 import {drawerWidth} from "../constants/styles";
+import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -37,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 const DrawerMenu = (props) => {
   const classes = useStyles();
   const theme = useTheme();
+  const history = useHistory();
 
   return (
     <Drawer
@@ -64,12 +67,15 @@ const DrawerMenu = (props) => {
       </List>
       <Divider />
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        {modules
+          .filter(module => module.routeProps)
+          .map(module => (
+            <ListItem button key={module.name} onClick={() => history.push(module.routeProps.path)}>
+              <ListItemIcon>{module.icon}</ListItemIcon>
+              <ListItemText primary={module.name} />
+            </ListItem>
+          ))
+        }
       </List>
     </Drawer>
   )

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+//import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-const useStyles = makeStyles((theme) => ({
+/*const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         flexWrap: 'wrap',
@@ -20,10 +20,10 @@ const useStyles = makeStyles((theme) => ({
     textField: {
         width: '25ch',
     },
-}));
+}));*/
 
 export default function Password(props) {
-    const classes = useStyles();
+    //const classes = useStyles();
 
     const [showPassword, setShowPassword] = useState(false)
 

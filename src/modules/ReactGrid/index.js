@@ -1,5 +1,7 @@
 import React, { useReducer, useState, useEffect } from 'react';
-import { default as GridContainer } from '@material-ui/core/Grid';
+import PropTypes from "prop-types";
+import {withSnackbar} from "notistack";
+
 import {
   FilteringState,
   IntegratedFiltering,
@@ -18,26 +20,16 @@ import {
   TableInlineCellEditing,
 } from '@devexpress/dx-react-grid-material-ui';
 
-import Paper from '@material-ui/core/Paper';
 import DeleteIcon from "@material-ui/icons/Delete";
-import IconButton from "@material-ui/core/IconButton";
-import RefreshIcon from '@material-ui/icons/Refresh';
-import AddIcon from '@material-ui/icons/Add';
-import SearchIcon from '@material-ui/icons/Search';
-import ReplyIcon from '@material-ui/icons/Reply';
-import ClearIcon from '@material-ui/icons/Clear';
-import ImportExportIcon from '@material-ui/icons/ImportExport';
-
-import FormControl from "@material-ui/core/FormControl";
-import {FilledInput, InputLabel, ListItemIcon, MenuItem, Select} from "@material-ui/core";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import EditIcon from "@material-ui/icons/Edit";
 
 import {ActionsColumn} from "./ActionsColumn";
 import { Loading } from './Loading';
+import Axios from "../../Axios";
+import {useHistory} from "react-router-dom";
+import {injectIntl} from "react-intl";
 
-const URL = 'https://js.devexpress.com/Demos/Mvc/api/DataGridWebApi/Orders';
-
-const getRowId = row => row.OrderID;
+const getRowId = row => row.id;
 
 const initialState = {
   data: [],
@@ -74,25 +66,27 @@ function reducer(state, { type, payload }) {
   }
 }
 
-const ReactGrid = (props) => {
+const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [columns] = useState([
-    { name: 'ShipCountry', title: 'Country' },
-    { name: 'ShipCity', title: 'City' },
-    { name: 'ShipAddress', title: 'Address' }
-  ]);
+  const history = useHistory();
+  const [columns] = useState(configuration.columns);
 
   const [totalCount, setTotalCount] = useState(0);
   const [pageSize] = useState(5);
   const [currentPage, setCurrentPage] = useState(0);
   const [lastQuery, setLastQuery] = useState();
+
   const { loading } = state;
 
   const actions = [
     {
-      icon: <DeleteIcon/>,
-      action: row => commitChanges({ deleted: [getRowId(row)] })
-    }
+      icon: <DeleteIcon />,
+      action: row => deleteData(row)
+    },
+    {
+      icon: <EditIcon />,
+      action: row => history.push(`${history.location.pathname}/${row.id}`)
+    },
   ];
 
   const changeFilters = (filters) => {
@@ -107,7 +101,30 @@ const ReactGrid = (props) => {
     dispatch({ type: 'CHANGE_LOADING', payload: value});
   }
 
-  const loadData = () => {
+  const deleteData = (row) => {
+    const queryString = `${configuration.URL}/${row.id}`;
+    Axios.delete(queryString,{
+      headers: new Headers({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }),
+    })
+      .then(({status, data, ...rest}) => {
+        commitChanges({ deleted: [getRowId(row)] });
+      })
+      .catch(error => {
+        const status = error.response.status;
+        if(status === 400){
+          enqueueSnackbar("Ups! Algo ha salido mal :(", {variant: 'error'});
+        } else if(status === 500) {
+          window.alert("INTERVAL SERVER ERROR");
+        } else if(status === 403){
+          window.alert("FORBIDDEN")
+        }
+      });
+  };
+
+  /*const loadData = () => {
 
     let queryString = `${URL}?take=${pageSize}&skip=${pageSize * currentPage}`;
 
@@ -137,6 +154,30 @@ const ReactGrid = (props) => {
         });
       setLastQuery(queryString);
     }
+  };*/
+
+  const loadData = () => {
+    let queryString = `${configuration.URL}?size=${pageSize}&page=${currentPage}`;
+    if (queryString !== lastQuery && !loading) {
+      changeLoading(true);
+      Axios.get(queryString)
+        .then(({data}) => data)
+        .then(({_embedded, page}) => {
+          dispatch({ type: 'FETCH_SUCCESS', payload: _embedded[configuration.listKey] });
+          //TODO() un-hardcoding this -> totalCount comes empty
+          setTotalCount(page.totalElements);
+          changeLoading(false);
+        })
+        .catch(() => {
+          dispatch({ type: 'FETCH_ERROR' });
+          changeLoading(false);
+          enqueueSnackbar(props.intl.formatMessage({
+            id: "ReactGrid.error.algo_salio_mal",
+            defaultMessage: "Ups! Algo ha salido mal :("
+          }), {variant: 'error'});
+        });
+      setLastQuery(queryString);
+    }
   };
 
   useEffect(() => loadData());
@@ -162,69 +203,7 @@ const ReactGrid = (props) => {
     data, sorting
   } = state;
   return (
-    <Paper style={{ position: 'relative' }}>
-      <GridContainer container style={{
-        backgroundColor: '#f2f2f2',
-        padding: '20px'}}>
-        <GridContainer item xs={5}>
-          <h1 style={{ color: '#6f6f6f' }}>Marcajes</h1>
-        </GridContainer>
-        <GridContainer item xs={2}>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginTop: '5px'
-          }}>
-            <IconButton aria-label="refesh">
-              <RefreshIcon fontSize="default" />
-            </IconButton>
-            <IconButton aria-label="add">
-              <AddIcon fontSize="default" />
-            </IconButton>
-            <FormControl>
-              <Select
-                value={""}
-                onChange={(e) => console.log(e)}
-                displayEmpty
-                inputProps={{ 'aria-label': 'Without label' }}
-              >
-                <MenuItem value="">
-                  <em>Acciones</em>
-                </MenuItem>
-                <MenuItem value={10}>
-                  <ListItemIcon>
-                    <ClearIcon fontSize="small" />
-                  </ListItemIcon>
-                  Limpiar Filtro
-                </MenuItem>
-                <MenuItem value={20}>
-                  <ListItemIcon>
-                    <ImportExportIcon fontSize="small" />
-                  </ListItemIcon>
-                  Importar
-                </MenuItem>
-                <MenuItem value={30}>
-                  <ListItemIcon>
-                    <ReplyIcon fontSize="small" />
-                  </ListItemIcon>
-                  Exportar
-                </MenuItem>
-              </Select>
-            </FormControl>
-          </div>
-        </GridContainer>
-        <GridContainer item xs={5}>
-          <FormControl fullWidth variant="filled">
-            <InputLabel htmlFor="filled-adornment-amount">Búsqueda</InputLabel>
-            <FilledInput
-              id="filled-adornment-amount"
-              value={""}
-              onChange={e => console.log(e)}
-              endAdornment={<InputAdornment position="end"><SearchIcon></SearchIcon></InputAdornment>}
-            />
-          </FormControl>
-        </GridContainer>
-      </GridContainer>
+    <>
       <Grid
         rows={data}
         columns={columns}
@@ -254,17 +233,32 @@ const ReactGrid = (props) => {
         {/***************************/}
         <EditingState onCommitChanges={commitChanges} />
 
-        <Table cellComponent={FocusableCell} />
+        <Table cellComponent={FocusableCell} noDataText={"HOla"} />
         <TableHeaderRow showSortingControls />
         <TableFilterRow />
         <TableInlineCellEditing selectTextOnEditStart/>
-        <ActionsColumn title="Actions" actions={actions} />
+        <ActionsColumn title={props.intl.formatMessage({
+          id: "ReactGrid.actions_column",
+          defaultMessage: "Acciones"
+        })} actions={data && data.length?actions:[]} />
         <PagingPanel />
 
       </Grid>
       {loading && <Loading />}
-    </Paper>
+    </>
   );
 };
 
-export default ReactGrid;
+ReactGrid.propTypes = {
+  configuration: PropTypes.shape({
+    title: PropTypes.string,
+    columns: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string,
+      title: PropTypes.string
+    })),
+    URL: PropTypes.string.isRequired,
+    listKey: PropTypes.string.isRequired
+  })
+};
+
+export default withSnackbar(injectIntl(ReactGrid));

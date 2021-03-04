@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import clsx from 'clsx';
-import { useHistory } from "react-router-dom";
+import {Redirect, Route, Switch, useHistory} from "react-router-dom";
 
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,18 +12,19 @@ import MenuIcon from '@material-ui/icons/Menu';
 import MailIcon from '@material-ui/icons/Mail';
 import AppsIcon from '@material-ui/icons/Apps';
 import CloudQueueIcon from '@material-ui/icons/CloudQueue';
-import { Route } from "react-router-dom";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Badge from "@material-ui/core/Badge";
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import {AccountCircle ,More} from "@material-ui/icons";
 
+import modules from "./modules";
+
 import DrawerMenu from "./components/DrawerMenu";
-import ReactGrid from "./modules/ReactGrid";
 
 import {drawerWidth} from "./constants/styles";
 import EnterpriseGroupSelect from "./components/EnterpriseGroupSelect";
+import PageHeader from "modules/PageHeader";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -266,8 +267,17 @@ const Layout = ({ children, ...props}) => {
             })}
         >
           <div className={classes.drawerHeader} />
+          <PageHeader />
+          <Switch>
+            <Redirect exact from={'/'} to={'familia-proveedores'} />
+            {modules
+              .filter(module => module.routeProps)
+              .map(module => (
+                <Route {...module.routeProps} key={module.name} />
+              ))
+            }
+          </Switch>
 
-          <Route exact path="/" component={ReactGrid} />
         </main>
       </div>
   );

@@ -1,5 +1,10 @@
 import ReactGrid from './ReactGrid';
+import SuppliersFamily from './SuppliersFamily';
+import Articles from './Suppliers';
 
-export default [
-  ReactGrid
+const component = [
+  ReactGrid,
+  SuppliersFamily,
+  Articles
 ];
+export default component;

@@ -1,0 +1,17 @@
+.advanced-filters-root {
+   padding: 20px;
+}
+
+.actions-buttons-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px
+}
+
+.actions-buttons-actions .left-side *:not(:first-child) {
+  margin-left: 10px
+}
+
+.actions-buttons-actions .right-side *:not(:first-child) {
+  margin-left: 10px
+}
