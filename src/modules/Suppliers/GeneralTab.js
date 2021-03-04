@@ -13,6 +13,7 @@ const GeneralTab = ({...props}) => {
   useEffect(() => {
     const getString = (key) => formData[key]? formData[key]:"";
     formData['concat'] = getString('domicilio')+" "+getString('numero')+" "+getString('esc')+" "+getString('piso')+" "+getString('puerta');
+
   },[formData]);
 
   const suppliersConfig = [
@@ -39,25 +40,30 @@ const GeneralTab = ({...props}) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4
+        md: 5
       },
     },
     {
-      placeHolder: "",
-      type: 'radio',
-      key: 'some',
+      placeHolder: "Bloqueado",
+      type: 'checkbox',
+      key: 'bloqueado',
+      breakpoints: {
+        xs: 12,
+        md: 3
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.alias",
+        defaultMessage: "Alias"
+      }),
+      type: 'input',
+      key: 'alias',
       required: true,
       breakpoints: {
         xs: 12,
         md: 4
       },
-      selector: {
-        options: [
-          {value: "1", label:"Deshomologado"},
-          {value: "2", label:"Contratista"},
-          {value: "3", label:"Bloqueado"},
-        ]
-      }
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -69,12 +75,12 @@ const GeneralTab = ({...props}) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 1
       },
       selector: {
         options: [
-          {value: "1", label:"España"},
-          {value: "2", label:"Argentina"},
+          {value: "1", label:"FRA"},
+          {value: "2", label:"ARG"},
           {value: "3", label:"USA"},
         ]
       }
@@ -109,7 +115,7 @@ const GeneralTab = ({...props}) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4
+        md: 2
       },
     },
     {
@@ -118,20 +124,7 @@ const GeneralTab = ({...props}) => {
       key: 'eat',
       breakpoints: {
         xs: 12,
-        md: 4
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.alias",
-        defaultMessage: "Alias"
-      }),
-      type: 'input',
-      key: 'alias',
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 4
+        md: 3
       },
     },
     {
@@ -156,6 +149,44 @@ const GeneralTab = ({...props}) => {
     },
     {
       placeHolder: props.intl.formatMessage({
+        id: "Proveedores.comercial",
+        defaultMessage: "Comercial"
+      }),
+      type: 'POV',
+      key: 'comercial',
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 3
+      },
+      selector: {
+        options: [
+          {value: "1", label:"One"},
+          {value: "2", label:"Two"},
+          {value: "3", label:"Three"},
+        ]
+      }
+    },
+    {
+      placeHolder: "Deshomologado",
+      type: 'checkbox',
+      key: 'deshomologado',
+      breakpoints: {
+        xs: 12,
+        md: 2
+      },
+    },
+    {
+      placeHolder: "SubContratista",
+      type: 'checkbox',
+      key: 'subcontratis',
+      breakpoints: {
+        xs: 12,
+        md: 2
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
         id: "Proveedores.idioma",
         defaultMessage: "Idioma"
       }),
@@ -164,7 +195,7 @@ const GeneralTab = ({...props}) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4
+        md: 2
       },
       selector: {
         options: [
@@ -176,15 +207,75 @@ const GeneralTab = ({...props}) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Proveedores.comercial",
-        defaultMessage: "Comercial"
+        id: "Proveedores.regiva",
+        defaultMessage: "Reg. IVA"
       }),
       type: 'POV',
-      key: 'comercial',
+      key: 'regiva',
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4
+        md: 2
+      },
+      selector: {
+        options: [
+          {value: "1", label:"One"},
+          {value: "2", label:"Two"},
+          {value: "3", label:"Three"},
+        ]
+      }
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.divisa",
+        defaultMessage: "Divisa"
+      }),
+      type: 'POV',
+      key: 'divisa',
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 2
+      },
+      selector: {
+        options: [
+          {value: "1", label:"One"},
+          {value: "2", label:"Two"},
+          {value: "3", label:"Three"},
+        ]
+      }
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.tvencimiento",
+        defaultMessage: "Tipo Vencimiento"
+      }),
+      type: 'POV',
+      key: 'tvencimiento',
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 3
+      },
+      selector: {
+        options: [
+          {value: "1", label:"One"},
+          {value: "2", label:"Two"},
+          {value: "3", label:"Three"},
+        ]
+      }
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.docpago",
+        defaultMessage: "Documento de Pago"
+      }),
+      type: 'POV',
+      key: 'docpago',
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 2
       },
       selector: {
         options: [
@@ -293,7 +384,6 @@ const GeneralTab = ({...props}) => {
         xs: 12,
         md: 12
       },
-      disabled: true
     },
     {
       placeHolder: props.intl.formatMessage({
