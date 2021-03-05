@@ -27,7 +27,6 @@ const CreateUpdateForm = ({
       enqueueSnackbar, //withSackBar
       services, //withServices
       ...props }) => {
-  const history = useHistory();
   const [editMode, setEditMode] = useState(false);
 
   const { id } = useParams();
@@ -47,26 +46,7 @@ const CreateUpdateForm = ({
     if(isEditable()){
       setBreadcrumbHeader([{title: title, href: "/"}, {title: "Modificar"}]);
       setEditMode(true);
-      const queryString = `${url}/${id}`;
-      Axios.get(queryString,{
-        headers: new Headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }),
-      })
-        .then(({status, data, ...rest}) => {
-          setFormData(data);
-        })
-        .catch(error => {
-          const status = error.response.status;
-          if(status === 400){
-            enqueueSnackbar(props.intl.formatMessage({
-              id: "ReactGrid.error.algo_salio_mal",
-              defaultMessage: "Ups! Algo ha salido mal :("
-            }), {variant: 'error'});
-          }
-          history.goBack();
-        });
+      services.getById(id);
     }
   },[id]);
 

@@ -14,15 +14,19 @@ import ConfigurableTabs from "modules/common/ConfigurableTabs";
 import {setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig} from "redux/pageHeader";
 import {getFireSave} from "redux/pageHeader/selectors";
 import {withAbmServices} from "../wrappers";
-import {getFormErrors} from "../../redux/genericForm/selectors";
+import {getFormData, getFormErrors} from "../../redux/genericForm/selectors";
+import {useParams} from "react-router-dom";
+import {setFormData} from "../../redux/genericForm";
 
-const SuppliersForm = ({ actions, submitFromOutside, services, ...props }) => {
+const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...props }) => {
 
   const tabs = [
     {
       label: "General",
       key: 0,
       component: <GeneralTab
+        formData={formData}
+        setFormData={actions.setFormData}
         submitFromOutside={submitFromOutside}
         onSubmitTab={(data) => create(data)}
         formErrors={props.formErrors}/>
@@ -64,6 +68,20 @@ const SuppliersForm = ({ actions, submitFromOutside, services, ...props }) => {
     },
   ];
 
+  const { id } = useParams();
+
+  const isEditable = () => {
+    return !!id;
+  };
+
+  useEffect(() => {
+    if(isEditable()){
+      setBreadcrumbHeader([{title: "h", href: "/"}, {title: "Modificar"}]);
+      //setEditMode(true);
+      services.getById(id);
+    }
+  },[id]);
+
   const create = (data) => services.create(data);
 
   useEffect(() => {
@@ -104,7 +122,8 @@ const SuppliersForm = ({ actions, submitFromOutside, services, ...props }) => {
 const mapStateToProps = (state, props) => {
   return {
     submitFromOutside: getFireSave(state),
-    formErrors: getFormErrors(state)
+    formErrors: getFormErrors(state),
+    formData: getFormData(state)
   };
 };
 
@@ -113,6 +132,7 @@ const mapDispatchToProps = (dispatch, props) => {
     setFormConfig: bindActionCreators(setFormConfig, dispatch),
     setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch),
     setSubmitFromOutside: bindActionCreators(setFireSaveFromHeader, dispatch),
+    setFormData: bindActionCreators(setFormData, dispatch),
   };
   return { actions };
 };

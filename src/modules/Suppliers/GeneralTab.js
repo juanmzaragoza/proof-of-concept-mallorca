@@ -7,8 +7,8 @@ import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "../common/ConfigurableTabs";
 
 
-const GeneralTab = ({...props}) => {
-  const [formData , setFormData] = useState({});
+const GeneralTab = ({formData, setFormData, ...props}) => {
+  //const [formData , setFormData] = useState({});
 
   useEffect(() => {
     const getString = (key) => formData[key]? formData[key]:"";
