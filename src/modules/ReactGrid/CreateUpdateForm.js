@@ -12,7 +12,8 @@ import Axios from "../../Axios";
 
 import {setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig} from "redux/pageHeader";
 import {getFireSave} from "redux/pageHeader/selectors";
-import {getFormErrors} from "../../redux/genericForm/selectors";
+import {getFormData, getFormErrors} from "../../redux/genericForm/selectors";
+import {setFormData} from "../../redux/genericForm";
 
 const CreateUpdateForm = ({
       title, //props
@@ -21,11 +22,11 @@ const CreateUpdateForm = ({
       actions, //redux
       submitFromOutside,
       formErrors,
+      formData,
+      actions: {setFormConfig, setBreadcrumbHeader, setSubmitFromOutside, setFormData},
       enqueueSnackbar, //withSackBar
       services, //withServices
       ...props }) => {
-  const history = useHistory();
-  const [formData, setFormData] = useState();
   const [editMode, setEditMode] = useState(false);
 
   const { id } = useParams();
@@ -35,42 +36,23 @@ const CreateUpdateForm = ({
   };
 
   useEffect(() => {
-    actions.setFormConfig({
+    setFormConfig({
       title: title
     });
-    actions.setBreadcrumbHeader([{title: title, href: "/"}, {title: "Nuevo"}]);
+    setBreadcrumbHeader([{title: title, href: "/"}, {title: "Nuevo"}]);
   },[]);
 
   useEffect(() => {
     if(isEditable()){
-      actions.setBreadcrumbHeader([{title: title, href: "/"}, {title: "Modificar"}]);
+      setBreadcrumbHeader([{title: title, href: "/"}, {title: "Modificar"}]);
       setEditMode(true);
-      const queryString = `${url}/${id}`;
-      Axios.get(queryString,{
-        headers: new Headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }),
-      })
-        .then(({status, data, ...rest}) => {
-          setFormData(data);
-        })
-        .catch(error => {
-          const status = error.response.status;
-          if(status === 400){
-            enqueueSnackbar(props.intl.formatMessage({
-              id: "ReactGrid.error.algo_salio_mal",
-              defaultMessage: "Ups! Algo ha salido mal :("
-            }), {variant: 'error'});
-          }
-          history.goBack();
-        });
+      services.getById(id);
     }
   },[id]);
 
   useEffect(() => {
     if(submitFromOutside){
-      actions.setSubmitFromOutside(false);
+      setSubmitFromOutside(false);
     }
   },[submitFromOutside]);
 
@@ -122,7 +104,8 @@ CreateUpdateForm.propTypes = {
 const mapStateToProps = (state, props) => {
   return {
     submitFromOutside: getFireSave(state),
-    formErrors: getFormErrors(state)
+    formErrors: getFormErrors(state),
+    formData: getFormData(state)
   };
 };
 
@@ -131,6 +114,7 @@ const mapDispatchToProps = (dispatch, props) => {
     setFormConfig: bindActionCreators(setFormConfig, dispatch),
     setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch),
     setSubmitFromOutside: bindActionCreators(setFireSaveFromHeader, dispatch),
+    setFormData: bindActionCreators(setFormData, dispatch),
   };
   return { actions };
 };

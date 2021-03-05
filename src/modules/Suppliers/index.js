@@ -100,7 +100,7 @@ const Suppliers = () => (
     <Switch>
       <Route exact path={`${URL}`} component={SuppliersListIntl}></Route>
       <Route path={`${URL}/create`} component={SuppliersFormWithUrl}></Route>
-      {/*<Route path={`${URL}/:id`} component={SuppliersFamilyCreateIntl}></Route>*/}
+      {<Route path={`${URL}/:id`} component={SuppliersFormWithUrl}></Route>}
     </Switch>
   </Paper>
 );

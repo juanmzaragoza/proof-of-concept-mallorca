@@ -5,7 +5,7 @@ import {withSnackbar} from "notistack";
 import {useHistory} from "react-router-dom";
 import {connect} from "react-redux";
 import {bindActionCreators, compose} from "redux";
-import {addError, resetError} from "../../redux/genericForm";
+import {addError, resetError, setFormData} from "../../redux/genericForm";
 
 const withAbmServices = (PassedComponent) => {
 
@@ -61,6 +61,29 @@ const withAbmServices = (PassedComponent) => {
         });
     }
 
+    const getById = (id) => {
+      const queryString = `${props.url}/${id}`;
+      Axios.get(queryString,{
+        headers: new Headers({
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }),
+      })
+        .then(({status, data, ...rest}) => {
+          props.setFormData(data);
+        })
+        .catch(error => {
+          const status = error.response.status;
+          if(status === 400){
+            props.enqueueSnackbar(props.intl.formatMessage({
+              id: "ReactGrid.error.algo_salio_mal",
+              defaultMessage: "Ups! Algo ha salido mal :("
+            }), {variant: 'error'});
+          }
+          history.goBack();
+        });
+    }
+
     const handlePersistError = ({status, data}) => {
       if (status === 400 && data.errors) {
         for (const err of data.errors) {
@@ -73,7 +96,7 @@ const withAbmServices = (PassedComponent) => {
       }), {variant: 'error'});
     }
 
-    return <PassedComponent services={{create, update}} {...props} ></PassedComponent>;
+    return <PassedComponent services={{create, update, getById}} {...props} ></PassedComponent>;
   }
 
   const mapStateToProps = (state, props) => {
@@ -85,7 +108,8 @@ const withAbmServices = (PassedComponent) => {
   const mapDispatchToProps = (dispatch, props) => {
     const actions = {
       addError: bindActionCreators(addError, dispatch),
-      resetError: bindActionCreators(resetError, dispatch)
+      resetError: bindActionCreators(resetError, dispatch),
+      setFormData: bindActionCreators(setFormData, dispatch),
     };
     return actions;
   };
