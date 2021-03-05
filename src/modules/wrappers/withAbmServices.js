@@ -6,6 +6,7 @@ import {useHistory} from "react-router-dom";
 import {connect} from "react-redux";
 import {bindActionCreators, compose} from "redux";
 import {addError, resetError, setFormData} from "../../redux/genericForm";
+import {finishLoading, startLoading} from "../../redux/app";
 
 const withAbmServices = (PassedComponent) => {
 
@@ -15,6 +16,7 @@ const withAbmServices = (PassedComponent) => {
     const create = (data) => {
       const queryString = `${props.url}`;
       props.resetError();
+      props.startLoading();
       Axios.post(queryString, JSON.stringify(data), {
         headers: new Headers({
           'Accept': 'application/json',
@@ -22,6 +24,7 @@ const withAbmServices = (PassedComponent) => {
         }),
       })
         .then(({status, data, ...rest}) => {
+          props.finishLoading();
           history.goBack();
           props.enqueueSnackbar(props.intl.formatMessage({
             id: "CreateUpdateForm.creacion_correcta",
@@ -29,6 +32,7 @@ const withAbmServices = (PassedComponent) => {
           }), {variant: 'success'});
         })
         .catch(error => {
+          props.finishLoading();
           if(error.response){
             handlePersistError(error.response);
           } else{
@@ -43,6 +47,7 @@ const withAbmServices = (PassedComponent) => {
     const update = (id, data) => {
       const queryString = `${props.url}/${id}`;
       props.resetError();
+      props.startLoading();
       Axios.put(queryString, JSON.stringify(data), {
         headers: new Headers({
           'Accept': 'application/json',
@@ -50,6 +55,7 @@ const withAbmServices = (PassedComponent) => {
         }),
       })
         .then(({status, data, ...rest}) => {
+          props.finishLoading();
           history.goBack();
           props.enqueueSnackbar(props.intl.formatMessage({
             id: "CreateUpdateForm.actualizacion_correcta",
@@ -57,12 +63,14 @@ const withAbmServices = (PassedComponent) => {
           }), {variant: 'success'});
         })
         .catch(error => {
+          props.finishLoading();
           handlePersistError(error.response);
         });
     }
 
     const getById = (id) => {
       const queryString = `${props.url}/${id}`;
+      props.startLoading();
       Axios.get(queryString,{
         headers: new Headers({
           'Accept': 'application/json',
@@ -70,9 +78,11 @@ const withAbmServices = (PassedComponent) => {
         }),
       })
         .then(({status, data, ...rest}) => {
+          props.finishLoading();
           props.setFormData(data);
         })
         .catch(error => {
+          props.finishLoading();
           const status = error.response.status;
           if(status === 400){
             props.enqueueSnackbar(props.intl.formatMessage({
@@ -110,6 +120,8 @@ const withAbmServices = (PassedComponent) => {
       addError: bindActionCreators(addError, dispatch),
       resetError: bindActionCreators(resetError, dispatch),
       setFormData: bindActionCreators(setFormData, dispatch),
+      startLoading: bindActionCreators(startLoading, dispatch),
+      finishLoading: bindActionCreators(finishLoading, dispatch),
     };
     return actions;
   };
