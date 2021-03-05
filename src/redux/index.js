@@ -2,11 +2,13 @@ import { combineReducers } from "redux";
 import example from "redux/example/index.js";
 import advancedFilters from "redux/advancedFilters/index.js";
 import pageHeader from "redux/pageHeader/index.js";
+import genericForm from "redux/genericForm/index.js";
 
 export default combineReducers({
   example,
   advancedFilters,
-  pageHeader
+  pageHeader,
+  genericForm
 });
 
 //Global action to reset the store

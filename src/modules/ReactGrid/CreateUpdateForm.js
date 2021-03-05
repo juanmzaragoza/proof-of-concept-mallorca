@@ -1,21 +1,31 @@
 import React, {useEffect, useState} from 'react';
-import {bindActionCreators} from "redux";
+import {bindActionCreators,compose} from "redux";
 import {connect} from "react-redux";
 import {useHistory, useParams} from "react-router-dom";
 import PropTypes from "prop-types";
-import {withSnackbar} from "notistack";
 import {injectIntl} from "react-intl";
 
-import GenericForm from "../GenericForm";
+import GenericForm from "modules/GenericForm";
+import { withAbmServices } from "modules/wrappers";
+
 import Axios from "../../Axios";
 
-import {setBreadcrumbHeader, setFormConfig} from "redux/pageHeader";
+import {setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig} from "redux/pageHeader";
+import {getFireSave} from "redux/pageHeader/selectors";
+import {getFormErrors} from "../../redux/genericForm/selectors";
 
-const CreateUpdateForm = ({ actions, title, enqueueSnackbar, formConfiguration, url, ...props }) => {
+const CreateUpdateForm = ({
+      title, //props
+      formConfiguration,
+      url,
+      actions, //redux
+      submitFromOutside,
+      formErrors,
+      enqueueSnackbar, //withSackBar
+      services, //withServices
+      ...props }) => {
   const history = useHistory();
-  const [submitFromOutside, setSubmitFromOutside] = useState(false);
   const [formData, setFormData] = useState();
-  const [formErrors, setFormErrors] = useState({});
   const [editMode, setEditMode] = useState(false);
 
   const { id } = useParams();
@@ -26,8 +36,7 @@ const CreateUpdateForm = ({ actions, title, enqueueSnackbar, formConfiguration, 
 
   useEffect(() => {
     actions.setFormConfig({
-      title: title,
-      onClick: () => setSubmitFromOutside(true)
+      title: title
     });
     actions.setBreadcrumbHeader([{title: title, href: "/"}, {title: "Nuevo"}]);
   },[]);
@@ -61,7 +70,7 @@ const CreateUpdateForm = ({ actions, title, enqueueSnackbar, formConfiguration, 
 
   useEffect(() => {
     if(submitFromOutside){
-      setSubmitFromOutside(false);
+      actions.setSubmitFromOutside(false);
     }
   },[submitFromOutside]);
 
@@ -73,57 +82,9 @@ const CreateUpdateForm = ({ actions, title, enqueueSnackbar, formConfiguration, 
     }
   };
 
-  const create = (data) => {
-    const queryString = `${url}`;
-    Axios.post(queryString, JSON.stringify(data),{
-      headers: new Headers({
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      }),
-    })
-      .then(({status, data, ...rest}) => {
-        history.goBack();
-        enqueueSnackbar(props.intl.formatMessage({
-          id: "CreateUpdateForm.creacion_correcta",
-          defaultMessage: "Registro creado correctamente"
-        }), {variant: 'success'});
-      })
-      .catch(error => {
-        handlePersistError(error.response);
-      });
-  };
+  const create = (data) => services.create(data);
 
-  const update = (data) => {
-    const queryString = `${url}/${id}`;
-    Axios.put(queryString,JSON.stringify(data),{
-      headers: new Headers({
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      }),
-    })
-      .then(({status, data, ...rest}) => {
-        history.goBack();
-        enqueueSnackbar(props.intl.formatMessage({
-          id: "CreateUpdateForm.actualizacion_correcta",
-          defaultMessage: "Registro actualizado correctamente"
-        }), {variant: 'success'});
-      })
-      .catch(error => {
-        handlePersistError(error.response);
-      });
-  }
-
-  const handlePersistError = ({ status, data}) => {
-    if(status === 400 && data.errors){
-      for (const err of data.errors) {
-        setFormErrors({...formErrors, [err.field]: {message: err.defaultMessage}});
-      }
-    }
-    enqueueSnackbar(props.intl.formatMessage({
-      id: "CreateUpdateForm.revise_datos",
-      defaultMessage: "Revise los datos e intente nuevamente..."
-    }), {variant: 'error'});
-  }
+  const update = (data) => services.update(id, data);
 
   return (
     <GenericForm
@@ -153,15 +114,29 @@ CreateUpdateForm.propTypes = {
       lg: PropTypes.number,
     })
   })),
-  url: PropTypes.string.isRequired
+  url: PropTypes.string.isRequired,
+  actions: PropTypes.any,
+  submitFromOutside: PropTypes.bool
+};
+
+const mapStateToProps = (state, props) => {
+  return {
+    submitFromOutside: getFireSave(state),
+    formErrors: getFormErrors(state)
+  };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
     setFormConfig: bindActionCreators(setFormConfig, dispatch),
-    setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch)
+    setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch),
+    setSubmitFromOutside: bindActionCreators(setFireSaveFromHeader, dispatch),
   };
   return { actions };
 };
 
-export default withSnackbar(injectIntl(connect(null, mapDispatchToProps)(CreateUpdateForm)));
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  injectIntl,
+  withAbmServices
+)(CreateUpdateForm);

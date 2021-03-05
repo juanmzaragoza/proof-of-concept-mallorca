@@ -45,7 +45,7 @@ const GeneralTab = ({...props}) => {
     {
       placeHolder: "Bloqueado",
       type: 'checkbox',
-      key: 'bloqueado',
+      key: 'pro_blo',
       breakpoints: {
         xs: 12,
         md: 3
@@ -132,7 +132,7 @@ const GeneralTab = ({...props}) => {
         defaultMessage: "Familia"
       }),
       type: 'POV',
-      key: 'familia',
+      key: 'familiaProveidor',
       required: true,
       breakpoints: {
         xs: 12,
@@ -169,7 +169,7 @@ const GeneralTab = ({...props}) => {
     {
       placeHolder: "Deshomologado",
       type: 'checkbox',
-      key: 'deshomologado',
+      key: 'pro_dhm',
       breakpoints: {
         xs: 12,
         md: 2
@@ -178,7 +178,7 @@ const GeneralTab = ({...props}) => {
     {
       placeHolder: "SubContratista",
       type: 'checkbox',
-      key: 'subcontratis',
+      key: 'pro_scn',
       breakpoints: {
         xs: 12,
         md: 2
@@ -210,7 +210,7 @@ const GeneralTab = ({...props}) => {
         defaultMessage: "Reg. IVA"
       }),
       type: 'POV',
-      key: 'regiva',
+      key: 'regimIva',
       required: true,
       breakpoints: {
         xs: 12,
@@ -250,7 +250,7 @@ const GeneralTab = ({...props}) => {
         defaultMessage: "Tipo Vencimiento"
       }),
       type: 'POV',
-      key: 'tvencimiento',
+      key: 'tipusVenciment',
       required: true,
       breakpoints: {
         xs: 12,
@@ -270,7 +270,7 @@ const GeneralTab = ({...props}) => {
         defaultMessage: "Documento de Pago"
       }),
       type: 'POV',
-      key: 'docpago',
+      key: 'documentPagamentCobrament',
       required: true,
       breakpoints: {
         xs: 12,
@@ -390,8 +390,8 @@ const GeneralTab = ({...props}) => {
         defaultMessage: "Código Postal"
       }),
       type: 'POV',
-      key: 'codPostal',
-      required: true,
+      key: 'codiPostal',
+      required: false,
       breakpoints: {
         xs: 12,
         md: 4
@@ -427,8 +427,9 @@ const GeneralTab = ({...props}) => {
                               emptyPaper={true}
                               formData={formData}
                               setFormData={setFormData}
+                              formErrors={props.formErrors}
                               submitFromOutside={props.submitFromOutside}
-                              onSubmit={() => window.alert("FIRED 2!!!")} />
+                              onSubmit={() => props.onSubmitTab(formData)} />
     },
     {
       label: "Direcciones Comerciales",
@@ -455,8 +456,9 @@ const GeneralTab = ({...props}) => {
                        emptyPaper={true}
                        formData={formData}
                        setFormData={setFormData}
+                       formErrors={props.formErrors}
                        submitFromOutside={props.submitFromOutside}
-                       onSubmit={() => window.alert("FIRED!!!")}/>
+                       onSubmit={() => props.onSubmitTab(formData)}/>
         </OutlinedContainer>
       </Grid>
       <Grid xs={12} item>

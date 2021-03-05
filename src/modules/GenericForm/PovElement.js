@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {FormattedMessage, injectIntl} from "react-intl";
 
 import {
   Dialog, DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
+  DialogTitle, FormHelperText,
   ListSubheader,
   MenuItem,
   TextField
@@ -28,6 +28,7 @@ const PovElement =(props) => {
       label={props.label}
       onChange={props.onChange}
       value={props.value}
+      error={Boolean(props.error)}
       required={props.required}
       variant={props.variant ? props.variant : "outlined"}
       InputProps={{
@@ -88,6 +89,7 @@ const PovElement =(props) => {
         </Button>
       </DialogActions>
     </Dialog>
+    {Boolean(props.error)? <FormHelperText>{props.error.message}</FormHelperText>:null}
   </>;
 }
 

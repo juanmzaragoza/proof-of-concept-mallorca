@@ -13,8 +13,10 @@ import MomentUtils from '@date-io/moment';
 import { theme } from './constants/theme';
 import Login from './modules/Login';
 import Layout from "./Layout";
+import {login} from "./helper/before-login-helper";
 
 function App() {
+  login();
   return (
       <Router>
         <MuiThemeProvider theme={theme}>
