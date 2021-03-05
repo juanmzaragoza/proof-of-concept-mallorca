@@ -5,7 +5,7 @@ import {withSnackbar} from "notistack";
 import {useHistory} from "react-router-dom";
 import {connect} from "react-redux";
 import {bindActionCreators, compose} from "redux";
-import {addError} from "../../redux/genericForm";
+import {addError, resetError} from "../../redux/genericForm";
 
 const withAbmServices = (PassedComponent) => {
 
@@ -14,6 +14,7 @@ const withAbmServices = (PassedComponent) => {
 
     const create = (data) => {
       const queryString = `${props.url}`;
+      props.resetError();
       Axios.post(queryString, JSON.stringify(data), {
         headers: new Headers({
           'Accept': 'application/json',
@@ -41,6 +42,7 @@ const withAbmServices = (PassedComponent) => {
 
     const update = (id, data) => {
       const queryString = `${props.url}/${id}`;
+      props.resetError();
       Axios.put(queryString, JSON.stringify(data), {
         headers: new Headers({
           'Accept': 'application/json',
@@ -62,11 +64,9 @@ const withAbmServices = (PassedComponent) => {
     const handlePersistError = ({status, data}) => {
       if (status === 400 && data.errors) {
         for (const err of data.errors) {
-          //props.setFormErrors({...props.formErrors, [err.field]: {message: err.defaultMessage}});
           props.addError({[err.field]: {message: err.defaultMessage}});
         }
       }
-      window.alert("HOLA")
       props.enqueueSnackbar(props.intl.formatMessage({
         id: "CreateUpdateForm.revise_datos",
         defaultMessage: "Revise los datos e intente nuevamente..."
@@ -84,7 +84,8 @@ const withAbmServices = (PassedComponent) => {
 
   const mapDispatchToProps = (dispatch, props) => {
     const actions = {
-      addError: bindActionCreators(addError, dispatch)
+      addError: bindActionCreators(addError, dispatch),
+      resetError: bindActionCreators(resetError, dispatch)
     };
     return actions;
   };
