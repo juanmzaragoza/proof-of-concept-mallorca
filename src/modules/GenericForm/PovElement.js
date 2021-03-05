@@ -31,6 +31,7 @@ const PovElement =(props) => {
       error={Boolean(props.error)}
       required={props.required}
       variant={props.variant ? props.variant : "outlined"}
+      disabled={props.disabled}
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">

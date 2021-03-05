@@ -30,7 +30,7 @@ const useStyles = makeStyles({
   },
 });
 
-const GenericForm = (props) => {
+const GenericForm = ({loading, ...props}) => {
   const formRef = useRef(null);
   const [onBlur, setOnBlur] = useState({});
 
@@ -53,7 +53,6 @@ const GenericForm = (props) => {
   },[props.submitFromOutside]);
 
   const getError = (key) => {
-    console.log(props.formErrors);
     return props.formErrors && props.formErrors[key]? props.formErrors[key]:"";
   }
 
@@ -73,7 +72,7 @@ const GenericForm = (props) => {
             helperText={onBlur[key] && Boolean(error) ? error.message : ''}
             onBlur={() => setOnBlur({...onBlur, [key]: true})}
             type={"text"}
-            disabled={props.editMode && noEditable || disabled}/>
+            disabled={loading || (props.editMode && noEditable || disabled)}/>
         );
       case 'select':
         return (
@@ -86,6 +85,7 @@ const GenericForm = (props) => {
             value={props.formData && props.formData[key] ? props.formData[key] : ""}
             onChange={e => props.setFormData({...props.formData, [key]: e.target.value})}
             required={required}
+            disabled={loading || (props.editMode && noEditable || disabled)}
             inputProps={{
               name: placeHolder,
               id: key,
@@ -105,6 +105,7 @@ const GenericForm = (props) => {
                 checked={props.formData && props.formData[key] ? props.formData[key] : false}
                 onChange={e => props.setFormData({...props.formData, [key]: e.currentTarget.checked})}
                 name={key}
+                disabled={loading || (props.editMode && noEditable || disabled)}
                 color="primary"
               />
             }
@@ -119,7 +120,8 @@ const GenericForm = (props) => {
                         name="gender1"
                         value={props.formData && props.formData[key] ? props.formData[key] : ""}
                         onChange={e => props.setFormData({...props.formData, [key]: e.currentTarget.value})}
-                        required={required} >
+                        required={required}
+                        disabled={loading || (props.editMode && noEditable || disabled)}>
               {selector && selector.options.map(option => <FormControlLabel key={option.value} value={option.value} control={<Radio />} label={option.label} />) }
             </RadioGroup>
           </>
@@ -138,7 +140,8 @@ const GenericForm = (props) => {
             variant={variant}
             error={getError(key)}
             options={selector.options}
-            required={Boolean(required)} />
+            required={Boolean(required)}
+            disabled={loading || (props.editMode && noEditable || disabled)}/>
         );
       default:
         return;

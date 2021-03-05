@@ -427,6 +427,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
                               emptyPaper={true}
                               formData={formData}
                               setFormData={setFormData}
+                              loading={props.loading}
                               formErrors={props.formErrors}
                               submitFromOutside={props.submitFromOutside}
                               onSubmit={() => props.onSubmitTab(formData)} />
@@ -456,6 +457,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
                        emptyPaper={true}
                        formData={formData}
                        setFormData={setFormData}
+                       loading={props.loading}
                        formErrors={props.formErrors}
                        submitFromOutside={props.submitFromOutside}
                        onSubmit={() => props.onSubmitTab(formData)}/>

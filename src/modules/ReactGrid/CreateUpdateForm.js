@@ -8,12 +8,11 @@ import {injectIntl} from "react-intl";
 import GenericForm from "modules/GenericForm";
 import { withAbmServices } from "modules/wrappers";
 
-import Axios from "../../Axios";
-
 import {setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig} from "redux/pageHeader";
 import {getFireSave} from "redux/pageHeader/selectors";
 import {getFormData, getFormErrors} from "../../redux/genericForm/selectors";
 import {setFormData} from "../../redux/genericForm";
+import {getLoading} from "../../redux/app/selectors";
 
 const CreateUpdateForm = ({
       title, //props
@@ -23,6 +22,7 @@ const CreateUpdateForm = ({
       submitFromOutside,
       formErrors,
       formData,
+      loading,
       actions: {setFormConfig, setBreadcrumbHeader, setSubmitFromOutside, setFormData},
       enqueueSnackbar, //withSackBar
       services, //withServices
@@ -70,6 +70,7 @@ const CreateUpdateForm = ({
 
   return (
     <GenericForm
+      loading={loading}
       editMode={editMode}
       setFormData={setFormData}
       formData={formData}
@@ -105,7 +106,8 @@ const mapStateToProps = (state, props) => {
   return {
     submitFromOutside: getFireSave(state),
     formErrors: getFormErrors(state),
-    formData: getFormData(state)
+    formData: getFormData(state),
+    loading: getLoading(state)
   };
 };
 

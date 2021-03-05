@@ -17,6 +17,7 @@ import {withAbmServices} from "../wrappers";
 import {getFormData, getFormErrors} from "../../redux/genericForm/selectors";
 import {useParams} from "react-router-dom";
 import {setFormData} from "../../redux/genericForm";
+import {getLoading} from "../../redux/app/selectors";
 
 const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...props }) => {
 
@@ -29,7 +30,8 @@ const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...prop
         setFormData={actions.setFormData}
         submitFromOutside={submitFromOutside}
         onSubmitTab={(data) => create(data)}
-        formErrors={props.formErrors}/>
+        formErrors={props.formErrors}
+        loading={props.loading} />
     },
     {
       label: "Contactos",
@@ -123,7 +125,8 @@ const mapStateToProps = (state, props) => {
   return {
     submitFromOutside: getFireSave(state),
     formErrors: getFormErrors(state),
-    formData: getFormData(state)
+    formData: getFormData(state),
+    loading: getLoading(state)
   };
 };
 
