@@ -53,6 +53,7 @@ const GenericForm = (props) => {
   },[props.submitFromOutside]);
 
   const getError = (key) => {
+    console.log(props.formErrors);
     return props.formErrors && props.formErrors[key]? props.formErrors[key]:"";
   }
 
@@ -135,6 +136,7 @@ const GenericForm = (props) => {
             value={props.formData && props.formData[key] ? props.formData[key] : ""}
             setValue={e => props.setFormData({...props.formData, [key]: e.value})}
             variant={variant}
+            error={getError(key)}
             options={selector.options}
             required={Boolean(required)} />
         );

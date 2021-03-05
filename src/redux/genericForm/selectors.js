@@ -1,3 +1,3 @@
 import { get } from "lodash";
 
-export const getErrors = state => get(state, "genericForm.formErrors", {});
+export const getFormErrors = state => get(state, "genericForm.formErrors", {});

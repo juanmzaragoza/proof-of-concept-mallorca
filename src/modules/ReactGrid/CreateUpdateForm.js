@@ -12,7 +12,7 @@ import Axios from "../../Axios";
 
 import {setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig} from "redux/pageHeader";
 import {getFireSave} from "redux/pageHeader/selectors";
-import {getErrors} from "../../redux/genericForm/selectors";
+import {getFormErrors} from "../../redux/genericForm/selectors";
 
 const CreateUpdateForm = ({
       title, //props
@@ -122,7 +122,7 @@ CreateUpdateForm.propTypes = {
 const mapStateToProps = (state, props) => {
   return {
     submitFromOutside: getFireSave(state),
-    formErrors: getErrors(state)
+    formErrors: getFormErrors(state)
   };
 };
 

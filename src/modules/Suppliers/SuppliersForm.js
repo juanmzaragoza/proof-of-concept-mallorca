@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {injectIntl} from "react-intl";
-import {bindActionCreators} from "redux";
+import {bindActionCreators, compose} from "redux";
 import {connect} from "react-redux";
 
 import {Breadcrumbs} from "@material-ui/core";
@@ -13,14 +13,19 @@ import ConfigurableTabs from "modules/common/ConfigurableTabs";
 
 import {setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig} from "redux/pageHeader";
 import {getFireSave} from "redux/pageHeader/selectors";
+import {withAbmServices} from "../wrappers";
+import {getFormErrors} from "../../redux/genericForm/selectors";
 
-const SuppliersForm = ({ actions, submitFromOutside }) => {
+const SuppliersForm = ({ actions, submitFromOutside, services, ...props }) => {
 
   const tabs = [
     {
       label: "General",
       key: 0,
-      component: <GeneralTab submitFromOutside={submitFromOutside} />
+      component: <GeneralTab
+        submitFromOutside={submitFromOutside}
+        onSubmitTab={(data) => create(data)}
+        formErrors={props.formErrors}/>
     },
     {
       label: "Contactos",
@@ -59,6 +64,8 @@ const SuppliersForm = ({ actions, submitFromOutside }) => {
     },
   ];
 
+  const create = (data) => services.create(data);
+
   useEffect(() => {
     if(submitFromOutside){
       actions.setSubmitFromOutside(false);
@@ -96,7 +103,8 @@ const SuppliersForm = ({ actions, submitFromOutside }) => {
 
 const mapStateToProps = (state, props) => {
   return {
-    submitFromOutside: getFireSave(state)
+    submitFromOutside: getFireSave(state),
+    formErrors: getFormErrors(state)
   };
 };
 
@@ -109,5 +117,9 @@ const mapDispatchToProps = (dispatch, props) => {
   return { actions };
 };
 
-const component = injectIntl(connect(mapStateToProps, mapDispatchToProps)(SuppliersForm));
+const component = compose(
+  injectIntl,
+  connect(mapStateToProps, mapDispatchToProps),
+  withAbmServices
+)(SuppliersForm);
 export default component;
