@@ -14,12 +14,34 @@ import {
 import InputAdornment from "@material-ui/core/InputAdornment";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const PovElement =(props) => {
   const [openModal, setOpenModal] = useState(false);
   const [prefilter, setPrefilter] = useState("");
   const [opts, setOpts] = useState(props.options);
   const [elementToAdd, setElementToAdd] = useState("");
+
+  const renderOpts = () => {
+    return [
+      opts && opts
+        .filter(option => prefilter !== "" ? option.label.includes(prefilter) : true)
+        .map((option, index) => <MenuItem key={index} value={option.value}>{option.label}</MenuItem>),
+      <ListSubheader key="more-options">Más opciones</ListSubheader>,
+      <MenuItem key="add-new" style={{fontWeight: "bold", fontSize: "small"}} onClick={e => {
+        e.stopPropagation();
+        setOpenModal(true);
+      }}>Agregar nuevo</MenuItem>,
+      <MenuItem key="search" style={{fontWeight: "bold", fontSize: "small"}} onKeyDown={e => e.stopPropagation()}>
+        <TextField
+          variant={"outlined"}
+          size={"small"}
+          label={"Buscar"}
+          onClick={e => e.stopPropagation()}
+          onChange={e => setPrefilter(e.target.value)}/>
+      </MenuItem>
+    ];
+  };
 
   return <>
     <TextField
@@ -31,31 +53,17 @@ const PovElement =(props) => {
       error={Boolean(props.error)}
       required={props.required}
       variant={props.variant ? props.variant : "outlined"}
-      disabled={props.disabled}
+      disabled={props.loading || props.disabled}
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
-            <AddCircleOutlineIcon/>
+            {props.loading? <CircularProgress size={20}/>:<AddCircleOutlineIcon/>}
           </InputAdornment>
         ),
       }}
     >
-      {opts && opts
-        .filter(option => prefilter !== "" ? option.label.includes(prefilter) : true)
-        .map((option, index) => <MenuItem key={index} value={option.value}>{option.label}</MenuItem>)}
-      <ListSubheader>Más opciones</ListSubheader>
-      <MenuItem style={{fontWeight: "bold", fontSize: "small"}} onClick={e => {
-        e.stopPropagation();
-        setOpenModal(true);
-      }}>Agregar nuevo</MenuItem>
-      <MenuItem style={{fontWeight: "bold", fontSize: "small"}} onKeyDown={e => e.stopPropagation()}>
-        <TextField
-          variant={"outlined"}
-          size={"small"}
-          label={"Buscar"}
-          onClick={e => e.stopPropagation()}
-          onChange={e => setPrefilter(e.target.value)}/>
-      </MenuItem>
+      {props.loading && <MenuItem key={"loading"}  disabled={true}>Cargando...</MenuItem>}
+      {!props.loading && (renderOpts())}
     </TextField>
     <Dialog open={openModal} onClose={() => setOpenModal(false)} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Agregar Nuevo</DialogTitle>
@@ -101,6 +109,7 @@ PovElement.propTypes = {
   value: PropTypes.any,
   variant: PropTypes.any,
   options: PropTypes.any,
+  loading: PropTypes.bool
 };
 
 export default injectIntl(PovElement);

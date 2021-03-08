@@ -7,8 +7,8 @@ export const login = () => {
   // check if token is expired
   const token = getPlainFrom('token');
   if(token) {
-    const {exp} = jwtDecode(token);
-    if (Date.now() < exp * 1000) return;
+    const {exp, iss} = jwtDecode(token);
+    if (Date.now() < exp * 1000 && iss === 'ceocloud') return;
   }
   // generate token
   Axios.get('api/auth?user=admin&pass=admin',{
