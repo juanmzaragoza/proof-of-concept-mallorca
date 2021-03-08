@@ -35,7 +35,7 @@ const initialState = {
   data: [],
   loading: false,
   sorting: [],
-  filtering: [],
+  columnFiltering: [],
 };
 
 function reducer(state, { type, payload }) {
@@ -57,10 +57,10 @@ function reducer(state, { type, payload }) {
         ...state,
         sorting: payload
       }
-    case 'CHANGE_FILTERING':
+    case 'CHANGE_COLUMN_FILTERING':
       return {
         ...state,
-        filtering: payload
+        columnFiltering: payload
       }
     case 'CHANGE_LOADING':
       return {
@@ -96,7 +96,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
   ];
 
   const changeFilters = (filters) => {
-    dispatch({ type: 'CHANGE_FILTERING', payload: filters});
+    dispatch({ type: 'CHANGE_COLUMN_FILTERING', payload: filters});
   };
 
   const changeSorting = (value) => {
@@ -142,8 +142,8 @@ const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
     }
 
     // filtering by column
-    if (filtering.length){
-      const filteringConfig = filtering
+    if (columnFiltering.length){
+      const filteringConfig = columnFiltering
         .map(({ columnName, value }) => `${columnName}==*${value}*`);
       queryString = `${queryString}&query=${filteringConfig.join(';')}`;
     }
@@ -154,7 +154,6 @@ const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
         .then(({data}) => data)
         .then(({_embedded, page}) => {
           dispatch({ type: 'FETCH_SUCCESS', payload: _embedded[configuration.listKey] });
-          //TODO() un-hardcoding this -> totalCount comes empty
           setTotalCount(page.totalElements);
           changeLoading(false);
         })
@@ -190,7 +189,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
   };
 
   const {
-    data, sorting, filtering
+    data, sorting, columnFiltering
   } = state;
   return (
     <>
