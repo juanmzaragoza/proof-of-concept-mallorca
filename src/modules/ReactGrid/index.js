@@ -34,7 +34,8 @@ const getRowId = row => row.id;
 const initialState = {
   data: [],
   loading: false,
-  sorting: []
+  sorting: [],
+  filtering: [],
 };
 
 function reducer(state, { type, payload }) {
@@ -55,6 +56,11 @@ function reducer(state, { type, payload }) {
       return {
         ...state,
         sorting: payload
+      }
+    case 'CHANGE_FILTERING':
+      return {
+        ...state,
+        filtering: payload
       }
     case 'CHANGE_LOADING':
       return {
@@ -90,7 +96,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
   ];
 
   const changeFilters = (filters) => {
-    console.log(filters);
+    dispatch({ type: 'CHANGE_FILTERING', payload: filters});
   };
 
   const changeSorting = (value) => {
@@ -124,40 +130,24 @@ const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
       });
   };
 
-  /*const loadData = () => {
-
-    let queryString = `${URL}?take=${pageSize}&skip=${pageSize * currentPage}`;
-
-    if (sorting.length) {
-      const sortingConfig = sorting
-        .map(({ columnName, direction }) => ({
-          selector: columnName,
-          desc: direction === 'desc',
-        }));
-      const sortingStr = JSON.stringify(sortingConfig);
-      queryString = `${queryString}&sort=${escape(`${sortingStr}`)}`;
-    }
-
-    if (queryString !== lastQuery && !loading) {
-      changeLoading(true);
-      fetch(queryString)
-        .then(response => response.json())
-        .then(({ data, totalCount: newTotalCount }) => {
-          dispatch({ type: 'FETCH_SUCCESS', payload: data });
-          //TODO() un-hardcoding this -> totalCount comes empty
-          setTotalCount(100);
-          changeLoading(false);
-        })
-        .catch(() => {
-          dispatch({ type: 'FETCH_ERROR' });
-          changeLoading(false);
-        });
-      setLastQuery(queryString);
-    }
-  };*/
-
   const loadData = () => {
     let queryString = `${configuration.URL}?size=${pageSize}&page=${currentPage}`;
+
+    // sorting
+    if (sorting.length) {
+      const sortingConfig = sorting
+        .map(({ columnName, direction }) => `${columnName},${direction}`);
+      const sortingStr = sortingConfig.join(';');
+      queryString = `${queryString}&sort=${sortingStr}`;
+    }
+
+    // filtering by column
+    if (filtering.length){
+      const filteringConfig = filtering
+        .map(({ columnName, value }) => `${columnName}==*${value}*`);
+      queryString = `${queryString}&query=${filteringConfig.join(';')}`;
+    }
+
     if (queryString !== lastQuery && !loading) {
       changeLoading(true);
       Axios.get(queryString)
@@ -200,7 +190,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
   };
 
   const {
-    data, sorting
+    data, sorting, filtering
   } = state;
   return (
     <>
