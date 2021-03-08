@@ -141,7 +141,7 @@ const GenericForm = ({loading, ...props}) => {
             error={getError(key)}
             options={selector.options}
             required={Boolean(required)}
-            disabled={loading || (props.editMode && noEditable || disabled)}/>
+            disabled={props.editMode && noEditable || disabled}/>
         );
       default:
         return;

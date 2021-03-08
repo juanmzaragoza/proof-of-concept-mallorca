@@ -1,12 +1,16 @@
 import PropTypes from "prop-types";
 import React, {useEffect, useState} from "react";
 import {FormattedMessage, injectIntl} from "react-intl";
+import {bindActionCreators, compose} from "redux";
+import {connect} from "react-redux";
 
 import {
-  Dialog, DialogActions,
+  Dialog,
+  DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle, FormHelperText,
+  DialogTitle,
+  FormHelperText,
   ListSubheader,
   MenuItem,
   TextField
@@ -16,17 +20,24 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-const PovElement =(props) => {
+import {getData} from "redux/genericForm";
+import {getDataFormSelectorById, getLoadingFormSelectorById} from "redux/genericForm/selectors";
+
+const PovElement = (props) => {
   const [openModal, setOpenModal] = useState(false);
   const [prefilter, setPrefilter] = useState("");
   const [opts, setOpts] = useState(props.options);
   const [elementToAdd, setElementToAdd] = useState("");
 
+  useEffect(()=>{
+    props.searchData(props.id,"regimIva");
+  },[]);
+
   const renderOpts = () => {
     return [
       opts && opts
         .filter(option => prefilter !== "" ? option.label.includes(prefilter) : true)
-        .map((option, index) => <MenuItem key={index} value={option.value}>{option.label}</MenuItem>),
+        .map((option, index) => <MenuItem key={index} value={option.value}>{option.descripcio}</MenuItem>),
       <ListSubheader key="more-options">Más opciones</ListSubheader>,
       <MenuItem key="add-new" style={{fontWeight: "bold", fontSize: "small"}} onClick={e => {
         e.stopPropagation();
@@ -112,4 +123,21 @@ PovElement.propTypes = {
   loading: PropTypes.bool
 };
 
-export default injectIntl(PovElement);
+const mapStateToProps = (state, props) => {
+  return {
+    loading: getLoadingFormSelectorById(state, props.id),
+    options: getDataFormSelectorById(state, props.id)
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  const actions = {
+    searchData: bindActionCreators(getData, dispatch)
+  };
+  return actions;
+};
+
+export default compose(
+  connect(mapStateToProps,mapDispatchToProps),
+  injectIntl
+)(PovElement);
