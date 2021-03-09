@@ -180,7 +180,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         defaultMessage: "Idioma"
       }),
       type: 'POV',
-      key: 'idiomes',
+      key: 'idioma',
       required: true,
       breakpoints: {
         xs: 12,
