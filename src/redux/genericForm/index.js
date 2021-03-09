@@ -10,17 +10,17 @@ const RESET_FORM_DATA_GENERIC_FORM = "RESET_FORM_DATA_GENERIC_FORM";
 const ADD_DATA_TO_FORM_SELECTOR = "ADD_DATA_TO_FORM_SELECTOR";
 
 //Functions
-export const getData = (name, id) => {
+export const getFormSelectorData = (id, key) => {
   return async dispatch => {
     try {
-      dispatch(addToFormSelector({ name, loading: true }));
+      dispatch(addToFormSelector({ name: id, loading: true }));
       Axios.get(API[id])
         .then(({data}) => data)
         .then(({ _embedded }) => {
-          dispatch(addToFormSelector({ name, loading: false, data: _embedded.ivas }));
+          dispatch(addToFormSelector({ name: id, loading: false, data: _embedded[key] }));
         })
         .catch(() => {
-          dispatch(addToFormSelector({ name, loading: false }));
+          dispatch(addToFormSelector({ name: id, loading: false }));
         });
     } catch (error) {
       dispatch(addToFormSelector({ loading: false }));

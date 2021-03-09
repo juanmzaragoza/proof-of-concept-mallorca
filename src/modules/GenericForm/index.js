@@ -130,6 +130,8 @@ const GenericForm = ({loading, ...props}) => {
         return (
           <LOVElement
             id={key}
+            responseKey={selector.key}
+            labelResponseKey={selector.labelKey}
             label={placeHolder}
             onChange={e => {
               e.stopPropagation();
@@ -139,7 +141,6 @@ const GenericForm = ({loading, ...props}) => {
             setValue={e => props.setFormData({...props.formData, [key]: e.value})}
             variant={variant}
             error={getError(key)}
-            options={selector.options}
             required={Boolean(required)}
             disabled={props.editMode && noEditable || disabled}/>
         );
@@ -208,6 +209,10 @@ GenericForm.propTypes = {
   editMode: PropTypes.bool,
   emptyPaper: PropTypes.bool,
   fieldsContainerStyles: PropTypes.object,
-  selector: PropTypes.object
+  selector: PropTypes.shape({
+    key: PropTypes.any,
+    labelKey: PropTypes.any,
+    options: PropTypes.array
+  })
 };
 export default GenericForm;

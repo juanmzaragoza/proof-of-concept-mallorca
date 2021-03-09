@@ -20,7 +20,7 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-import {getData} from "redux/genericForm";
+import {getFormSelectorData} from "redux/genericForm";
 import {getDataFormSelectorById, getLoadingFormSelectorById} from "redux/genericForm/selectors";
 
 const LOVElement = (props) => {
@@ -30,14 +30,20 @@ const LOVElement = (props) => {
   const [elementToAdd, setElementToAdd] = useState("");
 
   useEffect(()=>{
-    props.searchData(props.id,"regimIva");
+    props.responseKey && props.searchData(props.id,props.responseKey);
   },[]);
+
+  useEffect(() => {
+    setOpts(props.options);
+  },[props.options]);
 
   const renderOpts = () => {
     return [
       opts && opts
         .filter(option => prefilter !== "" ? option.label.includes(prefilter) : true)
-        .map((option, index) => <MenuItem key={index} value={option.value}>{option.descripcio}</MenuItem>),
+        .map((option, index) => <MenuItem key={index} value={option.value}>
+          {typeof props.labelResponseKey === 'function'? props.labelResponseKey(option):option[props.labelResponseKey]}
+        </MenuItem>),
       <ListSubheader key="more-options">Más opciones</ListSubheader>,
       <MenuItem key="add-new" style={{fontWeight: "bold", fontSize: "small"}} onClick={e => {
         e.stopPropagation();
@@ -115,6 +121,8 @@ const LOVElement = (props) => {
 
 LOVElement.propTypes = {
   id: PropTypes.any,
+  responseKey: PropTypes.string,
+  labelResponseKey: PropTypes.any,
   label: PropTypes.any,
   onChange: PropTypes.func,
   value: PropTypes.any,
@@ -132,7 +140,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
-    searchData: bindActionCreators(getData, dispatch)
+    searchData: bindActionCreators(getFormSelectorData, dispatch)
   };
   return actions;
 };

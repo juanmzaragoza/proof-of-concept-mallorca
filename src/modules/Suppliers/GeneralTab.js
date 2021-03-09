@@ -69,18 +69,15 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         defaultMessage: "País"
       }),
       type: 'POV',
-      key: 'tipasicmp',
+      key: 'pais',
       required: true,
       breakpoints: {
         xs: 12,
         md: 1
       },
       selector: {
-        options: [
-          {value: "1", label:"FRA"},
-          {value: "2", label:"ARG"},
-          {value: "3", label:"USA"},
-        ]
+        key: 'paises',
+        labelKey: (data) => `${data.codi} - ${data.nom}`,
       }
     },
     {
@@ -138,11 +135,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         md: 4
       },
       selector: {
-        options: [
-          {value: "1", label:"One"},
-          {value: "2", label:"Two"},
-          {value: "3", label:"Three"},
-        ]
+        key: 'familiaProveidors',
+        labelKey: 'nom',
       }
     },
     {
@@ -158,11 +152,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         md: 3
       },
       selector: {
-        options: [
-          {value: "1", label:"One"},
-          {value: "2", label:"Two"},
-          {value: "3", label:"Three"},
-        ]
+        key: 'operaris',
+        labelKey: "nomCodiTxt",
       }
     },
     {
@@ -189,18 +180,15 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         defaultMessage: "Idioma"
       }),
       type: 'POV',
-      key: 'idioma',
+      key: 'idiomes',
       required: true,
       breakpoints: {
         xs: 12,
         md: 2
       },
       selector: {
-        options: [
-          {value: "1", label:"One"},
-          {value: "2", label:"Two"},
-          {value: "3", label:"Three"},
-        ]
+        key: 'idiomas',
+        labelKey: (data) => `${data.codi} - ${data.descripcio}`,
       }
     },
     {
@@ -216,11 +204,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         md: 2
       },
       selector: {
-        options: [
-          {value: "1", label:"One"},
-          {value: "2", label:"Two"},
-          {value: "3", label:"Three"},
-        ]
+        key: "regimIvas",
+        labelKey: 'descripcio',
       }
     },
     {
@@ -236,11 +221,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         md: 2
       },
       selector: {
-        options: [
-          {value: "1", label:"One"},
-          {value: "2", label:"Two"},
-          {value: "3", label:"Three"},
-        ]
+        key: "divisas",
+        labelKey: 'codi',
       }
     },
     {
@@ -256,11 +238,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         md: 3
       },
       selector: {
-        options: [
-          {value: "1", label:"One"},
-          {value: "2", label:"Two"},
-          {value: "3", label:"Three"},
-        ]
+        key: "tipusVenciments",
+        labelKey: 'descripcio',
       }
     },
     {
@@ -276,11 +255,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         md: 2
       },
       selector: {
-        options: [
-          {value: "1", label:"One"},
-          {value: "2", label:"Two"},
-          {value: "3", label:"Three"},
-        ]
+        key: "documentPagamentCobraments",
+        labelKey: 'descripcio',
       }
     },
   ];
