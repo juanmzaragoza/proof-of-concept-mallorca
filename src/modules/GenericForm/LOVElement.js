@@ -1,12 +1,16 @@
 import PropTypes from "prop-types";
 import React, {useEffect, useState} from "react";
 import {FormattedMessage, injectIntl} from "react-intl";
+import {bindActionCreators, compose} from "redux";
+import {connect} from "react-redux";
 
 import {
-  Dialog, DialogActions,
+  Dialog,
+  DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle, FormHelperText,
+  DialogTitle,
+  FormHelperText,
   ListSubheader,
   MenuItem,
   TextField
@@ -16,17 +20,30 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-const PovElement =(props) => {
+import {getFormSelectorData} from "redux/genericForm";
+import {getDataFormSelectorById, getLoadingFormSelectorById} from "redux/genericForm/selectors";
+
+const LOVElement = (props) => {
   const [openModal, setOpenModal] = useState(false);
   const [prefilter, setPrefilter] = useState("");
   const [opts, setOpts] = useState(props.options);
   const [elementToAdd, setElementToAdd] = useState("");
 
+  useEffect(()=>{
+    props.responseKey && props.searchData(props.id,props.responseKey);
+  },[]);
+
+  useEffect(() => {
+    setOpts(props.options);
+  },[props.options]);
+
   const renderOpts = () => {
     return [
       opts && opts
         .filter(option => prefilter !== "" ? option.label.includes(prefilter) : true)
-        .map((option, index) => <MenuItem key={index} value={option.value}>{option.label}</MenuItem>),
+        .map((option, index) => <MenuItem key={index} value={option}>
+          {typeof props.labelResponseKey === 'function'? props.labelResponseKey(option):option[props.labelResponseKey]}
+        </MenuItem>),
       <ListSubheader key="more-options">Más opciones</ListSubheader>,
       <MenuItem key="add-new" style={{fontWeight: "bold", fontSize: "small"}} onClick={e => {
         e.stopPropagation();
@@ -102,8 +119,10 @@ const PovElement =(props) => {
   </>;
 }
 
-PovElement.propTypes = {
+LOVElement.propTypes = {
   id: PropTypes.any,
+  responseKey: PropTypes.string,
+  labelResponseKey: PropTypes.any,
   label: PropTypes.any,
   onChange: PropTypes.func,
   value: PropTypes.any,
@@ -112,4 +131,21 @@ PovElement.propTypes = {
   loading: PropTypes.bool
 };
 
-export default injectIntl(PovElement);
+const mapStateToProps = (state, props) => {
+  return {
+    loading: getLoadingFormSelectorById(state, props.id),
+    options: getDataFormSelectorById(state, props.id)
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  const actions = {
+    searchData: bindActionCreators(getFormSelectorData, dispatch)
+  };
+  return actions;
+};
+
+export default compose(
+  connect(mapStateToProps,mapDispatchToProps),
+  injectIntl
+)(LOVElement);

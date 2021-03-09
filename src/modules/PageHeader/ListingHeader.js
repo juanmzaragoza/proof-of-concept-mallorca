@@ -10,7 +10,7 @@ import {FormattedMessage} from "react-intl";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 
-import IconMenu from "modules/common/IconMenu";
+import IconMenu from "modules/shared/IconMenu";
 import ContentHeader from "./ContentHeader";
 import BreadcrumbHeader from "./BreadcrumbHeader";
 import {getLoading} from "../../redux/app/selectors";

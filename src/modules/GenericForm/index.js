@@ -17,7 +17,7 @@ import {
 } from '@material-ui/core';
 import FormControl from "@material-ui/core/FormControl";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import PovElement from "./PovElement";
+import LOVElement from "./LOVElement";
 
 const useStyles = makeStyles({
   root: {
@@ -128,8 +128,10 @@ const GenericForm = ({loading, ...props}) => {
         )
       case 'POV':
         return (
-          <PovElement
+          <LOVElement
             id={key}
+            responseKey={selector.key}
+            labelResponseKey={selector.labelKey}
             label={placeHolder}
             onChange={e => {
               e.stopPropagation();
@@ -139,9 +141,8 @@ const GenericForm = ({loading, ...props}) => {
             setValue={e => props.setFormData({...props.formData, [key]: e.value})}
             variant={variant}
             error={getError(key)}
-            options={selector.options}
             required={Boolean(required)}
-            disabled={loading || (props.editMode && noEditable || disabled)}/>
+            disabled={props.editMode && noEditable || disabled}/>
         );
       default:
         return;
@@ -208,6 +209,10 @@ GenericForm.propTypes = {
   editMode: PropTypes.bool,
   emptyPaper: PropTypes.bool,
   fieldsContainerStyles: PropTypes.object,
-  selector: PropTypes.object
+  selector: PropTypes.shape({
+    key: PropTypes.any,
+    labelKey: PropTypes.any,
+    options: PropTypes.array
+  })
 };
 export default GenericForm;
