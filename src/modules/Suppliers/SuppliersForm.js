@@ -9,7 +9,7 @@ import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 
 import GeneralTab from "./GeneralTab";
-import ConfigurableTabs from "modules/common/ConfigurableTabs";
+import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
 import {setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig} from "redux/pageHeader";
 import {getFireSave} from "redux/pageHeader/selectors";

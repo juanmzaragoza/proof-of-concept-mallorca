@@ -17,7 +17,7 @@ import {
 } from '@material-ui/core';
 import FormControl from "@material-ui/core/FormControl";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import PovElement from "./PovElement";
+import LOVElement from "./LOVElement";
 
 const useStyles = makeStyles({
   root: {
@@ -128,7 +128,7 @@ const GenericForm = ({loading, ...props}) => {
         )
       case 'POV':
         return (
-          <PovElement
+          <LOVElement
             id={key}
             label={placeHolder}
             onChange={e => {

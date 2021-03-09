@@ -23,7 +23,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import {getData} from "redux/genericForm";
 import {getDataFormSelectorById, getLoadingFormSelectorById} from "redux/genericForm/selectors";
 
-const PovElement = (props) => {
+const LOVElement = (props) => {
   const [openModal, setOpenModal] = useState(false);
   const [prefilter, setPrefilter] = useState("");
   const [opts, setOpts] = useState(props.options);
@@ -113,7 +113,7 @@ const PovElement = (props) => {
   </>;
 }
 
-PovElement.propTypes = {
+LOVElement.propTypes = {
   id: PropTypes.any,
   label: PropTypes.any,
   onChange: PropTypes.func,
@@ -140,4 +140,4 @@ const mapDispatchToProps = (dispatch, props) => {
 export default compose(
   connect(mapStateToProps,mapDispatchToProps),
   injectIntl
-)(PovElement);
+)(LOVElement);

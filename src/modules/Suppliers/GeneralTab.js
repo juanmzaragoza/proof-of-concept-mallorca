@@ -2,10 +2,9 @@ import React, {useEffect, useState} from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 import {injectIntl} from "react-intl";
 
-import OutlinedContainer from "modules/common/OutlinedContainer";
+import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
-import ConfigurableTabs from "../common/ConfigurableTabs";
-
+import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
 const GeneralTab = ({formData, setFormData, ...props}) => {
   //const [formData , setFormData] = useState({});
