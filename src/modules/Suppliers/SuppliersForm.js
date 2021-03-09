@@ -16,7 +16,7 @@ import {getFireSave} from "redux/pageHeader/selectors";
 import {withAbmServices} from "../wrappers";
 import {getFormData, getFormErrors} from "../../redux/genericForm/selectors";
 import {useParams} from "react-router-dom";
-import {setFormData} from "../../redux/genericForm";
+import {resetAllGenericForm, setFormData} from "../../redux/genericForm";
 import {getLoading} from "../../redux/app/selectors";
 
 const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...props }) => {
@@ -112,6 +112,9 @@ const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...prop
       {title: "Un Nombre", href:"hol"},
       {title: "General"}
     ]);
+    return () => {
+      actions.resetForm();
+    }
   },[]);
 
   return (
@@ -136,6 +139,7 @@ const mapDispatchToProps = (dispatch, props) => {
     setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch),
     setSubmitFromOutside: bindActionCreators(setFireSaveFromHeader, dispatch),
     setFormData: bindActionCreators(setFormData, dispatch),
+    resetForm: bindActionCreators(resetAllGenericForm, dispatch),
   };
   return { actions };
 };

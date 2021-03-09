@@ -8,6 +8,7 @@ const RESET_ERRORS_GENERIC_FORM = "RESET_ERRORS_GENERIC_FORM";
 const SET_FORM_DATA_TO_GENERIC_FORM = "SET_FORM_DATA_TO_GENERIC_FORM";
 const RESET_FORM_DATA_GENERIC_FORM = "RESET_FORM_DATA_GENERIC_FORM";
 const ADD_DATA_TO_FORM_SELECTOR = "ADD_DATA_TO_FORM_SELECTOR";
+const RESET_ALL_GENERIC_FORM = "RESET_ALL_GENERIC_FORM";
 
 //Functions
 export const getFormSelectorData = (id, key) => {
@@ -56,6 +57,12 @@ export function addToFormSelector(payload) {
   };
 }
 
+export function resetAllGenericForm() {
+  return {
+    type: RESET_ALL_GENERIC_FORM
+  }
+}
+
 //Reducers
 const initialState = {
   formErrors: {},
@@ -83,6 +90,7 @@ export default (state = initialState, action) => {
         [name]: {...state.formSelectors[name], ...rest}
       }};
     }
+    case RESET_ALL_GENERIC_FORM:
     case "RESET":
       return initialState;
     default:
