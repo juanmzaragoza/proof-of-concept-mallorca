@@ -14,7 +14,7 @@ export const getFormSelectorData = (id, key) => {
   return async dispatch => {
     try {
       dispatch(addToFormSelector({ name: id, loading: true }));
-      Axios.get(API[id])
+      Axios.get(`${API[id]}?size=5&page=0`)
         .then(({data}) => data)
         .then(({ _embedded }) => {
           dispatch(addToFormSelector({ name: id, loading: false, data: _embedded[key] }));
