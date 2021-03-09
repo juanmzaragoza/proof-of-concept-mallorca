@@ -41,7 +41,7 @@ const LOVElement = (props) => {
     return [
       opts && opts
         .filter(option => prefilter !== "" ? option.label.includes(prefilter) : true)
-        .map((option, index) => <MenuItem key={index} value={option.value}>
+        .map((option, index) => <MenuItem key={index} value={option}>
           {typeof props.labelResponseKey === 'function'? props.labelResponseKey(option):option[props.labelResponseKey]}
         </MenuItem>),
       <ListSubheader key="more-options">Más opciones</ListSubheader>,
