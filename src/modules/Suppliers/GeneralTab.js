@@ -17,6 +17,19 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
   const suppliersConfig = [
     {
       placeHolder: props.intl.formatMessage({
+        id: "Proveedores.codigo",
+        defaultMessage: "Código"
+      }),
+      type: 'input',
+      key: 'codi',
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 1
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
         id: "Proveedores.nombre_comercial",
         defaultMessage: "Nombre Comercial"
       }),
@@ -25,7 +38,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4
+        md: 3
       },
     },
     {
@@ -372,11 +385,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         md: 4
       },
       selector: {
-        options: [
-          {value: "1", label:"One"},
-          {value: "2", label:"Two"},
-          {value: "3", label:"Three"},
-        ],
+        key: "codiPostals",
+        labelKey: 'codiPoblacioProvinciaTxt',
       }
     },
     {

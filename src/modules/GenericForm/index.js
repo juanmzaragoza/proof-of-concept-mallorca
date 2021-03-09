@@ -132,6 +132,7 @@ const GenericForm = ({loading, ...props}) => {
             id={key}
             responseKey={selector.key}
             labelResponseKey={selector.labelKey}
+            options={selector.options}
             label={placeHolder}
             onChange={e => {
               e.stopPropagation();
