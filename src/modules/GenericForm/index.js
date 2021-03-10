@@ -39,6 +39,13 @@ const GenericForm = ({loading, ...props}) => {
     formControlsFilledInput
   } = useStyles();
 
+  // init to avoid uncontrolled inputs
+  useEffect(() => {
+    for (const component of props.formComponents) {
+      props.setFormData({...props.formData, [component.key]: ""})
+    }
+  },[]);
+
   useEffect(() => {
     if(props.submitFromOutside){
       const form = formRef.current;

@@ -1,12 +1,7 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {injectIntl} from "react-intl";
 import {bindActionCreators, compose} from "redux";
 import {connect} from "react-redux";
-
-import {Breadcrumbs} from "@material-ui/core";
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import Link from "@material-ui/core/Link";
-import Typography from "@material-ui/core/Typography";
 
 import GeneralTab from "./GeneralTab";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
@@ -16,20 +11,23 @@ import {getFireSave} from "redux/pageHeader/selectors";
 import {withAbmServices} from "../wrappers";
 import {getFormData, getFormErrors} from "../../redux/genericForm/selectors";
 import {useParams} from "react-router-dom";
-import {resetAllGenericForm, setFormData} from "../../redux/genericForm";
+import {setFormData} from "../../redux/genericForm";
 import {getLoading} from "../../redux/app/selectors";
 
 const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...props }) => {
+
+  const [editMode, setEditMode] = useState(false);
 
   const tabs = [
     {
       label: "General",
       key: 0,
       component: <GeneralTab
+        editMode={editMode}
         formData={formData}
         setFormData={actions.setFormData}
         submitFromOutside={submitFromOutside}
-        onSubmitTab={(data) => create(data)}
+        onSubmitTab={(data) => isEditable()? update(id, data):create(data)}
         formErrors={props.formErrors}
         loading={props.loading} />
     },
@@ -76,15 +74,15 @@ const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...prop
     return !!id;
   };
 
+  const create = (data) => services.create(data);
+  const update = (id, data) => services.update(id, data);
+
   useEffect(() => {
     if(isEditable()){
-      setBreadcrumbHeader([{title: "h", href: "/"}, {title: "Modificar"}]);
-      //setEditMode(true);
+      setEditMode(true);
       services.getById(id);
     }
   },[id]);
-
-  const create = (data) => services.create(data);
 
   useEffect(() => {
     if(submitFromOutside){
@@ -93,27 +91,17 @@ const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...prop
   },[submitFromOutside]);
 
   useEffect(() => {
-    actions.setFormConfig({
-      title: <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb">
-        <Link color="inherit" href="/" onClick={() => {}}>
-          Proveedores
-        </Link>
-        <Link color="inherit" href="/getting-started/installation/" onClick={() => {}}>
-          Ruedas Mateu
-        </Link>
-        <Typography color="textPrimary">General</Typography>
-      </Breadcrumbs>,
-      onClick: () => {
-        console.log("hola")
-      }
-    });
-    actions.setBreadcrumbHeader([
-      {title: "Proveedores", href:"/proveedores"},
-      {title: "Un Nombre", href:"hol"},
-      {title: "General"}
-    ]);
-    return () => {
-      actions.resetForm();
+    actions.setFormConfig({});
+
+    // breadcrumbs config
+    if(isEditable()){
+      actions.setBreadcrumbHeader([
+        {title: "Proveedores", href:"/proveedores"},
+        {title: "Nombre a editar", href:"/proveedores"},
+        {title: "General"}
+      ]);
+    } else{
+      actions.setBreadcrumbHeader([{title: "Proveedores", href:"/proveedores"},{title: "Nuevo"}]);
     }
   },[]);
 
@@ -139,7 +127,6 @@ const mapDispatchToProps = (dispatch, props) => {
     setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch),
     setSubmitFromOutside: bindActionCreators(setFireSaveFromHeader, dispatch),
     setFormData: bindActionCreators(setFormData, dispatch),
-    resetForm: bindActionCreators(resetAllGenericForm, dispatch),
   };
   return { actions };
 };
