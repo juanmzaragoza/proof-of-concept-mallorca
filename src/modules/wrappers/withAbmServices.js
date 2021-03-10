@@ -5,7 +5,7 @@ import {withSnackbar} from "notistack";
 import {useHistory} from "react-router-dom";
 import {connect} from "react-redux";
 import {bindActionCreators, compose} from "redux";
-import {addError, resetError, setFormData} from "../../redux/genericForm";
+import {addError, resetAllGenericForm, resetError, setFormData} from "../../redux/genericForm";
 import {finishLoading, startLoading} from "../../redux/app";
 
 const withAbmServices = (PassedComponent) => {
@@ -30,6 +30,7 @@ const withAbmServices = (PassedComponent) => {
             id: "CreateUpdateForm.creacion_correcta",
             defaultMessage: "Registro creado correctamente"
           }), {variant: 'success'});
+          props.resetForm();
         })
         .catch(error => {
           props.finishLoading();
@@ -61,6 +62,7 @@ const withAbmServices = (PassedComponent) => {
             id: "CreateUpdateForm.actualizacion_correcta",
             defaultMessage: "Registro actualizado correctamente"
           }), {variant: 'success'});
+          props.resetForm();
         })
         .catch(error => {
           props.finishLoading();
@@ -122,6 +124,7 @@ const withAbmServices = (PassedComponent) => {
       setFormData: bindActionCreators(setFormData, dispatch),
       startLoading: bindActionCreators(startLoading, dispatch),
       finishLoading: bindActionCreators(finishLoading, dispatch),
+      resetForm: bindActionCreators(resetAllGenericForm, dispatch),
     };
     return actions;
   };

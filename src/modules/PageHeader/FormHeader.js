@@ -33,7 +33,7 @@ const FormHeader = ({ actions, loadingIndicator }) => {
       },
       content: <div>
         {loadingIndicator && <IconButton><CircularProgress size={25}/></IconButton>}
-        <IconButton onClick={() => actions.onClickOnSave(true)}>
+        <IconButton disabled={loadingIndicator} onClick={() => actions.onClickOnSave(true)}>
           <Save />
         </IconButton>
         <IconButton >

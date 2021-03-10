@@ -11,7 +11,6 @@ import AdvancedFilters from "./AdvancedFilters";
 import SuppliersForm from "./SuppliersForm";
 import * as API from "redux/api";
 import {setBreadcrumbHeader, setListingConfig} from "redux/pageHeader";
-import {resetAllGenericForm} from "../../redux/genericForm";
 
 const URL = '/proveedores';
 
@@ -27,7 +26,6 @@ const SuppliersList = ({actions, ...props}) => {
     actions.setBreadcrumbHeader([
       {title: "Proveedores", href:"/proveedores"}
     ]);
-    return () => actions.resetForm();
   },[]);
 
   const listConfiguration = {
@@ -82,7 +80,6 @@ const mapDispatchToProps = (dispatch, props) => {
   const actions = {
     setListingConfig: bindActionCreators(setListingConfig, dispatch),
     setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch),
-    resetForm: bindActionCreators(resetAllGenericForm, dispatch),
   };
   return { actions };
 };
