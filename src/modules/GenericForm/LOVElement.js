@@ -66,7 +66,7 @@ const LOVElement = (props) => {
       select
       label={props.label}
       onChange={props.onChange}
-      value={props.value}
+      value={opts.find(option => option.id === props.value.id)?opts.find(option => option.id === props.value.id):""}
       error={Boolean(props.error)}
       required={props.required}
       variant={props.variant ? props.variant : "outlined"}

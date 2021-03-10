@@ -22,6 +22,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       type: 'input',
       key: 'codi',
       required: true,
+      noEditable: true,
       breakpoints: {
         xs: 12,
         md: 1
@@ -56,7 +57,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
     {
       placeHolder: "Bloqueado",
       type: 'checkbox',
-      key: 'pro_blo',
+      key: 'bloquejat',
       breakpoints: {
         xs: 12,
         md: 3
@@ -171,7 +172,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
     {
       placeHolder: "Deshomologado",
       type: 'checkbox',
-      key: 'pro_dhm',
+      key: 'dhm',
       breakpoints: {
         xs: 12,
         md: 2
@@ -180,7 +181,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
     {
       placeHolder: "SubContratista",
       type: 'checkbox',
-      key: 'pro_scn',
+      key: 'subcontratista',
       breakpoints: {
         xs: 12,
         md: 2
@@ -439,6 +440,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         <OutlinedContainer title={"Proveedores"}>
           <GenericForm formComponents={suppliersConfig}
                        emptyPaper={true}
+                       editMode={props.editMode}
                        formData={formData}
                        setFormData={setFormData}
                        loading={props.loading}
