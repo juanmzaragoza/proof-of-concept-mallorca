@@ -81,7 +81,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.pais",
         defaultMessage: "País"
       }),
-      type: 'POV',
+      type: 'LOV',
       key: 'pais',
       required: true,
       breakpoints: {
@@ -90,7 +90,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: 'paises',
-        labelKey: (data) => `${data.codi} - ${data.nom}`,
+        labelKey: (data) => `(${data.nom}) ${data.codi}`,
+        sort: 'nom'
       }
     },
     {
@@ -140,7 +141,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.familia",
         defaultMessage: "Familia"
       }),
-      type: 'POV',
+      type: 'LOV',
       key: 'familiaProveidor',
       required: true,
       breakpoints: {
@@ -149,7 +150,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: 'familiaProveidors',
-        labelKey: 'nom',
+        labelKey: (data) => `(${data.nom}) ${data.codi}`,
+        sort: 'nom'
       }
     },
     {
@@ -157,7 +159,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.comercial",
         defaultMessage: "Comercial"
       }),
-      type: 'POV',
+      type: 'LOV',
       key: 'comercial',
       required: true,
       breakpoints: {
@@ -166,7 +168,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: 'operaris',
-        labelKey: "nomCodiTxt",
+        labelKey: (data) => `(${data.nom}) ${data.codi}`,
+        sort: 'nom'
       }
     },
     {
@@ -192,7 +195,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.idioma",
         defaultMessage: "Idioma"
       }),
-      type: 'POV',
+      type: 'LOV',
       key: 'idioma',
       required: true,
       breakpoints: {
@@ -201,7 +204,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: 'idiomas',
-        labelKey: (data) => `${data.codi} - ${data.descripcio}`,
+        labelKey: (data) => `(${data.descripcio}) ${data.codi}`,
+        sort: 'descripcio'
       }
     },
     {
@@ -209,7 +213,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.regiva",
         defaultMessage: "Reg. IVA"
       }),
-      type: 'POV',
+      type: 'LOV',
       key: 'regimIva',
       required: true,
       breakpoints: {
@@ -218,7 +222,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: "regimIvas",
-        labelKey: 'descripcio',
+        labelKey: (data) => `(${data.descripcio}) ${data.codi}`,
+        sort: 'descripcio'
       }
     },
     {
@@ -226,7 +231,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.divisa",
         defaultMessage: "Divisa"
       }),
-      type: 'POV',
+      type: 'LOV',
       key: 'divisa',
       required: true,
       breakpoints: {
@@ -235,7 +240,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: "divisas",
-        labelKey: 'codi',
+        labelKey: (data) => `(${data.nom}) ${data.codi}`,
+        sort: 'nom'
       }
     },
     {
@@ -243,7 +249,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.tvencimiento",
         defaultMessage: "Tipo Vencimiento"
       }),
-      type: 'POV',
+      type: 'LOV',
       key: 'tipusVenciment',
       required: true,
       breakpoints: {
@@ -252,7 +258,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: "tipusVenciments",
-        labelKey: 'descripcio',
+        labelKey: (data) => `(${data.descripcio}) ${data.codi}`,
+        sort: 'descripcio'
       }
     },
     {
@@ -260,7 +267,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.docpago",
         defaultMessage: "Documento de Pago"
       }),
-      type: 'POV',
+      type: 'LOV',
       key: 'documentPagamentCobrament',
       required: true,
       breakpoints: {
@@ -269,7 +276,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: "documentPagamentCobraments",
-        labelKey: 'descripcio',
+        labelKey: (data) => `(${data.descripcio}) ${data.codi}`,
+        sort: 'descripcio'
       }
     },
   ];
@@ -377,7 +385,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.Direccion.codPostal",
         defaultMessage: "Código Postal"
       }),
-      type: 'POV',
+      type: 'LOV',
       key: 'codiPostal',
       required: false,
       breakpoints: {
@@ -386,7 +394,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: "codiPostals",
-        labelKey: 'codiPoblacioProvinciaTxt',
+        labelKey: (data) => `(${data.descPostNomCodi}) ${data.codi}`,
+        sort: 'codi'
       }
     },
     {

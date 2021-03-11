@@ -1,0 +1,1 @@
+export const LOV_LIMIT_PER_PAGE = 10;

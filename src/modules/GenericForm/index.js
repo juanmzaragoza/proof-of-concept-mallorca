@@ -133,13 +133,13 @@ const GenericForm = ({loading, ...props}) => {
             </RadioGroup>
           </>
         )
-      case 'POV':
+      case 'LOV':
         return (
           <LOVElement
             id={key}
             responseKey={selector.key}
             labelResponseKey={selector.labelKey}
-            options={selector.options}
+            sortBy={selector.sort}
             label={placeHolder}
             onChange={e => {
               e.stopPropagation();
@@ -147,6 +147,7 @@ const GenericForm = ({loading, ...props}) => {
             }}
             value={props.formData && props.formData[key] ? props.formData[key] : ""}
             setValue={e => props.setFormData({...props.formData, [key]: e.value})}
+            options={selector.options}
             variant={variant}
             error={getError(key)}
             required={Boolean(required)}

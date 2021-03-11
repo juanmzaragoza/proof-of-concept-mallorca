@@ -10,7 +10,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  FormHelperText,
+  FormHelperText, IconButton,
   ListSubheader,
   MenuItem,
   TextField
@@ -20,43 +20,70 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-import {getFormSelectorData} from "redux/genericForm";
-import {getDataFormSelectorById, getLoadingFormSelectorById} from "redux/genericForm/selectors";
+import {
+  decrementPageToFormSelector,
+  getFormSelectorData,
+  incrementPageToFormSelector,
+  searchByQueryTerm
+} from "redux/genericForm";
+import {
+  getDataFormSelectorById,
+  getLoadingFormSelectorById,
+  getPageFormSelectorById,
+  getQuerySearchFormSelectorById,
+  getTotalPagesFormSelectorById
+} from "redux/genericForm/selectors";
+import {NavigateBefore, NavigateNext} from "@material-ui/icons";
 
 const LOVElement = (props) => {
   const [openModal, setOpenModal] = useState(false);
-  const [prefilter, setPrefilter] = useState("");
   const [opts, setOpts] = useState(props.options);
   const [elementToAdd, setElementToAdd] = useState("");
 
   useEffect(()=>{
-    props.responseKey && props.searchData(props.id,props.responseKey);
-  },[]);
+    props.responseKey && props.searchData(props.id,props.responseKey, props.page, props.sortBy, props.querySearch);
+  },[props.page, props.querySearch]);
 
   useEffect(() => {
     setOpts(props.options);
   },[props.options]);
 
+  const buttonInsideSelector = (icon, disabled = false, onClick) => (
+    <IconButton disabled={disabled} onClick={e => {
+      e.stopPropagation();
+      onClick();
+    }}>{icon}</IconButton>
+  );
+
   const renderOpts = () => {
     return [
-      opts && opts
-        .filter(option => prefilter !== "" ? option.label.includes(prefilter) : true)
-        .map((option, index) => <MenuItem key={index} value={option}>
-          {typeof props.labelResponseKey === 'function'? props.labelResponseKey(option):option[props.labelResponseKey]}
-        </MenuItem>),
-      <ListSubheader key="more-options">Más opciones</ListSubheader>,
-      <MenuItem key="add-new" style={{fontWeight: "bold", fontSize: "small"}} onClick={e => {
-        e.stopPropagation();
-        setOpenModal(true);
-      }}>Agregar nuevo</MenuItem>,
       <MenuItem key="search" style={{fontWeight: "bold", fontSize: "small"}} onKeyDown={e => e.stopPropagation()}>
         <TextField
           variant={"outlined"}
           size={"small"}
           label={"Buscar"}
           onClick={e => e.stopPropagation()}
-          onChange={e => setPrefilter(e.target.value)}/>
-      </MenuItem>
+          onChange={e => props.dispatchSearchTerm({name: props.id, text: e.target.value})}/>
+      </MenuItem>,
+      opts && opts
+        .map((option, index) => <MenuItem key={index} value={option}>
+          {typeof props.labelResponseKey === 'function'? props.labelResponseKey(option):option[props.labelResponseKey]}
+        </MenuItem>),
+      <ListSubheader key="pagination">
+        {buttonInsideSelector(
+          <NavigateBefore/>,
+          !props.page,
+          () => props.dispatchDecrementPage(props.id))}
+        {buttonInsideSelector(
+          <NavigateNext/>,
+          props.page === props.totalPages,
+          () => props.dispatchIncrementPage(props.id))}
+      </ListSubheader>,
+      <ListSubheader key="more-options">Más opciones</ListSubheader>,
+      <MenuItem key="add-new" style={{fontWeight: "bold", fontSize: "small"}} onClick={e => {
+        e.stopPropagation();
+        setOpenModal(true);
+      }}>Agregar nuevo</MenuItem>
     ];
   };
 
@@ -79,8 +106,7 @@ const LOVElement = (props) => {
         ),
       }}
     >
-      {props.loading && <MenuItem key={"loading"}  disabled={true}>Cargando...</MenuItem>}
-      {!props.loading && (renderOpts())}
+      {renderOpts()}
     </TextField>
     <Dialog open={openModal} onClose={() => setOpenModal(false)} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Agregar Nuevo</DialogTitle>
@@ -128,19 +154,30 @@ LOVElement.propTypes = {
   value: PropTypes.any,
   variant: PropTypes.any,
   options: PropTypes.any,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  setValue: PropTypes.func,
+  error: PropTypes.any,
+  required: PropTypes.bool,
+  disabled: PropTypes.bool,
+  sortBy: PropTypes.string // service order field
 };
 
 const mapStateToProps = (state, props) => {
   return {
     loading: getLoadingFormSelectorById(state, props.id),
-    options: getDataFormSelectorById(state, props.id)
+    options: getDataFormSelectorById(state, props.id),
+    page: getPageFormSelectorById(state, props.id),
+    totalPages: getTotalPagesFormSelectorById(state, props.id),
+    querySearch: getQuerySearchFormSelectorById(state, props.id),
   };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
-    searchData: bindActionCreators(getFormSelectorData, dispatch)
+    searchData: bindActionCreators(getFormSelectorData, dispatch),
+    dispatchIncrementPage: bindActionCreators(incrementPageToFormSelector, dispatch),
+    dispatchDecrementPage: bindActionCreators(decrementPageToFormSelector, dispatch),
+    dispatchSearchTerm: bindActionCreators(searchByQueryTerm, dispatch),
   };
   return actions;
 };
