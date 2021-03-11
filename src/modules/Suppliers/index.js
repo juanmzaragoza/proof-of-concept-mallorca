@@ -3,7 +3,7 @@ import {LocalMall} from "@material-ui/icons";
 import {injectIntl} from "react-intl";
 import {Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
+import {bindActionCreators, compose} from "redux";
 
 import Paper from "@material-ui/core/Paper";
 import ReactGrid from "../ReactGrid";
@@ -79,19 +79,28 @@ const SuppliersList = ({actions, ...props}) => {
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
     setListingConfig: bindActionCreators(setListingConfig, dispatch),
-    setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch)
+    setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch),
   };
   return { actions };
 };
 
-const SuppliersListIntl = injectIntl(connect(null,mapDispatchToProps)(SuppliersList));
+const SuppliersListIntl = compose(
+  injectIntl,
+  connect(null,mapDispatchToProps)
+)(SuppliersList);
+
+const SuppliersFormWithUrl = () => {
+  return (
+    <SuppliersForm url={API.suppliers} />
+  )
+};
 
 const Suppliers = () => (
   <Paper style={{ position: 'relative' }}>
     <Switch>
       <Route exact path={`${URL}`} component={SuppliersListIntl}></Route>
-      <Route path={`${URL}/create`} component={SuppliersForm}></Route>
-      {/*<Route path={`${URL}/:id`} component={SuppliersFamilyCreateIntl}></Route>*/}
+      <Route path={`${URL}/create`} component={SuppliersFormWithUrl}></Route>
+      {<Route path={`${URL}/:id`} component={SuppliersFormWithUrl}></Route>}
     </Switch>
   </Paper>
 );

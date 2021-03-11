@@ -1,21 +1,32 @@
 import React, {useEffect, useState} from 'react';
-import {bindActionCreators} from "redux";
+import {bindActionCreators,compose} from "redux";
 import {connect} from "react-redux";
 import {useHistory, useParams} from "react-router-dom";
 import PropTypes from "prop-types";
-import {withSnackbar} from "notistack";
 import {injectIntl} from "react-intl";
 
-import GenericForm from "../GenericForm";
-import Axios from "../../Axios";
+import GenericForm from "modules/GenericForm";
+import { withAbmServices } from "modules/wrappers";
 
-import {setBreadcrumbHeader, setFormConfig} from "redux/pageHeader";
+import {setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig} from "redux/pageHeader";
+import {getFireSave} from "redux/pageHeader/selectors";
+import {getFormData, getFormErrors} from "../../redux/genericForm/selectors";
+import {setFormData} from "../../redux/genericForm";
+import {getLoading} from "../../redux/app/selectors";
 
-const CreateUpdateForm = ({ actions, title, enqueueSnackbar, formConfiguration, url, ...props }) => {
-  const history = useHistory();
-  const [submitFromOutside, setSubmitFromOutside] = useState(false);
-  const [formData, setFormData] = useState();
-  const [formErrors, setFormErrors] = useState({});
+const CreateUpdateForm = ({
+      title, //props
+      formConfiguration,
+      url,
+      actions, //redux
+      submitFromOutside,
+      formErrors,
+      formData,
+      loading,
+      actions: {setFormConfig, setBreadcrumbHeader, setSubmitFromOutside, setFormData},
+      enqueueSnackbar, //withSackBar
+      services, //withServices
+      ...props }) => {
   const [editMode, setEditMode] = useState(false);
 
   const { id } = useParams();
@@ -25,37 +36,17 @@ const CreateUpdateForm = ({ actions, title, enqueueSnackbar, formConfiguration, 
   };
 
   useEffect(() => {
-    actions.setFormConfig({
-      title: title,
-      onClick: () => setSubmitFromOutside(true)
+    setFormConfig({
+      title: title
     });
-    actions.setBreadcrumbHeader([{title: title, href: "/"}, {title: "Nuevo"}]);
+    setBreadcrumbHeader([{title: title, href: "/"}, {title: "Nuevo"}]);
   },[]);
 
   useEffect(() => {
     if(isEditable()){
-      actions.setBreadcrumbHeader([{title: title, href: "/"}, {title: "Modificar"}]);
+      setBreadcrumbHeader([{title: title, href: "/"}, {title: "Modificar"}]);
       setEditMode(true);
-      const queryString = `${url}/${id}`;
-      Axios.get(queryString,{
-        headers: new Headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }),
-      })
-        .then(({status, data, ...rest}) => {
-          setFormData(data);
-        })
-        .catch(error => {
-          const status = error.response.status;
-          if(status === 400){
-            enqueueSnackbar(props.intl.formatMessage({
-              id: "ReactGrid.error.algo_salio_mal",
-              defaultMessage: "Ups! Algo ha salido mal :("
-            }), {variant: 'error'});
-          }
-          history.goBack();
-        });
+      services.getById(id);
     }
   },[id]);
 
@@ -73,60 +64,13 @@ const CreateUpdateForm = ({ actions, title, enqueueSnackbar, formConfiguration, 
     }
   };
 
-  const create = (data) => {
-    const queryString = `${url}`;
-    Axios.post(queryString, JSON.stringify(data),{
-      headers: new Headers({
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      }),
-    })
-      .then(({status, data, ...rest}) => {
-        history.goBack();
-        enqueueSnackbar(props.intl.formatMessage({
-          id: "CreateUpdateForm.creacion_correcta",
-          defaultMessage: "Registro creado correctamente"
-        }), {variant: 'success'});
-      })
-      .catch(error => {
-        handlePersistError(error.response);
-      });
-  };
+  const create = (data) => services.create(data);
 
-  const update = (data) => {
-    const queryString = `${url}/${id}`;
-    Axios.put(queryString,JSON.stringify(data),{
-      headers: new Headers({
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      }),
-    })
-      .then(({status, data, ...rest}) => {
-        history.goBack();
-        enqueueSnackbar(props.intl.formatMessage({
-          id: "CreateUpdateForm.actualizacion_correcta",
-          defaultMessage: "Registro actualizado correctamente"
-        }), {variant: 'success'});
-      })
-      .catch(error => {
-        handlePersistError(error.response);
-      });
-  }
-
-  const handlePersistError = ({ status, data}) => {
-    if(status === 400 && data.errors){
-      for (const err of data.errors) {
-        setFormErrors({...formErrors, [err.field]: {message: err.defaultMessage}});
-      }
-    }
-    enqueueSnackbar(props.intl.formatMessage({
-      id: "CreateUpdateForm.revise_datos",
-      defaultMessage: "Revise los datos e intente nuevamente..."
-    }), {variant: 'error'});
-  }
+  const update = (data) => services.update(id, data);
 
   return (
     <GenericForm
+      loading={loading}
       editMode={editMode}
       setFormData={setFormData}
       formData={formData}
@@ -153,15 +97,32 @@ CreateUpdateForm.propTypes = {
       lg: PropTypes.number,
     })
   })),
-  url: PropTypes.string.isRequired
+  url: PropTypes.string.isRequired,
+  actions: PropTypes.any,
+  submitFromOutside: PropTypes.bool
+};
+
+const mapStateToProps = (state, props) => {
+  return {
+    submitFromOutside: getFireSave(state),
+    formErrors: getFormErrors(state),
+    formData: getFormData(state),
+    loading: getLoading(state)
+  };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
     setFormConfig: bindActionCreators(setFormConfig, dispatch),
-    setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch)
+    setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch),
+    setSubmitFromOutside: bindActionCreators(setFireSaveFromHeader, dispatch),
+    setFormData: bindActionCreators(setFormData, dispatch),
   };
   return { actions };
 };
 
-export default withSnackbar(injectIntl(connect(null, mapDispatchToProps)(CreateUpdateForm)));
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  injectIntl,
+  withAbmServices
+)(CreateUpdateForm);

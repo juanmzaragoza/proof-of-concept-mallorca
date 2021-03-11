@@ -1,6 +1,6 @@
 import React from "react";
 import {useHistory} from "react-router-dom";
-import {FilledInput, InputLabel, Tooltip} from "@material-ui/core";
+import {CircularProgress, FilledInput, InputLabel, Tooltip} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import AddIcon from "@material-ui/icons/Add";
@@ -10,12 +10,15 @@ import {FormattedMessage} from "react-intl";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 
-import IconMenu from "modules/common/IconMenu";
+import IconMenu from "modules/shared/IconMenu";
 import ContentHeader from "./ContentHeader";
-import HeadingHeader from "./HeadingHeader";
 import BreadcrumbHeader from "./BreadcrumbHeader";
+import {getLoading} from "../../redux/app/selectors";
+import {bindActionCreators} from "redux";
+import {setFireSaveFromHeader} from "../../redux/pageHeader";
+import {connect} from "react-redux";
 
-export const ListingHeader = ({ config: { title } }) => {
+export const ListingHeader = ({ config: { title }, loadingIndicator }) => {
   const history = useHistory();
   const list = [
     {
@@ -35,6 +38,7 @@ export const ListingHeader = ({ config: { title } }) => {
         justifyContent: 'center',
         marginTop: '5px'
       }}>
+        {loadingIndicator && <IconButton><CircularProgress size={25}/></IconButton>}
         <Tooltip title="Refrescar" placement="top-start">
           <IconButton aria-label="refesh">
             <RefreshIcon fontSize="default" />
@@ -83,4 +87,10 @@ export const ListingHeader = ({ config: { title } }) => {
   );
 }
 
-export default ListingHeader;
+const mapStateToProps = (state, props) => {
+  return {
+    loadingIndicator: getLoading(state),
+  };
+};
+
+export default connect(mapStateToProps,null)(ListingHeader);

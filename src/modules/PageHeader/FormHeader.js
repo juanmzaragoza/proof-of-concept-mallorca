@@ -9,9 +9,11 @@ import ContentHeader from "./ContentHeader";
 import BreadcrumbHeader from "./BreadcrumbHeader";
 import {bindActionCreators} from "redux";
 import {setFireSaveFromHeader} from "redux/pageHeader";
+import {CircularProgress} from "@material-ui/core";
+import {getLoading} from "../../redux/app/selectors";
 
 
-const FormHeader = ({ actions }) => {
+const FormHeader = ({ actions, loadingIndicator }) => {
   const list = [
     {
       id: 1,
@@ -30,7 +32,8 @@ const FormHeader = ({ actions }) => {
         flexDirection: 'row-reverse'
       },
       content: <div>
-        <IconButton onClick={() => actions.onClickOnSave(true)}>
+        {loadingIndicator && <IconButton><CircularProgress size={25}/></IconButton>}
+        <IconButton disabled={loadingIndicator} onClick={() => actions.onClickOnSave(true)}>
           <Save />
         </IconButton>
         <IconButton >
@@ -65,6 +68,12 @@ FormHeader.propTypes = {
   }),
 }
 
+const mapStateToProps = (state, props) => {
+  return {
+    loadingIndicator: getLoading(state),
+  };
+};
+
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
     onClickOnSave: bindActionCreators(setFireSaveFromHeader, dispatch),
@@ -72,4 +81,4 @@ const mapDispatchToProps = (dispatch, props) => {
   return { actions };
 };
 
-export default connect(null,mapDispatchToProps)(FormHeader);
+export default connect(mapStateToProps,mapDispatchToProps)(FormHeader);

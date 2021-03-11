@@ -17,7 +17,7 @@ import {
 } from '@material-ui/core';
 import FormControl from "@material-ui/core/FormControl";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import PovElement from "./PovElement";
+import LOVElement from "./LOVElement";
 
 const useStyles = makeStyles({
   root: {
@@ -30,7 +30,7 @@ const useStyles = makeStyles({
   },
 });
 
-const GenericForm = (props) => {
+const GenericForm = ({loading, ...props}) => {
   const formRef = useRef(null);
   const [onBlur, setOnBlur] = useState({});
 
@@ -38,6 +38,13 @@ const GenericForm = (props) => {
     root,
     formControlsFilledInput
   } = useStyles();
+
+  // init to avoid uncontrolled inputs
+  useEffect(() => {
+    for (const component of props.formComponents) {
+      props.setFormData({...props.formData, [component.key]: ""})
+    }
+  },[]);
 
   useEffect(() => {
     if(props.submitFromOutside){
@@ -72,7 +79,7 @@ const GenericForm = (props) => {
             helperText={onBlur[key] && Boolean(error) ? error.message : ''}
             onBlur={() => setOnBlur({...onBlur, [key]: true})}
             type={"text"}
-            disabled={props.editMode && noEditable || disabled}/>
+            disabled={loading || (props.editMode && noEditable || disabled)}/>
         );
       case 'select':
         return (
@@ -85,6 +92,7 @@ const GenericForm = (props) => {
             value={props.formData && props.formData[key] ? props.formData[key] : ""}
             onChange={e => props.setFormData({...props.formData, [key]: e.target.value})}
             required={required}
+            disabled={loading || (props.editMode && noEditable || disabled)}
             inputProps={{
               name: placeHolder,
               id: key,
@@ -104,6 +112,7 @@ const GenericForm = (props) => {
                 checked={props.formData && props.formData[key] ? props.formData[key] : false}
                 onChange={e => props.setFormData({...props.formData, [key]: e.currentTarget.checked})}
                 name={key}
+                disabled={loading || (props.editMode && noEditable || disabled)}
                 color="primary"
               />
             }
@@ -118,15 +127,19 @@ const GenericForm = (props) => {
                         name="gender1"
                         value={props.formData && props.formData[key] ? props.formData[key] : ""}
                         onChange={e => props.setFormData({...props.formData, [key]: e.currentTarget.value})}
-                        required={required} >
+                        required={required}
+                        disabled={loading || (props.editMode && noEditable || disabled)}>
               {selector && selector.options.map(option => <FormControlLabel key={option.value} value={option.value} control={<Radio />} label={option.label} />) }
             </RadioGroup>
           </>
         )
       case 'POV':
         return (
-          <PovElement
+          <LOVElement
             id={key}
+            responseKey={selector.key}
+            labelResponseKey={selector.labelKey}
+            options={selector.options}
             label={placeHolder}
             onChange={e => {
               e.stopPropagation();
@@ -135,8 +148,9 @@ const GenericForm = (props) => {
             value={props.formData && props.formData[key] ? props.formData[key] : ""}
             setValue={e => props.setFormData({...props.formData, [key]: e.value})}
             variant={variant}
-            options={selector.options}
-            required={Boolean(required)} />
+            error={getError(key)}
+            required={Boolean(required)}
+            disabled={props.editMode && noEditable || disabled}/>
         );
       default:
         return;
@@ -202,7 +216,11 @@ GenericForm.propTypes = {
   submitFromOutside: PropTypes.bool,
   editMode: PropTypes.bool,
   emptyPaper: PropTypes.bool,
-  fieldsContainerStyles: PropTypes.string,
-  selector: PropTypes.object
+  fieldsContainerStyles: PropTypes.object,
+  selector: PropTypes.shape({
+    key: PropTypes.any,
+    labelKey: PropTypes.any,
+    options: PropTypes.array
+  })
 };
 export default GenericForm;

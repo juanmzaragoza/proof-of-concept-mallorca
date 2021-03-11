@@ -10,7 +10,7 @@ export const submit = ({ name, mail, phone, offerPostLogSetId }) => {
     try {
       dispatch(add({ loading: true }));
       axios
-        .post(API.suppliersFamily, {
+        .post(API.familiaProveidor, {
           Email: mail,
           OfferPostLogSetId: offerPostLogSetId,
           Phone: phone,

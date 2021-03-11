@@ -1,0 +1,139 @@
+import React from "react";
+import Axios from "Axios";
+import {injectIntl} from "react-intl";
+import {withSnackbar} from "notistack";
+import {useHistory} from "react-router-dom";
+import {connect} from "react-redux";
+import {bindActionCreators, compose} from "redux";
+import {addError, resetAllGenericForm, resetError, setFormData} from "../../redux/genericForm";
+import {finishLoading, startLoading} from "../../redux/app";
+
+const withAbmServices = (PassedComponent) => {
+
+  const WrappedComponent = (props) => {
+    const history = useHistory();
+
+    const create = (data) => {
+      const queryString = `${props.url}`;
+      props.resetError();
+      props.startLoading();
+      Axios.post(queryString, JSON.stringify(data), {
+        headers: new Headers({
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }),
+      })
+        .then(({status, data, ...rest}) => {
+          props.finishLoading();
+          history.goBack();
+          props.enqueueSnackbar(props.intl.formatMessage({
+            id: "CreateUpdateForm.creacion_correcta",
+            defaultMessage: "Registro creado correctamente"
+          }), {variant: 'success'});
+          props.resetForm();
+        })
+        .catch(error => {
+          props.finishLoading();
+          if(error.response){
+            handlePersistError(error.response);
+          } else{
+            props.enqueueSnackbar(props.intl.formatMessage({
+              id: "CreateUpdateForm.actualizacion_correcta",
+              defaultMessage: "Servidor fuera de servicio"
+            }), {variant: 'error'});
+          }
+        });
+    };
+
+    const update = (id, data) => {
+      const queryString = `${props.url}/${id}`;
+      props.resetError();
+      props.startLoading();
+      Axios.put(queryString, JSON.stringify(data), {
+        headers: new Headers({
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }),
+      })
+        .then(({status, data, ...rest}) => {
+          props.finishLoading();
+          history.goBack();
+          props.enqueueSnackbar(props.intl.formatMessage({
+            id: "CreateUpdateForm.actualizacion_correcta",
+            defaultMessage: "Registro actualizado correctamente"
+          }), {variant: 'success'});
+          props.resetForm();
+        })
+        .catch(error => {
+          props.finishLoading();
+          handlePersistError(error.response);
+        });
+    }
+
+    const getById = (id) => {
+      const queryString = `${props.url}/${id}`;
+      props.startLoading();
+      Axios.get(queryString,{
+        headers: new Headers({
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }),
+      })
+        .then(({status, data, ...rest}) => {
+          props.finishLoading();
+          props.setFormData(data);
+        })
+        .catch(error => {
+          props.finishLoading();
+          const status = error.response.status;
+          if(status === 400){
+            props.enqueueSnackbar(props.intl.formatMessage({
+              id: "ReactGrid.error.algo_salio_mal",
+              defaultMessage: "Ups! Algo ha salido mal :("
+            }), {variant: 'error'});
+          }
+          history.goBack();
+        });
+    }
+
+    const handlePersistError = ({status, data}) => {
+      if (status === 400 && data.errors) {
+        for (const err of data.errors) {
+          props.addError({[err.field]: {message: err.defaultMessage}});
+        }
+      }
+      props.enqueueSnackbar(props.intl.formatMessage({
+        id: "CreateUpdateForm.revise_datos",
+        defaultMessage: "Revise los datos e intente nuevamente..."
+      }), {variant: 'error'});
+    }
+
+    return <PassedComponent services={{create, update, getById}} {...props} ></PassedComponent>;
+  }
+
+  const mapStateToProps = (state, props) => {
+    return {
+      //submitFromOutside: getFireSave(state)
+    };
+  };
+
+  const mapDispatchToProps = (dispatch, props) => {
+    const actions = {
+      addError: bindActionCreators(addError, dispatch),
+      resetError: bindActionCreators(resetError, dispatch),
+      setFormData: bindActionCreators(setFormData, dispatch),
+      startLoading: bindActionCreators(startLoading, dispatch),
+      finishLoading: bindActionCreators(finishLoading, dispatch),
+      resetForm: bindActionCreators(resetAllGenericForm, dispatch),
+    };
+    return actions;
+  };
+
+  return compose(
+    connect(mapStateToProps,mapDispatchToProps),
+    withSnackbar,
+    injectIntl
+  )(WrappedComponent);
+}
+
+export default withAbmServices;
