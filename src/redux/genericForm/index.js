@@ -1,6 +1,9 @@
 //Action types
 import Axios from "../../Axios";
 import * as API from "redux/api";
+import {LOV_LIMIT_PER_PAGE} from "constants/config";
+
+import {getPageFormSelectorById} from "./selectors";
 
 const SET_ERROR_TO_GENERIC_FORM = "SET_ERROR_TO_GENERIC_FORM";
 const ADD_ERROR_TO_GENERIC_FORM = "ADD_ERROR_TO_GENERIC_FORM";
@@ -8,17 +11,24 @@ const RESET_ERRORS_GENERIC_FORM = "RESET_ERRORS_GENERIC_FORM";
 const SET_FORM_DATA_TO_GENERIC_FORM = "SET_FORM_DATA_TO_GENERIC_FORM";
 const RESET_FORM_DATA_GENERIC_FORM = "RESET_FORM_DATA_GENERIC_FORM";
 const ADD_DATA_TO_FORM_SELECTOR = "ADD_DATA_TO_FORM_SELECTOR";
+const INCREMENT_PAGE_TO_FORM_SELECTOR = "INCREMENT_PAGE_TO_FORM_SELECTOR";
+const DECREMENT_PAGE_TO_FORM_SELECTOR = "DECREMENT_PAGE_TO_FORM_SELECTOR";
 const RESET_ALL_GENERIC_FORM = "RESET_ALL_GENERIC_FORM";
 
 //Functions
-export const getFormSelectorData = (id, key) => {
+export const getFormSelectorData = (id, key, page) => {
   return async dispatch => {
     try {
       dispatch(addToFormSelector({ name: id, loading: true }));
-      Axios.get(`${API[id]}?size=5&page=0`)
+      Axios.get(`${API[id]}?size=${LOV_LIMIT_PER_PAGE}&page=${page !== null? page:0}`)
         .then(({data}) => data)
-        .then(({ _embedded }) => {
-          dispatch(addToFormSelector({ name: id, loading: false, data: _embedded[key] }));
+        .then(({ page, _embedded }) => {
+          dispatch(addToFormSelector({
+            name: id,
+            loading: false,
+            data: _embedded[key],
+            page
+          }));
         })
         .catch(() => {
           dispatch(addToFormSelector({ name: id, loading: false }));
@@ -57,6 +67,20 @@ export function addToFormSelector(payload) {
   };
 }
 
+export function incrementPageToFormSelector(payload) {
+  return {
+    type: INCREMENT_PAGE_TO_FORM_SELECTOR,
+    payload
+  };
+}
+
+export function decrementPageToFormSelector(payload) {
+  return {
+    type: DECREMENT_PAGE_TO_FORM_SELECTOR,
+    payload
+  };
+}
+
 export function resetAllGenericForm() {
   return {
     type: RESET_ALL_GENERIC_FORM
@@ -89,6 +113,20 @@ export default (state = initialState, action) => {
         ...state.formSelectors,
         [name]: {...state.formSelectors[name], ...rest}
       }};
+    }
+    case INCREMENT_PAGE_TO_FORM_SELECTOR: {
+      const name = action.payload;
+      return { ...state, formSelectors: {
+          ...state.formSelectors,
+          [name]: {...state.formSelectors[name], page: {...state.formSelectors[name].page, number: state.formSelectors[name].page.number+1}}
+        }};
+    }
+    case DECREMENT_PAGE_TO_FORM_SELECTOR: {
+      const name = action.payload;
+      return { ...state, formSelectors: {
+          ...state.formSelectors,
+          [name]: {...state.formSelectors[name], page: {...state.formSelectors[name].page, number: state.formSelectors[name].page.number-1}}
+        }};
     }
     case RESET_ALL_GENERIC_FORM:
     case "RESET":
