@@ -11,14 +11,16 @@ const RESET_FORM_DATA_GENERIC_FORM = "RESET_FORM_DATA_GENERIC_FORM";
 const ADD_DATA_TO_FORM_SELECTOR = "ADD_DATA_TO_FORM_SELECTOR";
 const INCREMENT_PAGE_TO_FORM_SELECTOR = "INCREMENT_PAGE_TO_FORM_SELECTOR";
 const DECREMENT_PAGE_TO_FORM_SELECTOR = "DECREMENT_PAGE_TO_FORM_SELECTOR";
+const SEARCH_BY_TERM_FORM_FORM_SELECTOR = "SEARCH_BY_TERM_FORM_FORM_SELECTOR";
 const RESET_ALL_GENERIC_FORM = "RESET_ALL_GENERIC_FORM";
 
 //Functions
-export const getFormSelectorData = (id, key, page, sort) => {
+export const getFormSelectorData = (id, key, page, sort, search) => {
   return async dispatch => {
     try {
       dispatch(addToFormSelector({ name: id, loading: true }));
-      Axios.get(`${API[id]}?size=${LOV_LIMIT_PER_PAGE}&page=${page !== null? page:0}${sort? `&sort=${sort}`:""}`)
+      const URL =`${API[id]}?size=${LOV_LIMIT_PER_PAGE}&page=${page !== null? page:0}${sort? `&sort=${sort}`:""}${search && search !== ""? `&quickFilter=${search}`:""}`;
+      Axios.get(URL)
         .then(({data}) => data)
         .then(({ page, _embedded }) => {
           dispatch(addToFormSelector({
@@ -79,6 +81,13 @@ export function decrementPageToFormSelector(payload) {
   };
 }
 
+export function searchByQueryTerm(payload){
+  return {
+    type: SEARCH_BY_TERM_FORM_FORM_SELECTOR,
+    payload
+  };
+}
+
 export function resetAllGenericForm() {
   return {
     type: RESET_ALL_GENERIC_FORM
@@ -124,6 +133,13 @@ export default (state = initialState, action) => {
       return { ...state, formSelectors: {
           ...state.formSelectors,
           [name]: {...state.formSelectors[name], page: {...state.formSelectors[name].page, number: state.formSelectors[name].page.number-1}}
+        }};
+    }
+    case SEARCH_BY_TERM_FORM_FORM_SELECTOR: {
+      const {name, text} = action.payload;
+      return { ...state, formSelectors: {
+          ...state.formSelectors,
+          [name]: {...state.formSelectors[name], querySearch: text}
         }};
     }
     case RESET_ALL_GENERIC_FORM:
