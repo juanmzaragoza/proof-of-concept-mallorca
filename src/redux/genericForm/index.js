@@ -3,8 +3,6 @@ import Axios from "../../Axios";
 import * as API from "redux/api";
 import {LOV_LIMIT_PER_PAGE} from "constants/config";
 
-import {getPageFormSelectorById} from "./selectors";
-
 const SET_ERROR_TO_GENERIC_FORM = "SET_ERROR_TO_GENERIC_FORM";
 const ADD_ERROR_TO_GENERIC_FORM = "ADD_ERROR_TO_GENERIC_FORM";
 const RESET_ERRORS_GENERIC_FORM = "RESET_ERRORS_GENERIC_FORM";
@@ -16,11 +14,11 @@ const DECREMENT_PAGE_TO_FORM_SELECTOR = "DECREMENT_PAGE_TO_FORM_SELECTOR";
 const RESET_ALL_GENERIC_FORM = "RESET_ALL_GENERIC_FORM";
 
 //Functions
-export const getFormSelectorData = (id, key, page) => {
+export const getFormSelectorData = (id, key, page, sort) => {
   return async dispatch => {
     try {
       dispatch(addToFormSelector({ name: id, loading: true }));
-      Axios.get(`${API[id]}?size=${LOV_LIMIT_PER_PAGE}&page=${page !== null? page:0}`)
+      Axios.get(`${API[id]}?size=${LOV_LIMIT_PER_PAGE}&page=${page !== null? page:0}${sort? `&sort=${sort}`:""}`)
         .then(({data}) => data)
         .then(({ page, _embedded }) => {
           dispatch(addToFormSelector({

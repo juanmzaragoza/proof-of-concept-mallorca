@@ -35,7 +35,7 @@ const LOVElement = (props) => {
   const [elementToAdd, setElementToAdd] = useState("");
 
   useEffect(()=>{
-    props.responseKey && props.searchData(props.id,props.responseKey, props.page);
+    props.responseKey && props.searchData(props.id,props.responseKey, props.page, props.sortBy);
   },[props.page]);
 
   useEffect(() => {
@@ -149,7 +149,12 @@ LOVElement.propTypes = {
   value: PropTypes.any,
   variant: PropTypes.any,
   options: PropTypes.any,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  setValue: PropTypes.func,
+  error: PropTypes.any,
+  required: PropTypes.bool,
+  disabled: PropTypes.bool,
+  sortBy: PropTypes.string // service order field
 };
 
 const mapStateToProps = (state, props) => {

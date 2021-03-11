@@ -90,7 +90,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: 'paises',
-        labelKey: (data) => `${data.codi} - ${data.nom}`,
+        labelKey: (data) => `(${data.nom}) ${data.codi}`,
+        sort: 'nom'
       }
     },
     {
@@ -149,7 +150,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: 'familiaProveidors',
-        labelKey: 'nom',
+        labelKey: (data) => `(${data.nom}) ${data.codi}`,
+        sort: 'nom'
       }
     },
     {
@@ -166,7 +168,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: 'operaris',
-        labelKey: "nomCodiTxt",
+        labelKey: (data) => `(${data.nom}) ${data.codi}`,
+        sort: 'nom'
       }
     },
     {
@@ -201,7 +204,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: 'idiomas',
-        labelKey: (data) => `${data.codi} - ${data.descripcio}`,
+        labelKey: (data) => `(${data.descripcio}) ${data.codi}`,
+        sort: 'descripcio'
       }
     },
     {
@@ -218,7 +222,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: "regimIvas",
-        labelKey: 'descripcio',
+        labelKey: (data) => `(${data.descripcio}) ${data.codi}`,
+        sort: 'descripcio'
       }
     },
     {
@@ -235,7 +240,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: "divisas",
-        labelKey: 'codi',
+        labelKey: (data) => `(${data.nom}) ${data.codi}`,
+        sort: 'nom'
       }
     },
     {
@@ -252,7 +258,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: "tipusVenciments",
-        labelKey: 'descripcio',
+        labelKey: (data) => `(${data.descripcio}) ${data.codi}`,
+        sort: 'descripcio'
       }
     },
     {
@@ -269,7 +276,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: "documentPagamentCobraments",
-        labelKey: 'descripcio',
+        labelKey: (data) => `(${data.descripcio}) ${data.codi}`,
+        sort: 'descripcio'
       }
     },
   ];
@@ -277,7 +285,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
   const addressConfig = [
     {
       placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Direccion.tiLOVia",
+        id: "Proveedores.Direccion.tipoVia",
         defaultMessage: "Tipo Vía"
       }),
       type: 'select',
@@ -386,7 +394,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: "codiPostals",
-        labelKey: 'codiPoblacioProvinciaTxt',
+        labelKey: (data) => `(${data.descPostNomCodi}) ${data.codi}`,
+        sort: 'codi'
       }
     },
     {
