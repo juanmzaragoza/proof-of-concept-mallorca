@@ -81,7 +81,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.pais",
         defaultMessage: "País"
       }),
-      type: 'POV',
+      type: 'LOV',
       key: 'pais',
       required: true,
       breakpoints: {
@@ -140,7 +140,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.familia",
         defaultMessage: "Familia"
       }),
-      type: 'POV',
+      type: 'LOV',
       key: 'familiaProveidor',
       required: true,
       breakpoints: {
@@ -157,7 +157,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.comercial",
         defaultMessage: "Comercial"
       }),
-      type: 'POV',
+      type: 'LOV',
       key: 'comercial',
       required: true,
       breakpoints: {
@@ -192,7 +192,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.idioma",
         defaultMessage: "Idioma"
       }),
-      type: 'POV',
+      type: 'LOV',
       key: 'idioma',
       required: true,
       breakpoints: {
@@ -209,7 +209,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.regiva",
         defaultMessage: "Reg. IVA"
       }),
-      type: 'POV',
+      type: 'LOV',
       key: 'regimIva',
       required: true,
       breakpoints: {
@@ -226,7 +226,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.divisa",
         defaultMessage: "Divisa"
       }),
-      type: 'POV',
+      type: 'LOV',
       key: 'divisa',
       required: true,
       breakpoints: {
@@ -243,7 +243,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.tvencimiento",
         defaultMessage: "Tipo Vencimiento"
       }),
-      type: 'POV',
+      type: 'LOV',
       key: 'tipusVenciment',
       required: true,
       breakpoints: {
@@ -260,7 +260,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.docpago",
         defaultMessage: "Documento de Pago"
       }),
-      type: 'POV',
+      type: 'LOV',
       key: 'documentPagamentCobrament',
       required: true,
       breakpoints: {
@@ -277,7 +277,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
   const addressConfig = [
     {
       placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Direccion.tipoVia",
+        id: "Proveedores.Direccion.tiLOVia",
         defaultMessage: "Tipo Vía"
       }),
       type: 'select',
@@ -377,7 +377,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.Direccion.codPostal",
         defaultMessage: "Código Postal"
       }),
-      type: 'POV',
+      type: 'LOV',
       key: 'codiPostal',
       required: false,
       breakpoints: {

@@ -133,7 +133,7 @@ const GenericForm = ({loading, ...props}) => {
             </RadioGroup>
           </>
         )
-      case 'POV':
+      case 'LOV':
         return (
           <LOVElement
             id={key}
