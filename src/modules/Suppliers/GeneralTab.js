@@ -95,7 +95,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         creationComponents: [
           {
             type: 'input',
-            key: 'some',
+            key: 'codi',
             placeHolder: 'Código',
             breakpoints: {
               xs: 12,
@@ -104,7 +104,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
           },
           {
             type: 'input',
-            key: 'some',
+            key: 'nom',
             placeHolder: 'Nombre',
             breakpoints: {
               xs: 12,

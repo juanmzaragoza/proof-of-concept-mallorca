@@ -30,7 +30,6 @@ import {
 } from "redux/genericForm/selectors";
 
 import LOVForm from "./LOVForm";
-import GenericForm, {GenericPropTypes} from "./index";
 
 const LOVElement = (props) => {
   const [openModal, setOpenModal] = useState(false);
@@ -105,11 +104,12 @@ const LOVElement = (props) => {
     >
       {renderOpts()}
     </TextField>
-    <LOVForm
-      title={props.label}
-      formComponents={props.creationComponents}
-      open={props.creationComponents && props.creationComponents.length>0? openModal:false}
-      close={() => setOpenModal(false)} />
+    {props.creationComponents && props.creationComponents.length>0 &&
+      <LOVForm
+        title={props.label}
+        formComponents={props.creationComponents}
+        open={openModal}
+        close={() => setOpenModal(false)} />}
     {Boolean(props.error)? <FormHelperText>{props.error.message}</FormHelperText>:null}
   </>;
 }
