@@ -79,7 +79,7 @@ const GenericForm = ({loading, ...props}) => {
             helperText={onBlur[key] && Boolean(error) ? error.message : ''}
             onBlur={() => setOnBlur({...onBlur, [key]: true})}
             type={"text"}
-            disabled={loading || (props.editMode && noEditable || disabled)}/>
+            disabled={loading || (props.editMode && (noEditable || disabled))}/>
         );
       case 'select':
         return (
@@ -92,7 +92,7 @@ const GenericForm = ({loading, ...props}) => {
             value={props.formData && props.formData[key] ? props.formData[key] : ""}
             onChange={e => props.setFormData({...props.formData, [key]: e.target.value})}
             required={required}
-            disabled={loading || (props.editMode && noEditable || disabled)}
+            disabled={loading || (props.editMode && (noEditable || disabled))}
             inputProps={{
               name: placeHolder,
               id: key,
@@ -112,7 +112,7 @@ const GenericForm = ({loading, ...props}) => {
                 checked={props.formData && props.formData[key] ? props.formData[key] : false}
                 onChange={e => props.setFormData({...props.formData, [key]: e.currentTarget.checked})}
                 name={key}
-                disabled={loading || (props.editMode && noEditable || disabled)}
+                disabled={loading || (props.editMode && (noEditable || disabled))}
                 color="primary"
               />
             }
@@ -128,7 +128,7 @@ const GenericForm = ({loading, ...props}) => {
                         value={props.formData && props.formData[key] ? props.formData[key] : ""}
                         onChange={e => props.setFormData({...props.formData, [key]: e.currentTarget.value})}
                         required={required}
-                        disabled={loading || (props.editMode && noEditable || disabled)}>
+                        disabled={loading || (props.editMode && (noEditable || disabled))}>
               {selector && selector.options.map(option => <FormControlLabel key={option.value} value={option.value} control={<Radio />} label={option.label} />) }
             </RadioGroup>
           </>
@@ -151,7 +151,8 @@ const GenericForm = ({loading, ...props}) => {
             variant={variant}
             error={getError(key)}
             required={Boolean(required)}
-            disabled={props.editMode && noEditable || disabled}/>
+            disabled={props.editMode && (noEditable || disabled)}
+            creationComponents={selector.creationComponents} />
         );
       default:
         return;
@@ -195,7 +196,7 @@ const GenericForm = ({loading, ...props}) => {
           e.preventDefault();
           if (props.onSubmit) props.onSubmit(props.formData);
         }}>
-          <Grid container spacing={1}>
+          <Grid container spacing={props.containerSpacing !== undefined? props.containerSpacing:1}>
             <Grid item xs={12} sm={12} container style={props.fieldsContainerStyles}>{/* BEGINING of 1st Column */}
               {
                 formComponents.map((component, index) => <React.Fragment key={index}>{renderField(component)}</React.Fragment>)
@@ -209,6 +210,7 @@ const GenericForm = ({loading, ...props}) => {
 };
 
 GenericForm.propTypes = {
+  containerSpacing: PropTypes.number,
   formComponents: PropTypes.array,
   onSubmit: PropTypes.func,
   formData: PropTypes.object,

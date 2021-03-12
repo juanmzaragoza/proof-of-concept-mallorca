@@ -91,7 +91,29 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       selector: {
         key: 'paises',
         labelKey: (data) => `(${data.nom}) ${data.codi}`,
-        sort: 'nom'
+        sort: 'nom',
+        creationComponents: [
+          {
+            type: 'input',
+            key: 'codi',
+            placeHolder: 'Código',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 6
+            }
+          },
+          {
+            type: 'input',
+            key: 'nom',
+            placeHolder: 'Nombre',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 6
+            }
+          }
+        ]
       }
     },
     {
@@ -151,7 +173,29 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       selector: {
         key: 'familiaProveidors',
         labelKey: (data) => `(${data.nom}) ${data.codi}`,
-        sort: 'nom'
+        sort: 'nom',
+        creationComponents: [
+          {
+            type: 'input',
+            key: 'codi',
+            placeHolder: 'Código',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 6
+            }
+          },
+          {
+            type: 'input',
+            key: 'nom',
+            placeHolder: 'Nombre',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 6
+            }
+          }
+        ]
       }
     },
     {
@@ -169,7 +213,59 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       selector: {
         key: 'operaris',
         labelKey: (data) => `(${data.nom}) ${data.codi}`,
-        sort: 'nom'
+        sort: 'nom',
+        creationComponents: [
+          {
+            type: 'input',
+            key: 'codi',
+            placeHolder: 'Código',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 2
+            }
+          },
+          {
+            type: 'input',
+            key: 'nom',
+            placeHolder: 'Nombre',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 6
+            }
+          },
+          {
+            type: 'input',
+            key: 'horari',
+            placeHolder: 'Horario',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 4,
+            }
+          },
+          {
+            type: 'input',
+            key: 'pin',
+            placeHolder: 'Pin',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 6
+            }
+          },
+          {
+            type: 'input',
+            key: 'ptenmn',
+            placeHolder: 'Ptenmn',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 6
+            }
+          }
+        ]
       }
     },
     {
@@ -205,7 +301,29 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       selector: {
         key: 'idiomas',
         labelKey: (data) => `(${data.descripcio}) ${data.codi}`,
-        sort: 'descripcio'
+        sort: 'descripcio',
+        creationComponents: [
+          {
+            type: 'input',
+            key: 'codi',
+            placeHolder: 'Código',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 6
+            }
+          },
+          {
+            type: 'input',
+            key: 'descripcio',
+            placeHolder: 'Descripción',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 6
+            }
+          }
+        ]
       }
     },
     {
@@ -223,7 +341,29 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       selector: {
         key: "regimIvas",
         labelKey: (data) => `(${data.descripcio}) ${data.codi}`,
-        sort: 'descripcio'
+        sort: 'descripcio',
+        creationComponents: [
+          {
+            type: 'input',
+            key: 'codi',
+            placeHolder: 'Código',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 6
+            }
+          },
+          {
+            type: 'input',
+            key: 'descripcio',
+            placeHolder: 'Descripción',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 6
+            }
+          }
+        ]
       }
     },
     {
@@ -241,7 +381,39 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       selector: {
         key: "divisas",
         labelKey: (data) => `(${data.nom}) ${data.codi}`,
-        sort: 'nom'
+        sort: 'nom',
+        creationComponents: [
+          {
+            type: 'input',
+            key: 'codi',
+            placeHolder: 'Código',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 4
+            }
+          },
+          {
+            type: 'input',
+            key: 'nom',
+            placeHolder: 'Nombre',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 4
+            }
+          },
+          {
+            type: 'input',
+            key: 'valorEuros',
+            placeHolder: 'Valor Euros',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 4
+            }
+          }
+        ]
       }
     },
     {
@@ -259,7 +431,39 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       selector: {
         key: "tipusVenciments",
         labelKey: (data) => `(${data.descripcio}) ${data.codi}`,
-        sort: 'descripcio'
+        sort: 'descripcio',
+        creationComponents: [
+          {
+            type: 'input',
+            key: 'codi',
+            placeHolder: 'Código',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 4
+            }
+          },
+          {
+            type: 'input',
+            key: 'descripcio',
+            placeHolder: 'Descripción',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 4
+            }
+          },
+          {
+            type: 'input',
+            key: 'tipus',
+            placeHolder: 'Tipos',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 4
+            }
+          }
+        ]
       }
     },
     {
@@ -277,7 +481,29 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       selector: {
         key: "documentPagamentCobraments",
         labelKey: (data) => `(${data.descripcio}) ${data.codi}`,
-        sort: 'descripcio'
+        sort: 'descripcio',
+        creationComponents: [
+          {
+            type: 'input',
+            key: 'codi',
+            placeHolder: 'Código',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 6
+            }
+          },
+          {
+            type: 'input',
+            key: 'descripcio',
+            placeHolder: 'Descripción',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 6
+            }
+          },
+        ]
       }
     },
   ];
@@ -395,7 +621,49 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       selector: {
         key: "codiPostals",
         labelKey: (data) => `(${data.descPostNomCodi}) ${data.codi}`,
-        sort: 'codi'
+        sort: 'codi',
+        creationComponents: [
+          {
+            type: 'input',
+            key: 'codi',
+            placeHolder: 'Código',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 3
+            }
+          },
+          {
+            type: 'input',
+            key: 'pais',
+            placeHolder: 'País',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 3
+            }
+          },
+          {
+            type: 'input',
+            key: 'poblacio',
+            placeHolder: 'Población',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 3
+            }
+          },
+          {
+            type: 'input',
+            key: 'provincia',
+            placeHolder: 'Provincia',
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 3
+            }
+          },
+        ]
       }
     },
     {

@@ -10,7 +10,7 @@ const ContentHeader = ({ grids }) => {
           }}
     >
       {grids.map(grid => (
-        <Grid key={grid.id} item xs={grid.breakpoints.xs} style={grid.style} >
+        <Grid key={grid.id} item xs={grid.breakpoints.xs} md={grid.breakpoints.md} style={grid.style} >
           { grid.content }
         </Grid>
       ))}

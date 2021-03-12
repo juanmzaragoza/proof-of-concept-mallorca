@@ -24,14 +24,16 @@ export const ListingHeader = ({ config: { title }, loadingIndicator }) => {
     {
       id: 1,
       breakpoints: {
-        xs: 5
+        xs: 12,
+        md: 5
       },
       content: <BreadcrumbHeader config={[{title: "Proveedores", href:"/proveedores"}]}/>
     },
     {
       id: 2,
       breakpoints: {
-        xs: 2
+        xs: 12,
+        md: 2
       },
       content: <div style={{
         display: 'flex',
@@ -64,7 +66,8 @@ export const ListingHeader = ({ config: { title }, loadingIndicator }) => {
     {
       id: 5,
       breakpoints: {
-        xs: 5
+        xs: 12,
+        md: 5
       },
       content: <FormControl fullWidth variant="filled">
         <InputLabel htmlFor="filled-adornment-amount"><FormattedMessage

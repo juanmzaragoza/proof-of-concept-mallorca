@@ -1,15 +1,10 @@
 import PropTypes from "prop-types";
 import React, {useEffect, useState} from "react";
-import {FormattedMessage, injectIntl} from "react-intl";
+import {injectIntl} from "react-intl";
 import {bindActionCreators, compose} from "redux";
 import {connect} from "react-redux";
 
 import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   FormHelperText, IconButton,
   ListSubheader,
   MenuItem,
@@ -17,8 +12,8 @@ import {
 } from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import {NavigateBefore, NavigateNext} from "@material-ui/icons";
 
 import {
   decrementPageToFormSelector,
@@ -33,12 +28,12 @@ import {
   getQuerySearchFormSelectorById,
   getTotalPagesFormSelectorById
 } from "redux/genericForm/selectors";
-import {NavigateBefore, NavigateNext} from "@material-ui/icons";
+
+import LOVForm from "./LOVForm";
 
 const LOVElement = (props) => {
   const [openModal, setOpenModal] = useState(false);
   const [opts, setOpts] = useState(props.options);
-  const [elementToAdd, setElementToAdd] = useState("");
 
   useEffect(()=>{
     props.responseKey && props.searchData(props.id,props.responseKey, props.page, props.sortBy, props.querySearch);
@@ -108,39 +103,21 @@ const LOVElement = (props) => {
     >
       {renderOpts()}
     </TextField>
-    <Dialog open={openModal} onClose={() => setOpenModal(false)} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">Agregar Nuevo</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          Para agregar un nuevo elemento, por favor ingrese el nombre y presione en guardar.
-        </DialogContentText>
-        <TextField
-          autoFocus
-          margin="dense"
-          id="name"
-          label="Nombre del elemento a agregar"
-          type="text"
-          onChange={e => setElementToAdd(e.target.value)}
-          fullWidth
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={() => setOpenModal(false)} color="primary">
-          <FormattedMessage id={"Forms.cancel"} defaultMessage={"Cancelar"} />
-        </Button>
-        <Button onClick={() => {
-          const list = opts;
-          const opt = {value: String(parseInt(opts[opts.length-1].value)+1), label: elementToAdd};
-          list.push(opt);
-          setOpts(list);
-          setElementToAdd("");
-          props.setValue(opt);
+    {props.creationComponents && props.creationComponents.length>0 &&
+      <LOVForm
+        id={props.id}
+        title={props.label}
+        formComponents={props.creationComponents}
+        open={openModal}
+        close={(data) => {
+          if(data) {
+            const list = opts;
+            list.push(data);
+            setOpts(list);
+            props.setValue({value: data});
+          }
           setOpenModal(false);
-        }} color="primary">
-          <FormattedMessage id={"Forms.guardar"} defaultMessage={"Guardar"} />
-        </Button>
-      </DialogActions>
-    </Dialog>
+        }} />}
     {Boolean(props.error)? <FormHelperText>{props.error.message}</FormHelperText>:null}
   </>;
 }
@@ -159,7 +136,8 @@ LOVElement.propTypes = {
   error: PropTypes.any,
   required: PropTypes.bool,
   disabled: PropTypes.bool,
-  sortBy: PropTypes.string // service order field
+  sortBy: PropTypes.string, // service order field
+  creationComponents: PropTypes.any
 };
 
 const mapStateToProps = (state, props) => {
