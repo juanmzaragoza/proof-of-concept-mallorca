@@ -40,5 +40,6 @@
   "Proveedores.divisa": "Divisa",
   "Proveedores.regiva": "Reg. IVA",
   "Forms.cancel": "Cancelar",
-  "Forms.guardar": "Guardar"
+  "Forms.guardar": "Guardar",
+  "LOVForm.subtitulo": "Para agregar un nuevo elemento, por favor complete los campos que aparecen a continuación"
 }

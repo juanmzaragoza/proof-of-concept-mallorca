@@ -151,7 +151,8 @@ const GenericForm = ({loading, ...props}) => {
             variant={variant}
             error={getError(key)}
             required={Boolean(required)}
-            disabled={props.editMode && noEditable || disabled}/>
+            disabled={props.editMode && noEditable || disabled}
+            creationComponents={selector.creationComponents} />
         );
       default:
         return;
@@ -195,7 +196,7 @@ const GenericForm = ({loading, ...props}) => {
           e.preventDefault();
           if (props.onSubmit) props.onSubmit(props.formData);
         }}>
-          <Grid container spacing={1}>
+          <Grid container spacing={props.containerSpacing !== undefined? props.containerSpacing:1}>
             <Grid item xs={12} sm={12} container style={props.fieldsContainerStyles}>{/* BEGINING of 1st Column */}
               {
                 formComponents.map((component, index) => <React.Fragment key={index}>{renderField(component)}</React.Fragment>)
@@ -209,6 +210,7 @@ const GenericForm = ({loading, ...props}) => {
 };
 
 GenericForm.propTypes = {
+  containerSpacing: PropTypes.number,
   formComponents: PropTypes.array,
   onSubmit: PropTypes.func,
   formData: PropTypes.object,

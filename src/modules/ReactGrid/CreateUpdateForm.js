@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {bindActionCreators,compose} from "redux";
 import {connect} from "react-redux";
-import {useHistory, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import PropTypes from "prop-types";
 import {injectIntl} from "react-intl";
 

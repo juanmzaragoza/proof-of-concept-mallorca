@@ -91,7 +91,27 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       selector: {
         key: 'paises',
         labelKey: (data) => `(${data.nom}) ${data.codi}`,
-        sort: 'nom'
+        sort: 'nom',
+        creationComponents: [
+          {
+            type: 'input',
+            key: 'some',
+            placeHolder: 'Código',
+            breakpoints: {
+              xs: 12,
+              md: 6
+            }
+          },
+          {
+            type: 'input',
+            key: 'some',
+            placeHolder: 'Nombre',
+            breakpoints: {
+              xs: 12,
+              md: 6
+            }
+          }
+        ]
       }
     },
     {
