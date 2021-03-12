@@ -22,7 +22,6 @@ export const submit = ({ id, data }) => {
         })
         .finally(() => {
           dispatch(add({ loading: false }));
-          dispatch(add({ created: true }));
         });
     } catch (error) {
       dispatch(add({ loading: false }));
