@@ -4,13 +4,15 @@ import advancedFilters from "redux/advancedFilters/index.js";
 import pageHeader from "redux/pageHeader/index.js";
 import genericForm from "redux/genericForm/index.js";
 import app from "redux/app/index.js";
+import lovForm from "redux/lovForm/index.js";
 
 export default combineReducers({
+  app,
   example,
   advancedFilters,
   pageHeader,
   genericForm,
-  app
+  lovForm
 });
 
 //Global action to reset the store

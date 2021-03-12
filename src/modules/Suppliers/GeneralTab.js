@@ -97,6 +97,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
             type: 'input',
             key: 'codi',
             placeHolder: 'Código',
+            required: true,
             breakpoints: {
               xs: 12,
               md: 6
@@ -106,6 +107,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
             type: 'input',
             key: 'nom',
             placeHolder: 'Nombre',
+            required: true,
             breakpoints: {
               xs: 12,
               md: 6

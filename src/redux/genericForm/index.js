@@ -17,9 +17,16 @@ const RESET_ALL_GENERIC_FORM = "RESET_ALL_GENERIC_FORM";
 //Functions
 export const getFormSelectorData = (id, key, page, sort, search) => {
   return async dispatch => {
+    const formedURL = () => {
+      const pagination = `&page=${page !== null ? page : 0}`;
+      const sorting = sort ? `&sort=${sort}` : "";
+      const searching = search && search !== "" ? `&quickFilter=${search}` : "";
+      const URL = `${API[id]}?size=${LOV_LIMIT_PER_PAGE}${pagination}${sorting}${searching}`;
+      return URL;
+    }
     try {
       dispatch(addToFormSelector({ name: id, loading: true }));
-      const URL =`${API[id]}?size=${LOV_LIMIT_PER_PAGE}&page=${page !== null? page:0}${sort? `&sort=${sort}`:""}${search && search !== ""? `&quickFilter=${search}`:""}`;
+      const URL = formedURL();
       Axios.get(URL)
         .then(({data}) => data)
         .then(({ page, _embedded }) => {

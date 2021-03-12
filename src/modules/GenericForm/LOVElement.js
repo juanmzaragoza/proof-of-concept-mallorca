@@ -34,7 +34,6 @@ import LOVForm from "./LOVForm";
 const LOVElement = (props) => {
   const [openModal, setOpenModal] = useState(false);
   const [opts, setOpts] = useState(props.options);
-  const [elementToAdd, setElementToAdd] = useState("");
 
   useEffect(()=>{
     props.responseKey && props.searchData(props.id,props.responseKey, props.page, props.sortBy, props.querySearch);
@@ -106,10 +105,19 @@ const LOVElement = (props) => {
     </TextField>
     {props.creationComponents && props.creationComponents.length>0 &&
       <LOVForm
+        id={props.id}
         title={props.label}
         formComponents={props.creationComponents}
         open={openModal}
-        close={() => setOpenModal(false)} />}
+        close={(data) => {
+          if(data) {
+            const list = opts;
+            list.push(data);
+            setOpts(list);
+            props.setValue({value: data});
+          }
+          setOpenModal(false);
+        }} />}
     {Boolean(props.error)? <FormHelperText>{props.error.message}</FormHelperText>:null}
   </>;
 }
