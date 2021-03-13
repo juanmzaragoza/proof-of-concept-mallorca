@@ -19,7 +19,7 @@ const FormHeader = ({ actions, loadingIndicator }) => {
       id: 1,
       breakpoints: {
         xs: 12,
-        md: 3
+        md: 4
       },
       content: <BreadcrumbHeader />
     },
@@ -27,7 +27,7 @@ const FormHeader = ({ actions, loadingIndicator }) => {
       id: 2,
       breakpoints: {
         xs: 12,
-        md: 9
+        md: 8
       },
       style: {
         display: 'flex',

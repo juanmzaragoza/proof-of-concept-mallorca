@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, {useEffect, useState} from "react";
-import {injectIntl} from "react-intl";
+import {FormattedMessage, injectIntl} from "react-intl";
 import {bindActionCreators, compose} from "redux";
 import {connect} from "react-redux";
 
@@ -74,11 +74,13 @@ const LOVElement = (props) => {
           props.page === props.totalPages,
           () => props.dispatchIncrementPage(props.id))}
       </ListSubheader>,
-      <ListSubheader key="more-options">Más opciones</ListSubheader>,
+      <ListSubheader key="more-options">
+        <FormattedMessage id={"LOVElement.mas_opciones"} defaultMessage={"Más opciones"}/>
+      </ListSubheader>,
       <MenuItem key="add-new" style={{fontWeight: "bold", fontSize: "small"}} onClick={e => {
         e.stopPropagation();
         setOpenModal(true);
-      }}>Agregar nuevo</MenuItem>
+      }}><FormattedMessage id={"LOVElement.agregar_nuevo"} defaultMessage={"Agregar nuevo"}/></MenuItem>
     ];
   };
 

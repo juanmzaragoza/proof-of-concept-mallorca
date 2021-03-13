@@ -123,8 +123,8 @@ const GenericForm = ({loading, ...props}) => {
         return (
           <>
             <FormLabel component="legend">{placeHolder}</FormLabel>
-            <RadioGroup aria-label="gender"
-                        name="gender1"
+            <RadioGroup aria-label={key}
+                        name={key}
                         value={props.formData && props.formData[key] ? props.formData[key] : ""}
                         onChange={e => props.setFormData({...props.formData, [key]: e.currentTarget.value})}
                         required={required}

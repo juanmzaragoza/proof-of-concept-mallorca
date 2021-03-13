@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import "./styles.scss";
 
 const OutlinedContainer = ({ title, children }) => {
@@ -7,5 +8,10 @@ const OutlinedContainer = ({ title, children }) => {
       {children}
     </div>
   )
+}
+
+OutlinedContainer.propTypes = {
+  title: PropTypes.any,
+  children: PropTypes.element
 }
 export default OutlinedContainer;

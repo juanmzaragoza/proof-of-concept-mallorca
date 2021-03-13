@@ -42,7 +42,9 @@ const LOVForm = ({ id, title, open, close, formComponents, actions, ...props }) 
       fullWidth={true}
       maxWidth={"md"}
     >
-      <DialogTitle id="form-dialog-title">Agregar {title? title:""}</DialogTitle>
+      <DialogTitle id="form-dialog-title">
+        <FormattedMessage id={"LOVForm.titulo_nuevo"} defaultMessage={"Agregar {name}"} values={{name: title? title:""}}/>
+      </DialogTitle>
       <DialogContent>
         <DialogContentText>
           <FormattedMessage id={"LOVForm.subtitulo"} defaultMessage={"Agregar nuevo elemento"}/>
