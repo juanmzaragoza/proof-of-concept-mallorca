@@ -18,6 +18,7 @@ import {
 import FormControl from "@material-ui/core/FormControl";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import LOVElement from "./LOVElement";
+import LOVAutocomplete from "./LOVAutocomplete";
 
 const useStyles = makeStyles({
   root: {
@@ -135,7 +136,7 @@ const GenericForm = ({loading, ...props}) => {
         )
       case 'LOV':
         return (
-          <LOVElement
+          <LOVAutocomplete
             id={key}
             responseKey={selector.key}
             labelResponseKey={selector.labelKey}
