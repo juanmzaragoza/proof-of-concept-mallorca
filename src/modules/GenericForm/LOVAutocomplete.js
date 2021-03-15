@@ -48,27 +48,27 @@ const LOVAutocomplete = (props) => {
       options={opts}
       value={props.value}
       onChange={(e, newValue) => {
-        e.stopPropagation();
-        if(newValue && newValue.type === ADD_TYPE){
+        if(newValue && newValue.id === ADD_TYPE){
           setOpenModal(true);
         } else{
           props.onChange(e, newValue);
         }
       }}
       getOptionLabel={(option) => {
-        if(option.id && option.type !== ADD_TYPE) {
+        if(option.id && option.id !== ADD_TYPE) {
           return (typeof props.labelResponseKey === 'function')? props.labelResponseKey(option):option[props.labelResponseKey];
         } else {
           return option.title;
         }
       }}
       getOptionSelected={(option, value) => {
-        if(option.type === value.type && value.type === ADD_TYPE){
+        if(option.id === value.id && value.id === ADD_TYPE){
           return true;
         } else{
           return option.id === value.id;
         }
       }}
+      getOptionDisabled={(option) => props.loading && option.id === ADD_TYPE}
       loading={props.loading}
       disabled={props.disabled}
       required={props.required}
@@ -78,7 +78,7 @@ const LOVAutocomplete = (props) => {
         const filtered = filter(options, params);
         if (params.inputValue !== '') {
           filtered.push({
-            type: ADD_TYPE,
+            id: ADD_TYPE,
             inputValue: params.inputValue,
             title: `${props.intl.formatMessage({id: "LOVElement.agregar_nuevo", defaultMessage: "Agregar \"{name}\""}, {name: params.inputValue})}`,
           });

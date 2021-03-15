@@ -142,11 +142,11 @@ const GenericForm = ({loading, ...props}) => {
             labelResponseKey={selector.labelKey}
             sortBy={selector.sort}
             label={placeHolder}
-            onChange={e => {
+            onChange={(e,value) => {
               e.stopPropagation();
-              props.setFormData({...props.formData, [key]: e.target.value})
+              props.setFormData({...props.formData, [key]: value});
             }}
-            value={props.formData && props.formData[key] ? props.formData[key] : ""}
+            value={props.formData && props.formData[key] ? props.formData[key] : null}
             setValue={e => props.setFormData({...props.formData, [key]: e.value})}
             options={selector.options}
             variant={variant}
