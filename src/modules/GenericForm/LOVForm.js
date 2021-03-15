@@ -1,19 +1,22 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import {FormattedMessage} from "react-intl";
+import {FormattedMessage, injectIntl} from "react-intl";
 import {bindActionCreators, compose} from "redux";
 import {connect} from "react-redux";
+import {withSnackbar} from "notistack";
+import { isEmpty } from "lodash";
 
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 
 import GenericForm from "modules/GenericForm";
 import {submit, reset} from "redux/lovForm";
-import {getData, getIsCreated, getIsLoading} from "redux/lovForm/selectors";
+import {getData, getErrors, getIsCreated, getIsLoading} from "redux/lovForm/selectors";
 
 const LOVForm = ({ id, title, open, close, formComponents, actions, ...props }) => {
   const [openModal, setOpenModal] = useState(open);
   const [formData, setFormData] = useState({});
+  const [formErrors, setFormErrors] = useState({});
 
   useEffect(()=>{
     setOpenModal(open);
@@ -27,7 +30,18 @@ const LOVForm = ({ id, title, open, close, formComponents, actions, ...props }) 
     if(props.created){
       closeIt(props.data);
     }
-  },[props.created])
+  },[props.created]);
+
+  useEffect(()=>{
+    if(open) {
+      if(!isEmpty(props.errors)){
+        props.enqueueSnackbar(<FormattedMessage
+          id={"LOVForm.revise_datos"}
+          defaultMessage={"Error al crear {name}. Revise los datos e intente nuevamente..."}
+          values={{name: title? title.toLowerCase():"Nuevo Elemento"}}/>,{variant: "error"});
+      }
+    }
+  },[props.errors]);
 
   const closeIt = (data) => {
     setOpenModal(false);
@@ -55,7 +69,8 @@ const LOVForm = ({ id, title, open, close, formComponents, actions, ...props }) 
         formData={formData}
         setFormData={setFormData}
         containerSpacing={0}
-        fieldsContainerStyles={{padding: "0px 10px 0px 10px"}} />
+        fieldsContainerStyles={{padding: "0px 10px 0px 10px"}}
+        formErrors={props.errors} />
       <DialogActions>
         <Button
           onClick={() => closeIt()}
@@ -89,7 +104,8 @@ const mapStateToProps = (state, props) => {
   return {
     loading: getIsLoading(state),
     created: getIsCreated(state),
-    data: getData(state)
+    data: getData(state),
+    errors: getErrors(state)
   };
 };
 
@@ -102,5 +118,7 @@ const mapDispatchToProps = (dispatch, props) => {
 };
 
 export default compose(
-  connect(mapStateToProps,mapDispatchToProps)
+  connect(mapStateToProps,mapDispatchToProps),
+  withSnackbar,
+  injectIntl
 )(LOVForm);

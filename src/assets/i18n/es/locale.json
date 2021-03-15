@@ -28,6 +28,7 @@
   "LOVElement.agregar_nuevo": "Agregar nuevo",
   "LOVForm.subtitulo": "Para agregar un nuevo elemento, por favor complete los campos que aparecen a continuación",
   "LOVForm.titulo_nuevo": "Agregar {name}",
+  "LOVForm.revise_datos": "Error al crear {name}. Revise los datos e intente nuevamente...",
   "Proveedores.titulo": "Proveedores",
   "Proveedores.direccion": "Dirección",
   "Proveedores.direcciones_comerciales": "Direcciones Comerciales",
