@@ -43,10 +43,11 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
     }
   ];
 
-  const codeAndDescription = (mdCode = 6, mdDes = 6) => [code(mdCode),
+  const codeAndDescription = (mdCode = 6, mdDes = 6) => [
+    code(mdCode),
     {
       type: 'input',
-      key: 'nom',
+      key: 'descripcio',
       placeHolder: props.intl.formatMessage({
         id: "Comun.descripcion",
         defaultMessage: "Descripción"

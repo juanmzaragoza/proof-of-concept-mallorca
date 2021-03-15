@@ -16,7 +16,6 @@ import {getData, getErrors, getIsCreated, getIsLoading} from "redux/lovForm/sele
 const LOVForm = ({ id, title, open, close, formComponents, actions, ...props }) => {
   const [openModal, setOpenModal] = useState(open);
   const [formData, setFormData] = useState({});
-  const [formErrors, setFormErrors] = useState({});
 
   useEffect(()=>{
     setOpenModal(open);
@@ -27,7 +26,7 @@ const LOVForm = ({ id, title, open, close, formComponents, actions, ...props }) 
   },[open]);
 
   useEffect(()=>{
-    if(props.created){
+    if(props.created && open){
       closeIt(props.data);
     }
   },[props.created]);
@@ -70,7 +69,7 @@ const LOVForm = ({ id, title, open, close, formComponents, actions, ...props }) 
         setFormData={setFormData}
         containerSpacing={0}
         fieldsContainerStyles={{padding: "0px 10px 0px 10px"}}
-        formErrors={props.errors} />
+        formErrors={props.errors.data} />
       <DialogActions>
         <Button
           onClick={() => closeIt()}

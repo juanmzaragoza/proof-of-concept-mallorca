@@ -4,6 +4,7 @@ import * as API from "redux/api";
 //Action types
 const SUBMIT = "SUBMIT_LOV_FORM";
 const ADD_ERROR_LOV_FORM = "ADD_ERROR_LOV_FORM";
+const SET_STATUS_ERROR_LOV_FORM = "SET_STATUS_ERROR_LOV_FORM";
 const RESET = "RESET_LOV_FORM";
 
 //Functions
@@ -27,6 +28,7 @@ export const submit = ({ id, data }) => {
                 dispatch(addError({[err.field]: {message: err.defaultMessage}}));
               }
             }
+            dispatch(setStatusError(status));
           }
         })
         .finally(() => {
@@ -53,6 +55,13 @@ export const addError = (payload) => {
   };
 }
 
+export const setStatusError = (payload) => {
+  return {
+    type: SET_STATUS_ERROR_LOV_FORM,
+    payload
+  };
+}
+
 export const reset = () => {
   return {
     type: RESET
@@ -72,7 +81,9 @@ export default (state = initialState, action) => {
     case SUBMIT:
       return { ...state, ...action.payload };
     case ADD_ERROR_LOV_FORM:
-      return { ...state, errors: {...state.errors, ...action.payload}}
+      return { ...state, errors: {...state.errors, data: {...state.errors.data, ...action.payload}}};
+    case SET_STATUS_ERROR_LOV_FORM:
+      return { ...state, errors: {...state.errors, status: action.payload}};
     case RESET:
     case "RESET":
       return initialState;
