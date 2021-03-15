@@ -48,7 +48,6 @@ const LOVAutocomplete = (props) => {
       options={opts}
       value={props.value}
       onChange={(e, newValue) => {
-        e.stopPropagation();
         if(newValue && newValue.id === ADD_TYPE){
           setOpenModal(true);
         } else{
