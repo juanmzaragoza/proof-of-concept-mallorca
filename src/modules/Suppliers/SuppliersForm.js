@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {injectIntl} from "react-intl";
+import {FormattedMessage, injectIntl} from "react-intl";
 import {bindActionCreators, compose} from "redux";
 import {connect} from "react-redux";
 
@@ -20,7 +20,7 @@ const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...prop
 
   const tabs = [
     {
-      label: "General",
+      label: <FormattedMessage id={"Proveedores.tabs.general"} defaultMessage={"General"}/>,
       key: 0,
       component: <GeneralTab
         editMode={editMode}
@@ -32,37 +32,37 @@ const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...prop
         loading={props.loading} />
     },
     {
-      label: "Contactos",
+      label: <FormattedMessage id={"Proveedores.tabs.contactos"} defaultMessage={"Contactos"}/>,
       key: 1,
       component: "Contactos"
     },
     {
-      label: "Contabilidad",
+      label: <FormattedMessage id={"Proveedores.tabs.contabilidad"} defaultMessage={"Contabilidad"}/>,
       key: 2,
       component: "Contabilidad"
     },
     {
-      label: "Facturación",
+      label: <FormattedMessage id={"Proveedores.tabs.facturacion"} defaultMessage={"Facturación"}/>,
       key: 3,
       component: "Facturación"
     },
     {
-      label: "Personalización",
+      label: <FormattedMessage id={"Proveedores.tabs.personalizacion"} defaultMessage={"Personalización"}/>,
       key: 4,
       component: "Personalización"
     },
     {
-      label: "Documentos",
+      label: <FormattedMessage id={"Proveedores.tabs.documentos"} defaultMessage={"Documentos"}/>,
       key: 5,
       component: "Documentos"
     },
     {
-      label: "Precios Coste",
+      label: <FormattedMessage id={"Proveedores.tabs.precios_coste"} defaultMessage={"Precios Coste"}/>,
       key: 6,
       component: "Precios Coste"
     },
     {
-      label: "Series",
+      label: <FormattedMessage id={"Proveedores.tabs.series"} defaultMessage={"Series"}/>,
       key: 7,
       component: "Series"
     },
@@ -96,12 +96,15 @@ const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...prop
     // breadcrumbs config
     if(isEditable()){
       actions.setBreadcrumbHeader([
-        {title: "Proveedores", href:"/proveedores"},
-        {title: "Nombre a editar", href:"/proveedores"},
-        {title: "General"}
+        {title: props.intl.formatMessage({id: "Proveedores.titulo", defaultMessage: "Proveedores"}), href:"/proveedores"},
+        {title: "TODO() Nombre a editar", href:"/proveedores"},
+        {title: "TODO() General"}
       ]);
     } else{
-      actions.setBreadcrumbHeader([{title: "Proveedores", href:"/proveedores"},{title: "Nuevo"}]);
+      actions.setBreadcrumbHeader([
+        {title: props.intl.formatMessage({id: "Proveedores.titulo", defaultMessage: "Proveedores"}), href:"/proveedores"},
+        {title: props.intl.formatMessage({id: "Comun.nuevo", defaultMessage: "Nuevo"})}
+        ]);
     }
   },[]);
 
