@@ -415,9 +415,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         key: "documentPagamentCobraments",
         labelKey: (data) => `(${data.descripcio}) ${data.codi}`,
         sort: 'descripcio',
-        creationComponents: [
-          codeAndDescription(),
-        ]
+        creationComponents: codeAndDescription()
       }
     },
   ];

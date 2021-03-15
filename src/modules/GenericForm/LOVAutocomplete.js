@@ -5,7 +5,7 @@ import {injectIntl} from "react-intl";
 import {bindActionCreators, compose} from "redux";
 
 import {Autocomplete, createFilterOptions} from "@material-ui/lab";
-import {FormHelperText, TextField} from "@material-ui/core";
+import {FormHelperText, MenuItem, TextField} from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
@@ -46,7 +46,7 @@ const LOVAutocomplete = (props) => {
     <Autocomplete
       id={props.id}
       options={opts}
-      //value={props.value}
+      value={props.value}
       onChange={(e, newValue) => {
         e.stopPropagation();
         if(newValue && newValue.type === ADD_TYPE){
