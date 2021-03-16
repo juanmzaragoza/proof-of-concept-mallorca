@@ -5,7 +5,7 @@ import {injectIntl} from 'react-intl';
 import {bindActionCreators, compose} from 'redux';
 
 import {Autocomplete, createFilterOptions} from '@material-ui/lab';
-import {FormHelperText, MenuItem, TextField} from '@material-ui/core';
+import {FormHelperText, IconButton, ListSubheader, MenuItem, TextField} from '@material-ui/core';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
@@ -24,10 +24,12 @@ import {
   incrementPageToFormSelector,
   searchByQueryTerm
 } from 'redux/genericForm';
+import {NavigateBefore, NavigateNext} from "@material-ui/icons";
 
 const filter = createFilterOptions();
 
 const ADD_TYPE = 'add';
+const PAGINATION_TYPE = 'pagination';
 
 const LOVAutocomplete = (props) => {
   const [openModal, setOpenModal] = useState(false);
@@ -41,9 +43,19 @@ const LOVAutocomplete = (props) => {
     setOpts(props.options);
   },[props.options]);
 
+  const buttonInsideSelector = (icon, disabled = false, onClick) => {
+    return (
+      <IconButton disabled={disabled} onClick={e => {
+        e.stopPropagation();
+        onClick();
+      }}>{icon}</IconButton>
+    )
+  };
+
   return (
     <>
     <Autocomplete
+      handleHomeEndKeys
       id={props.id}
       options={opts}
       value={props.value}
@@ -55,10 +67,38 @@ const LOVAutocomplete = (props) => {
         }
       }}
       getOptionLabel={(option) => {
-        if(option.id && option.id !== ADD_TYPE) {
+        if(option.id && option.id !== ADD_TYPE && option.id !== PAGINATION_TYPE) {
           return (typeof props.labelResponseKey === 'function')? props.labelResponseKey(option):option[props.labelResponseKey];
         } else {
           return option.title;
+        }
+      }}
+      renderOption={(option, state) => {
+        if(option.id && option.id === ADD_TYPE){
+          return (
+            <React.Fragment>
+              {option.title}
+            </React.Fragment>
+          )
+        } else if(option.id && option.id === PAGINATION_TYPE) {
+          return (
+            <React.Fragment>
+              {buttonInsideSelector(
+                <NavigateBefore/>,
+                !props.page,
+                () => props.dispatchDecrementPage(props.id))}
+              {buttonInsideSelector(
+                <NavigateNext/>,
+                props.page === props.totalPages,
+                () => props.dispatchIncrementPage(props.id))}
+            </React.Fragment>
+          );
+        } else{
+          return (
+            <React.Fragment>
+              {(typeof props.labelResponseKey === 'function')? props.labelResponseKey(option):option[props.labelResponseKey]};
+            </React.Fragment>
+          );
         }
       }}
       getOptionSelected={(option, value) => {
@@ -68,7 +108,7 @@ const LOVAutocomplete = (props) => {
           return option.id === value.id;
         }
       }}
-      getOptionDisabled={(option) => props.loading && option.id === ADD_TYPE}
+      getOptionDisabled={(option) => props.loading}
       loading={props.loading}
       disabled={props.disabled}
       required={props.required}
@@ -77,6 +117,13 @@ const LOVAutocomplete = (props) => {
       filterOptions={(options, params) => {
         const filtered = filter(options, params);
         const inputValue = params.inputValue === ''? 'Nuevo':params.inputValue;
+        if(props.totalPages > 1) {
+          filtered.push({
+            id: PAGINATION_TYPE,
+            inputValue: '',
+            title: '',
+          });
+        }
         filtered.push({
           id: ADD_TYPE,
           inputValue: inputValue,

@@ -33,7 +33,7 @@ export const getFormSelectorData = (id, key, page, sort, search) => {
           dispatch(addToFormSelector({
             name: id,
             loading: false,
-            data: _embedded[key],
+            data: _embedded? _embedded[key]:[],
             page
           }));
         })
