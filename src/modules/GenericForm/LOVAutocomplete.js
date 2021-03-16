@@ -1,33 +1,33 @@
-import React, {useEffect, useState} from "react";
-import PropTypes from "prop-types";
-import {connect} from "react-redux";
-import {injectIntl} from "react-intl";
-import {bindActionCreators, compose} from "redux";
+import React, {useEffect, useState} from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {injectIntl} from 'react-intl';
+import {bindActionCreators, compose} from 'redux';
 
-import {Autocomplete, createFilterOptions} from "@material-ui/lab";
-import {FormHelperText, MenuItem, TextField} from "@material-ui/core";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import {Autocomplete, createFilterOptions} from '@material-ui/lab';
+import {FormHelperText, MenuItem, TextField} from '@material-ui/core';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
-import LOVForm from "./LOVForm";
+import LOVForm from './LOVForm';
 import {
   getDataFormSelectorById,
   getLoadingFormSelectorById,
   getPageFormSelectorById,
   getQuerySearchFormSelectorById,
   getTotalPagesFormSelectorById
-} from "redux/genericForm/selectors";
+} from 'redux/genericForm/selectors';
 import {
   decrementPageToFormSelector,
   getFormSelectorData,
   incrementPageToFormSelector,
   searchByQueryTerm
-} from "redux/genericForm";
+} from 'redux/genericForm';
 
 const filter = createFilterOptions();
 
-const ADD_TYPE = "add";
+const ADD_TYPE = 'add';
 
 const LOVAutocomplete = (props) => {
   const [openModal, setOpenModal] = useState(false);
@@ -72,17 +72,16 @@ const LOVAutocomplete = (props) => {
       loading={props.loading}
       disabled={props.disabled}
       required={props.required}
-      noOptionsText={props.intl.formatMessage({id: "LOVElement.sin_resultados", defaultMessage: "Sin resultados "})}
-      loadingText={`${props.intl.formatMessage({id: "Comun.cargando", defaultMessage: "Cargando"})}...`}
+      noOptionsText={props.intl.formatMessage({id: 'LOVElement.sin_resultados', defaultMessage: 'Sin resultados '})}
+      loadingText={`${props.intl.formatMessage({id: 'Comun.cargando', defaultMessage: 'Cargando'})}...`}
       filterOptions={(options, params) => {
         const filtered = filter(options, params);
-        if (params.inputValue !== '') {
-          filtered.push({
-            id: ADD_TYPE,
-            inputValue: params.inputValue,
-            title: `${props.intl.formatMessage({id: "LOVElement.agregar_nuevo", defaultMessage: "Agregar \"{name}\""}, {name: params.inputValue})}`,
-          });
-        }
+        const inputValue = params.inputValue === ''? 'Nuevo':params.inputValue;
+        filtered.push({
+          id: ADD_TYPE,
+          inputValue: inputValue,
+          title: `${props.intl.formatMessage({id: 'LOVElement.agregar_nuevo', defaultMessage: 'Agregar \'{name}\''}, {name: inputValue})}`,
+        });
         return filtered;
       }}
       onInputChange={(event, newInputValue) => {
@@ -91,11 +90,11 @@ const LOVAutocomplete = (props) => {
       renderInput={(params) =>
         <TextField {...params}
                    label={props.label}
-                   variant={props.variant ? props.variant : "outlined"}
+                   variant={props.variant ? props.variant : 'outlined'}
                    InputProps={{
                      ...params.InputProps,
                      startAdornment: (
-                       <InputAdornment position="start">
+                       <InputAdornment position='start'>
                          {props.loading? <CircularProgress size={20}/>:<AddCircleOutlineIcon/>}
                        </InputAdornment>
                      ),
