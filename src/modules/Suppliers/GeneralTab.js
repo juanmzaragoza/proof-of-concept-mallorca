@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 import {FormattedMessage, injectIntl} from "react-intl";
+import "./styles.scss";
 
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
@@ -98,7 +99,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 5
+        md: 6
       },
     },
     {
@@ -110,7 +111,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       key: 'bloquejat',
       breakpoints: {
         xs: 12,
-        md: 3
+        md: 2
       },
     },
     {
@@ -136,7 +137,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 1
+        md: 2
       },
       selector: {
         key: 'paises',
@@ -187,7 +188,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       key: 'eat',
       breakpoints: {
         xs: 12,
-        md: 3
+        md: 2
       },
     },
     {
@@ -219,7 +220,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 3
+        md: 4
       },
       selector: {
         key: 'operaris',
@@ -415,9 +416,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         key: "documentPagamentCobraments",
         labelKey: (data) => `(${data.descripcio}) ${data.codi}`,
         sort: 'descripcio',
-        creationComponents: [
-          codeAndDescription(),
-        ]
+        creationComponents: codeAndDescription()
       }
     },
   ];
