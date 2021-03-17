@@ -15,3 +15,13 @@
 .actions-buttons-actions .right-side *:not(:first-child) {
   margin-left: 10px
 }
+
+.general-tab-container .generic-form-root {
+  flex-grow: 1;
+  margin: 0% 0;
+}
+
+.general-tab-subtab .generic-form-root {
+  flex-grow: 1;
+  margin: 1% 0 0 0;
+}

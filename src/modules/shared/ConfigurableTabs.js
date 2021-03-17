@@ -58,7 +58,7 @@ const ConfigurableTabs = ({ tabs, variant }) => {
           {tabs.map(tab => <Tab key={tab.key} label={tab.label} {...a11yProps(tab.key)} />)}
         </Tabs>
       </AppBar>
-      {tabs.map(tab => <TabPanel key={tab.key} value={value} index={tab.key}>
+      {tabs.map(tab => <TabPanel className={tab.className? tab.className:""} key={tab.key} value={value} index={tab.key}>
         {tab.component}
       </TabPanel>)}
     </>
