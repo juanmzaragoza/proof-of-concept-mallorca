@@ -67,6 +67,9 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
     }
   ];
 
+  const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
+  const formatCodeAndDescription = (data) => `${data.descripcio} (${data.codi})`;
+
   const suppliersConfig = [
     {
       placeHolder: props.intl.formatMessage({
@@ -147,7 +150,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: 'paises',
-        labelKey: (data) => `(${data.nom}) ${data.codi}`,
+        labelKey: formatCodeAndName,
         sort: 'nom',
         creationComponents: codeAndName()
       }
@@ -211,7 +214,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: 'familiaProveidors',
-        labelKey: (data) => `(${data.nom}) ${data.codi}`,
+        labelKey: formatCodeAndName,
         sort: 'nom',
         creationComponents: codeAndName()
       }
@@ -230,7 +233,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: 'operaris',
-        labelKey: (data) => `(${data.nom}) ${data.codi}`,
+        labelKey: formatCodeAndName,
         sort: 'nom',
         creationComponents: [
           ...codeAndName(),
@@ -314,7 +317,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: 'idiomas',
-        labelKey: (data) => `(${data.descripcio}) ${data.codi}`,
+        labelKey: formatCodeAndDescription,
         sort: 'descripcio',
         creationComponents: codeAndDescription()
       }
@@ -333,7 +336,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: "regimIvas",
-        labelKey: (data) => `(${data.descripcio}) ${data.codi}`,
+        labelKey: formatCodeAndDescription,
         sort: 'descripcio',
         creationComponents: codeAndDescription()
       }
@@ -352,7 +355,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: "divisas",
-        labelKey: (data) => `(${data.nom}) ${data.codi}`,
+        labelKey: formatCodeAndName,
         sort: 'nom',
         creationComponents: [
           ...codeAndName(4,4),
@@ -386,7 +389,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: "tipusVenciments",
-        labelKey: (data) => `(${data.descripcio}) ${data.codi}`,
+        labelKey: formatCodeAndDescription,
         sort: 'descripcio',
         creationComponents: [
           ...codeAndDescription(4,4),
@@ -420,7 +423,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: "documentPagamentCobraments",
-        labelKey: (data) => `(${data.descripcio}) ${data.codi}`,
+        labelKey: formatCodeAndDescription,
         sort: 'descripcio',
         creationComponents: codeAndDescription()
       }
@@ -442,7 +445,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: 'tipusAdresas',
-        labelKey: (data) => `(${data.descripcio}) ${data.codi}`,
+        labelKey: formatCodeAndDescription,
         sort: 'descripcio',
         creationComponents: codeAndDescription()
       }
@@ -538,7 +541,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: "codiPostals",
-        labelKey: (data) => `(${data.descPostNomCodi}) ${data.codi}`,
+        labelKey: (data) => `${data.descPostNomCodi} (${data.codi})`,
         sort: 'codi',
         creationComponents: [
           code(3),
