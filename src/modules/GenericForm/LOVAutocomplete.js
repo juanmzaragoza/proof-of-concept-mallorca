@@ -96,7 +96,7 @@ const LOVAutocomplete = (props) => {
         } else{
           return (
             <React.Fragment>
-              {(typeof props.labelResponseKey === 'function')? props.labelResponseKey(option):option[props.labelResponseKey]};
+              {(typeof props.labelResponseKey === 'function')? props.labelResponseKey(option):option[props.labelResponseKey]}
             </React.Fragment>
           );
         }
