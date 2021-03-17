@@ -16,29 +16,11 @@ import {
   TextField
 } from '@material-ui/core';
 import FormControl from "@material-ui/core/FormControl";
-import makeStyles from "@material-ui/core/styles/makeStyles";
-import LOVElement from "./LOVElement";
 import LOVAutocomplete from "./LOVAutocomplete";
-
-const useStyles = makeStyles({
-  root: {
-    flexGrow: 1,
-    margin: '1% 0'
-  },
-  formControlsFilledInput: {
-    width: '100%',
-    padding: '10px'
-  },
-});
 
 const GenericForm = ({loading, ...props}) => {
   const formRef = useRef(null);
   const [onBlur, setOnBlur] = useState({});
-
-  const {
-    root,
-    formControlsFilledInput
-  } = useStyles();
 
   // init to avoid uncontrolled inputs
   useEffect(() => {
@@ -66,6 +48,7 @@ const GenericForm = ({loading, ...props}) => {
 
   const getField = ({type, variant, placeHolder, required, key, noEditable, selector, disabled}) => {
     const error = getError(key);
+    const noEnable = loading || (props.editMode && noEditable) || disabled;
     switch(type) {
       case 'input':
         return (
@@ -80,7 +63,7 @@ const GenericForm = ({loading, ...props}) => {
             helperText={onBlur[key] && Boolean(error) ? error.message : ''}
             onBlur={() => setOnBlur({...onBlur, [key]: true})}
             type={"text"}
-            disabled={loading || (props.editMode && (noEditable || disabled))}/>
+            disabled={noEnable}/>
         );
       case 'select':
         return (
@@ -93,7 +76,7 @@ const GenericForm = ({loading, ...props}) => {
             value={props.formData && props.formData[key] ? props.formData[key] : ""}
             onChange={e => props.setFormData({...props.formData, [key]: e.target.value})}
             required={required}
-            disabled={loading || (props.editMode && (noEditable || disabled))}
+            disabled={noEnable}
             inputProps={{
               name: placeHolder,
               id: key,
@@ -113,7 +96,7 @@ const GenericForm = ({loading, ...props}) => {
                 checked={props.formData && props.formData[key] ? props.formData[key] : false}
                 onChange={e => props.setFormData({...props.formData, [key]: e.currentTarget.checked})}
                 name={key}
-                disabled={loading || (props.editMode && (noEditable || disabled))}
+                disabled={noEnable}
                 color="primary"
               />
             }
@@ -129,7 +112,7 @@ const GenericForm = ({loading, ...props}) => {
                         value={props.formData && props.formData[key] ? props.formData[key] : ""}
                         onChange={e => props.setFormData({...props.formData, [key]: e.currentTarget.value})}
                         required={required}
-                        disabled={loading || (props.editMode && (noEditable || disabled))}>
+                        disabled={noEnable}>
               {selector && selector.options.map(option => <FormControlLabel key={option.value} value={option.value} control={<Radio />} label={option.label} />) }
             </RadioGroup>
           </>
@@ -152,7 +135,7 @@ const GenericForm = ({loading, ...props}) => {
             variant={variant}
             error={getError(key)}
             required={Boolean(required)}
-            disabled={props.editMode && (noEditable || disabled)}
+            disabled={(props.editMode && noEditable) || disabled}
             creationComponents={selector.creationComponents} />
         );
       default:
@@ -172,7 +155,7 @@ const GenericForm = ({loading, ...props}) => {
             sm={breakpoints? breakpoints.sm:false}
             md={breakpoints? breakpoints.md:false}
             lg={breakpoints? breakpoints.lg:false} >
-        <FormControl className={formControlsFilledInput} variant="filled" error={Boolean(getError(key))}>
+        <FormControl className="form-control-filled-input" variant="filled" error={Boolean(getError(key))}>
           {getField(params)}
         </FormControl>
       </Grid>)
@@ -191,7 +174,7 @@ const GenericForm = ({loading, ...props}) => {
     formComponents
   } = props;
   return (
-    <div className={root}>
+    <div className="generic-form-root">
       {withPaper(
         <form ref={formRef} onSubmit={(e) => {
           e.preventDefault();

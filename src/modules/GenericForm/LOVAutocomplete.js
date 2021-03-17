@@ -9,6 +9,7 @@ import {FormHelperText, IconButton, ListSubheader, MenuItem, TextField} from '@m
 import InputAdornment from '@material-ui/core/InputAdornment';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import {NavigateBefore, NavigateNext} from "@material-ui/icons";
 
 import LOVForm from './LOVForm';
 import {
@@ -24,7 +25,6 @@ import {
   incrementPageToFormSelector,
   searchByQueryTerm
 } from 'redux/genericForm';
-import {NavigateBefore, NavigateNext} from "@material-ui/icons";
 
 const filter = createFilterOptions();
 
@@ -165,7 +165,7 @@ const LOVAutocomplete = (props) => {
     {Boolean(props.error)? <FormHelperText>{props.error.message}</FormHelperText>:null}
     </>
   );
-};
+}
 
 LOVAutocomplete.propTypes = {
   id: PropTypes.any,

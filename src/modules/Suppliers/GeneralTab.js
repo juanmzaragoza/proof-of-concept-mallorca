@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 import {FormattedMessage, injectIntl} from "react-intl";
+import "./styles.scss";
 
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
@@ -8,10 +9,16 @@ import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
 const GeneralTab = ({formData, setFormData, ...props}) => {
 
+  const getString = (key) => formData[key]? formData[key]:"";
   useEffect(() => {
-    const getString = (key) => formData[key]? formData[key]:"";
-    formData['concat'] = getString('domicilio')+" "+getString('numero')+" "+getString('esc')+" "+getString('piso')+" "+getString('puerta');
-  },[formData]);
+    const dir = getString('domicilio')+" "+getString('numero')+" "+getString('esc')+" "+getString('piso')+" "+getString('puerta');
+    setFormData({...formData, direccionCompleta: dir});
+  },[formData.domicilio, formData.numero, formData.esc, formData.piso, formData.puerta ]);
+
+  useEffect(() => {
+    const codiPostal = getString('codiPostal');
+    setFormData({...formData, poblacio: codiPostal? codiPostal.poblacio:""});
+  },[formData.codiPostal]);
 
   const code = (md = 6) => ({
     type: 'input',
@@ -426,19 +433,18 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.Direccion.tipoVia",
         defaultMessage: "Tipo Vía"
       }),
-      type: 'select',
-      key: 'tvia',
+      type: 'LOV',
+      key: 'tipusAdreces',
       required: true,
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 3
       },
       selector: {
-        options: [
-          {value: "1", label:"One"},
-          {value: "2", label:"Two"},
-          {value: "3", label:"Three"},
-        ]
+        key: 'tipusAdresas',
+        labelKey: (data) => `(${data.descripcio}) ${data.codi}`,
+        sort: 'descripcio',
+        creationComponents: codeAndDescription()
       }
     },
     {
@@ -512,7 +518,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         defaultMessage: "Dirección Completa"
       }),
       type: 'input',
-      key: 'concat',
+      key: 'direccionCompleta',
       breakpoints: {
         xs: 12,
         md: 12
@@ -584,8 +590,9 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         defaultMessage: "Población"
       }),
       type: 'input',
-      key: 'poblacion',
-      required: true,
+      key: 'poblacio',
+      required: false,
+      disabled: true,
       breakpoints: {
         xs: 12,
         md: 4

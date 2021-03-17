@@ -9,3 +9,4 @@ export const divisa = `api/fact/divises`;
 export const tipusVenciment = `api/fact/tipusVenciments`;
 export const documentPagamentCobrament = `api/fact/documentsPagamentCobrament`;
 export const codiPostal = `api/fact/codisPostal`;
+export const tipusAdreces = `api/fact/tipusAdreces`;
