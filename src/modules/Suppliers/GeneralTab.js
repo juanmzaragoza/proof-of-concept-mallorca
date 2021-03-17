@@ -433,19 +433,18 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.Direccion.tipoVia",
         defaultMessage: "Tipo Vía"
       }),
-      type: 'select',
-      key: 'tvia',
+      type: 'LOV',
+      key: 'tipusAdreces',
       required: true,
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 3
       },
       selector: {
-        options: [
-          {value: "1", label:"One"},
-          {value: "2", label:"Two"},
-          {value: "3", label:"Three"},
-        ]
+        key: 'tipusAdresas',
+        labelKey: (data) => `(${data.descripcio}) ${data.codi}`,
+        sort: 'descripcio',
+        creationComponents: codeAndDescription()
       }
     },
     {
