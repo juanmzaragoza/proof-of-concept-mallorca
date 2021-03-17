@@ -9,10 +9,16 @@ import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
 const GeneralTab = ({formData, setFormData, ...props}) => {
 
+  const getString = (key) => formData[key]? formData[key]:"";
   useEffect(() => {
-    const getString = (key) => formData[key]? formData[key]:"";
-    formData['concat'] = getString('domicilio')+" "+getString('numero')+" "+getString('esc')+" "+getString('piso')+" "+getString('puerta');
-  },[formData]);
+    const dir = getString('domicilio')+" "+getString('numero')+" "+getString('esc')+" "+getString('piso')+" "+getString('puerta');
+    setFormData({...formData, direccionCompleta: dir});
+  },[formData.domicilio, formData.numero, formData.esc, formData.piso, formData.puerta ]);
+
+  useEffect(() => {
+    const codiPostal = getString('codiPostal');
+    setFormData({...formData, poblacio: codiPostal? codiPostal.poblacio:""});
+  },[formData.codiPostal]);
 
   const code = (md = 6) => ({
     type: 'input',
@@ -513,7 +519,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         defaultMessage: "Dirección Completa"
       }),
       type: 'input',
-      key: 'concat',
+      key: 'direccionCompleta',
       breakpoints: {
         xs: 12,
         md: 12
@@ -585,8 +591,9 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         defaultMessage: "Población"
       }),
       type: 'input',
-      key: 'poblacion',
-      required: true,
+      key: 'poblacio',
+      required: false,
+      disabled: true,
       breakpoints: {
         xs: 12,
         md: 4
