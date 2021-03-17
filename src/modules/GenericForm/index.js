@@ -16,29 +16,11 @@ import {
   TextField
 } from '@material-ui/core';
 import FormControl from "@material-ui/core/FormControl";
-import makeStyles from "@material-ui/core/styles/makeStyles";
-import LOVElement from "./LOVElement";
 import LOVAutocomplete from "./LOVAutocomplete";
-
-const useStyles = makeStyles({
-  root: {
-    flexGrow: 1,
-    margin: '1% 0'
-  },
-  formControlsFilledInput: {
-    width: '100%',
-    padding: '10px'
-  },
-});
 
 const GenericForm = ({loading, ...props}) => {
   const formRef = useRef(null);
   const [onBlur, setOnBlur] = useState({});
-
-  const {
-    root,
-    formControlsFilledInput
-  } = useStyles();
 
   // init to avoid uncontrolled inputs
   useEffect(() => {
@@ -172,7 +154,7 @@ const GenericForm = ({loading, ...props}) => {
             sm={breakpoints? breakpoints.sm:false}
             md={breakpoints? breakpoints.md:false}
             lg={breakpoints? breakpoints.lg:false} >
-        <FormControl className={formControlsFilledInput} variant="filled" error={Boolean(getError(key))}>
+        <FormControl className="form-control-filled-input" variant="filled" error={Boolean(getError(key))}>
           {getField(params)}
         </FormControl>
       </Grid>)
@@ -191,7 +173,7 @@ const GenericForm = ({loading, ...props}) => {
     formComponents
   } = props;
   return (
-    <div className={root}>
+    <div className="generic-form-root">
       {withPaper(
         <form ref={formRef} onSubmit={(e) => {
           e.preventDefault();

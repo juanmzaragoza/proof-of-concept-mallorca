@@ -6,3 +6,13 @@
 .select-input-label {
   padding: 10px;
 }
+
+.generic-form-root {
+  flex-grow: 1;
+  margin: 1% 0;
+}
+
+.form-control-filled-input {
+  width: 100%;
+  padding: 10px!important;
+}

@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 import {FormattedMessage, injectIntl} from "react-intl";
+import "./styles.scss";
 
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";

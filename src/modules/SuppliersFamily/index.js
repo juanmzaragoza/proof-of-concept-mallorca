@@ -1,9 +1,8 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Route, Switch} from "react-router-dom";
 
 import Paper from "@material-ui/core/Paper";
 import {People} from "@material-ui/icons";
-
 
 import SuppliersFamilyList from "./SuppliersFamilyList";
 import SuppliersFamilyCreate from "./SuppliersFamilyCreate";
