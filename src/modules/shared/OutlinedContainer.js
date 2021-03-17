@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import "./styles.scss";
 
-const OutlinedContainer = ({ title, children }) => {
+const OutlinedContainer = ({ title, children, className }) => {
   return(
-    <div className="outlined-container">
+    <div className={`outlined-container ${className? className:''} `}>
       {title? <span className="title">{title}</span>:null}
       {children}
     </div>

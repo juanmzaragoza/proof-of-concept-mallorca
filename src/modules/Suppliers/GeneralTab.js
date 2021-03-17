@@ -602,6 +602,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
 
   const tabs = [
     {
+      className: "general-tab-subtab",
       label: <FormattedMessage id={"Proveedores.direccion"} defaultMessage={"Dirección"}/>,
       key: 0,
       component: <GenericForm formComponents={addressConfig}
@@ -633,7 +634,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
   return (
     <Grid container >
       <Grid xs={12} item>
-        <OutlinedContainer title={<FormattedMessage id={"Proveedores.titulo"} defaultMessage={"Proveedores"}/>}>
+        <OutlinedContainer className="general-tab-container" title={<FormattedMessage id={"Proveedores.titulo"} defaultMessage={"Proveedores"}/>}>
           <GenericForm formComponents={suppliersConfig}
                        emptyPaper={true}
                        editMode={props.editMode}
