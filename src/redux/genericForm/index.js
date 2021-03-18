@@ -15,7 +15,7 @@ const SEARCH_BY_TERM_FORM_FORM_SELECTOR = "SEARCH_BY_TERM_FORM_FORM_SELECTOR";
 const RESET_ALL_GENERIC_FORM = "RESET_ALL_GENERIC_FORM";
 
 //Functions
-export const getFormSelectorData = (id, key, page, sort, search) => {
+export const getFormSelectorData = ({id, key, page, sort, search}) => {
   return async dispatch => {
     const formedURL = () => {
       const pagination = `&page=${page !== null ? page : 0}`;

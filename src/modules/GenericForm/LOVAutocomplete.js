@@ -36,7 +36,7 @@ const LOVAutocomplete = (props) => {
   const [opts, setOpts] = useState([]);
 
   useEffect(()=>{
-    props.responseKey && props.searchData(props.id,props.responseKey, props.page, props.sortBy, props.querySearch);
+    props.responseKey && props.searchData({id: props.id, key: props.responseKey, page: props.page, sort: props.sortBy, search: props.querySearch});
   },[props.page, props.querySearch]);
 
   useEffect(() => {

@@ -74,9 +74,10 @@ const GenericForm = ({loading, ...props}) => {
             disabled={noEnable}
             options={selector.options}
             error={error}
-            onBlur={onBlur}
+            onBlur={() => setOnBlur({...onBlur, [key]: true})}
             value={props.formData && props.formData[key] ? props.formData[key] : ""}
-            onChange={e => props.setFormData({...props.formData, [key]: e.target.value})}/>
+            onChange={e => props.setFormData({...props.formData, [key]: e.target.value})}
+            showError={onBlur[key]} />
         );
       case 'checkbox':
         return (
@@ -126,7 +127,8 @@ const GenericForm = ({loading, ...props}) => {
             error={getError(key)}
             required={Boolean(required)}
             disabled={(props.editMode && noEditable) || disabled}
-            creationComponents={selector.creationComponents} />
+            creationComponents={selector.creationComponents}
+            showError={onBlur[key]} />
         );
       default:
         return;

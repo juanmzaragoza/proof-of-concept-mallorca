@@ -14,8 +14,6 @@ import IconMenu from "modules/shared/IconMenu";
 import ContentHeader from "./ContentHeader";
 import BreadcrumbHeader from "./BreadcrumbHeader";
 import {getLoading} from "../../redux/app/selectors";
-import {bindActionCreators} from "redux";
-import {setFireSaveFromHeader} from "../../redux/pageHeader";
 import {connect} from "react-redux";
 
 export const ListingHeader = ({ config: { title }, loadingIndicator }) => {
