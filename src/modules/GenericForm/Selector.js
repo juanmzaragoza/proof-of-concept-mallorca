@@ -8,8 +8,20 @@ import {
 } from "@material-ui/core";
 import {compose} from "redux";
 import {injectIntl} from "react-intl";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
-const Selector = ({key, placeHolder, variant, required, disabled, options, error, value, onChange, ...props}) => {
+const Selector = ({key, placeHolder, variant, required, disabled, options, error, value, onChange, loading, ...props}) => {
+
+  const renderOptions = () => {
+    return [
+      <MenuItem key="none" aria-label="None" value="" disabled>
+        {props.intl.formatMessage({id: 'Comun.seleccione', defaultMessage: 'Seleccione...'})}
+      </MenuItem>,
+      ...options.map(option => <MenuItem key={option.value}
+                                         value={option.value}>{option.label}</MenuItem>)
+    ]
+  };
+
   return (
     <>
       <InputLabel id={`${key}-select-label`} style={{padding: '10px'}}>{placeHolder}</InputLabel>
@@ -27,11 +39,14 @@ const Selector = ({key, placeHolder, variant, required, disabled, options, error
           id: key,
         }}
       >
-        <MenuItem aria-label="None" value="" disabled>
-          {props.intl.formatMessage({id: 'Comun.seleccione', defaultMessage: 'Seleccione...'})}
-        </MenuItem>
-        {options.map(option => <MenuItem key={option.value}
-                                         value={option.value}>{option.label}</MenuItem>)}
+        {!loading?
+          renderOptions()
+          :
+          <MenuItem value="" disabled >
+            <CircularProgress size={20}/>
+            &nbsp;{props.intl.formatMessage({id: 'Comun.cargando', defaultMessage: 'Cargando'})}...
+          </MenuItem>
+        }
       </Select>
       {props.onBlur[key] && Boolean(error) ? <FormHelperText>{error.message}</FormHelperText> : null}
     </>
@@ -46,6 +61,7 @@ Selector.propTypes = {
   variant: PropTypes.oneOf(['filled', 'outlined', 'standard']),
   required: PropTypes.bool,
   disabled: PropTypes.bool,
+  loading: PropTypes.bool,
   options: PropTypes.array,
   error: PropTypes.any
 }
