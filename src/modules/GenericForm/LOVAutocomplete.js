@@ -124,7 +124,7 @@ const LOVAutocomplete = (props) => {
             title: '',
           });
         }
-        filtered.push({
+        !props.cannotCreate && filtered.push({
           id: ADD_TYPE,
           inputValue: inputValue,
           title: `${props.intl.formatMessage({id: 'LOVElement.agregar_nuevo', defaultMessage: 'Agregar \'{name}\''}, {name: inputValue})}`,
@@ -182,7 +182,8 @@ LOVAutocomplete.propTypes = {
   required: PropTypes.bool,
   disabled: PropTypes.bool,
   sortBy: PropTypes.string, // service order field
-  creationComponents: PropTypes.any
+  creationComponents: PropTypes.any,
+  cannotCreate: PropTypes.bool
 };
 
 const mapStateToProps = (state, props) => {

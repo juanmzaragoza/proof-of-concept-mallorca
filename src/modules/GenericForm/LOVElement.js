@@ -29,6 +29,10 @@ import {
   getTotalPagesFormSelectorById
 } from "redux/genericForm/selectors";
 
+/**
+ * Discontinued developments
+ * Use LOVAutocomplete
+ **/
 import LOVForm from "./LOVForm";
 
 const LOVElement = (props) => {
