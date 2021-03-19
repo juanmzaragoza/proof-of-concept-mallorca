@@ -71,6 +71,29 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
   const formatCodeAndDescription = (data) => `${data.descripcio} (${data.codi})`;
 
+  const getCountryConfig = (mdCode = 2, cannotCreate = false) => (
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.pais",
+        defaultMessage: "País"
+      }),
+      type: 'LOV',
+      key: 'pais',
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: mdCode
+      },
+      selector: {
+        key: 'paises',
+        labelKey: formatCodeAndName,
+        sort: 'nom',
+        creationComponents: codeAndName(),
+        cannotCreate
+      }
+    }
+  )
+
   const suppliersConfig = [
     {
       placeHolder: props.intl.formatMessage({
@@ -137,25 +160,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         md: 4
       },
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.pais",
-        defaultMessage: "País"
-      }),
-      type: 'LOV',
-      key: 'pais',
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 2
-      },
-      selector: {
-        key: 'paises',
-        labelKey: formatCodeAndName,
-        sort: 'nom',
-        creationComponents: codeAndName()
-      }
-    },
+    getCountryConfig(),
     {
       placeHolder: props.intl.formatMessage({
         id: "Proveedores.tipoDoc",
@@ -235,16 +240,22 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         creationComponents: [
           ...codeAndName(),
           {
-            type: 'input',
-            key: 'horari',
             placeHolder: props.intl.formatMessage({
               id: "Comercial.horario",
               defaultMessage: "Horario"
             }),
+            type: 'LOV',
+            key: 'horari',
             required: true,
             breakpoints: {
               xs: 12,
-              md: 4,
+              md: 4
+            },
+            selector: {
+              key: "horaris",
+              labelKey: (data) => `${data.nom} (${data.codi})`,
+              sort: 'codi',
+              cannotCreate: true,
             }
           },
           {
@@ -257,7 +268,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
             required: true,
             breakpoints: {
               xs: 12,
-              md: 6
+              md: 4
             }
           },
           {
@@ -270,7 +281,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
             required: true,
             breakpoints: {
               xs: 12,
-              md: 6
+              md: 4
             }
           }
         ]
@@ -542,19 +553,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         sort: 'codi',
         creationComponents: [
           code(3),
-          {
-            type: 'input',
-            key: 'pais',
-            placeHolder: props.intl.formatMessage({
-              id: "Proveedores.pais",
-              defaultMessage: "País"
-            }),
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 3
-            }
-          },
+          getCountryConfig(3, true),
           {
             type: 'input',
             key: 'poblacio',
@@ -569,18 +568,24 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
             }
           },
           {
-            type: 'input',
-            key: 'provincia',
             placeHolder: props.intl.formatMessage({
               id: "CodigoPostal.provincia",
               defaultMessage: "Provincia"
             }),
-            required: true,
+            type: 'LOV',
+            key: 'provincia',
+            required: false,
             breakpoints: {
               xs: 12,
               md: 3
+            },
+            selector: {
+              key: "provincias",
+              labelKey: (data) => `${data.nom} (${data.codi})`,
+              sort: 'codi',
+              cannotCreate: true,
             }
-          },
+          }
         ]
       }
     },
