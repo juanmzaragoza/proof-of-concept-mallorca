@@ -5,18 +5,17 @@ import './styles.scss';
 import {
   Checkbox,
   FormControlLabel,
-  FormHelperText, FormLabel,
+  FormLabel,
   Grid,
-  InputLabel,
-  MenuItem,
   Paper,
   Radio,
   RadioGroup,
-  Select,
   TextField
 } from '@material-ui/core';
 import FormControl from "@material-ui/core/FormControl";
+
 import LOVAutocomplete from "./LOVAutocomplete";
+import Selector from "./Selector";
 
 const GenericForm = ({loading, ...props}) => {
   const formRef = useRef(null);
@@ -67,26 +66,18 @@ const GenericForm = ({loading, ...props}) => {
         );
       case 'select':
         return (
-        <>
-          <InputLabel id={`${key}-select-label`} style={{padding: '10px'}}>{placeHolder}</InputLabel>
-          <Select
-            labelId={`${key}-select-label`}
+          <Selector
             id={key}
-            variant={variant ? variant : 'outlined'}
-            value={props.formData && props.formData[key] ? props.formData[key] : ""}
-            onChange={e => props.setFormData({...props.formData, [key]: e.target.value})}
+            placeHolder={placeHolder}
+            variant={variant}
             required={required}
             disabled={noEnable}
-            inputProps={{
-              name: placeHolder,
-              id: key,
-            }}
-          >
-            <option aria-label="None" value="" />
-            {selector && selector.options.map(option => <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>) }
-          </Select>
-          {onBlur[key] && Boolean(error)? <FormHelperText>{error.message}</FormHelperText>:null}
-        </>
+            options={selector.options}
+            error={error}
+            onBlur={() => setOnBlur({...onBlur, [key]: true})}
+            value={props.formData && props.formData[key] ? props.formData[key] : ""}
+            onChange={e => props.setFormData({...props.formData, [key]: e.target.value})}
+            showError={onBlur[key]} />
         );
       case 'checkbox':
         return (
@@ -136,7 +127,8 @@ const GenericForm = ({loading, ...props}) => {
             error={getError(key)}
             required={Boolean(required)}
             disabled={(props.editMode && noEditable) || disabled}
-            creationComponents={selector.creationComponents} />
+            creationComponents={selector.creationComponents}
+            showError={onBlur[key]} />
         );
       default:
         return;
