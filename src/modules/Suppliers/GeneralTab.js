@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import {FormattedMessage, injectIntl} from "react-intl";
 import "./styles.scss";
 
+import {TDOC_SELECTOR_VALUES} from "constants/selectors";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
@@ -168,11 +169,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         md: 2
       },
       selector: {
-        options: [
-          {value: "1", label:"One"},
-          {value: "2", label:"Two"},
-          {value: "3", label:"Three"},
-        ]
+        options: TDOC_SELECTOR_VALUES
       }
     },
     {

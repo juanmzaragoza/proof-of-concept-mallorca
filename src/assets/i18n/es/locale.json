@@ -77,5 +77,11 @@
   "Proveedores.tabs.series": "Series",
   "ReactGrid.actions_column": "Acciones",
   "ReactGrid.error.algo_salio_mal": "Ups! Algo ha salido mal :(",
+  "Selector.nif": "NIF",
+  "Selector.nif_op_intra": "NIF operador intracomunitario",
+  "Selector.doc_oficial": "Doc. oficial expedido en país",
+  "Selector.pasaporte": "Pasaporte",
+  "Selector.certif_residencia": "Certif. residencia fiscal",
+  "Selector.otro_documento": "Otro documento",
   "TiposVencimiento.tipos": "Tipos"
 }
