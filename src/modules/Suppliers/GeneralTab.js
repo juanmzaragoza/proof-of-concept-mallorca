@@ -78,7 +78,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         defaultMessage: "País"
       }),
       type: 'input',
-      key: 'paises',
+      key: 'codiPais',
       required: true,
       breakpoints: {
         xs: 12,
@@ -220,7 +220,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         defaultMessage: "Comercial"
       }),
       type: 'LOV',
-      key: 'comercial',
+      key: 'operari',
       required: true,
       breakpoints: {
         xs: 12,
@@ -438,7 +438,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         defaultMessage: "Tipo Vía"
       }),
       type: 'input',
-      key: 'tipusAdreces',
+      key: 'sg',
       required: true,
       breakpoints: {
         xs: 12,
