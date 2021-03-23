@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {injectIntl} from 'react-intl';
 import {bindActionCreators, compose} from 'redux';
+import { some } from 'lodash';
 
 import {Autocomplete, createFilterOptions} from '@material-ui/lab';
-import {FormHelperText, IconButton, ListSubheader, MenuItem, TextField} from '@material-ui/core';
+import {FormHelperText, IconButton, TextField} from '@material-ui/core';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
@@ -22,6 +23,7 @@ import {
 import {
   decrementPageToFormSelector,
   getFormSelectorData,
+  getFormSelectorDataById,
   incrementPageToFormSelector,
   searchByQueryTerm
 } from 'redux/genericForm';
@@ -40,8 +42,12 @@ const LOVAutocomplete = (props) => {
   },[props.page, props.querySearch]);
 
   useEffect(() => {
-    setOpts(props.options);
-  },[props.options]);
+    if(props.value && props.value.pk && props.options.length > 0 && !some(props.options,(opt) => opt.id === props.value.id)){
+      props.searchValueById({id: props.id, identifier: props.value.id});
+    } else{
+      setOpts(props.options);
+    }
+  },[props.options, props.value]);
 
   const buttonInsideSelector = (icon, disabled = false, onClick) => {
     return (
@@ -58,7 +64,10 @@ const LOVAutocomplete = (props) => {
       handleHomeEndKeys
       id={props.id}
       options={opts}
-      value={props.value}
+      /* TODO() make more flexible this comparison -> not all the values have an id
+       * Add an identifier property or something like that
+       */
+      value={props.value && opts.find(option => option.id === props.value.id)? opts.find(option => option.id === props.value.id):null}
       onChange={(e, newValue) => {
         if(newValue && newValue.id === ADD_TYPE){
           setOpenModal(true);
@@ -131,8 +140,11 @@ const LOVAutocomplete = (props) => {
         });
         return filtered;
       }}
-      onInputChange={(event, newInputValue) => {
-        props.dispatchSearchTerm({name: props.id, text: newInputValue});
+      onInputChange={(event, newInputValue,reason) => {
+        // this reason executes when the user select an option or when the selector it loads the first time
+        if(reason !== 'reset'){
+          props.dispatchSearchTerm({name: props.id, text: newInputValue});
+        }
       }}
       renderInput={(params) =>
         <TextField {...params}
@@ -199,6 +211,7 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
     searchData: bindActionCreators(getFormSelectorData, dispatch),
+    searchValueById: bindActionCreators(getFormSelectorDataById, dispatch),
     dispatchIncrementPage: bindActionCreators(incrementPageToFormSelector, dispatch),
     dispatchDecrementPage: bindActionCreators(decrementPageToFormSelector, dispatch),
     dispatchSearchTerm: bindActionCreators(searchByQueryTerm, dispatch),
