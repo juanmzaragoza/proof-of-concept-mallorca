@@ -77,20 +77,13 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.pais",
         defaultMessage: "País"
       }),
-      type: 'LOV',
-      key: 'pais',
+      type: 'input',
+      key: 'paises',
       required: true,
       breakpoints: {
         xs: 12,
         md: mdCode
       },
-      selector: {
-        key: 'paises',
-        labelKey: formatCodeAndName,
-        sort: 'nom',
-        creationComponents: codeAndName(),
-        cannotCreate
-      }
     }
   )
 
@@ -444,18 +437,12 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.Direccion.tipoVia",
         defaultMessage: "Tipo Vía"
       }),
-      type: 'LOV',
+      type: 'input',
       key: 'tipusAdreces',
       required: true,
       breakpoints: {
         xs: 12,
         md: 3
-      },
-      selector: {
-        key: 'tipusAdresas',
-        labelKey: formatCodeAndDescription,
-        sort: 'descripcio',
-        creationComponents: codeAndDescription()
       }
     },
     {
@@ -464,7 +451,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         defaultMessage: "Domicilio"
       }),
       type: 'input',
-      key: 'domicilio',
+      key: 'domicili',
       required: true,
       breakpoints: {
         xs: 12,
