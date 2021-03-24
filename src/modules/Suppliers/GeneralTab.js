@@ -71,22 +71,6 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
   const formatCodeAndDescription = (data) => `${data.descripcio} (${data.codi})`;
 
-  const getCountryConfig = (mdCode = 2, cannotCreate = false) => (
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.pais",
-        defaultMessage: "País"
-      }),
-      type: 'input',
-      key: 'codiPais',
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdCode
-      },
-    }
-  )
-
   const suppliersConfig = [
     {
       placeHolder: props.intl.formatMessage({
@@ -153,7 +137,19 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         md: 4
       },
     },
-    getCountryConfig(),
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.pais_nif",
+        defaultMessage: "País NIF"
+      }),
+      type: 'input',
+      key: 'paisNif',
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 2
+      },
+    },
     {
       placeHolder: props.intl.formatMessage({
         id: "Proveedores.tipoDoc",
@@ -540,7 +536,26 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         sort: 'codi',
         creationComponents: [
           code(3),
-          getCountryConfig(3, true),
+          {
+            placeHolder: props.intl.formatMessage({
+              id: "CodigoPostal.pais",
+              defaultMessage: "País"
+            }),
+            type: 'LOV',
+            key: 'pais',
+            required: false,
+            breakpoints: {
+              xs: 12,
+              md: 3
+            },
+            selector: {
+              key: "paises",
+              labelKey: (data) => `${data.nom} (${data.codi})`,
+              sort: 'codi',
+              cannotCreate: true,
+              relatedWith: 'provincia'
+            }
+          },
           {
             type: 'input',
             key: 'poblacio',

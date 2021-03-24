@@ -92,7 +92,7 @@ const LOVAutocomplete = (props) => {
           // I'm refreshing another LOV -> ACTION FOR ANOTHER
           if(props.relatedWith){
             //TODO() change by {columnName: props.identifier, newValue[props.identifier]}
-            props.setQuery({name: props.relatedWith, query: [{columnName: 'id', value: newValue.id}]})
+            props.setQuery({name: props.relatedWith, query: [{columnName: 'pais.id', value: `'${newValue.id}'`}]})
             props.refreshData({name: props.relatedWith, refresh: true});
           }
           props.onChange(e, newValue);
