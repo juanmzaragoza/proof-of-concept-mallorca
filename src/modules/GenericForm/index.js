@@ -129,7 +129,8 @@ const GenericForm = ({loading, ...props}) => {
             disabled={(props.editMode && noEditable) || disabled}
             cannotCreate={selector.cannotCreate}
             creationComponents={selector.creationComponents}
-            showError={onBlur[key]} />
+            showError={onBlur[key]}
+            relatedWith={selector.relatedWith} />
         );
       default:
         return;
@@ -202,7 +203,8 @@ GenericForm.propTypes = {
     labelKey: PropTypes.any,
     options: PropTypes.array,
     creationComponents: PropTypes.array,
-    cannotCreate: PropTypes.bool
+    cannotCreate: PropTypes.bool,
+    relatedWith: PropTypes.any
   })
 };
 export default GenericForm;
