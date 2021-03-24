@@ -8,3 +8,5 @@ export const getDataFormSelectorById = (state, id) => get(state, `genericForm.fo
 export const getPageFormSelectorById = (state, id) => get(state, `genericForm.formSelectors[${id}].page.number`, null);
 export const getTotalPagesFormSelectorById = (state, id) => get(state, `genericForm.formSelectors[${id}].page.totalPages`, null);
 export const getQuerySearchFormSelectorById = (state, id) => get(state, `genericForm.formSelectors[${id}].querySearch`, null);
+export const getRefreshFormSelectorById = (state, id) => get(state, `genericForm.formSelectors[${id}].refresh`, false);
+export const getQueryFormSelectorById = (state, id) => get(state, `genericForm.formSelectors[${id}].query`, []);

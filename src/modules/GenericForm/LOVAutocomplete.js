@@ -17,7 +17,9 @@ import {
   getDataFormSelectorById,
   getLoadingFormSelectorById,
   getPageFormSelectorById,
+  getQueryFormSelectorById,
   getQuerySearchFormSelectorById,
+  getRefreshFormSelectorById,
   getTotalPagesFormSelectorById
 } from 'redux/genericForm/selectors';
 import {
@@ -25,7 +27,9 @@ import {
   getFormSelectorData,
   getFormSelectorDataById,
   incrementPageToFormSelector,
-  searchByQueryTerm
+  refreshAFormSelector,
+  searchByQueryTerm,
+  setQueryFromSelector
 } from 'redux/genericForm';
 
 const filter = createFilterOptions();
@@ -38,16 +42,29 @@ const LOVAutocomplete = (props) => {
   const [opts, setOpts] = useState([]);
 
   useEffect(()=>{
-    props.responseKey && props.searchData({id: props.id, key: props.responseKey, page: props.page, sort: props.sortBy, search: props.querySearch});
+    requestDataToServer();
   },[props.page, props.querySearch]);
 
   useEffect(() => {
+    // if value comes from object (update population)
     if(props.value && props.value.pk && props.options.length > 0 && !some(props.options,(opt) => opt.id === props.value.id)){
       props.searchValueById({id: props.id, identifier: props.value.id});
     } else{
       setOpts(props.options);
     }
   },[props.options, props.value]);
+
+  // another LOV is refreshing me -> ACTION FOR ME
+  useEffect(()=>{
+    if(props.refresh){
+      requestDataToServer();
+      props.refreshData({name: props.id, refresh: false});
+    }
+  },[props.refresh]);
+
+  const requestDataToServer = () => {
+    props.responseKey && props.searchData({id: props.id, key: props.responseKey, page: props.page, sort: props.sortBy, search: props.querySearch, query: props.query});
+  }
 
   const buttonInsideSelector = (icon, disabled = false, onClick) => {
     return (
@@ -72,6 +89,12 @@ const LOVAutocomplete = (props) => {
         if(newValue && newValue.id === ADD_TYPE){
           setOpenModal(true);
         } else{
+          // I'm refreshing another LOV -> ACTION FOR ANOTHER
+          if(props.relatedWith){
+            //TODO() change by {columnName: props.identifier, newValue[props.identifier]}
+            props.setQuery({name: props.relatedWith, query: [{columnName: 'pais.id', value: `'${newValue.id}'`}]})
+            props.refreshData({name: props.relatedWith, refresh: true});
+          }
           props.onChange(e, newValue);
         }
       }}
@@ -195,7 +218,10 @@ LOVAutocomplete.propTypes = {
   disabled: PropTypes.bool,
   sortBy: PropTypes.string, // service order field
   creationComponents: PropTypes.any,
-  cannotCreate: PropTypes.bool
+  // button add doesn't appear at the end of the list
+  cannotCreate: PropTypes.bool,
+  // if not empty, when this component changes value, it will update the related selector
+  relatedWith: PropTypes.any
 };
 
 const mapStateToProps = (state, props) => {
@@ -205,6 +231,8 @@ const mapStateToProps = (state, props) => {
     page: getPageFormSelectorById(state, props.id),
     totalPages: getTotalPagesFormSelectorById(state, props.id),
     querySearch: getQuerySearchFormSelectorById(state, props.id),
+    refresh: getRefreshFormSelectorById(state, props.id),
+    query: getQueryFormSelectorById(state, props.id)
   };
 };
 
@@ -215,6 +243,8 @@ const mapDispatchToProps = (dispatch, props) => {
     dispatchIncrementPage: bindActionCreators(incrementPageToFormSelector, dispatch),
     dispatchDecrementPage: bindActionCreators(decrementPageToFormSelector, dispatch),
     dispatchSearchTerm: bindActionCreators(searchByQueryTerm, dispatch),
+    refreshData: bindActionCreators(refreshAFormSelector, dispatch),
+    setQuery:  bindActionCreators(setQueryFromSelector, dispatch),
   };
   return actions;
 };

@@ -15,6 +15,8 @@ const INCREMENT_PAGE_TO_FORM_SELECTOR = "INCREMENT_PAGE_TO_FORM_SELECTOR";
 const DECREMENT_PAGE_TO_FORM_SELECTOR = "DECREMENT_PAGE_TO_FORM_SELECTOR";
 const SEARCH_BY_TERM_FORM_FORM_SELECTOR = "SEARCH_BY_TERM_FORM_FORM_SELECTOR";
 const RESET_ALL_GENERIC_FORM = "RESET_ALL_GENERIC_FORM";
+const REFRESH_A_FORM_SELECTOR = "REFRESH_A_FORM_SELECTOR";
+const SET_QUERY_FORM_SELECTOR = "SET_QUERY_FORM_SELECTOR";
 
 //Functions
 export const getFormSelectorData = ({id, key, page, sort, search, query = []}) => {
@@ -125,6 +127,20 @@ export function searchByQueryTerm(payload){
   };
 }
 
+export function refreshAFormSelector(payload){
+  return {
+    type: REFRESH_A_FORM_SELECTOR,
+    payload
+  };
+}
+
+export function setQueryFromSelector(payload){
+  return {
+    type: SET_QUERY_FORM_SELECTOR,
+    payload
+  }
+}
+
 export function resetAllGenericForm() {
   return {
     type: RESET_ALL_GENERIC_FORM
@@ -162,7 +178,7 @@ export default (state = initialState, action) => {
       const {name, data} = action.payload;
       return { ...state, formSelectors: {
         ...state.formSelectors,
-        [name]: {...state.formSelectors[name], data: unionWith(state.formSelectors[name].data, [data], isEqual)}//[...state.formSelectors[name].data, data]}
+        [name]: {...state.formSelectors[name], data: unionWith(state.formSelectors[name].data, [data], isEqual)}
       }};
     }
     case INCREMENT_PAGE_TO_FORM_SELECTOR: {
@@ -184,6 +200,20 @@ export default (state = initialState, action) => {
       return { ...state, formSelectors: {
           ...state.formSelectors,
           [name]: {...state.formSelectors[name], querySearch: text}
+        }};
+    }
+    case REFRESH_A_FORM_SELECTOR: {
+      const {name, refresh} = action.payload;
+      return { ...state, formSelectors: {
+          ...state.formSelectors,
+          [name]: {...state.formSelectors[name], refresh}
+        }};
+    }
+    case SET_QUERY_FORM_SELECTOR: {
+      const {name, query} = action.payload;
+      return { ...state, formSelectors: {
+          ...state.formSelectors,
+          [name]: {...state.formSelectors[name], query}
         }};
     }
     case RESET_ALL_GENERIC_FORM:

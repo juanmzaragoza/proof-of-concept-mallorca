@@ -12,9 +12,9 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
 
   const getString = (key) => formData[key]? formData[key]:"";
   useEffect(() => {
-    const dir = getString('domicilio')+" "+getString('numero')+" "+getString('esc')+" "+getString('piso')+" "+getString('puerta');
-    setFormData({...formData, direccionCompleta: dir});
-  },[formData.domicilio, formData.numero, formData.esc, formData.piso, formData.puerta ]);
+    const dir = getString('nomDomicili')+" "+getString('numeroDomicili')+" "+getString('escala')+" "+getString('pis')+" "+getString('porta');
+    setFormData({...formData, domicili: dir});
+  },[formData.nomDomicili, formData.numeroDomicili, formData.escala, formData.pis, formData.porta ]);
 
   useEffect(() => {
     const codiPostal = getString('codiPostal');
@@ -70,22 +70,6 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
   const formatCodeAndDescription = (data) => `${data.descripcio} (${data.codi})`;
-
-  const getCountryConfig = (mdCode = 2, cannotCreate = false) => (
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.pais",
-        defaultMessage: "País"
-      }),
-      type: 'input',
-      key: 'codiPais',
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdCode
-      },
-    }
-  )
 
   const suppliersConfig = [
     {
@@ -153,14 +137,26 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         md: 4
       },
     },
-    getCountryConfig(),
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.pais_nif",
+        defaultMessage: "País NIF"
+      }),
+      type: 'input',
+      key: 'paisNif',
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 2
+      },
+    },
     {
       placeHolder: props.intl.formatMessage({
         id: "Proveedores.tipoDoc",
         defaultMessage: "Tipo Documento"
       }),
       type: 'select',
-      key: 'tdoc',
+      key: 'tipusNif',
       required: true,
       breakpoints: {
         xs: 12,
@@ -189,7 +185,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         defaultMessage: "Censado en EAT"
       }),
       type: 'checkbox',
-      key: 'eat',
+      key: 'censatHisenda',
       breakpoints: {
         xs: 12,
         md: 2
@@ -451,7 +447,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         defaultMessage: "Domicilio"
       }),
       type: 'input',
-      key: 'domicili',
+      key: 'nomDomicili',
       required: true,
       breakpoints: {
         xs: 12,
@@ -464,7 +460,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         defaultMessage: "Número"
       }),
       type: 'input',
-      key: 'numero',
+      key: 'numeroDomicili',
       required: true,
       breakpoints: {
         xs: 12,
@@ -477,7 +473,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         defaultMessage: "Esc."
       }),
       type: 'input',
-      key: 'esc',
+      key: 'escala',
       required: true,
       breakpoints: {
         xs: 12,
@@ -490,7 +486,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         defaultMessage: "Piso"
       }),
       type: 'input',
-      key: 'piso',
+      key: 'pis',
       required: true,
       breakpoints: {
         xs: 12,
@@ -503,7 +499,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         defaultMessage: "Puerta"
       }),
       type: 'input',
-      key: 'puerta',
+      key: 'porta',
       required: true,
       breakpoints: {
         xs: 12,
@@ -516,7 +512,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         defaultMessage: "Dirección Completa"
       }),
       type: 'input',
-      key: 'direccionCompleta',
+      key: 'domicili',
       breakpoints: {
         xs: 12,
         md: 12
@@ -540,7 +536,26 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         sort: 'codi',
         creationComponents: [
           code(3),
-          getCountryConfig(3, true),
+          {
+            placeHolder: props.intl.formatMessage({
+              id: "CodigoPostal.pais",
+              defaultMessage: "País"
+            }),
+            type: 'LOV',
+            key: 'pais',
+            required: false,
+            breakpoints: {
+              xs: 12,
+              md: 3
+            },
+            selector: {
+              key: "paises",
+              labelKey: (data) => `${data.nom} (${data.codi})`,
+              sort: 'codi',
+              cannotCreate: true,
+              relatedWith: 'provincia'
+            }
+          },
           {
             type: 'input',
             key: 'poblacio',
