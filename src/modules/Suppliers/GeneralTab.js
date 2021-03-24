@@ -160,7 +160,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         defaultMessage: "Tipo Documento"
       }),
       type: 'select',
-      key: 'tdoc',
+      key: 'tipusNif',
       required: true,
       breakpoints: {
         xs: 12,
