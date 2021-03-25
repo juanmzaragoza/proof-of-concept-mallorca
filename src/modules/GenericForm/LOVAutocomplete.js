@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {injectIntl} from 'react-intl';
 import {bindActionCreators, compose} from 'redux';
-import { some } from 'lodash';
+import { some, get } from 'lodash';
 
 import {Autocomplete, createFilterOptions} from '@material-ui/lab';
 import {FormHelperText, IconButton, TextField} from '@material-ui/core';
@@ -91,9 +91,14 @@ const LOVAutocomplete = (props) => {
         } else{
           // I'm refreshing another LOV -> ACTION FOR ANOTHER
           if(props.relatedWith){
-            //TODO() change by {columnName: props.identifier, newValue[props.identifier]}
-            props.setQuery({name: props.relatedWith, query: [{columnName: 'pais.id', value: `'${newValue.id}'`}]})
-            props.refreshData({name: props.relatedWith, refresh: true});
+            props.setQuery({
+              name: props.relatedWith.name,
+              query: [{
+                columnName: props.relatedWith.filterBy,
+                value: `'${get(newValue,props.relatedWith.keyValue? props.relatedWith.keyValue:'id')}'`
+              }]
+            })
+            props.refreshData({name: props.relatedWith.name, refresh: true});
           }
           props.onChange(e, newValue);
         }
@@ -221,7 +226,11 @@ LOVAutocomplete.propTypes = {
   // button add doesn't appear at the end of the list
   cannotCreate: PropTypes.bool,
   // if not empty, when this component changes value, it will update the related selector
-  relatedWith: PropTypes.any
+  relatedWith: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    filterBy: PropTypes.string.isRequired,
+    keyValue: PropTypes.string,
+  })
 };
 
 const mapStateToProps = (state, props) => {

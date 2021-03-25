@@ -553,7 +553,11 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
               labelKey: (data) => `${data.nom} (${data.codi})`,
               sort: 'codi',
               cannotCreate: true,
-              relatedWith: 'provincia'
+              relatedWith: {
+                name: 'provincia',
+                filterBy: 'pais.id',
+                keyValue: 'id'
+              }
             }
           },
           {
