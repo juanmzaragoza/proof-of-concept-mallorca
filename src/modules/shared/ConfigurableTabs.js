@@ -1,6 +1,5 @@
 import {AppBar, Box, Tab, Tabs} from "@material-ui/core";
 import React from "react";
-import Typography from "@material-ui/core/Typography";
 import * as PropTypes from "prop-types";
 
 const TabPanel = (props) => {
@@ -36,11 +35,12 @@ function a11yProps(index) {
   };
 }
 
-const ConfigurableTabs = ({ tabs, variant }) => {
+const ConfigurableTabs = ({ tabs, variant, onChange = () => {}}) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    onChange(newValue);
   };
 
   return (
