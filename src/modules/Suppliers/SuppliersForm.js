@@ -2,15 +2,18 @@ import React, {useEffect, useState} from 'react';
 import {FormattedMessage, injectIntl} from "react-intl";
 import {bindActionCreators, compose} from "redux";
 import {connect} from "react-redux";
+import {useParams} from "react-router-dom";
 
 import GeneralTab from "./GeneralTab";
+import ContactTab from "./ContactTab";
+
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
 import {setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig} from "redux/pageHeader";
 import {getFireSave} from "redux/pageHeader/selectors";
 import {withAbmServices} from "../wrappers";
 import {getFormData, getFormErrors} from "../../redux/genericForm/selectors";
-import {useParams} from "react-router-dom";
+
 import {setFormData} from "../../redux/genericForm";
 import {getLoading} from "../../redux/app/selectors";
 
@@ -20,6 +23,7 @@ const CONTACT_TAB_INDEX = 1;
 const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...props }) => {
 
   const [editMode, setEditMode] = useState(false);
+  const [tabIndex, ] = useState(CONTACT_TAB_INDEX);
 
   const tabs = [
     {
@@ -37,7 +41,11 @@ const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...prop
     {
       label: <FormattedMessage id={"Proveedores.tabs.contactos"} defaultMessage={"Contactos"}/>,
       key: CONTACT_TAB_INDEX,
-      component: "Contactos"
+      component: <ContactTab
+        formData={formData}
+        setFormData={actions.setFormData}
+        loading={props.loading}
+        formErrors={props.formErrors} />
     },
     {
       label: <FormattedMessage id={"Proveedores.tabs.contabilidad"} defaultMessage={"Contabilidad"}/>,
@@ -113,10 +121,10 @@ const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...prop
 
   return (
     <div style={{padding: '10px'}}>
-      <ConfigurableTabs tabs={tabs} />
+      <ConfigurableTabs tabs={tabs} tabIndex={tabIndex} />
     </div>
   )
-};
+}
 
 const mapStateToProps = (state, props) => {
   return {
