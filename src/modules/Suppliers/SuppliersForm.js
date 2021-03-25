@@ -14,6 +14,9 @@ import {useParams} from "react-router-dom";
 import {setFormData} from "../../redux/genericForm";
 import {getLoading} from "../../redux/app/selectors";
 
+const GENERAL_TAB_INDEX = 0;
+const CONTACT_TAB_INDEX = 1;
+
 const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...props }) => {
 
   const [editMode, setEditMode] = useState(false);
@@ -21,7 +24,7 @@ const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...prop
   const tabs = [
     {
       label: <FormattedMessage id={"Proveedores.tabs.general"} defaultMessage={"General"}/>,
-      key: 0,
+      key: GENERAL_TAB_INDEX,
       component: <GeneralTab
         editMode={editMode}
         formData={formData}
@@ -33,7 +36,7 @@ const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...prop
     },
     {
       label: <FormattedMessage id={"Proveedores.tabs.contactos"} defaultMessage={"Contactos"}/>,
-      key: 1,
+      key: CONTACT_TAB_INDEX,
       component: "Contactos"
     },
     {
