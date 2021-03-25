@@ -12,9 +12,9 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
 
   const getString = (key) => formData[key]? formData[key]:"";
   useEffect(() => {
-    const dir = getString('nomDomicili')+" "+getString('numeroDomicili')+" "+getString('escala')+" "+getString('pis')+" "+getString('porta');
+    const dir = getString('sg')+" "+getString('nomDomicili')+" "+getString('numeroDomicili')+" "+getString('escala')+" "+getString('pis')+" "+getString('porta');
     setFormData({...formData, domicili: dir});
-  },[formData.nomDomicili, formData.numeroDomicili, formData.escala, formData.pis, formData.porta ]);
+  },[formData.sg, formData.nomDomicili, formData.numeroDomicili, formData.escala, formData.pis, formData.porta ]);
 
   useEffect(() => {
     const codiPostal = getString('codiPostal');
@@ -515,7 +515,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       key: 'domicili',
       breakpoints: {
         xs: 12,
-        md: 12
+        md: 7
       },
     },
     {
@@ -532,10 +532,10 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         key: "codiPostals",
-        labelKey: (data) => `${data.descPostNomCodi} (${data.codi})`,
+        labelKey: (data) => `${data.poblacio} ${data.municipi?` - ${data.municipi}`:''} (${data.codi})`,
         sort: 'codi',
         creationComponents: [
-          code(3),
+          code(4),
           {
             placeHolder: props.intl.formatMessage({
               id: "CodigoPostal.pais",
@@ -546,27 +546,18 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
             required: false,
             breakpoints: {
               xs: 12,
-              md: 3
+              md: 4
             },
             selector: {
               key: "paises",
               labelKey: (data) => `${data.nom} (${data.codi})`,
               sort: 'codi',
               cannotCreate: true,
-              relatedWith: 'provincia'
-            }
-          },
-          {
-            type: 'input',
-            key: 'poblacio',
-            placeHolder: props.intl.formatMessage({
-              id: "CodigoPostal.poblacion",
-              defaultMessage: "Población"
-            }),
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 3
+              relatedWith: {
+                name: 'provincia',
+                filterBy: 'pais.id',
+                keyValue: 'id'
+              }
             }
           },
           {
@@ -579,7 +570,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
             required: false,
             breakpoints: {
               xs: 12,
-              md: 3
+              md: 4
             },
             selector: {
               key: "provincias",
@@ -587,23 +578,35 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
               sort: 'codi',
               cannotCreate: true,
             }
-          }
+          },
+          {
+            type: 'input',
+            key: 'municipi',
+            placeHolder: props.intl.formatMessage({
+              id: "CodigoPostal.municipio",
+              defaultMessage: "Municipio"
+            }),
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 6
+            }
+          },
+          {
+            type: 'input',
+            key: 'poblacio',
+            placeHolder: props.intl.formatMessage({
+              id: "CodigoPostal.poblacion",
+              defaultMessage: "Población"
+            }),
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 6
+            }
+          },
         ]
       }
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Direccion.poblacion",
-        defaultMessage: "Población"
-      }),
-      type: 'input',
-      key: 'poblacio',
-      required: false,
-      disabled: true,
-      breakpoints: {
-        xs: 12,
-        md: 4
-      },
     },
   ];
 

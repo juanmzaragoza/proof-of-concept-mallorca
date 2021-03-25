@@ -204,7 +204,12 @@ GenericForm.propTypes = {
     options: PropTypes.array,
     creationComponents: PropTypes.array,
     cannotCreate: PropTypes.bool,
-    relatedWith: PropTypes.any
+    // for example, see the LOVAutocomplete component
+    relatedWith: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      filterBy: PropTypes.string.isRequired,
+      keyValue: PropTypes.string,
+    })
   })
 };
 export default GenericForm;
