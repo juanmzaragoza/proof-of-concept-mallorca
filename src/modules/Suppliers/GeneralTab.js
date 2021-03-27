@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 import {FormattedMessage, injectIntl} from "react-intl";
 import "./styles.scss";
@@ -610,6 +610,11 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
     },
   ];
 
+  //TODO() think then how resolve it
+  useEffect(()=>{
+    props.setIsValid && props.setIsValid(false);
+  },[]);
+
   const tabs = [
     {
       className: "general-tab-subtab",
@@ -653,7 +658,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
                        loading={props.loading}
                        formErrors={props.formErrors}
                        submitFromOutside={props.submitFromOutside}
-                       onSubmit={() => props.onSubmitTab(formData)}/>
+                       onSubmit={() => props.onSubmitTab(formData)} />
         </OutlinedContainer>
       </Grid>
       <Grid xs={12} item>

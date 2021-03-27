@@ -2,7 +2,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import OutlinedContainer from "../shared/OutlinedContainer";
 import {FormattedMessage, injectIntl} from "react-intl";
 import GenericForm from "../GenericForm";
-import React from "react";
+import React, {useEffect} from "react";
 import {compose} from "redux";
 
 const ContactTab = ({formData, setFormData, ...props}) => {
@@ -154,19 +154,24 @@ const ContactTab = ({formData, setFormData, ...props}) => {
     },
   ];
 
+  //TODO() think then how resolve it
+  useEffect(()=>{
+    props.setIsValid && props.setIsValid(true);
+  },[formData])
+
   return (
     <Grid container >
       <Grid xs={12} item>
         <OutlinedContainer className="contact-tab-container" title={<FormattedMessage id={"Proveedores.tabs.contactos"} defaultMessage={"Contactos"}/>}>
           <GenericForm formComponents={contactsConfig}
                        emptyPaper={true}
-                       //editMode={props.editMode}
+                       editMode={props.editMode}
                        formData={formData}
                        setFormData={setFormData}
                        loading={props.loading}
                        formErrors={props.formErrors}
-                       //submitFromOutside={props.submitFromOutside}
-                       //onSubmit={() => props.onSubmitTab(formData)}
+                       submitFromOutside={props.submitFromOutside}
+                       onSubmit={() => props.onSubmitTab(formData)}
           />
         </OutlinedContainer>
       </Grid>
