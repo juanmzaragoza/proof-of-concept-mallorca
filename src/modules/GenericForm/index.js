@@ -65,6 +65,7 @@ const GenericForm = ({loading, ...props}) => {
             onChange={ (e,v,r) => {
               props.setFormData({...props.formData, [key]: e.currentTarget.value})
               Boolean(key) && formik.handleChange(e,v,r);
+              props.handleIsValid && props.handleIsValid(formik.isValid);
             }}
             value={props.formData && props.formData[key] ? props.formData[key] : ""}
             label={placeHolder}
@@ -135,6 +136,7 @@ const GenericForm = ({loading, ...props}) => {
               e.stopPropagation();
               props.setFormData({...props.formData, [key]: v});
               Boolean(key) && formik.handleChange(e,v,r);
+              props.handleIsValid && props.handleIsValid(formik.isValid);
             }}
             value={props.formData && props.formData[key] ? props.formData[key] : null}
             setValue={e => props.setFormData({...props.formData, [key]: e.value})}

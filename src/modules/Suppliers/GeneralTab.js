@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 import {FormattedMessage, injectIntl} from "react-intl";
+import { every } from "lodash";
 import "./styles.scss";
 
 import {TDOC_SELECTOR_VALUES} from "constants/selectors";
@@ -9,6 +10,7 @@ import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
 const GeneralTab = ({formData, setFormData, ...props}) => {
+  const [formIsValid, setFormIsValid] = useState({});
 
   const getString = (key) => formData[key]? formData[key]:"";
   useEffect(() => {
@@ -636,8 +638,18 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
 
   //TODO() think then how resolve it
   useEffect(()=>{
-    props.setIsValid && props.setIsValid(true);
+    props.setIsValid && props.setIsValid(false);
   },[]);
+
+  //TODO() can we move this?
+  useEffect(()=>{
+    const validation = every(formIsValid, (v) => v);
+    props.setIsValid && props.setIsValid(validation);
+  },[formIsValid]);
+
+  const addValidity = (key, value) => {
+    setFormIsValid({...formIsValid, [key]: value});
+  }
 
   const tabs = [
     {
@@ -651,7 +663,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
                               loading={props.loading}
                               formErrors={props.formErrors}
                               submitFromOutside={props.submitFromOutside}
-                              onSubmit={() => props.onSubmitTab(formData)} />
+                              onSubmit={() => props.onSubmitTab(formData)}
+                              handleIsValid={(value => addValidity(0,value))} />
     },
     {
       label: <FormattedMessage id={"Proveedores.direcciones_comerciales"} defaultMessage={"Direcciones Comerciales"}/>,
@@ -682,7 +695,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
                        loading={props.loading}
                        formErrors={props.formErrors}
                        submitFromOutside={props.submitFromOutside}
-                       onSubmit={() => props.onSubmitTab(formData)} />
+                       onSubmit={() => props.onSubmitTab(formData)}
+                       handleIsValid={(value => addValidity(1,value))} />
         </OutlinedContainer>
       </Grid>
       <Grid xs={12} item>
