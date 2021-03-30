@@ -55,6 +55,13 @@ const GenericForm = ({loading, ...props}) => {
 
   const getField = ({type, variant, placeHolder, required, key, noEditable, selector, disabled}, formik) => {
     const noEnable = loading || (props.editMode && noEditable) || disabled;
+
+    const handleChange = (e,v,r, value) => {
+      props.setFormData({...props.formData, [key]: value});
+      Boolean(key) && formik.handleChange(e,v,r);
+      props.handleIsValid && props.handleIsValid(formik.isValid);
+    };
+
     switch(type) {
       case 'input':
         return (
@@ -63,9 +70,7 @@ const GenericForm = ({loading, ...props}) => {
             variant={variant ? variant : 'standard'}
             size="small"
             onChange={ (e,v,r) => {
-              props.setFormData({...props.formData, [key]: e.currentTarget.value})
-              Boolean(key) && formik.handleChange(e,v,r);
-              props.handleIsValid && props.handleIsValid(formik.isValid);
+              handleChange(e,v,r, e.currentTarget.value);
             }}
             value={props.formData && props.formData[key] ? props.formData[key] : ""}
             label={placeHolder}
@@ -134,9 +139,7 @@ const GenericForm = ({loading, ...props}) => {
             label={placeHolder}
             onChange={(e,v,r) => {
               e.stopPropagation();
-              props.setFormData({...props.formData, [key]: v});
-              Boolean(key) && formik.handleChange(e,v,r);
-              props.handleIsValid && props.handleIsValid(formik.isValid);
+              handleChange(e,v,r, v);
             }}
             value={props.formData && props.formData[key] ? props.formData[key] : null}
             setValue={e => props.setFormData({...props.formData, [key]: e.value})}
