@@ -3,6 +3,7 @@ import {FormattedMessage, injectIntl} from "react-intl";
 import {bindActionCreators, compose} from "redux";
 import {connect} from "react-redux";
 import {useParams} from "react-router-dom";
+import { some, min } from "lodash";
 
 import GeneralTab from "./GeneralTab";
 import ContactTab from "./ContactTab";
@@ -21,31 +22,52 @@ const GENERAL_TAB_INDEX = 0;
 const CONTACT_TAB_INDEX = 1;
 
 const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...props }) => {
-
   const [editMode, setEditMode] = useState(false);
-  const [tabIndex, ] = useState(CONTACT_TAB_INDEX);
+  const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
+  const [tabIndexWithError, setTabIndexWithError] = useState({});
+
+  const tabHasError = (index) => {
+    return !!tabIndexWithError[index];
+  }
+
+  const handleSubmitTab = () => {
+    // TODO() improve this to make it more generic
+    // if exists some error -> go to minimum index
+    if(some(Object.keys(tabIndexWithError), (index) => tabIndexWithError[index])){
+      setTabIndex(parseInt(min(Object.keys(tabIndexWithError))));
+    } else{
+      isEditable()? update(id, formData):create(formData);
+    }
+  }
 
   const tabs = [
     {
       label: <FormattedMessage id={"Proveedores.tabs.general"} defaultMessage={"General"}/>,
       key: GENERAL_TAB_INDEX,
+      error: tabHasError(GENERAL_TAB_INDEX),
       component: <GeneralTab
+        setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [GENERAL_TAB_INDEX]: !value})}
         editMode={editMode}
         formData={formData}
         setFormData={actions.setFormData}
         submitFromOutside={submitFromOutside}
-        onSubmitTab={(data) => isEditable()? update(id, data):create(data)}
+        onSubmitTab={handleSubmitTab}
         formErrors={props.formErrors}
         loading={props.loading} />
     },
     {
       label: <FormattedMessage id={"Proveedores.tabs.contactos"} defaultMessage={"Contactos"}/>,
       key: CONTACT_TAB_INDEX,
+      error: tabHasError(CONTACT_TAB_INDEX),
       component: <ContactTab
+        setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [CONTACT_TAB_INDEX]: !value})}
+        editMode={editMode}
         formData={formData}
         setFormData={actions.setFormData}
-        loading={props.loading}
-        formErrors={props.formErrors} />
+        submitFromOutside={submitFromOutside}
+        onSubmitTab={handleSubmitTab}
+        formErrors={props.formErrors}
+        loading={props.loading} />
     },
     {
       label: <FormattedMessage id={"Proveedores.tabs.contabilidad"} defaultMessage={"Contabilidad"}/>,

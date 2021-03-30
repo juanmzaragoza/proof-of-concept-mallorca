@@ -38,20 +38,16 @@ export const theme = createMuiTheme({
     },
   
     overrides: {
-
       MuiButton: {
         root:{
           fontFamily: 'Poppins'
         }
       },
-
       MuiInputBase:{
         input: {
           padding: "14.5px 14px"
         },
-        
       },
-  
       MuiOutlinedInput: {
         // Name of the rule
         root: {
@@ -65,12 +61,6 @@ export const theme = createMuiTheme({
             color: 'red'
           }
         },
-  
-        focused: {
-        //   border: 'none'
-        },
-
-        
       },
     },
   });
