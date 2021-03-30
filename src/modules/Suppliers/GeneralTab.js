@@ -85,6 +85,30 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         xs: 12,
         md: 1
       },
+      validationType: "number",
+      validations: [
+        {
+          type: "required",
+          params: [props.intl.formatMessage({
+            id: "Validaciones.requerido",
+            defaultMessage: "Este campo es obligatorio"
+          })]
+        },
+        {
+          type: "min",
+          params: [1, props.intl.formatMessage({
+            id: "Validaciones.numeros.min",
+            defaultMessage: "Debe ingresar al menos {min} carácteres"
+          },{min: 1})]
+        },
+        {
+          type: "max",
+          params: [999999, props.intl.formatMessage({
+            id: "Validaciones.numeros.max",
+            defaultMessage: "Debe ingresar al menos {max} carácteres"
+          },{max: 6})]
+        }
+      ]
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -612,7 +636,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
 
   //TODO() think then how resolve it
   useEffect(()=>{
-    props.setIsValid && props.setIsValid(false);
+    props.setIsValid && props.setIsValid(true);
   },[]);
 
   const tabs = [

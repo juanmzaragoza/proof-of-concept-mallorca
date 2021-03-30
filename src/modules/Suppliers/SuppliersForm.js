@@ -23,7 +23,7 @@ const CONTACT_TAB_INDEX = 1;
 
 const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...props }) => {
   const [editMode, setEditMode] = useState(false);
-  const [tabIndex, setTabIndex] = useState(CONTACT_TAB_INDEX);
+  const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
   const [tabIndexWithError, setTabIndexWithError] = useState({});
 
   const tabHasError = (index) => {
@@ -36,7 +36,7 @@ const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...prop
     if(some(Object.keys(tabIndexWithError), (index) => tabIndexWithError[index])){
       setTabIndex(parseInt(min(Object.keys(tabIndexWithError))));
     } else{
-      isEditable()? update(id, props.formData):create(props.formData);
+      isEditable()? update(id, formData):create(formData);
     }
   }
 

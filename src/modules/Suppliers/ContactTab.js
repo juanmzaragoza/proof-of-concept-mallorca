@@ -2,7 +2,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import OutlinedContainer from "../shared/OutlinedContainer";
 import {FormattedMessage, injectIntl} from "react-intl";
 import GenericForm from "../GenericForm";
-import React, {useEffect} from "react";
+import React from "react";
 import {compose} from "redux";
 
 const ContactTab = ({formData, setFormData, ...props}) => {
@@ -55,6 +55,7 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       }
     },
     {
+      id: 'contacte',
       placeHolder: props.intl.formatMessage({
         id: "Proveedores.Contacto.contacto",
         defaultMessage: "Contacto"
@@ -67,6 +68,23 @@ const ContactTab = ({formData, setFormData, ...props}) => {
         xs: 12,
         md: 6
       },
+      validationType: "string",
+      validations: [
+        {
+          type: "required",
+          params: [props.intl.formatMessage({
+            id: "Validaciones.requerido",
+            defaultMessage: "Este campo es obligatorio"
+          })]
+        },
+        {
+          type: "min",
+          params: [5, props.intl.formatMessage({
+            id: "Validaciones.numeros.min",
+            defaultMessage: "Debe ingresar al menos {min} carácteres"
+          },{min: 5})]
+        },
+      ]
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -154,24 +172,21 @@ const ContactTab = ({formData, setFormData, ...props}) => {
     },
   ];
 
-  //TODO() think then how resolve it
-  useEffect(()=>{
-    props.setIsValid && props.setIsValid(true);
-  },[formData])
-
   return (
     <Grid container >
       <Grid xs={12} item>
         <OutlinedContainer className="contact-tab-container" title={<FormattedMessage id={"Proveedores.tabs.contactos"} defaultMessage={"Contactos"}/>}>
-          <GenericForm formComponents={contactsConfig}
-                       emptyPaper={true}
-                       editMode={props.editMode}
-                       formData={formData}
-                       setFormData={setFormData}
-                       loading={props.loading}
-                       formErrors={props.formErrors}
-                       submitFromOutside={props.submitFromOutside}
-                       onSubmit={() => props.onSubmitTab(formData)}
+          <GenericForm
+            handleIsValid={(value) => props.setIsValid(value)}
+            formComponents={contactsConfig}
+            emptyPaper={true}
+            editMode={props.editMode}
+            formData={formData}
+            setFormData={setFormData}
+            loading={props.loading}
+            formErrors={props.formErrors}
+            submitFromOutside={props.submitFromOutside}
+            onSubmit={() => props.onSubmitTab(formData)}
           />
         </OutlinedContainer>
       </Grid>

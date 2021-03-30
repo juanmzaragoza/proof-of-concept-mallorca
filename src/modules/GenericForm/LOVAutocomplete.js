@@ -103,6 +103,7 @@ const LOVAutocomplete = (props) => {
           props.onChange(e, newValue);
         }
       }}
+      onBlur={(e) => props.onBlur && props.onBlur(e)}
       getOptionLabel={(option) => {
         if(option.id && option.id !== ADD_TYPE && option.id !== PAGINATION_TYPE) {
           return (typeof props.labelResponseKey === 'function')? props.labelResponseKey(option):option[props.labelResponseKey];
@@ -202,7 +203,7 @@ const LOVAutocomplete = (props) => {
         }
         setOpenModal(false);
       }} />}
-    {Boolean(props.error)? <FormHelperText>{props.error.message}</FormHelperText>:null}
+    {Boolean(props.error)? <FormHelperText>{props.helperText}</FormHelperText>:null}
     </>
   );
 }
@@ -218,7 +219,8 @@ LOVAutocomplete.propTypes = {
   options: PropTypes.any,
   loading: PropTypes.bool,
   setValue: PropTypes.func,
-  error: PropTypes.any,
+  error: PropTypes.bool,
+  helperText: PropTypes.any,
   required: PropTypes.bool,
   disabled: PropTypes.bool,
   sortBy: PropTypes.string, // service order field
