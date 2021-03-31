@@ -664,7 +664,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
                               formErrors={props.formErrors}
                               submitFromOutside={props.submitFromOutside}
                               onSubmit={() => props.onSubmitTab(formData)}
-                              handleIsValid={(value => addValidity(0,value))} />
+                              handleIsValid={value => addValidity(0,value)} />
     },
     {
       label: <FormattedMessage id={"Proveedores.direcciones_comerciales"} defaultMessage={"Direcciones Comerciales"}/>,
@@ -696,7 +696,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
                        formErrors={props.formErrors}
                        submitFromOutside={props.submitFromOutside}
                        onSubmit={() => props.onSubmitTab(formData)}
-                       handleIsValid={(value => addValidity(1,value))} />
+                       handleIsValid={value => addValidity(1,value)} />
         </OutlinedContainer>
       </Grid>
       <Grid xs={12} item>
