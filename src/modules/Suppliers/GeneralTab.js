@@ -87,7 +87,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         xs: 12,
         md: 1
       },
-      validationType: "number",
+      validationType: "string",
       validations: [
         {
           type: "required",
@@ -105,7 +105,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         },
         {
           type: "max",
-          params: [999999, props.intl.formatMessage({
+          params: [6, props.intl.formatMessage({
             id: "Validaciones.numeros.max",
             defaultMessage: "Debe ingresar al menos {max} carácteres"
           },{max: 6})]

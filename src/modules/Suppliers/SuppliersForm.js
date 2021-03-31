@@ -3,7 +3,7 @@ import {FormattedMessage, injectIntl} from "react-intl";
 import {bindActionCreators, compose} from "redux";
 import {connect} from "react-redux";
 import {useParams} from "react-router-dom";
-import { some, min } from "lodash";
+import { some, min, pickBy } from "lodash";
 
 import GeneralTab from "./GeneralTab";
 import ContactTab from "./ContactTab";
@@ -24,7 +24,8 @@ const CONTACT_TAB_INDEX = 1;
 const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...props }) => {
   const [editMode, setEditMode] = useState(false);
   const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
-  const [tabIndexWithError, setTabIndexWithError] = useState({});
+  const [tabIndexWithError, setTabIndexWithError] = useState({0: false, 1: true});
+  const [forceTabChange, setForceTabChange] = useState(false);
 
   const tabHasError = (index) => {
     return !!tabIndexWithError[index];
@@ -34,7 +35,10 @@ const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...prop
     // TODO() improve this to make it more generic
     // if exists some error -> go to minimum index
     if(some(Object.keys(tabIndexWithError), (index) => tabIndexWithError[index])){
-      setTabIndex(parseInt(min(Object.keys(tabIndexWithError))));
+      setForceTabChange(true);
+      // of all keys === true -> get the min
+      setTabIndex(parseInt(min(Object.keys(pickBy(tabIndexWithError,(value, key) => value)))));
+      setForceTabChange(false);
     } else{
       isEditable()? update(id, formData):create(formData);
     }
@@ -143,7 +147,10 @@ const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...prop
 
   return (
     <div style={{padding: '10px'}}>
-      <ConfigurableTabs tabs={tabs} tabIndex={tabIndex} />
+      <ConfigurableTabs
+        tabs={tabs}
+        tabIndex={tabIndex}
+        forceChange={forceTabChange} />
     </div>
   )
 }

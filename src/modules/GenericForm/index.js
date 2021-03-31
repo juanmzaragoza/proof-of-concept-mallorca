@@ -1,6 +1,6 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
-import {Formik, useFormikContext} from 'formik';
+import {Formik} from 'formik';
 import * as yup from "yup";
 import './styles.scss';
 
@@ -28,6 +28,7 @@ const GenericForm = ({loading, ...props}) => {
     for (const component of props.formComponents) {
       props.setFormData({...props.formData, [component.key]: ""})
     }
+    props.handleIsValid && props.handleIsValid(false);
   },[]);
 
   useEffect(() => {
@@ -48,9 +49,14 @@ const GenericForm = ({loading, ...props}) => {
       (props.formErrors && Boolean(props.formErrors[key]));
   }
 
+  const capitalize = (s) => {
+    if (typeof s !== 'string') return ''
+    return s.charAt(0).toUpperCase() + s.slice(1)
+  }
+
   const getMessageError = (key, formik) => {
     return formik.touched && formik.touched[key] && (Boolean(formik.errors[key]) && formik.errors[key]) ||
-      (props.formErrors && Boolean(props.formErrors[key])? props.formErrors[key].message : '');
+      (props.formErrors && Boolean(props.formErrors[key])? capitalize(props.formErrors[key].message) : '');
   }
 
   const handleIsValid = (formik) => {
@@ -204,12 +210,12 @@ const GenericForm = ({loading, ...props}) => {
     <div className="generic-form-root">
       {withPaper(
         <Formik
-          initialValues={{}}
+          initialValues={props.formData}
           validationSchema={validateSchema}
-          isInitialValid
           validateOnMount
           validateOnChange
           validateOnBlur
+          enableReinitialize
           onSubmit={(values, actions) => {
             if (props.onSubmit) props.onSubmit(props.formData);
           }}>

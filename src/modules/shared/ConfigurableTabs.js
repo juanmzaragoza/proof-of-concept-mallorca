@@ -36,12 +36,12 @@ function a11yProps(index) {
   };
 }
 
-const ConfigurableTabs = ({ tabs, variant, tabIndex = 0, onChange = () => {}}) => {
+const ConfigurableTabs = ({ tabs, variant, tabIndex = 0, forceChange = false, onChange = () => {}}) => {
   const [value, setValue] = React.useState(tabIndex);
 
   useEffect(()=>{
-    setValue(tabIndex);
-  },[tabIndex]);
+    if(forceChange) setValue(tabIndex);
+  },[tabIndex, forceChange]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
