@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {Formik} from 'formik';
 import * as yup from "yup";
@@ -28,6 +28,7 @@ const GenericForm = ({loading, ...props}) => {
     for (const component of props.formComponents) {
       props.setFormData({...props.formData, [component.key]: ""})
     }
+    props.handleIsValid && props.handleIsValid(false);
   },[]);
 
   useEffect(() => {
@@ -48,13 +49,35 @@ const GenericForm = ({loading, ...props}) => {
       (props.formErrors && Boolean(props.formErrors[key]));
   }
 
+  const capitalize = (s) => {
+    if (typeof s !== 'string') return ''
+    return s.charAt(0).toUpperCase() + s.slice(1)
+  }
+
   const getMessageError = (key, formik) => {
     return formik.touched && formik.touched[key] && (Boolean(formik.errors[key]) && formik.errors[key]) ||
-      (props.formErrors && Boolean(props.formErrors[key])? props.formErrors[key].message : '');
+      (props.formErrors && Boolean(props.formErrors[key])? capitalize(props.formErrors[key].message) : '');
+  }
+
+  const handleIsValid = (formik) => {
+    props.handleIsValid && props.handleIsValid(formik.isValid);
   }
 
   const getField = ({type, variant, placeHolder, required, key, noEditable, selector, disabled}, formik) => {
     const noEnable = loading || (props.editMode && noEditable) || disabled;
+
+    const handleChange = (e, value) => {
+      const values = {...props.formData, [key]: value};
+      Boolean(key) && props.setFormData(values);
+      formik.handleChange(e);
+      handleIsValid(formik);
+    };
+
+    const handleBlur = (e) => {
+      formik.handleBlur(e);
+      handleIsValid(formik);
+    }
+
     switch(type) {
       case 'input':
         return (
@@ -63,18 +86,14 @@ const GenericForm = ({loading, ...props}) => {
             variant={variant ? variant : 'standard'}
             size="small"
             onChange={ (e,v,r) => {
-              props.setFormData({...props.formData, [key]: e.currentTarget.value})
-              Boolean(key) && formik.handleChange(e,v,r);
-              props.handleIsValid && props.handleIsValid(formik.isValid);
+              handleChange(e, e.currentTarget.value);
             }}
             value={props.formData && props.formData[key] ? props.formData[key] : ""}
             label={placeHolder}
             required={Boolean(required)}
             error={hasError(key,formik)}
             helperText={getMessageError(key, formik)}
-            onBlur={e => {
-              formik.handleBlur(e);
-            }}
+            onBlur={handleBlur}
             type={"text"}
             disabled={noEnable}/>
         );
@@ -89,9 +108,7 @@ const GenericForm = ({loading, ...props}) => {
             options={selector.options}
             error={hasError(key,formik)}
             helperText={getMessageError(key, formik)}
-            onBlur={e => {
-              formik.handleBlur(e);
-            }}
+            onBlur={handleBlur}
             value={props.formData && props.formData[key] ? props.formData[key] : ""}
             onChange={e => props.setFormData({...props.formData, [key]: e.target.value})} />
         );
@@ -134,9 +151,7 @@ const GenericForm = ({loading, ...props}) => {
             label={placeHolder}
             onChange={(e,v,r) => {
               e.stopPropagation();
-              props.setFormData({...props.formData, [key]: v});
-              Boolean(key) && formik.handleChange(e,v,r);
-              props.handleIsValid && props.handleIsValid(formik.isValid);
+              handleChange(e, v);
             }}
             value={props.formData && props.formData[key] ? props.formData[key] : null}
             setValue={e => props.setFormData({...props.formData, [key]: e.value})}
@@ -148,9 +163,7 @@ const GenericForm = ({loading, ...props}) => {
             disabled={(props.editMode && noEditable) || disabled}
             cannotCreate={selector.cannotCreate}
             creationComponents={selector.creationComponents}
-            onBlur={e => {
-              formik.handleBlur(e);
-            }}
+            onBlur={handleBlur}
             relatedWith={selector.relatedWith} />
         );
       default:
@@ -197,15 +210,20 @@ const GenericForm = ({loading, ...props}) => {
     <div className="generic-form-root">
       {withPaper(
         <Formik
-          initialValues={{}}
+          initialValues={props.formData}
           validationSchema={validateSchema}
+          validateOnMount
+          validateOnChange
+          validateOnBlur
+          enableReinitialize
           onSubmit={(values, actions) => {
             if (props.onSubmit) props.onSubmit(props.formData);
           }}>
-          {formik => (
+          {formik => {
+            return (
             <form ref={formRef} onSubmit={(e) => {
               e.preventDefault();
-              props.handleIsValid && props.handleIsValid(formik.isValid);
+              handleIsValid(formik);
               formik.handleSubmit(e);
             }}>
               <Grid container spacing={props.containerSpacing !== undefined? props.containerSpacing:1}>
@@ -215,8 +233,8 @@ const GenericForm = ({loading, ...props}) => {
                   }
                 </Grid>
               </Grid>
-            </form>)
-          }
+            </form>
+          )}}
         </Formik>
       )}
     </div>

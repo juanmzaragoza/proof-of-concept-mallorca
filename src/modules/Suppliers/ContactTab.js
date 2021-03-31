@@ -63,7 +63,6 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       type: 'input',
       key: 'contacte',
       required: true,
-      noEditable: true,
       breakpoints: {
         xs: 12,
         md: 6
@@ -94,7 +93,6 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       type: 'input',
       key: 'telefon',
       required: true,
-      noEditable: true,
       breakpoints: {
         xs: 12,
         md: 6
@@ -108,7 +106,6 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       type: 'input',
       key: 'fax',
       required: true,
-      noEditable: true,
       breakpoints: {
         xs: 12,
         md: 6
@@ -122,7 +119,6 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       type: 'input',
       key: 'email',
       required: true,
-      noEditable: true,
       breakpoints: {
         xs: 12,
         md: 6
@@ -136,7 +132,6 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       type: 'input',
       key: 'web',
       required: true,
-      noEditable: true,
       breakpoints: {
         xs: 12,
         md: 6
@@ -150,7 +145,6 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       type: 'input',
       key: 'representant',
       required: true,
-      noEditable: true,
       breakpoints: {
         xs: 12,
         md: 6
@@ -164,7 +158,6 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       type: 'input',
       key: 'dnirepresentant',
       required: true,
-      noEditable: true,
       breakpoints: {
         xs: 12,
         md: 6
