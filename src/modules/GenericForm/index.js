@@ -1,5 +1,6 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
+import {isEmpty,isEqual} from 'lodash';
 import {Formik} from 'formik';
 import * as yup from "yup";
 import './styles.scss';
@@ -22,6 +23,8 @@ import createYupSchema from "./yupSchemaCreator";
 
 const GenericForm = ({loading, ...props}) => {
   const formRef = useRef(null);
+  const [prevProps, setPrevProps] = useState({});
+  const [enableReinitialize, setEnableReinitialize] = useState(false);
 
   // init to avoid uncontrolled inputs
   useEffect(() => {
@@ -31,6 +34,9 @@ const GenericForm = ({loading, ...props}) => {
     props.handleIsValid && props.handleIsValid(false);
   },[]);
 
+  /*
+   * Effect to submit from outside
+   */
   useEffect(() => {
     if(props.submitFromOutside){
       const form = formRef.current;
@@ -43,6 +49,18 @@ const GenericForm = ({loading, ...props}) => {
       }
     }
   },[props.submitFromOutside]);
+
+  /*
+   * Enable reinitialize to show errors even when the values change
+   */
+  useEffect(()=>{
+    if(isEmpty(prevProps) && !isEqual(props.formData,prevProps)){
+      setEnableReinitialize(true);
+    } else{
+      setEnableReinitialize(false);
+    }
+    setPrevProps(props.formData);
+  },[props.formData]);
 
   const hasError = (key, formik) => {
     return formik.touched && formik.touched[key] && (Boolean(formik.errors[key])) ||
@@ -60,6 +78,7 @@ const GenericForm = ({loading, ...props}) => {
   }
 
   const handleIsValid = (formik) => {
+    console.log("handleIsValid", formik.errors, formik.isValid);
     props.handleIsValid && props.handleIsValid(formik.isValid);
   }
 
@@ -212,12 +231,13 @@ const GenericForm = ({loading, ...props}) => {
         <Formik
           initialValues={props.formData}
           validationSchema={validateSchema}
-          validateOnMount
+          validateOnMount={false}
           validateOnChange
           validateOnBlur
-          enableReinitialize
+          enableReinitialize={enableReinitialize}
           onSubmit={(values, actions) => {
             if (props.onSubmit) props.onSubmit(props.formData);
+            actions.setSubmitting(false);
           }}>
           {formik => {
             return (
