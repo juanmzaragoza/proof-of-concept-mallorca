@@ -95,6 +95,7 @@ const GenericForm = ({loading, ...props}) => {
     const handleBlur = (e) => {
       formik.handleBlur(e);
       handleIsValid(formik);
+      props.onBlur && props.onBlur(e);
     }
 
     switch(type) {

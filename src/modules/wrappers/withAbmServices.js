@@ -13,7 +13,7 @@ const withAbmServices = (PassedComponent) => {
   const WrappedComponent = (props) => {
     const history = useHistory();
 
-    const create = (data) => {
+    const create = (data, callback = () => {}) => {
       const queryString = `${props.url}`;
       props.resetError();
       props.startLoading();
@@ -42,6 +42,7 @@ const withAbmServices = (PassedComponent) => {
               defaultMessage: "Servidor fuera de servicio"
             }), {variant: 'error'});
           }
+          callback(error);
         });
     };
 

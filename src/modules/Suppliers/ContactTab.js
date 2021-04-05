@@ -2,10 +2,13 @@ import Grid from "@material-ui/core/Grid/Grid";
 import OutlinedContainer from "../shared/OutlinedContainer";
 import {FormattedMessage, injectIntl} from "react-intl";
 import GenericForm from "../GenericForm";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {compose} from "redux";
+import {every} from "lodash";
 
 const ContactTab = ({formData, setFormData, ...props}) => {
+  const [formIsValid, setFormIsValid] = useState({});
+  const [touched, setTouched] = useState({0:false});
 
   const contactsConfig = [
     {
@@ -165,12 +168,39 @@ const ContactTab = ({formData, setFormData, ...props}) => {
     },
   ];
 
+  //TODO() REFACTOR -> can we move this?
+  useEffect(()=>{
+    /** We can take the formIsValid, only if all fields are touched*/
+    if(isTouched()){
+      validation(every(formIsValid, (v) => v));
+    } else{
+      /** Else, we depend on editMode property */
+      validation(props.editMode);
+    }
+  },[formIsValid]);
+
+  const validation = (validity) => {
+    props.setIsValid && props.setIsValid(validity);
+  }
+
+  const addValidity = (key, value) => {
+    setFormIsValid({...formIsValid, [key]: value});
+  }
+
+  /** All forms are touched? */
+  const handleTouched = (key) => {
+    setTouched({...touched,[key]: true});
+  }
+
+  const isTouched = () => {
+    return every(touched, (v) => v);
+  }
+
   return (
     <Grid container >
       <Grid xs={12} item>
         <OutlinedContainer className="contact-tab-container" title={<FormattedMessage id={"Proveedores.tabs.contactos"} defaultMessage={"Contactos"}/>}>
           <GenericForm
-            handleIsValid={(value) => props.setIsValid(value)}
             formComponents={contactsConfig}
             emptyPaper={true}
             editMode={props.editMode}
@@ -180,7 +210,8 @@ const ContactTab = ({formData, setFormData, ...props}) => {
             formErrors={props.formErrors}
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
-          />
+            handleIsValid={value => addValidity(0,value)}
+            onBlur={(e) => handleTouched(0)}/>
         </OutlinedContainer>
       </Grid>
     </Grid>
