@@ -681,8 +681,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
                               formErrors={props.formErrors}
                               submitFromOutside={props.submitFromOutside}
                               onSubmit={() => props.onSubmitTab(formData)}
-                              handleIsValid={value => addValidity(SUPPLIERS_SECTION_INDEX,value)}
-                              onBlur={(e) => handleTouched(SUPPLIERS_SECTION_INDEX)} />
+                              handleIsValid={value => addValidity(ADDRESS_SECTION_TAB_INDEX,value)}
+                              onBlur={(e) => handleTouched(ADDRESS_SECTION_TAB_INDEX)} />
     },
     {
       label: <FormattedMessage id={"Proveedores.direcciones_comerciales"} defaultMessage={"Direcciones Comerciales"}/>,
@@ -714,8 +714,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
                        formErrors={props.formErrors}
                        submitFromOutside={props.submitFromOutside}
                        onSubmit={() => props.onSubmitTab(formData)}
-                       handleIsValid={value => addValidity(ADDRESS_SECTION_TAB_INDEX,value)}
-                       onBlur={(e) => handleTouched(ADDRESS_SECTION_TAB_INDEX)}/>
+                       handleIsValid={value => addValidity(SUPPLIERS_SECTION_INDEX,value)}
+                       onBlur={(e) => handleTouched(SUPPLIERS_SECTION_INDEX)}/>
         </OutlinedContainer>
       </Grid>
       <Grid xs={12} item>

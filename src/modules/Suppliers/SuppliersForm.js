@@ -31,16 +31,22 @@ const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...prop
     return !!tabIndexWithError[index];
   }
 
+  const goToTab = (index) => {
+    setForceTabChange(true);
+    setTabIndex(parseInt(index));
+    setForceTabChange(false);
+  }
+
   const handleSubmitTab = () => {
     // TODO() improve this to make it more generic
     // if exists some error -> go to minimum index
     if(some(Object.keys(tabIndexWithError), (index) => tabIndexWithError[index])){
-      setForceTabChange(true);
       // of all keys === true -> get the min
-      setTabIndex(parseInt(min(Object.keys(pickBy(tabIndexWithError,(value, key) => value)))));
-      setForceTabChange(false);
+      goToTab(min(Object.keys(pickBy(tabIndexWithError,(value, key) => value))));
     } else{
-      isEditable()? update(id, formData):create(formData);
+      isEditable()? update(id, formData):create(formData, () => {
+        goToTab(GENERAL_TAB_INDEX);
+      });
     }
   }
 
@@ -111,7 +117,7 @@ const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...prop
     return !!id;
   };
 
-  const create = (data) => services.create(data);
+  const create = (data, callback) => services.create(data, callback);
   const update = (id, data) => services.update(id, data);
 
   useEffect(() => {
