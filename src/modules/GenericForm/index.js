@@ -130,7 +130,9 @@ const GenericForm = ({loading, ...props}) => {
             helperText={getMessageError(key, formik)}
             onBlur={handleBlur}
             value={props.formData && props.formData[key] ? props.formData[key] : ""}
-            onChange={e => props.setFormData({...props.formData, [key]: e.target.value})} />
+            onChange={e => {
+              handleChange(e, e.target.value);
+            }} />
         );
       case 'checkbox':
         return (
@@ -177,8 +179,8 @@ const GenericForm = ({loading, ...props}) => {
             setValue={e => props.setFormData({...props.formData, [key]: e.value})}
             options={selector.options}
             variant={variant}
-            error={hasError(key,key)}
-            helperText={getMessageError(key,key)}
+            error={hasError(key,formik)}
+            helperText={getMessageError(key,formik)}
             required={Boolean(required)}
             disabled={(props.editMode && noEditable) || disabled}
             cannotCreate={selector.cannotCreate}

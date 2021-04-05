@@ -77,6 +77,21 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
   const formatCodeAndDescription = (data) => `${data.descripcio} (${data.codi})`;
 
+  const withRequiredValidation = (extraValidations = []) => {
+    return {
+      validations: [
+        {
+          type: "required",
+          params: [props.intl.formatMessage({
+            id: "Validaciones.requerido",
+            defaultMessage: "Este campo es obligatorio"
+          })]
+        },
+        ...extraValidations
+      ]
+    }
+  }
+
   const suppliersConfig = [
     {
       placeHolder: props.intl.formatMessage({
@@ -92,14 +107,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         md: 1
       },
       validationType: "string",
-      validations: [
-        {
-          type: "required",
-          params: [props.intl.formatMessage({
-            id: "Validaciones.requerido",
-            defaultMessage: "Este campo es obligatorio"
-          })]
-        },
+      ...withRequiredValidation([
         {
           type: "min",
           params: [1, props.intl.formatMessage({
@@ -113,8 +121,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
             id: "Validaciones.numeros.max",
             defaultMessage: "Debe ingresar al menos {max} carácteres"
           },{max: 6})]
-        }
-      ]
+        }])
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -128,6 +135,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         xs: 12,
         md: 3
       },
+      validationType: "string",
+      ...withRequiredValidation()
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -141,6 +150,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         xs: 12,
         md: 6
       },
+      validationType: "string",
+      ...withRequiredValidation()
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -166,6 +177,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         xs: 12,
         md: 4
       },
+      validationType: "string",
+      ...withRequiredValidation()
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -179,6 +192,22 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         xs: 12,
         md: 2
       },
+      validationType: "string",
+      ...withRequiredValidation([
+        {
+          type: "min",
+          params: [1, props.intl.formatMessage({
+            id: "Validaciones.numeros.min",
+            defaultMessage: "Debe ingresar al menos {min} carácteres"
+          },{min: 1})]
+        },
+        {
+          type: "max",
+          params: [2, props.intl.formatMessage({
+            id: "Validaciones.numeros.max",
+            defaultMessage: "Debe ingresar al menos {max} carácteres"
+          },{max: 2})]
+        }])
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -194,7 +223,9 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       },
       selector: {
         options: TDOC_SELECTOR_VALUES
-      }
+      },
+      validationType: "string",
+      ...withRequiredValidation()
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -208,6 +239,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         xs: 12,
         md: 2
       },
+      validationType: "string",
+      ...withRequiredValidation()
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -238,7 +271,9 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         labelKey: formatCodeAndName,
         sort: 'nom',
         creationComponents: codeAndName()
-      }
+      },
+      validationType: "object",
+      ...withRequiredValidation()
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -366,7 +401,9 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         labelKey: formatCodeAndDescription,
         sort: 'descripcio',
         creationComponents: codeAndDescription()
-      }
+      },
+      validationType: "object",
+      ...withRequiredValidation()
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -400,7 +437,9 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
             }
           }
         ]
-      }
+      },
+      validationType: "object",
+      ...withRequiredValidation()
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -434,7 +473,9 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
             }
           }
         ]
-      }
+      },
+      validationType: "object",
+      ...withRequiredValidation()
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -453,7 +494,9 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         labelKey: formatCodeAndDescription,
         sort: 'descripcio',
         creationComponents: codeAndDescription()
-      }
+      },
+      validationType: "object",
+      ...withRequiredValidation()
     },
   ];
 
@@ -469,7 +512,23 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       breakpoints: {
         xs: 12,
         md: 3
-      }
+      },
+      validationType: "string",
+      ...withRequiredValidation([
+        {
+          type: "min",
+          params: [1, props.intl.formatMessage({
+            id: "Validaciones.numeros.min",
+            defaultMessage: "Debe ingresar al menos {min} carácteres"
+          },{min: 1})]
+        },
+        {
+          type: "max",
+          params: [2, props.intl.formatMessage({
+            id: "Validaciones.numeros.max",
+            defaultMessage: "Debe ingresar al menos {max} carácteres"
+          },{max: 2})]
+        }])
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -483,6 +542,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         xs: 12,
         md: 4
       },
+      validationType: "string",
+      ...withRequiredValidation()
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -496,6 +557,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         xs: 12,
         md: 1
       },
+      validationType: "string",
+      ...withRequiredValidation()
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -509,6 +572,22 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         xs: 12,
         md: 1
       },
+      validationType: "string",
+      ...withRequiredValidation([
+        {
+          type: "min",
+          params: [1, props.intl.formatMessage({
+            id: "Validaciones.numeros.min",
+            defaultMessage: "Debe ingresar al menos {min} carácteres"
+          },{min: 1})]
+        },
+        {
+          type: "max",
+          params: [2, props.intl.formatMessage({
+            id: "Validaciones.numeros.max",
+            defaultMessage: "Debe ingresar al menos {max} carácteres"
+          },{max: 2})]
+        }])
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -517,7 +596,6 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'pis',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 1
@@ -530,7 +608,6 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'porta',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 1

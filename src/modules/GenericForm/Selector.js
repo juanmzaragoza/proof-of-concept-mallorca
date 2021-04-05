@@ -40,8 +40,8 @@ const Selector = ({id, placeHolder, variant, required, disabled, options, error,
         required={required}
         disabled={disabled}
         inputProps={{
-          name: placeHolder,
-          id: id,
+          name: id,
+          id: id
         }}
       >
         {!loading?
