@@ -3,7 +3,7 @@ import {FormattedMessage, injectIntl} from "react-intl";
 import {bindActionCreators, compose} from "redux";
 import {connect} from "react-redux";
 import {useParams} from "react-router-dom";
-import { some, min, pickBy } from "lodash";
+import { some, min, pickBy, cloneDeep } from "lodash";
 
 import GeneralTab from "./GeneralTab";
 import ContactTab from "./ContactTab";
@@ -144,6 +144,16 @@ const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...prop
         ]);
     }
   },[]);
+
+  useEffect(()=>{
+    if(editMode){
+      const tabsWithErrors = cloneDeep(tabIndexWithError);
+      Object.keys(tabsWithErrors).map((t,index) => {
+        tabsWithErrors[index] = editMode? !editMode:tabsWithErrors[index];
+      });
+      setTabIndexWithError(tabsWithErrors);
+    }
+  },[editMode]);
 
   return (
     <div style={{padding: '10px'}}>

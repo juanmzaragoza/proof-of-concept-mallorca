@@ -9,8 +9,12 @@ import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
+const SUPPLIERS_SECTION_INDEX = 0;
+const ADDRESS_SECTION_TAB_INDEX = 1;
+
 const GeneralTab = ({formData, setFormData, ...props}) => {
   const [formIsValid, setFormIsValid] = useState({});
+  const [touched, setTouched] = useState({0:false, 1:false});
 
   const getString = (key) => formData[key]? formData[key]:"";
   useEffect(() => {
@@ -636,19 +640,32 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
     },
   ];
 
-  //TODO() think then how resolve it
+  //TODO() REFACTOR -> can we move this?
   useEffect(()=>{
-    props.setIsValid && props.setIsValid(false);
-  },[]);
-
-  //TODO() can we move this?
-  useEffect(()=>{
-    const validation = every(formIsValid, (v) => v);
-    props.setIsValid && props.setIsValid(validation);
+    /** We can take the formIsValid, only if all fields are touched*/
+    if(isTouched()){
+      validation(every(formIsValid, (v) => v));
+    } else{
+      /** Else, we depend on editMode property */
+      validation(props.editMode);
+    }
   },[formIsValid]);
+
+  const validation = (validity) => {
+    props.setIsValid && props.setIsValid(validity);
+  }
 
   const addValidity = (key, value) => {
     setFormIsValid({...formIsValid, [key]: value});
+  }
+
+  /** All forms are touched? */
+  const handleTouched = (key) => {
+    setTouched({...touched,[key]: true});
+  }
+
+  const isTouched = () => {
+    return every(touched, (v) => v);
   }
 
   const tabs = [
@@ -664,7 +681,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
                               formErrors={props.formErrors}
                               submitFromOutside={props.submitFromOutside}
                               onSubmit={() => props.onSubmitTab(formData)}
-                              handleIsValid={value => addValidity(0,value)} />
+                              handleIsValid={value => addValidity(SUPPLIERS_SECTION_INDEX,value)}
+                              onBlur={(e) => handleTouched(SUPPLIERS_SECTION_INDEX)} />
     },
     {
       label: <FormattedMessage id={"Proveedores.direcciones_comerciales"} defaultMessage={"Direcciones Comerciales"}/>,
@@ -696,7 +714,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
                        formErrors={props.formErrors}
                        submitFromOutside={props.submitFromOutside}
                        onSubmit={() => props.onSubmitTab(formData)}
-                       handleIsValid={value => addValidity(1,value)} />
+                       handleIsValid={value => addValidity(ADDRESS_SECTION_TAB_INDEX,value)}
+                       onBlur={(e) => handleTouched(ADDRESS_SECTION_TAB_INDEX)}/>
         </OutlinedContainer>
       </Grid>
       <Grid xs={12} item>

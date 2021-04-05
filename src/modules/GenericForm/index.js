@@ -78,7 +78,6 @@ const GenericForm = ({loading, ...props}) => {
   }
 
   const handleIsValid = (formik) => {
-    console.log("handleIsValid", formik.errors, formik.isValid);
     props.handleIsValid && props.handleIsValid(formik.isValid);
   }
 
@@ -95,6 +94,7 @@ const GenericForm = ({loading, ...props}) => {
     const handleBlur = (e) => {
       formik.handleBlur(e);
       handleIsValid(formik);
+      props.onBlur && props.onBlur(e);
     }
 
     switch(type) {
