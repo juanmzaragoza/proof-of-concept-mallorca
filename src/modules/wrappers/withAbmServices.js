@@ -71,30 +71,34 @@ const withAbmServices = (PassedComponent) => {
     }
 
     const getById = (id) => {
-      const queryString = `${props.url}/${id}`;
-      props.startLoading();
-      Axios.get(queryString,{
-        headers: new Headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }),
-      })
-        .then(({status, data, ...rest}) => {
-          props.finishLoading();
-          props.setFormData(data);
+      return new Promise((resolve, reject) => {
+        const queryString = `${props.url}/${id}`;
+        props.startLoading();
+        Axios.get(queryString, {
+          headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          }),
         })
-        .catch(error => {
-          props.finishLoading();
-          const status = error.response.status;
-          if(status === 400){
-            props.enqueueSnackbar(props.intl.formatMessage({
-              id: "ReactGrid.error.algo_salio_mal",
-              defaultMessage: "Ups! Algo ha salido mal :("
-            }), {variant: 'error'});
-          }
-          history.goBack();
-        });
-    }
+          .then(({status, data, ...rest}) => {
+            props.finishLoading();
+            props.setFormData(data);
+            resolve(data);
+          })
+          .catch(error => {
+            props.finishLoading();
+            const status = error.response.status;
+            if (status === 400) {
+              props.enqueueSnackbar(props.intl.formatMessage({
+                id: "ReactGrid.error.algo_salio_mal",
+                defaultMessage: "Ups! Algo ha salido mal :("
+              }), {variant: 'error'});
+            }
+            history.goBack();
+            reject(error);
+          });
+      });
+    };
 
     const handlePersistError = ({status, data}) => {
       if (status === 400 && data.errors) {

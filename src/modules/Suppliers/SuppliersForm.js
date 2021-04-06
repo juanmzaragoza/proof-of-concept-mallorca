@@ -3,7 +3,7 @@ import {FormattedMessage, injectIntl} from "react-intl";
 import {bindActionCreators, compose} from "redux";
 import {connect} from "react-redux";
 import {useParams} from "react-router-dom";
-import { some, min, pickBy, cloneDeep } from "lodash";
+import { some, min, pickBy, cloneDeep, isEmpty } from "lodash";
 
 import GeneralTab from "./GeneralTab";
 import ContactTab from "./ContactTab";
@@ -121,38 +121,41 @@ const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...prop
   const update = (id, data) => services.update(id, data);
 
   useEffect(() => {
+    actions.setFormConfig({});
     if(isEditable()){
       setEditMode(true);
       services.getById(id);
+    } else{
+      actions.setBreadcrumbHeader([
+        {title: props.intl.formatMessage({id: "Proveedores.titulo", defaultMessage: "Proveedores"}), href:"/proveedores"},
+        {title: props.intl.formatMessage({id: "Comun.nuevo", defaultMessage: "Nuevo"})}
+      ]);
+    }
+    return () => {
+      props.resetForm();
     }
   },[id]);
+
+  /** Update HEADER */
+  useEffect(()=>{
+    if(isEditable()){
+      const nom = formData.nomComercial?
+        formData.nomComercial
+        :
+        `${props.intl.formatMessage({id: "Comun.cargando", defaultMessage: "Cargando"})}...`;
+      actions.setBreadcrumbHeader([
+        {title: props.intl.formatMessage({id: "Proveedores.titulo", defaultMessage: "Proveedores"}), href:"/proveedores"},
+        {title: nom, href:"/proveedores"},
+        {title: "TODO() General"}
+      ]);
+    }
+  },[formData.nomComercial]);
 
   useEffect(() => {
     if(submitFromOutside){
       actions.setSubmitFromOutside(false);
     }
   },[submitFromOutside]);
-
-  useEffect(() => {
-    actions.setFormConfig({});
-
-    // breadcrumbs config
-    if(isEditable()){
-      actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "Proveedores.titulo", defaultMessage: "Proveedores"}), href:"/proveedores"},
-        {title: "TODO() Nombre a editar", href:"/proveedores"},
-        {title: "TODO() General"}
-      ]);
-    } else{
-      actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "Proveedores.titulo", defaultMessage: "Proveedores"}), href:"/proveedores"},
-        {title: props.intl.formatMessage({id: "Comun.nuevo", defaultMessage: "Nuevo"})}
-        ]);
-    }
-    return () => {
-      props.resetForm();
-    }
-  },[]);
 
   useEffect(()=>{
     if(editMode){
