@@ -34,7 +34,7 @@ const GenericForm = ({loading, ...props}) => {
     props.handleIsValid && props.handleIsValid(false);
   },[]);
 
-  /*
+  /**
    * Effect to submit from outside
    */
   useEffect(() => {
@@ -50,7 +50,7 @@ const GenericForm = ({loading, ...props}) => {
     }
   },[props.submitFromOutside]);
 
-  /*
+  /**
    * Enable reinitialize to show errors even when the values change
    */
   useEffect(()=>{
@@ -73,6 +73,7 @@ const GenericForm = ({loading, ...props}) => {
   }
 
   const getMessageError = (key, formik) => {
+    console.log(formik.values)
     return formik.touched && formik.touched[key] && (Boolean(formik.errors[key]) && formik.errors[key]) ||
       (props.formErrors && Boolean(props.formErrors[key])? capitalize(props.formErrors[key].message) : '');
   }
@@ -88,7 +89,6 @@ const GenericForm = ({loading, ...props}) => {
     const handleChange = (e, value) => {
       const values = {...props.formData, [key]: value};
       Boolean(key) && props.setFormData(values);
-      formik.handleChange(e);
       handleIsValid(formik);
     };
 
@@ -107,6 +107,7 @@ const GenericForm = ({loading, ...props}) => {
             size="small"
             onChange={ (e,v,r) => {
               handleChange(e, e.currentTarget.value);
+              formik.handleChange(e);
             }}
             value={props.formData && props.formData[key] ? props.formData[key] : ""}
             label={placeHolder}
@@ -132,6 +133,7 @@ const GenericForm = ({loading, ...props}) => {
             value={props.formData && props.formData[key] ? props.formData[key] : ""}
             onChange={e => {
               handleChange(e, e.target.value);
+              formik.handleChange(e);
             }} />
         );
       case 'checkbox':
@@ -174,6 +176,7 @@ const GenericForm = ({loading, ...props}) => {
             onChange={(e,v,r) => {
               e.stopPropagation();
               handleChange(e, v);
+              formik.setFieldValue(key,v);
             }}
             value={props.formData && props.formData[key] ? props.formData[key] : null}
             setValue={e => props.setFormData({...props.formData, [key]: e.value})}
