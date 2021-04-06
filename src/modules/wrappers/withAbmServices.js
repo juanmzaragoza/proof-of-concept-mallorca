@@ -12,6 +12,7 @@ const withAbmServices = (PassedComponent) => {
 
   const WrappedComponent = (props) => {
     const history = useHistory();
+    const pathname = history.location.pathname;
 
     const create = (data, callback = () => {}) => {
       const queryString = `${props.url}`;
@@ -24,13 +25,13 @@ const withAbmServices = (PassedComponent) => {
         }),
       })
         .then(({status, data, ...rest}) => {
+          const editUrl = `${pathname.substring(0, pathname.lastIndexOf("/"))}/${data.id}`;
           props.finishLoading();
-          history.goBack();
           props.enqueueSnackbar(props.intl.formatMessage({
             id: "CreateUpdateForm.creacion_correcta",
             defaultMessage: "Registro creado correctamente"
           }), {variant: 'success'});
-          props.resetForm();
+          history.push(editUrl);
         })
         .catch(error => {
           props.finishLoading();
@@ -58,12 +59,10 @@ const withAbmServices = (PassedComponent) => {
       })
         .then(({status, data, ...rest}) => {
           props.finishLoading();
-          history.goBack();
           props.enqueueSnackbar(props.intl.formatMessage({
             id: "CreateUpdateForm.actualizacion_correcta",
             defaultMessage: "Registro actualizado correctamente"
           }), {variant: 'success'});
-          props.resetForm();
         })
         .catch(error => {
           props.finishLoading();

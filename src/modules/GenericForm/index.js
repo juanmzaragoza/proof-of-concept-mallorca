@@ -73,7 +73,6 @@ const GenericForm = ({loading, ...props}) => {
   }
 
   const getMessageError = (key, formik) => {
-    console.log(formik.values)
     return formik.touched && formik.touched[key] && (Boolean(formik.errors[key]) && formik.errors[key]) ||
       (props.formErrors && Boolean(props.formErrors[key])? capitalize(props.formErrors[key].message) : '');
   }
