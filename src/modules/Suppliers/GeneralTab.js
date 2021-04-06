@@ -87,6 +87,10 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
             defaultMessage: "Este campo es obligatorio"
           })]
         },
+        {
+          type: "nullable",
+          params: [true]
+        },
         ...extraValidations
       ]
     }
