@@ -5,29 +5,12 @@ import GenericForm from "../GenericForm";
 import React, {useEffect, useState} from "react";
 import {compose} from "redux";
 import {every} from "lodash";
+import withValidations from "../wrappers/withValidations";
 
 const ContactTab = ({formData, setFormData, ...props}) => {
   const [formIsValid, setFormIsValid] = useState({});
   const [touched, setTouched] = useState({0:false});
 
-  const minMaxValidation = (min, max) => {
-    return [
-      {
-        type: "min",
-        params: [min, props.intl.formatMessage({
-          id: "Validaciones.numeros.min",
-          defaultMessage: "Debe ingresar al menos {min} carácteres"
-        },{min: max})]
-      },
-      {
-        type: "max",
-        params: [max, props.intl.formatMessage({
-          id: "Validaciones.numeros.max",
-          defaultMessage: "Debe ingresar al menos {max} carácteres"
-        },{max: max})]
-      }
-    ]
-  }
   const contactsConfig = [
     {
       placeHolder: props.intl.formatMessage({
@@ -86,7 +69,7 @@ const ContactTab = ({formData, setFormData, ...props}) => {
         md: 6
       },
       validationType: "string",
-      validations: minMaxValidation(1,60)
+      validations: props.validationsArray.minMaxValidation(1,60)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -100,7 +83,7 @@ const ContactTab = ({formData, setFormData, ...props}) => {
         md: 6
       },
       validationType: "string",
-      validations: minMaxValidation(1,60)
+      validations: props.validationsArray.minMaxValidation(1,60)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -114,7 +97,7 @@ const ContactTab = ({formData, setFormData, ...props}) => {
         md: 6
       },
       validationType: "string",
-      validations: minMaxValidation(1,60)
+      validations: props.validationsArray.minMaxValidation(1,60)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -129,14 +112,8 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       },
       validationType: "string",
       validations: [
-        ...minMaxValidation(1,60),
-        {
-          type: "email",
-          params: [props.intl.formatMessage({
-            id: "Validaciones.string.email",
-            defaultMessage: "Ingrese un e-mail válido. Respete el siguiente formato xx@xxx.xxx"
-          })]
-        }
+        ...props.validationsArray.minMaxValidation(1,60),
+        ...props.validationsArray.emailValidation()
       ]
     },
     {
@@ -151,7 +128,7 @@ const ContactTab = ({formData, setFormData, ...props}) => {
         md: 6
       },
       validationType: "string",
-      validations: minMaxValidation(1,60)
+      validations: props.validationsArray.minMaxValidation(1,60)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -165,7 +142,7 @@ const ContactTab = ({formData, setFormData, ...props}) => {
         md: 6
       },
       validationType: "string",
-      validations: minMaxValidation(1,60)
+      validations: props.validationsArray.minMaxValidation(1,60)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -179,7 +156,7 @@ const ContactTab = ({formData, setFormData, ...props}) => {
         md: 6
       },
       validationType: "string",
-      validations: minMaxValidation(1,15)
+      validations: props.validationsArray.minMaxValidation(1,15)
     },
   ];
 
@@ -223,4 +200,7 @@ const ContactTab = ({formData, setFormData, ...props}) => {
   )
 }
 
-export default compose(injectIntl)(ContactTab);
+export default compose(
+  injectIntl,
+  withValidations
+)(ContactTab);
