@@ -58,7 +58,6 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       }
     },
     {
-      id: 'contacte',
       placeHolder: props.intl.formatMessage({
         id: "Proveedores.Contacto.contacto",
         defaultMessage: "Contacto"
@@ -170,13 +169,7 @@ const ContactTab = ({formData, setFormData, ...props}) => {
 
   //TODO() REFACTOR -> can we move this?
   useEffect(()=>{
-    /** We can take the formIsValid, only if all fields are touched*/
-    if(isTouched()){
-      validation(every(formIsValid, (v) => v));
-    } else{
-      /** Else, we depend on editMode property */
-      validation(props.editMode);
-    }
+    validation(every(formIsValid, (v) => v));
   },[formIsValid]);
 
   const validation = (validity) => {
@@ -190,10 +183,6 @@ const ContactTab = ({formData, setFormData, ...props}) => {
   /** All forms are touched? */
   const handleTouched = (key) => {
     setTouched({...touched,[key]: true});
-  }
-
-  const isTouched = () => {
-    return every(touched, (v) => v);
   }
 
   return (

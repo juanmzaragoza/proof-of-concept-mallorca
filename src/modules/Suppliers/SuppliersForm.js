@@ -21,7 +21,7 @@ import {getLoading} from "../../redux/app/selectors";
 const GENERAL_TAB_INDEX = 0;
 const CONTACT_TAB_INDEX = 1;
 
-const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...props }) => {
+const SuppliersForm = React.memo(({ actions, formData, submitFromOutside, services, ...props }) => {
   const [editMode, setEditMode] = useState(false);
   const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
   const [tabIndexWithError, setTabIndexWithError] = useState({0: false, 1: true});
@@ -175,7 +175,7 @@ const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...prop
         forceChange={forceTabChange} />
     </div>
   )
-}
+});
 
 const mapStateToProps = (state, props) => {
   return {
