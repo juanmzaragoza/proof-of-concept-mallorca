@@ -25,6 +25,7 @@ const GenericForm = ({loading, ...props}) => {
   const formRef = useRef(null);
   const [prevProps, setPrevProps] = useState({});
   const [enableReinitialize, setEnableReinitialize] = useState(false);
+  const [isManualValidated, setIsManualValidated] = useState(false);
 
   /** Init to avoid uncontrolled inputs */
   useEffect(() => {
@@ -33,7 +34,6 @@ const GenericForm = ({loading, ...props}) => {
       data[component.key] = data[component.key]? data[component.key]:"";
     }
     props.setFormData(data);
-    props.handleIsValid && props.handleIsValid(false);
   },[]);
 
   /**
@@ -59,6 +59,7 @@ const GenericForm = ({loading, ...props}) => {
     if(isEmpty(prevProps) && !isEqual(props.formData,prevProps)){
       setEnableReinitialize(true);
     } else{
+      setIsManualValidated(false);
       setEnableReinitialize(false);
     }
     setPrevProps(props.formData);
@@ -231,6 +232,18 @@ const GenericForm = ({loading, ...props}) => {
   const yepSchema = formComponents.map(({key,...component}) => ({id: key, ...component})).reduce(createYupSchema, {});
   const validateSchema = yup.object().shape(yepSchema);
 
+  const OnRenderedComponent = ({formik}) => {
+    useEffect(()=>{
+      if(!isManualValidated && !formik.isValidating){
+        formik.validateForm().then(data => {
+          props.handleIsValid && props.handleIsValid(isEmpty(data));
+        });
+        setIsManualValidated(true);
+      }
+    },[isManualValidated]);
+    return null;
+  }
+
   return (
     <div className="generic-form-root">
       {withPaper(
@@ -247,25 +260,29 @@ const GenericForm = ({loading, ...props}) => {
           }}>
           {formik => {
             return (
-            <form ref={formRef} onSubmit={(e) => {
-              e.preventDefault();
-              handleIsValid(formik);
-              formik.handleSubmit(e);
-            }}>
-              <Grid container spacing={props.containerSpacing !== undefined? props.containerSpacing:1}>
-                <Grid item xs={12} sm={12} container style={props.fieldsContainerStyles}>{/* BEGINING of 1st Column */}
-                  {
-                    formComponents.map((component, index) => <React.Fragment key={index}>{renderField(component, formik)}</React.Fragment>)
-                  }
+              <form ref={formRef} onSubmit={(e) => {
+                e.preventDefault();
+                handleIsValid(formik);
+                formik.handleSubmit(e);
+              }}>
+                <Grid container spacing={props.containerSpacing !== undefined ? props.containerSpacing : 1}>
+                  <Grid item xs={12} sm={12} container
+                        style={props.fieldsContainerStyles}>{/* BEGINING of 1st Column */}
+                    {
+                      formComponents.map((component, index) => <React.Fragment
+                        key={index}>{renderField(component, formik)}</React.Fragment>)
+                    }
+                  </Grid>
                 </Grid>
-              </Grid>
-            </form>
-          )}}
+                <OnRenderedComponent formik={formik}/>
+              </form>
+            )
+          }}
         </Formik>
       )}
     </div>
   )
-}
+};
 
 GenericForm.propTypes = {
   containerSpacing: PropTypes.number,
