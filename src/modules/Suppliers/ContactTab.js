@@ -58,7 +58,6 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       }
     },
     {
-      id: 'contacte',
       placeHolder: props.intl.formatMessage({
         id: "Proveedores.Contacto.contacto",
         defaultMessage: "Contacto"

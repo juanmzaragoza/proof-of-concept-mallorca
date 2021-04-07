@@ -26,11 +26,13 @@ const GenericForm = ({loading, ...props}) => {
   const [prevProps, setPrevProps] = useState({});
   const [enableReinitialize, setEnableReinitialize] = useState(false);
 
-  // init to avoid uncontrolled inputs
+  /** Init to avoid uncontrolled inputs */
   useEffect(() => {
+    const data = {...props.formData};
     for (const component of props.formComponents) {
-      props.setFormData({...props.formData, [component.key]: ""})
+      data[component.key] = data[component.key]? data[component.key]:"";
     }
+    props.setFormData(data);
     props.handleIsValid && props.handleIsValid(false);
   },[]);
 
