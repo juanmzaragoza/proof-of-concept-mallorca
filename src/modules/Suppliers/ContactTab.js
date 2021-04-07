@@ -10,6 +10,24 @@ const ContactTab = ({formData, setFormData, ...props}) => {
   const [formIsValid, setFormIsValid] = useState({});
   const [touched, setTouched] = useState({0:false});
 
+  const minMaxValidation = (min, max) => {
+    return [
+      {
+        type: "min",
+        params: [min, props.intl.formatMessage({
+          id: "Validaciones.numeros.min",
+          defaultMessage: "Debe ingresar al menos {min} carácteres"
+        },{min: max})]
+      },
+      {
+        type: "max",
+        params: [max, props.intl.formatMessage({
+          id: "Validaciones.numeros.max",
+          defaultMessage: "Debe ingresar al menos {max} carácteres"
+        },{max: max})]
+      }
+    ]
+  }
   const contactsConfig = [
     {
       placeHolder: props.intl.formatMessage({
@@ -18,7 +36,6 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'LOV',
       key: 'zona',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 6
@@ -64,28 +81,12 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'contacte',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 6
       },
       validationType: "string",
-      validations: [
-        {
-          type: "required",
-          params: [props.intl.formatMessage({
-            id: "Validaciones.requerido",
-            defaultMessage: "Este campo es obligatorio"
-          })]
-        },
-        {
-          type: "min",
-          params: [5, props.intl.formatMessage({
-            id: "Validaciones.numeros.min",
-            defaultMessage: "Debe ingresar al menos {min} carácteres"
-          },{min: 5})]
-        },
-      ]
+      validations: minMaxValidation(1,60)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -94,11 +95,12 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'telefon',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 6
       },
+      validationType: "string",
+      validations: minMaxValidation(1,60)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -107,11 +109,12 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'fax',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 6
       },
+      validationType: "string",
+      validations: minMaxValidation(1,60)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -120,11 +123,21 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'email',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 6
       },
+      validationType: "string",
+      validations: [
+        ...minMaxValidation(1,60),
+        {
+          type: "email",
+          params: [props.intl.formatMessage({
+            id: "Validaciones.string.email",
+            defaultMessage: "Ingrese un e-mail válido. Respete el siguiente formato xx@xxx.xxx"
+          })]
+        }
+      ]
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -133,11 +146,12 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'web',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 6
       },
+      validationType: "string",
+      validations: minMaxValidation(1,60)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -146,11 +160,12 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'representant',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 6
       },
+      validationType: "string",
+      validations: minMaxValidation(1,60)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -159,11 +174,12 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'dnirepresentant',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 6
       },
+      validationType: "string",
+      validations: minMaxValidation(1,15)
     },
   ];
 
