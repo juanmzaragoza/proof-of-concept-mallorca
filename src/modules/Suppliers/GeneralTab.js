@@ -671,10 +671,6 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
     setTouched({...touched,[key]: true});
   }
 
-  const isTouched = () => {
-    return every(touched, (v) => v);
-  }
-
   const tabs = [
     {
       className: "general-tab-subtab",

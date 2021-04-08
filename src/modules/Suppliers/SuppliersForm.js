@@ -24,7 +24,7 @@ const CONTACT_TAB_INDEX = 1;
 const SuppliersForm = React.memo(({ actions, formData, submitFromOutside, services, ...props }) => {
   const [editMode, setEditMode] = useState(false);
   const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
-  const [tabIndexWithError, setTabIndexWithError] = useState({0: false, 1: true});
+  const [tabIndexWithError, setTabIndexWithError] = useState({0: false, 1: false});
   const [forceTabChange, setForceTabChange] = useState(false);
 
   const tabHasError = (index) => {
