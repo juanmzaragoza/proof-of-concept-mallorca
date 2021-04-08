@@ -91,6 +91,8 @@ const SuppliersListIntl = compose(
 
 const SuppliersFormWithUrl = () => {
   return (
+    // url necessary for withAbmServices
+    // TODO(): maybe we can create a state for the page and set the url there
     <SuppliersForm url={API.suppliers} />
   )
 };

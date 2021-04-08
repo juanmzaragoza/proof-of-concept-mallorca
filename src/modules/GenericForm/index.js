@@ -27,11 +27,20 @@ const GenericForm = ({loading, ...props}) => {
   const [enableReinitialize, setEnableReinitialize] = useState(false);
   const [isManualValidated, setIsManualValidated] = useState(false);
 
+  /** Get initial value by component*/
+  const initialValues = {
+    'input': "",
+    'select': "",
+    'checkbox': "",
+    'radio': "",
+    'LOV': null
+  }
+
   /** Init to avoid uncontrolled inputs */
   useEffect(() => {
     const data = {...props.formData};
     for (const component of props.formComponents) {
-      data[component.key] = data[component.key]? data[component.key]:"";
+      data[component.key] = data[component.key]? data[component.key]:initialValues[component.type] || undefined;
     }
     props.setFormData(data);
   },[]);
