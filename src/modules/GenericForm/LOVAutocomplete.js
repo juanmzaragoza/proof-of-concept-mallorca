@@ -179,6 +179,7 @@ const LOVAutocomplete = (props) => {
         <TextField {...params}
                    label={props.label}
                    variant={props.variant ? props.variant : 'outlined'}
+                   required={props.required}
                    InputProps={{
                      ...params.InputProps,
                      startAdornment: (
