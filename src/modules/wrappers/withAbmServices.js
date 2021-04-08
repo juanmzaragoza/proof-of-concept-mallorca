@@ -5,8 +5,10 @@ import {withSnackbar} from "notistack";
 import {useHistory} from "react-router-dom";
 import {connect} from "react-redux";
 import {bindActionCreators, compose} from "redux";
-import {addError, resetAllGenericForm, resetError, setFormData} from "../../redux/genericForm";
-import {finishLoading, startLoading} from "../../redux/app";
+
+import {addError, resetAllGenericForm, resetError, setFormData} from "redux/genericForm";
+import {finishLoading, startLoading} from "redux/app";
+import {getLoading} from "redux/app/selectors";
 
 const withAbmServices = (PassedComponent) => {
 
@@ -15,6 +17,8 @@ const withAbmServices = (PassedComponent) => {
     const pathname = history.location.pathname;
 
     const create = (data, callback = () => {}) => {
+      // avoid multiple calls
+      if(props.isLoading) return;
       const queryString = `${props.url}`;
       props.resetError();
       props.startLoading();
@@ -48,6 +52,8 @@ const withAbmServices = (PassedComponent) => {
     };
 
     const update = (id, data) => {
+      // avoid multiple calls
+      if(props.isLoading) return;
       const queryString = `${props.url}/${id}`;
       props.resetError();
       props.startLoading();
@@ -117,7 +123,7 @@ const withAbmServices = (PassedComponent) => {
 
   const mapStateToProps = (state, props) => {
     return {
-      //submitFromOutside: getFireSave(state)
+      isLoading: getLoading(state)
     };
   };
 
