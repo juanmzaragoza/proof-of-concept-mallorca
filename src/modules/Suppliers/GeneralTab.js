@@ -10,6 +10,7 @@ import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import {compose} from "redux";
 import withValidations from "../wrappers/withValidations";
+import ExpandableGrid from "../ExpandableGrid";
 
 const SUPPLIERS_SECTION_INDEX = 0;
 const ADDRESS_SECTION_TAB_INDEX = 1;
@@ -689,7 +690,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
     {
       label: <FormattedMessage id={"Proveedores.direcciones_comerciales"} defaultMessage={"Direcciones Comerciales"}/>,
       key: 1,
-      component: "Direcciones Comerciales"
+      component: <ExpandableGrid />
     },
     {
       label: <FormattedMessage id={"Proveedores.tipos_proveedor"} defaultMessage={"Tipos de Proveedor"}/>,
