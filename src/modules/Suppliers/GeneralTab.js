@@ -666,7 +666,6 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
     setFormIsValid({...formIsValid, [key]: value});
   }
 
-  /** All forms are touched? */
   const handleTouched = (key) => {
     setTouched({...touched,[key]: true});
   }
