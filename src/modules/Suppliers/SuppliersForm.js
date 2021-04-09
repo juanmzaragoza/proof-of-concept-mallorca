@@ -146,7 +146,7 @@ const SuppliersForm = React.memo(({ actions, formData, submitFromOutside, servic
       actions.setBreadcrumbHeader([
         {title: props.intl.formatMessage({id: "Proveedores.titulo", defaultMessage: "Proveedores"}), href:"/proveedores"},
         {title: nom, href:"/proveedores"},
-        {title: "TODO() General"}
+        {title: "General"}
       ]);
     }
   },[formData.nomComercial]);
