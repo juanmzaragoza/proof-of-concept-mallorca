@@ -93,5 +93,9 @@
   "Selector.pasaporte": "Pasaporte",
   "Selector.certif_residencia": "Certif. residencia fiscal",
   "Selector.otro_documento": "Otro documento",
-  "TiposVencimiento.tipos": "Tipos"
+  "TiposVencimiento.tipos": "Tipos",
+  "Validaciones.requerido": "Este campo es obligatorio",
+  "Validaciones.numeros.min": "Debe ingresar al menos {min} carácteres",
+  "Validaciones.numeros.max": "Debe ingresar como mucho {max} carácteres",
+  "Validaciones.string.email": "Ingrese un e-mail válido. Respete el siguiente formato xx@xxx.xxx"
 }

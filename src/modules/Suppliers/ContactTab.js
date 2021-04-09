@@ -2,10 +2,14 @@ import Grid from "@material-ui/core/Grid/Grid";
 import OutlinedContainer from "../shared/OutlinedContainer";
 import {FormattedMessage, injectIntl} from "react-intl";
 import GenericForm from "../GenericForm";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {compose} from "redux";
+import {every} from "lodash";
+import withValidations from "../wrappers/withValidations";
 
 const ContactTab = ({formData, setFormData, ...props}) => {
+  const [formIsValid, setFormIsValid] = useState({});
+  const [touched, setTouched] = useState({0:false});
 
   const contactsConfig = [
     {
@@ -15,7 +19,6 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'LOV',
       key: 'zona',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 6
@@ -61,12 +64,12 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'contacte',
-      required: true,
-      noEditable: true,
       breakpoints: {
         xs: 12,
         md: 6
       },
+      validationType: "string",
+      validations: props.validationsArray.minMaxValidation(1,60)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -75,12 +78,12 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'telefon',
-      required: true,
-      noEditable: true,
       breakpoints: {
         xs: 12,
         md: 6
       },
+      validationType: "string",
+      validations: props.validationsArray.minMaxValidation(1,60)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -89,12 +92,12 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'fax',
-      required: true,
-      noEditable: true,
       breakpoints: {
         xs: 12,
         md: 6
       },
+      validationType: "string",
+      validations: props.validationsArray.minMaxValidation(1,60)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -103,12 +106,15 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'email',
-      required: true,
-      noEditable: true,
       breakpoints: {
         xs: 12,
         md: 6
       },
+      validationType: "string",
+      validations: [
+        ...props.validationsArray.minMaxValidation(1,60),
+        ...props.validationsArray.emailValidation()
+      ]
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -117,12 +123,12 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'web',
-      required: true,
-      noEditable: true,
       breakpoints: {
         xs: 12,
         md: 6
       },
+      validationType: "string",
+      validations: props.validationsArray.minMaxValidation(1,60)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -131,12 +137,12 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'representant',
-      required: true,
-      noEditable: true,
       breakpoints: {
         xs: 12,
         md: 6
       },
+      validationType: "string",
+      validations: props.validationsArray.minMaxValidation(1,60)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -145,33 +151,55 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'dnirepresentant',
-      required: true,
-      noEditable: true,
       breakpoints: {
         xs: 12,
         md: 6
       },
+      validationType: "string",
+      validations: props.validationsArray.minMaxValidation(1,15)
     },
   ];
+
+  //TODO() REFACTOR -> can we move this?
+  useEffect(()=>{
+    validation(every(formIsValid, (v) => v));
+  },[formIsValid]);
+
+  const validation = (validity) => {
+    props.setIsValid && props.setIsValid(validity);
+  }
+
+  const addValidity = (key, value) => {
+    setFormIsValid({...formIsValid, [key]: value});
+  }
+
+  const handleTouched = (key) => {
+    setTouched({...touched,[key]: true});
+  }
 
   return (
     <Grid container >
       <Grid xs={12} item>
         <OutlinedContainer className="contact-tab-container" title={<FormattedMessage id={"Proveedores.tabs.contactos"} defaultMessage={"Contactos"}/>}>
-          <GenericForm formComponents={contactsConfig}
-                       emptyPaper={true}
-                       //editMode={props.editMode}
-                       formData={formData}
-                       setFormData={setFormData}
-                       loading={props.loading}
-                       formErrors={props.formErrors}
-                       //submitFromOutside={props.submitFromOutside}
-                       //onSubmit={() => props.onSubmitTab(formData)}
-          />
+          <GenericForm
+            formComponents={contactsConfig}
+            emptyPaper={true}
+            editMode={props.editMode}
+            formData={formData}
+            setFormData={setFormData}
+            loading={props.loading}
+            formErrors={props.formErrors}
+            submitFromOutside={props.submitFromOutside}
+            onSubmit={() => props.onSubmitTab(formData)}
+            handleIsValid={value => addValidity(0,value)}
+            onBlur={(e) => handleTouched(0)}/>
         </OutlinedContainer>
       </Grid>
     </Grid>
   )
 }
 
-export default compose(injectIntl)(ContactTab);
+export default compose(
+  injectIntl,
+  withValidations
+)(ContactTab);

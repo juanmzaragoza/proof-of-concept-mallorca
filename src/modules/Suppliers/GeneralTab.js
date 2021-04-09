@@ -1,14 +1,22 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 import {FormattedMessage, injectIntl} from "react-intl";
+import { every } from "lodash";
 import "./styles.scss";
 
 import {TDOC_SELECTOR_VALUES} from "constants/selectors";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
+import {compose} from "redux";
+import withValidations from "../wrappers/withValidations";
+
+const SUPPLIERS_SECTION_INDEX = 0;
+const ADDRESS_SECTION_TAB_INDEX = 1;
 
 const GeneralTab = ({formData, setFormData, ...props}) => {
+  const [formIsValid, setFormIsValid] = useState({});
+  const [touched, setTouched] = useState({0:false, 1:false});
 
   const getString = (key) => formData[key]? formData[key]:"";
   useEffect(() => {
@@ -71,6 +79,15 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
   const formatCodeAndDescription = (data) => `${data.descripcio} (${data.codi})`;
 
+  const withRequiredValidation = (extraValidations = []) => {
+    return {
+      validations: [
+        ...props.validationsArray.requiredValidation(),
+        ...extraValidations
+      ]
+    }
+  }
+
   const suppliersConfig = [
     {
       placeHolder: props.intl.formatMessage({
@@ -85,6 +102,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         xs: 12,
         md: 1
       },
+      validationType: "string",
+      ...withRequiredValidation([...props.validationsArray.minMaxValidation(1,6)])
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -98,6 +117,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         xs: 12,
         md: 3
       },
+      validationType: "string",
+      ...withRequiredValidation([...props.validationsArray.minMaxValidation(1,40)])
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -111,6 +132,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         xs: 12,
         md: 6
       },
+      validationType: "string",
+      ...withRequiredValidation([...props.validationsArray.minMaxValidation(1,40)])
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -136,6 +159,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         xs: 12,
         md: 4
       },
+      validationType: "string",
+      validations: [...props.validationsArray.minMaxValidation(1,30)]
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -144,7 +169,6 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'paisNif',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 2
@@ -157,14 +181,13 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'select',
       key: 'tipusNif',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 2
       },
       selector: {
         options: TDOC_SELECTOR_VALUES
-      }
+      },
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -178,6 +201,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         xs: 12,
         md: 2
       },
+      validationType: "string",
+      ...withRequiredValidation([...props.validationsArray.minMaxValidation(8,11)])
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -208,7 +233,9 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         labelKey: formatCodeAndName,
         sort: 'nom',
         creationComponents: codeAndName()
-      }
+      },
+      validationType: "object",
+      ...withRequiredValidation()
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -217,7 +244,6 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'LOV',
       key: 'operari',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 4
@@ -307,7 +333,6 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'LOV',
       key: 'idioma',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 2
@@ -336,7 +361,9 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         labelKey: formatCodeAndDescription,
         sort: 'descripcio',
         creationComponents: codeAndDescription()
-      }
+      },
+      validationType: "object",
+      ...withRequiredValidation()
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -370,7 +397,9 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
             }
           }
         ]
-      }
+      },
+      validationType: "object",
+      ...withRequiredValidation()
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -404,7 +433,9 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
             }
           }
         ]
-      }
+      },
+      validationType: "object",
+      ...withRequiredValidation()
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -423,7 +454,9 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         labelKey: formatCodeAndDescription,
         sort: 'descripcio',
         creationComponents: codeAndDescription()
-      }
+      },
+      validationType: "object",
+      ...withRequiredValidation()
     },
   ];
 
@@ -435,11 +468,12 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'sg',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 3
-      }
+      },
+      validationType: "string",
+      validations:[...props.validationsArray.minMaxValidation(1,2)]
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -448,11 +482,12 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'nomDomicili',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 4
       },
+      validationType: "string",
+      validations:[...props.validationsArray.minMaxValidation(1,30)]
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -461,11 +496,12 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'numeroDomicili',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 1
       },
+      validationType: "string",
+      validations:[...props.validationsArray.minMaxValidation(1,5)]
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -474,11 +510,12 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'escala',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 1
       },
+      validationType: "string",
+      validations:[...props.validationsArray.minMaxValidation(1,2)]
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -487,11 +524,12 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'pis',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 1
       },
+      validationType: "string",
+      validations:[...props.validationsArray.minMaxValidation(1,2)]
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -500,11 +538,12 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'porta',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 1
       },
+      validationType: "string",
+      validations:[...props.validationsArray.minMaxValidation(1,2)]
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -517,6 +556,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         xs: 12,
         md: 7
       },
+      validationType: "string",
+      validations:[...props.validationsArray.minMaxValidation(1,60)]
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -525,11 +566,13 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'LOV',
       key: 'codiPostal',
-      required: false,
+      required: true,
       breakpoints: {
         xs: 12,
         md: 4
       },
+      validationType: "object",
+      ...withRequiredValidation(),
       selector: {
         key: "codiPostals",
         labelKey: (data) => `${data.poblacio} ${data.municipi?` - ${data.municipi}`:''} (${data.codi})`,
@@ -610,6 +653,23 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
     },
   ];
 
+  //TODO() REFACTOR -> can we move this?
+  useEffect(()=>{
+    validation(every(formIsValid, (v) => v));
+  },[formIsValid]);
+
+  const validation = (validity) => {
+    props.setIsValid && props.setIsValid(validity);
+  }
+
+  const addValidity = (key, value) => {
+    setFormIsValid({...formIsValid, [key]: value});
+  }
+
+  const handleTouched = (key) => {
+    setTouched({...touched,[key]: true});
+  }
+
   const tabs = [
     {
       className: "general-tab-subtab",
@@ -622,7 +682,9 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
                               loading={props.loading}
                               formErrors={props.formErrors}
                               submitFromOutside={props.submitFromOutside}
-                              onSubmit={() => props.onSubmitTab(formData)} />
+                              onSubmit={() => props.onSubmitTab(formData)}
+                              handleIsValid={value => addValidity(ADDRESS_SECTION_TAB_INDEX,value)}
+                              onBlur={(e) => handleTouched(ADDRESS_SECTION_TAB_INDEX)} />
     },
     {
       label: <FormattedMessage id={"Proveedores.direcciones_comerciales"} defaultMessage={"Direcciones Comerciales"}/>,
@@ -653,7 +715,9 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
                        loading={props.loading}
                        formErrors={props.formErrors}
                        submitFromOutside={props.submitFromOutside}
-                       onSubmit={() => props.onSubmitTab(formData)}/>
+                       onSubmit={() => props.onSubmitTab(formData)}
+                       handleIsValid={value => addValidity(SUPPLIERS_SECTION_INDEX,value)}
+                       onBlur={(e) => handleTouched(SUPPLIERS_SECTION_INDEX)}/>
         </OutlinedContainer>
       </Grid>
       <Grid xs={12} item>
@@ -664,4 +728,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
     </Grid>
   );
 };
-export default injectIntl(GeneralTab);
+export default compose(
+  withValidations,
+  injectIntl
+)(GeneralTab);

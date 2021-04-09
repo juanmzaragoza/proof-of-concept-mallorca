@@ -5,15 +5,20 @@ import {withSnackbar} from "notistack";
 import {useHistory} from "react-router-dom";
 import {connect} from "react-redux";
 import {bindActionCreators, compose} from "redux";
-import {addError, resetAllGenericForm, resetError, setFormData} from "../../redux/genericForm";
-import {finishLoading, startLoading} from "../../redux/app";
+
+import {addError, resetAllGenericForm, resetError, setFormData} from "redux/genericForm";
+import {finishLoading, startLoading} from "redux/app";
+import {getLoading} from "redux/app/selectors";
 
 const withAbmServices = (PassedComponent) => {
 
   const WrappedComponent = (props) => {
     const history = useHistory();
+    const pathname = history.location.pathname;
 
-    const create = (data) => {
+    const create = (data, callback = () => {}) => {
+      // avoid multiple calls
+      if(props.isLoading) return;
       const queryString = `${props.url}`;
       props.resetError();
       props.startLoading();
@@ -24,13 +29,13 @@ const withAbmServices = (PassedComponent) => {
         }),
       })
         .then(({status, data, ...rest}) => {
+          const editUrl = `${pathname.substring(0, pathname.lastIndexOf("/"))}/${data.id}`;
           props.finishLoading();
-          history.goBack();
           props.enqueueSnackbar(props.intl.formatMessage({
             id: "CreateUpdateForm.creacion_correcta",
             defaultMessage: "Registro creado correctamente"
           }), {variant: 'success'});
-          props.resetForm();
+          history.push(editUrl);
         })
         .catch(error => {
           props.finishLoading();
@@ -42,10 +47,13 @@ const withAbmServices = (PassedComponent) => {
               defaultMessage: "Servidor fuera de servicio"
             }), {variant: 'error'});
           }
+          callback(error);
         });
     };
 
     const update = (id, data) => {
+      // avoid multiple calls
+      if(props.isLoading) return;
       const queryString = `${props.url}/${id}`;
       props.resetError();
       props.startLoading();
@@ -57,12 +65,10 @@ const withAbmServices = (PassedComponent) => {
       })
         .then(({status, data, ...rest}) => {
           props.finishLoading();
-          history.goBack();
           props.enqueueSnackbar(props.intl.formatMessage({
             id: "CreateUpdateForm.actualizacion_correcta",
             defaultMessage: "Registro actualizado correctamente"
           }), {variant: 'success'});
-          props.resetForm();
         })
         .catch(error => {
           props.finishLoading();
@@ -71,30 +77,34 @@ const withAbmServices = (PassedComponent) => {
     }
 
     const getById = (id) => {
-      const queryString = `${props.url}/${id}`;
-      props.startLoading();
-      Axios.get(queryString,{
-        headers: new Headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }),
-      })
-        .then(({status, data, ...rest}) => {
-          props.finishLoading();
-          props.setFormData(data);
+      return new Promise((resolve, reject) => {
+        const queryString = `${props.url}/${id}`;
+        props.startLoading();
+        Axios.get(queryString, {
+          headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          }),
         })
-        .catch(error => {
-          props.finishLoading();
-          const status = error.response.status;
-          if(status === 400){
-            props.enqueueSnackbar(props.intl.formatMessage({
-              id: "ReactGrid.error.algo_salio_mal",
-              defaultMessage: "Ups! Algo ha salido mal :("
-            }), {variant: 'error'});
-          }
-          history.goBack();
-        });
-    }
+          .then(({status, data, ...rest}) => {
+            props.finishLoading();
+            props.setFormData(data);
+            resolve(data);
+          })
+          .catch(error => {
+            props.finishLoading();
+            const status = error.response.status;
+            if (status === 400) {
+              props.enqueueSnackbar(props.intl.formatMessage({
+                id: "ReactGrid.error.algo_salio_mal",
+                defaultMessage: "Ups! Algo ha salido mal :("
+              }), {variant: 'error'});
+            }
+            history.goBack();
+            reject(error);
+          });
+      });
+    };
 
     const handlePersistError = ({status, data}) => {
       if (status === 400 && data.errors) {
@@ -113,7 +123,7 @@ const withAbmServices = (PassedComponent) => {
 
   const mapStateToProps = (state, props) => {
     return {
-      //submitFromOutside: getFireSave(state)
+      isLoading: getLoading(state)
     };
   };
 

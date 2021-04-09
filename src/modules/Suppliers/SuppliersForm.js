@@ -3,6 +3,7 @@ import {FormattedMessage, injectIntl} from "react-intl";
 import {bindActionCreators, compose} from "redux";
 import {connect} from "react-redux";
 import {useParams} from "react-router-dom";
+import { some, min, pickBy, cloneDeep, isEmpty } from "lodash";
 
 import GeneralTab from "./GeneralTab";
 import ContactTab from "./ContactTab";
@@ -20,32 +21,63 @@ import {getLoading} from "../../redux/app/selectors";
 const GENERAL_TAB_INDEX = 0;
 const CONTACT_TAB_INDEX = 1;
 
-const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...props }) => {
-
+const SuppliersForm = React.memo(({ actions, formData, submitFromOutside, services, ...props }) => {
   const [editMode, setEditMode] = useState(false);
-  const [tabIndex, ] = useState(CONTACT_TAB_INDEX);
+  const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
+  const [tabIndexWithError, setTabIndexWithError] = useState({0: false, 1: false});
+  const [forceTabChange, setForceTabChange] = useState(false);
+
+  const tabHasError = (index) => {
+    return !!tabIndexWithError[index];
+  }
+
+  const goToTab = (index) => {
+    setForceTabChange(true);
+    setTabIndex(parseInt(index));
+    setForceTabChange(false);
+  }
+
+  const handleSubmitTab = () => {
+    // TODO() improve this to make it more generic
+    // if exists some error -> go to minimum index
+    if(some(Object.keys(tabIndexWithError), (index) => tabIndexWithError[index])){
+      // of all keys === true -> get the min
+      goToTab(min(Object.keys(pickBy(tabIndexWithError,(value, key) => value))));
+    } else{
+      isEditable()? update(id, formData):create(formData, () => {
+        goToTab(GENERAL_TAB_INDEX);
+      });
+    }
+  }
 
   const tabs = [
     {
       label: <FormattedMessage id={"Proveedores.tabs.general"} defaultMessage={"General"}/>,
       key: GENERAL_TAB_INDEX,
+      error: tabHasError(GENERAL_TAB_INDEX),
       component: <GeneralTab
+        setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [GENERAL_TAB_INDEX]: !value})}
         editMode={editMode}
         formData={formData}
         setFormData={actions.setFormData}
         submitFromOutside={submitFromOutside}
-        onSubmitTab={(data) => isEditable()? update(id, data):create(data)}
+        onSubmitTab={handleSubmitTab}
         formErrors={props.formErrors}
         loading={props.loading} />
     },
     {
       label: <FormattedMessage id={"Proveedores.tabs.contactos"} defaultMessage={"Contactos"}/>,
       key: CONTACT_TAB_INDEX,
+      error: tabHasError(CONTACT_TAB_INDEX),
       component: <ContactTab
+        setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [CONTACT_TAB_INDEX]: !value})}
+        editMode={editMode}
         formData={formData}
         setFormData={actions.setFormData}
-        loading={props.loading}
-        formErrors={props.formErrors} />
+        submitFromOutside={submitFromOutside}
+        onSubmitTab={handleSubmitTab}
+        formErrors={props.formErrors}
+        loading={props.loading} />
     },
     {
       label: <FormattedMessage id={"Proveedores.tabs.contabilidad"} defaultMessage={"Contabilidad"}/>,
@@ -85,15 +117,39 @@ const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...prop
     return !!id;
   };
 
-  const create = (data) => services.create(data);
+  const create = (data, callback) => services.create(data, callback);
   const update = (id, data) => services.update(id, data);
 
   useEffect(() => {
+    actions.setFormConfig({});
     if(isEditable()){
       setEditMode(true);
       services.getById(id);
+    } else{
+      actions.setBreadcrumbHeader([
+        {title: props.intl.formatMessage({id: "Proveedores.titulo", defaultMessage: "Proveedores"}), href:"/proveedores"},
+        {title: props.intl.formatMessage({id: "Comun.nuevo", defaultMessage: "Nuevo"})}
+      ]);
+    }
+    return () => {
+      props.resetForm();
     }
   },[id]);
+
+  /** Update HEADER */
+  useEffect(()=>{
+    if(isEditable()){
+      const nom = formData.nomComercial?
+        formData.nomComercial
+        :
+        `${props.intl.formatMessage({id: "Comun.cargando", defaultMessage: "Cargando"})}...`;
+      actions.setBreadcrumbHeader([
+        {title: props.intl.formatMessage({id: "Proveedores.titulo", defaultMessage: "Proveedores"}), href:"/proveedores"},
+        {title: nom, href:"/proveedores"},
+        {title: "TODO() General"}
+      ]);
+    }
+  },[formData.nomComercial]);
 
   useEffect(() => {
     if(submitFromOutside){
@@ -101,30 +157,25 @@ const SuppliersForm = ({ actions, formData, submitFromOutside, services, ...prop
     }
   },[submitFromOutside]);
 
-  useEffect(() => {
-    actions.setFormConfig({});
-
-    // breadcrumbs config
-    if(isEditable()){
-      actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "Proveedores.titulo", defaultMessage: "Proveedores"}), href:"/proveedores"},
-        {title: "TODO() Nombre a editar", href:"/proveedores"},
-        {title: "TODO() General"}
-      ]);
-    } else{
-      actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "Proveedores.titulo", defaultMessage: "Proveedores"}), href:"/proveedores"},
-        {title: props.intl.formatMessage({id: "Comun.nuevo", defaultMessage: "Nuevo"})}
-        ]);
+  useEffect(()=>{
+    if(editMode){
+      const tabsWithErrors = cloneDeep(tabIndexWithError);
+      Object.keys(tabsWithErrors).map((t,index) => {
+        tabsWithErrors[index] = editMode? !editMode:tabsWithErrors[index];
+      });
+      setTabIndexWithError(tabsWithErrors);
     }
-  },[]);
+  },[editMode]);
 
   return (
     <div style={{padding: '10px'}}>
-      <ConfigurableTabs tabs={tabs} tabIndex={tabIndex} />
+      <ConfigurableTabs
+        tabs={tabs}
+        tabIndex={tabIndex}
+        forceChange={forceTabChange} />
     </div>
   )
-}
+});
 
 const mapStateToProps = (state, props) => {
   return {

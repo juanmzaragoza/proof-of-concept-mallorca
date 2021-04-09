@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-const Selector = ({id, placeHolder, variant, required, disabled, options, error, value, onChange, onBlur, loading, showError, ...props}) => {
+const Selector = ({id, placeHolder, variant, required, disabled, options, error, helperText, value, onChange, onBlur, loading, ...props}) => {
 
   const renderOptions = () => {
     return [
@@ -40,8 +40,8 @@ const Selector = ({id, placeHolder, variant, required, disabled, options, error,
         required={required}
         disabled={disabled}
         inputProps={{
-          name: placeHolder,
-          id: id,
+          name: id,
+          id: id
         }}
       >
         {!loading?
@@ -53,7 +53,7 @@ const Selector = ({id, placeHolder, variant, required, disabled, options, error,
           </MenuItem>
         }
       </Select>
-      {showError && Boolean(error) ? <FormHelperText>{error.message}</FormHelperText> : null}
+      {Boolean(error)? <FormHelperText>{helperText}</FormHelperText> : null}
     </>
   );
 };
@@ -68,9 +68,9 @@ Selector.propTypes = {
   required: PropTypes.bool,
   disabled: PropTypes.bool,
   loading: PropTypes.bool,
-  showError: PropTypes.bool,
   options: PropTypes.array,
-  error: PropTypes.any,
+  error: PropTypes.bool,
+  helperText: PropTypes.any,
   responseKey: PropTypes.string,
 }
 
