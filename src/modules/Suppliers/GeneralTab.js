@@ -674,9 +674,25 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
 
   const tabs = [
     {
-      label: <FormattedMessage id={"Proveedores.direcciones_comerciales"} defaultMessage={"Direcciones Comerciales"}/>,
+      className: "general-tab-subtab",
+      label: <FormattedMessage id={"Proveedores.direccion"} defaultMessage={"Dirección"}/>,
       key: 0,
+      component: <GenericForm formComponents={addressConfig}
+                              emptyPaper={true}
+                              formData={formData}
+                              setFormData={setFormData}
+                              loading={props.loading}
+                              formErrors={props.formErrors}
+                              submitFromOutside={props.submitFromOutside}
+                              onSubmit={() => props.onSubmitTab(formData)}
+                              handleIsValid={value => addValidity(ADDRESS_SECTION_TAB_INDEX,value)}
+                              onBlur={(e) => handleTouched(ADDRESS_SECTION_TAB_INDEX)} />
+    },
+    {
+      label: <FormattedMessage id={"Proveedores.direcciones_comerciales"} defaultMessage={"Direcciones Comerciales"}/>,
+      key: 1,
       component: <ExpandableGrid
+        enabled={props.editMode}
         configuration={{
           columns: [
             { name: 'codi', title: 'Código' },
@@ -692,21 +708,6 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
                 <Chip label="NO" variant="outlined" />},
           ]}}
         id='adresaComercials'/>
-    },
-    {
-      className: "general-tab-subtab",
-      label: <FormattedMessage id={"Proveedores.direccion"} defaultMessage={"Dirección"}/>,
-      key: 1,
-      component: <GenericForm formComponents={addressConfig}
-                              emptyPaper={true}
-                              formData={formData}
-                              setFormData={setFormData}
-                              loading={props.loading}
-                              formErrors={props.formErrors}
-                              submitFromOutside={props.submitFromOutside}
-                              onSubmit={() => props.onSubmitTab(formData)}
-                              handleIsValid={value => addValidity(ADDRESS_SECTION_TAB_INDEX,value)}
-                              onBlur={(e) => handleTouched(ADDRESS_SECTION_TAB_INDEX)} />
     },
     {
       label: <FormattedMessage id={"Proveedores.tipos_proveedor"} defaultMessage={"Tipos de Proveedor"}/>,

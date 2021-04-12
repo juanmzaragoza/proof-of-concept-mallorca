@@ -203,7 +203,7 @@ const PopupEditing = React.memo(({ popupComponent: Popup }) => (
 ));
 
 const getRowId = row => row.id;
-const ExpandableGrid = ({id, configuration, enqueueSnackbar, rows, actions, ...props}) => {
+const ExpandableGrid = ({id, enabled = false, configuration, enqueueSnackbar, rows, actions, ...props}) => {
   const [columns] = useState(configuration.columns);
   /*const [rows, setRows] = useState(generateRows({
     columnValues: { id: ({ index }) => index, ...employeeValues },
@@ -216,8 +216,8 @@ const ExpandableGrid = ({id, configuration, enqueueSnackbar, rows, actions, ...p
   const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() =>
-    actions.loadData({key: id, pageSize, page: currentPage})
-  ,[]);
+    enabled && actions.loadData({key: id, pageSize, page: currentPage})
+  ,[enabled]);
 
   const commitChanges = ({ added, changed }) => {
     let changedRows;
@@ -264,7 +264,7 @@ const ExpandableGrid = ({id, configuration, enqueueSnackbar, rows, actions, ...p
         <Table />
         <TableHeaderRow />
         <TableEditColumn
-          showAddCommand
+          showAddCommand={enabled}
           showEditCommand
           showDeleteCommand
           messages={{
@@ -295,6 +295,7 @@ const ExpandableGrid = ({id, configuration, enqueueSnackbar, rows, actions, ...p
 
 ExpandableGrid.propTypes = {
   id: PropTypes.string.isRequired,
+  enabled: PropTypes.bool,
   configuration: PropTypes.shape({
     columns: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string,
