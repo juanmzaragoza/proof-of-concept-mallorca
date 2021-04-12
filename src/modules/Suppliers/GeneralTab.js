@@ -11,6 +11,7 @@ import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import {compose} from "redux";
 import withValidations from "../wrappers/withValidations";
 import ExpandableGrid from "../ExpandableGrid";
+import {Chip} from "@material-ui/core";
 
 const SUPPLIERS_SECTION_INDEX = 0;
 const ADDRESS_SECTION_TAB_INDEX = 1;
@@ -673,9 +674,29 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
 
   const tabs = [
     {
+      label: <FormattedMessage id={"Proveedores.direcciones_comerciales"} defaultMessage={"Direcciones Comerciales"}/>,
+      key: 0,
+      component: <ExpandableGrid
+        configuration={{
+          columns: [
+            { name: 'codi', title: 'Código' },
+            { name: 'domicili', title: 'Domicilio' },
+            { name: 'telefon', title: 'Telefóno' },
+            { name: 'fax', title: 'Fax' },
+            { name: 'email', title: 'Email' },
+            { name: 'contacte', title: 'Contacto' },
+            { name: 'defecte', title: 'Defecto',
+              getCellValue: row => (row.defecte && row.defecte === true)?
+                <Chip label="SI" variant="outlined" />
+                :
+                <Chip label="NO" variant="outlined" />},
+          ]}}
+        id='adresaComercials'/>
+    },
+    {
       className: "general-tab-subtab",
       label: <FormattedMessage id={"Proveedores.direccion"} defaultMessage={"Dirección"}/>,
-      key: 0,
+      key: 1,
       component: <GenericForm formComponents={addressConfig}
                               emptyPaper={true}
                               formData={formData}
@@ -686,11 +707,6 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
                               onSubmit={() => props.onSubmitTab(formData)}
                               handleIsValid={value => addValidity(ADDRESS_SECTION_TAB_INDEX,value)}
                               onBlur={(e) => handleTouched(ADDRESS_SECTION_TAB_INDEX)} />
-    },
-    {
-      label: <FormattedMessage id={"Proveedores.direcciones_comerciales"} defaultMessage={"Direcciones Comerciales"}/>,
-      key: 1,
-      component: <ExpandableGrid />
     },
     {
       label: <FormattedMessage id={"Proveedores.tipos_proveedor"} defaultMessage={"Tipos de Proveedor"}/>,
