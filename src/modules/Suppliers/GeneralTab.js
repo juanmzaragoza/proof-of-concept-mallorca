@@ -10,6 +10,8 @@ import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import {compose} from "redux";
 import withValidations from "../wrappers/withValidations";
+import ExpandableGrid from "../ExpandableGrid";
+import {Chip} from "@material-ui/core";
 
 const SUPPLIERS_SECTION_INDEX = 0;
 const ADDRESS_SECTION_TAB_INDEX = 1;
@@ -666,7 +668,6 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
     setFormIsValid({...formIsValid, [key]: value});
   }
 
-  /** All forms are touched? */
   const handleTouched = (key) => {
     setTouched({...touched,[key]: true});
   }
@@ -690,7 +691,23 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
     {
       label: <FormattedMessage id={"Proveedores.direcciones_comerciales"} defaultMessage={"Direcciones Comerciales"}/>,
       key: 1,
-      component: "Direcciones Comerciales"
+      component: <ExpandableGrid
+        enabled={props.editMode}
+        configuration={{
+          columns: [
+            { name: 'codi', title: 'Código' },
+            { name: 'domicili', title: 'Domicilio' },
+            { name: 'telefon', title: 'Telefóno' },
+            { name: 'fax', title: 'Fax' },
+            { name: 'email', title: 'Email' },
+            { name: 'contacte', title: 'Contacto' },
+            { name: 'defecte', title: 'Defecto',
+              getCellValue: row => (row.defecte && row.defecte === true)?
+                <Chip label="SI" variant="outlined" />
+                :
+                <Chip label="NO" variant="outlined" />},
+          ]}}
+        id='adresaComercials'/>
     },
     {
       label: <FormattedMessage id={"Proveedores.tipos_proveedor"} defaultMessage={"Tipos de Proveedor"}/>,

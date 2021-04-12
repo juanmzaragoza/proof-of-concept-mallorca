@@ -5,6 +5,7 @@ import pageHeader from "redux/pageHeader/index.js";
 import genericForm from "redux/genericForm/index.js";
 import app from "redux/app/index.js";
 import lovForm from "redux/lovForm/index.js";
+import grids from "redux/grids/index";
 
 export default combineReducers({
   app,
@@ -12,7 +13,8 @@ export default combineReducers({
   advancedFilters,
   pageHeader,
   genericForm,
-  lovForm
+  lovForm,
+  grids
 });
 
 //Global action to reset the store
