@@ -1,6 +1,6 @@
 import Axios from "Axios";
 import * as API from "redux/api";
-import {LOV_LIMIT_PER_PAGE} from "../../constants/config";
+import {EXPANDABLE_GRID_LIMIT_PER_PAGE} from "../../constants/config";
 
 //Action types
 const ADD = "ADD_TO_GRID";
@@ -11,7 +11,7 @@ export const searchData = ({ key, page }) => {
   return async dispatch => {
     const formedURL = () => {
       const pagination = `&page=${page !== null ? page : 0}`;
-      const URL = `${API[key]}&size=${LOV_LIMIT_PER_PAGE}${pagination}`;
+      const URL = `${API[key]}&size=${EXPANDABLE_GRID_LIMIT_PER_PAGE}${pagination}`;
       return URL;
     }
     try {
@@ -23,6 +23,7 @@ export const searchData = ({ key, page }) => {
           dispatch(add({ key, data: _embedded[key] }));
           dispatch(add({ key, totalCount: page.totalElements }));
           dispatch(add({ key, loading: false }));
+          dispatch(add({ key, pageSize: EXPANDABLE_GRID_LIMIT_PER_PAGE }));
         })
         .catch(error => {
           dispatch(add({ key, loading: false }));
@@ -55,9 +56,10 @@ export const reset = (key) => {
 const initialState = {
   __default: {
     data: false,
+    pageSize: EXPANDABLE_GRID_LIMIT_PER_PAGE,
     totalCount: 10,
     loading: false,
-    errors: {}
+    errors: {},
   }
 };
 
