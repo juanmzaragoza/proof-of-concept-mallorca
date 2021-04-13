@@ -119,6 +119,7 @@ const Popup = ({
   </Dialog>
 );
 
+//TODO() apply intl
 const RowDetail = ({ row }) => (
   <ExpandableContent data={row} columns={[
     {name: 'codi', title: 'Código'},
