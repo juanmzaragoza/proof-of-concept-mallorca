@@ -5,13 +5,19 @@ import ExpandableGrid from "./expandableGrid";
 import {searchData} from "redux/grids";
 import {
   getRowsByKey,
-  getDataLoadingByKey
-} from "redux/api/selectors";
+  getDataLoadingByKey,
+  getTotalCountByKey,
+  getLoadingByKey,
+  getPageSizeByKey
+} from "redux/grids/selectors";
 
 const mapStateToProps = (state, props) => {
   return {
     dataLoading: getDataLoadingByKey(state, props.id),
-    rows: getRowsByKey(state, props.id)
+    rows: getRowsByKey(state, props.id),
+    totalCount: getTotalCountByKey(state, props.id),
+    loading: getLoadingByKey(state, props.id),
+    pageSize: getPageSizeByKey(state, props.id),
   };
 };
 

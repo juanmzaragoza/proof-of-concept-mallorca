@@ -12,7 +12,6 @@ import {
 import {
   CustomPaging,
   EditingState,
-  IntegratedPaging,
   PagingState,
   RowDetailState,
 } from '@devexpress/dx-react-grid';
@@ -38,6 +37,7 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import {withSnackbar} from "notistack";
+import {Loading} from "../ReactGrid/Loading";
 /* eslint-disable no-shadow */
 const Popup = ({
                  row,
@@ -203,21 +203,18 @@ const PopupEditing = React.memo(({ popupComponent: Popup }) => (
 ));
 
 const getRowId = row => row.id;
-const ExpandableGrid = ({id, enabled = false, configuration, enqueueSnackbar, rows, actions, ...props}) => {
+const ExpandableGrid = ({
+                          id, enabled = false,
+                          configuration, enqueueSnackbar,
+                          rows, totalCount, pageSize, loading,
+                          actions, ...props}) => {
   const [columns] = useState(configuration.columns);
-  /*const [rows, setRows] = useState(generateRows({
-    columnValues: { id: ({ index }) => index, ...employeeValues },
-    length: 10,
-  }));*/
   const [expandedRowIds, setExpandedRowIds] = useState([]);
-
-  const [totalCount, setTotalCount] = useState(0);
-  const [pageSize] = useState(5);
   const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() =>
-    enabled && actions.loadData({key: id, pageSize, page: currentPage})
-  ,[enabled]);
+    enabled && actions.loadData({key: id, page: currentPage})
+  ,[enabled, currentPage]);
 
   const commitChanges = ({ added, changed }) => {
     let changedRows;
@@ -248,7 +245,6 @@ const ExpandableGrid = ({id, enabled = false, configuration, enqueueSnackbar, ro
           onCommitChanges={commitChanges}
         />
         <PagingState
-          defaultCurrentPage={0}
           currentPage={currentPage}
           onCurrentPageChange={setCurrentPage}
           pageSize={pageSize}
@@ -260,7 +256,6 @@ const ExpandableGrid = ({id, enabled = false, configuration, enqueueSnackbar, ro
           expandedRowIds={expandedRowIds}
           onExpandedRowIdsChange={setExpandedRowIds}
         />
-        <IntegratedPaging />
         <Table />
         <TableHeaderRow />
         <TableEditColumn
@@ -289,6 +284,7 @@ const ExpandableGrid = ({id, enabled = false, configuration, enqueueSnackbar, ro
         />
         <PopupEditing popupComponent={Popup} />
       </Grid>
+      {loading && <Loading />}
     </Paper>
   );
 };
