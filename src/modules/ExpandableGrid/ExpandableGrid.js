@@ -38,6 +38,8 @@ import {
 } from '@material-ui/pickers';
 import {withSnackbar} from "notistack";
 import {Loading} from "../ReactGrid/Loading";
+import ExpandableContent from "./ExpandableContent";
+import {codiPostal} from "../../redux/api";
 /* eslint-disable no-shadow */
 const Popup = ({
                  row,
@@ -117,10 +119,14 @@ const Popup = ({
   </Dialog>
 );
 
+//TODO() apply intl
 const RowDetail = ({ row }) => (
-  <div>
-    Complete with what whatever you want =)
-  </div>
+  <ExpandableContent data={row} columns={[
+    {name: 'codi', title: 'Código'},
+    {name: 'codiPostal', title: 'Código Postal', func: (cod) => cod.description},
+    {name: 'nomAdresaComercial', title: 'Dirección Comercial'},
+    {name: 'proveidor', title: 'Proveedor', func: (prov) => prov.description},
+  ]} />
 );
 
 const PopupEditing = React.memo(({ popupComponent: Popup }) => (
@@ -216,7 +222,7 @@ const ExpandableGrid = ({
     enabled && actions.loadData({key: id, page: currentPage})
   ,[enabled, currentPage]);
 
-  const commitChanges = ({ added, changed }) => {
+  const commitChanges = ({ added, changed, deleted }) => {
     let changedRows;
     if (added) {
       const startingAddedId = rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
@@ -230,6 +236,10 @@ const ExpandableGrid = ({
     }
     if (changed) {
       changedRows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+    }
+    if(deleted) {
+      //TODO() change this if we allow to delete multiples
+      actions.deleteData({key: id, id: deleted[0]});
     }
     //setRows(changedRows);
   };
