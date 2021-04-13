@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import {bindActionCreators} from "redux";
 
-import ExpandableGrid from "./expandableGrid";
+import ExpandableGrid from "./ExpandableGrid";
 import {deleteData, searchData} from "redux/grids";
 import {
   getRowsByKey,

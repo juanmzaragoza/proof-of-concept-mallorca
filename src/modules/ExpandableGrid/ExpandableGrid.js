@@ -38,6 +38,8 @@ import {
 } from '@material-ui/pickers';
 import {withSnackbar} from "notistack";
 import {Loading} from "../ReactGrid/Loading";
+import ExpandableContent from "./ExpandableContent";
+import {codiPostal} from "../../redux/api";
 /* eslint-disable no-shadow */
 const Popup = ({
                  row,
@@ -118,9 +120,12 @@ const Popup = ({
 );
 
 const RowDetail = ({ row }) => (
-  <div>
-    Complete with what whatever you want =)
-  </div>
+  <ExpandableContent data={row} columns={[
+    {name: 'codi', title: 'Código'},
+    {name: 'codiPostal', title: 'Código Postal', func: (cod) => cod.description},
+    {name: 'nomAdresaComercial', title: 'Dirección Comercial'},
+    {name: 'proveidor', title: 'Proveedor', func: (prov) => prov.description},
+  ]} />
 );
 
 const PopupEditing = React.memo(({ popupComponent: Popup }) => (
