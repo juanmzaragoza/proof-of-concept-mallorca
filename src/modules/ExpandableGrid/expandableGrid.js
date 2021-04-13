@@ -216,7 +216,7 @@ const ExpandableGrid = ({
     enabled && actions.loadData({key: id, page: currentPage})
   ,[enabled, currentPage]);
 
-  const commitChanges = ({ added, changed }) => {
+  const commitChanges = ({ added, changed, deleted }) => {
     let changedRows;
     if (added) {
       const startingAddedId = rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
@@ -230,6 +230,10 @@ const ExpandableGrid = ({
     }
     if (changed) {
       changedRows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+    }
+    if(deleted) {
+      //TODO() change this if we allow to delete multiples
+      actions.deleteData({key: id, id: deleted[0]});
     }
     //setRows(changedRows);
   };
