@@ -7,6 +7,8 @@ import {EXPANDABLE_GRID_LIMIT_PER_PAGE} from "../../constants/config";
 const ADD = "ADD_TO_GRID";
 const REMOVE = "REMOVE_TO_GRID";
 const RESET = "RESET_GRID";
+const UPDATE_ROW = "UPDATE_ROW_GRID";
+const ADD_ROW = "ADD_ROW_GRID";
 
 //Functions
 export const searchData = ({ key, page }) => {
@@ -22,11 +24,11 @@ export const searchData = ({ key, page }) => {
         .get(formedURL())
         .then(({data}) => data)
         .then(({_embedded, page}) => {
-          dispatch(add({ key, page }));
           dispatch(add({ key, data: _embedded[key] }));
           dispatch(add({ key, totalCount: page.totalElements }));
           dispatch(add({ key, loading: false }));
           dispatch(add({ key, pageSize: EXPANDABLE_GRID_LIMIT_PER_PAGE }));
+          dispatch(add({ key, refresh: false }));
         })
         .catch(error => {
           dispatch(add({ key, loading: false }));
@@ -55,6 +57,46 @@ export const deleteData = ({ key, id }) => {
   }
 }
 
+export const updateData = ({ key, data }) => {
+  return async dispatch => {
+    try {
+      dispatch(add({ key, loading: true }));
+      //TODO() uncomment and complete the put action
+      /*Axios.put(API[key],JSON.stringify(data))
+        .then(({status, data, ...rest}) => {*/
+          dispatch(update({key, data}));
+          dispatch(add({ key, loading: false }));
+        /*})
+        .catch(error => {
+          dispatch(add({ key, loading: false }));
+        })
+        .finally(() => dispatch(add({ key, loading: false })));*/
+    }catch (error) {
+      dispatch(add({ key, loading: false }));
+    }
+  }
+}
+
+export const addData = ({ key, data }) => {
+  return async dispatch => {
+    try {
+      dispatch(add({ key, loading: true }));
+      //TODO() uncomment and complete the post action
+      /*Axios.post(API[key],JSON.stringify(data))
+        .then(({status, data, ...rest}) => {*/
+      dispatch(append({key, data}));
+      dispatch(add({ key, loading: false }));
+      /*})
+      .catch(error => {
+        dispatch(add({ key, loading: false }));
+      })
+      .finally(() => dispatch(add({ key, loading: false })));*/
+    }catch (error) {
+      dispatch(add({ key, loading: false }));
+    }
+  }
+}
+
 //Action creators
 export const add = (payload) => {
   return {
@@ -77,6 +119,20 @@ export const remove = (payload) => {
   };
 }
 
+export const update = (payload) => {
+  return {
+    type: UPDATE_ROW,
+    payload
+  };
+}
+
+export const append = (payload) => {
+  return {
+    type: ADD_ROW,
+    payload
+  };
+}
+
 //Reducers
 const initialState = {
   __default: {
@@ -86,6 +142,7 @@ const initialState = {
     totalCount: 10,
     loading: false,
     errors: {},
+    refresh: false // when is true, it indicates that data is not updated
   }
 };
 
@@ -104,11 +161,34 @@ export default (state = initialState, action) => {
       data: removeFrom(data, (row) => row.id !== id),
     }};
   }
+  const updateAction = () => {
+    const {key} = action.payload;
+    const updatedData = action.payload.data;
+    const {data} = state[key];
+    const changedRows = data.map(row => (updatedData.id === row.id ? { ...row, ...updatedData } : row));
+    return {...state, [key]: {
+      ...state[key],
+      data: changedRows
+    }};
+  };
+  const appendAction = () => {
+    const {key, data} = action.payload;
+    const rows = state[key].data;
+    rows.unshift(data);
+    return {...state, [key]: {
+        ...state[key],
+        refresh: true
+      }};
+  };
   switch (action.type) {
     case ADD:
       return addAction();
     case REMOVE:
       return removeAction();
+    case UPDATE_ROW:
+      return updateAction();
+    case ADD_ROW:
+      return appendAction();
     case RESET:
       return {...state, [action.payload]: state.__default};
     case "RESET":
