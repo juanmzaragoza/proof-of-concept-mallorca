@@ -2,13 +2,14 @@ import { connect } from "react-redux";
 import {bindActionCreators} from "redux";
 
 import ExpandableGrid from "./ExpandableGrid";
-import {deleteData, searchData, updateData} from "redux/grids";
+import {deleteData, searchData, updateData, addData} from "redux/grids";
 import {
   getRowsByKey,
   getDataLoadingByKey,
   getTotalCountByKey,
   getLoadingByKey,
-  getPageSizeByKey
+  getPageSizeByKey,
+  getRefreshByKey
 } from "redux/grids/selectors";
 
 const mapStateToProps = (state, props) => {
@@ -18,6 +19,7 @@ const mapStateToProps = (state, props) => {
     totalCount: getTotalCountByKey(state, props.id),
     loading: getLoadingByKey(state, props.id),
     pageSize: getPageSizeByKey(state, props.id),
+    refreshData: getRefreshByKey(state, props.id),
   };
 };
 
@@ -26,6 +28,7 @@ const mapDispatchToProps = (dispatch, props) => {
     loadData: bindActionCreators(searchData, dispatch),
     deleteData: bindActionCreators(deleteData, dispatch),
     updateData: bindActionCreators(updateData, dispatch),
+    addData: bindActionCreators(addData, dispatch),
   };
   return { actions };
 };

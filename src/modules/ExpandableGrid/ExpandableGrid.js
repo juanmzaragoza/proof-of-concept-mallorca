@@ -130,30 +130,26 @@ const PopupEditing = React.memo(({ popupComponent: ExpandablePopup }) => (
 ));
 
 const getRowId = row => row.id;
-const ExpandableGrid = ({
-                          id, enabled = false,
-                          configuration, enqueueSnackbar,
-                          rows, totalCount, pageSize, loading,
+const ExpandableGrid = ({ id, enabled = false, configuration,
+                          enqueueSnackbar,
+                          rows, totalCount, pageSize, loading, refreshData,
                           actions, ...props}) => {
   const [columns] = useState(configuration.columns);
   const [expandedRowIds, setExpandedRowIds] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
 
-  useEffect(() =>
-    enabled && actions.loadData({key: id, page: currentPage})
-  ,[enabled, currentPage]);
+  useEffect(()=>{
+    refreshData && enabled && actions.loadData({key: id, page: currentPage});
+  },[refreshData]);
+
+  useEffect(() =>{
+    enabled && actions.loadData({key: id, page: currentPage});
+  },[enabled, currentPage]);
 
   const commitChanges = ({ added, changed, deleted }) => {
-    let changedRows;
     if (added) {
-      const startingAddedId = rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
-      changedRows = [
-        ...rows,
-        ...added.map((row, index) => ({
-          id: startingAddedId + index,
-          ...row,
-        })),
-      ];
+      //TODO() think about update multiple at same time
+      actions.addData({key: id, data: added[0]});
     }
     if (changed) {
       //TODO() think about update multiple at same time
@@ -164,7 +160,6 @@ const ExpandableGrid = ({
       //TODO() change this if we allow to delete multiples
       actions.deleteData({key: id, id: deleted[0]});
     }
-    //setRows(changedRows);
   };
 
   return (

@@ -41,11 +41,6 @@ const ExpandablePopup = ({
     onChange(formData);
   },[formData]);
 
-  useEffect(()=>{
-    console.log(row)
-    setFormData(row);
-  },[]);
-
   return (
     <Dialog open={open} onClose={onCancelChanges} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Employee Details</DialogTitle>
