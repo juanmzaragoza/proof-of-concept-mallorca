@@ -24,100 +24,11 @@ import {
   TableRowDetail,
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import FormGroup from '@material-ui/core/FormGroup';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import MuiGrid from '@material-ui/core/Grid';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
 import {withSnackbar} from "notistack";
 import {Loading} from "../ReactGrid/Loading";
 import ExpandableContent from "./ExpandableContent";
 import {codiPostal} from "../../redux/api";
-/* eslint-disable no-shadow */
-const Popup = ({
-                 row,
-                 onChange,
-                 onApplyChanges,
-                 onCancelChanges,
-                 open,
-               }) => (
-  <Dialog open={open} onClose={onCancelChanges} aria-labelledby="form-dialog-title">
-    <DialogTitle id="form-dialog-title">Employee Details</DialogTitle>
-    <DialogContent>
-      <MuiGrid container spacing={3}>
-        <MuiGrid item xs={6}>
-          <FormGroup>
-            <TextField
-              margin="normal"
-              name="firstName"
-              label="First Name"
-              value={row.firstName || ''}
-              onChange={onChange}
-            />
-            <TextField
-              margin="normal"
-              name="prefix"
-              label="Title"
-              value={row.prefix || ''}
-              onChange={onChange}
-            />
-            <TextField
-              margin="normal"
-              name="position"
-              label="Position"
-              value={row.position || ''}
-              onChange={onChange}
-            />
-          </FormGroup>
-        </MuiGrid>
-        <MuiGrid item xs={6}>
-          <FormGroup>
-            <TextField
-              margin="normal"
-              name="lastName"
-              label="Last Name"
-              value={row.lastName || ''}
-              onChange={onChange}
-            />
-            <MuiPickersUtilsProvider utils={MomentUtils}>
-              <KeyboardDatePicker
-                label="Birth Date"
-                margin="normal"
-                value={row.birthDate}
-                onChange={(_, value) => onChange({
-                  target: { name: 'birthDate', value },
-                })}
-                format="DD/MM/YYYY"
-              />
-            </MuiPickersUtilsProvider>
-            <TextField
-              margin="normal"
-              name="phone"
-              label="Phone"
-              value={row.phone || ''}
-              onChange={onChange}
-            />
-          </FormGroup>
-        </MuiGrid>
-      </MuiGrid>
-    </DialogContent>
-    <DialogActions>
-      <Button onClick={onCancelChanges} color="primary">
-        Cancel
-      </Button>
-      <Button onClick={onApplyChanges} color="primary">
-        Save
-      </Button>
-    </DialogActions>
-  </Dialog>
-);
+import ExpandablePopup from "./ExpandablePopup";
 
 //TODO() apply intl
 const RowDetail = ({ row }) => (
@@ -129,7 +40,8 @@ const RowDetail = ({ row }) => (
   ]} />
 );
 
-const PopupEditing = React.memo(({ popupComponent: Popup }) => (
+// Ref - https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/editing-in-popup/
+const PopupEditing = React.memo(({ popupComponent: ExpandablePopup }) => (
   <Plugin>
     <Template name="popupEditing">
       <TemplateConnector>
@@ -159,16 +71,25 @@ const PopupEditing = React.memo(({ popupComponent: Popup }) => (
             editedRow = { ...targetRow, ...rowChanges[rowId] };
           }
 
-          const processValueChange = ({ target: { name, value } }) => {
-            const changeArgs = {
+          /**
+           *  When change the formData object of values
+           **/
+          const processValueChange = (value) => {
+            let changeArgs = {
               rowId,
-              change: createRowChange(editedRow, value, name),
+              change: () => {},
             };
-            if (isNew) {
-              changeAddedRow(changeArgs);
-            } else {
-              changeRow(changeArgs);
-            }
+            Object.keys(value).map(key => {
+              changeArgs = {
+                ...changeArgs,
+                change: createRowChange(editedRow, value[key], key),
+              };
+              if (isNew) {
+                changeAddedRow(changeArgs);
+              } else {
+                changeRow(changeArgs);
+              }
+            })
           };
           const rowIds = isNew ? [0] : editingRowIds;
           const applyChanges = () => {
@@ -190,7 +111,7 @@ const PopupEditing = React.memo(({ popupComponent: Popup }) => (
 
           const open = editingRowIds.length > 0 || isNew;
           return (
-            <Popup
+            <ExpandablePopup
               open={open}
               row={editedRow}
               onChange={processValueChange}
@@ -235,7 +156,9 @@ const ExpandableGrid = ({
       ];
     }
     if (changed) {
-      changedRows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+      //TODO() think about update multiple at same time
+      const data = rows.find(row => !!changed[row.id]);
+      actions.updateData({key: id, data: changed[data.id]});
     }
     if(deleted) {
       //TODO() change this if we allow to delete multiples
@@ -292,7 +215,7 @@ const ExpandableGrid = ({
         <TableRowDetail
           contentComponent={RowDetail}
         />
-        <PopupEditing popupComponent={Popup} />
+        <PopupEditing popupComponent={ExpandablePopup} />
       </Grid>
       {loading && <Loading />}
     </Paper>

@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import {bindActionCreators} from "redux";
 
 import ExpandableGrid from "./ExpandableGrid";
-import {deleteData, searchData} from "redux/grids";
+import {deleteData, searchData, updateData} from "redux/grids";
 import {
   getRowsByKey,
   getDataLoadingByKey,
@@ -25,6 +25,7 @@ const mapDispatchToProps = (dispatch, props) => {
   const actions = {
     loadData: bindActionCreators(searchData, dispatch),
     deleteData: bindActionCreators(deleteData, dispatch),
+    updateData: bindActionCreators(updateData, dispatch),
   };
   return { actions };
 };
