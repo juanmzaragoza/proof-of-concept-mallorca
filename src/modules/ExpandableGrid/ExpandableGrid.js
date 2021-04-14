@@ -137,13 +137,17 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
   const [columns] = useState(configuration.columns);
   const [expandedRowIds, setExpandedRowIds] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
+  const [query] = useState([{columnName: 'proveidor.id', value: '"eyJpZGVudGlmaWNhZG9yQ29kaSI6IkxJTSIsImNvZGkiOiIwMDkwMzkifQ=="'}]);
 
+  const doRequest = () => {
+    actions.loadData({key: id, page: currentPage, query});
+  }
   useEffect(()=>{
-    refreshData && enabled && actions.loadData({key: id, page: currentPage});
+    refreshData && enabled && doRequest();
   },[refreshData]);
 
   useEffect(() =>{
-    enabled && actions.loadData({key: id, page: currentPage});
+    enabled && doRequest();
   },[enabled, currentPage]);
 
   const commitChanges = ({ added, changed, deleted }) => {
