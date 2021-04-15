@@ -82,16 +82,15 @@ export const addData = ({ key, data }) => {
   return async dispatch => {
     try {
       dispatch(add({ key, loading: true }));
-      //TODO() uncomment and complete the post action
-      /*Axios.post(API[key],JSON.stringify(data))
-        .then(({status, data, ...rest}) => {*/
-      dispatch(append({key, data}));
-      dispatch(add({ key, loading: false }));
-      /*})
+      Axios.post(API[key],JSON.stringify(data))
+        .then(({status, data, ...rest}) => {
+          dispatch(append({key, data}));
+          dispatch(add({ key, loading: false }));
+      })
       .catch(error => {
         dispatch(add({ key, loading: false }));
       })
-      .finally(() => dispatch(add({ key, loading: false })));*/
+      .finally(() => dispatch(add({ key, loading: false })));
     }catch (error) {
       dispatch(add({ key, loading: false }));
     }
@@ -174,8 +173,6 @@ export default (state = initialState, action) => {
   };
   const appendAction = () => {
     const {key, data} = action.payload;
-    const rows = state[key].data;
-    rows.unshift(data);
     return {...state, [key]: {
         ...state[key],
         refresh: true

@@ -3,8 +3,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import './loading.scss';
 
-export const Loading = () => (
+export const Loading = ({ size = 40 }) => (
     <div className="loading-shading-mui">
-      <CircularProgress className="loading-icon-mui" />
+      <CircularProgress size={size} className="loading-icon-mui" />
     </div>
 );

@@ -55,15 +55,8 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
   },[enabled, currentPage]);
 
   const commitChanges = ({ added, changed, deleted }) => {
-    if (added) {
-      //TODO() think about update multiple at same time
-      actions.addData({key: id, data: added[0]});
-    }
-    if (changed) {
-      //TODO() think about update multiple at same time
-      const data = rows.find(row => !!changed[row.id]);
-      actions.updateData({key: id, id: data.id, data: changed[data.id]});
-    }
+    if (added) {}
+    if (changed) {}
     if(deleted) {
       //TODO() change this if we allow to delete multiples
       actions.deleteData({key: id, id: deleted[0]});
@@ -118,7 +111,7 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
         <TableRowDetail
           contentComponent={RowDetail}
         />
-        <PopupEditing popupComponent={ExpandablePopup} />
+        <PopupEditing id={id} popupComponent={ExpandablePopup} />
       </Grid>
       {loading && <Loading />}
     </Paper>

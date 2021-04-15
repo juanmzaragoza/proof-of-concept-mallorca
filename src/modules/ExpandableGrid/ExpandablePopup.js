@@ -1,5 +1,10 @@
 /* eslint-disable no-shadow */
 import React, {useEffect, useState} from "react";
+import {bindActionCreators,compose} from "redux";
+import {withSnackbar} from "notistack";
+import {injectIntl} from "react-intl";
+import {connect} from "react-redux";
+
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -12,14 +17,17 @@ import {
   TemplatePlaceholder
 } from "@devexpress/dx-react-core";
 
-import GenericForm from "../GenericForm";
+import GenericForm from "modules/GenericForm";
+import {getLoadingByKey} from "redux/grids/selectors";
+import {addData, updateData} from "redux/grids";
+import {Loading} from "../ReactGrid/Loading";
 
 export const ExpandablePopup = ({
                  row,
                  onChange,
                  onApplyChanges,
                  onCancelChanges,
-                 open,
+                 open, loading
                }) => {
 
   const [formData ,setFormData] = useState({});
@@ -89,8 +97,8 @@ export const ExpandablePopup = ({
         <Button onClick={onCancelChanges} color="primary">
           Cancel
         </Button>
-        <Button disabled={!isValid} onClick={save} color="primary">
-          Save
+        <Button disabled={!isValid || loading} onClick={save} color="primary">
+          Save {loading && <Loading size={24} />}
         </Button>
       </DialogActions>
     </Dialog>
@@ -98,7 +106,11 @@ export const ExpandablePopup = ({
 };
 
 // Ref - https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/editing-in-popup/
-export const PopupEditing = React.memo(({ popupComponent: ExpandablePopup }) => (
+export const PopupEditingStateless = React.memo(({ popupComponent: ExpandablePopup, ...props }) => {
+  const [created, setCreated] = useState(false);
+  const [updated, setUpdated] = useState(false);
+
+  return(
   <Plugin>
     <Template name="popupEditing">
       <TemplateConnector>
@@ -148,13 +160,39 @@ export const PopupEditing = React.memo(({ popupComponent: ExpandablePopup }) => 
               }
             })
           };
+
+          /** When service is called, these components are used */
+          const CreatedState = () => {
+            useEffect(()=>{
+              if(created) {
+                commitAddedRows({ rowIds });
+                setCreated(false);
+              }
+            },[created]);
+            return (<></>);
+          }
+
+          const UpdatedState = () => {
+            useEffect(()=>{
+              if(updated) {
+                stopEditRows({ rowIds });
+                commitChangedRows({ rowIds });
+                setUpdated(false);
+              }
+            },[updated]);
+            return (<></>);
+          }
+
+          /** Service call */
           const rowIds = isNew ? [0] : editingRowIds;
           const applyChanges = () => {
             if (isNew) {
-              commitAddedRows({ rowIds });
+              props.actions.addData({key: props.id, data: editedRow});
+              setCreated(true);
             } else {
-              stopEditRows({ rowIds });
-              commitChangedRows({ rowIds });
+              const {id, ...data} = editedRow;
+              props.actions.updateData({key: props.id, id, data});
+              setUpdated(true);
             }
           };
           const cancelChanges = () => {
@@ -168,13 +206,18 @@ export const PopupEditing = React.memo(({ popupComponent: ExpandablePopup }) => 
 
           const open = (editingRowIds.length > 0 || isNew);
           return (
-            <ExpandablePopup
-              open={open}
-              row={editedRow}
-              onChange={processValueChange}
-              onApplyChanges={applyChanges}
-              onCancelChanges={cancelChanges}
-            />
+            <>
+              <ExpandablePopup
+                open={open}
+                row={editedRow}
+                onChange={processValueChange}
+                onApplyChanges={applyChanges}
+                onCancelChanges={cancelChanges}
+                loading={props.loading}
+              />
+              <CreatedState />
+              <UpdatedState />
+            </>
           );
         }}
       </TemplateConnector>
@@ -184,4 +227,29 @@ export const PopupEditing = React.memo(({ popupComponent: ExpandablePopup }) => 
       <TemplatePlaceholder name="popupEditing" />
     </Template>
   </Plugin>
-));
+  )}
+);
+
+const mapStateToProps = (state, props) => {
+  return {
+    loading: getLoadingByKey(state, props.id),
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  const actions = {
+    updateData: bindActionCreators(updateData, dispatch),
+    addData: bindActionCreators(addData, dispatch),
+  };
+  return { actions };
+};
+
+
+export const PopupEditing = compose(
+  withSnackbar,
+  injectIntl,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)(PopupEditingStateless)
