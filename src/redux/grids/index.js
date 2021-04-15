@@ -33,6 +33,7 @@ export const searchData = ({ key, page, query = [] }) => {
         })
         .catch(error => {
           dispatch(add({ key, loading: false }));
+          dispatch(add({ key, errors: {todo: "TODO()"} }));
         })
         .finally(() => {
           dispatch(add({ key, loading: false }));
@@ -67,13 +68,18 @@ export const updateData = ({ key, id, data }) => {
         .then(({status, data, ...rest}) => {
           dispatch(update({key, data}));
           dispatch(add({ key, loading: false }));
+          dispatch(add({ key, updated: true }));
         })
         .catch(error => {
           dispatch(add({ key, loading: false }));
+          dispatch(add({ key, updated: false }));
+          dispatch(add({ key, errors: {todo: "TODO()"} }));
         })
         .finally(() => dispatch(add({ key, loading: false })));
     }catch (error) {
       dispatch(add({ key, loading: false }));
+      dispatch(add({ key, updated: false }));
+      dispatch(add({ key, errors: {todo: "TODO()"} }));
     }
   }
 }
@@ -84,16 +90,30 @@ export const addData = ({ key, data }) => {
       dispatch(add({ key, loading: true }));
       Axios.post(API[key],JSON.stringify(data))
         .then(({status, data, ...rest}) => {
+          console.log("DEBUGGER");debugger
           dispatch(append({key, data}));
           dispatch(add({ key, loading: false }));
+          dispatch(add({ key, created: true }));
       })
       .catch(error => {
         dispatch(add({ key, loading: false }));
+        dispatch(add({ key, created: false }));
+        dispatch(add({ key, errors: {todo: "TODO()"} }));
       })
       .finally(() => dispatch(add({ key, loading: false })));
     }catch (error) {
       dispatch(add({ key, loading: false }));
+      dispatch(add({ key, created: false }));
+      dispatch(add({ key, errors: {todo: "TODO()"} }));
     }
+  }
+}
+
+export const successfullyEdited = ({key}) => {
+  return async dispatch => {
+    dispatch(add({key, updated: false}));
+    dispatch(add({key, created: false}));
+    dispatch(add({key, errors: {}}));
   }
 }
 
@@ -142,7 +162,9 @@ const initialState = {
     totalCount: 10,
     loading: false,
     errors: {},
-    refresh: false // when is true, it indicates that data is not updated
+    refresh: false, // when is true, it indicates that data is not updated
+    created: false, // it's true when the data is successfully created -> both must be put to false before to start to editing
+    updated: false // it's true when the data is successfully update
   }
 };
 

@@ -4,6 +4,7 @@ import {bindActionCreators,compose} from "redux";
 import {withSnackbar} from "notistack";
 import {injectIntl} from "react-intl";
 import {connect} from "react-redux";
+import {isEmpty} from "lodash";
 
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -18,8 +19,17 @@ import {
 } from "@devexpress/dx-react-core";
 
 import GenericForm from "modules/GenericForm";
-import {getLoadingByKey} from "redux/grids/selectors";
-import {addData, updateData} from "redux/grids";
+import {
+  getErrorsByKey,
+  getIsCreatedByKey,
+  getIsUpdatedByKey,
+  getLoadingByKey
+} from "redux/grids/selectors";
+import {
+  addData,
+  successfullyEdited,
+  updateData
+} from "redux/grids";
 import {Loading} from "../ReactGrid/Loading";
 
 export const ExpandablePopup = ({
@@ -107,8 +117,16 @@ export const ExpandablePopup = ({
 
 // Ref - https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/editing-in-popup/
 export const PopupEditingStateless = React.memo(({ popupComponent: ExpandablePopup, ...props }) => {
-  const [created, setCreated] = useState(false);
-  const [updated, setUpdated] = useState(false);
+
+  /** Show errors */
+  useEffect(()=>{
+    if(!isEmpty(props.errors)){
+      props.enqueueSnackbar(props.intl.formatMessage({
+        id: "ReactGrid.error.algo_salio_mal",
+        defaultMessage: "Ups! Algo ha salido mal :(",
+      }), {variant: 'error'});
+    }
+  },[props.errors]);
 
   return(
   <Plugin>
@@ -164,22 +182,30 @@ export const PopupEditingStateless = React.memo(({ popupComponent: ExpandablePop
           /** When service is called, these components are used */
           const CreatedState = () => {
             useEffect(()=>{
-              if(created) {
+              if(props.created) {
                 commitAddedRows({ rowIds });
-                setCreated(false);
+                props.actions.success({key: props.id});
+                props.enqueueSnackbar(props.intl.formatMessage({
+                  id: "CreateUpdateForm.creacion_correcta",
+                  defaultMessage: "Registro creado correctamente"
+                }), {variant: 'success'});
               }
-            },[created]);
+            },[props.created]);
             return (<></>);
           }
 
           const UpdatedState = () => {
             useEffect(()=>{
-              if(updated) {
+              if(props.updated) {
                 stopEditRows({ rowIds });
                 commitChangedRows({ rowIds });
-                setUpdated(false);
+                props.actions.success({key: props.id});
+                props.enqueueSnackbar(props.intl.formatMessage({
+                  id: "CreateUpdateForm.actualizacion_correcta",
+                  defaultMessage: "Registro actualizado correctamente"
+                }), {variant: 'success'});
               }
-            },[updated]);
+            },[props.updated]);
             return (<></>);
           }
 
@@ -188,11 +214,9 @@ export const PopupEditingStateless = React.memo(({ popupComponent: ExpandablePop
           const applyChanges = () => {
             if (isNew) {
               props.actions.addData({key: props.id, data: editedRow});
-              setCreated(true);
             } else {
               const {id, ...data} = editedRow;
               props.actions.updateData({key: props.id, id, data});
-              setUpdated(true);
             }
           };
           const cancelChanges = () => {
@@ -233,6 +257,9 @@ export const PopupEditingStateless = React.memo(({ popupComponent: ExpandablePop
 const mapStateToProps = (state, props) => {
   return {
     loading: getLoadingByKey(state, props.id),
+    created: getIsCreatedByKey(state, props.id),
+    updated: getIsUpdatedByKey(state, props.id),
+    errors: getErrorsByKey(state, props.id),
   };
 };
 
@@ -240,6 +267,7 @@ const mapDispatchToProps = (dispatch, props) => {
   const actions = {
     updateData: bindActionCreators(updateData, dispatch),
     addData: bindActionCreators(addData, dispatch),
+    success: bindActionCreators(successfullyEdited, dispatch),
   };
   return { actions };
 };
@@ -252,4 +280,4 @@ export const PopupEditing = compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)(PopupEditingStateless)
+)(PopupEditingStateless);
