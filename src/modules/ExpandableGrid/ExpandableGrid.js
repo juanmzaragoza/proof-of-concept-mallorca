@@ -2,13 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {compose} from "redux";
 import {injectIntl} from "react-intl";
 import PropTypes from "prop-types";
-import MomentUtils from '@date-io/moment';
-import {
-  Plugin,
-  Template,
-  TemplateConnector,
-  TemplatePlaceholder,
-} from '@devexpress/dx-react-core';
 import {
   CustomPaging,
   EditingState,
@@ -28,7 +21,7 @@ import {withSnackbar} from "notistack";
 import {Loading} from "../ReactGrid/Loading";
 import ExpandableContent from "./ExpandableContent";
 import {codiPostal} from "../../redux/api";
-import ExpandablePopup from "./ExpandablePopup";
+import {PopupEditing, ExpandablePopup} from "./ExpandablePopup";
 
 //TODO() apply intl
 const RowDetail = ({ row }) => (
@@ -40,95 +33,6 @@ const RowDetail = ({ row }) => (
   ]} />
 );
 
-// Ref - https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/editing-in-popup/
-const PopupEditing = React.memo(({ popupComponent: ExpandablePopup }) => (
-  <Plugin>
-    <Template name="popupEditing">
-      <TemplateConnector>
-        {(
-          {
-            rows,
-            getRowId,
-            addedRows,
-            editingRowIds,
-            createRowChange,
-            rowChanges,
-          },
-          {
-            changeRow, changeAddedRow, commitChangedRows, commitAddedRows,
-            stopEditRows, cancelAddedRows, cancelChangedRows,
-          },
-        ) => {
-          const isNew = addedRows.length > 0;
-          let editedRow;
-          let rowId;
-          if (isNew) {
-            rowId = 0;
-            editedRow = addedRows[rowId];
-          } else {
-            [rowId] = editingRowIds;
-            const targetRow = rows.filter(row => getRowId(row) === rowId)[0];
-            editedRow = { ...targetRow, ...rowChanges[rowId] };
-          }
-
-          /**
-           *  When change the formData object of values
-           **/
-          const processValueChange = (value) => {
-            let changeArgs = {
-              rowId,
-              change: () => {},
-            };
-            Object.keys(value).map(key => {
-              changeArgs = {
-                ...changeArgs,
-                change: createRowChange(editedRow, value[key], key),
-              };
-              if (isNew) {
-                changeAddedRow(changeArgs);
-              } else {
-                changeRow(changeArgs);
-              }
-            })
-          };
-          const rowIds = isNew ? [0] : editingRowIds;
-          const applyChanges = () => {
-            if (isNew) {
-              commitAddedRows({ rowIds });
-            } else {
-              stopEditRows({ rowIds });
-              commitChangedRows({ rowIds });
-            }
-          };
-          const cancelChanges = () => {
-            if (isNew) {
-              cancelAddedRows({ rowIds });
-            } else {
-              stopEditRows({ rowIds });
-              cancelChangedRows({ rowIds });
-            }
-          };
-
-          const open = editingRowIds.length > 0 || isNew;
-          return (
-            <ExpandablePopup
-              open={open}
-              row={editedRow}
-              onChange={processValueChange}
-              onApplyChanges={applyChanges}
-              onCancelChanges={cancelChanges}
-            />
-          );
-        }}
-      </TemplateConnector>
-    </Template>
-    <Template name="root">
-      <TemplatePlaceholder />
-      <TemplatePlaceholder name="popupEditing" />
-    </Template>
-  </Plugin>
-));
-
 const getRowId = row => row.id;
 const ExpandableGrid = ({ id, enabled = false, configuration,
                           enqueueSnackbar,
@@ -137,25 +41,22 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
   const [columns] = useState(configuration.columns);
   const [expandedRowIds, setExpandedRowIds] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
+  const [query] = useState([{columnName: 'proveidor.id', value: '"eyJpZGVudGlmaWNhZG9yQ29kaSI6IkxJTSIsImNvZGkiOiIwMDkwMzkifQ=="'}]);
 
+  const doRequest = () => {
+    actions.loadData({key: id, page: currentPage, query});
+  }
   useEffect(()=>{
-    refreshData && enabled && actions.loadData({key: id, page: currentPage});
+    refreshData && enabled && doRequest();
   },[refreshData]);
 
   useEffect(() =>{
-    enabled && actions.loadData({key: id, page: currentPage});
+    enabled && doRequest();
   },[enabled, currentPage]);
 
   const commitChanges = ({ added, changed, deleted }) => {
-    if (added) {
-      //TODO() think about update multiple at same time
-      actions.addData({key: id, data: added[0]});
-    }
-    if (changed) {
-      //TODO() think about update multiple at same time
-      const data = rows.find(row => !!changed[row.id]);
-      actions.updateData({key: id, data: changed[data.id]});
-    }
+    if (added) {}
+    if (changed) {}
     if(deleted) {
       //TODO() change this if we allow to delete multiples
       actions.deleteData({key: id, id: deleted[0]});
@@ -210,7 +111,7 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
         <TableRowDetail
           contentComponent={RowDetail}
         />
-        <PopupEditing popupComponent={ExpandablePopup} />
+        <PopupEditing id={id} popupComponent={ExpandablePopup} />
       </Grid>
       {loading && <Loading />}
     </Paper>

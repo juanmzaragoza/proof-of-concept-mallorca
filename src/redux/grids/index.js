@@ -11,11 +11,12 @@ const UPDATE_ROW = "UPDATE_ROW_GRID";
 const ADD_ROW = "ADD_ROW_GRID";
 
 //Functions
-export const searchData = ({ key, page }) => {
+export const searchData = ({ key, page, query = [] }) => {
   return async dispatch => {
     const formedURL = () => {
       const pagination = `&page=${page !== null ? page : 0}`;
-      const URL = `${API[key]}&size=${EXPANDABLE_GRID_LIMIT_PER_PAGE}${pagination}`;
+      const queryFilter = query.length > 0 ? `&query=${query.map(({ columnName, value }) => `${columnName}==${value}`).join(';')}` : "";
+      const URL = `${API[key]}?sort=codi&size=${EXPANDABLE_GRID_LIMIT_PER_PAGE}${pagination}${queryFilter}`;
       return URL;
     }
     try {
@@ -57,20 +58,20 @@ export const deleteData = ({ key, id }) => {
   }
 }
 
-export const updateData = ({ key, data }) => {
+export const updateData = ({ key, id, data }) => {
   return async dispatch => {
     try {
       dispatch(add({ key, loading: true }));
-      //TODO() uncomment and complete the put action
-      /*Axios.put(API[key],JSON.stringify(data))
-        .then(({status, data, ...rest}) => {*/
+      const URL = `${API[key]}/${id}`;
+      Axios.put(URL,JSON.stringify(data))
+        .then(({status, data, ...rest}) => {
           dispatch(update({key, data}));
           dispatch(add({ key, loading: false }));
-        /*})
+        })
         .catch(error => {
           dispatch(add({ key, loading: false }));
         })
-        .finally(() => dispatch(add({ key, loading: false })));*/
+        .finally(() => dispatch(add({ key, loading: false })));
     }catch (error) {
       dispatch(add({ key, loading: false }));
     }
@@ -81,16 +82,15 @@ export const addData = ({ key, data }) => {
   return async dispatch => {
     try {
       dispatch(add({ key, loading: true }));
-      //TODO() uncomment and complete the post action
-      /*Axios.post(API[key],JSON.stringify(data))
-        .then(({status, data, ...rest}) => {*/
-      dispatch(append({key, data}));
-      dispatch(add({ key, loading: false }));
-      /*})
+      Axios.post(API[key],JSON.stringify(data))
+        .then(({status, data, ...rest}) => {
+          dispatch(append({key, data}));
+          dispatch(add({ key, loading: false }));
+      })
       .catch(error => {
         dispatch(add({ key, loading: false }));
       })
-      .finally(() => dispatch(add({ key, loading: false })));*/
+      .finally(() => dispatch(add({ key, loading: false })));
     }catch (error) {
       dispatch(add({ key, loading: false }));
     }
@@ -173,8 +173,6 @@ export default (state = initialState, action) => {
   };
   const appendAction = () => {
     const {key, data} = action.payload;
-    const rows = state[key].data;
-    rows.unshift(data);
     return {...state, [key]: {
         ...state[key],
         refresh: true
