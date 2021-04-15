@@ -58,20 +58,20 @@ export const deleteData = ({ key, id }) => {
   }
 }
 
-export const updateData = ({ key, data }) => {
+export const updateData = ({ key, id, data }) => {
   return async dispatch => {
     try {
       dispatch(add({ key, loading: true }));
-      //TODO() uncomment and complete the put action
-      /*Axios.put(API[key],JSON.stringify(data))
-        .then(({status, data, ...rest}) => {*/
+      const URL = `${API[key]}/${id}`;
+      Axios.put(URL,JSON.stringify(data))
+        .then(({status, data, ...rest}) => {
           dispatch(update({key, data}));
           dispatch(add({ key, loading: false }));
-        /*})
+        })
         .catch(error => {
           dispatch(add({ key, loading: false }));
         })
-        .finally(() => dispatch(add({ key, loading: false })));*/
+        .finally(() => dispatch(add({ key, loading: false })));
     }catch (error) {
       dispatch(add({ key, loading: false }));
     }
