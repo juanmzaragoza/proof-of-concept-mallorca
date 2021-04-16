@@ -9,7 +9,7 @@ import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import {compose} from "redux";
-import withValidations from "../wrappers/withValidations";
+import {withValidations} from "modules/wrappers";
 import ExpandableGrid from "../ExpandableGrid";
 import {Chip} from "@material-ui/core";
 
