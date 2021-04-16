@@ -39,7 +39,7 @@ export const ExpandablePopup = ({
                 onApplyChanges,
                 onCancelChanges,
                 open, loading,
-                formComponents
+                formComponents, errors
                }) => {
 
   const [formData ,setFormData] = useState({});
@@ -71,7 +71,8 @@ export const ExpandablePopup = ({
           formData={row}
           setFormData={setFormData}
           submitFromOutside={submitFromOutside}
-          handleIsValid={setIsValid}/>
+          handleIsValid={setIsValid}
+          formErrors={errors}/>
       </DialogContent>
       <DialogActions>
         <Button onClick={onCancelChanges} color="primary">
@@ -209,6 +210,7 @@ export const PopupEditingStateless = React.memo(({ popupComponent: ExpandablePop
                 onApplyChanges={applyChanges}
                 onCancelChanges={cancelChanges}
                 loading={props.loading}
+                errors={props.errors}
               />
               <CreatedState />
               <UpdatedState />

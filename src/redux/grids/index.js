@@ -33,13 +33,14 @@ export const searchData = ({ key, page, query = [] }) => {
         })
         .catch(error => {
           dispatch(add({ key, loading: false }));
-          dispatch(add({ key, errors: {todo: "TODO()"} }));
+          dispatch(add({ key, errors: error.response }));
         })
         .finally(() => {
           dispatch(add({ key, loading: false }));
         });
     } catch (error) {
       dispatch(add({ key, loading: false }));
+      dispatch(add({ key, errors: error }));
     }
   };
 };
@@ -55,6 +56,7 @@ export const deleteData = ({ key, id }) => {
       },2000);
     } catch (error) {
       dispatch(add({ key, loading: false }));
+      dispatch(add({ key, errors: error }));
     }
   }
 }
@@ -73,13 +75,13 @@ export const updateData = ({ key, id, data }) => {
         .catch(error => {
           dispatch(add({ key, loading: false }));
           dispatch(add({ key, updated: false }));
-          dispatch(add({ key, errors: {todo: "TODO()"} }));
+          handlePersistError(key,error.response)(dispatch);
         })
         .finally(() => dispatch(add({ key, loading: false })));
     }catch (error) {
       dispatch(add({ key, loading: false }));
       dispatch(add({ key, updated: false }));
-      dispatch(add({ key, errors: {todo: "TODO()"} }));
+      dispatch(add({ key, errors: error }));
     }
   }
 }
@@ -90,7 +92,6 @@ export const addData = ({ key, data }) => {
       dispatch(add({ key, loading: true }));
       Axios.post(API[key],JSON.stringify(data))
         .then(({status, data, ...rest}) => {
-          console.log("DEBUGGER");debugger
           dispatch(append({key, data}));
           dispatch(add({ key, loading: false }));
           dispatch(add({ key, created: true }));
@@ -98,13 +99,13 @@ export const addData = ({ key, data }) => {
       .catch(error => {
         dispatch(add({ key, loading: false }));
         dispatch(add({ key, created: false }));
-        dispatch(add({ key, errors: {todo: "TODO()"} }));
+        handlePersistError(key,error.response)(dispatch);
       })
       .finally(() => dispatch(add({ key, loading: false })));
     }catch (error) {
       dispatch(add({ key, loading: false }));
       dispatch(add({ key, created: false }));
-      dispatch(add({ key, errors: {todo: "TODO()"} }));
+      dispatch(add({ key, errors: error }));
     }
   }
 }
@@ -114,6 +115,19 @@ export const successfullyEdited = ({key}) => {
     dispatch(add({key, updated: false}));
     dispatch(add({key, created: false}));
     dispatch(add({key, errors: {}}));
+  }
+}
+
+//TODO() refactor withAbmServices
+const handlePersistError = (key,{status, data}) => {
+  return async dispatch => {
+    if (status === 400 && data.errors) {
+      const errors = {};
+      for (const err of data.errors) {
+        errors[err.field] = {message: err.defaultMessage};
+      }
+      dispatch(add({key, errors}));
+    }
   }
 }
 
