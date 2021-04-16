@@ -111,7 +111,37 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
         <TableRowDetail
           contentComponent={RowDetail}
         />
-        <PopupEditing id={id} popupComponent={ExpandablePopup} />
+        <PopupEditing id={id} popupComponent={ExpandablePopup} formComponents={[
+        {
+          placeHolder: "Telefóno",
+          type: 'input',
+          key: 'telefon',
+          breakpoints: {
+            xs: 12,
+            md: 6
+          },
+          required: true,
+          validationType: "string",
+          validations:  [
+            {
+              type: "required",
+              params: ["Este campo es obligatorio"]
+            },
+            {
+              type: "nullable",
+              params: [true]
+            },
+          ]
+        },
+        {
+          placeHolder: "Fax",
+          type: 'input',
+          key: 'fax',
+          breakpoints: {
+          xs: 12,
+          md: 6
+        },
+        },]} />
       </Grid>
       {loading && <Loading />}
     </Paper>

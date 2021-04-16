@@ -4,6 +4,7 @@ import {bindActionCreators,compose} from "redux";
 import {withSnackbar} from "notistack";
 import {injectIntl} from "react-intl";
 import {connect} from "react-redux";
+import PropTypes from "prop-types";
 import {isEmpty} from "lodash";
 
 import Dialog from "@material-ui/core/Dialog";
@@ -33,48 +34,17 @@ import {
 import {Loading} from "../ReactGrid/Loading";
 
 export const ExpandablePopup = ({
-                 row,
-                 onChange,
-                 onApplyChanges,
-                 onCancelChanges,
-                 open, loading
+                row,
+                onChange,
+                onApplyChanges,
+                onCancelChanges,
+                open, loading,
+                formComponents
                }) => {
 
   const [formData ,setFormData] = useState({});
   const [submitFromOutside, setSubmitFromOutside] = useState(false);
   const [isValid, setIsValid] = useState(false);
-
-  const formComponents = [
-    {
-      placeHolder: "Telefóno",
-      type: 'input',
-      key: 'telefon',
-      breakpoints: {
-        xs: 12,
-        md: 6
-      },
-      required: true,
-      validationType: "string",
-      validations:  [
-        {
-          type: "required",
-          params: ["Este campo es obligatorio"]
-        },
-        {
-          type: "nullable",
-          params: [true]
-        },
-      ]
-    },
-    {
-      placeHolder: "Fax",
-      type: 'input',
-      key: 'fax',
-      breakpoints: {
-        xs: 12,
-        md: 6
-      },
-    },];
 
   useEffect(()=>{
     onChange(formData);
@@ -232,6 +202,7 @@ export const PopupEditingStateless = React.memo(({ popupComponent: ExpandablePop
           return (
             <>
               <ExpandablePopup
+                formComponents={props.formComponents}
                 open={open}
                 row={editedRow}
                 onChange={processValueChange}
@@ -272,6 +243,10 @@ const mapDispatchToProps = (dispatch, props) => {
   return { actions };
 };
 
+PopupEditingStateless.PropTypes = {
+  id: PropTypes.string.isRequired,
+  formComponents: PropTypes.string.isRequired,
+};
 
 export const PopupEditing = compose(
   withSnackbar,
