@@ -27,6 +27,8 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
   const EMAIL = props.intl.formatMessage({id: "Proveedores.Contacto.email", defaultMessage: "Email"});
   const CONTACTE = props.intl.formatMessage({id: "Proveedores.Contacto.contacto", defaultMessage: "Contact"});
   const DEFECTE = props.intl.formatMessage({id: "Proveedores.DireccionComercial.defecto", defaultMessage: "Defecto"});
+  const NOM = props.intl.formatMessage({id: "Comun.nombre", defaultMessage: "Nombre"});
+  const WWW = props.intl.formatMessage({id: "Proveedores.Contacto.web", defaultMessage: "WWW"});
 
   const getString = (key) => formData[key]? formData[key]:"";
   useEffect(() => {
@@ -54,10 +56,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
     {
       type: 'input',
       key: 'nom',
-      placeHolder: props.intl.formatMessage({
-        id: "Comun.nombre",
-        defaultMessage: "Nombre"
-      }),
+      placeHolder: NOM,
       required: true,
       breakpoints: {
         xs: 12,
@@ -81,6 +80,101 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         md: mdDes
       }
     }
+  ];
+
+  const codiPostal = (md = 6) => [
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.Direccion.codPostal",
+        defaultMessage: "Código Postal"
+      }),
+      type: 'LOV',
+      key: 'codiPostal',
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: md
+      },
+      validationType: "object",
+      ...withRequiredValidation(),
+      selector: {
+        key: "codiPostals",
+        labelKey: (data) => `${data.poblacio} ${data.municipi?` - ${data.municipi}`:''} (${data.codi})`,
+        sort: 'codi',
+        creationComponents: [
+          code(4),
+          {
+            placeHolder: props.intl.formatMessage({
+              id: "CodigoPostal.pais",
+              defaultMessage: "País"
+            }),
+            type: 'LOV',
+            key: 'pais',
+            required: false,
+            breakpoints: {
+              xs: 12,
+              md: 4
+            },
+            selector: {
+              key: "paises",
+              labelKey: (data) => `${data.nom} (${data.codi})`,
+              sort: 'codi',
+              cannotCreate: true,
+              relatedWith: {
+                name: 'provincia',
+                filterBy: 'pais.id',
+                keyValue: 'id'
+              }
+            }
+          },
+          {
+            placeHolder: props.intl.formatMessage({
+              id: "CodigoPostal.provincia",
+              defaultMessage: "Provincia"
+            }),
+            type: 'LOV',
+            key: 'provincia',
+            required: false,
+            breakpoints: {
+              xs: 12,
+              md: 4
+            },
+            selector: {
+              key: "provincias",
+              labelKey: (data) => `${data.nom} (${data.codi})`,
+              sort: 'codi',
+              cannotCreate: true,
+            }
+          },
+          {
+            type: 'input',
+            key: 'municipi',
+            placeHolder: props.intl.formatMessage({
+              id: "CodigoPostal.municipio",
+              defaultMessage: "Municipio"
+            }),
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 6
+            }
+          },
+          {
+            type: 'input',
+            key: 'poblacio',
+            placeHolder: props.intl.formatMessage({
+              id: "CodigoPostal.poblacion",
+              defaultMessage: "Población"
+            }),
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 6
+            }
+          },
+        ]
+      }
+    },
   ];
 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
@@ -560,98 +654,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       validationType: "string",
       validations:[...props.validationsArray.minMaxValidation(1,60)]
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Direccion.codPostal",
-        defaultMessage: "Código Postal"
-      }),
-      type: 'LOV',
-      key: 'codiPostal',
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 4
-      },
-      validationType: "object",
-      ...withRequiredValidation(),
-      selector: {
-        key: "codiPostals",
-        labelKey: (data) => `${data.poblacio} ${data.municipi?` - ${data.municipi}`:''} (${data.codi})`,
-        sort: 'codi',
-        creationComponents: [
-          code(4),
-          {
-            placeHolder: props.intl.formatMessage({
-              id: "CodigoPostal.pais",
-              defaultMessage: "País"
-            }),
-            type: 'LOV',
-            key: 'pais',
-            required: false,
-            breakpoints: {
-              xs: 12,
-              md: 4
-            },
-            selector: {
-              key: "paises",
-              labelKey: (data) => `${data.nom} (${data.codi})`,
-              sort: 'codi',
-              cannotCreate: true,
-              relatedWith: {
-                name: 'provincia',
-                filterBy: 'pais.id',
-                keyValue: 'id'
-              }
-            }
-          },
-          {
-            placeHolder: props.intl.formatMessage({
-              id: "CodigoPostal.provincia",
-              defaultMessage: "Provincia"
-            }),
-            type: 'LOV',
-            key: 'provincia',
-            required: false,
-            breakpoints: {
-              xs: 12,
-              md: 4
-            },
-            selector: {
-              key: "provincias",
-              labelKey: (data) => `${data.nom} (${data.codi})`,
-              sort: 'codi',
-              cannotCreate: true,
-            }
-          },
-          {
-            type: 'input',
-            key: 'municipi',
-            placeHolder: props.intl.formatMessage({
-              id: "CodigoPostal.municipio",
-              defaultMessage: "Municipio"
-            }),
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 6
-            }
-          },
-          {
-            type: 'input',
-            key: 'poblacio',
-            placeHolder: props.intl.formatMessage({
-              id: "CodigoPostal.poblacion",
-              defaultMessage: "Población"
-            }),
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 6
-            }
-          },
-        ]
-      }
-    },
+    ...codiPostal(4)
   ];
 
   const commercialAddressesConfig = {
@@ -669,6 +672,24 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
           <Chip label="NO" variant="outlined" />},
     ],
     formComponents: [
+      {
+        placeHolder: NOM,
+        type: 'input',
+        key: 'nomAdresaComercial',
+        breakpoints: {
+          xs: 12,
+          md: 6
+        },
+      },
+      {
+        placeHolder: CONTACTE,
+        type: 'input',
+        key: 'contacte',
+        breakpoints: {
+          xs: 12,
+          md: 6
+        },
+      },
       {
         placeHolder: TELEFON,
         type: 'input',
@@ -689,7 +710,48 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
           xs: 12,
           md: 6
         },
-      },]
+      },
+      {
+        placeHolder: EMAIL,
+        type: 'input',
+        key: 'email',
+        breakpoints: {
+          xs: 12,
+          md: 6
+        },
+      },
+      {
+        placeHolder: WWW,
+        type: 'input',
+        key: 'web',
+        breakpoints: {
+          xs: 12,
+          md: 6
+        },
+      },
+      ...codiPostal(6),
+      {
+        placeHolder: DEFECTE,
+        type: 'checkbox',
+        key: 'defecte',
+        breakpoints: {
+          xs: 12,
+          md: 6
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "FamiliaProveedores.observaciones",
+          defaultMessage: "Observaciones"
+        }),
+        type: 'input',
+        key: 'observacions',
+        breakpoints: {
+          xs: 12,
+          md: 12
+        },
+      },
+    ]
   }
 
   //TODO() REFACTOR -> can we move this?

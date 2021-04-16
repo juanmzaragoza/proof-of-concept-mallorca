@@ -245,7 +245,7 @@ const mapDispatchToProps = (dispatch, props) => {
 
 PopupEditingStateless.propTypes = {
   id: PropTypes.string.isRequired,
-  formComponents: PropTypes.string.isRequired,
+  formComponents: PropTypes.array.isRequired,
 };
 
 export const PopupEditing = compose(
