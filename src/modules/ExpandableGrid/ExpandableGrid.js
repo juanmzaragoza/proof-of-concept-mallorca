@@ -111,37 +111,7 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
         <TableRowDetail
           contentComponent={RowDetail}
         />
-        <PopupEditing id={id} popupComponent={ExpandablePopup} formComponents={[
-        {
-          placeHolder: "Telefóno",
-          type: 'input',
-          key: 'telefon',
-          breakpoints: {
-            xs: 12,
-            md: 6
-          },
-          required: true,
-          validationType: "string",
-          validations:  [
-            {
-              type: "required",
-              params: ["Este campo es obligatorio"]
-            },
-            {
-              type: "nullable",
-              params: [true]
-            },
-          ]
-        },
-        {
-          placeHolder: "Fax",
-          type: 'input',
-          key: 'fax',
-          breakpoints: {
-          xs: 12,
-          md: 6
-        },
-        },]} />
+        <PopupEditing id={id} popupComponent={ExpandablePopup} formComponents={configuration.formComponents} />
       </Grid>
       {loading && <Loading />}
     </Paper>
@@ -155,7 +125,8 @@ ExpandableGrid.propTypes = {
     columns: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string,
       title: PropTypes.string
-    })).isRequired
+    })).isRequired,
+    formComponents: PropTypes.array.isRequired
   })
 };
 

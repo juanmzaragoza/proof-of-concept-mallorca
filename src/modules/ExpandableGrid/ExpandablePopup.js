@@ -243,7 +243,7 @@ const mapDispatchToProps = (dispatch, props) => {
   return { actions };
 };
 
-PopupEditingStateless.PropTypes = {
+PopupEditingStateless.propTypes = {
   id: PropTypes.string.isRequired,
   formComponents: PropTypes.string.isRequired,
 };

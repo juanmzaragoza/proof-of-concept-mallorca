@@ -71,6 +71,7 @@
   "Proveedores.Direccion.direccionCompleta": "Dirección Completa",
   "Proveedores.Direccion.codPostal": "Código Postal",
   "Proveedores.Direccion.poblacion": "Población",
+  "Proveedores.DireccionComercial.defecto": "Defecto",
   "Proveedores.docpago": "Documento de Pago",
   "Proveedores.tvencimiento": "Tipo Vencimiento",
   "Proveedores.divisa": "Divisa",

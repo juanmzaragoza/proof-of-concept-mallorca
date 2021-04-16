@@ -20,6 +20,14 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
   const [formIsValid, setFormIsValid] = useState({});
   const [touched, setTouched] = useState({0:false, 1:false});
 
+  const CODE = props.intl.formatMessage({id: "Comun.codigo", defaultMessage: "Código"});
+  const DOMICILI = props.intl.formatMessage({id: "Proveedores.Direccion.domicilio", defaultMessage: "Domicilio"});
+  const TELEFON = props.intl.formatMessage({id: "Proveedores.Contacto.telefono", defaultMessage: "Telefóno"});
+  const FAX = props.intl.formatMessage({id: "Proveedores.Contacto.fax", defaultMessage: "Fax"});
+  const EMAIL = props.intl.formatMessage({id: "Proveedores.Contacto.email", defaultMessage: "Email"});
+  const CONTACTE = props.intl.formatMessage({id: "Proveedores.Contacto.contacto", defaultMessage: "Contact"});
+  const DEFECTE = props.intl.formatMessage({id: "Proveedores.DireccionComercial.defecto", defaultMessage: "Defecto"});
+
   const getString = (key) => formData[key]? formData[key]:"";
   useEffect(() => {
     const dir = getString('sg')+" "+getString('nomDomicili')+" "+getString('numeroDomicili')+" "+getString('escala')+" "+getString('pis')+" "+getString('porta');
@@ -34,10 +42,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
   const code = (md = 6) => ({
     type: 'input',
     key: 'codi',
-    placeHolder: props.intl.formatMessage({
-      id: "Comun.codigo",
-      defaultMessage: "Código"
-    }),
+    placeHolder: CODE,
     required: true,
     breakpoints: {
       xs: 12,
@@ -92,10 +97,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
 
   const suppliersConfig = [
     {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.codigo",
-        defaultMessage: "Código"
-      }),
+      placeHolder: CODE,
       type: 'input',
       key: 'codi',
       required: true,
@@ -478,10 +480,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       validations:[...props.validationsArray.minMaxValidation(1,2)]
     },
     {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Direccion.domicilio",
-        defaultMessage: "Domicilio"
-      }),
+      placeHolder: DOMICILI,
       type: 'input',
       key: 'nomDomicili',
       breakpoints: {
@@ -655,6 +654,44 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
     },
   ];
 
+  const commercialAddressesConfig = {
+    columns: [
+      { name: 'codi', title: CODE },
+      { name: 'domicili', title: DOMICILI },
+      { name: 'telefon', title: TELEFON },
+      { name: 'fax', title: FAX },
+      { name: 'email', title: EMAIL },
+      { name: 'contacte', title: CONTACTE },
+      { name: 'defecte', title: DEFECTE,
+        getCellValue: row => (row.defecte && row.defecte === true)?
+          <Chip label="SI" variant="outlined" />
+          :
+          <Chip label="NO" variant="outlined" />},
+    ],
+    formComponents: [
+      {
+        placeHolder: TELEFON,
+        type: 'input',
+        key: 'telefon',
+        breakpoints: {
+          xs: 12,
+          md: 6
+        },
+        required: true,
+        validationType: "string",
+        validations:  props.validationsArray.requiredValidation()
+      },
+      {
+        placeHolder: FAX,
+        type: 'input',
+        key: 'fax',
+        breakpoints: {
+          xs: 12,
+          md: 6
+        },
+      },]
+  }
+
   //TODO() REFACTOR -> can we move this?
   useEffect(()=>{
     validation(every(formIsValid, (v) => v));
@@ -693,20 +730,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       key: 1,
       component: <ExpandableGrid
         enabled={props.editMode}
-        configuration={{
-          columns: [
-            { name: 'codi', title: 'Código' },
-            { name: 'domicili', title: 'Domicilio' },
-            { name: 'telefon', title: 'Telefóno' },
-            { name: 'fax', title: 'Fax' },
-            { name: 'email', title: 'Email' },
-            { name: 'contacte', title: 'Contacto' },
-            { name: 'defecte', title: 'Defecto',
-              getCellValue: row => (row.defecte && row.defecte === true)?
-                <Chip label="SI" variant="outlined" />
-                :
-                <Chip label="NO" variant="outlined" />},
-          ]}}
+        configuration={commercialAddressesConfig}
         id='adresaComercials'/>
     },
     {
