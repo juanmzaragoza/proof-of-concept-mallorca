@@ -46,6 +46,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
     key: 'codi',
     placeHolder: CODE,
     required: true,
+    noEditable: true,
     breakpoints: {
       xs: 12,
       md: md
@@ -59,7 +60,6 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       key: 'nom',
       placeHolder: NOM,
       required: true,
-      noEditable: true,
       breakpoints: {
         xs: 12,
         md: mdName

@@ -34,7 +34,7 @@ import {
 import {Loading} from "../ReactGrid/Loading";
 
 export const ExpandablePopup = ({
-                row,
+                row, isEditing,
                 onChange,
                 onApplyChanges,
                 onCancelChanges,
@@ -65,6 +65,7 @@ export const ExpandablePopup = ({
       <DialogTitle id="form-dialog-title">Employee Details</DialogTitle>
       <DialogContent>
         <GenericForm
+          editMode={isEditing}
           emptyPaper={true}
           containerSpacing={0}
           formComponents={formComponents}
@@ -211,6 +212,7 @@ export const PopupEditingStateless = React.memo(({ popupComponent: ExpandablePop
                 onCancelChanges={cancelChanges}
                 loading={props.loading}
                 errors={props.errors}
+                isEditing={!isNew}
               />
               <CreatedState />
               <UpdatedState />
