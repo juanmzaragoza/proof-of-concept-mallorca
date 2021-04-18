@@ -5,7 +5,7 @@ import GenericForm from "../GenericForm";
 import React, {useEffect, useState} from "react";
 import {compose} from "redux";
 import {every} from "lodash";
-import withValidations from "../wrappers/withValidations";
+import {withValidations} from "modules/wrappers";
 
 const ContactTab = ({formData, setFormData, ...props}) => {
   const [formIsValid, setFormIsValid] = useState({});

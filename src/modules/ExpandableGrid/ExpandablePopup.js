@@ -4,6 +4,7 @@ import {bindActionCreators,compose} from "redux";
 import {withSnackbar} from "notistack";
 import {injectIntl} from "react-intl";
 import {connect} from "react-redux";
+import PropTypes from "prop-types";
 import {isEmpty} from "lodash";
 
 import Dialog from "@material-ui/core/Dialog";
@@ -33,48 +34,17 @@ import {
 import {Loading} from "../ReactGrid/Loading";
 
 export const ExpandablePopup = ({
-                 row,
-                 onChange,
-                 onApplyChanges,
-                 onCancelChanges,
-                 open, loading
+                row, isEditing,
+                onChange,
+                onApplyChanges,
+                onCancelChanges,
+                open, loading,
+                formComponents, errors
                }) => {
 
   const [formData ,setFormData] = useState({});
   const [submitFromOutside, setSubmitFromOutside] = useState(false);
   const [isValid, setIsValid] = useState(false);
-
-  const formComponents = [
-    {
-      placeHolder: "Telefóno",
-      type: 'input',
-      key: 'telefon',
-      breakpoints: {
-        xs: 12,
-        md: 6
-      },
-      required: true,
-      validationType: "string",
-      validations:  [
-        {
-          type: "required",
-          params: ["Este campo es obligatorio"]
-        },
-        {
-          type: "nullable",
-          params: [true]
-        },
-      ]
-    },
-    {
-      placeHolder: "Fax",
-      type: 'input',
-      key: 'fax',
-      breakpoints: {
-        xs: 12,
-        md: 6
-      },
-    },];
 
   useEffect(()=>{
     onChange(formData);
@@ -95,13 +65,15 @@ export const ExpandablePopup = ({
       <DialogTitle id="form-dialog-title">Employee Details</DialogTitle>
       <DialogContent>
         <GenericForm
+          editMode={isEditing}
           emptyPaper={true}
           containerSpacing={0}
           formComponents={formComponents}
           formData={row}
           setFormData={setFormData}
           submitFromOutside={submitFromOutside}
-          handleIsValid={setIsValid}/>
+          handleIsValid={setIsValid}
+          formErrors={errors}/>
       </DialogContent>
       <DialogActions>
         <Button onClick={onCancelChanges} color="primary">
@@ -213,7 +185,8 @@ export const PopupEditingStateless = React.memo(({ popupComponent: ExpandablePop
           const rowIds = isNew ? [0] : editingRowIds;
           const applyChanges = () => {
             if (isNew) {
-              props.actions.addData({key: props.id, data: editedRow});
+              // if I'm posting, I add extra body with data that doesn't come from the form
+              props.actions.addData({key: props.id, data: {...editedRow, ...(props.extraPostBody || {})}});
             } else {
               const {id, ...data} = editedRow;
               props.actions.updateData({key: props.id, id, data});
@@ -232,12 +205,15 @@ export const PopupEditingStateless = React.memo(({ popupComponent: ExpandablePop
           return (
             <>
               <ExpandablePopup
+                formComponents={props.formComponents}
                 open={open}
                 row={editedRow}
                 onChange={processValueChange}
                 onApplyChanges={applyChanges}
                 onCancelChanges={cancelChanges}
                 loading={props.loading}
+                errors={props.errors}
+                isEditing={!isNew}
               />
               <CreatedState />
               <UpdatedState />
@@ -272,6 +248,12 @@ const mapDispatchToProps = (dispatch, props) => {
   return { actions };
 };
 
+PopupEditingStateless.propTypes = {
+  id: PropTypes.string.isRequired,
+  formComponents: PropTypes.array.isRequired,
+  popupComponent: PropTypes.any.isRequired,
+  extraPostBody: PropTypes.object
+};
 
 export const PopupEditing = compose(
   withSnackbar,

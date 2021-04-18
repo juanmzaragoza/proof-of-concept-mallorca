@@ -18,10 +18,16 @@ import {
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from '@material-ui/core/Paper';
 import {withSnackbar} from "notistack";
+
+import './styles.scss';
 import {Loading} from "../ReactGrid/Loading";
 import ExpandableContent from "./ExpandableContent";
 import {codiPostal} from "../../redux/api";
 import {PopupEditing, ExpandablePopup} from "./ExpandablePopup";
+
+const TableComponent = ({ ...restProps }) => (
+  <Table.Table {...restProps} className="table-striped" />
+);
 
 //TODO() apply intl
 const RowDetail = ({ row }) => (
@@ -41,7 +47,12 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
   const [columns] = useState(configuration.columns);
   const [expandedRowIds, setExpandedRowIds] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [query] = useState([{columnName: 'proveidor.id', value: '"eyJpZGVudGlmaWNhZG9yQ29kaSI6IkxJTSIsImNvZGkiOiIwMDkwMzkifQ=="'}]);
+  const [query, setQuery] = useState([]);
+
+  /** Extra query for the searching */
+  useEffect(()=>{
+    setQuery(configuration.query || []);
+  },[configuration.query]);
 
   const doRequest = () => {
     actions.loadData({key: id, page: currentPage, query});
@@ -85,7 +96,7 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
           expandedRowIds={expandedRowIds}
           onExpandedRowIdsChange={setExpandedRowIds}
         />
-        <Table />
+        <Table tableComponent={TableComponent} />
         <TableHeaderRow />
         <TableEditColumn
           showAddCommand={enabled}
@@ -111,7 +122,10 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
         <TableRowDetail
           contentComponent={RowDetail}
         />
-        <PopupEditing id={id} popupComponent={ExpandablePopup} />
+        <PopupEditing id={id}
+                      popupComponent={ExpandablePopup}
+                      formComponents={configuration.formComponents}
+                      extraPostBody={configuration.extraPostBody} />
       </Grid>
       {loading && <Loading />}
     </Paper>
@@ -122,10 +136,16 @@ ExpandableGrid.propTypes = {
   id: PropTypes.string.isRequired,
   enabled: PropTypes.bool,
   configuration: PropTypes.shape({
-    columns: PropTypes.arrayOf(PropTypes.shape({
+    query: PropTypes.arrayOf(PropTypes.shape({ // for the searching
+      columnName: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired
+    })),
+    columns: PropTypes.arrayOf(PropTypes.shape({ // for the grid
       name: PropTypes.string,
       title: PropTypes.string
-    })).isRequired
+    })).isRequired,
+    formComponents: PropTypes.array.isRequired, // for the forms
+    extraPostBody: PropTypes.object // body for the POST
   })
 };
 
