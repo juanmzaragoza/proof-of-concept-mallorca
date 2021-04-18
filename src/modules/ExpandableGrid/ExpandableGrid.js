@@ -18,10 +18,16 @@ import {
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from '@material-ui/core/Paper';
 import {withSnackbar} from "notistack";
+
+import './styles.scss';
 import {Loading} from "../ReactGrid/Loading";
 import ExpandableContent from "./ExpandableContent";
 import {codiPostal} from "../../redux/api";
 import {PopupEditing, ExpandablePopup} from "./ExpandablePopup";
+
+const TableComponent = ({ ...restProps }) => (
+  <Table.Table {...restProps} className="table-striped" />
+);
 
 //TODO() apply intl
 const RowDetail = ({ row }) => (
@@ -90,7 +96,7 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
           expandedRowIds={expandedRowIds}
           onExpandedRowIdsChange={setExpandedRowIds}
         />
-        <Table />
+        <Table tableComponent={TableComponent} />
         <TableHeaderRow />
         <TableEditColumn
           showAddCommand={enabled}

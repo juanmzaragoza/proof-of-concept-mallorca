@@ -1,0 +1,9 @@
+/* zebra rows */
+.table-striped tr:nth-child(even){
+  background-color: rgba(250,250,250,0.95);
+}
+
+/* compact rows */
+.table-striped .MuiTableBody-root .MuiTableCell-root {
+  padding: 1px;
+}
