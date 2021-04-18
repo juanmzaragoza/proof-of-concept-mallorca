@@ -31,12 +31,14 @@ const TableComponent = ({ ...restProps }) => (
 
 //TODO() apply intl
 const RowDetail = ({ row }) => (
-  <ExpandableContent data={row} columns={[
-    {name: 'codi', title: 'Código'},
-    {name: 'codiPostal', title: 'Código Postal', func: (cod) => cod.description},
-    {name: 'nomAdresaComercial', title: 'Dirección Comercial'},
-    {name: 'proveidor', title: 'Proveedor', func: (prov) => prov.description},
-  ]} />
+  <div className="row-detail-root">
+    <ExpandableContent data={row} columns={[
+      {name: 'codi', title: 'Código'},
+      {name: 'codiPostal', title: 'Código Postal', func: (cod) => cod.description},
+      {name: 'nomAdresaComercial', title: 'Dirección Comercial'},
+      {name: 'proveidor', title: 'Proveedor', func: (prov) => prov.description},
+    ]} />
+  </div>
 );
 
 const getRowId = row => row.id;
