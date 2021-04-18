@@ -659,8 +659,14 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
     ...codiPostal(4)
   ];
 
+  //TODO() un-hardcode proveidor id
   const commercialAddressesConfig = {
-    query: [{columnName: 'proveidor.id', value: '"eyJpZGVudGlmaWNhZG9yQ29kaSI6IkxJTSIsImNvZGkiOiIwMDkwMzkifQ=="'}],
+    query: [
+      {columnName: 'proveidor.id', value: '"eyJpZGVudGlmaWNhZG9yQ29kaSI6IkxJTSIsImNvZGkiOiIwMDkwMzkifQ=="'}
+    ],
+    extraPostBody: {
+      proveidor: 'eyJpZGVudGlmaWNhZG9yQ29kaSI6IkxJTSIsImNvZGkiOiIwMDkwMzkifQ=='
+    },
     columns: [
       { name: 'codi', title: CODE },
       { name: 'domicili', title: DOMICILI },

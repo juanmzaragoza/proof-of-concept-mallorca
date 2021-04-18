@@ -185,7 +185,8 @@ export const PopupEditingStateless = React.memo(({ popupComponent: ExpandablePop
           const rowIds = isNew ? [0] : editingRowIds;
           const applyChanges = () => {
             if (isNew) {
-              props.actions.addData({key: props.id, data: editedRow});
+              // if I'm posting, I add extra body with data that doesn't come from the form
+              props.actions.addData({key: props.id, data: {...editedRow, ...(props.extraPostBody || {})}});
             } else {
               const {id, ...data} = editedRow;
               props.actions.updateData({key: props.id, id, data});
@@ -250,6 +251,8 @@ const mapDispatchToProps = (dispatch, props) => {
 PopupEditingStateless.propTypes = {
   id: PropTypes.string.isRequired,
   formComponents: PropTypes.array.isRequired,
+  popupComponent: PropTypes.any.isRequired,
+  extraPostBody: PropTypes.object
 };
 
 export const PopupEditing = compose(

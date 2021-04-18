@@ -43,6 +43,7 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
   const [currentPage, setCurrentPage] = useState(0);
   const [query, setQuery] = useState([]);
 
+  /** Extra query for the searching */
   useEffect(()=>{
     setQuery(configuration.query || []);
   },[configuration.query]);
@@ -115,7 +116,10 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
         <TableRowDetail
           contentComponent={RowDetail}
         />
-        <PopupEditing id={id} popupComponent={ExpandablePopup} formComponents={configuration.formComponents} />
+        <PopupEditing id={id}
+                      popupComponent={ExpandablePopup}
+                      formComponents={configuration.formComponents}
+                      extraPostBody={configuration.extraPostBody} />
       </Grid>
       {loading && <Loading />}
     </Paper>
@@ -126,15 +130,16 @@ ExpandableGrid.propTypes = {
   id: PropTypes.string.isRequired,
   enabled: PropTypes.bool,
   configuration: PropTypes.shape({
-    query: PropTypes.arrayOf(PropTypes.shape({
+    query: PropTypes.arrayOf(PropTypes.shape({ // for the searching
       columnName: PropTypes.string.isRequired,
       value: PropTypes.string.isRequired
     })),
-    columns: PropTypes.arrayOf(PropTypes.shape({
+    columns: PropTypes.arrayOf(PropTypes.shape({ // for the grid
       name: PropTypes.string,
       title: PropTypes.string
     })).isRequired,
-    formComponents: PropTypes.array.isRequired
+    formComponents: PropTypes.array.isRequired, // for the forms
+    extraPostBody: PropTypes.object // body for the POST
   })
 };
 
