@@ -41,7 +41,11 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
   const [columns] = useState(configuration.columns);
   const [expandedRowIds, setExpandedRowIds] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [query] = useState([{columnName: 'proveidor.id', value: '"eyJpZGVudGlmaWNhZG9yQ29kaSI6IkxJTSIsImNvZGkiOiIwMDkwMzkifQ=="'}]);
+  const [query, setQuery] = useState([]);
+
+  useEffect(()=>{
+    setQuery(configuration.query || []);
+  },[configuration.query]);
 
   const doRequest = () => {
     actions.loadData({key: id, page: currentPage, query});
@@ -122,6 +126,10 @@ ExpandableGrid.propTypes = {
   id: PropTypes.string.isRequired,
   enabled: PropTypes.bool,
   configuration: PropTypes.shape({
+    query: PropTypes.arrayOf(PropTypes.shape({
+      columnName: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired
+    })),
     columns: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string,
       title: PropTypes.string

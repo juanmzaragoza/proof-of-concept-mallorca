@@ -52,12 +52,14 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
     }
   });
 
-  const codeAndName = (mdCode = 6, mdName = 6) => [code(mdCode),
+  const codeAndName = (mdCode = 6, mdName = 6) => [
+    code(mdCode),
     {
       type: 'input',
       key: 'nom',
       placeHolder: NOM,
       required: true,
+      noEditable: true,
       breakpoints: {
         xs: 12,
         md: mdName
@@ -658,6 +660,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
   ];
 
   const commercialAddressesConfig = {
+    query: [{columnName: 'proveidor.id', value: '"eyJpZGVudGlmaWNhZG9yQ29kaSI6IkxJTSIsImNvZGkiOiIwMDkwMzkifQ=="'}],
     columns: [
       { name: 'codi', title: CODE },
       { name: 'domicili', title: DOMICILI },
@@ -672,6 +675,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
           <Chip label="NO" variant="outlined" />},
     ],
     formComponents: [
+      code(),
       {
         placeHolder: NOM,
         type: 'input',
@@ -680,6 +684,18 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
           xs: 12,
           md: 6
         },
+      },
+      {
+        placeHolder: DOMICILI,
+        type: 'input',
+        key: 'domicili',
+        breakpoints: {
+          xs: 12,
+          md: 6
+        },
+        required: true,
+        validationType: "string",
+        ...withRequiredValidation([...props.validationsArray.minMaxValidation(1,30)])
       },
       {
         placeHolder: CONTACTE,
@@ -700,7 +716,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         },
         required: true,
         validationType: "string",
-        validations:  props.validationsArray.requiredValidation()
+        ...withRequiredValidation()
       },
       {
         placeHolder: FAX,
@@ -791,9 +807,9 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       label: <FormattedMessage id={"Proveedores.direcciones_comerciales"} defaultMessage={"Direcciones Comerciales"}/>,
       key: 1,
       component: <ExpandableGrid
+        id='adresaComercials'
         enabled={props.editMode}
-        configuration={commercialAddressesConfig}
-        id='adresaComercials'/>
+        configuration={commercialAddressesConfig} />
     },
     {
       label: <FormattedMessage id={"Proveedores.tipos_proveedor"} defaultMessage={"Tipos de Proveedor"}/>,
