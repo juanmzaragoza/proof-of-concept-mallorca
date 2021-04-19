@@ -23,7 +23,6 @@ import {withSnackbar} from "notistack";
 import './styles.scss';
 import {Loading} from "../ReactGrid/Loading";
 import ExpandableContent from "./ExpandableContent";
-import {codiPostal} from "../../redux/api";
 import {PopupEditing, ExpandablePopup} from "./ExpandablePopup";
 
 const TableComponent = ({ ...restProps }) => (
@@ -38,16 +37,10 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
   const [columns] = useState(configuration.columns.filter(col => !col.hidden));
   const [expandedRowIds, setExpandedRowIds] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [query, setQuery] = useState([]);
   const [sorting, setSorting] = useState([]);
 
-  /** Extra query for the searching */
-  useEffect(()=>{
-    setQuery(configuration.query || []);
-  },[configuration.query]);
-
   const doRequest = () => {
-    actions.loadData({key: id, page: currentPage, query, sorting});
+    actions.loadData({key: id, page: currentPage, query: configuration.query || [], sorting});
   }
   useEffect(()=>{
     refreshData && enabled && doRequest();
@@ -55,7 +48,7 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
 
   useEffect(() =>{
     enabled && doRequest();
-  },[enabled, currentPage, sorting]);
+  },[enabled, currentPage, sorting, configuration.query]);
 
   const commitChanges = ({ added, changed, deleted }) => {
     if (added) {}

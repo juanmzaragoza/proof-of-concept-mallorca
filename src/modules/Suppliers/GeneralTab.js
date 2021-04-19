@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import Grid from "@material-ui/core/Grid/Grid";
+import {useParams} from "react-router-dom";
 import {FormattedMessage, injectIntl} from "react-intl";
 import { every } from "lodash";
-import "./styles.scss";
+import Grid from "@material-ui/core/Grid/Grid";
 
 import {TDOC_SELECTOR_VALUES} from "constants/selectors";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
@@ -13,12 +13,16 @@ import {withValidations} from "modules/wrappers";
 import ExpandableGrid from "../ExpandableGrid";
 import {Chip} from "@material-ui/core";
 
+import "./styles.scss";
+
 const SUPPLIERS_SECTION_INDEX = 0;
 const ADDRESS_SECTION_TAB_INDEX = 1;
 
 const GeneralTab = ({formData, setFormData, ...props}) => {
   const [formIsValid, setFormIsValid] = useState({});
   const [touched, setTouched] = useState({0:false, 1:false});
+
+  const { id: supplierId } = useParams();
 
   const CODE = props.intl.formatMessage({id: "Comun.codigo", defaultMessage: "Código"});
   const DOMICILI = props.intl.formatMessage({id: "Proveedores.Direccion.domicilio", defaultMessage: "Domicilio"});
@@ -660,13 +664,12 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
     ...codiPostal(4)
   ];
 
-  //TODO() un-hardcode proveidor id
   const commercialAddressesConfig = {
     query: [
-      {columnName: 'proveidor.id', value: '"eyJpZGVudGlmaWNhZG9yQ29kaSI6IkxJTSIsImNvZGkiOiIwMDkwMzkifQ=="'}
+      {columnName: 'proveidor.id', value: `"${supplierId}"`}
     ],
     extraPostBody: {
-      proveidor: {id: 'eyJpZGVudGlmaWNhZG9yQ29kaSI6IkxJTSIsImNvZGkiOiIwMDkwMzkifQ=='}
+      proveidor: {id: supplierId}
     },
     columns: [
       { name: 'codi', title: CODE },
