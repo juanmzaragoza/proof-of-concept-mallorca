@@ -61,7 +61,12 @@ export const ExpandablePopup = ({
   },[submitFromOutside]);
 
   return (
-    <Dialog open={open} onClose={onCancelChanges} aria-labelledby="form-dialog-title">
+    <Dialog
+      open={open}
+      onClose={onCancelChanges}
+      fullWidth={true}
+      maxWidth={'lg'}
+      aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Employee Details</DialogTitle>
       <DialogContent>
         <GenericForm
