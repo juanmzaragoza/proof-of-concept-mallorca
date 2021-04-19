@@ -26,7 +26,7 @@ export const searchData = ({ key, page, query = [], sorting = [] }) => {
         .get(formedURL())
         .then(({data}) => data)
         .then(({_embedded, page}) => {
-          dispatch(add({ key, data: _embedded[key] }));
+          dispatch(add({ key, data: _embedded? _embedded[key]:[] }));
           dispatch(add({ key, totalCount: page.totalElements }));
           dispatch(add({ key, loading: false }));
           dispatch(add({ key, pageSize: EXPANDABLE_GRID_LIMIT_PER_PAGE }));
@@ -34,7 +34,7 @@ export const searchData = ({ key, page, query = [], sorting = [] }) => {
         })
         .catch(error => {
           dispatch(add({ key, loading: false }));
-          dispatch(add({ key, errors: error.response }));
+          dispatch(add({ key, errors: error.response? error.response:error }));
         })
         .finally(() => {
           dispatch(add({ key, loading: false }));
