@@ -11,12 +11,13 @@ const UPDATE_ROW = "UPDATE_ROW_GRID";
 const ADD_ROW = "ADD_ROW_GRID";
 
 //Functions
-export const searchData = ({ key, page, query = [] }) => {
+export const searchData = ({ key, page, query = [], sorting = [] }) => {
   return async dispatch => {
     const formedURL = () => {
       const pagination = `&page=${page !== null ? page : 0}`;
       const queryFilter = query.length > 0 ? `&query=${query.map(({ columnName, value }) => `${columnName}==${value}`).join(';')}` : "";
-      const URL = `${API[key]}?sort=codi&size=${EXPANDABLE_GRID_LIMIT_PER_PAGE}${pagination}${queryFilter}`;
+      const sort = `&sort=${sorting.length > 0? sorting.map(({ columnName, direction }) => `${columnName},${direction}`).join(';'):"codi"}`;
+      const URL = `${API[key]}?size=${EXPANDABLE_GRID_LIMIT_PER_PAGE}${pagination}${queryFilter}${sort}`;
       return URL;
     }
     try {

@@ -7,6 +7,7 @@ import {
   EditingState,
   PagingState,
   RowDetailState,
+  SortingState
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -14,7 +15,7 @@ import {
   TableHeaderRow,
   TableEditColumn,
   PagingPanel,
-  TableRowDetail,
+  TableRowDetail
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from '@material-ui/core/Paper';
 import {withSnackbar} from "notistack";
@@ -50,6 +51,7 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
   const [expandedRowIds, setExpandedRowIds] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [query, setQuery] = useState([]);
+  const [sorting, setSorting] = useState([]);
 
   /** Extra query for the searching */
   useEffect(()=>{
@@ -57,7 +59,7 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
   },[configuration.query]);
 
   const doRequest = () => {
-    actions.loadData({key: id, page: currentPage, query});
+    actions.loadData({key: id, page: currentPage, query, sorting});
   }
   useEffect(()=>{
     refreshData && enabled && doRequest();
@@ -65,7 +67,7 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
 
   useEffect(() =>{
     enabled && doRequest();
-  },[enabled, currentPage]);
+  },[enabled, currentPage, sorting]);
 
   const commitChanges = ({ added, changed, deleted }) => {
     if (added) {}
@@ -98,8 +100,12 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
           expandedRowIds={expandedRowIds}
           onExpandedRowIdsChange={setExpandedRowIds}
         />
+        <SortingState
+          sorting={sorting}
+          onSortingChange={setSorting}
+        />
         <Table tableComponent={TableComponent} />
-        <TableHeaderRow />
+        <TableHeaderRow showSortingControls />
         <TableEditColumn
           showAddCommand={enabled}
           showEditCommand
