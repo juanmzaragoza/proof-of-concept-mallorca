@@ -7,6 +7,7 @@ import {
   EditingState,
   PagingState,
   RowDetailState,
+  SortingState
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -29,6 +30,8 @@ const TableComponent = ({ ...restProps }) => (
   <Table.Table {...restProps} className="table-striped" />
 );
 
+
+
 //TODO() apply intl
 const RowDetail = ({ row }) => (
   <div className="row-detail-root">
@@ -50,6 +53,7 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
   const [expandedRowIds, setExpandedRowIds] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [query, setQuery] = useState([]);
+  const [sorting, setSorting] = useState([]);
 
   /** Extra query for the searching */
   useEffect(()=>{
@@ -57,7 +61,7 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
   },[configuration.query]);
 
   const doRequest = () => {
-    actions.loadData({key: id, page: currentPage, query});
+    actions.loadData({key: id, page: currentPage, query, sorting});
   }
   useEffect(()=>{
     refreshData && enabled && doRequest();
@@ -65,7 +69,7 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
 
   useEffect(() =>{
     enabled && doRequest();
-  },[enabled, currentPage]);
+  },[enabled, currentPage, sorting]);
 
   const commitChanges = ({ added, changed, deleted }) => {
     if (added) {}
@@ -75,6 +79,12 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
       actions.deleteData({key: id, id: deleted[0]});
     }
   };
+
+  const RowComponent = (props) => {
+    const expanded = expandedRowIds.filter(rowId => props.tableRow.rowId === rowId);
+    const className = expanded.length > 0? "expanded-row":"";
+    return <Table.Row {...props} className={className} />;
+  }
 
   return (
     <Paper>
@@ -98,8 +108,12 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
           expandedRowIds={expandedRowIds}
           onExpandedRowIdsChange={setExpandedRowIds}
         />
-        <Table tableComponent={TableComponent} />
-        <TableHeaderRow />
+        <SortingState
+          sorting={sorting}
+          onSortingChange={setSorting}
+        />
+        <Table tableComponent={TableComponent} rowComponent={RowComponent}/>
+        <TableHeaderRow showSortingControls />
         <TableEditColumn
           showAddCommand={enabled}
           showEditCommand
