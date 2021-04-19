@@ -665,7 +665,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       {columnName: 'proveidor.id', value: '"eyJpZGVudGlmaWNhZG9yQ29kaSI6IkxJTSIsImNvZGkiOiIwMDkwMzkifQ=="'}
     ],
     extraPostBody: {
-      proveidor: 'eyJpZGVudGlmaWNhZG9yQ29kaSI6IkxJTSIsImNvZGkiOiIwMDkwMzkifQ=='
+      proveidor: {id: 'eyJpZGVudGlmaWNhZG9yQ29kaSI6IkxJTSIsImNvZGkiOiIwMDkwMzkifQ=='}
     },
     columns: [
       { name: 'codi', title: CODE },
