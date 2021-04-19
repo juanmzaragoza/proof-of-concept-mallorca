@@ -15,7 +15,7 @@ import {
   TableHeaderRow,
   TableEditColumn,
   PagingPanel,
-  TableRowDetail
+  TableRowDetail,
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from '@material-ui/core/Paper';
 import {withSnackbar} from "notistack";
@@ -29,6 +29,8 @@ import {PopupEditing, ExpandablePopup} from "./ExpandablePopup";
 const TableComponent = ({ ...restProps }) => (
   <Table.Table {...restProps} className="table-striped" />
 );
+
+
 
 //TODO() apply intl
 const RowDetail = ({ row }) => (
@@ -78,6 +80,12 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
     }
   };
 
+  const RowComponent = (props) => {
+    const expanded = expandedRowIds.filter(rowId => props.tableRow.rowId === rowId);
+    const className = expanded.length > 0? "expanded-row":"";
+    return <Table.Row {...props} className={className} />;
+  }
+
   return (
     <Paper>
       <Grid
@@ -104,7 +112,7 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
           sorting={sorting}
           onSortingChange={setSorting}
         />
-        <Table tableComponent={TableComponent} />
+        <Table tableComponent={TableComponent} rowComponent={RowComponent}/>
         <TableHeaderRow showSortingControls />
         <TableEditColumn
           showAddCommand={enabled}
