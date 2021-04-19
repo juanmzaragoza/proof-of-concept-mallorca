@@ -30,26 +30,12 @@ const TableComponent = ({ ...restProps }) => (
   <Table.Table {...restProps} className="table-striped" />
 );
 
-
-
-//TODO() apply intl
-const RowDetail = ({ row }) => (
-  <div className="row-detail-root">
-    <ExpandableContent data={row} columns={[
-      {name: 'codi', title: 'Código'},
-      {name: 'codiPostal', title: 'Código Postal', func: (cod) => cod.description},
-      {name: 'nomAdresaComercial', title: 'Dirección Comercial'},
-      {name: 'proveidor', title: 'Proveedor', func: (prov) => prov.description},
-    ]} />
-  </div>
-);
-
 const getRowId = row => row.id;
 const ExpandableGrid = ({ id, enabled = false, configuration,
                           enqueueSnackbar,
                           rows, totalCount, pageSize, loading, refreshData,
                           actions, ...props}) => {
-  const [columns] = useState(configuration.columns);
+  const [columns] = useState(configuration.columns.filter(col => !col.hidden));
   const [expandedRowIds, setExpandedRowIds] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [query, setQuery] = useState([]);
@@ -79,6 +65,13 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
       actions.deleteData({key: id, id: deleted[0]});
     }
   };
+
+  const RowDetail = ({ row }) => (
+    <div className="row-detail-root">
+      <ExpandableContent data={row}
+                         columns={configuration.columns.map(column => ({...column, func: column.getCellValue}))} />
+    </div>
+  );
 
   const RowComponent = (props) => {
     const expanded = expandedRowIds.filter(rowId => props.tableRow.rowId === rowId);
@@ -158,7 +151,8 @@ ExpandableGrid.propTypes = {
     })),
     columns: PropTypes.arrayOf(PropTypes.shape({ // for the grid
       name: PropTypes.string,
-      title: PropTypes.string
+      title: PropTypes.string,
+      hidden: PropTypes.bool
     })).isRequired,
     formComponents: PropTypes.array.isRequired, // for the forms
     extraPostBody: PropTypes.object // body for the POST

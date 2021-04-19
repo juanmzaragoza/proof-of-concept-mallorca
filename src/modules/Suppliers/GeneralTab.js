@@ -29,6 +29,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
   const DEFECTE = props.intl.formatMessage({id: "Proveedores.DireccionComercial.defecto", defaultMessage: "Defecto"});
   const NOM = props.intl.formatMessage({id: "Comun.nombre", defaultMessage: "Nombre"});
   const WWW = props.intl.formatMessage({id: "Proveedores.Contacto.web", defaultMessage: "WWW"});
+  const OBS = props.intl.formatMessage({id: "FamiliaProveedores.observaciones",  defaultMessage: "Observaciones"});
 
   const getString = (key) => formData[key]? formData[key]:"";
   useEffect(() => {
@@ -679,6 +680,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
           <Chip label="SI" variant="outlined" />
           :
           <Chip label="NO" variant="outlined" />},
+      { name: 'observacions', title: OBS, hidden: true },
     ],
     formComponents: [
       code(),
@@ -762,10 +764,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         },
       },
       {
-        placeHolder: props.intl.formatMessage({
-          id: "FamiliaProveedores.observaciones",
-          defaultMessage: "Observaciones"
-        }),
+        placeHolder: OBS,
         type: 'input',
         key: 'observacions',
         breakpoints: {
