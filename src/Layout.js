@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import clsx from 'clsx';
 import {Redirect, Route, Switch, useHistory} from "react-router-dom";
+import {connect} from "react-redux";
+import {bindActionCreators, compose} from 'redux';
 
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -19,6 +21,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import {AccountCircle ,More} from "@material-ui/icons";
 
 import modules from "./modules";
+import * as ROUTES from "constants/routes";
 
 import DrawerMenu from "./components/DrawerMenu";
 
@@ -27,6 +30,8 @@ import EnterpriseGroupSelect from "./components/EnterpriseGroupSelect";
 import PageHeader from "modules/PageHeader";
 import {PrivateRoute} from "modules/Authentication";
 import {isUserAuthenticated} from "helper/login-helper";
+import {logout} from "./redux/app";
+import {getAuthenticated} from "./redux/app/selectors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -107,11 +112,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 const Layout = ({ children, ...props}) => {
   const classes = useStyles();
+  const history = useHistory();
+
   const [open, setOpen] = useState(false);
 
-  const history = useHistory();
+  useEffect(() => {
+    if(!props.authenticated) history.push(ROUTES.LOGIN);
+  },[props.authenticated]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -145,7 +156,7 @@ const Layout = ({ children, ...props}) => {
   };
 
   const handleLogout = () => {
-    history.push("/login");
+    props.actions.logout();
   };
 
   const menuId = 'primary-search-account-menu';
@@ -292,4 +303,19 @@ const Layout = ({ children, ...props}) => {
   );
 }
 
-export default Layout;
+const mapStateToProps = (state, props) => {
+  return {
+    authenticated: getAuthenticated(state) || !!isUserAuthenticated(),
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  const actions = {
+    logout: bindActionCreators(logout, dispatch),
+  };
+  return { actions };
+};
+
+export default compose(
+  connect(mapStateToProps,mapDispatchToProps)
+)(Layout);

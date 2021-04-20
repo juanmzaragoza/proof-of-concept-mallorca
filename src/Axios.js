@@ -1,10 +1,11 @@
 //import { config } from "./../base";
 import axios from "axios";
 import {getPlainFrom} from "./helper/storage";
+import {TOKEN_LOCALSTORAGE_KEY} from "./constants";
 
 const Axios = axios.create();
 
-const authToken = () => 'Bearer ' + getPlainFrom('token');
+const authToken = () => 'Bearer ' + getPlainFrom(TOKEN_LOCALSTORAGE_KEY);
 
 //Axios.defaults.baseURL = config.apiRoot;
 Axios.defaults.baseURL = 'https://10.35.3.44:8083/';
