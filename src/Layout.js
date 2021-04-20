@@ -276,6 +276,11 @@ const Layout = ({ children, ...props}) => {
                 <Route {...module.routeProps} key={module.name} />
               ))
             }
+            {/* TODO() add not found component */}
+            <Route exact={'not-found'} >
+              Ups!!! Vuelva a intentarlo :)
+            </Route>
+            <Redirect from="*" to={'not-found'} />
           </Switch>
 
         </main>
