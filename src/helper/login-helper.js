@@ -35,3 +35,7 @@ export const login = () => {
     window.alert("NO SE PUDO OBTENER ADMIN/ADMIN")
   });
 }
+
+export const isUserAuthenticated = () => {
+  return !!getPlainFrom('token');
+}

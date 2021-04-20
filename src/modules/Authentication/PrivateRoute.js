@@ -1,17 +1,18 @@
 import React, { Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
+import PropTypes from "prop-types";
 import * as ROUTES from "../../constants/routes";
 
 const PrivateRoute = (props) => {
-  const isUserAuthenticated = () =>{
-    return true;
-  };
-
   return (
     <Fragment>
-      { isUserAuthenticated() ? props.children : <Redirect to={ROUTES.LOGIN} /> }
+      { props.isUserAuthenticated() ? props.children : <Redirect to={ROUTES.LOGIN} /> }
     </Fragment>
   )
+}
+
+PrivateRoute.propTypes = {
+  isUserAuthenticated: PropTypes.func.isRequired
 }
 
 export default PrivateRoute;

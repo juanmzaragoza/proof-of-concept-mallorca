@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useHistory } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import Card from '@material-ui/core/Card';
 import Link from '@material-ui/core/Link';
@@ -12,12 +13,17 @@ import Logo from "assets/img/logo.png";
 import Password from './password.input';
 import AuthLayout from './AuthLayout';
 
-const Login = () => {
+const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, ] = useState(false);
 
   const history = useHistory();
+
+  useEffect(()=>{
+    /** Redirect to index */
+    if(props.isUserAuthenticated()) history.push('/');
+  },[]);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -73,5 +79,9 @@ const Login = () => {
     </AuthLayout>
   );
 };
+
+Login.propTypes = {
+  isUserAuthenticated: PropTypes.func.isRequired
+}
 
 export default Login;

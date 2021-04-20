@@ -25,6 +25,8 @@ import DrawerMenu from "./components/DrawerMenu";
 import {drawerWidth} from "./constants/styles";
 import EnterpriseGroupSelect from "./components/EnterpriseGroupSelect";
 import PageHeader from "modules/PageHeader";
+import {PrivateRoute} from "modules/Authentication";
+import {isUserAuthenticated} from "helper/login-helper";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -271,13 +273,15 @@ const Layout = ({ children, ...props}) => {
           <Switch>
             {/** Default page */}
             <Redirect exact from={'/'} to={'familia-proveedores'} />
-            {/** Modules */}
-            {modules
-              .filter(module => module.routeProps)
-              .map(module => (
-                <Route {...module.routeProps} key={module.name} />
-              ))
-            }
+            {/** Private modules */}
+            <PrivateRoute isUserAuthenticated={isUserAuthenticated}>
+              {modules
+                .filter(module => module.routeProps)
+                .map(module => (
+                  <Route {...module.routeProps} key={module.name} />
+                ))
+              }
+            </PrivateRoute>
             {/* TODO() add not found component */}
             <Route path={'/not-found'} exact={true} component={() => <div>Ups!!! Vuelva a intentarlo :)</div>} />
             <Redirect to="not-found" />
