@@ -776,6 +776,9 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
           xs: 12,
           md: 12
         },
+        text: {
+          multiline: 6
+        }
       },
     ]
   }
