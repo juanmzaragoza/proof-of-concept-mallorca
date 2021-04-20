@@ -9,8 +9,8 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 import Logo from "assets/img/logo.png";
 
-import Password from 'components/password.input';
-import AuthLayout from 'components/AuthLayout';
+import Password from './password.input';
+import AuthLayout from './AuthLayout';
 
 const Login = () => {
   const [email, setEmail] = useState('');

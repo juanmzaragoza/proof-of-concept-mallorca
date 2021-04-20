@@ -10,10 +10,11 @@ import { SnackbarProvider } from 'notistack';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 
-import { theme } from './constants/theme';
-import Login from './modules/Login';
+import { theme } from 'constants/theme';
+import * as ROUTES from "constants/routes";
+import { Login } from 'modules/Authentication';
 import Layout from "./Layout";
-import {login} from "./helper/before-login-helper";
+import {login} from "helper/before-login-helper";
 
 function App() {
   login();
@@ -31,7 +32,7 @@ function App() {
               <div>
                 <Switch>
                   {/* <Route exact path='/admin' component={Login} /> */}
-                  <Route exact path='/login' component={Login} />
+                  <Route exact path={ROUTES.LOGIN} component={Login} />
                   <Route path='/' component={Layout} />
                 </Switch>
                 {/*TODO() -> conectar hooks en vez de redux

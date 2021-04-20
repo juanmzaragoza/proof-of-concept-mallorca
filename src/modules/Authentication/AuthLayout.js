@@ -1,6 +1,6 @@
 import React from "react";
-import LandingBg from "./../assets/img/landingBg.png";
-import LogoLanding from "./../assets/img/logoLanding2.png";
+import LandingBg from "../../assets/img/landingBg.png";
+import LogoLanding from "../../assets/img/logoLanding2.png";
 import "./authLayout.scss";
 
 const style = {
