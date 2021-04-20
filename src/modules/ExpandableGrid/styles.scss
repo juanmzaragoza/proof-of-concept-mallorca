@@ -1,6 +1,8 @@
+@import "_config";
+
 /* zebra rows */
 .table-striped tr:nth-child(even){
-  background-color: rgba(250,250,250,0.95);
+  background-color: $expandable-grid-even-row;
 }
 
 /* compact rows */
@@ -14,5 +16,5 @@
 }
 
 tr.expanded-row {
-  background-color: rgba(176,218,255,0.55)!important;
+  background-color: $expandable-grid-expanded-row!important;
 }
