@@ -94,7 +94,7 @@ const GenericForm = ({loading, ...props}) => {
     props.handleIsValid && props.handleIsValid(formik.isValid);
   }
 
-  const getField = ({type, variant, placeHolder, required, key, noEditable, selector, disabled}, formik) => {
+  const getField = ({type, variant, placeHolder, required, key, noEditable, selector, disabled, text}, formik) => {
     const noEnable = loading || (props.editMode && noEditable) || disabled;
 
     const handleChange = (e, value) => {
@@ -127,7 +127,9 @@ const GenericForm = ({loading, ...props}) => {
             helperText={getMessageError(key, formik)}
             onBlur={handleBlur}
             type={"text"}
-            disabled={noEnable}/>
+            disabled={noEnable}
+            multiline={Boolean(text && text.multiline)}
+            rows={text && text.multiline} />
         );
       case 'select':
         return (
@@ -296,7 +298,31 @@ const GenericForm = ({loading, ...props}) => {
 
 GenericForm.propTypes = {
   containerSpacing: PropTypes.number,
-  formComponents: PropTypes.array,
+  formComponents: PropTypes.arrayOf(PropTypes.shape({
+    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV']),
+    variant: PropTypes.oneOf(['filled','outlined','standard']),
+    placeHolder: PropTypes.string,
+    required: PropTypes.bool,
+    key: PropTypes.string,
+    noEditable: PropTypes.bool,
+    selector: PropTypes.shape({
+      key: PropTypes.any,
+      labelKey: PropTypes.any,
+      options: PropTypes.array,
+      creationComponents: PropTypes.array,
+      cannotCreate: PropTypes.bool,
+      // for example, see the LOVAutocomplete component
+      relatedWith: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        filterBy: PropTypes.string.isRequired,
+        keyValue: PropTypes.string,
+      })
+    }),
+    disabled: PropTypes.bool,
+    text: PropTypes.shape({
+      multiline: PropTypes.number
+    })
+  })),
   onSubmit: PropTypes.func,
   formData: PropTypes.object,
   setFormData: PropTypes.func,
@@ -305,19 +331,6 @@ GenericForm.propTypes = {
   editMode: PropTypes.bool,
   emptyPaper: PropTypes.bool,
   fieldsContainerStyles: PropTypes.object,
-  selector: PropTypes.shape({
-    key: PropTypes.any,
-    labelKey: PropTypes.any,
-    options: PropTypes.array,
-    creationComponents: PropTypes.array,
-    cannotCreate: PropTypes.bool,
-    // for example, see the LOVAutocomplete component
-    relatedWith: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      filterBy: PropTypes.string.isRequired,
-      keyValue: PropTypes.string,
-    })
-  }),
   validationType: PropTypes.string,
   validations: PropTypes.arrayOf(PropTypes.shape({
     type: PropTypes.string.isRequired,

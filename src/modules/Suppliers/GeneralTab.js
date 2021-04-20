@@ -24,6 +24,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
 
   const { id: supplierId } = useParams();
 
+  const TITLE = props.intl.formatMessage({id: "Proveedores.direcciones_comerciales", defaultMessage: "Direcciones Comerciales"});
   const CODE = props.intl.formatMessage({id: "Comun.codigo", defaultMessage: "Código"});
   const DOMICILI = props.intl.formatMessage({id: "Proveedores.Direccion.domicilio", defaultMessage: "Domicilio"});
   const TELEFON = props.intl.formatMessage({id: "Proveedores.Contacto.telefono", defaultMessage: "Telefóno"});
@@ -665,6 +666,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
   ];
 
   const commercialAddressesConfig = {
+    title: TITLE,
     query: [
       {columnName: 'proveidor.id', value: `"${supplierId}"`}
     ],
@@ -774,6 +776,9 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
           xs: 12,
           md: 12
         },
+        text: {
+          multiline: 6
+        }
       },
     ]
   }
@@ -812,7 +817,7 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
                               onBlur={(e) => handleTouched(ADDRESS_SECTION_TAB_INDEX)} />
     },
     {
-      label: <FormattedMessage id={"Proveedores.direcciones_comerciales"} defaultMessage={"Direcciones Comerciales"}/>,
+      label: TITLE,
       key: 1,
       component: <ExpandableGrid
         id='adresaComercials'

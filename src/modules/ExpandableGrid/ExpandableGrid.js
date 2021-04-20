@@ -126,6 +126,7 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
         />
         <PopupEditing id={id}
                       popupComponent={ExpandablePopup}
+                      title={configuration.title}
                       formComponents={configuration.formComponents}
                       extraPostBody={configuration.extraPostBody} />
       </Grid>
@@ -138,6 +139,7 @@ ExpandableGrid.propTypes = {
   id: PropTypes.string.isRequired,
   enabled: PropTypes.bool,
   configuration: PropTypes.shape({
+    title: PropTypes.string,
     query: PropTypes.arrayOf(PropTypes.shape({ // for the searching
       columnName: PropTypes.string.isRequired,
       value: PropTypes.string.isRequired
