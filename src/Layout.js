@@ -269,7 +269,9 @@ const Layout = ({ children, ...props}) => {
           <div className={classes.drawerHeader} />
           <PageHeader />
           <Switch>
+            {/** Default page */}
             <Redirect exact from={'/'} to={'familia-proveedores'} />
+            {/** Modules */}
             {modules
               .filter(module => module.routeProps)
               .map(module => (
@@ -277,10 +279,8 @@ const Layout = ({ children, ...props}) => {
               ))
             }
             {/* TODO() add not found component */}
-            <Route exact={'not-found'} >
-              Ups!!! Vuelva a intentarlo :)
-            </Route>
-            <Redirect from="*" to={'not-found'} />
+            <Route path={'/not-found'} exact={true} component={() => <div>Ups!!! Vuelva a intentarlo :)</div>} />
+            <Redirect to="not-found" />
           </Switch>
 
         </main>
