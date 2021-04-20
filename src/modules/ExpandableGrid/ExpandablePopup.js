@@ -35,7 +35,7 @@ import {Loading} from "../ReactGrid/Loading";
 
 export const ExpandablePopup = ({
                 row, isEditing,
-                onChange,
+                onChange, title,
                 onApplyChanges,
                 onCancelChanges,
                 open, loading,
@@ -67,7 +67,7 @@ export const ExpandablePopup = ({
       fullWidth={true}
       maxWidth={'lg'}
       aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">Employee Details</DialogTitle>
+      <DialogTitle id="form-dialog-title">{title? title:''}</DialogTitle>
       <DialogContent>
         <GenericForm
           editMode={isEditing}
@@ -210,15 +210,16 @@ export const PopupEditingStateless = React.memo(({ popupComponent: ExpandablePop
           return (
             <>
               <ExpandablePopup
-                formComponents={props.formComponents}
                 open={open}
                 row={editedRow}
                 onChange={processValueChange}
                 onApplyChanges={applyChanges}
                 onCancelChanges={cancelChanges}
+                isEditing={!isNew}
+                title={props.title}
+                formComponents={props.formComponents}
                 loading={props.loading}
                 errors={props.errors}
-                isEditing={!isNew}
               />
               <CreatedState />
               <UpdatedState />
@@ -255,6 +256,7 @@ const mapDispatchToProps = (dispatch, props) => {
 
 PopupEditingStateless.propTypes = {
   id: PropTypes.string.isRequired,
+  title: PropTypes.string,
   formComponents: PropTypes.array.isRequired,
   popupComponent: PropTypes.any.isRequired,
   extraPostBody: PropTypes.object
