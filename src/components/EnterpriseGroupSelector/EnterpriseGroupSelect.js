@@ -1,82 +1,86 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {compose} from "redux";
 
-import {FormControl, InputLabel, ListItemIcon, Select} from "@material-ui/core";
-import MenuItem from "@material-ui/core/MenuItem";
-import {Domain} from "@material-ui/icons";
-import Typography from "@material-ui/core/Typography";
-import {makeStyles} from "@material-ui/core/styles";
+import {Autocomplete} from "@material-ui/lab";
+import {injectIntl} from "react-intl";
+import {Paper, TextField} from "@material-ui/core";
+import {Domain, Build} from "@material-ui/icons";
 
-const useStyles = makeStyles((theme) => ({
-  enterpriseSelector: {
-    minWidth: '180px',
-    marginRight: '10px',
-    color: 'white'
-  },
-  enterpriseSelectorLabel: {
-    color: 'white',
-    fontWeight: '600',
-    marginTop: '5px',
-  },
-  enterpriseSelectorSelect: {
-    '&:before': {
-      borderColor: 'white',
-    },
-    '&:after': {
-      borderColor: 'white',
-    },
-    marginTop: '5px',
-    marginBottom: '15px',
-    color: 'white'
-  },
-  enterpriseSelectorIcon: {
-    fill: 'white'
-  },
-}));
+import './_styles.scss';
 
-const EnterpriseGroupSelect = ({ loading, tree, actions}) => {
-  const classes = useStyles();
+const ENTERPRISE_TYPE = "enterprise";
+const MODULE_TYPE = "module";
+
+const EnterpriseGroupSelect = ({ loading, tree, actions, ...props}) => {
+  const [value, setValue] = useState(null);
+  const [opts, setOpts] = useState([]);
+
+  useEffect(()=>{
+    actions.loadTree();
+  },[]);
+
+  useEffect(()=>{
+    const options = [];
+    for(const enterprise of tree){
+      options.push({type: ENTERPRISE_TYPE, title: enterprise.descripcio, value: enterprise.codi});
+      for(const module of enterprise.empreses){
+        options.push({type: MODULE_TYPE, title: module.nom, value: module.codi})
+      }
+    }
+    setOpts(options);
+  },[tree]);
 
   return (
-    <FormControl className={classes.enterpriseSelector}>
-      <InputLabel className={classes.enterpriseSelectorLabel} htmlFor="grouped-select">Enterprise's Group</InputLabel>
-      <Select
-        className={classes.enterpriseSelectorSelect}
-        defaultValue=""
-        id="grouped-select"
-        inputProps={{
-          classes: {
-            icon: classes.enterpriseSelectorIcon
-          },
-        }}
-        MenuProps={{
-          anchorOrigin: {
-            vertical: "bottom",
-            horizontal: "left"
-          },
-          getContentAnchorEl: null
-        }}>
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value={1}>
-          <ListItemIcon>
-            <Domain fontSize="small" />
-          </ListItemIcon>
-          <Typography variant="inherit">Aguilo Emp</Typography>
-        </MenuItem>
-        <MenuItem value={2}>Aguilo Emp</MenuItem>
-        <MenuItem value={3}>
-          <ListItemIcon>
-            <Domain fontSize="small" />
-          </ListItemIcon>
-          <Typography variant="inherit">Limit</Typography>
-        </MenuItem>
-        <MenuItem value={4}>Limit Tecnologies</MenuItem>
-        <MenuItem value={5}>LIMIT TECNOLOGIES S.L.</MenuItem>
-        <MenuItem value={6}>Test</MenuItem>
-      </Select>
-    </FormControl>
+    <Autocomplete
+      handleHomeEndKeys
+      disableCloseOnSelect
+      disableClearable
+      fullWidth
+      id={'enterprise-group'}
+      className={"enterprise-selector-container"}
+      options={opts}
+      loading={loading}
+      value={value}
+      onChange={(e, newValue) => {
+        setValue(newValue);
+        if(newValue.type === ENTERPRISE_TYPE){
+          window.alert("dispatch change enterprise")
+        } else if(newValue.type === MODULE_TYPE) {
+          window.alert("dispatch change module")
+        }
+      }}
+      getOptionLabel={(option) => {
+        return option.title;
+      }}
+      renderOption={(option, state) => {
+        if(option.type === ENTERPRISE_TYPE) {
+          return (
+            <div className={"enterprise-items-container"}>
+              <div><Domain fontSize="small"/></div>
+              <div className={"enterprise-items-title"}>{option.title}</div>
+              <div className={"enterprise-items-icon-right"}><Build/></div>
+            </div>
+          )
+        } else if(option.type === MODULE_TYPE){
+          return (
+            <div className={"module-items-container"}>
+              <div>{option.title}</div>
+            </div>
+          )
+        }
+      }}
+      noOptionsText={"todo() non-results"}
+      loadingText={`${props.intl.formatMessage({id: 'Comun.cargando', defaultMessage: 'Cargando'})}...`}
+      renderInput={(params) =>
+        <TextField {...params}
+                   label={"Enterprise's Group"}
+                   variant={props.variant ? props.variant : 'outlined'}
+                   required={props.required}
+                   InputProps={{
+                     ...params.InputProps
+                   }}/>}
+      />
   );
 };
 
-export default EnterpriseGroupSelect;
+export default compose(injectIntl)(EnterpriseGroupSelect)

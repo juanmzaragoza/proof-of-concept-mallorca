@@ -10,9 +10,10 @@ export const searchTree = () => {
     try {
       dispatch(add({ loading: true }));
       Axios.get(`${API.usuariIdentificadorEmpresesTree}`)
-        .then(({status, data}) => {
+        .then(({status, data}) => data)
+        .then(({_embedded}) => {
           dispatch(add({ loading: false }));
-          dispatch(add({ tree: data }));
+          dispatch(add({ tree: _embedded.identificadorEmpresaSelectionTreeItems }));
         })
         .catch(error => {
           dispatch(add({ loading: false }));
