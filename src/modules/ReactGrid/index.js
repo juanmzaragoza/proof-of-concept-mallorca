@@ -24,7 +24,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 
 import {ActionsColumn} from "./ActionsColumn";
-import { Loading } from './Loading';
+import { Loading } from '../shared/Loading';
 import Axios from "../../Axios";
 import {useHistory} from "react-router-dom";
 import {injectIntl} from "react-intl";

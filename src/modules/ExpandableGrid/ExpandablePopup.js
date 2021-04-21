@@ -31,7 +31,7 @@ import {
   successfullyEdited,
   updateData
 } from "redux/grids";
-import {Loading} from "../ReactGrid/Loading";
+import {Loading} from "../shared/Loading";
 
 export const ExpandablePopup = ({
                 row, isEditing,

@@ -12,7 +12,7 @@ import Logo from "assets/img/logo.png";
 
 import Password from './password.input';
 import AuthLayout from './AuthLayout';
-import {Loading} from "../ReactGrid/Loading";
+import {Loading} from "../shared/Loading";
 
 const Login = (props) => {
   const [email, setEmail] = useState('');
