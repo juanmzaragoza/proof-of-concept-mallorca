@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EnterpriseGroupSelect = (props) => {
+const EnterpriseGroupSelect = ({ loading, tree, actions}) => {
   const classes = useStyles();
 
   return (

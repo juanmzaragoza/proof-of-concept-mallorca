@@ -26,7 +26,7 @@ import * as ROUTES from "constants/routes";
 import DrawerMenu from "./components/DrawerMenu";
 
 import {drawerWidth} from "./constants/styles";
-import EnterpriseGroupSelect from "./components/EnterpriseGroupSelect";
+import EnterpriseGroupSelector from "./components/EnterpriseGroupSelector";
 import PageHeader from "modules/PageHeader";
 import {PrivateRoute} from "modules/Authentication";
 import {isUserAuthenticated} from "helper/login-helper";
@@ -243,7 +243,7 @@ const Layout = ({ children, ...props}) => {
 
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <EnterpriseGroupSelect></EnterpriseGroupSelect>
+              <EnterpriseGroupSelector />
               <IconButton aria-label="cecocloud apps" color="inherit">
                 <AppsIcon />
               </IconButton>
