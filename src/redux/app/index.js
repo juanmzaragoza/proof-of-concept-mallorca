@@ -24,10 +24,10 @@ export const authenticate = ({user, password}) => {
         })
         .catch(error => {
           dispatch(add({ authenticationError: true }));
+          dispatch(add({ authenticated: false }));
         })
         .finally(() => {
           dispatch(add({ loading: false }));
-          dispatch(add({ authenticated: false }));
         });
     } catch (error) {
       dispatch(add({ loading: false }));
