@@ -25,7 +25,7 @@ const Login = (props) => {
     return () => {
       props.actions.clear();
     }
-  });
+  },[]);
 
   /** When is authenticated throughout the service*/
   useEffect(()=>{
