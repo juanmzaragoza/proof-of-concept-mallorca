@@ -1,10 +1,10 @@
 import ReactGrid from './ReactGrid';
 import SuppliersFamily from './SuppliersFamily';
-import Articles from './Suppliers';
+import Suppliers from './Suppliers';
 
 const component = [
   ReactGrid,
   SuppliersFamily,
-  Articles
+  Suppliers
 ];
 export default component;

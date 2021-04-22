@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useHistory } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import Card from '@material-ui/core/Card';
 import Link from '@material-ui/core/Link';
@@ -7,22 +8,33 @@ import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 
-import Logo from "assets/img/logo.png";
+import Password from './password.input';
+import AuthLayout from './AuthLayout';
+import {Loading} from "../shared/Loading";
 
-import Password from 'components/password.input';
-import AuthLayout from 'components/AuthLayout';
-
-const Login = () => {
+const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, ] = useState(false);
 
   const history = useHistory();
 
+  useEffect(() => {
+    return () => {
+      props.actions.clear();
+    }
+  },[]);
+
+  /** When is authenticated throughout the service*/
+  useEffect(()=>{
+    if(props.authenticated) {
+      history.push('/');
+    }
+  },[props.authenticated]);
+
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(email, password);
-    history.push("/");
+    props.actions && props.actions.authenticate({user: email, password});
   };
 
   return (
@@ -30,7 +42,6 @@ const Login = () => {
       <Card className='auth-card' id='login' style={{ color: 'white' }}>
 
         <div className='welcome-message'>
-          <img src={Logo} alt='logo-vector' />
           <h4>Welcome</h4>
         </div>
 
@@ -44,7 +55,7 @@ const Login = () => {
               className='auth-inputs'
               onChange={(e) => setEmail(e.currentTarget.value)}
               value={email}
-              type='email'
+              type='input'
               autoFocus={true}
               required
             />
@@ -63,15 +74,21 @@ const Login = () => {
             />
           </FormControl>
 
-          {error && <p className='auth-warning'>Invalid Email or Password</p>}
+          {props.error && <p className='auth-warning'>Invalid Email or Password</p>}
           <Link className='reset-link' to='/forgot-password' >Forgot password?</Link>
-          <Button type='submit' color='secondary' variant='outlined' className='accessBtn'>
-            Login
+          <Button disabled={props.loading} type='submit' color='secondary' variant='outlined' className='accessBtn'>
+            Login {props.loading && <Loading size={24} />}
           </Button>
         </form>
       </Card>
     </AuthLayout>
   );
 };
+
+Login.propTypes = {
+  loading: PropTypes.bool,
+  error: PropTypes.bool,
+  actions: PropTypes.any
+}
 
 export default Login;

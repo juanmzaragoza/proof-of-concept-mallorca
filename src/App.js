@@ -5,18 +5,45 @@ import {
   BrowserRouter as Router,
   Switch,
 } from 'react-router-dom';
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import {bindActionCreators, compose} from 'redux';
+import {connect} from "react-redux";
 import { SnackbarProvider } from 'notistack';
+
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 
-import { theme } from './constants/theme';
-import Login from './modules/Login';
+import { theme } from 'constants/theme';
+import * as ROUTES from "constants/routes";
+import { Login } from 'modules/Authentication';
 import Layout from "./Layout";
-import {login} from "./helper/before-login-helper";
+import {isUserAuthenticated} from "helper/login-helper";
+
+import {getAuthenticated, getAuthenticationError, getLoading} from "./redux/app/selectors";
+import {authenticate, clearAfterAuthentication} from "./redux/app";
+
+const mapStateToProps = (state, props) => {
+  return {
+    authenticated: getAuthenticated(state) || isUserAuthenticated(),
+    loading: getLoading(state),
+    error: getAuthenticationError(state)
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  const actions = {
+    authenticate: bindActionCreators(authenticate, dispatch),
+    clear: bindActionCreators(clearAfterAuthentication, dispatch),
+  };
+  return {actions};
+};
+
+const LoginComponent = compose(
+  connect(mapStateToProps,mapDispatchToProps),
+)(Login);
 
 function App() {
-  login();
+  //login();
   return (
       <Router>
         <MuiThemeProvider theme={theme}>
@@ -30,8 +57,9 @@ function App() {
             >
               <div>
                 <Switch>
-                  {/* <Route exact path='/admin' component={Login} /> */}
-                  <Route exact path='/login' component={Login} />
+                  <Route exact path={ROUTES.LOGIN}>
+                    <LoginComponent />
+                  </Route>
                   <Route path='/' component={Layout} />
                 </Switch>
                 {/*TODO() -> conectar hooks en vez de redux

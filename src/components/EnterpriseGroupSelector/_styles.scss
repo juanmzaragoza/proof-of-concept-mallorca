@@ -1,0 +1,33 @@
+.enterprise-selector-container {
+  min-width: 300px;
+  margin-right: 10px;
+  color: white;
+}
+
+.enterprise-items-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: #ddd;
+  width: 100%;
+  padding: 0 10px 0 10px;
+}
+
+.module-items-container {
+  padding-left: 20px;
+}
+
+.enterprise-items-title {
+  padding-left: 10px;
+}
+
+.enterprise-items-icon-right {
+  padding-right: 0px;
+}
+
+.enterprise-items-container > div, .module-items-container > div {
+  margin: 10px 0px 10px 0px;
+}
+
+.MuiAutocomplete-option {
+  padding: 0px!important;
+}

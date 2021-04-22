@@ -21,7 +21,7 @@ import Paper from '@material-ui/core/Paper';
 import {withSnackbar} from "notistack";
 
 import './styles.scss';
-import {Loading} from "../ReactGrid/Loading";
+import {Loading} from "../shared/Loading";
 import ExpandableContent from "./ExpandableContent";
 import {PopupEditing, ExpandablePopup} from "./ExpandablePopup";
 

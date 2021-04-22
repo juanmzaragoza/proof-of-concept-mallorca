@@ -8,9 +8,11 @@ import {getFormConfig, getListingConfig} from "redux/pageHeader/selectors";
 const PageHeader = ({ listingConfig, formConfig}) => {
   let component;
   if(listingConfig){
-    component = <ListingHeader config={listingConfig} />
+    component = <ListingHeader config={listingConfig} />;
+  } else if(formConfig) {
+    component = <FormHeader config={formConfig} />;
   } else{
-    component = <FormHeader config={formConfig} />
+    component = <></>;
   }
   return component;
 };

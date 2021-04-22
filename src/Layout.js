@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import clsx from 'clsx';
 import {Redirect, Route, Switch, useHistory} from "react-router-dom";
+import {connect} from "react-redux";
+import {bindActionCreators, compose} from 'redux';
 
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -19,12 +21,17 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import {AccountCircle ,More} from "@material-ui/icons";
 
 import modules from "./modules";
+import * as ROUTES from "constants/routes";
 
 import DrawerMenu from "./components/DrawerMenu";
 
 import {drawerWidth} from "./constants/styles";
-import EnterpriseGroupSelect from "./components/EnterpriseGroupSelect";
+import EnterpriseGroupSelector from "./components/EnterpriseGroupSelector";
 import PageHeader from "modules/PageHeader";
+import {PrivateRoute} from "modules/Authentication";
+import {isUserAuthenticated} from "helper/login-helper";
+import {logout} from "./redux/app";
+import {getAuthenticated, getLoggedInUserToken} from "./redux/app/selectors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -105,11 +112,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 const Layout = ({ children, ...props}) => {
   const classes = useStyles();
+  const history = useHistory();
+
   const [open, setOpen] = useState(false);
 
-  const history = useHistory();
+  /**
+   * If the user is not authenticated,
+   * redirect to login page
+   */
+  useEffect(() => {
+    if(!props.authenticated) history.push(ROUTES.LOGIN);
+  },[props.authenticated]);
+
+  /**
+   * Every time the token is refresh,
+   * the user is redirected to index
+   **/
+  useEffect(()=>{
+    history.push('/');
+  },[props.token]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -143,7 +168,7 @@ const Layout = ({ children, ...props}) => {
   };
 
   const handleLogout = () => {
-    history.push("/login");
+    props.actions.logout();
   };
 
   const menuId = 'primary-search-account-menu';
@@ -230,7 +255,7 @@ const Layout = ({ children, ...props}) => {
 
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <EnterpriseGroupSelect></EnterpriseGroupSelect>
+              <EnterpriseGroupSelector />
               <IconButton aria-label="cecocloud apps" color="inherit">
                 <AppsIcon />
               </IconButton>
@@ -269,13 +294,20 @@ const Layout = ({ children, ...props}) => {
           <div className={classes.drawerHeader} />
           <PageHeader />
           <Switch>
+            {/** Default page */}
             <Redirect exact from={'/'} to={'familia-proveedores'} />
-            {modules
-              .filter(module => module.routeProps)
-              .map(module => (
-                <Route {...module.routeProps} key={module.name} />
-              ))
-            }
+            {/** Private modules */}
+            <PrivateRoute isUserAuthenticated={isUserAuthenticated}>
+              {modules
+                .filter(module => module.routeProps)
+                .map(module => (
+                  <Route {...module.routeProps} key={module.name} />
+                ))
+              }
+            </PrivateRoute>
+            {/* TODO() add not found component */}
+            <Route path={'/not-found'} exact={true} component={() => <div>Ups!!! Vuelva a intentarlo :)</div>} />
+            <Redirect to="not-found" />
           </Switch>
 
         </main>
@@ -283,4 +315,20 @@ const Layout = ({ children, ...props}) => {
   );
 }
 
-export default Layout;
+const mapStateToProps = (state, props) => {
+  return {
+    authenticated: getAuthenticated(state) || !!isUserAuthenticated(),
+    token: getLoggedInUserToken(state)
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  const actions = {
+    logout: bindActionCreators(logout, dispatch),
+  };
+  return { actions };
+};
+
+export default compose(
+  connect(mapStateToProps,mapDispatchToProps)
+)(Layout);
