@@ -31,7 +31,7 @@ import PageHeader from "modules/PageHeader";
 import {PrivateRoute} from "modules/Authentication";
 import {isUserAuthenticated} from "helper/login-helper";
 import {logout} from "./redux/app";
-import {getAuthenticated} from "./redux/app/selectors";
+import {getAuthenticated, getLoggedInUserToken} from "./redux/app/selectors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -120,9 +120,21 @@ const Layout = ({ children, ...props}) => {
 
   const [open, setOpen] = useState(false);
 
+  /**
+   * If the user is not authenticated,
+   * redirect to login page
+   */
   useEffect(() => {
     if(!props.authenticated) history.push(ROUTES.LOGIN);
   },[props.authenticated]);
+
+  /**
+   * Every time the token is refresh,
+   * the user is redirected to index
+   **/
+  useEffect(()=>{
+    history.push('/');
+  },[props.token]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -306,6 +318,7 @@ const Layout = ({ children, ...props}) => {
 const mapStateToProps = (state, props) => {
   return {
     authenticated: getAuthenticated(state) || !!isUserAuthenticated(),
+    token: getLoggedInUserToken(state)
   };
 };
 

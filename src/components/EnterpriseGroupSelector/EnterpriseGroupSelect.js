@@ -18,9 +18,11 @@ const EnterpriseGroupSelect = ({ loading, tree, actions, ...props}) => {
   const [opts, setOpts] = useState([]);
 
   useEffect(()=>{
-    const enterpriseGroup = getObjectFrom(ENTERPRISE_GROUP_VALUE_LOCALSTORAGE_KEY);
-    if(enterpriseGroup) setValue(enterpriseGroup);
     actions.loadTree();
+    if(tree.length > 0){
+      const enterpriseGroup = getObjectFrom(ENTERPRISE_GROUP_VALUE_LOCALSTORAGE_KEY);
+      if(enterpriseGroup) setValue(enterpriseGroup);
+    }
   },[]);
 
   useEffect(()=>{
