@@ -22,13 +22,46 @@ const EnterpriseGroupSelect = ({ loading, tree, actions, ...props}) => {
   useEffect(()=>{
     const options = [];
     for(const enterprise of tree){
-      options.push({type: ENTERPRISE_TYPE, title: enterprise.descripcio, value: enterprise.codi});
+      options.push({type: ENTERPRISE_TYPE, title: enterprise.descripcio, value: enterprise, isAdmin: enterprise.hasAdminPermission});
       for(const module of enterprise.empreses){
-        options.push({type: MODULE_TYPE, title: module.nom, value: module.codi})
+        if(module.activa) options.push({type: MODULE_TYPE, title: module.nom, enterprise, value: module});
       }
     }
     setOpts(options);
   },[tree]);
+
+  const types = {
+    [ENTERPRISE_TYPE]: {
+      'onChange': (newValue) => {
+        //TODO() dispatch change enterprise
+        console.log("TODO(): dispatch change enterprise");
+      },
+      'render': (option) => (
+        <div className={"enterprise-items-container"}>
+          <div><Domain fontSize="small"/></div>
+          <div className={"enterprise-items-title"}>{option.title}</div>
+          {option.isAdmin && <div className={"enterprise-items-icon-right"}><Build/></div>}
+        </div>
+      ),
+      'optionLabel': (option) => (
+        `${option.title} / _`
+      )
+    },
+    [MODULE_TYPE]: {
+      'onChange': (newValue) => {
+        //TODO() dispatch change module
+        console.log("TODO(): dispatch change module")
+      },
+      'render': (option) => (
+        <div className={"module-items-container"}>
+          <div>{option.title}</div>
+        </div>
+      ),
+      'optionLabel': (option) => (
+        `${option.enterprise.descripcio} / ${option.title}`
+      )
+    }
+  }
 
   return (
     <Autocomplete
@@ -43,33 +76,18 @@ const EnterpriseGroupSelect = ({ loading, tree, actions, ...props}) => {
       value={value}
       onChange={(e, newValue) => {
         setValue(newValue);
-        if(newValue.type === ENTERPRISE_TYPE){
-          window.alert("dispatch change enterprise")
-        } else if(newValue.type === MODULE_TYPE) {
-          window.alert("dispatch change module")
-        }
+        types[newValue.type].onChange(newValue);
       }}
       getOptionLabel={(option) => {
-        return option.title;
+        return types[option.type].optionLabel(option);
       }}
       renderOption={(option, state) => {
-        if(option.type === ENTERPRISE_TYPE) {
-          return (
-            <div className={"enterprise-items-container"}>
-              <div><Domain fontSize="small"/></div>
-              <div className={"enterprise-items-title"}>{option.title}</div>
-              <div className={"enterprise-items-icon-right"}><Build/></div>
-            </div>
-          )
-        } else if(option.type === MODULE_TYPE){
-          return (
-            <div className={"module-items-container"}>
-              <div>{option.title}</div>
-            </div>
-          )
-        }
+        return types[option.type].render(option);
       }}
-      noOptionsText={"todo() non-results"}
+      noOptionsText={props.intl.formatMessage({
+        id: "EnterpriseGroup.selector.sin_resultados",
+        defaultMessage: "No hay opciones disponibles"
+      })}
       loadingText={`${props.intl.formatMessage({id: 'Comun.cargando', defaultMessage: 'Cargando'})}...`}
       renderInput={(params) =>
         <TextField {...params}
@@ -83,4 +101,6 @@ const EnterpriseGroupSelect = ({ loading, tree, actions, ...props}) => {
   );
 };
 
-export default compose(injectIntl)(EnterpriseGroupSelect)
+export default compose(
+  injectIntl
+)(EnterpriseGroupSelect);

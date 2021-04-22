@@ -19,6 +19,7 @@
   "CreateUpdateForm.actualizacion_correcta": "Registro actualizado correctamente",
   "CreateUpdateForm.creacion_correcta": "Registro creado correctamente",
   "CreateUpdateForm.revise_datos": "Revise los datos e intente nuevamente...",
+  "EnterpriseGroup.selector.sin_resultados": "No hay opciones disponibles",
   "Divisa.valor_euros": "Valor Euros",
   "FamiliaProveedores.titulo": "Familia Proveedores",
   "FamiliaProveedores.codigo": "Código",

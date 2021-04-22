@@ -8,8 +8,6 @@ import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 
-import Logo from "assets/img/logo.png";
-
 import Password from './password.input';
 import AuthLayout from './AuthLayout';
 import {Loading} from "../shared/Loading";
@@ -44,7 +42,6 @@ const Login = (props) => {
       <Card className='auth-card' id='login' style={{ color: 'white' }}>
 
         <div className='welcome-message'>
-          <img src={Logo} alt='logo-vector' />
           <h4>Welcome</h4>
         </div>
 
