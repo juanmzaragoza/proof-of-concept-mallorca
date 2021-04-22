@@ -7,6 +7,8 @@ import {Paper, TextField} from "@material-ui/core";
 import {Domain, Build} from "@material-ui/icons";
 
 import './_styles.scss';
+import {getObjectFrom, setObjectOn} from "../../helper/storage";
+import {ENTERPRISE_GROUP_VALUE_LOCALSTORAGE_KEY} from "../../constants";
 
 const ENTERPRISE_TYPE = "enterprise";
 const MODULE_TYPE = "module";
@@ -16,6 +18,8 @@ const EnterpriseGroupSelect = ({ loading, tree, actions, ...props}) => {
   const [opts, setOpts] = useState([]);
 
   useEffect(()=>{
+    const enterpriseGroup = getObjectFrom(ENTERPRISE_GROUP_VALUE_LOCALSTORAGE_KEY);
+    if(enterpriseGroup) setValue(enterpriseGroup);
     actions.loadTree();
   },[]);
 
@@ -30,11 +34,17 @@ const EnterpriseGroupSelect = ({ loading, tree, actions, ...props}) => {
     setOpts(options);
   },[tree]);
 
+  const setSelectedValue = (value) => {
+    setValue(value);
+    setObjectOn(ENTERPRISE_GROUP_VALUE_LOCALSTORAGE_KEY, value);
+  };
+
   const types = {
     [ENTERPRISE_TYPE]: {
       'onChange': (newValue) => {
         //TODO() dispatch change enterprise
         console.log("TODO(): dispatch change enterprise");
+        setSelectedValue(newValue);
       },
       'render': (option) => (
         <div className={"enterprise-items-container"}>
@@ -50,7 +60,8 @@ const EnterpriseGroupSelect = ({ loading, tree, actions, ...props}) => {
     [MODULE_TYPE]: {
       'onChange': (newValue) => {
         //TODO() dispatch change module
-        console.log("TODO(): dispatch change module")
+        setSelectedValue(newValue);
+        actions.loadModules({id: newValue.enterprise.id, enterprise: newValue.value.id});
       },
       'render': (option) => (
         <div className={"module-items-container"}>
@@ -75,7 +86,6 @@ const EnterpriseGroupSelect = ({ loading, tree, actions, ...props}) => {
       loading={loading}
       value={value}
       onChange={(e, newValue) => {
-        setValue(newValue);
         types[newValue.type].onChange(newValue);
       }}
       getOptionLabel={(option) => {

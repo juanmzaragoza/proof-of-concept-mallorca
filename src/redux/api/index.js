@@ -15,4 +15,5 @@ export const horari = `api/rrhh/horaris`;
 export const zona = `api/fact/zones`;
 export const adresaComercials = `api/fact/adrecesComercials`;
 export const auth = `api/auth`;
+export const refresh = `api/auth/refresh`;
 export const usuariIdentificadorEmpresesTree = `api/usuariIdentificadorEmpreses/selectionTree`;

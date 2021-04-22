@@ -1,9 +1,9 @@
 //Action types
 import Axios from "Axios";
 import * as API from "../api";
-import {removeKey, setPlainOn} from "../../helper/storage";
+import {clearAll, getObjectFrom, getPlainFrom, removeKey, setObjectOn, setPlainOn} from "../../helper/storage";
 import {isUserAuthenticated} from "../../helper/login-helper";
-import {TOKEN_LOCALSTORAGE_KEY} from "../../constants";
+import {SESSION_TO_REFRESH_LOCALSTORAGE_KEY, TOKEN_LOCALSTORAGE_KEY} from "../../constants";
 
 const ADD = "ADD_TO_APP";
 const START_LOADING = "START_LOADING";
@@ -19,6 +19,7 @@ export const authenticate = ({user, password}) => {
       Axios.get(URL)
         .then(({status, data}) => {
           setPlainOn(TOKEN_LOCALSTORAGE_KEY,data.token);
+          dispatch(add({ token: data.token }));
           dispatch(add({ loading: false }));
           dispatch(add({ authenticated: true }));
         })
@@ -39,12 +40,52 @@ export const authenticate = ({user, password}) => {
 export const logout = () => {
   return async dispatch => {
     try {
-      removeKey(TOKEN_LOCALSTORAGE_KEY);
+      clearAll();
+      dispatch(add({ token: "" }));
       dispatch(add({ authenticated: false }));
     } catch (error) {
+      dispatch(add({ token: "" }));
       dispatch(add({ authenticated: false }));
     }
   };
+}
+
+export const refresh = ({id, enterprise}) => {
+  // session
+  let session = {};
+  const sessionLE = getObjectFrom(SESSION_TO_REFRESH_LOCALSTORAGE_KEY);
+  if(!sessionLE){
+    if(id) session.i = id;
+    if(enterprise) session.e = enterprise;
+  } else{
+    session = sessionLE;
+  }
+  // token
+  const token = getPlainFrom(TOKEN_LOCALSTORAGE_KEY);
+  return async dispatch => {
+    try {
+      dispatch(add({ loading: true }));
+      Axios.post(API.refresh,JSON.stringify({token, session}))
+        .then(({data}) => {
+          setPlainOn(TOKEN_LOCALSTORAGE_KEY,data.token);
+          setObjectOn(SESSION_TO_REFRESH_LOCALSTORAGE_KEY, session);
+          dispatch(add({ token: data.token }));
+          dispatch(add({ loading: false }));
+          dispatch(add({ authenticated: true }));
+        })
+        .catch(error => {
+          dispatch(add({ authenticationError: true }));
+          logout()(dispatch);
+        })
+        .finally(() => {
+          dispatch(add({ loading: false }));
+        });
+    }catch (error) {
+      removeKey(TOKEN_LOCALSTORAGE_KEY);
+      dispatch(add({ loading: false }));
+      dispatch(add({ authenticated: false }));
+    }
+  }
 }
 
 //Action creators
@@ -75,6 +116,7 @@ export function clearAfterAuthentication() {
 
 //Reducers
 const initialState = {
+  token: getPlainFrom(TOKEN_LOCALSTORAGE_KEY),
   loading: false,
   authenticated: !!isUserAuthenticated(),
   authenticationError: false

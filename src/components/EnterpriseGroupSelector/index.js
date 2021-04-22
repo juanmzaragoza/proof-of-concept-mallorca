@@ -4,6 +4,7 @@ import {injectIntl} from "react-intl";
 import EnterpriseGroupSelect from "./EnterpriseGroupSelect";
 import {getLoading, getTree} from "../../redux/enterpriseGroup/selectors";
 import {searchTree} from "../../redux/enterpriseGroup";
+import {refresh} from "../../redux/app";
 
 const mapStateToProps = (state, props) => {
   return {
@@ -14,7 +15,8 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
-    loadTree: bindActionCreators(searchTree,dispatch)
+    loadTree: bindActionCreators(searchTree,dispatch),
+    loadModules: bindActionCreators(refresh,dispatch),
   };
   return { actions };
 };
