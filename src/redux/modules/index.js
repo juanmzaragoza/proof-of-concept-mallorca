@@ -3,6 +3,7 @@ import Axios from "Axios";
 import * as API from "../api";
 
 const ADD = "ADD_TO_MODULE";
+const ADD_FUNCTIONALITIES = "ADD_TO_FUNCTIONALITIES";
 
 //Functions
 export const searchModules = () => {
@@ -26,6 +27,28 @@ export const searchModules = () => {
   };
 }
 
+export const loadModule = (name) => {
+  return async dispatch => {
+    try {
+      dispatch(addFunctionalities({ selectedModule: name}));
+      dispatch(addFunctionalities({ loading: true }));
+      Axios.get(`${API.functionalities}/${name}`)
+        .then(({status, data}) => {
+          dispatch(addFunctionalities({ loading: false }));
+          dispatch(addFunctionalities({ allowed: data }));
+        })
+        .catch(error => {
+          dispatch(addFunctionalities({ loading: false }));
+        })
+        .finally(() => {
+          dispatch(addFunctionalities({ loading: false }));
+        });
+    } catch (error) {
+      dispatch(addFunctionalities({ loading: false }));
+    }
+  }
+}
+
 //Action creators
 export function add(payload) {
   return {
@@ -34,16 +57,30 @@ export function add(payload) {
   };
 }
 
+export function addFunctionalities(payload) {
+  return {
+    type: ADD_FUNCTIONALITIES,
+    payload
+  };
+}
+
 //Reducers
 const initialState = {
   loading: false,
   modules: [],
+  functionalities: {
+    loading: false,
+    selectedModule: "",
+    allowed: []
+  }
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case ADD:
       return { ...state, ...action.payload };
+    case ADD_FUNCTIONALITIES:
+      return { ...state, functionalities: {...state.functionalities, ...action.payload }};
     case "RESET":
       return initialState;
     default:

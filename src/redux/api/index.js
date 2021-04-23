@@ -18,3 +18,4 @@ export const auth = `api/auth`;
 export const refresh = `api/auth/refresh`;
 export const usuariIdentificadorEmpresesTree = `api/usuariIdentificadorEmpreses/selectionTree`;
 export const moduleUrl = `api/modules`;
+export const functionalities = `api/usuariIdentificadorEmpreses/funcionalitats`;

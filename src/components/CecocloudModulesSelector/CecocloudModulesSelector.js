@@ -2,33 +2,33 @@ import React, {useEffect, useState} from "react";
 import {Save, Undo, Delete, ChevronLeft, ChevronRight, VerifiedUser, Apps} from "@material-ui/icons";
 import CecocloudMenu from "../CecocloudMenu";
 
-const CecocloudModulesSelector = ({loading, modules, ...props}) => {
+const CecocloudModulesSelector = ({loading, modules, actions, ...props}) => {
   const [items, setItems] = useState([]);
 
   const modulesConfig = {
     cita: {
       content: <><Save />&nbsp; {props.intl.formatMessage({id: "Modules.selector.cita",defaultMessage: "Citas"})}</>,
-      onClick: () => window.alert("Aca toy!")
+      onClick: () => actions.selectModule('cita')
     },
     fact: {
       content: <><Undo />&nbsp; {props.intl.formatMessage({id: "Modules.selector.fact",defaultMessage: "Facturación"})}</>,
-      onClick: () => window.alert("Aca toy!")
+      onClick: () => actions.selectModule('fact')
     },
     lici: {
       content: <><Delete />&nbsp; {props.intl.formatMessage({id: "Modules.selector.lici",defaultMessage: "Licitaciones"})}</>,
-      onClick: () => window.alert("Aca toy!")
+      onClick: () => actions.selectModule('lici')
     },
     marc: {
       content: <><ChevronLeft />&nbsp; {props.intl.formatMessage({id: "Modules.selector.marc",defaultMessage: "Marcajes"})}</>,
-      onClick: () => window.alert("Aca toy!")
+      onClick: () => actions.selectModule('marc')
     },
     rrhh: {
       content: <><ChevronRight />&nbsp; {props.intl.formatMessage({id: "Modules.selector.rrhh",defaultMessage: "Recursos Humanos"})}</>,
-      onClick: () => window.alert("Aca toy!")
+      onClick: () => actions.selectModule('rrhh')
     },
     ecom: {
       content: <><VerifiedUser />&nbsp; {props.intl.formatMessage({id: "Modules.selector.ecom",defaultMessage: "Ecom"})}</>,
-      onClick: () => window.alert("Aca toy!")
+      onClick: () => actions.selectModule('ecom')
     },
     _default: {
       content: "-",
