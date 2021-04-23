@@ -70,9 +70,10 @@ const EnterpriseGroupSelect = ({ loading, tree, actions, ...props}) => {
     },
     [MODULE_TYPE]: {
       'onChange': (newValue) => {
-        //TODO() dispatch change module
-        setSelectedValue(newValue);
+        // refresh token
         actions.refreshSession({id: newValue.enterprise.id, enterprise: newValue.value.id});
+        // and load modules
+        setSelectedValue(newValue);
       },
       'render': (option) => (
         <div className={"module-items-container"}>
@@ -83,6 +84,7 @@ const EnterpriseGroupSelect = ({ loading, tree, actions, ...props}) => {
         `${option.enterprise.descripcio} / ${option.title}`
       ),
       'setValue': (option) => {
+        // load modules
         actions.loadModules();
       }
     }
