@@ -19,10 +19,6 @@ const EnterpriseGroupSelect = ({ loading, tree, actions, ...props}) => {
 
   useEffect(()=>{
     actions.loadTree();
-    if(tree.length > 0){
-      const enterpriseGroup = getObjectFrom(ENTERPRISE_GROUP_VALUE_LOCALSTORAGE_KEY);
-      if(enterpriseGroup) setValue(enterpriseGroup);
-    }
   },[]);
 
   useEffect(()=>{
@@ -34,12 +30,22 @@ const EnterpriseGroupSelect = ({ loading, tree, actions, ...props}) => {
       }
     }
     setOpts(options);
+    if(tree.length > 0){
+      const enterpriseGroup = getObjectFrom(ENTERPRISE_GROUP_VALUE_LOCALSTORAGE_KEY);
+      if(enterpriseGroup) fireUpdate(enterpriseGroup);
+    }
   },[tree]);
 
+  // saves the selected value in localStorage
   const setSelectedValue = (value) => {
-    setValue(value);
+    fireUpdate(value);
     setObjectOn(ENTERPRISE_GROUP_VALUE_LOCALSTORAGE_KEY, value);
   };
+
+  const fireUpdate = (value) => {
+    setValue(value);
+    types[value.type].setValue(value);
+  }
 
   const types = {
     [ENTERPRISE_TYPE]: {
@@ -57,13 +63,17 @@ const EnterpriseGroupSelect = ({ loading, tree, actions, ...props}) => {
       ),
       'optionLabel': (option) => (
         `${option.title} / _`
-      )
+      ),
+      'setValue': (option) => {
+        //TODO() -> start loading modules
+      }
     },
     [MODULE_TYPE]: {
       'onChange': (newValue) => {
-        //TODO() dispatch change module
+        // refresh token
+        actions.refreshSession({id: newValue.enterprise.id, enterprise: newValue.value.id});
+        // and load modules
         setSelectedValue(newValue);
-        actions.loadModules({id: newValue.enterprise.id, enterprise: newValue.value.id});
       },
       'render': (option) => (
         <div className={"module-items-container"}>
@@ -72,7 +82,11 @@ const EnterpriseGroupSelect = ({ loading, tree, actions, ...props}) => {
       ),
       'optionLabel': (option) => (
         `${option.enterprise.descripcio} / ${option.title}`
-      )
+      ),
+      'setValue': (option) => {
+        // load modules
+        actions.loadModules();
+      }
     }
   }
 

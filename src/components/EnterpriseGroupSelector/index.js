@@ -1,10 +1,12 @@
 import {bindActionCreators, compose} from "redux";
 import {connect} from "react-redux";
 import {injectIntl} from "react-intl";
+
 import EnterpriseGroupSelect from "./EnterpriseGroupSelect";
-import {getLoading, getTree} from "../../redux/enterpriseGroup/selectors";
-import {searchTree} from "../../redux/enterpriseGroup";
-import {refresh} from "../../redux/app";
+import {getLoading, getTree} from "redux/enterpriseGroup/selectors";
+import {searchTree} from "redux/enterpriseGroup";
+import {refresh} from "redux/app";
+import {searchModules} from "redux/modules";
 
 const mapStateToProps = (state, props) => {
   return {
@@ -16,7 +18,8 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
     loadTree: bindActionCreators(searchTree,dispatch),
-    loadModules: bindActionCreators(refresh,dispatch),
+    refreshSession: bindActionCreators(refresh,dispatch),
+    loadModules: bindActionCreators(searchModules,dispatch),
   };
   return { actions };
 };

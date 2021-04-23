@@ -1,7 +1,7 @@
 //Action types
 import Axios from "Axios";
 import * as API from "../api";
-import {clearAll, getObjectFrom, getPlainFrom, removeKey, setObjectOn, setPlainOn} from "../../helper/storage";
+import {clearAll, getPlainFrom, removeKey, setObjectOn, setPlainOn} from "../../helper/storage";
 import {isUserAuthenticated} from "../../helper/login-helper";
 import {SESSION_TO_REFRESH_LOCALSTORAGE_KEY, TOKEN_LOCALSTORAGE_KEY} from "../../constants";
 
@@ -53,13 +53,8 @@ export const logout = () => {
 export const refresh = ({id, enterprise}) => {
   // session
   let session = {};
-  const sessionLE = getObjectFrom(SESSION_TO_REFRESH_LOCALSTORAGE_KEY);
-  if(!sessionLE){
-    if(id) session.i = id;
-    if(enterprise) session.e = enterprise;
-  } else{
-    session = sessionLE;
-  }
+  if(id) session.i = id;
+  if(enterprise) session.e = enterprise;
   // token
   const token = getPlainFrom(TOKEN_LOCALSTORAGE_KEY);
   return async dispatch => {
