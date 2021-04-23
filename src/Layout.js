@@ -12,12 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import MailIcon from '@material-ui/icons/Mail';
-import AppsIcon from '@material-ui/icons/Apps';
 import CloudQueueIcon from '@material-ui/icons/CloudQueue';
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import Badge from "@material-ui/core/Badge";
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import {AccountCircle ,More} from "@material-ui/icons";
 
 import modules from "./modules";
@@ -25,6 +21,7 @@ import * as ROUTES from "constants/routes";
 
 import DrawerMenu from "./components/DrawerMenu";
 import CecocloudMenu from "./components/CecocloudMenu";
+import CecocloudModulesSelector from "./components/CecocloudModulesSelector/index";
 
 import {drawerWidth} from "./constants/styles";
 import EnterpriseGroupSelector from "./components/EnterpriseGroupSelector";
@@ -205,10 +202,7 @@ const Layout = ({ children, ...props}) => {
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
               <EnterpriseGroupSelector />
-              <CecocloudMenu
-                id="modules-menu"
-                icon={<AppsIcon />}
-                noItemsText={"TODO() Sin items -> intl"} />
+              <CecocloudModulesSelector />
               <CecocloudMenu id="profile-menu"
                              icon={<AccountCircle />}
                              items={profileMenuItems}
