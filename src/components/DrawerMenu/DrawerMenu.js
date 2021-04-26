@@ -1,9 +1,12 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 
 import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -11,11 +14,13 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Drawer from "@material-ui/core/Drawer";
 import {makeStyles, useTheme} from "@material-ui/core/styles";
+import Collapse from '@material-ui/core/Collapse';
 
 import modules from "modules";
 import {Loading} from "../../modules/shared/Loading";
 
 import {drawerWidth} from "../../constants/styles";
+import {LocalMall} from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -34,12 +39,86 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-end',
     height: '90px'
   },
+  nested: {
+    paddingLeft: theme.spacing(2),
+  },
 }));
+
+const routes = [
+  {
+    key: 'FAC_CP',
+    title: 'FAC_CP',
+    path: 'FAC_CP', // or has path or has children but not both
+  },
+  {
+    key: 'FAC_PEUDOC',
+    title: 'FAC_PEUDOC',
+    children: [
+      {
+        key: 'FAC_PROVEI',
+        title: 'FAC_PROVEI',
+        path: 'FAC_PROVEI',
+      },
+      {
+        key: 'FAC_PROTIP',
+        title: 'FAC_PROTIP',
+        children: [
+          {
+            key: 'FAC_PROVIN',
+            title: 'FAC_PROVIN',
+            path: 'FAC_PROVIN',
+          }
+        ]
+      }
+    ]
+  }
+];
 
 const DrawerMenu = ({loading, functionalities,...props}) => {
   const classes = useStyles();
   const theme = useTheme();
   const history = useHistory();
+
+  const ItemWithChildren = ({ route }) => {
+    const classes = useStyles();
+    const [open, setOpen] = useState(false);
+
+    const handleOnClick = (e) => {
+      setOpen(!open);
+    }
+
+    return (
+      <>
+        <ListItem button onClick={handleOnClick} className={classes.nested}>
+          <ListItemIcon>
+            <LocalMall />
+          </ListItemIcon>
+          <ListItemText primary={route.title} />
+          {open ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse in={open} timeout="auto" unmountOnExit className={classes.nested}>
+          <List component="div" disablePadding>
+            {route.children.map(child => processChildren(child))}
+          </List>
+        </Collapse>
+      </>
+    )
+  }
+
+  const processRoute = (route) => (
+    <ListItem button key={route.key} onClick={() => history.push(route.path)}>
+      <ListItemIcon><LocalMall /></ListItemIcon>
+      <ListItemText primary={route.title} />
+    </ListItem>
+  );
+
+  const processChildren = (route) => {
+    if(route.children) {
+      return <ItemWithChildren route={route} />;
+    } else{
+      return processRoute(route);
+    }
+  }
 
   return (
     <Drawer
@@ -67,6 +146,9 @@ const DrawerMenu = ({loading, functionalities,...props}) => {
             </ListItem>
           ))
         }
+        {routes.map(route => {
+          return processChildren(route);
+        })}
       </List>}
       <Divider />
     </Drawer>

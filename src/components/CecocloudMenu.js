@@ -12,6 +12,7 @@ const CecocloudMenu = ({ id, icon, items, noItemsText }) => {
 
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
+  const [selectedItem, setSelectedItem] = React.useState(null);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -55,9 +56,10 @@ const CecocloudMenu = ({ id, icon, items, noItemsText }) => {
                 <MenuList autoFocusItem={open} id={id} onKeyDown={handleListKeyDown}>
                   {items && items.length > 0?
                     items.map((item,index) =>
-                      <MenuItem key={index} onClick={(e) => {
+                      <MenuItem key={index} selected={selectedItem === index} onClick={(e) => {
                         item.onClick(e);
                         handleClose(e);
+                        setSelectedItem(index);
                       }}>{item.content}</MenuItem>)
                     :
                     <MenuItem disabled>{noItemsText}</MenuItem>

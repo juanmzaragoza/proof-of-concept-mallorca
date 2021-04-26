@@ -99,6 +99,7 @@ const EnterpriseGroupSelect = ({ loading, tree, isTokenRefreshed, actions, ...pr
     <Autocomplete
       handleHomeEndKeys
       disableClearable
+      autoHighlight
       fullWidth
       id={'enterprise-group'}
       className={"enterprise-selector-container"}
