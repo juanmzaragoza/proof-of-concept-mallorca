@@ -60,13 +60,15 @@ export const refresh = ({id, enterprise}) => {
   return async dispatch => {
     try {
       dispatch(add({ loading: true }));
-      Axios.post(API.refresh,JSON.stringify({token, session}))
+      dispatch(add({ tokenRefreshed: false }));
+      Axios.post(`${API.refresh}?timestamp=${new Date().getTime()}`,JSON.stringify({token, session}))
         .then(({data}) => {
           setPlainOn(TOKEN_LOCALSTORAGE_KEY,data.token);
           setObjectOn(SESSION_TO_REFRESH_LOCALSTORAGE_KEY, session);
           dispatch(add({ token: data.token }));
           dispatch(add({ loading: false }));
           dispatch(add({ authenticated: true }));
+          dispatch(add({ tokenRefreshed: true }));
         })
         .catch(error => {
           dispatch(add({ authenticationError: true }));
@@ -112,6 +114,7 @@ export function clearAfterAuthentication() {
 //Reducers
 const initialState = {
   token: getPlainFrom(TOKEN_LOCALSTORAGE_KEY),
+  tokenRefreshed: false,
   loading: false,
   authenticated: !!isUserAuthenticated(),
   authenticationError: false
