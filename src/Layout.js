@@ -19,7 +19,7 @@ import {AccountCircle ,More} from "@material-ui/icons";
 import modules from "./modules";
 import * as ROUTES from "constants/routes";
 
-import DrawerMenu from "./components/DrawerMenu";
+import DrawerMenu from "./components/DrawerMenu/index";
 import CecocloudMenu from "./components/CecocloudMenu";
 import CecocloudModulesSelector from "./components/CecocloudModulesSelector/index";
 
