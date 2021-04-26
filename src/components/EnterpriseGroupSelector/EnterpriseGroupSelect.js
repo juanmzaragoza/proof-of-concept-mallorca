@@ -98,7 +98,6 @@ const EnterpriseGroupSelect = ({ loading, tree, isTokenRefreshed, actions, ...pr
   return (
     <Autocomplete
       handleHomeEndKeys
-      disableCloseOnSelect
       disableClearable
       fullWidth
       id={'enterprise-group'}
