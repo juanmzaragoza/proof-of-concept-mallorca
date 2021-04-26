@@ -4,6 +4,7 @@ import {injectIntl} from "react-intl";
 
 import EnterpriseGroupSelect from "./EnterpriseGroupSelect";
 import {getLoading, getTree} from "redux/enterpriseGroup/selectors";
+import {getLoggedInUserTokenIsRefreshed} from "redux/app/selectors";
 import {searchTree} from "redux/enterpriseGroup";
 import {refresh} from "redux/app";
 import {searchModules} from "redux/modules";
@@ -11,7 +12,8 @@ import {searchModules} from "redux/modules";
 const mapStateToProps = (state, props) => {
   return {
     loading: getLoading(state),
-    tree: getTree(state)
+    tree: getTree(state),
+    isTokenRefreshed: getLoggedInUserTokenIsRefreshed(state)
   };
 };
 

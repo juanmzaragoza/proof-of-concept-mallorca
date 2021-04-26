@@ -13,14 +13,16 @@ import {ENTERPRISE_GROUP_VALUE_LOCALSTORAGE_KEY} from "../../constants";
 const ENTERPRISE_TYPE = "enterprise";
 const MODULE_TYPE = "module";
 
-const EnterpriseGroupSelect = ({ loading, tree, actions, ...props}) => {
+const EnterpriseGroupSelect = ({ loading, tree, isTokenRefreshed, actions, ...props}) => {
   const [value, setValue] = useState(null);
   const [opts, setOpts] = useState([]);
 
+  // load all tree data
   useEffect(()=>{
     actions.loadTree();
   },[]);
 
+  // after tree loaded => render options, get selected group and fire load modules
   useEffect(()=>{
     const options = [];
     for(const enterprise of tree){
@@ -32,20 +34,23 @@ const EnterpriseGroupSelect = ({ loading, tree, actions, ...props}) => {
     setOpts(options);
     if(tree.length > 0){
       const enterpriseGroup = getObjectFrom(ENTERPRISE_GROUP_VALUE_LOCALSTORAGE_KEY);
-      if(enterpriseGroup) fireUpdate(enterpriseGroup);
+      if(enterpriseGroup) {
+        setValue(enterpriseGroup);
+        types[enterpriseGroup.type].setValue(value);
+      }
     }
   },[tree]);
 
+  // is not executed until token is refreshed
+  useEffect(()=>{
+    if(value && isTokenRefreshed) types[value.type].setValue(value);
+  },[value,isTokenRefreshed]);
+
   // saves the selected value in localStorage
   const setSelectedValue = (value) => {
-    fireUpdate(value);
+    setValue(value);
     setObjectOn(ENTERPRISE_GROUP_VALUE_LOCALSTORAGE_KEY, value);
   };
-
-  const fireUpdate = (value) => {
-    setValue(value);
-    types[value.type].setValue(value);
-  }
 
   const types = {
     [ENTERPRISE_TYPE]: {
