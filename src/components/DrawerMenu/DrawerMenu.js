@@ -1,4 +1,5 @@
 import React from "react";
+import {useHistory} from "react-router-dom";
 
 import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -7,15 +8,14 @@ import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 import ListItemText from "@material-ui/core/ListItemText";
 import Drawer from "@material-ui/core/Drawer";
 import {makeStyles, useTheme} from "@material-ui/core/styles";
 
 import modules from "modules";
-import {drawerWidth} from "../constants/styles";
-import {useHistory} from "react-router-dom";
+import {Loading} from "../../modules/shared/Loading";
+
+import {drawerWidth} from "../../constants/styles";
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DrawerMenu = (props) => {
+const DrawerMenu = ({loading, functionalities,...props}) => {
   const classes = useStyles();
   const theme = useTheme();
   const history = useHistory();
@@ -57,16 +57,7 @@ const DrawerMenu = (props) => {
         </IconButton>
       </div>
       <Divider />
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
+      {loading? <Loading />:<List>
         {modules
           .filter(module => module.routeProps)
           .map(module => (
@@ -76,7 +67,8 @@ const DrawerMenu = (props) => {
             </ListItem>
           ))
         }
-      </List>
+      </List>}
+      <Divider />
     </Drawer>
   )
 }
