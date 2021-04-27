@@ -4,6 +4,7 @@ import * as API from "../api";
 
 const ADD = "ADD_TO_MODULE";
 const ADD_FUNCTIONALITIES = "ADD_TO_FUNCTIONALITIES";
+const RESET_FUNCTIONALITIES = "RESET_FUNCTIONALITIES";
 
 //Functions
 export const searchModules = () => {
@@ -14,6 +15,7 @@ export const searchModules = () => {
         .then(({status, data}) => {
           dispatch(add({ loading: false }));
           dispatch(add({ modules: data }));
+          dispatch(clearFunctionalities());
         })
         .catch(error => {
           dispatch(add({ loading: false }));
@@ -64,6 +66,12 @@ export function addFunctionalities(payload) {
   };
 }
 
+export function clearFunctionalities() {
+  return {
+    type: RESET_FUNCTIONALITIES
+  }
+}
+
 //Reducers
 const initialState = {
   loading: false,
@@ -81,6 +89,8 @@ export default (state = initialState, action) => {
       return { ...state, ...action.payload };
     case ADD_FUNCTIONALITIES:
       return { ...state, functionalities: {...state.functionalities, ...action.payload }};
+    case RESET_FUNCTIONALITIES:
+      return { ...state, functionalities: initialState.functionalities };
     case "RESET":
       return initialState;
     default:

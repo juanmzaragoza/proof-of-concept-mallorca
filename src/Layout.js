@@ -224,10 +224,18 @@ const Layout = ({ children, ...props}) => {
           <div className={classes.drawerHeader} />
           <PageHeader />
           <Switch>
-            {/** Default page */}
-            <Redirect exact from={'/'} to={'familia-proveedores'} />
             {/** Private modules */}
             <PrivateRoute isUserAuthenticated={isUserAuthenticated}>
+              {/* TODO() add index component */}
+              <Route path={'/'} exact={true} component={() => <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                textAlign: 'center',
+                width: '100%',
+                height: '78vh',
+                justifyContent: 'center',
+                fontSize: 'xxx-large'
+              }}>Pantalla Principal</div>} />
               {modules
                 .filter(module => module.routeProps)
                 .map(module => (

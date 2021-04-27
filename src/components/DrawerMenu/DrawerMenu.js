@@ -120,7 +120,7 @@ const DrawerMenu = ({loading, functionalities, selectedModule, getters, ...props
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit className={classes.nested}>
           <List component="div" disablePadding>
-            {route.children.map(child => processChildren(child))}
+            {route.children.map((child,index) => processChildren(child,index))}
           </List>
         </Collapse>
       </>
@@ -134,9 +134,9 @@ const DrawerMenu = ({loading, functionalities, selectedModule, getters, ...props
     </ListItem>
   );
 
-  const processChildren = (route) => {
+  const processChildren = (route, index) => {
     if(route.children) {
-      return <ItemWithChildren route={route} />;
+      return <ItemWithChildren key={index} route={route} />;
     } else{
       return processRoute(route);
     }
@@ -174,8 +174,8 @@ const DrawerMenu = ({loading, functionalities, selectedModule, getters, ...props
             </ListItem>
           ))
         }
-        {routes.map(route => {
-          return processChildren(route);
+        {routes.map((route,index) => {
+          return processChildren(route,index);
         })}
       </List>}
       <Divider />
