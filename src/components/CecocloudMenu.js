@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import PropTypes from "prop-types";
+import {isEqual} from "lodash";
+
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
@@ -8,11 +10,19 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import IconButton from "@material-ui/core/IconButton";
 
-const CecocloudMenu = ({ id, icon, items, noItemsText }) => {
+const CecocloudMenu = ({ id, icon, items, noItemsText, defaultValue }) => {
 
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef(null);
-  const [selectedItem, setSelectedItem] = React.useState(null);
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef(null);
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  // if exists a default value -> click it!
+  useEffect(()=>{
+    if(defaultValue){
+      setSelectedItem(defaultValue);
+      defaultValue.onClick();
+    }
+  },[defaultValue]);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -56,10 +66,10 @@ const CecocloudMenu = ({ id, icon, items, noItemsText }) => {
                 <MenuList autoFocusItem={open} id={id} onKeyDown={handleListKeyDown}>
                   {items && items.length > 0?
                     items.map((item,index) =>
-                      <MenuItem key={index} selected={selectedItem === index} onClick={(e) => {
+                      <MenuItem key={index} selected={isEqual(selectedItem, item)} onClick={(e) => {
                         item.onClick(e);
                         handleClose(e);
-                        setSelectedItem(index);
+                        setSelectedItem(item);
                       }}>{item.content}</MenuItem>)
                     :
                     <MenuItem disabled>{noItemsText}</MenuItem>
@@ -80,7 +90,8 @@ CecocloudMenu.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({
     content: PropTypes.any,
     onClick: PropTypes.func
-  }))
+  })),
+  defaultValue: PropTypes.any
 }
 
 export default CecocloudMenu;

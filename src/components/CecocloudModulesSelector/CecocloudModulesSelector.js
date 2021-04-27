@@ -7,9 +7,12 @@ import { withConstants } from "../../modules/wrappers";
 
 const CecocloudModulesSelector = ({loading, modules, actions, getters, ...props}) => {
   const [items, setItems] = useState([]);
+  const [defaultValue, setDefaultValue] = useState(null);
 
+  // if there is only 1 module -> select it by default
   useEffect(()=>{
     setItems(modules.map(module => getters.getModuleByName(module)));
+    if(modules.length === 1) setDefaultValue(getters.getModuleByName(modules[0]));
   },[modules]);
 
   return (
@@ -17,6 +20,7 @@ const CecocloudModulesSelector = ({loading, modules, actions, getters, ...props}
       id="modules-menu"
       icon={<Apps />}
       items={items}
+      defaultValue={defaultValue}
       noItemsText={!loading?
         props.intl.formatMessage({id: "Modules.selector.sin_resultados", defaultMessage: "No hay módulos cargados"})
         :
