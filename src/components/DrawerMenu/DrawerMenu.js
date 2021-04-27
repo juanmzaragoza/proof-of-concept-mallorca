@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import clsx from "clsx";
+import {find, some, isEmpty} from "lodash";
 
 import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import LocalMall from "@material-ui/icons/LocalMall";
 
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
@@ -22,6 +22,7 @@ import modules from "modules";
 import {Loading} from "../../modules/shared/Loading";
 
 import {drawerWidth} from "../../constants/styles";
+import {ErrorOutline} from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -53,47 +54,65 @@ const useStyles = makeStyles((theme) => ({
   nested: {
     paddingLeft: theme.spacing(2),
   },
+  noModules: {
+    fontStyle: 'italic'
+  }
 }));
 
-const routes = [
-  {
-    key: 'FAC_CP',
-    title: 'FAC_CP',
-    path: 'FAC_CP', // or has path or has children but not both
-  },
-  {
-    key: 'FAC_PEUDOC',
-    title: 'FAC_PEUDOC',
-    children: [
-      {
-        key: 'FAC_PROVEI',
-        title: 'FAC_PROVEI',
-        path: 'FAC_PROVEI',
-      },
-      {
-        key: 'FAC_PROTIP',
-        title: 'FAC_PROTIP',
-        children: [
-          {
-            key: 'FAC_PROVIN',
-            title: 'FAC_PROVIN',
-            path: 'FAC_PROVIN',
-          }
-        ]
-      }
-    ]
-  }
-];
-
-const DrawerMenu = ({loading, functionalities, selectedModule, getters, ...props}) => {
+const DrawerMenu = ({loading, functionalities, selectedModule, constants, getters, ...props}) => {
   const classes = useStyles();
   const theme = useTheme();
   const history = useHistory();
 
   const [title, setTitle] = useState(null);
+  const [menuItems,setMenuItems] = useState([]);
 
   useEffect(()=>{
-    console.log(functionalities)
+    // first, filter functionalities
+    const filterByFunctionality = (routes) => {
+      return routes
+        .map(route => {
+          // if leaf
+          if(route.key) {
+            const exists = some(functionalities, functionality => functionality === route.key);
+            return exists? route:{};
+          } else { // if non-leaf
+            const children = route.children;
+            return {
+              ...route,
+              children: filterByFunctionality(children)
+            }
+          }
+        })
+        .filter(route => !isEmpty(route));
+    }
+    const filteredRoutes = filterByFunctionality(constants.menuRoutes);
+
+    // second, get routes
+    const filterByModules = (routes) => {
+      return routes
+        .map(route => {
+          // if leaf
+          if(route.key) {
+            const module = find(modules, module => module.name === route.key);
+            return module? {
+              ...route,
+              path: module.routeProps.path,
+              icon: module.icon? module.icon:route.icon,
+            }:{};
+          } else { // if non-leaf
+            const children = filterByModules(route.children);
+            // if hasn't children -> I don't show it
+            return children.length > 0? {
+              ...route,
+              children
+            }:{}
+          }
+        })
+        .filter(route => !isEmpty(route));
+    }
+    const r = filterByModules(filteredRoutes);
+    setMenuItems(r);
   },[functionalities]);
 
   useEffect(()=>{
@@ -113,7 +132,7 @@ const DrawerMenu = ({loading, functionalities, selectedModule, getters, ...props
       <>
         <ListItem button onClick={handleOnClick} className={classes.nested}>
           <ListItemIcon>
-            <LocalMall />
+            {route.icon}
           </ListItemIcon>
           <ListItemText primary={route.title} />
           {open ? <ExpandLess /> : <ExpandMore />}
@@ -129,7 +148,7 @@ const DrawerMenu = ({loading, functionalities, selectedModule, getters, ...props
 
   const processRoute = (route) => (
     <ListItem button key={route.key} onClick={() => history.push(route.path)}>
-      <ListItemIcon><LocalMall /></ListItemIcon>
+      <ListItemIcon>{route.icon}</ListItemIcon>
       <ListItemText primary={route.title} />
     </ListItem>
   );
@@ -165,18 +184,22 @@ const DrawerMenu = ({loading, functionalities, selectedModule, getters, ...props
       </div>
       <Divider />
       {loading? <Loading />:<List>
-        {modules
-          .filter(module => module.routeProps)
-          .map(module => (
-            <ListItem button key={module.name} onClick={() => history.push(module.routeProps.path)}>
-              <ListItemIcon>{module.icon}</ListItemIcon>
-              <ListItemText primary={module.name} />
-            </ListItem>
-          ))
+        {menuItems.length > 0?
+          menuItems.map((route,index) => {
+            return processChildren(route,index);
+          })
+          :
+          <ListItem button disabled className={classes.noModules}>
+            <ListItemIcon>
+              <ErrorOutline />
+            </ListItemIcon>
+            <ListItemText primary={title?
+              props.intl.formatMessage({id: "Modules.menu.sin_funcionalidades", defaultMessage: "No existen funcionalidades para el módulo seleccionado"})
+              :
+              props.intl.formatMessage({id: "Modules.menu.no_modulos_seleccionado", defaultMessage: "No hay módulos seleccionados"})
+            } />
+          </ListItem>
         }
-        {routes.map((route,index) => {
-          return processChildren(route,index);
-        })}
       </List>}
       <Divider />
     </Drawer>

@@ -24,7 +24,7 @@ const component = {
     path: `${URL}`,
     component: SuppliersFamily
   },
-  name: 'SuppliersFamily',
+  name: 'FAC_PEUDOC',
   icon: <People />
 }
 export default component;

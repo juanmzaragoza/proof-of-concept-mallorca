@@ -112,6 +112,6 @@ export default {
     path: `${URL}`,
     component: Suppliers
   },
-  name: 'Suppliers',
+  name: 'FAC_CP',
   icon: <LocalMall />
 }

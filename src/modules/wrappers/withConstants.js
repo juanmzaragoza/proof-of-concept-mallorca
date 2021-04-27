@@ -2,6 +2,7 @@ import React from "react";
 import {compose} from "redux";
 import {injectIntl} from "react-intl";
 import {ChevronLeft, ChevronRight, Delete, Save, Undo, VerifiedUser} from "@material-ui/icons";
+import LocalMall from "@material-ui/icons/LocalMall";
 
 const withConstants = (PassedComponent) => {
 
@@ -42,7 +43,50 @@ const withConstants = (PassedComponent) => {
       return !modulesConfig[module]? modulesConfig['_default']:modulesConfig[module];
     }
 
-    return <PassedComponent constants={{modulesConfig}} getters={{getModuleByName}} {...props} ></PassedComponent>;
+    /**
+     * Example
+     * {
+     *  key: 'FAC_CP', // not mandatory for routes with children
+     *  title: 'Proveedores',
+     *  path: 'FAC_CP', // or has path or has children but not both
+     * },
+     * {
+     *  title: 'FAC_PEUDOC',
+     *  children: [
+     *  {
+     *    key: 'FAC_PROVEI',
+     *    title: 'FAC_PROVEI',
+     *    path: 'FAC_PROVEI',
+     *  },
+     *  {
+     *    title: 'FAC_PROTIP',
+     *    children: [
+     *      {
+     *        key: 'FAC_PROVIN',
+     *        title: 'FAC_PROVIN',
+     *        path: 'FAC_PROVIN',
+     *      }
+     *    ]
+     *  }
+     *  ]
+     * }
+     */
+    const menuRoutes = [
+      {
+        key: 'FAC_CP', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "Proveedores.titulo",defaultMessage: "Proveedores"}),
+        path: 'FAC_CP', // or has path or has children but not both
+        icon: <LocalMall />
+      },
+      {
+        key: 'FAC_PEUDOC', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "FamiliaProveedores.titulo",defaultMessage: "Familia de Proveedores"}),
+        path: 'FAC_PEUDOC', // or has path or has children but not both
+        icon: <LocalMall />
+      },
+    ];
+
+    return <PassedComponent constants={{modulesConfig, menuRoutes}} getters={{getModuleByName}} {...props} ></PassedComponent>;
   }
 
   return compose(
