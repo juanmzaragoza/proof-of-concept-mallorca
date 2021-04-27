@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
+import clsx from "clsx";
 
 import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
+import LocalMall from "@material-ui/icons/LocalMall";
 
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
@@ -20,7 +22,6 @@ import modules from "modules";
 import {Loading} from "../../modules/shared/Loading";
 
 import {drawerWidth} from "../../constants/styles";
-import {LocalMall} from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -36,8 +37,18 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
     height: '90px'
+  },
+  justifyEnd: {
+    justifyContent: 'flex-end',
+  },
+  justifySpaceBetween: {
+    justifyContent: 'space-between',
+  },
+  drawerTitle: {
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: 'large'
   },
   nested: {
     paddingLeft: theme.spacing(2),
@@ -74,10 +85,21 @@ const routes = [
   }
 ];
 
-const DrawerMenu = ({loading, functionalities,...props}) => {
+const DrawerMenu = ({loading, functionalities, selectedModule, getters, ...props}) => {
   const classes = useStyles();
   const theme = useTheme();
   const history = useHistory();
+
+  const [title, setTitle] = useState(null);
+
+  useEffect(()=>{
+    console.log(functionalities)
+  },[functionalities]);
+
+  useEffect(()=>{
+    const module = getters.getModuleByName(selectedModule);
+    setTitle(module.content !== "-"? module.content:null);
+  },[selectedModule]);
 
   const ItemWithChildren = ({ route }) => {
     const classes = useStyles();
@@ -130,7 +152,13 @@ const DrawerMenu = ({loading, functionalities,...props}) => {
         paper: classes.drawerPaper,
       }}
     >
-      <div className={classes.drawerHeader}>
+      <div className={clsx(classes.drawerHeader, {
+        [classes.justifyEnd]: !title,
+        [classes.justifySpaceBetween]: !!title
+      })}>
+        <div className={classes.drawerTitle}>
+          {title}
+        </div>
         <IconButton onClick={props.handleDrawerClose}>
           {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
         </IconButton>
