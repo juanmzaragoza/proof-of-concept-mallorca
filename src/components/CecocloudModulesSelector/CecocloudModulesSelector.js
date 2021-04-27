@@ -1,43 +1,18 @@
 import React, {useEffect, useState} from "react";
-import {Save, Undo, Delete, ChevronLeft, ChevronRight, VerifiedUser, Apps} from "@material-ui/icons";
+import {compose} from "redux";
+import {Apps} from "@material-ui/icons";
 import CecocloudMenu from "../CecocloudMenu";
+import {injectIntl} from "react-intl";
+import { withConstants } from "../../modules/wrappers";
 
-const CecocloudModulesSelector = ({loading, modules, actions, ...props}) => {
+const CecocloudModulesSelector = ({loading, modules, actions, getters, ...props}) => {
   const [items, setItems] = useState([]);
+  const [defaultValue, setDefaultValue] = useState(null);
 
-  const modulesConfig = {
-    cita: {
-      content: <><Save />&nbsp; {props.intl.formatMessage({id: "Modules.selector.cita",defaultMessage: "Citas"})}</>,
-      onClick: () => actions.selectModule('cita')
-    },
-    fact: {
-      content: <><Undo />&nbsp; {props.intl.formatMessage({id: "Modules.selector.fact",defaultMessage: "Facturación"})}</>,
-      onClick: () => actions.selectModule('fact')
-    },
-    lici: {
-      content: <><Delete />&nbsp; {props.intl.formatMessage({id: "Modules.selector.lici",defaultMessage: "Licitaciones"})}</>,
-      onClick: () => actions.selectModule('lici')
-    },
-    marc: {
-      content: <><ChevronLeft />&nbsp; {props.intl.formatMessage({id: "Modules.selector.marc",defaultMessage: "Marcajes"})}</>,
-      onClick: () => actions.selectModule('marc')
-    },
-    rrhh: {
-      content: <><ChevronRight />&nbsp; {props.intl.formatMessage({id: "Modules.selector.rrhh",defaultMessage: "Recursos Humanos"})}</>,
-      onClick: () => actions.selectModule('rrhh')
-    },
-    ecom: {
-      content: <><VerifiedUser />&nbsp; {props.intl.formatMessage({id: "Modules.selector.ecom",defaultMessage: "Ecom"})}</>,
-      onClick: () => actions.selectModule('ecom')
-    },
-    _default: {
-      content: "-",
-      onClick: () => {}
-    }
-  }
-
+  // if there is only 1 module -> select it by default
   useEffect(()=>{
-    setItems(modules.map(module => !modulesConfig[module]?modulesConfig['_default']:modulesConfig[module]));
+    setItems(modules.map(module => getters.getModuleByName(module)));
+    if(modules.length === 1) setDefaultValue(getters.getModuleByName(modules[0]));
   },[modules]);
 
   return (
@@ -45,6 +20,7 @@ const CecocloudModulesSelector = ({loading, modules, actions, ...props}) => {
       id="modules-menu"
       icon={<Apps />}
       items={items}
+      defaultValue={defaultValue}
       noItemsText={!loading?
         props.intl.formatMessage({id: "Modules.selector.sin_resultados", defaultMessage: "No hay módulos cargados"})
         :
@@ -52,4 +28,7 @@ const CecocloudModulesSelector = ({loading, modules, actions, ...props}) => {
   );
 }
 
-export default CecocloudModulesSelector;
+export default compose(
+  injectIntl,
+  withConstants
+)(CecocloudModulesSelector);
