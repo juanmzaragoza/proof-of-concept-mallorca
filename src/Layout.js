@@ -120,6 +120,7 @@ const Layout = ({ children, ...props}) => {
   const history = useHistory();
 
   const [open, setOpen] = useState(false);
+  const [beforeToken, setBeforeToken] = useState("");
 
   /**
    * If the user is not authenticated,
@@ -134,7 +135,9 @@ const Layout = ({ children, ...props}) => {
    * the user is redirected to index
    **/
   useEffect(()=>{
-    history.push('/');
+    if(props.token) {
+      history.push('/');
+    }
   },[props.token]);
 
   const handleDrawerOpen = () => {

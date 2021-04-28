@@ -11,6 +11,7 @@ import AdvancedFilters from "./AdvancedFilters";
 import SuppliersForm from "./SuppliersForm";
 import * as API from "redux/api";
 import {setBreadcrumbHeader, setListingConfig} from "redux/pageHeader";
+import withHeaders from "../wrappers/withHeaders";
 
 const URL = '/proveedores';
 
@@ -110,7 +111,7 @@ const Suppliers = () => (
 export default {
   routeProps: {
     path: `${URL}`,
-    component: Suppliers
+    component: withHeaders(Suppliers)
   },
   name: 'FAC_CP',
   icon: <LocalMall />

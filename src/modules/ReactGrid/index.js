@@ -2,6 +2,8 @@ import React, { useReducer, useState, useEffect } from 'react';
 import PropTypes from "prop-types";
 import {withSnackbar} from "notistack";
 
+import "./styles.scss";
+
 import {
   FilteringState,
   IntegratedFiltering,
@@ -71,6 +73,10 @@ function reducer(state, { type, payload }) {
       return state;
   }
 }
+
+const TableComponent = ({ ...restProps }) => (
+  <Table.Table {...restProps} className="table-striped with-padding" />
+);
 
 const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -222,10 +228,10 @@ const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
         {/***************************/}
         <EditingState onCommitChanges={commitChanges} />
 
-        <Table cellComponent={FocusableCell} noDataText={"HOla"} />
+        <Table tableComponent={TableComponent} cellComponent={FocusableCell} noDataText={"HOla"} />
         <TableHeaderRow showSortingControls />
         <TableFilterRow />
-        <TableInlineCellEditing selectTextOnEditStart/>
+        {configuration.enableInlineEdition && <TableInlineCellEditing selectTextOnEditStart />}
         <ActionsColumn title={props.intl.formatMessage({
           id: "ReactGrid.actions_column",
           defaultMessage: "Acciones"
@@ -246,7 +252,8 @@ ReactGrid.propTypes = {
       title: PropTypes.string
     })),
     URL: PropTypes.string.isRequired,
-    listKey: PropTypes.string.isRequired
+    listKey: PropTypes.string.isRequired,
+    enableInlineEdition: PropTypes.bool
   })
 };
 

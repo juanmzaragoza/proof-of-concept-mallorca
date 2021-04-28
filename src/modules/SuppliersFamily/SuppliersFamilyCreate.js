@@ -1,6 +1,8 @@
 import CreateUpdateForm from "../ReactGrid/CreateUpdateForm";
 import {injectIntl} from "react-intl";
 import React from "react";
+import {compose} from "redux";
+import {withValidations} from "../wrappers";
 
 const SuppliersFamilyCreate = (props) => {
   const createConfiguration = [
@@ -16,7 +18,12 @@ const SuppliersFamilyCreate = (props) => {
         xs: 12,
         md: 4
       },
-      noEditable: true
+      noEditable: true,
+      validationType: "string",
+      validations: [
+        ...props.validationsArray.requiredValidation(),
+        ...props.validationsArray.minMaxValidation(1,4)
+      ]
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -30,11 +37,16 @@ const SuppliersFamilyCreate = (props) => {
         xs: 12,
         md: 4
       },
+      validationType: "string",
+      validations: [
+        ...props.validationsArray.requiredValidation(),
+        ...props.validationsArray.minMaxValidation(1,30)
+      ]
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "FamiliaProveedores.ctaprcmp",
-        defaultMessage: "Ctaprcmp"
+        defaultMessage: "Cuenta Compras"
       }),
       type: 'input',
       key: 'ctaprcmp',
@@ -43,6 +55,8 @@ const SuppliersFamilyCreate = (props) => {
         xs: 12,
         md: 4
       },
+      validationType: "string",
+      validations: props.validationsArray.minMaxValidation(1,10)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -60,7 +74,7 @@ const SuppliersFamilyCreate = (props) => {
     {
       placeHolder: props.intl.formatMessage({
         id: "FamiliaProveedores.tipasicmp",
-        defaultMessage: "Tipasicmp"
+        defaultMessage: "Tipo Asig. Fac"
       }),
       type: 'input',
       key: 'tipasicmp',
@@ -69,11 +83,13 @@ const SuppliersFamilyCreate = (props) => {
         xs: 12,
         md: 4
       },
+      validationType: "string",
+      validations: props.validationsArray.minMaxValidation(1,2)
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "FamiliaProveedores.dricmp",
-        defaultMessage: "Dricmp"
+        defaultMessage: "Diario Fac"
       }),
       type: 'input',
       key: 'dricmp',
@@ -82,6 +98,8 @@ const SuppliersFamilyCreate = (props) => {
         xs: 12,
         md: 4
       },
+      validationType: "string",
+      validations: props.validationsArray.minMaxValidation(1,2)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -89,12 +107,14 @@ const SuppliersFamilyCreate = (props) => {
         defaultMessage: "Driprfcmp"
       }),
       type: 'input',
-      key: 'driprfcmp',
+      key: 'Diario Prof.',
       required: true,
       breakpoints: {
         xs: 12,
         md: 4
       },
+      validationType: "string",
+      validations: props.validationsArray.minMaxValidation(1,2)
     }
   ];
   return (
@@ -107,4 +127,7 @@ const SuppliersFamilyCreate = (props) => {
   )
 };
 
-export default injectIntl(SuppliersFamilyCreate);
+export default compose(
+  withValidations,
+  injectIntl
+)(SuppliersFamilyCreate);
