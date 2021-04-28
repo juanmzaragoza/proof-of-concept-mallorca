@@ -38,8 +38,7 @@ const SuppliersFamilyList = ({ actions, ...props }) => {
       },
     ],
     URL: 'api/fact/familiesProveidor',
-    listKey: 'familiaProveidors',
-    enableInlineEdition: true
+    listKey: 'familiaProveidors'
   };
   return (
     <ReactGrid configuration={listConfiguration} />
