@@ -6,3 +6,10 @@ export const TDOC_SELECTOR_VALUES = [
   { value: 'CERTIFICAT_RESIDENCIA_FISCAL', labelId: 'Selector.certif_residencia', label: 'Certif. residencia fiscal'},
   { value: 'ALTRE_DOCUMENT', labelId: 'Selector.otro_documento', label: 'Otro documento'},
 ];
+
+export const MODULE_NAMES = {
+  'cita': {
+    name: 'Cita',
+    icon: 'Icon'
+  }
+}

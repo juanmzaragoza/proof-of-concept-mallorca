@@ -1,15 +1,12 @@
 import Axios from "../Axios";
 import {getPlainFrom, setPlainOn} from "./storage";
 import jwtDecode from "jwt-decode";
+import {TOKEN_LOCALSTORAGE_KEY} from "../constants";
 
 //hack to avoid regenerate toeken manually
 export const login = () => {
   // check if token is expired
-  const token = getPlainFrom('token');
-  if(token) {
-    const {exp, iss} = jwtDecode(token);
-    if (Date.now() < exp * 1000 && iss === 'ceocloud') return;
-  }
+  if(tokenIsValid()) return;
   // generate token
   Axios.get('api/auth?user=admin&pass=admin',{
     headers: new Headers({
@@ -25,7 +22,7 @@ export const login = () => {
       }),
     })
     .then(({status, data, ...rest}) => {
-      setPlainOn('token', data.token);
+      setPlainOn(TOKEN_LOCALSTORAGE_KEY, data.token);
     })
     .catch(error => {
       window.alert("NO SE PUDO REFRESCAR")
@@ -36,6 +33,16 @@ export const login = () => {
   });
 }
 
+export const tokenIsValid = () => {
+  const token = getPlainFrom(TOKEN_LOCALSTORAGE_KEY);
+  if(token) {
+    const {exp, iss} = jwtDecode(token);
+    return (Date.now() < exp * 1000 && iss === 'ceocloud');
+  } else{
+    return false;
+  }
+}
+
 export const isUserAuthenticated = () => {
-  return !!getPlainFrom('token');
+  return !!getPlainFrom(TOKEN_LOCALSTORAGE_KEY);
 }

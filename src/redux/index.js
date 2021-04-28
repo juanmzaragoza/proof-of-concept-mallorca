@@ -6,6 +6,8 @@ import genericForm from "redux/genericForm/index.js";
 import app from "redux/app/index.js";
 import lovForm from "redux/lovForm/index.js";
 import grids from "redux/grids/index";
+import enterpriseGroup from "redux/enterpriseGroup/index";
+import modules from "redux/modules/index";
 
 export default combineReducers({
   app,
@@ -14,7 +16,9 @@ export default combineReducers({
   pageHeader,
   genericForm,
   lovForm,
-  grids
+  grids,
+  enterpriseGroup,
+  modules
 });
 
 //Global action to reset the store

@@ -18,3 +18,7 @@ export const getPlainFrom = (key) => {
 export const removeKey = (key) => {
   localStorage.removeItem(key);
 };
+
+export const clearAll = () => {
+  localStorage.clear();
+}
