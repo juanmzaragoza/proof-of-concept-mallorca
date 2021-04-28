@@ -225,7 +225,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
         <Table cellComponent={FocusableCell} noDataText={"HOla"} />
         <TableHeaderRow showSortingControls />
         <TableFilterRow />
-        <TableInlineCellEditing selectTextOnEditStart/>
+        {configuration.enableInlineEdition && <TableInlineCellEditing selectTextOnEditStart />}
         <ActionsColumn title={props.intl.formatMessage({
           id: "ReactGrid.actions_column",
           defaultMessage: "Acciones"
@@ -246,7 +246,8 @@ ReactGrid.propTypes = {
       title: PropTypes.string
     })),
     URL: PropTypes.string.isRequired,
-    listKey: PropTypes.string.isRequired
+    listKey: PropTypes.string.isRequired,
+    enableInlineEdition: PropTypes.bool
   })
 };
 
