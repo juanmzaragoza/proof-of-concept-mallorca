@@ -9,6 +9,7 @@ const withConstants = (PassedComponent) => {
 
   const WrappedComponent = ({ actions, ...props}) => {
 
+    /** To use it, we have to bind in the wrapped component an action selectModule */
     const modulesConfig = {
       cita: {
         content: <><Save />&nbsp; {props.intl.formatMessage({id: "Modules.selector.cita",defaultMessage: "Citas"})}</>,
@@ -86,7 +87,10 @@ const withConstants = (PassedComponent) => {
       },
     ];
 
-    return <PassedComponent constants={{modulesConfig, menuRoutes}} getters={{getModuleByName}} {...props} ></PassedComponent>;
+    return <PassedComponent
+      constants={{modulesConfig, menuRoutes}}
+      getters={{getModuleByName}} {...props}
+      actions={actions} ></PassedComponent>;
   }
 
   return compose(

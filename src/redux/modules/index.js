@@ -1,6 +1,8 @@
 //Action types
 import Axios from "Axios";
 import * as API from "../api";
+import {removeKey, setPlainOn} from "../../helper/storage";
+import {SELECTED_MODULE_LOCALSTORAGE_KEY} from "../../constants";
 
 const ADD = "ADD_TO_MODULE";
 const ADD_FUNCTIONALITIES = "ADD_TO_FUNCTIONALITIES";
@@ -8,6 +10,7 @@ const RESET_FUNCTIONALITIES = "RESET_FUNCTIONALITIES";
 
 //Functions
 export const searchModules = () => {
+  removeKey(SELECTED_MODULE_LOCALSTORAGE_KEY);
   return async dispatch => {
     try {
       dispatch(add({ loading: true }));
@@ -38,6 +41,7 @@ export const loadModule = (name) => {
         .then(({status, data}) => {
           dispatch(addFunctionalities({ loading: false }));
           dispatch(addFunctionalities({ allowed: data }));
+          setPlainOn(SELECTED_MODULE_LOCALSTORAGE_KEY,name);
         })
         .catch(error => {
           dispatch(addFunctionalities({ loading: false }));
