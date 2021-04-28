@@ -6,6 +6,7 @@ import {People} from "@material-ui/icons";
 
 import SuppliersFamilyList from "./SuppliersFamilyList";
 import SuppliersFamilyCreate from "./SuppliersFamilyCreate";
+import withHeaders from "../wrappers/withHeaders";
 
 const URL = '/familia-proveedores';
 
@@ -22,7 +23,7 @@ const SuppliersFamily = () => (
 const component = {
   routeProps: {
     path: `${URL}`,
-    component: SuppliersFamily
+    component: withHeaders(SuppliersFamily)
   },
   name: 'FAC_PEUDOC',
   icon: <People />

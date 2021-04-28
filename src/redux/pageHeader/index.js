@@ -36,6 +36,12 @@ export function setFireSaveFromHeader(payload){
   }
 }
 
+export function resetHeaders() {
+  return {
+    type: RESET_ALL_HEADER
+  }
+}
+
 //Reducers
 const initialState = {
   listingConfig: false,
