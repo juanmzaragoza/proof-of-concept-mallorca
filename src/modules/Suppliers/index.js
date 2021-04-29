@@ -35,31 +35,36 @@ const SuppliersList = ({actions, ...props}) => {
       defaultMessage: "Proveedores"
     }),
     columns: [
-      { name: 'codi',
+      {
+        name: 'codi',
         title: props.intl.formatMessage({
           id: "Proveedores.codigo",
           defaultMessage: "Código"
         })
       },
-      { name: 'nomComercial',
+      {
+        name: 'nomComercial',
         title: props.intl.formatMessage({
           id: "Proveedores.nombre_comercial",
           defaultMessage: "Nombre Comercial"
         })
       },
-      { name: 'descCodiNom',
+      { name: 'nif',
         title: props.intl.formatMessage({
           id: "Proveedores.nif",
           defaultMessage: "NIF"
         })
       },
-      { name: 'id',
+      {
+        name: 'familiaProveidor.id',
         title: props.intl.formatMessage({
           id: "Proveedores.familia",
           defaultMessage: "Familia"
-        })
+        }),
+        getCellValue: row => row.familiaProveidor.description
       },
-      { name: 'nomFiscal',
+      {
+        name: 'alias',
         title: props.intl.formatMessage({
           id: "Proveedores.alias",
           defaultMessage: "Alias"
