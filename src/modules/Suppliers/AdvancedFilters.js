@@ -23,7 +23,7 @@ const AdvancedFilters = ({actions, filters, ...props}) => {
         defaultMessage: "Código"
       }),
       type: 'input',
-      key: '1aa',
+      key: 'codi',
       breakpoints: {
         xs: 12,
         md: 3
@@ -36,7 +36,7 @@ const AdvancedFilters = ({actions, filters, ...props}) => {
         defaultMessage: "Nombre Comercial"
       }),
       type: 'input',
-      key: '2',
+      key: 'nomComercial',
       breakpoints: {
         xs: 12,
         md: 3
@@ -49,7 +49,7 @@ const AdvancedFilters = ({actions, filters, ...props}) => {
         defaultMessage: "Nombre Fiscal"
       }),
       type: 'input',
-      key: '3',
+      key: 'nomFiscal',
       breakpoints: {
         xs: 12,
         md: 3
@@ -62,7 +62,7 @@ const AdvancedFilters = ({actions, filters, ...props}) => {
         defaultMessage: "NIF"
       }),
       type: 'input',
-      key: '4',
+      key: 'nif',
       breakpoints: {
         xs: 12,
         md: 3
@@ -75,7 +75,7 @@ const AdvancedFilters = ({actions, filters, ...props}) => {
         defaultMessage: "Alias"
       }),
       type: 'input',
-      key: '5',
+      key: 'alias',
       breakpoints: {
         xs: 12,
         md: 6
@@ -88,7 +88,7 @@ const AdvancedFilters = ({actions, filters, ...props}) => {
         defaultMessage: "Familia"
       }),
       type: 'input',
-      key: '6',
+      key: 'familia',
       breakpoints: {
         xs: 12,
         md: 6
@@ -101,21 +101,24 @@ const AdvancedFilters = ({actions, filters, ...props}) => {
     actions.resetFilters();
   };
 
-  const actionButtons = () => (
-    <div className="actions-buttons-actions">
-      <div className="left-side">
-        <Button onClick={() => setShowMore(!showMore)}>{!showMore? "+ Ver más":"- Ver menos"}</Button>
-        {
-          !_.isEmpty(_.omitBy(filters, data => data === ""))? <b>Filtrados</b>:null
-        }
-        {_.map(_.omitBy(filters, data => data === ""), (value, key) => <Chip key={key} label={value} variant="outlined" />)}
+  const actionButtons = () => {
+    const filtered = _.omitBy(filters, data => data === "" || !data);
+    return (
+      <div className="actions-buttons-actions">
+        <div className="left-side">
+          <Button onClick={() => setShowMore(!showMore)}>{!showMore? "+ Ver más":"- Ver menos"}</Button>
+          {
+            !_.isEmpty(filtered)? <b>Filtrados</b>:null
+          }
+          {_.map(filtered, (value, key) => <Chip key={key} label={value} variant="outlined" />)}
+        </div>
+        <div className="right-side">
+          <Button variant="contained" color="secondary" onClick={() => clearFilters()}>Limpiar Filtros</Button>
+          <Button variant="contained" color="primary">Filtrar</Button>
+        </div>
       </div>
-      <div className="right-side">
-        <Button variant="contained" color="secondary" onClick={() => clearFilters()}>Limpiar Filtros</Button>
-        <Button variant="contained" color="primary">Filtrar</Button>
-      </div>
-    </div>
-  );
+    )
+  };
 
   return <Paper elevation={3} className="advanced-filters-root">
     <Fade in={showMore} unmountOnExit={true}>

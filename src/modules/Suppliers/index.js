@@ -49,7 +49,8 @@ const SuppliersList = ({actions, ...props}) => {
           defaultMessage: "Nombre Comercial"
         })
       },
-      { name: 'nif',
+      {
+        name: 'nif',
         title: props.intl.formatMessage({
           id: "Proveedores.nif",
           defaultMessage: "NIF"
