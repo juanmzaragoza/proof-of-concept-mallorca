@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import { connect } from "react-redux";
-import {bindActionCreators} from "redux";
+import {bindActionCreators, compose} from "redux";
 import {injectIntl} from "react-intl";
+import PropTypes from "prop-types";
 
 import Button from "@material-ui/core/Button";
 import {Chip, Fade, Paper} from "@material-ui/core";
@@ -13,109 +14,39 @@ import {add, reset} from "redux/advancedFilters";
 
 import "./styles.scss";
 
-const AdvancedFilters = ({actions, filters, ...props}) => {
+const AdvancedFilters = ({actions, filters, fields = [], ...props}) => {
   const [showMore, setShowMore] = useState(false);
 
-  const [showedFields, ] = useState([
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.codigo",
-        defaultMessage: "Código"
-      }),
-      type: 'input',
-      key: '1aa',
-      breakpoints: {
-        xs: 12,
-        md: 3
-      },
-      variant: 'outlined'
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.nombre_comercial",
-        defaultMessage: "Nombre Comercial"
-      }),
-      type: 'input',
-      key: '2',
-      breakpoints: {
-        xs: 12,
-        md: 3
-      },
-      variant: 'outlined'
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.nombre_fiscal",
-        defaultMessage: "Nombre Fiscal"
-      }),
-      type: 'input',
-      key: '3',
-      breakpoints: {
-        xs: 12,
-        md: 3
-      },
-      variant: 'outlined'
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.nif",
-        defaultMessage: "NIF"
-      }),
-      type: 'input',
-      key: '4',
-      breakpoints: {
-        xs: 12,
-        md: 3
-      },
-      variant: 'outlined'
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.alias",
-        defaultMessage: "Alias"
-      }),
-      type: 'input',
-      key: '5',
-      breakpoints: {
-        xs: 12,
-        md: 6
-      },
-      variant: 'outlined'
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.familia",
-        defaultMessage: "Familia"
-      }),
-      type: 'input',
-      key: '6',
-      breakpoints: {
-        xs: 12,
-        md: 6
-      },
-      variant: 'outlined'
-    },
-  ]);
+  const [showedFields, ] = useState(fields);
 
   const clearFilters = () => {
     actions.resetFilters();
   };
 
-  const actionButtons = () => (
-    <div className="actions-buttons-actions">
-      <div className="left-side">
-        <Button onClick={() => setShowMore(!showMore)}>{!showMore? "+ Ver más":"- Ver menos"}</Button>
-        {
-          !_.isEmpty(_.omitBy(filters, data => data === ""))? <b>Filtrados</b>:null
-        }
-        {_.map(_.omitBy(filters, data => data === ""), (value, key) => <Chip key={key} label={value} variant="outlined" />)}
+  const actionButtons = () => {
+    const filtered = _.omitBy(filters, data => data === "" || !data);
+    return (
+      <div className="actions-buttons-actions">
+        <div className="left-side">
+          <Button onClick={() => setShowMore(!showMore)}>{!showMore? props.intl.formatMessage({
+            id: "Filtros.ver_mas",
+            defaultMessage: "+ Ver más"
+          }):props.intl.formatMessage({
+            id: "Filtros.ver_menos",
+            defaultMessage: "- Ver menos"
+          })}</Button>
+          {
+            !_.isEmpty(filtered)? <b>{props.intl.formatMessage({id: "Filtros.filtrados", defaultMessage: "Filtrados"})}</b>:null
+          }
+          {_.map(filtered, (value, key) => <Chip key={key} label={value} variant="outlined" />)}
+        </div>
+        <div className="right-side">
+          <Button variant="contained" color="secondary" onClick={() => clearFilters()}>{props.intl.formatMessage({id: "Filtros.limpiar", defaultMessage: "Limpiar Filtros"})}</Button>
+          <Button variant="contained" color="primary" onClick={() => props.handleSearch(filters)}>{props.intl.formatMessage({id: "Filtros.filtrar", defaultMessage: "Filtrar"})}</Button>
+        </div>
       </div>
-      <div className="right-side">
-        <Button variant="contained" color="secondary" onClick={() => clearFilters()}>Limpiar Filtros</Button>
-        <Button variant="contained" color="primary">Filtrar</Button>
-      </div>
-    </div>
-  );
+    )
+  };
 
   return <Paper elevation={3} className="advanced-filters-root">
     <Fade in={showMore} unmountOnExit={true}>
@@ -129,9 +60,14 @@ const AdvancedFilters = ({actions, filters, ...props}) => {
   </Paper>;
 };
 
+AdvancedFilters.propTypes = {
+  fields: PropTypes.array,
+  handleSearch: PropTypes.func.isRequired
+}
+
 const mapStateToProps = (state, props) => {
   return {
-    filters: getFilters(state)
+    filters: getFilters(state),
   };
 };
 
@@ -143,8 +79,9 @@ const mapDispatchToProps = (dispatch, props) => {
   return { actions };
 };
 
-const component = injectIntl(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AdvancedFilters));
+const component = compose(
+  injectIntl,
+  connect(mapStateToProps,mapDispatchToProps)
+)(AdvancedFilters);
+
 export default component;

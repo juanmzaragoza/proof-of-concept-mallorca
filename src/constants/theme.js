@@ -55,7 +55,6 @@ export const theme = createMuiTheme({
           color: '#323232',
           background: 'white',
           boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.2);',
-
           '&$error': {
             border: '1px solid red',
             color: 'red'

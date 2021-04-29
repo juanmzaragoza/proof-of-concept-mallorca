@@ -50,7 +50,6 @@ const SuppliersFamilyCreate = (props) => {
       }),
       type: 'input',
       key: 'ctaprcmp',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 4
@@ -60,25 +59,11 @@ const SuppliersFamilyCreate = (props) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "FamiliaProveedores.observaciones",
-        defaultMessage: "Observaciones"
-      }),
-      type: 'input',
-      key: 'observacions',
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 4
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
         id: "FamiliaProveedores.tipasicmp",
         defaultMessage: "Tipo Asig. Fac"
       }),
       type: 'input',
       key: 'tipasicmp',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 4
@@ -93,7 +78,6 @@ const SuppliersFamilyCreate = (props) => {
       }),
       type: 'input',
       key: 'dricmp',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 4
@@ -108,14 +92,28 @@ const SuppliersFamilyCreate = (props) => {
       }),
       type: 'input',
       key: 'Diario Prof.',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 4
       },
       validationType: "string",
       validations: props.validationsArray.minMaxValidation(1,2)
-    }
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "FamiliaProveedores.observaciones",
+        defaultMessage: "Observaciones"
+      }),
+      type: 'input',
+      key: 'observacions',
+      breakpoints: {
+        xs: 12,
+        md: 12
+      },
+      text: {
+        multiline: 4
+      }
+    },
   ];
   return (
     <CreateUpdateForm title={props.intl.formatMessage({
