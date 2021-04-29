@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { connect } from "react-redux";
 import {bindActionCreators, compose} from "redux";
 import {injectIntl} from "react-intl";
+import PropTypes from "prop-types";
 
 import Button from "@material-ui/core/Button";
 import {Chip, Fade, Paper} from "@material-ui/core";
@@ -41,7 +42,7 @@ const AdvancedFilters = ({actions, filters, fields = [], ...props}) => {
         </div>
         <div className="right-side">
           <Button variant="contained" color="secondary" onClick={() => clearFilters()}>{props.intl.formatMessage({id: "Filtros.limpiar", defaultMessage: "Limpiar Filtros"})}</Button>
-          <Button variant="contained" color="primary">{props.intl.formatMessage({id: "Filtros.filtrar", defaultMessage: "Filtrar"})}</Button>
+          <Button variant="contained" color="primary" onClick={() => props.handleSearch(filters)}>{props.intl.formatMessage({id: "Filtros.filtrar", defaultMessage: "Filtrar"})}</Button>
         </div>
       </div>
     )
@@ -59,9 +60,14 @@ const AdvancedFilters = ({actions, filters, fields = [], ...props}) => {
   </Paper>;
 };
 
+AdvancedFilters.propTypes = {
+  fields: PropTypes.array,
+  handleSearch: PropTypes.func.isRequired
+}
+
 const mapStateToProps = (state, props) => {
   return {
-    filters: getFilters(state)
+    filters: getFilters(state),
   };
 };
 
@@ -77,4 +83,5 @@ const component = compose(
   injectIntl,
   connect(mapStateToProps,mapDispatchToProps)
 )(AdvancedFilters);
+
 export default component;

@@ -188,7 +188,7 @@ const SuppliersList = ({actions, ...props}) => {
 
   return (
     <>
-      <AdvancedFilters fields={advancedFilters} />
+      <AdvancedFilters fields={advancedFilters} handleSearch={(data) => console.log(data)} />
       <ReactGrid configuration={listConfiguration} />
     </>
   )
