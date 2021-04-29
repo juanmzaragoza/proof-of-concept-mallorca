@@ -87,13 +87,42 @@ const AdvancedFilters = ({actions, filters, ...props}) => {
         id: "Proveedores.familia",
         defaultMessage: "Familia"
       }),
-      type: 'input',
-      key: 'familia',
+      type: 'LOV',
+      key: 'familiaProveidor',
+      required: true,
       breakpoints: {
         xs: 12,
         md: 6
       },
-      variant: 'outlined'
+      variant: 'outlined',
+      selector: {
+        key: 'familiaProveidors',
+        labelKey: (data) => `${data.nom} (${data.codi})`,
+        sort: 'nom',
+        creationComponents: [
+          {
+            type: 'input',
+            key: 'codi',
+            placeHolder: props.intl.formatMessage({id: "Comun.codigo", defaultMessage: "Código"}),
+            required: true,
+            noEditable: true,
+            breakpoints: {
+              xs: 12,
+              md: 6
+            }
+          },
+          {
+            type: 'input',
+            key: 'nom',
+            placeHolder: props.intl.formatMessage({id: "Comun.nombre", defaultMessage: "Nombre"}),
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 6
+            }
+          }
+        ]
+      },
     },
   ]);
 
