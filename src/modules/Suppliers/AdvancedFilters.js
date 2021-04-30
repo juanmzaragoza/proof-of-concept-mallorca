@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import {bindActionCreators, compose} from "redux";
 import {injectIntl} from "react-intl";
 import PropTypes from "prop-types";
+import { find } from "lodash";
 
 import Button from "@material-ui/core/Button";
 import {Chip, Fade, Paper} from "@material-ui/core";
@@ -23,6 +24,15 @@ const AdvancedFilters = ({actions, filters, fields = [], ...props}) => {
     actions.resetFilters();
   };
 
+  const showInChip = {
+    'LOV': (field, data) => field.selector.labelKey(data),
+    '_default': (key, data) => data
+  }
+  const getLabel = (key, data) => {
+    const field = find(fields, (field) => field.key === key);
+    return showInChip[field.type]? showInChip[field.type](field,data) : showInChip['_default'](field,data);
+  }
+
   const actionButtons = () => {
     const filtered = _.omitBy(filters, data => data === "" || !data);
     return (
@@ -38,7 +48,7 @@ const AdvancedFilters = ({actions, filters, fields = [], ...props}) => {
           {
             !_.isEmpty(filtered)? <b>{props.intl.formatMessage({id: "Filtros.filtrados", defaultMessage: "Filtrados"})}</b>:null
           }
-          {_.map(filtered, (value, key) => <Chip key={key} label={value} variant="outlined" />)}
+          {_.map(filtered, (value, key) => <Chip key={key} label={getLabel(key,value)} variant="outlined" />)}
         </div>
         <div className="right-side">
           <Button variant="contained" color="secondary" onClick={() => clearFilters()}>{props.intl.formatMessage({id: "Filtros.limpiar", defaultMessage: "Limpiar Filtros"})}</Button>
