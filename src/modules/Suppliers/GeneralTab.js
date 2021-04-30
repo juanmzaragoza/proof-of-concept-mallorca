@@ -260,7 +260,6 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       }),
       type: 'input',
       key: 'alias',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 4
@@ -273,12 +272,49 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
         id: "Proveedores.pais_nif",
         defaultMessage: "País NIF"
       }),
-      type: 'input',
+      type: 'LOV',
       key: 'paisNif',
       breakpoints: {
         xs: 12,
         md: 2
       },
+      selector: {
+        key: 'paisNifs',
+        labelKey: formatCodeAndName,
+        sort: 'nom',
+        creationComponents: [
+          ...codeAndName(6,6),
+          {
+            placeHolder: props.intl.formatMessage({
+              id: "Proveedores.tamanyNif",
+              defaultMessage: "tamanyNif"
+            }),
+            type: 'input',
+            key: 'tamanyNif',
+            breakpoints: {
+              xs: 12,
+              md: 6
+            },
+            validationType: "string",
+            validations: [...props.validationsArray.minMaxValidation(1,30)]
+          },
+          {
+            placeHolder: props.intl.formatMessage({
+              id: "Proveedores.tipoDoc",
+              defaultMessage: "Tipo Documento"
+            }),
+            type: 'select',
+            key: 'tipusNif',
+            breakpoints: {
+              xs: 12,
+              md: 6
+            },
+            selector: {
+              options: TDOC_SELECTOR_VALUES
+            },
+          },
+        ]
+      }
     },
     {
       placeHolder: props.intl.formatMessage({

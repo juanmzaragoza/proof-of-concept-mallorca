@@ -150,7 +150,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
     // filtering by column
     if (columnFiltering.length){
       const filteringConfig = columnFiltering
-        .map(({ columnName, value }) => `${columnName}==*${value}*`);
+        .map(({ columnName, value }) => `${columnName}=ic=*${value}*`);
       queryString = `${queryString}&query=${filteringConfig.join(';')}`;
     }
 
