@@ -88,10 +88,10 @@ const SuppliersFamilyCreate = (props) => {
     {
       placeHolder: props.intl.formatMessage({
         id: "FamiliaProveedores.driprfcmp",
-        defaultMessage: "Driprfcmp"
+        defaultMessage: "Diario Prof."
       }),
       type: 'input',
-      key: 'Diario Prof.',
+      key: 'driprfcmp',
       breakpoints: {
         xs: 12,
         md: 4
