@@ -1,2 +1,3 @@
 export const LOV_LIMIT_PER_PAGE = 5;
 export const EXPANDABLE_GRID_LIMIT_PER_PAGE = 5;
+export const REACT_GRID_LIMIT_PER_PAGE = 10;

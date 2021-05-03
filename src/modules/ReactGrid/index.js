@@ -1,6 +1,9 @@
-import React, { useReducer, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import {bindActionCreators, compose} from "redux";
+import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {withSnackbar} from "notistack";
+import {isEmpty} from "lodash";
 
 import "./styles.scss";
 
@@ -27,70 +30,34 @@ import EditIcon from "@material-ui/icons/Edit";
 
 import {ActionsColumn} from "./ActionsColumn";
 import { Loading } from '../shared/Loading';
-import Axios from "../../Axios";
 import {useHistory} from "react-router-dom";
 import {injectIntl} from "react-intl";
+import {
+  getErrors,
+  getLoading,
+  getPageSize,
+  getRows,
+  getTotalCount
+} from "../../redux/reactGrid/selectors";
+import {deleteData, searchData, reset} from "../../redux/reactGrid";
 
 const getRowId = row => row.id;
-
-const initialState = {
-  data: [],
-  loading: false,
-  sorting: [],
-  columnFiltering: [],
-};
-
-function reducer(state, { type, payload }) {
-
-  switch (type) {
-    case 'FETCH_SUCCESS':
-      return {
-        ...state,
-        data: payload,
-        loading: false,
-      };
-    case 'FETCH_ERROR':
-      return {
-        ...state,
-        loading: false,
-      };
-    case 'CHANGE_SORTING':
-      return {
-        ...state,
-        sorting: payload
-      }
-    case 'CHANGE_COLUMN_FILTERING':
-      return {
-        ...state,
-        columnFiltering: payload
-      }
-    case 'CHANGE_LOADING':
-      return {
-        ...state,
-        loading: payload
-      }
-    default:
-      return state;
-  }
-}
 
 const TableComponent = ({ ...restProps }) => (
   <Table.Table {...restProps} className="table-striped with-padding" />
 );
 
-const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+const ReactGrid = ({ configuration, enqueueSnackbar,
+                     rows, loading, pageSize, totalCount, errors,
+                     actions, ...props }) => {
+
   const history = useHistory();
   const [columns] = useState(configuration.columns);
-
-  const [totalCount, setTotalCount] = useState(0);
-  const [pageSize] = useState(5);
   const [currentPage, setCurrentPage] = useState(0);
-  const [lastQuery, setLastQuery] = useState();
+  const [sorting, setSorting] = useState([]);
+  const [filters, setFilters] = useState([]);
 
-  const { loading } = state;
-
-  const actions = [
+  const rightMenu = [
     {
       icon: <DeleteIcon />,
       action: row => deleteData(row)
@@ -101,119 +68,56 @@ const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
     },
   ];
 
-  const changeFilters = (filters) => {
-    dispatch({ type: 'CHANGE_COLUMN_FILTERING', payload: filters});
-  };
-
-  const changeSorting = (value) => {
-    dispatch({ type: 'CHANGE_SORTING', payload: value});
-  }
-
-  const changeLoading = (value) => {
-    dispatch({ type: 'CHANGE_LOADING', payload: value});
-  }
-
   const deleteData = (row) => {
-    const queryString = `${configuration.URL}/${row.id}`;
-    Axios.delete(queryString,{
-      headers: new Headers({
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      }),
-    })
-      .then(({status, data, ...rest}) => {
-        commitChanges({ deleted: [getRowId(row)] });
-      })
-      .catch(error => {
-        const status = error.response.status;
-        if(status === 400){
-          enqueueSnackbar("Ups! Algo ha salido mal :(", {variant: 'error'});
-        } else if(status === 500) {
-          window.alert("INTERVAL SERVER ERROR");
-        } else if(status === 403){
-          window.alert("FORBIDDEN")
-        }
-      });
+    actions.deleteData({ key: props.id, id: row.id });
   };
 
   const loadData = () => {
-    let queryString = `${configuration.URL}?size=${pageSize}&page=${currentPage}`;
-
-    // sorting
-    if (sorting.length) {
-      const sortingConfig = sorting
-        .map(({ columnName, direction }) => `${columnName},${direction}`);
-      const sortingStr = sortingConfig.join(';');
-      queryString = `${queryString}&sort=${sortingStr}`;
-    }
-
-    // filtering by column
-    if (columnFiltering.length){
-      const filteringConfig = columnFiltering
-        .map(({ columnName, value }) => `${columnName}=ic=*${value}*`);
-      queryString = `${queryString}&query=${filteringConfig.join(';')}`;
-    }
-
-    if (queryString !== lastQuery && !loading) {
-      changeLoading(true);
-      Axios.get(queryString)
-        .then(({data}) => data)
-        .then(({_embedded, page}) => {
-          dispatch({ type: 'FETCH_SUCCESS', payload: _embedded[configuration.listKey] });
-          setTotalCount(page.totalElements);
-          changeLoading(false);
-        })
-        .catch(() => {
-          dispatch({ type: 'FETCH_ERROR' });
-          changeLoading(false);
-          enqueueSnackbar(props.intl.formatMessage({
-            id: "ReactGrid.error.algo_salio_mal",
-            defaultMessage: "Ups! Algo ha salido mal :("
-          }), {variant: 'error'});
-        });
-      setLastQuery(queryString);
-    }
+    actions.loadData({ apiId: props.id, key: configuration.listKey, page: currentPage, query: filters || [], sorting});
   };
 
-  useEffect(() => loadData());
+  useEffect(()=>{
+    loadData();
+    return () => actions.reset();
+  },[]);
+
+  useEffect(() => loadData(),[currentPage,sorting,filters]);
+
+  useEffect(()=>{
+    if(!isEmpty(errors)){
+      enqueueSnackbar("Ups! Algo ha salido mal :(", {variant: 'error'});
+    }
+  },[errors]);
 
   const FocusableCell = ({ onClick, ...restProps }) => (
     <Table.Cell {...restProps} tabIndex={0} onFocus={onClick} />
   );
 
-  const commitChanges = ({ changed, deleted }) => {
-    let changedRows;
-    if (changed) {
-      changedRows = data.map(row => changed[getRowId(row)] ? { ...row, ...changed[getRowId(row)] } : row);
+  const commitChanges = ({ added, changed, deleted }) => {
+    if (added) {}
+    if (changed) {}
+    if(deleted) {
+      actions.deleteData({ key: props.id, id: deleted[0] });
     }
-    if (deleted) {
-      const deletedSet = new Set(deleted);
-      changedRows = data.filter(row => !deletedSet.has(getRowId(row)));
-    }
-
-    dispatch({ type: 'FETCH_SUCCESS', payload: changedRows });
   };
 
-  const {
-    data, sorting, columnFiltering
-  } = state;
   return (
     <>
       <Grid
-        rows={data}
+        rows={rows}
         columns={columns}
         getRowId={getRowId}
       >
         {/* Sorting configuration */}
         <SortingState
           sorting={sorting}
-          onSortingChange={changeSorting} />
+          onSortingChange={setSorting} />
         <IntegratedSorting />
         {/***************************/}
         {/* Filtering configuration */}
         <FilteringState
           defaultFilters={[]}
-          onFiltersChange={changeFilters} />
+          onFiltersChange={setFilters} />
         <IntegratedFiltering />
         {/***************************/}
         {/* Paging configuration */}
@@ -235,7 +139,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
         <ActionsColumn title={props.intl.formatMessage({
           id: "ReactGrid.actions_column",
           defaultMessage: "Acciones"
-        })} actions={data && data.length?actions:[]} />
+        })} actions={rows && rows.length? rightMenu:[]} />
         <PagingPanel />
 
       </Grid>
@@ -245,16 +149,39 @@ const ReactGrid = ({ configuration, enqueueSnackbar, ...props }) => {
 };
 
 ReactGrid.propTypes = {
+  id: PropTypes.string.isRequired,
   configuration: PropTypes.shape({
     title: PropTypes.string,
     columns: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string,
       title: PropTypes.string
     })),
-    URL: PropTypes.string.isRequired,
     listKey: PropTypes.string.isRequired,
     enableInlineEdition: PropTypes.bool
   })
 };
 
-export default withSnackbar(injectIntl(ReactGrid));
+const mapStateToProps = (state, props) => {
+  return {
+    rows: getRows(state),
+    totalCount: getTotalCount(state),
+    loading: getLoading(state),
+    pageSize: getPageSize(state),
+    errors: getErrors(state),
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  const actions = {
+    loadData: bindActionCreators(searchData, dispatch),
+    deleteData: bindActionCreators(deleteData, dispatch),
+    reset: bindActionCreators(reset, dispatch),
+  };
+  return { actions };
+};
+
+export default compose(
+  withSnackbar,
+  injectIntl,
+  connect(mapStateToProps, mapDispatchToProps)
+)(ReactGrid);

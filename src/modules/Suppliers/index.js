@@ -12,6 +12,7 @@ import SuppliersForm from "./SuppliersForm";
 import * as API from "redux/api";
 import {setBreadcrumbHeader, setListingConfig} from "redux/pageHeader";
 import withHeaders from "../wrappers/withHeaders";
+import {suppliers} from "redux/api";
 
 const URL = '/proveedores';
 
@@ -62,7 +63,7 @@ const SuppliersList = ({actions, ...props}) => {
           id: "Proveedores.familia",
           defaultMessage: "Familia"
         }),
-        getCellValue: row => row.familiaProveidor.description
+        getCellValue: row => row.familiaProveidor? row.familiaProveidor.description:""
       },
       {
         name: 'alias',
@@ -189,7 +190,8 @@ const SuppliersList = ({actions, ...props}) => {
   return (
     <>
       <AdvancedFilters fields={advancedFilters} handleSearch={(data) => console.log(data)} />
-      <ReactGrid configuration={listConfiguration} />
+      <ReactGrid id='suppliers'
+                 configuration={listConfiguration} />
     </>
   )
 };

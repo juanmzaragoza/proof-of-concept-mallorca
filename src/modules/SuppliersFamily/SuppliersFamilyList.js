@@ -41,7 +41,9 @@ const SuppliersFamilyList = ({ actions, ...props }) => {
     listKey: 'familiaProveidors'
   };
   return (
-    <ReactGrid configuration={listConfiguration} />
+    <ReactGrid
+      id='familiaProveidor'
+      configuration={listConfiguration} />
   );
 }
 
