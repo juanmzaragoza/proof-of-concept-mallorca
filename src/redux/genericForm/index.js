@@ -25,7 +25,7 @@ export const getFormSelectorData = ({id, key, page, sort, search, query = []}) =
       const pagination = `&page=${page !== null ? page : 0}`;
       const sorting = sort ? `&sort=${sort}` : "";
       const quickFilter = search && search !== "" ? `&quickFilter=${search}` : "";
-      const searchQuery = query.length > 0 ? `&query=${query.map(({ columnName, value }) => `${columnName}=ic=${value}`).join(';')}` : "";
+      const searchQuery = query.length > 0 ? `&query=${query.map(({ columnName, value }) => `${columnName}=ic=*${value}*`).join(';')}` : "";
       const URL = `${API[id]}?size=${LOV_LIMIT_PER_PAGE}${pagination}${sorting}${quickFilter}${searchQuery}`;
       return URL;
     }
