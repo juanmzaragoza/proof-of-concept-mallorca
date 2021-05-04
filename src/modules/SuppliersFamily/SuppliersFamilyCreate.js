@@ -49,7 +49,7 @@ const SuppliersFamilyCreate = (props) => {
         defaultMessage: "Cuenta Compras"
       }),
       type: 'input',
-      key: 'ctaprcmp',
+      key: 'ctacprcmp',
       breakpoints: {
         xs: 12,
         md: 4
