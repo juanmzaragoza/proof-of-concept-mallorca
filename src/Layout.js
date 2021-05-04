@@ -30,6 +30,7 @@ import {PrivateRoute} from "modules/Authentication";
 import {isUserAuthenticated} from "helper/login-helper";
 import {logout} from "./redux/app";
 import {getAuthenticated, getLoggedInUserToken} from "./redux/app/selectors";
+import {getSelectedModule} from "./redux/modules/selectors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -120,7 +121,6 @@ const Layout = ({ children, ...props}) => {
   const history = useHistory();
 
   const [open, setOpen] = useState(false);
-  const [beforeToken, setBeforeToken] = useState("");
 
   /**
    * If the user is not authenticated,
@@ -131,14 +131,14 @@ const Layout = ({ children, ...props}) => {
   },[props.authenticated]);
 
   /**
-   * Every time the token is refresh,
+   * Every time the token is refreshed or the module updated,
    * the user is redirected to index
    **/
   useEffect(()=>{
     if(props.token) {
       history.push('/');
     }
-  },[props.token]);
+  },[props.token, props.selectedModule]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -259,7 +259,8 @@ const Layout = ({ children, ...props}) => {
 const mapStateToProps = (state, props) => {
   return {
     authenticated: getAuthenticated(state) || !!isUserAuthenticated(),
-    token: getLoggedInUserToken(state)
+    token: getLoggedInUserToken(state),
+    selectedModule: getSelectedModule(state)
   };
 };
 
