@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import ReactGrid from "../ReactGrid";
-import {bindActionCreators} from "redux";
+import {bindActionCreators,compose} from "redux";
 import {setBreadcrumbHeader, setListingConfig} from "../../redux/pageHeader";
 import {injectIntl} from "react-intl";
 import {connect} from "react-redux";
@@ -55,4 +55,7 @@ const mapDispatchToProps = (dispatch, props) => {
   return { actions };
 };
 
-export default injectIntl(connect(null,mapDispatchToProps)(SuppliersFamilyList));
+export default compose(
+  injectIntl,
+  connect(null,mapDispatchToProps)
+)(SuppliersFamilyList);

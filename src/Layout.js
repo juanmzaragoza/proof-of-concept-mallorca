@@ -31,6 +31,7 @@ import {isUserAuthenticated} from "helper/login-helper";
 import {logout} from "./redux/app";
 import {getAuthenticated, getLoggedInUserToken} from "./redux/app/selectors";
 import {getSelectedModule} from "./redux/modules/selectors";
+import {usePrevious} from "./helper/utils-hook";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -121,6 +122,7 @@ const Layout = ({ children, ...props}) => {
   const history = useHistory();
 
   const [open, setOpen] = useState(false);
+  const [isFirstLoading, setIsFirstLoading] = useState(true);
 
   /**
    * If the user is not authenticated,
@@ -134,10 +136,13 @@ const Layout = ({ children, ...props}) => {
    * Every time the token is refreshed or the module updated,
    * the user is redirected to index
    **/
+  const previousToken = usePrevious(props.token);
   useEffect(()=>{
-    if(props.token) {
+    if(props.token && previousToken !== props.token && !isFirstLoading) {
       history.push('/');
     }
+    // to avoid redirection on first loading
+    setIsFirstLoading(false);
   },[props.token, props.selectedModule]);
 
   const handleDrawerOpen = () => {
