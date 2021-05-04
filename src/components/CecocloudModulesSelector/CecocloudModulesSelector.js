@@ -6,8 +6,10 @@ import {injectIntl} from "react-intl";
 import { withConstants } from "../../modules/wrappers";
 import {getPlainFrom} from "../../helper/storage";
 import {SELECTED_MODULE_LOCALSTORAGE_KEY} from "../../constants";
+import {useHistory} from "react-router-dom";
 
 const CecocloudModulesSelector = ({loading, modules, actions, getters, ...props}) => {
+  const history = useHistory();
   const [items, setItems] = useState([]);
   const [defaultValue, setDefaultValue] = useState(null);
 
@@ -36,7 +38,8 @@ const CecocloudModulesSelector = ({loading, modules, actions, getters, ...props}
       noItemsText={!loading?
         props.intl.formatMessage({id: "Modules.selector.sin_resultados", defaultMessage: "No hay módulos cargados"})
         :
-        `${props.intl.formatMessage({id: 'Comun.cargando', defaultMessage: 'Cargando'})}...`} />
+        `${props.intl.formatMessage({id: 'Comun.cargando', defaultMessage: 'Cargando'})}...`}
+      onSelect={()=>history.push('/')} />
   );
 }
 

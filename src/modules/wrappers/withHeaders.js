@@ -11,7 +11,7 @@ const withHeaders = (PassedComponent) => {
     // reset the header when is used
     useEffect(()=>{
       return () => dispatcher.resetHeaders();
-    });
+    },[]);
 
     return <PassedComponent {...props} ></PassedComponent>;
   }

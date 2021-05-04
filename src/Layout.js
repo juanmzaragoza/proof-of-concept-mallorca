@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import {Redirect, Route, Switch, useHistory} from "react-router-dom";
 import {connect} from "react-redux";
 import {bindActionCreators, compose} from 'redux';
+import {isEqual} from "lodash";
 
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -30,7 +31,6 @@ import {PrivateRoute} from "modules/Authentication";
 import {isUserAuthenticated} from "helper/login-helper";
 import {logout} from "./redux/app";
 import {getAuthenticated, getLoggedInUserToken} from "./redux/app/selectors";
-import {getSelectedModule} from "./redux/modules/selectors";
 import {usePrevious} from "./helper/utils-hook";
 
 const useStyles = makeStyles((theme) => ({
@@ -143,7 +143,7 @@ const Layout = ({ children, ...props}) => {
     }
     // to avoid redirection on first loading
     setIsFirstLoading(false);
-  },[props.token, props.selectedModule]);
+  },[props.token]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -264,8 +264,7 @@ const Layout = ({ children, ...props}) => {
 const mapStateToProps = (state, props) => {
   return {
     authenticated: getAuthenticated(state) || !!isUserAuthenticated(),
-    token: getLoggedInUserToken(state),
-    selectedModule: getSelectedModule(state)
+    token: getLoggedInUserToken(state)
   };
 };
 

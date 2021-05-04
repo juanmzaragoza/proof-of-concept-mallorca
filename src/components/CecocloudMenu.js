@@ -10,7 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import IconButton from "@material-ui/core/IconButton";
 
-const CecocloudMenu = ({ id, icon, items, noItemsText, defaultValue }) => {
+const CecocloudMenu = ({ id, icon, items, noItemsText, defaultValue, onSelect }) => {
 
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
@@ -70,6 +70,7 @@ const CecocloudMenu = ({ id, icon, items, noItemsText, defaultValue }) => {
                         item.onClick(e);
                         handleClose(e);
                         setSelectedItem(item);
+                        onSelect && onSelect(item);
                       }}>{item.content}</MenuItem>)
                     :
                     <MenuItem disabled>{noItemsText}</MenuItem>
@@ -91,7 +92,8 @@ CecocloudMenu.propTypes = {
     content: PropTypes.any,
     onClick: PropTypes.func
   })),
-  defaultValue: PropTypes.any
+  defaultValue: PropTypes.any,
+  onSelect: PropTypes.func
 }
 
 export default CecocloudMenu;
