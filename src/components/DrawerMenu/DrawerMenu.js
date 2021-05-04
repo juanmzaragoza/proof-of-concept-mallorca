@@ -147,7 +147,7 @@ const DrawerMenu = ({loading, functionalities, selectedModule, constants, getter
   }
 
   const processRoute = (route) => (
-    <ListItem button key={route.key} onClick={() => history.push(route.path)}>
+    <ListItem selected={history.location.pathname.includes(route.path)} button key={route.key} onClick={() => history.push(route.path)}>
       <ListItemIcon>{route.icon}</ListItemIcon>
       <ListItemText primary={route.title} />
     </ListItem>
