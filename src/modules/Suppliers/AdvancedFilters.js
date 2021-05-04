@@ -52,7 +52,12 @@ const AdvancedFilters = ({actions, filters, fields = [], ...props}) => {
         </div>
         <div className="right-side">
           <Button variant="contained" color="secondary" onClick={() => clearFilters()}>{props.intl.formatMessage({id: "Filtros.limpiar", defaultMessage: "Limpiar Filtros"})}</Button>
-          <Button variant="contained" color="primary" onClick={() => props.handleSearch(filters)}>{props.intl.formatMessage({id: "Filtros.filtrar", defaultMessage: "Filtrar"})}</Button>
+          <Button variant="contained" color="primary" onClick={() => {
+            const advFilters = Object.keys(filters)
+              .filter(key => !!filters[key])
+              .map(key => ({columnName: key, value: filters[key]}));
+            props.handleSearch(advFilters)
+          }}>{props.intl.formatMessage({id: "Filtros.filtrar", defaultMessage: "Filtrar"})}</Button>
         </div>
       </div>
     )
