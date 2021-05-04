@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import {Redirect, Route, Switch, useHistory} from "react-router-dom";
 import {connect} from "react-redux";
 import {bindActionCreators, compose} from 'redux';
+import {isEqual} from "lodash";
 
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -30,6 +31,7 @@ import {PrivateRoute} from "modules/Authentication";
 import {isUserAuthenticated} from "helper/login-helper";
 import {logout} from "./redux/app";
 import {getAuthenticated, getLoggedInUserToken} from "./redux/app/selectors";
+import {usePrevious} from "./helper/utils-hook";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -120,7 +122,7 @@ const Layout = ({ children, ...props}) => {
   const history = useHistory();
 
   const [open, setOpen] = useState(false);
-  const [beforeToken, setBeforeToken] = useState("");
+  const [isFirstLoading, setIsFirstLoading] = useState(true);
 
   /**
    * If the user is not authenticated,
@@ -131,13 +133,16 @@ const Layout = ({ children, ...props}) => {
   },[props.authenticated]);
 
   /**
-   * Every time the token is refresh,
+   * Every time the token is refreshed or the module updated,
    * the user is redirected to index
    **/
+  const previousToken = usePrevious(props.token);
   useEffect(()=>{
-    if(props.token) {
+    if(props.token && previousToken !== props.token && !isFirstLoading) {
       history.push('/');
     }
+    // to avoid redirection on first loading
+    setIsFirstLoading(false);
   },[props.token]);
 
   const handleDrawerOpen = () => {
