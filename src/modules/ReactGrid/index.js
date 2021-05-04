@@ -3,7 +3,7 @@ import {bindActionCreators, compose} from "redux";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {withSnackbar} from "notistack";
-import {isEmpty} from "lodash";
+import {isEmpty, unionBy} from "lodash";
 
 import "./styles.scss";
 
@@ -49,6 +49,7 @@ const TableComponent = ({ ...restProps }) => (
 
 const ReactGrid = ({ configuration, enqueueSnackbar,
                      rows, loading, pageSize, totalCount, errors,
+                     extraQuery,
                      actions, ...props }) => {
 
   const history = useHistory();
@@ -73,7 +74,8 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
   };
 
   const loadData = () => {
-    actions.loadData({ apiId: props.id, key: configuration.listKey, page: currentPage, query: filters || [], sorting});
+    const query = unionBy(extraQuery || [],filters,(filter) => filter.columnName) || [];
+    actions.loadData({ apiId: props.id, key: configuration.listKey, page: currentPage, query, sorting});
   };
 
   useEffect(()=>{
@@ -81,11 +83,14 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
     return () => actions.reset();
   },[]);
 
-  useEffect(() => loadData(),[currentPage,sorting,filters]);
+  useEffect(() => loadData(),[currentPage,sorting,filters,extraQuery]);
 
   useEffect(()=>{
     if(!isEmpty(errors)){
-      enqueueSnackbar("Ups! Algo ha salido mal :(", {variant: 'error'});
+      props.enqueueSnackbar(props.intl.formatMessage({
+        id: "ReactGrid.error.algo_salio_mal",
+        defaultMessage: "Ups! Algo ha salido mal :("
+      }), {variant: 'error'});
     }
   },[errors]);
 
@@ -157,7 +162,11 @@ ReactGrid.propTypes = {
       title: PropTypes.string
     })),
     listKey: PropTypes.string.isRequired,
-    enableInlineEdition: PropTypes.bool
+    enableInlineEdition: PropTypes.bool,
+    extraQuery: PropTypes.arrayOf(PropTypes.shape({
+      columnName: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired
+    }))
   })
 };
 

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {LocalMall} from "@material-ui/icons";
 import {injectIntl} from "react-intl";
 import {Route, Switch} from "react-router-dom";
@@ -12,11 +12,12 @@ import SuppliersForm from "./SuppliersForm";
 import * as API from "redux/api";
 import {setBreadcrumbHeader, setListingConfig} from "redux/pageHeader";
 import withHeaders from "../wrappers/withHeaders";
-import {suppliers} from "redux/api";
+import {unionBy} from "lodash";
 
 const URL = '/proveedores';
 
 const SuppliersList = ({actions, ...props}) => {
+  const [filters, setFilters] = useState([]);
 
   useEffect(() => {
     actions.setListingConfig({
@@ -189,8 +190,9 @@ const SuppliersList = ({actions, ...props}) => {
 
   return (
     <>
-      <AdvancedFilters fields={advancedFilters} handleSearch={(data) => console.log(data)} />
+      <AdvancedFilters fields={advancedFilters} handleSearch={setFilters} />
       <ReactGrid id='suppliers'
+                 extraQuery={filters}
                  configuration={listConfiguration} />
     </>
   )
