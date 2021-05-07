@@ -3,7 +3,7 @@ import {FormattedMessage, injectIntl} from "react-intl";
 import {bindActionCreators, compose} from "redux";
 import {connect} from "react-redux";
 import {useParams} from "react-router-dom";
-import { some, min, pickBy, cloneDeep, isEmpty } from "lodash";
+import { some, min, pickBy, cloneDeep } from "lodash";
 
 import GeneralTab from "./GeneralTab";
 import ContactTab from "./ContactTab";
@@ -58,7 +58,6 @@ const SuppliersForm = React.memo(({ actions, allFormData, getFormData, submitFro
       component: <GeneralTab
         setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [GENERAL_TAB_INDEX]: !value})}
         editMode={editMode}
-        //formData={formData}
         getFormData={getFormData}
         setFormData={actions.setFormData}
         submitFromOutside={submitFromOutside}
