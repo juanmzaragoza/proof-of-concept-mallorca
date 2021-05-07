@@ -26,7 +26,8 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case ADD:
-      return { ...state, filters: {...action.payload} };
+      const {key, value} = action.payload;
+      return { ...state, filters: {...state.filters, [key]: value} };
     case RESET_FILTERS:
       return { filters: {} };
     case "RESET":

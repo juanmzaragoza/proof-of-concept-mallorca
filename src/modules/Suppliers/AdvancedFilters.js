@@ -10,12 +10,12 @@ import {Chip, Fade, Paper} from "@material-ui/core";
 import _ from 'lodash';
 
 import GenericForm from "modules/GenericForm";
-import {getFilters} from "redux/advancedFilters/selectors";
+import {getFilters, getValueByKey} from "redux/advancedFilters/selectors";
 import {add, reset} from "redux/advancedFilters";
 
 import "./styles.scss";
 
-const AdvancedFilters = ({actions, filters, fields = [], ...props}) => {
+const AdvancedFilters = ({actions, filters, getValueByKey, fields = [], ...props}) => {
   const [showMore, setShowMore] = useState(false);
 
   const [showedFields, ] = useState(fields);
@@ -34,7 +34,7 @@ const AdvancedFilters = ({actions, filters, fields = [], ...props}) => {
   }
 
   const actionButtons = () => {
-    const filtered = _.omitBy(filters, data => data === "" || !data);
+    const filtered = _.omitBy(fields,field => !getValueByKey(field.key) || getValueByKey(field.key) === "");
     return (
       <div className="actions-buttons-actions">
         <div className="left-side">
@@ -48,14 +48,14 @@ const AdvancedFilters = ({actions, filters, fields = [], ...props}) => {
           {
             !_.isEmpty(filtered)? <b>{props.intl.formatMessage({id: "Filtros.filtrados", defaultMessage: "Filtrados"})}</b>:null
           }
-          {_.map(filtered, (value, key) => <Chip key={key} label={getLabel(key,value)} variant="outlined" />)}
+          {_.map(filtered, (field) => <Chip key={field.key} label={getLabel(field.key,getValueByKey(field.key))} variant="outlined" />)}
         </div>
         <div className="right-side">
           <Button variant="contained" color="secondary" onClick={() => clearFilters()}>{props.intl.formatMessage({id: "Filtros.limpiar", defaultMessage: "Limpiar Filtros"})}</Button>
           <Button variant="contained" color="primary" onClick={() => {
-            const advFilters = Object.keys(filters)
-              .filter(key => !!filters[key])
-              .map(key => ({columnName: key, value: filters[key]}));
+            const advFilters = fields.map(field => field.key)
+              .filter(key => !!getValueByKey(key))
+              .map(key => ({columnName: key, value: getValueByKey(key)}));
             props.handleSearch(advFilters)
           }}>{props.intl.formatMessage({id: "Filtros.filtrar", defaultMessage: "Filtrar"})}</Button>
         </div>
@@ -68,7 +68,8 @@ const AdvancedFilters = ({actions, filters, fields = [], ...props}) => {
       <div>
         <GenericForm formComponents={showedFields}
                      setFormData={actions.setFilters}
-                     formData={filters} emptyPaper={true} />
+                     getFormData={getValueByKey}
+                     emptyPaper={true} />
       </div>
     </Fade>
     {actionButtons()}
@@ -83,6 +84,7 @@ AdvancedFilters.propTypes = {
 const mapStateToProps = (state, props) => {
   return {
     filters: getFilters(state),
+    getValueByKey: getValueByKey(state)
   };
 };
 
