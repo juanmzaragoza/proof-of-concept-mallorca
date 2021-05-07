@@ -20,6 +20,7 @@ import FormControl from "@material-ui/core/FormControl";
 import LOVAutocomplete from "./LOVAutocomplete";
 import Selector from "./Selector";
 import createYupSchema from "./yupSchemaCreator";
+import {getFormData} from "../../redux/genericForm/selectors";
 
 const GenericForm = ({loading, ...props}) => {
   const formRef = useRef(null);

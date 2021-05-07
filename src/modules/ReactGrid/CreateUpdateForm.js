@@ -10,8 +10,8 @@ import { withAbmServices } from "modules/wrappers";
 
 import {setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig} from "redux/pageHeader";
 import {getFireSave} from "redux/pageHeader/selectors";
-import {getFormData, getFormErrors} from "../../redux/genericForm/selectors";
-import {setFormData} from "../../redux/genericForm";
+import {getFormDataByKey, getFormErrors} from "../../redux/genericForm/selectors";
+import {setFormDataByKey} from "../../redux/genericForm";
 import {getLoading} from "../../redux/app/selectors";
 
 const CreateUpdateForm = ({
@@ -21,7 +21,7 @@ const CreateUpdateForm = ({
       actions, //redux
       submitFromOutside,
       formErrors,
-      formData,
+      getFormData,
       loading,
       actions: {setFormConfig, setBreadcrumbHeader, setSubmitFromOutside, setFormData},
       enqueueSnackbar, //withSackBar
@@ -73,7 +73,7 @@ const CreateUpdateForm = ({
       loading={loading}
       editMode={editMode}
       setFormData={setFormData}
-      formData={formData}
+      getFormData={getFormData}
       formErrors={formErrors}
       formComponents={formConfiguration}
       submitFromOutside={submitFromOutside}
@@ -106,7 +106,7 @@ const mapStateToProps = (state, props) => {
   return {
     submitFromOutside: getFireSave(state),
     formErrors: getFormErrors(state),
-    formData: getFormData(state),
+    getFormData: (key) => getFormDataByKey(state,key),
     loading: getLoading(state)
   };
 };
@@ -116,7 +116,7 @@ const mapDispatchToProps = (dispatch, props) => {
     setFormConfig: bindActionCreators(setFormConfig, dispatch),
     setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch),
     setSubmitFromOutside: bindActionCreators(setFireSaveFromHeader, dispatch),
-    setFormData: bindActionCreators(setFormData, dispatch),
+    setFormData: bindActionCreators(setFormDataByKey, dispatch),
   };
   return { actions };
 };
