@@ -8,6 +8,8 @@ const SET_ERROR_TO_GENERIC_FORM = "SET_ERROR_TO_GENERIC_FORM";
 const ADD_ERROR_TO_GENERIC_FORM = "ADD_ERROR_TO_GENERIC_FORM";
 const RESET_ERRORS_GENERIC_FORM = "RESET_ERRORS_GENERIC_FORM";
 const SET_FORM_DATA_TO_GENERIC_FORM = "SET_FORM_DATA_TO_GENERIC_FORM";
+const ADD_FORM_DATA_TO_GENERIC_FORM = "ADD_FORM_DATA_TO_GENERIC_FORM";
+const SET_DATA_LOADED = "SET_DATA_LOADED";
 const RESET_FORM_DATA_GENERIC_FORM = "RESET_FORM_DATA_GENERIC_FORM";
 const ADD_DATA_TO_FORM_SELECTOR = "ADD_DATA_TO_FORM_SELECTOR";
 const APPEND_DATA_TO_FORM_SELECTOR = "APPEND_DATA_TO_FORM_SELECTOR";
@@ -92,6 +94,13 @@ export function setFormData(payload) {
   };
 }
 
+export function setFormDataByKey(payload) {
+  return {
+    type: ADD_FORM_DATA_TO_GENERIC_FORM,
+    payload
+  };
+}
+
 export function addToFormSelector(payload) {
   return {
     type: ADD_DATA_TO_FORM_SELECTOR,
@@ -147,11 +156,18 @@ export function resetAllGenericForm() {
   }
 }
 
+export function setDataLoaded() {
+  return {
+    type: SET_DATA_LOADED
+  }
+}
+
 //Reducers
 const initialState = {
   formErrors: {},
   formData: {},
-  formSelectors: {}
+  formSelectors: {},
+  loaded: false,
 };
 
 export default (state = initialState, action) => {
@@ -167,6 +183,11 @@ export default (state = initialState, action) => {
     case RESET_FORM_DATA_GENERIC_FORM: {
       return {...state, formData: {}};
     }
+    case ADD_FORM_DATA_TO_GENERIC_FORM:
+      const {key, value} = action.payload;
+      return { ...state, formData: {...state.formData,[key]: value }};
+    case SET_DATA_LOADED:
+      return { ...state, loaded: true};
     case ADD_DATA_TO_FORM_SELECTOR: {
       const {name, ...rest} = action.payload;
       return { ...state, formSelectors: {

@@ -13,15 +13,15 @@ import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import {setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig} from "redux/pageHeader";
 import {getFireSave} from "redux/pageHeader/selectors";
 import {withAbmServices} from "../wrappers";
-import {getFormData, getFormErrors} from "../../redux/genericForm/selectors";
+import {getFormData, getFormErrors, getFormDataByKey, getIsDataLoaded} from "../../redux/genericForm/selectors";
 
-import {setFormData} from "../../redux/genericForm";
+import {setFormDataByKey} from "../../redux/genericForm";
 import {getLoading} from "../../redux/app/selectors";
 
 const GENERAL_TAB_INDEX = 0;
 const CONTACT_TAB_INDEX = 1;
 
-const SuppliersForm = React.memo(({ actions, formData, submitFromOutside, services, ...props }) => {
+const SuppliersForm = React.memo(({ actions, allFormData, getFormData, submitFromOutside, services, ...props }) => {
   const [editMode, setEditMode] = useState(false);
   const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
   const [tabIndexWithError, setTabIndexWithError] = useState({0: false, 1: false});
@@ -44,7 +44,7 @@ const SuppliersForm = React.memo(({ actions, formData, submitFromOutside, servic
       // of all keys === true -> get the min
       goToTab(min(Object.keys(pickBy(tabIndexWithError,(value, key) => value))));
     } else{
-      isEditable()? update(id, formData):create(formData, () => {
+      isEditable()? update(id, allFormData):create(allFormData, () => {
         goToTab(GENERAL_TAB_INDEX);
       });
     }
@@ -58,12 +58,14 @@ const SuppliersForm = React.memo(({ actions, formData, submitFromOutside, servic
       component: <GeneralTab
         setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [GENERAL_TAB_INDEX]: !value})}
         editMode={editMode}
-        formData={formData}
+        //formData={formData}
+        getFormData={getFormData}
         setFormData={actions.setFormData}
         submitFromOutside={submitFromOutside}
         onSubmitTab={handleSubmitTab}
         formErrors={props.formErrors}
-        loading={props.loading} />
+        loading={props.loading}
+        formDataLoaded={props.formDataLoaded} />
     },
     {
       label: <FormattedMessage id={"Proveedores.tabs.contactos"} defaultMessage={"Contactos"}/>,
@@ -72,12 +74,13 @@ const SuppliersForm = React.memo(({ actions, formData, submitFromOutside, servic
       component: <ContactTab
         setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [CONTACT_TAB_INDEX]: !value})}
         editMode={editMode}
-        formData={formData}
+        getFormData={getFormData}
         setFormData={actions.setFormData}
         submitFromOutside={submitFromOutside}
         onSubmitTab={handleSubmitTab}
         formErrors={props.formErrors}
-        loading={props.loading} />
+        loading={props.loading}
+        formDataLoaded={props.formDataLoaded} />
     },
     {
       label: <FormattedMessage id={"Proveedores.tabs.contabilidad"} defaultMessage={"Contabilidad"}/>,
@@ -139,8 +142,9 @@ const SuppliersForm = React.memo(({ actions, formData, submitFromOutside, servic
   /** Update HEADER */
   useEffect(()=>{
     if(isEditable()){
-      const nom = formData.nomComercial?
-        formData.nomComercial
+      const nomComercial = getFormData('nomComercial');
+      const nom = nomComercial?
+        nomComercial
         :
         `${props.intl.formatMessage({id: "Comun.cargando", defaultMessage: "Cargando"})}...`;
       actions.setBreadcrumbHeader([
@@ -149,7 +153,7 @@ const SuppliersForm = React.memo(({ actions, formData, submitFromOutside, servic
         {title: "General"}
       ]);
     }
-  },[formData.nomComercial]);
+  },[getFormData('nomComercial')]);
 
   useEffect(() => {
     if(submitFromOutside){
@@ -181,8 +185,10 @@ const mapStateToProps = (state, props) => {
   return {
     submitFromOutside: getFireSave(state),
     formErrors: getFormErrors(state),
-    formData: getFormData(state),
-    loading: getLoading(state)
+    loading: getLoading(state),
+    allFormData: getFormData(state),
+    getFormData: (key) => getFormDataByKey(state,key),
+    formDataLoaded: getIsDataLoaded(state)
   };
 };
 
@@ -191,7 +197,7 @@ const mapDispatchToProps = (dispatch, props) => {
     setFormConfig: bindActionCreators(setFormConfig, dispatch),
     setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch),
     setSubmitFromOutside: bindActionCreators(setFireSaveFromHeader, dispatch),
-    setFormData: bindActionCreators(setFormData, dispatch),
+    setFormData: bindActionCreators(setFormDataByKey, dispatch),
   };
   return { actions };
 };

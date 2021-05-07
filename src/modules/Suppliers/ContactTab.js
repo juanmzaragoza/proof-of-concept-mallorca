@@ -185,14 +185,15 @@ const ContactTab = ({formData, setFormData, ...props}) => {
             formComponents={contactsConfig}
             emptyPaper={true}
             editMode={props.editMode}
-            formData={formData}
             setFormData={setFormData}
+            getFormData={props.getFormData}
             loading={props.loading}
             formErrors={props.formErrors}
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
             handleIsValid={value => addValidity(0,value)}
-            onBlur={(e) => handleTouched(0)}/>
+            onBlur={(e) => handleTouched(0)}
+            {...props} />
         </OutlinedContainer>
       </Grid>
     </Grid>
