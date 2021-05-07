@@ -880,7 +880,6 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
           <GenericForm formComponents={suppliersConfig}
                        emptyPaper={true}
                        editMode={props.editMode}
-                       //formData={formData}
                        getFormData={getFormData}
                        setFormData={setFormData}
                        loading={props.loading}

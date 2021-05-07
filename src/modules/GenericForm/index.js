@@ -250,7 +250,7 @@ const GenericForm = ({loading, ...props}) => {
     useEffect(()=>{
       if(!isManualValidated && !formik.isValidating){
         formik.validateForm().then(data => {
-          props.handleIsValid && props.handleIsValid(isEmpty(data));
+          props.handleIsValid && props.handleIsValid({isValid: isEmpty(data)});
         });
         setIsManualValidated(true);
       }
