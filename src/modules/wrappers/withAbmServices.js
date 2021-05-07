@@ -6,7 +6,7 @@ import {useHistory} from "react-router-dom";
 import {connect} from "react-redux";
 import {bindActionCreators, compose} from "redux";
 
-import {addError, resetAllGenericForm, resetError, setFormData} from "redux/genericForm";
+import {addError, resetAllGenericForm, resetError, setDataLoaded, setFormData} from "redux/genericForm";
 import {finishLoading, startLoading} from "redux/app";
 import {getLoading} from "redux/app/selectors";
 
@@ -89,6 +89,7 @@ const withAbmServices = (PassedComponent) => {
           .then(({status, data, ...rest}) => {
             props.finishLoading();
             props.setFormData(data);
+            props.setDataIsLoaded();
             resolve(data);
           })
           .catch(error => {
@@ -135,6 +136,7 @@ const withAbmServices = (PassedComponent) => {
       startLoading: bindActionCreators(startLoading, dispatch),
       finishLoading: bindActionCreators(finishLoading, dispatch),
       resetForm: bindActionCreators(resetAllGenericForm, dispatch),
+      setDataIsLoaded: bindActionCreators(setDataLoaded, dispatch),
     };
     return actions;
   };
