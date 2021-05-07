@@ -20,10 +20,13 @@ const AdvancedFilters = ({actions, filters, getValueByKey, fields = [], ...props
 
   const [showedFields, ] = useState(fields);
 
+  /** Reset filters */
   const clearFilters = () => {
     actions.resetFilters();
+    props.handleSearch([]);
   };
 
+  /** The way we're render the chip */
   const showInChip = {
     'LOV': (field, data) => field.selector.labelKey(data),
     '_default': (key, data) => data
@@ -32,6 +35,13 @@ const AdvancedFilters = ({actions, filters, getValueByKey, fields = [], ...props
     const field = find(fields, (field) => field.key === key);
     return showInChip[field.type]? showInChip[field.type](field,data) : showInChip['_default'](field,data);
   }
+
+  /** The way we're sending the data to backend */
+  const valuesService = {
+    'LOV': (key) => getValueByKey(key).codi,
+    '_default': (key) => getValueByKey(key)
+  }
+  const getValue = (field) => valuesService[field.type]? valuesService[field.type](field.key) : valuesService['_default'](field.key);
 
   const actionButtons = () => {
     const filtered = _.omitBy(fields,field => !getValueByKey(field.key) || getValueByKey(field.key) === "");
@@ -53,9 +63,9 @@ const AdvancedFilters = ({actions, filters, getValueByKey, fields = [], ...props
         <div className="right-side">
           <Button variant="contained" color="secondary" onClick={() => clearFilters()}>{props.intl.formatMessage({id: "Filtros.limpiar", defaultMessage: "Limpiar Filtros"})}</Button>
           <Button variant="contained" color="primary" onClick={() => {
-            const advFilters = fields.map(field => field.key)
-              .filter(key => !!getValueByKey(key))
-              .map(key => ({columnName: key, value: getValueByKey(key)}));
+            const advFilters = fields
+              .filter(field => !!getValueByKey(field.key))
+              .map(field => ({columnName: field.key, value: getValue(field)}));
             props.handleSearch(advFilters)
           }}>{props.intl.formatMessage({id: "Filtros.filtrar", defaultMessage: "Filtrar"})}</Button>
         </div>
