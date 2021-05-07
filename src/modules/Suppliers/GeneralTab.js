@@ -18,7 +18,7 @@ import "./styles.scss";
 const SUPPLIERS_SECTION_INDEX = 0;
 const ADDRESS_SECTION_TAB_INDEX = 1;
 
-const GeneralTab = ({formData, setFormData, ...props}) => {
+const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
   const [formIsValid, setFormIsValid] = useState({});
   const [touched, setTouched] = useState({0:false, 1:false});
 
@@ -36,16 +36,16 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
   const WWW = props.intl.formatMessage({id: "Proveedores.Contacto.web", defaultMessage: "WWW"});
   const OBS = props.intl.formatMessage({id: "FamiliaProveedores.observaciones",  defaultMessage: "Observaciones"});
 
-  const getString = (key) => formData[key]? formData[key]:"";
+  const getString = (key) => getFormData(key)? getFormData(key):"";
   useEffect(() => {
     const dir = getString('sg')+" "+getString('nomDomicili')+" "+getString('numeroDomicili')+" "+getString('escala')+" "+getString('pis')+" "+getString('porta');
-    setFormData({...formData, domicili: dir});
-  },[formData.sg, formData.nomDomicili, formData.numeroDomicili, formData.escala, formData.pis, formData.porta ]);
+    setFormData({key: 'domicili', value: dir});
+  },[getFormData('sg'), getFormData('nomDomicili'), getFormData('numeroDomicili'), getFormData('escala'), getFormData('pis'), getFormData('porta') ]);
 
   useEffect(() => {
     const codiPostal = getString('codiPostal');
-    setFormData({...formData, poblacio: codiPostal? codiPostal.poblacio:""});
-  },[formData.codiPostal]);
+    setFormData({key: 'poblacio', value: codiPostal? codiPostal.poblacio:""});
+  },[getFormData('codiPostal')]);
 
   const code = (md = 6) => ({
     type: 'input',
@@ -843,14 +843,15 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
       key: 0,
       component: <GenericForm formComponents={addressConfig}
                               emptyPaper={true}
-                              formData={formData}
                               setFormData={setFormData}
+                              getFormData={getFormData}
                               loading={props.loading}
                               formErrors={props.formErrors}
                               submitFromOutside={props.submitFromOutside}
                               onSubmit={() => props.onSubmitTab(formData)}
                               handleIsValid={value => addValidity(ADDRESS_SECTION_TAB_INDEX,value)}
-                              onBlur={(e) => handleTouched(ADDRESS_SECTION_TAB_INDEX)} />
+                              onBlur={(e) => handleTouched(ADDRESS_SECTION_TAB_INDEX)}
+                              {...props} />
     },
     {
       label: TITLE,
@@ -879,14 +880,16 @@ const GeneralTab = ({formData, setFormData, ...props}) => {
           <GenericForm formComponents={suppliersConfig}
                        emptyPaper={true}
                        editMode={props.editMode}
-                       formData={formData}
+                       //formData={formData}
+                       getFormData={getFormData}
                        setFormData={setFormData}
                        loading={props.loading}
                        formErrors={props.formErrors}
                        submitFromOutside={props.submitFromOutside}
                        onSubmit={() => props.onSubmitTab(formData)}
                        handleIsValid={value => addValidity(SUPPLIERS_SECTION_INDEX,value)}
-                       onBlur={(e) => handleTouched(SUPPLIERS_SECTION_INDEX)}/>
+                       onBlur={(e) => handleTouched(SUPPLIERS_SECTION_INDEX)}
+                       {...props} />
         </OutlinedContainer>
       </Grid>
       <Grid xs={12} item>

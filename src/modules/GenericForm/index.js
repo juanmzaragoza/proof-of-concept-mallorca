@@ -23,9 +23,9 @@ import createYupSchema from "./yupSchemaCreator";
 
 const GenericForm = ({loading, ...props}) => {
   const formRef = useRef(null);
-  const [prevProps, setPrevProps] = useState({});
   const [enableReinitialize, setEnableReinitialize] = useState(false);
   const [isManualValidated, setIsManualValidated] = useState(false);
+  const [initVal, setInitVal] = useState({});
 
   /** Get initial value by component*/
   const initialValues = {
@@ -37,13 +37,16 @@ const GenericForm = ({loading, ...props}) => {
   }
 
   /** Init to avoid uncontrolled inputs */
-  useEffect(() => {
-    const data = {...props.formData};
+  const initValues = () => {
+    const data = {};
+    let value = {};
     for (const component of props.formComponents) {
-      data[component.key] = data[component.key]? data[component.key]:initialValues[component.type] || undefined;
+      value = props.getFormData && props.getFormData(component.key)? props.getFormData(component.key):initialValues[component.type] || undefined;
+      props.setFormData({ key: component.key, value});
+      data[component.key] = value;
     }
-    props.setFormData(data);
-  },[]);
+    setInitVal(data);
+  }
 
   /**
    * Effect to submit from outside
@@ -64,15 +67,15 @@ const GenericForm = ({loading, ...props}) => {
   /**
    * Enable reinitialize to show errors even when the values change
    */
-  useEffect(()=>{
-    if(isEmpty(prevProps) && !isEqual(props.formData,prevProps)){
+  useEffect(() => {
+    if(props.formDataLoaded) {
+      initValues();
       setEnableReinitialize(true);
     } else{
       setIsManualValidated(false);
       setEnableReinitialize(false);
     }
-    setPrevProps(props.formData);
-  },[props.formData]);
+  },[props.formDataLoaded]);
 
   const hasError = (key, formik) => {
     return formik.touched && formik.touched[key] && (Boolean(formik.errors[key])) ||
@@ -98,8 +101,7 @@ const GenericForm = ({loading, ...props}) => {
     const noEnable = loading || (props.editMode && noEditable) || disabled;
 
     const handleChange = (e, value) => {
-      const values = {...props.formData, [key]: value};
-      Boolean(key) && props.setFormData(values);
+      Boolean(key) && props.setFormData({key,value});
       handleIsValid(formik);
     };
 
@@ -120,7 +122,7 @@ const GenericForm = ({loading, ...props}) => {
               handleChange(e, e.currentTarget.value);
               formik.handleChange(e);
             }}
-            value={props.formData && props.formData[key] ? props.formData[key] : ""}
+            value={props.getFormData && props.getFormData(key)? props.getFormData(key) : ""}
             label={placeHolder}
             required={Boolean(required)}
             error={hasError(key,formik)}
@@ -143,7 +145,7 @@ const GenericForm = ({loading, ...props}) => {
             error={hasError(key,formik)}
             helperText={getMessageError(key, formik)}
             onBlur={handleBlur}
-            value={props.formData && props.formData[key] ? props.formData[key] : ""}
+            value={props.getFormData && props.getFormData(key)? props.getFormData(key) : ""}
             onChange={e => {
               handleChange(e, e.target.value);
               formik.handleChange(e);
@@ -154,8 +156,8 @@ const GenericForm = ({loading, ...props}) => {
           <FormControlLabel
             control={
               <Checkbox
-                checked={props.formData && props.formData[key] ? props.formData[key] : false}
-                onChange={e => props.setFormData({...props.formData, [key]: e.currentTarget.checked})}
+                checked={props.getFormData && props.getFormData(key)? props.getFormData(key) : false}
+                onChange={e => props.setFormData({key,value: e.currentTarget.checked})}
                 name={key}
                 disabled={noEnable}
                 color="primary"
@@ -170,8 +172,8 @@ const GenericForm = ({loading, ...props}) => {
             <FormLabel component="legend">{placeHolder}</FormLabel>
             <RadioGroup aria-label={key}
                         name={key}
-                        value={props.formData && props.formData[key] ? props.formData[key] : ""}
-                        onChange={e => props.setFormData({...props.formData, [key]: e.currentTarget.value})}
+                        value={props.getFormData && props.getFormData(key)? props.getFormData(key) : ""}
+                        onChange={e => props.setFormData({key,value: e.currentTarget.value})}
                         required={required}
                         disabled={noEnable}>
               {selector && selector.options.map(option => <FormControlLabel key={option.value} value={option.value} control={<Radio />} label={option.label} />) }
@@ -191,8 +193,8 @@ const GenericForm = ({loading, ...props}) => {
               handleChange(e, v);
               formik.setFieldValue(key,v);
             }}
-            value={props.formData && props.formData[key] ? props.formData[key] : null}
-            setValue={e => props.setFormData({...props.formData, [key]: e.value})}
+            value={props.getFormData && props.getFormData(key)? props.getFormData(key) : null}
+            setValue={e => props.setFormData({key,value: e.value})}
             options={selector.options}
             variant={variant}
             error={hasError(key,formik)}
@@ -260,14 +262,14 @@ const GenericForm = ({loading, ...props}) => {
     <div className="generic-form-root">
       {withPaper(
         <Formik
-          initialValues={props.formData}
+          initialValues={initVal}
           validationSchema={validateSchema}
           validateOnMount={false}
           validateOnChange
           validateOnBlur
           enableReinitialize={enableReinitialize}
           onSubmit={(values, actions) => {
-            if (props.onSubmit) props.onSubmit(props.formData);
+            props.onSubmit(values);
             actions.setSubmitting(false);
           }}>
           {formik => {
@@ -324,8 +326,9 @@ GenericForm.propTypes = {
     })
   })),
   onSubmit: PropTypes.func,
-  formData: PropTypes.object,
+  formDataLoaded: PropTypes.bool,
   setFormData: PropTypes.func,
+  getFormData: PropTypes.func,
   formErrors: PropTypes.object,
   submitFromOutside: PropTypes.bool,
   editMode: PropTypes.bool,
