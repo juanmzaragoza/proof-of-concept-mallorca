@@ -187,7 +187,7 @@ const mapStateToProps = (state, props) => {
     formErrors: getFormErrors(state),
     loading: getLoading(state),
     allFormData: getFormData(state),
-    getFormData: (key) => getFormDataByKey(state,key),
+    getFormData: getFormDataByKey(state),
     formDataLoaded: getIsDataLoaded(state)
   };
 };
