@@ -106,7 +106,7 @@ const mapStateToProps = (state, props) => {
   return {
     submitFromOutside: getFireSave(state),
     formErrors: getFormErrors(state),
-    getFormData: (key) => getFormDataByKey(state,key),
+    getFormData: getFormDataByKey(state),
     loading: getLoading(state)
   };
 };
