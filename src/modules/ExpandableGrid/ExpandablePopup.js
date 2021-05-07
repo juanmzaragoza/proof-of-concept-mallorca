@@ -74,8 +74,8 @@ export const ExpandablePopup = ({
           emptyPaper={true}
           containerSpacing={0}
           formComponents={formComponents}
-          formData={row}
-          setFormData={setFormData}
+          getFormData={(key) => row[key]}
+          setFormData={(data) => setFormData({...formData, [data.key]: data.value})}
           submitFromOutside={submitFromOutside}
           handleIsValid={setIsValid}
           formErrors={errors}/>
