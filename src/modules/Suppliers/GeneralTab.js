@@ -704,7 +704,11 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
   const commercialAddressesConfig = {
     title: TITLE,
     query: [
-      {columnName: 'proveidor.id', value: `"${supplierId}"`}
+      {
+        columnName: 'proveidor.id',
+        value: `"${supplierId}"`,
+        exact: true
+      }
     ],
     extraPostBody: {
       proveidor: {id: supplierId}
@@ -900,6 +904,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
   );
 };
 export default compose(
+  React.memo,
   withValidations,
   injectIntl
 )(GeneralTab);

@@ -30,7 +30,7 @@ const TableComponent = ({ ...restProps }) => (
 );
 
 const getRowId = row => row.id;
-const ExpandableGrid = ({ id, enabled = false, configuration,
+const ExpandableGrid = ({ id, configuration,
                           enqueueSnackbar,
                           rows, totalCount, pageSize, loading, refreshData,
                           actions, ...props}) => {
@@ -38,17 +38,25 @@ const ExpandableGrid = ({ id, enabled = false, configuration,
   const [expandedRowIds, setExpandedRowIds] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [sorting, setSorting] = useState([]);
+  const [enabled, setEnabled] = useState(false);
+  const [query, setQuery] = useState([]);
+
+  useEffect(() =>{
+    setEnabled(props.enabled);
+    setQuery(configuration.query);
+  },[props.enabled, configuration.query]);
 
   const doRequest = () => {
-    actions.loadData({key: id, page: currentPage, query: configuration.query || [], sorting});
+    actions.loadData({key: id, page: currentPage, query: query || [], sorting});
   }
+  
+  useEffect(() =>{
+    enabled && doRequest();
+  },[enabled, currentPage, sorting]);
+
   useEffect(()=>{
     refreshData && enabled && doRequest();
   },[refreshData]);
-
-  useEffect(() =>{
-    enabled && doRequest();
-  },[enabled, currentPage, sorting, configuration.query]);
 
   const commitChanges = ({ added, changed, deleted }) => {
     if (added) {}
