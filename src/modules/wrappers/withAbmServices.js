@@ -1,5 +1,4 @@
 import React from "react";
-import Axios from "Axios";
 import {injectIntl} from "react-intl";
 import {withSnackbar} from "notistack";
 import {useHistory} from "react-router-dom";
@@ -9,6 +8,7 @@ import {bindActionCreators, compose} from "redux";
 import {addError, resetAllGenericForm, resetError, setDataLoaded, setFormData} from "redux/genericForm";
 import {finishLoading, startLoading} from "redux/app";
 import {getLoading} from "redux/app/selectors";
+import withAxios from "./withAxios";
 
 const withAbmServices = (PassedComponent) => {
 
@@ -22,7 +22,7 @@ const withAbmServices = (PassedComponent) => {
       const queryString = `${props.url}`;
       props.resetError();
       props.startLoading();
-      Axios.post(queryString, JSON.stringify(data), {
+      props.Axios.post(queryString, JSON.stringify(data), {
         headers: new Headers({
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -41,11 +41,6 @@ const withAbmServices = (PassedComponent) => {
           props.finishLoading();
           if(error.response){
             handlePersistError(error.response);
-          } else{
-            props.enqueueSnackbar(props.intl.formatMessage({
-              id: "CreateUpdateForm.actualizacion_correcta",
-              defaultMessage: "Servidor fuera de servicio"
-            }), {variant: 'error'});
           }
           callback(error);
         });
@@ -57,7 +52,7 @@ const withAbmServices = (PassedComponent) => {
       const queryString = `${props.url}/${id}`;
       props.resetError();
       props.startLoading();
-      Axios.put(queryString, JSON.stringify(data), {
+      props.Axios.put(queryString, JSON.stringify(data), {
         headers: new Headers({
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -80,7 +75,7 @@ const withAbmServices = (PassedComponent) => {
       return new Promise((resolve, reject) => {
         const queryString = `${props.url}/${id}`;
         props.startLoading();
-        Axios.get(queryString, {
+        props.Axios.get(queryString, {
           headers: new Headers({
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -94,7 +89,7 @@ const withAbmServices = (PassedComponent) => {
           })
           .catch(error => {
             props.finishLoading();
-            const status = error.response.status;
+            const status = error.response && error.response.status;
             if (status === 400) {
               props.enqueueSnackbar(props.intl.formatMessage({
                 id: "ReactGrid.error.algo_salio_mal",
@@ -144,7 +139,8 @@ const withAbmServices = (PassedComponent) => {
   return compose(
     connect(mapStateToProps,mapDispatchToProps),
     withSnackbar,
-    injectIntl
+    injectIntl,
+    withAxios
   )(WrappedComponent);
 }
 
