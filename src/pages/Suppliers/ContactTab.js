@@ -1,7 +1,7 @@
 import Grid from "@material-ui/core/Grid/Grid";
-import OutlinedContainer from "../shared/OutlinedContainer";
+import OutlinedContainer from "../../modules/shared/OutlinedContainer";
 import {FormattedMessage, injectIntl} from "react-intl";
-import GenericForm from "../GenericForm";
+import GenericForm from "../../modules/GenericForm";
 import React, {useEffect, useState} from "react";
 import {compose} from "redux";
 import {every} from "lodash";

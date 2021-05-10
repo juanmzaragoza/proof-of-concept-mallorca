@@ -1,8 +1,8 @@
-import CreateUpdateForm from "../ReactGrid/CreateUpdateForm";
+import CreateUpdateForm from "../../modules/ReactGrid/CreateUpdateForm";
 import {injectIntl} from "react-intl";
 import React from "react";
 import {compose} from "redux";
-import {withValidations} from "../wrappers";
+import {withValidations} from "../../modules/wrappers";
 
 const SuppliersFamilyCreate = (props) => {
   const createConfiguration = [

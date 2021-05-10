@@ -6,7 +6,7 @@ import {People} from "@material-ui/icons";
 
 import SuppliersFamilyList from "./SuppliersFamilyList";
 import SuppliersFamilyCreate from "./SuppliersFamilyCreate";
-import withHeaders from "../wrappers/withHeaders";
+import withHeaders from "../../modules/wrappers/withHeaders";
 
 const URL = '/familia-proveedores';
 
