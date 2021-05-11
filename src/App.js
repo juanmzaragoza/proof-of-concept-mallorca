@@ -21,6 +21,7 @@ import {isUserAuthenticated} from "helper/login-helper";
 
 import {getAuthenticated, getAuthenticationError, getLoading} from "./redux/app/selectors";
 import {authenticate, clearAfterAuthentication} from "./redux/app";
+import {SnackbarUtilsConfigurator} from "./helper/snackbar-function";
 
 const mapStateToProps = (state, props) => {
   return {
@@ -55,6 +56,7 @@ function App() {
                   horizontal: 'right',
                 }}
             >
+              <SnackbarUtilsConfigurator />
               <div>
                 <Switch>
                   <Route exact path={ROUTES.LOGIN}>

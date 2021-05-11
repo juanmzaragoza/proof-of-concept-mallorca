@@ -1,11 +1,11 @@
 import React from "react";
-import Axios from "Axios";
 import {injectIntl} from "react-intl";
 import {withSnackbar} from "notistack";
 import {useHistory} from "react-router-dom";
 import {connect} from "react-redux";
 import {bindActionCreators, compose} from "redux";
 
+import Axios from "Axios";
 import {addError, resetAllGenericForm, resetError, setDataLoaded, setFormData} from "redux/genericForm";
 import {finishLoading, startLoading} from "redux/app";
 import {getLoading} from "redux/app/selectors";
@@ -39,14 +39,7 @@ const withAbmServices = (PassedComponent) => {
         })
         .catch(error => {
           props.finishLoading();
-          if(error.response){
-            handlePersistError(error.response);
-          } else{
-            props.enqueueSnackbar(props.intl.formatMessage({
-              id: "CreateUpdateForm.actualizacion_correcta",
-              defaultMessage: "Servidor fuera de servicio"
-            }), {variant: 'error'});
-          }
+          error.response && handlePersistError(error.response);
           callback(error);
         });
     };
@@ -72,7 +65,7 @@ const withAbmServices = (PassedComponent) => {
         })
         .catch(error => {
           props.finishLoading();
-          handlePersistError(error.response);
+          error.response && handlePersistError(error.response);
         });
     }
 
@@ -94,7 +87,7 @@ const withAbmServices = (PassedComponent) => {
           })
           .catch(error => {
             props.finishLoading();
-            const status = error.response.status;
+            const status = error.response && error.response.status;
             if (status === 400) {
               props.enqueueSnackbar(props.intl.formatMessage({
                 id: "ReactGrid.error.algo_salio_mal",
@@ -112,11 +105,11 @@ const withAbmServices = (PassedComponent) => {
         for (const err of data.errors) {
           props.addError({[err.field]: {message: err.defaultMessage}});
         }
+        props.enqueueSnackbar(props.intl.formatMessage({
+          id: "CreateUpdateForm.revise_datos",
+          defaultMessage: "Revise los datos e intente nuevamente..."
+        }), {variant: 'error'});
       }
-      props.enqueueSnackbar(props.intl.formatMessage({
-        id: "CreateUpdateForm.revise_datos",
-        defaultMessage: "Revise los datos e intente nuevamente..."
-      }), {variant: 'error'});
     }
 
     return <PassedComponent services={{create, update, getById}} {...props} ></PassedComponent>;

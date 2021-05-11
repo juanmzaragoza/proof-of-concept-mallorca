@@ -10,7 +10,7 @@ import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import {compose} from "redux";
 import {withValidations} from "modules/wrappers";
-import ExpandableGrid from "../ExpandableGrid";
+import ExpandableGrid from "../../modules/ExpandableGrid";
 import {Chip} from "@material-ui/core";
 
 import "./styles.scss";

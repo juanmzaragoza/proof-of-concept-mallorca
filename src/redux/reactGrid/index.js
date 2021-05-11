@@ -31,7 +31,7 @@ export const searchData = ({ apiId, key, page, query = [], sorting = [] }) => {
         })
         .catch(error => {
           dispatch(add({ loading: false }));
-          dispatch(add({ errors: error.response? error.response:error }));
+          error.response && handlePersistError(error.response)(dispatch);
         })
         .finally(() => {
           dispatch(add({ loading: false }));
@@ -55,7 +55,7 @@ export const deleteData = ({ key, id }) => {
         })
         .catch(error => {
           dispatch(add({ loading: false }));
-          handlePersistError(error.response)(dispatch);
+          error.response && handlePersistError(error.response)(dispatch);
         });
     } catch (error) {
       dispatch(add({ loading: false }));
@@ -72,8 +72,6 @@ const handlePersistError = ({status, data}) => {
         errors[err.field] = {message: err.defaultMessage};
       }
       dispatch(add({ errors }));
-    } else{
-      dispatch(add({ errors: data }));
     }
   }
 }

@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import {Redirect, Route, Switch, useHistory} from "react-router-dom";
 import {connect} from "react-redux";
 import {bindActionCreators, compose} from 'redux';
-import {isEqual} from "lodash";
 
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -17,7 +16,7 @@ import CloudQueueIcon from '@material-ui/icons/CloudQueue';
 import Badge from "@material-ui/core/Badge";
 import {AccountCircle ,More} from "@material-ui/icons";
 
-import modules from "./modules";
+import pages from "./pages";
 import * as ROUTES from "constants/routes";
 
 import DrawerMenu from "./components/DrawerMenu/index";
@@ -232,7 +231,7 @@ const Layout = ({ children, ...props}) => {
           <div className={classes.drawerHeader} />
           <PageHeader />
           <Switch>
-            {/** Private modules */}
+            {/** Private pages */}
             <PrivateRoute isUserAuthenticated={isUserAuthenticated}>
               {/* TODO() add index component */}
               <Route path={'/'} exact={true} component={() => <div style={{
@@ -244,7 +243,7 @@ const Layout = ({ children, ...props}) => {
                 justifyContent: 'center',
                 fontSize: 'xxx-large'
               }}>Pantalla Principal</div>} />
-              {modules
+              {pages
                 .filter(module => module.routeProps)
                 .map(module => (
                   <Route {...module.routeProps} key={module.name} />

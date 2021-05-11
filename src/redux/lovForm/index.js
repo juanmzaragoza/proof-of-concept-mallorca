@@ -23,12 +23,14 @@ export const submit = ({ id, data }) => {
           const {response} = error;
           if(response && response.data && response.data.message){
             const {status, data} = response;
-            if (status === 400 && data.errors) {
-              for (const err of data.errors) {
-                dispatch(addError({[err.field]: {message: err.defaultMessage}}));
+            if (status === 400) {
+              if(data.errors){
+                for (const err of data.errors) {
+                  dispatch(addError({[err.field]: {message: err.defaultMessage}}));
+                }
               }
+              dispatch(setStatusError(status));
             }
-            dispatch(setStatusError(status));
           }
         })
         .finally(() => {

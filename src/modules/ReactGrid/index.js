@@ -87,7 +87,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
 
   useEffect(()=>{
     if(!isEmpty(errors)){
-      props.enqueueSnackbar(props.intl.formatMessage({
+      enqueueSnackbar(props.intl.formatMessage({
         id: "ReactGrid.error.algo_salio_mal",
         defaultMessage: "Ups! Algo ha salido mal :("
       }), {variant: 'error'});

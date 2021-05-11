@@ -31,7 +31,6 @@ const TableComponent = ({ ...restProps }) => (
 
 const getRowId = row => row.id;
 const ExpandableGrid = ({ id, configuration,
-                          enqueueSnackbar,
                           rows, totalCount, pageSize, loading, refreshData,
                           actions, ...props}) => {
   const [columns] = useState(configuration.columns.filter(col => !col.hidden));

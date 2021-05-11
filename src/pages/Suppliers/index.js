@@ -6,12 +6,12 @@ import {connect} from "react-redux";
 import {bindActionCreators, compose} from "redux";
 
 import Paper from "@material-ui/core/Paper";
-import ReactGrid from "../ReactGrid";
+import ReactGrid from "../../modules/ReactGrid";
 import AdvancedFilters from "./AdvancedFilters";
 import SuppliersForm from "./SuppliersForm";
 import * as API from "redux/api";
 import {setBreadcrumbHeader, setListingConfig} from "redux/pageHeader";
-import withHeaders from "../wrappers/withHeaders";
+import withHeaders from "../../modules/wrappers/withHeaders";
 import {unionBy} from "lodash";
 
 const URL = '/proveedores';

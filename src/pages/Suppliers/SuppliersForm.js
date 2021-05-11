@@ -12,7 +12,7 @@ import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
 import {setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig} from "redux/pageHeader";
 import {getFireSave} from "redux/pageHeader/selectors";
-import {withAbmServices} from "../wrappers";
+import {withAbmServices} from "../../modules/wrappers";
 import {getFormData, getFormErrors, getFormDataByKey, getIsDataLoaded} from "../../redux/genericForm/selectors";
 
 import {setFormDataByKey} from "../../redux/genericForm";
