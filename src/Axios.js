@@ -25,10 +25,43 @@ Axios.interceptors.request.use(function (conf) {
   return Promise.reject(error);
 });
 
+const errorTypes = {
+  401: () => {
+    SnackbarUtils.error(intl.formatMessage({
+      id: "Comun.error.sin_permisos",
+      defaultMessage: "No posee los permisos suficientes ;("
+    }));
+  },
+  403: () => {
+    clearAll();
+    window.location.href = '/login';
+    SnackbarUtils.error(intl.formatMessage({
+      id: "Comun.error.sesion_expirada",
+      defaultMessage: "Sesión expirada! Vuelva a iniciar sesión."
+    }));
+  },
+  500: () => {
+    SnackbarUtils.error(intl.formatMessage({
+      id: "Comun.error.error_interno",
+      defaultMessage: "Ocurrió un error interno en el servicio X("
+    }));
+  },
+  '_default': () => {
+    SnackbarUtils.error(intl.formatMessage({
+      id: "Comun.error.error_interno",
+      defaultMessage: "Ocurrió un error interno en el servicio X("
+    }));
+  }
+}
+const solveError = (status) => {
+  return errorTypes[status]? errorTypes[status]():errorTypes['_default']();
+}
+
 /** Handle errors */
 let key;
 Axios.interceptors.response.use(undefined, function (error) {
   if(error.message === 'Network Error'){
+    // if there isn't a snackbar opened
     if(!key) {
       key = SnackbarUtils.error(intl.formatMessage({
         id: "Comun.error.error_de_red",
@@ -37,25 +70,8 @@ Axios.interceptors.response.use(undefined, function (error) {
     }
   } else if(error.response){
     SnackbarUtils.close(key);
-    const {status, message} = error.response;
-    if(message === 'Network Error'){
-      SnackbarUtils.error(intl.formatMessage({
-        id: "Comun.error.error_de_red",
-        defaultMessage: "Ocurrió un problema con la red X("
-      }));
-    } else if (status === 500) {
-      SnackbarUtils.error(intl.formatMessage({
-        id: "Comun.error.error_interno",
-        defaultMessage: "Ocurrió un error interno en el servicio X("
-      }));
-    } else if(status === 403){
-      clearAll();
-      window.location.href = '/login';
-      SnackbarUtils.error(intl.formatMessage({
-        id: "Comun.error.sesion_expirada",
-        defaultMessage: "Sesión expirada! Vuelva a iniciar sesión."
-      }));
-    }
+    const {status} = error.response;
+    solveError(status);
   }
   return Promise.reject(error);
 });

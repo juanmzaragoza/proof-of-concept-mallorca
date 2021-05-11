@@ -2,8 +2,8 @@ import { useSnackbar } from 'notistack';
 import * as React from 'react';
 
 const InnerSnackbarUtilsConfigurator = (props) => {
-  props.setUseSnackbarRef(useSnackbar())
-  return null
+  props.setUseSnackbarRef(useSnackbar());
+  return null;
 }
 
 let useSnackbarRef;

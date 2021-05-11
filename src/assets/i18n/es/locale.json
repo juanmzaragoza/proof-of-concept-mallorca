@@ -18,6 +18,7 @@
   "Comun.error.error_interno": "Ocurrió un error interno en el servicio X(",
   "Comun.error.sesion_expirada": "Sesión expirada! Vuelva a iniciar sesión.",
   "Comun.error.servidor_fuera_servicio": "Servidor fuera de servicio",
+  "Comun.error.sin_permisos": "No posee los permisos suficientes ;(",
   "ContentHeader.acciones": "Acciones",
   "ContentHeader.busqueda": "Búsqueda",
   "CreateUpdateForm.actualizacion_correcta": "Registro actualizado correctamente",
