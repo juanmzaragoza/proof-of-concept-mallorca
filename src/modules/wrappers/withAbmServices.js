@@ -5,10 +5,10 @@ import {useHistory} from "react-router-dom";
 import {connect} from "react-redux";
 import {bindActionCreators, compose} from "redux";
 
+import Axios from "Axios";
 import {addError, resetAllGenericForm, resetError, setDataLoaded, setFormData} from "redux/genericForm";
 import {finishLoading, startLoading} from "redux/app";
 import {getLoading} from "redux/app/selectors";
-import withAxios from "./withAxios";
 
 const withAbmServices = (PassedComponent) => {
 
@@ -22,7 +22,7 @@ const withAbmServices = (PassedComponent) => {
       const queryString = `${props.url}`;
       props.resetError();
       props.startLoading();
-      props.Axios.post(queryString, JSON.stringify(data), {
+      Axios.post(queryString, JSON.stringify(data), {
         headers: new Headers({
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -39,9 +39,7 @@ const withAbmServices = (PassedComponent) => {
         })
         .catch(error => {
           props.finishLoading();
-          if(error.response){
-            handlePersistError(error.response);
-          }
+          error.response && handlePersistError(error.response);
           callback(error);
         });
     };
@@ -52,7 +50,7 @@ const withAbmServices = (PassedComponent) => {
       const queryString = `${props.url}/${id}`;
       props.resetError();
       props.startLoading();
-      props.Axios.put(queryString, JSON.stringify(data), {
+      Axios.put(queryString, JSON.stringify(data), {
         headers: new Headers({
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -67,7 +65,7 @@ const withAbmServices = (PassedComponent) => {
         })
         .catch(error => {
           props.finishLoading();
-          handlePersistError(error.response);
+          error.response && handlePersistError(error.response);
         });
     }
 
@@ -75,7 +73,7 @@ const withAbmServices = (PassedComponent) => {
       return new Promise((resolve, reject) => {
         const queryString = `${props.url}/${id}`;
         props.startLoading();
-        props.Axios.get(queryString, {
+        Axios.get(queryString, {
           headers: new Headers({
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -107,11 +105,11 @@ const withAbmServices = (PassedComponent) => {
         for (const err of data.errors) {
           props.addError({[err.field]: {message: err.defaultMessage}});
         }
+        props.enqueueSnackbar(props.intl.formatMessage({
+          id: "CreateUpdateForm.revise_datos",
+          defaultMessage: "Revise los datos e intente nuevamente..."
+        }), {variant: 'error'});
       }
-      props.enqueueSnackbar(props.intl.formatMessage({
-        id: "CreateUpdateForm.revise_datos",
-        defaultMessage: "Revise los datos e intente nuevamente..."
-      }), {variant: 'error'});
     }
 
     return <PassedComponent services={{create, update, getById}} {...props} ></PassedComponent>;
@@ -139,8 +137,7 @@ const withAbmServices = (PassedComponent) => {
   return compose(
     connect(mapStateToProps,mapDispatchToProps),
     withSnackbar,
-    injectIntl,
-    withAxios
+    injectIntl
   )(WrappedComponent);
 }
 
