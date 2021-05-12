@@ -2,6 +2,7 @@ import {remove as removeFrom} from 'lodash';
 import Axios from "Axios";
 import * as API from "redux/api";
 import {EXPANDABLE_GRID_LIMIT_PER_PAGE} from "../../constants/config";
+import {getFormedURL} from "../common";
 
 //Action types
 const ADD = "ADD_TO_GRID";
@@ -14,16 +15,7 @@ const ADD_ROW = "ADD_ROW_GRID";
 export const searchData = ({ key, page, query = [], sorting = [] }) => {
   return async dispatch => {
     const formedURL = () => {
-      const pagination = `&page=${page !== null ? page : 0}`;
-      const queryFilter = query.length > 0 ?
-        `&query=${query
-          .map(({ columnName, value, exact }) => exact? `${columnName}==${value}`:`${columnName}=ic=*${value}*`)
-          .join(';')}`
-        :
-        "";
-      const sort = `&sort=${sorting.length > 0? sorting.map(({ columnName, direction }) => `${columnName},${direction}`).join(';'):"codi"}`;
-      const URL = `${API[key]}?size=${EXPANDABLE_GRID_LIMIT_PER_PAGE}${pagination}${queryFilter}${sort}`;
-      return URL;
+      return getFormedURL({id: key, size: EXPANDABLE_GRID_LIMIT_PER_PAGE, page, sorting, query})
     }
     try {
       dispatch(add({ key, loading: true }));
