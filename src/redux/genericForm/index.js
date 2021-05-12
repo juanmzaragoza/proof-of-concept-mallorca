@@ -2,6 +2,7 @@ import {unionWith, isEqual} from "lodash";
 import Axios from "../../Axios";
 import * as API from "redux/api";
 import {LOV_LIMIT_PER_PAGE} from "constants/config";
+import {getFormedURL} from "../common";
 
 //Action types
 const SET_ERROR_TO_GENERIC_FORM = "SET_ERROR_TO_GENERIC_FORM";
@@ -21,20 +22,14 @@ const REFRESH_A_FORM_SELECTOR = "REFRESH_A_FORM_SELECTOR";
 const SET_QUERY_FORM_SELECTOR = "SET_QUERY_FORM_SELECTOR";
 
 //Functions
-export const getFormSelectorData = ({id, key, page, sort, search, query = []}) => {
+export const getFormSelectorData = ({id, key, page, sorting, search, query = []}) => {
   return async dispatch => {
     const formedURL = () => {
-      const pagination = `&page=${page !== null ? page : 0}`;
-      const sorting = sort ? `&sort=${sort}` : "";
-      const quickFilter = search && search !== "" ? `&quickFilter=${search}` : "";
-      const searchQuery = query.length > 0 ? `&query=${query.map(({ columnName, value }) => `${columnName}=ic=*${value}*`).join(';')}` : "";
-      const URL = `${API[id]}?size=${LOV_LIMIT_PER_PAGE}${pagination}${sorting}${quickFilter}${searchQuery}`;
-      return URL;
+      return getFormedURL({id, size: LOV_LIMIT_PER_PAGE, page, sorting, search, query });
     }
     try {
       dispatch(addToFormSelector({ name: id, loading: true }));
-      const URL = formedURL();
-      Axios.get(URL)
+      Axios.get(formedURL())
         .then(({data}) => data)
         .then(({ page, _embedded }) => {
           dispatch(addToFormSelector({

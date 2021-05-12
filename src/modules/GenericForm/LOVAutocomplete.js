@@ -63,7 +63,7 @@ const LOVAutocomplete = (props) => {
   },[props.refresh]);
 
   const requestDataToServer = () => {
-    props.responseKey && props.searchData({id: props.id, key: props.responseKey, page: props.page, sort: props.sortBy, search: props.querySearch, query: props.query});
+    props.responseKey && props.searchData({id: props.id, key: props.responseKey, page: props.page, sorting: [{columnName: props.sortBy}], search: props.querySearch, query: props.query});
   }
 
   const buttonInsideSelector = (icon, disabled = false, onClick) => {
