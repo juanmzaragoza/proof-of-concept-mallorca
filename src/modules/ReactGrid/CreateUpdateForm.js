@@ -10,7 +10,7 @@ import { withAbmServices } from "modules/wrappers";
 
 import {setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig} from "redux/pageHeader";
 import {getFireSave} from "redux/pageHeader/selectors";
-import {getFormDataByKey, getFormErrors} from "../../redux/genericForm/selectors";
+import {getFormDataByKey, getFormErrors, getIsDataLoaded} from "../../redux/genericForm/selectors";
 import {setFormDataByKey} from "../../redux/genericForm";
 import {getLoading} from "../../redux/app/selectors";
 
@@ -36,9 +36,7 @@ const CreateUpdateForm = ({
     return !!id;
   };
 
-  const getBaseUrl = () => {
-    return `/${match.path.split('/')[1]}`;
-  }
+  const getBaseUrl = () => `/${match.path.split('/')[1]}`;
 
   useEffect(() => {
     setFormConfig({
@@ -87,7 +85,8 @@ const CreateUpdateForm = ({
       formComponents={formConfiguration}
       submitFromOutside={submitFromOutside}
       onSubmit={(data) => handleSubmit(data)}
-      fieldsContainerStyles={{padding: '10px 40px 40px 40px'}}/>
+      fieldsContainerStyles={{padding: '10px 40px 40px 40px'}}
+      formDataLoaded={props.formDataLoaded} />
   );
 
 };
@@ -116,7 +115,8 @@ const mapStateToProps = (state, props) => {
     submitFromOutside: getFireSave(state),
     formErrors: getFormErrors(state),
     getFormData: getFormDataByKey(state),
-    loading: getLoading(state)
+    loading: getLoading(state),
+    formDataLoaded: getIsDataLoaded(state)
   };
 };
 
