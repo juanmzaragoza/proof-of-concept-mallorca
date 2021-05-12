@@ -6,7 +6,7 @@ export const getFormedURL = ({id, size, page, sorting = [], search, query = []})
   const quickFilter = search && search !== "" ? `&quickFilter=${search}` : "";
   const searchQuery = query.length > 0 ?
     `&query=${query
-      .map(({ columnName, value, exact }) => exact? `${columnName}==${value}`:`${columnName}=ic=*${value.trim()}*`)
+      .map(({ columnName, value, exact }) => exact? `${columnName}==${value}`:`${columnName}=ic='*${value}*'`)
       .join(';')}`
     :
     "";
