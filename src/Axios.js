@@ -59,7 +59,12 @@ const solveError = (status) => {
 
 /** Handle errors */
 let key;
-Axios.interceptors.response.use(undefined, function (error) {
+Axios.interceptors.response.use(
+  (response) => {
+    SnackbarUtils.close(key);
+    return response;
+  },
+  (error) => {
   if(error.message === 'Network Error'){
     // if there isn't a snackbar opened
     if(!key) {
