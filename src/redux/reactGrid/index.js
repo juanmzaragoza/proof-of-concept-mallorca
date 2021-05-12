@@ -13,7 +13,7 @@ export const searchData = ({ apiId, key, page, query = [], sorting = [] }) => {
   return async dispatch => {
     const formedURL = () => {
       const pagination = `&page=${page !== null ? page : 0}`;
-      const queryFilter = query.length > 0 ? `&query=${query.map(({ columnName, value }) => `${columnName}=ic=*${value}*`).join(';')}` : "";
+      const queryFilter = query.length > 0 ? `&query=${query.map(({ columnName, value }) => `${columnName}=ic=*${value.trim()}*`).join(';')}` : "";
       const sort = `&sort=${sorting.length > 0? sorting.map(({ columnName, direction }) => `${columnName},${direction}`).join(';'):"codi"}`;
       const URL = `${API[apiId]}?size=${REACT_GRID_LIMIT_PER_PAGE}${pagination}${queryFilter}${sort}`;
       return URL;
