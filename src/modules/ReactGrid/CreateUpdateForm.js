@@ -10,9 +10,9 @@ import { withAbmServices } from "modules/wrappers";
 
 import {setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig} from "redux/pageHeader";
 import {getFireSave} from "redux/pageHeader/selectors";
-import {getFormDataByKey, getFormErrors, getIsDataLoaded} from "../../redux/genericForm/selectors";
-import {setFormDataByKey} from "../../redux/genericForm";
-import {getLoading} from "../../redux/app/selectors";
+import {getFormDataByKey, getFormErrors, getIsDataLoaded} from "redux/genericForm/selectors";
+import {setFormDataByKey, resetAllGenericForm} from "redux/genericForm";
+import {getLoading} from "redux/app/selectors";
 
 const CreateUpdateForm = ({
       title, //props
@@ -45,6 +45,7 @@ const CreateUpdateForm = ({
     setBreadcrumbHeader([{title: title, href: getBaseUrl()}, {
       title: props.intl.formatMessage({id: "Comun.nuevo", defaultMessage: "Nuevo"})
     }]);
+    return () => actions.reset();
   },[]);
 
   useEffect(() => {
@@ -126,6 +127,7 @@ const mapDispatchToProps = (dispatch, props) => {
     setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch),
     setSubmitFromOutside: bindActionCreators(setFireSaveFromHeader, dispatch),
     setFormData: bindActionCreators(setFormDataByKey, dispatch),
+    reset: bindActionCreators(resetAllGenericForm, dispatch),
   };
   return { actions };
 };
