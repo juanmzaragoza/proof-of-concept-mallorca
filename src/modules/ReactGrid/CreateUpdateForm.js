@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {bindActionCreators,compose} from "redux";
 import {connect} from "react-redux";
-import {useParams} from "react-router-dom";
+import {useParams, useRouteMatch} from "react-router-dom";
 import PropTypes from "prop-types";
 import {injectIntl} from "react-intl";
 
@@ -30,21 +30,30 @@ const CreateUpdateForm = ({
   const [editMode, setEditMode] = useState(false);
 
   const { id } = useParams();
+  const match = useRouteMatch();
 
   const isEditable = () => {
     return !!id;
   };
 
+  const getBaseUrl = () => {
+    return `/${match.path.split('/')[1]}`;
+  }
+
   useEffect(() => {
     setFormConfig({
       title: title
     });
-    setBreadcrumbHeader([{title: title, href: "/"}, {title: "Nuevo"}]);
+    setBreadcrumbHeader([{title: title, href: getBaseUrl()}, {
+      title: props.intl.formatMessage({id: "Comun.nuevo", defaultMessage: "Nuevo"})
+    }]);
   },[]);
 
   useEffect(() => {
     if(isEditable()){
-      setBreadcrumbHeader([{title: title, href: "/"}, {title: "Modificar"}]);
+      setBreadcrumbHeader([{title: title, href: getBaseUrl()}, {
+        title: props.intl.formatMessage({id: "Comun.modificar", defaultMessage: "Modificar"})
+      }]);
       setEditMode(true);
       services.getById(id);
     }
