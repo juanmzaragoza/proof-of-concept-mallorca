@@ -85,6 +85,11 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
 
   useEffect(() => loadData(),[currentPage,sorting,filters,extraQuery]);
 
+  // if the filters change
+  useEffect(() => {
+    setCurrentPage(0);
+  },[filters,extraQuery]);
+
   useEffect(()=>{
     if(!isEmpty(errors)){
       enqueueSnackbar(props.intl.formatMessage({
@@ -123,7 +128,6 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
         <FilteringState
           defaultFilters={[]}
           onFiltersChange={setFilters} />
-        <IntegratedFiltering />
         {/***************************/}
         {/* Paging configuration */}
         <PagingState
@@ -137,7 +141,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
         {/***************************/}
         <EditingState onCommitChanges={commitChanges} />
 
-        <Table tableComponent={TableComponent} cellComponent={FocusableCell} noDataText={"HOla"} />
+        <Table tableComponent={TableComponent} cellComponent={FocusableCell} noDataText={"table-data"} />
         <TableHeaderRow showSortingControls />
         <TableFilterRow />
         {configuration.enableInlineEdition && <TableInlineCellEditing selectTextOnEditStart />}
