@@ -3,6 +3,7 @@ import {injectIntl} from "react-intl";
 import React from "react";
 import {compose} from "redux";
 import {withValidations} from "../../modules/wrappers";
+import * as API from "redux/api";
 
 const SuppliersFamilyCreate = (props) => {
   const createConfiguration = [
@@ -121,7 +122,7 @@ const SuppliersFamilyCreate = (props) => {
                         defaultMessage: "Familias proveedor"
                       })}
                       formConfiguration={createConfiguration}
-                      url={'api/fact/familiesProveidor'} />
+                      url={API.familiaProveidor} />
   )
 };
 

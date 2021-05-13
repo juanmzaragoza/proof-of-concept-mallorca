@@ -4,6 +4,7 @@ import {bindActionCreators,compose} from "redux";
 import {setBreadcrumbHeader, setListingConfig} from "../../redux/pageHeader";
 import {injectIntl} from "react-intl";
 import {connect} from "react-redux";
+import * as API from "redux/api";
 
 const SuppliersFamilyList = ({ actions, ...props }) => {
 
@@ -37,7 +38,7 @@ const SuppliersFamilyList = ({ actions, ...props }) => {
         })
       },
     ],
-    URL: 'api/fact/familiesProveidor',
+    URL: API.familiaProveidor,
     listKey: 'familiaProveidors'
   };
   return (
