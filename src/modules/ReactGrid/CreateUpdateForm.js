@@ -95,15 +95,28 @@ const CreateUpdateForm = ({
 CreateUpdateForm.propTypes = {
   title: PropTypes.string,
   formConfiguration: PropTypes.arrayOf(PropTypes.shape({
+    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV']),
+    variant: PropTypes.oneOf(['filled','outlined','standard']),
     placeHolder: PropTypes.string,
-    type: PropTypes.string,
-    key: PropTypes.string,
     required: PropTypes.bool,
-    breakpoints: PropTypes.shape({
-      xs: PropTypes.number,
-      sm: PropTypes.number,
-      md: PropTypes.number,
-      lg: PropTypes.number,
+    key: PropTypes.string,
+    noEditable: PropTypes.bool,
+    selector: PropTypes.shape({
+      key: PropTypes.any,
+      labelKey: PropTypes.any,
+      options: PropTypes.array,
+      creationComponents: PropTypes.array,
+      cannotCreate: PropTypes.bool,
+      // for example, see the LOVAutocomplete component
+      relatedWith: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        filterBy: PropTypes.string.isRequired,
+        keyValue: PropTypes.string,
+      })
+    }),
+    disabled: PropTypes.bool,
+    text: PropTypes.shape({
+      multiline: PropTypes.number
     })
   })),
   url: PropTypes.string.isRequired,
