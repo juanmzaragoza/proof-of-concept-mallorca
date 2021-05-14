@@ -4,17 +4,17 @@ import {injectIntl} from "react-intl";
 import {Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
 import {bindActionCreators, compose} from "redux";
-
 import Paper from "@material-ui/core/Paper";
-import SuppliersForm from "./SuppliersForm";
+
 import * as API from "redux/api";
 import {setBreadcrumbHeader, setListingConfig} from "redux/pageHeader";
-import withHeaders from "../../modules/wrappers/withHeaders";
+import withHeaders from "modules/wrappers/withHeaders";
 import SuppliersList from "./SuppliersList";
+import SuppliersForm from "./SuppliersForm";
 
 const URL = '/proveedores';
 
-// suppliers listo
+// suppliers list
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
     setListingConfig: bindActionCreators(setListingConfig, dispatch),
@@ -29,13 +29,8 @@ const SuppliersListIntl = compose(
 )(SuppliersList);
 
 // suppliers form
-const SuppliersFormWithUrl = () => {
-  return (
-    // url necessary for withAbmServices
-    // TODO(): maybe we can create a state for the page and set the url there
-    <SuppliersForm url={API.suppliers} />
-  )
-};
+// TODO(): maybe we can create a state for the page and set the url there
+const SuppliersFormWithUrl = () => <SuppliersForm url={API.suppliers} />;
 
 const Suppliers = () => (
   <Paper style={{ position: 'relative' }}>
