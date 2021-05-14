@@ -112,6 +112,15 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  bigWord: {
+    display: 'flex',
+    flexDirection: 'column',
+    textAlign: 'center',
+    width: '100%',
+    height: '78vh',
+    justifyContent: 'center',
+    fontSize: 'xxx-large'
+  }
 }));
 
 
@@ -234,25 +243,16 @@ const Layout = ({ children, ...props}) => {
             {/** Private pages */}
             <PrivateRoute isUserAuthenticated={isUserAuthenticated}>
               {/* TODO() add index component */}
-              <Route path={'/'} exact={true} component={() => <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                textAlign: 'center',
-                width: '100%',
-                height: '78vh',
-                justifyContent: 'center',
-                fontSize: 'xxx-large'
-              }}>Pantalla Principal</div>} />
+              <Route path={'/'} exact={true} component={() => <div className={classes.bigWord}>Pantalla Principal</div>} />
               {pages
                 .filter(module => module.routeProps)
                 .map(module => (
                   <Route {...module.routeProps} key={module.name} />
                 ))
               }
+              {/* TODO() add not found component */}
+              <Route component={() => <div className={classes.bigWord}>Ups!!! Esta página no existe X(</div>} />
             </PrivateRoute>
-            {/* TODO() add not found component */}
-            <Route path={'/not-found'} exact={true} component={() => <div>Ups!!! Vuelva a intentarlo :)</div>} />
-            <Redirect to="not-found" />
           </Switch>
 
         </main>
