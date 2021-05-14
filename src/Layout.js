@@ -252,7 +252,6 @@ const Layout = ({ children, ...props}) => {
               }
               {/* TODO() add not found component */}
               <Route path="/not-found" exact component={() => <div className={classes.bigWord}>Ups!!! Esta página no existe X(</div>} />
-              <Redirect to="/not-found" />
             </PrivateRoute>
           </Switch>
 
