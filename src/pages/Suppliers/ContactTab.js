@@ -1,9 +1,9 @@
+import React from "react";
 import Grid from "@material-ui/core/Grid/Grid";
+import {compose} from "redux";
 import OutlinedContainer from "../../modules/shared/OutlinedContainer";
 import {FormattedMessage, injectIntl} from "react-intl";
 import GenericForm from "../../modules/GenericForm";
-import React, {useEffect, useState} from "react";
-import {compose} from "redux";
 import {withValidations} from "modules/wrappers";
 import {useTabForm} from "../../hooks/tab-form";
 
