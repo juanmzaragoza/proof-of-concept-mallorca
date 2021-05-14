@@ -163,7 +163,8 @@ ReactGrid.propTypes = {
     title: PropTypes.string,
     columns: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string,
-      title: PropTypes.string
+      title: PropTypes.string,
+      getCellValue: PropTypes.func
     })),
     listKey: PropTypes.string.isRequired,
     enableInlineEdition: PropTypes.bool,
