@@ -78,11 +78,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
     actions.loadData({ apiId: props.id, key: configuration.listKey, page: currentPage, query, sorting});
   };
 
-  useEffect(()=>{
-    loadData();
-    return () => actions.reset();
-  },[]);
-
+  // executed when mounts component and when vars change
   useEffect(() => loadData(),[currentPage,sorting,filters,extraQuery]);
 
   // if the filters change
