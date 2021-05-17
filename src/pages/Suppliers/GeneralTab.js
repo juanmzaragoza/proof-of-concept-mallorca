@@ -25,7 +25,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
     handleTouched,
     addValidity,
     formIsValid
-  ] = useTabForm({fields: {0:false, 1:false}, setIsValid: props.setIsValid});
+  ] = useTabForm({fields: {[SUPPLIERS_SECTION_INDEX]: false, [ADDRESS_SECTION_TAB_INDEX]:false}, setIsValid: props.setIsValid});
 
   const { id: supplierId } = useParams();
 
