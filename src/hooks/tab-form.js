@@ -10,17 +10,12 @@ export const useTabForm = (props) => {
   },[formIsValid]);
 
   const validation = (validity) => {
-    console.log("validation - ",validity)
     props.setIsValid && props.setIsValid(validity);
   }
 
   const addValidity = (key, value) => {
     setFormIsValid({...formIsValid, [key]: value});
   }
-
-  useEffect(()=>{
-    console.log("tabform",touched)
-  },[touched]);
 
   const handleTouched = (key) => {
     setTouched({...touched,[key]: true});
