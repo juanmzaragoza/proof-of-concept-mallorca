@@ -5,7 +5,7 @@ import {withSnackbar} from "notistack";
 import {injectIntl} from "react-intl";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {isEmpty} from "lodash";
+import { isEmpty, isEqual } from "lodash";
 
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -32,6 +32,7 @@ import {
   updateData
 } from "redux/grids";
 import {Loading} from "../shared/Loading";
+import {usePrevious} from "../../helper/utils-hook";
 
 export const ExpandablePopup = ({
                 row, isEditing,
@@ -45,6 +46,7 @@ export const ExpandablePopup = ({
   const [formData ,setFormData] = useState({});
   const [submitFromOutside, setSubmitFromOutside] = useState(false);
   const [isValid, setIsValid] = useState(false);
+  const [formDataLoaded, setFormDataLoaded] = useState(false);
 
   useEffect(()=>{
     onChange(formData);
@@ -59,6 +61,14 @@ export const ExpandablePopup = ({
     if(submitFromOutside)
       setSubmitFromOutside(false);
   },[submitFromOutside]);
+
+  // flag to notify to GenericForm that new data is was loaded
+  const previousRow = usePrevious(row);
+  useEffect(()=>{
+    if(!isEqual(previousRow, row)){
+      setFormDataLoaded(true);
+    }
+  },[row]);
 
   return (
     <Dialog
@@ -78,7 +88,8 @@ export const ExpandablePopup = ({
           setFormData={(data) => setFormData({...formData, [data.key]: data.value})}
           submitFromOutside={submitFromOutside}
           handleIsValid={setIsValid}
-          formErrors={errors}/>
+          formErrors={errors}
+          formDataLoaded={formDataLoaded}/>
       </DialogContent>
       <DialogActions>
         <Button onClick={onCancelChanges} color="primary">
