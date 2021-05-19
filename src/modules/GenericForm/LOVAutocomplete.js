@@ -96,7 +96,8 @@ const LOVAutocomplete = (props) => {
               name: props.relatedWith.name,
               query: [{
                 columnName: props.relatedWith.filterBy,
-                value: `'${get(newValue,props.relatedWith.keyValue? props.relatedWith.keyValue:'id')}'`
+                value: `'${get(newValue,props.relatedWith.keyValue? props.relatedWith.keyValue:'id')}'`,
+                exact: true
               }]
             })
             props.refreshData({name: props.relatedWith.name, refresh: true});
