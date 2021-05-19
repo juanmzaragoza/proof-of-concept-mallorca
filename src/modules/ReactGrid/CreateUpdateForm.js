@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {bindActionCreators,compose} from "redux";
 import {connect} from "react-redux";
-import {useParams} from "react-router-dom";
+import {useParams, useRouteMatch} from "react-router-dom";
 import PropTypes from "prop-types";
 import {injectIntl} from "react-intl";
 
@@ -10,9 +10,9 @@ import { withAbmServices } from "modules/wrappers";
 
 import {setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig} from "redux/pageHeader";
 import {getFireSave} from "redux/pageHeader/selectors";
-import {getFormDataByKey, getFormErrors} from "../../redux/genericForm/selectors";
-import {setFormDataByKey} from "../../redux/genericForm";
-import {getLoading} from "../../redux/app/selectors";
+import {getFormDataByKey, getFormErrors, getIsDataLoaded} from "redux/genericForm/selectors";
+import {setFormDataByKey, resetAllGenericForm} from "redux/genericForm";
+import {getLoading} from "redux/app/selectors";
 
 const CreateUpdateForm = ({
       title, //props
@@ -30,21 +30,29 @@ const CreateUpdateForm = ({
   const [editMode, setEditMode] = useState(false);
 
   const { id } = useParams();
+  const match = useRouteMatch();
 
   const isEditable = () => {
     return !!id;
   };
 
+  const getBaseUrl = () => `/${match.path.split('/')[1]}`;
+
   useEffect(() => {
     setFormConfig({
       title: title
     });
-    setBreadcrumbHeader([{title: title, href: "/"}, {title: "Nuevo"}]);
+    setBreadcrumbHeader([{title: title, href: getBaseUrl()}, {
+      title: props.intl.formatMessage({id: "Comun.nuevo", defaultMessage: "Nuevo"})
+    }]);
+    return () => actions.reset();
   },[]);
 
   useEffect(() => {
     if(isEditable()){
-      setBreadcrumbHeader([{title: title, href: "/"}, {title: "Modificar"}]);
+      setBreadcrumbHeader([{title: title, href: getBaseUrl()}, {
+        title: props.intl.formatMessage({id: "Comun.modificar", defaultMessage: "Modificar"})
+      }]);
       setEditMode(true);
       services.getById(id);
     }
@@ -78,7 +86,8 @@ const CreateUpdateForm = ({
       formComponents={formConfiguration}
       submitFromOutside={submitFromOutside}
       onSubmit={(data) => handleSubmit(data)}
-      fieldsContainerStyles={{padding: '10px 40px 40px 40px'}}/>
+      fieldsContainerStyles={{padding: '10px 40px 40px 40px'}}
+      formDataLoaded={props.formDataLoaded} />
   );
 
 };
@@ -86,15 +95,28 @@ const CreateUpdateForm = ({
 CreateUpdateForm.propTypes = {
   title: PropTypes.string,
   formConfiguration: PropTypes.arrayOf(PropTypes.shape({
+    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV']),
+    variant: PropTypes.oneOf(['filled','outlined','standard']),
     placeHolder: PropTypes.string,
-    type: PropTypes.string,
-    key: PropTypes.string,
     required: PropTypes.bool,
-    breakpoints: PropTypes.shape({
-      xs: PropTypes.number,
-      sm: PropTypes.number,
-      md: PropTypes.number,
-      lg: PropTypes.number,
+    key: PropTypes.string,
+    noEditable: PropTypes.bool,
+    selector: PropTypes.shape({
+      key: PropTypes.any,
+      labelKey: PropTypes.any,
+      options: PropTypes.array,
+      creationComponents: PropTypes.array,
+      cannotCreate: PropTypes.bool,
+      // for example, see the LOVAutocomplete component
+      relatedWith: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        filterBy: PropTypes.string.isRequired,
+        keyValue: PropTypes.string,
+      })
+    }),
+    disabled: PropTypes.bool,
+    text: PropTypes.shape({
+      multiline: PropTypes.number
     })
   })),
   url: PropTypes.string.isRequired,
@@ -107,7 +129,8 @@ const mapStateToProps = (state, props) => {
     submitFromOutside: getFireSave(state),
     formErrors: getFormErrors(state),
     getFormData: getFormDataByKey(state),
-    loading: getLoading(state)
+    loading: getLoading(state),
+    formDataLoaded: getIsDataLoaded(state)
   };
 };
 
@@ -117,6 +140,7 @@ const mapDispatchToProps = (dispatch, props) => {
     setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch),
     setSubmitFromOutside: bindActionCreators(setFireSaveFromHeader, dispatch),
     setFormData: bindActionCreators(setFormDataByKey, dispatch),
+    reset: bindActionCreators(resetAllGenericForm, dispatch),
   };
   return { actions };
 };

@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {FormattedMessage, injectIntl} from "react-intl";
-import { every } from "lodash";
 import Grid from "@material-ui/core/Grid/Grid";
+import {Chip} from "@material-ui/core";
+
+import "./styles.scss";
 
 import {TDOC_SELECTOR_VALUES} from "constants/selectors";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
@@ -11,16 +13,19 @@ import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import {compose} from "redux";
 import {withValidations} from "modules/wrappers";
 import ExpandableGrid from "../../modules/ExpandableGrid";
-import {Chip} from "@material-ui/core";
 
-import "./styles.scss";
+import {useTabForm} from "../../hooks/tab-form";
 
 const SUPPLIERS_SECTION_INDEX = 0;
 const ADDRESS_SECTION_TAB_INDEX = 1;
 
 const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
-  const [formIsValid, setFormIsValid] = useState({});
-  const [touched, setTouched] = useState({0:false, 1:false});
+  const [
+    touched,
+    handleTouched,
+    addValidity,
+    formIsValid
+  ] = useTabForm({fields: {[SUPPLIERS_SECTION_INDEX]: false, [ADDRESS_SECTION_TAB_INDEX]:false}, setIsValid: props.setIsValid});
 
   const { id: supplierId } = useParams();
 
@@ -821,23 +826,6 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         }
       },
     ]
-  }
-
-  //TODO() REFACTOR -> can we move this?
-  useEffect(()=>{
-    validation(every(formIsValid, (v) => v));
-  },[formIsValid]);
-
-  const validation = (validity) => {
-    props.setIsValid && props.setIsValid(validity);
-  }
-
-  const addValidity = (key, value) => {
-    setFormIsValid({...formIsValid, [key]: value});
-  }
-
-  const handleTouched = (key) => {
-    setTouched({...touched,[key]: true});
   }
 
   const tabs = [

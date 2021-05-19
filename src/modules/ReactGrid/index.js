@@ -78,16 +78,17 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
     actions.loadData({ apiId: props.id, key: configuration.listKey, page: currentPage, query, sorting});
   };
 
-  useEffect(()=>{
-    loadData();
-    return () => actions.reset();
-  },[]);
-
+  // executed when mounts component and when vars change
   useEffect(() => loadData(),[currentPage,sorting,filters,extraQuery]);
+
+  // if the filters change
+  useEffect(() => {
+    setCurrentPage(0);
+  },[filters,extraQuery]);
 
   useEffect(()=>{
     if(!isEmpty(errors)){
-      props.enqueueSnackbar(props.intl.formatMessage({
+      enqueueSnackbar(props.intl.formatMessage({
         id: "ReactGrid.error.algo_salio_mal",
         defaultMessage: "Ups! Algo ha salido mal :("
       }), {variant: 'error'});
@@ -123,7 +124,6 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
         <FilteringState
           defaultFilters={[]}
           onFiltersChange={setFilters} />
-        <IntegratedFiltering />
         {/***************************/}
         {/* Paging configuration */}
         <PagingState
@@ -137,7 +137,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
         {/***************************/}
         <EditingState onCommitChanges={commitChanges} />
 
-        <Table tableComponent={TableComponent} cellComponent={FocusableCell} noDataText={"HOla"} />
+        <Table tableComponent={TableComponent} cellComponent={FocusableCell} noDataText={"table-data"} />
         <TableHeaderRow showSortingControls />
         <TableFilterRow />
         {configuration.enableInlineEdition && <TableInlineCellEditing selectTextOnEditStart />}
@@ -159,7 +159,8 @@ ReactGrid.propTypes = {
     title: PropTypes.string,
     columns: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string,
-      title: PropTypes.string
+      title: PropTypes.string,
+      getCellValue: PropTypes.func
     })),
     listKey: PropTypes.string.isRequired,
     enableInlineEdition: PropTypes.bool,

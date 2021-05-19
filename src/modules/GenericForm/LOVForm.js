@@ -37,7 +37,7 @@ const LOVForm = ({ id, title, open, close, formComponents, actions, ...props }) 
         props.enqueueSnackbar(<FormattedMessage
           id={"LOVForm.revise_datos"}
           defaultMessage={"Error al crear {name}. Revise los datos e intente nuevamente..."}
-          values={{name: title? title.toLowerCase():"Nuevo Elemento"}}/>,{variant: "error"});
+          values={{name: title? title.toLowerCase():"Nuevo Elemento"}}/>,{variant: "error", preventDuplicate: true, key: id});
       }
     }
   },[props.errors]);
@@ -65,8 +65,8 @@ const LOVForm = ({ id, title, open, close, formComponents, actions, ...props }) 
       </DialogContent>
       <GenericForm
         formComponents={formComponents}
-        formData={formData}
-        setFormData={setFormData}
+        getFormData={(key) => formData[key]}
+        setFormData={({key, value}) => setFormData({...formData, [key]: value})}
         containerSpacing={0}
         fieldsContainerStyles={{padding: "0px 10px 0px 10px"}}
         formErrors={props.errors.data} />

@@ -2,6 +2,7 @@ import {remove as removeFrom} from 'lodash';
 import Axios from "Axios";
 import * as API from "redux/api";
 import {REACT_GRID_LIMIT_PER_PAGE} from "../../constants/config";
+import {getFormedURL} from "../common";
 
 //Action types
 const ADD = "ADD_TO_REACT_GRID";
@@ -12,11 +13,7 @@ const RESET = "RESET_REACT_GRID";
 export const searchData = ({ apiId, key, page, query = [], sorting = [] }) => {
   return async dispatch => {
     const formedURL = () => {
-      const pagination = `&page=${page !== null ? page : 0}`;
-      const queryFilter = query.length > 0 ? `&query=${query.map(({ columnName, value }) => `${columnName}=ic=*${value}*`).join(';')}` : "";
-      const sort = `&sort=${sorting.length > 0? sorting.map(({ columnName, direction }) => `${columnName},${direction}`).join(';'):"codi"}`;
-      const URL = `${API[apiId]}?size=${REACT_GRID_LIMIT_PER_PAGE}${pagination}${queryFilter}${sort}`;
-      return URL;
+      return getFormedURL({id: apiId, size: REACT_GRID_LIMIT_PER_PAGE, page, sorting, query});
     }
     try {
       dispatch(add({ loading: true }));
@@ -31,7 +28,7 @@ export const searchData = ({ apiId, key, page, query = [], sorting = [] }) => {
         })
         .catch(error => {
           dispatch(add({ loading: false }));
-          dispatch(add({ errors: error.response? error.response:error }));
+          error.response && handlePersistError(error.response)(dispatch);
         })
         .finally(() => {
           dispatch(add({ loading: false }));
@@ -55,7 +52,7 @@ export const deleteData = ({ key, id }) => {
         })
         .catch(error => {
           dispatch(add({ loading: false }));
-          handlePersistError(error.response)(dispatch);
+          error.response && handlePersistError(error.response)(dispatch);
         });
     } catch (error) {
       dispatch(add({ loading: false }));
@@ -72,8 +69,6 @@ const handlePersistError = ({status, data}) => {
         errors[err.field] = {message: err.defaultMessage};
       }
       dispatch(add({ errors }));
-    } else{
-      dispatch(add({ errors: data }));
     }
   }
 }

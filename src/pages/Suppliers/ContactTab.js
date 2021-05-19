@@ -1,15 +1,19 @@
+import React from "react";
 import Grid from "@material-ui/core/Grid/Grid";
+import {compose} from "redux";
 import OutlinedContainer from "../../modules/shared/OutlinedContainer";
 import {FormattedMessage, injectIntl} from "react-intl";
 import GenericForm from "../../modules/GenericForm";
-import React, {useEffect, useState} from "react";
-import {compose} from "redux";
-import {every} from "lodash";
 import {withValidations} from "modules/wrappers";
+import {useTabForm} from "../../hooks/tab-form";
 
 const ContactTab = ({formData, setFormData, ...props}) => {
-  const [formIsValid, setFormIsValid] = useState({});
-  const [touched, setTouched] = useState({0:false});
+  const [
+    touched,
+    handleTouched,
+    addValidity,
+    formIsValid
+  ] = useTabForm({fields: {0:false}, setIsValid: props.setIsValid});
 
   const contactsConfig = [
     {
@@ -159,23 +163,6 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       validations: props.validationsArray.minMaxValidation(1,15)
     },
   ];
-
-  //TODO() REFACTOR -> can we move this?
-  useEffect(()=>{
-    validation(every(formIsValid, (v) => v));
-  },[formIsValid]);
-
-  const validation = (validity) => {
-    props.setIsValid && props.setIsValid(validity);
-  }
-
-  const addValidity = (key, value) => {
-    setFormIsValid({...formIsValid, [key]: value});
-  }
-
-  const handleTouched = (key) => {
-    setTouched({...touched,[key]: true});
-  }
 
   return (
     <Grid container >
