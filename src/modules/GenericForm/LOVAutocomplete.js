@@ -40,6 +40,7 @@ const PAGINATION_TYPE = 'pagination';
 const LOVAutocomplete = (props) => {
   const [openModal, setOpenModal] = useState(false);
   const [opts, setOpts] = useState([]);
+  const [highlighted, setHighlighted] = useState(null);
 
   useEffect(()=>{
     requestDataToServer();
@@ -104,6 +105,8 @@ const LOVAutocomplete = (props) => {
         }
       }}
       onBlur={(e) => props.onBlur && props.onBlur(e)}
+      // Used to determine the string value for a given option.
+      // It's used to fill the input (and the list box options if renderOption is not provided).
       getOptionLabel={(option) => {
         if(option.id && option.id !== ADD_TYPE && option.id !== PAGINATION_TYPE) {
           return (typeof props.labelResponseKey === 'function')? props.labelResponseKey(option):option[props.labelResponseKey];
@@ -111,6 +114,7 @@ const LOVAutocomplete = (props) => {
           return option.title;
         }
       }}
+      // Render the option, use getOptionLabel by default.
       renderOption={(option, state) => {
         if(option.id && option.id === ADD_TYPE){
           return (
@@ -139,6 +143,7 @@ const LOVAutocomplete = (props) => {
           );
         }
       }}
+      // Used to determine if an option is selected, considering the current value. Uses strict equality by default.
       getOptionSelected={(option, value) => {
         if(option.id === value.id && value.id === ADD_TYPE){
           return true;
@@ -152,6 +157,7 @@ const LOVAutocomplete = (props) => {
       required={props.required}
       noOptionsText={props.intl.formatMessage({id: 'LOVElement.sin_resultados', defaultMessage: 'Sin resultados '})}
       loadingText={`${props.intl.formatMessage({id: 'Comun.cargando', defaultMessage: 'Cargando'})}...`}
+      // A filter function that determines the options that are eligible.
       filterOptions={(options, params) => {
         const filtered = filter(options, params);
         const inputValue = params.inputValue === ''? 'Nuevo':params.inputValue;
@@ -169,8 +175,22 @@ const LOVAutocomplete = (props) => {
         });
         return filtered;
       }}
+      /** Fix: when the option is fully highlighted, input a char and after a while comes to the input
+       * onHighlight -> save the option in memory */
+      onHighlightChange={(event, option, reason) => {
+        if(option){
+          setHighlighted(option);
+          props.onChange({stopPropagation: () => {}}, null);
+        }
+      }}
+      /** If the user don't select anything -> set the previous value */
+      onClose={(event, reason) => {
+        if((reason === "blur" || reason === "escape") && highlighted){
+          props.onChange(event, highlighted);
+        }
+      }}
+      // Callback fired when the input value changes.
       onInputChange={(event, newInputValue,reason) => {
-        // this reason executes when the user select an option or when the selector it loads the first time
         if(reason !== 'reset'){
           props.dispatchSearchTerm({name: props.id, text: newInputValue});
         }
