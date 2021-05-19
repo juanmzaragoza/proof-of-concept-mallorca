@@ -1,7 +1,6 @@
 {
   "name": "proof-concept",
-  "version": "0.1.0",
-  "homepage": "https://testing-for-mallorca.web.app",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "@date-io/moment": "^2.10.6",
