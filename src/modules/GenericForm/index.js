@@ -323,7 +323,13 @@ GenericForm.propTypes = {
     disabled: PropTypes.bool,
     text: PropTypes.shape({
       multiline: PropTypes.number
-    })
+    }),
+    validationType: PropTypes.string,
+    validations: PropTypes.arrayOf(PropTypes.shape({
+      type: PropTypes.string.isRequired,
+      value: PropTypes.string,
+      error_message: PropTypes.string,
+    }))
   })),
   onSubmit: PropTypes.func,
   formDataLoaded: PropTypes.bool,
@@ -334,11 +340,5 @@ GenericForm.propTypes = {
   editMode: PropTypes.bool,
   emptyPaper: PropTypes.bool,
   fieldsContainerStyles: PropTypes.object,
-  validationType: PropTypes.string,
-  validations: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.string.isRequired,
-    value: PropTypes.string,
-    error_message: PropTypes.string,
-  }))
 };
 export default GenericForm;
