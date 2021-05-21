@@ -203,7 +203,8 @@ const GenericForm = ({loading, ...props}) => {
             cannotCreate={selector.cannotCreate}
             creationComponents={selector.creationComponents}
             onBlur={handleBlur}
-            relatedWith={selector.relatedWith} />
+            relatedWith={selector.relatedWith}
+            transform={selector.transform}/>
         );
       default:
         return;

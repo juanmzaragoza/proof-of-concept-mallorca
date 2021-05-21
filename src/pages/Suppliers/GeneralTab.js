@@ -287,6 +287,10 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         key: 'paisNifs',
         labelKey: formatCodeAndName,
         sort: 'nom',
+        transform: {
+          apply: (pais) => pais && pais.codi,
+          reverse: (rows, codi) => rows.find(row => row.codi === codi)
+        },
         creationComponents: [
           ...codeAndName(6,6),
           {
