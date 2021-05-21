@@ -41,19 +41,25 @@ const LOVAutocomplete = (props) => {
   const [openModal, setOpenModal] = useState(false);
   const [opts, setOpts] = useState([]);
   const [highlighted, setHighlighted] = useState(null);
+  const [value, setValue] = useState();
 
   useEffect(()=>{
     requestDataToServer();
   },[props.page, props.querySearch]);
 
+  // used to transform string values to objects
+  useEffect(()=>{
+    setValue(props.transform? props.transform.reverse(props.options, props.value):props.value);
+  },[props.value, props.options, props.transform]);
+
   useEffect(() => {
     // if value comes from object (update population)
-    if(props.value && props.value.pk && props.options.length > 0 && !some(props.options,(opt) => opt.id === props.value.id)){
-      props.searchValueById({id: props.id, identifier: props.value.id});
+    if(value && value.pk && props.options.length > 0 && !some(props.options,(opt) => opt.id === value.id)){
+      props.searchValueById({id: props.id, identifier: value.id});
     } else{
       setOpts(props.options);
     }
-  },[props.options, props.value]);
+  },[props.options, value]);
 
   // another LOV is refreshing me -> ACTION FOR ME
   useEffect(()=>{
@@ -76,6 +82,10 @@ const LOVAutocomplete = (props) => {
     )
   };
 
+  const handleChange = (e, v) => {
+    props.onChange(e, props.transform? props.transform.apply(v):v);
+  };
+
   return (
     <>
     <Autocomplete
@@ -85,7 +95,7 @@ const LOVAutocomplete = (props) => {
       /* TODO() make more flexible this comparison -> not all the values have an id
        * Add an identifier property or something like that
        */
-      value={props.value && opts.find(option => option.id === props.value.id)? opts.find(option => option.id === props.value.id):null}
+      value={value && opts.find(option => option.id === value.id)? opts.find(option => option.id === value.id):null}
       onChange={(e, newValue) => {
         if(newValue && newValue.id === ADD_TYPE){
           setOpenModal(true);
@@ -96,12 +106,13 @@ const LOVAutocomplete = (props) => {
               name: props.relatedWith.name,
               query: [{
                 columnName: props.relatedWith.filterBy,
-                value: `'${get(newValue,props.relatedWith.keyValue? props.relatedWith.keyValue:'id')}'`
+                value: `'${get(newValue,props.relatedWith.keyValue? props.relatedWith.keyValue:'id')}'`,
+                exact: true
               }]
             })
             props.refreshData({name: props.relatedWith.name, refresh: true});
           }
-          props.onChange(e, newValue);
+          handleChange(e,newValue);
         }
       }}
       onBlur={(e) => props.onBlur && props.onBlur(e)}
@@ -186,7 +197,7 @@ const LOVAutocomplete = (props) => {
       /** If the user don't select anything -> set the previous value */
       onClose={(event, reason) => {
         if((reason === "blur" || reason === "escape") && highlighted){
-          props.onChange(event, highlighted);
+          handleChange(event, highlighted);
         }
       }}
       // Callback fired when the input value changes.
@@ -235,6 +246,11 @@ LOVAutocomplete.propTypes = {
   labelResponseKey: PropTypes.any,
   label: PropTypes.any,
   onChange: PropTypes.func,
+  // it transforms the data when in/out to the component
+  transform: PropTypes.shape({
+    apply: PropTypes.func.isRequired,
+    reverse: PropTypes.func.isRequired
+  }),
   value: PropTypes.any,
   variant: PropTypes.any,
   options: PropTypes.any,
