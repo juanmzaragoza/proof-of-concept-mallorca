@@ -58,6 +58,8 @@
   "Modules.selector.marc": "Marcajes",
   "Modules.selector.rrhh": "Recursos Humanos",
   "Modules.selector.ecom": "Ecom",
+  "Observaciones.titulo": "Información extra",
+  "Observaciones.subtitulo": "Para agregar una descripción, por favor complete la información que aparecen a continuación",
   "Proveedores.titulo": "Proveedores",
   "Proveedores.direccion": "Dirección",
   "Proveedores.direcciones_comerciales": "Direcciones Comerciales",
