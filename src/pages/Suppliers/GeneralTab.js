@@ -609,6 +609,16 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       validationType: "object",
       ...withRequiredValidation()
     },
+    {
+      placeHolder: OBS,
+      type: 'observations',
+      key: 'observations',
+      required: false,
+      breakpoints: {
+        xs: 12,
+        md: 1
+      },
+    }
   ];
 
   const addressConfig = [

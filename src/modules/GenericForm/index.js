@@ -20,6 +20,7 @@ import FormControl from "@material-ui/core/FormControl";
 import LOVAutocomplete from "./LOVAutocomplete";
 import Selector from "./Selector";
 import createYupSchema from "./yupSchemaCreator";
+import Observations from "./Observations";
 
 const GenericForm = ({loading, ...props}) => {
   const formRef = useRef(null);
@@ -33,7 +34,8 @@ const GenericForm = ({loading, ...props}) => {
     'select': "",
     'checkbox': "",
     'radio': "",
-    'LOV': null
+    'LOV': null,
+    'observations': ""
   }
 
   /** Init to avoid uncontrolled inputs */
@@ -207,6 +209,19 @@ const GenericForm = ({loading, ...props}) => {
             relatedWith={selector.relatedWith}
             transform={selector.transform}/>
         );
+      case 'observations':
+        return (
+          <Observations
+            id={key}
+            placeHolder={placeHolder}
+            required={Boolean(required)}
+            disabled={noEnable}
+            value={props.getFormData && props.getFormData(key)? props.getFormData(key) : ""}
+            onChange={(e,v) => {
+              handleChange(e, v);
+              formik.setFieldValue(key,v);
+            }} />
+        );
       default:
         return;
     }
@@ -302,7 +317,7 @@ const GenericForm = ({loading, ...props}) => {
 GenericForm.propTypes = {
   containerSpacing: PropTypes.number,
   formComponents: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV']),
+    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV','observations']),
     variant: PropTypes.oneOf(['filled','outlined','standard']),
     placeHolder: PropTypes.string,
     required: PropTypes.bool,
