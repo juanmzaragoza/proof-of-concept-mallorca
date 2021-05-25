@@ -1,4 +1,4 @@
-import {AppBar, Box, Tab, Tabs} from "@material-ui/core";
+import {AppBar, Box, Tab, Tabs, withStyles} from "@material-ui/core";
 import React, {useEffect} from "react";
 import * as PropTypes from "prop-types";
 import { some } from "lodash";
@@ -36,6 +36,21 @@ function a11yProps(index) {
   };
 }
 
+const CustomizedTab = withStyles((theme) => ({
+  root: {
+    '&:hover': {
+      opacity: 0.5,
+      backgroundColor: theme.palette.primary.light,
+    },
+    '&$selected': {
+      color: theme.palette.getContrastText(theme.palette.primary.main),
+      backgroundColor: theme.palette.primary.main,
+      fontWeight: theme.typography.fontWeightMedium,
+    },
+  },
+  selected: {},
+}))((props) => <Tab disableRipple {...props} />);
+
 const ConfigurableTabs = ({ tabs, variant, tabIndex = 0, forceChange = false, onChange = () => {}}) => {
   const [value, setValue] = React.useState(tabIndex);
 
@@ -65,7 +80,7 @@ const ConfigurableTabs = ({ tabs, variant, tabIndex = 0, forceChange = false, on
           aria-label="configurable tabs"
           className={getClassNameError(some(tabs, tab => tab.error))}
         >
-          {tabs.map(tab => <Tab className={getClassNameError(tab.error)} key={tab.key} label={tab.label} {...a11yProps(tab.key)} />)}
+          {tabs.map(tab => <CustomizedTab className={getClassNameError(tab.error)} key={tab.key} label={tab.label} {...a11yProps(tab.key)} />)}
         </Tabs>
       </AppBar>
       {tabs.map(tab => <TabPanel className={tab.className? tab.className:""} key={tab.key} value={value} index={tab.key}>
