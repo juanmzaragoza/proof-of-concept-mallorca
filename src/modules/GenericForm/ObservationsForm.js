@@ -8,11 +8,15 @@ import {compose} from "redux";
 
 const ObservationsForm = ({open, onClose = () => {}, onSubmit, value = '', placeHolder, required, multiline = 4, ...props}) => {
   const [openModal, setOpenModal] = useState(open);
-  const [text, setText] = useState(value);
+  const [text, setText] = useState('');
 
   useEffect(()=>{
     setOpenModal(open);
   },[open]);
+
+  useEffect(()=>{
+    setText(value);
+  },[value]);
 
   const handleClose = () => {
     setOpenModal(false);
