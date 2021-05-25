@@ -612,7 +612,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
     {
       placeHolder: OBS,
       type: 'observations',
-      key: 'observations',
+      key: 'observacions',
       required: false,
       breakpoints: {
         xs: 12,
