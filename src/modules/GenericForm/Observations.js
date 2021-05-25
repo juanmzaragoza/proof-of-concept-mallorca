@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import LabelIcon from '@material-ui/icons/Label';
-import LabelOffIcon from '@material-ui/icons/LabelOff';
+import AttachmentIcon from '@material-ui/icons/Attachment';
+import MessageIcon from '@material-ui/icons/Message';
 import IconButton from "@material-ui/core/IconButton";
 import ObservationsForm from "./ObservationsForm";
 
@@ -12,7 +12,7 @@ const Observations = ({id, placeHolder, required, disabled, value = '', onChange
   const EmptyButton = (
     isEmpty()?
       <IconButton onClick={() => setOpen(true)} disabled={disabled} color="primary" aria-label="upload picture" component="span">
-        <LabelOffIcon />
+        <AttachmentIcon />
       </IconButton>
       :
       null
@@ -21,7 +21,7 @@ const Observations = ({id, placeHolder, required, disabled, value = '', onChange
   const FullButton = (
     !isEmpty()?
       <IconButton onClick={() => setOpen(true)} disabled={disabled} color="primary" aria-label="upload picture" component="span">
-        <LabelIcon />
+        <MessageIcon />
       </IconButton>
       :
       null
