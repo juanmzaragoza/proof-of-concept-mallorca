@@ -69,7 +69,7 @@ const ExpandableGrid = ({ id, configuration,
   const RowDetail = ({ row }) => (
     <div className="row-detail-root">
       <ExpandableContent data={row}
-                         columns={configuration.columns.map(column => ({...column, func: column.getCellValue}))} />
+                         columns={configuration.columns} />
     </div>
   );
 
