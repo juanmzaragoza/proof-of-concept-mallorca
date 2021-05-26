@@ -214,7 +214,10 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         md: 1
       },
       validationType: "string",
-      ...withRequiredValidation([...props.validationsArray.minMaxValidation(1,6)])
+      ...withRequiredValidation([
+        ...props.validationsArray.minMaxValidation(1,6),
+        ...props.validationsArray.fieldExistsValidation('suppliers', 'codi', CODE)
+      ])
     },
     {
       placeHolder: props.intl.formatMessage({

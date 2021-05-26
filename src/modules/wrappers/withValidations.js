@@ -1,6 +1,9 @@
 import React from "react";
 import {compose} from "redux";
 import {injectIntl} from "react-intl";
+import {getFormedURL} from "../../redux/common";
+import {EXPANDABLE_GRID_LIMIT_PER_PAGE} from "../../constants/config";
+import Axios from "../../Axios";
 
 const withValidations = (PassedComponent) => {
 
@@ -54,7 +57,44 @@ const withValidations = (PassedComponent) => {
       ]
     }
 
-    return <PassedComponent validationsArray={{minMaxValidation, emailValidation, requiredValidation}} {...props} ></PassedComponent>;
+    const fieldExistsValidation = (key, field, name) => {
+      return [
+        {
+          type: "test",
+          params: [
+            'codi_exists',
+            props.intl.formatMessage({
+              id: "Validaciones.codi.existente",
+              defaultMessage: "{name} ya existe en el sistema"
+            },{name: name}),
+            async (value) => {
+              if(value !== ''){
+                const formedURL = () => {
+                  return getFormedURL({id: key, size: EXPANDABLE_GRID_LIMIT_PER_PAGE, query: [{columnName: field, value, exact: true }]});
+                }
+                return Axios.get(formedURL())
+                  .then(({data}) => data)
+                  .then(({ _embedded }) => {
+                    return !_embedded;
+                  })
+                  .catch(() => {
+                    return false
+                  });
+              } else{
+                return true;
+              }
+            }
+          ]
+        }
+      ]
+    }
+
+    return <PassedComponent validationsArray={{
+      minMaxValidation,
+      emailValidation,
+      requiredValidation,
+      fieldExistsValidation
+    }} {...props} ></PassedComponent>;
   }
 
   return compose(
