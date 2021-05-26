@@ -15,10 +15,7 @@
   background: white;
 }
 
-
-button.error  {
-  color: #f44336!important;
-}
-.error .MuiTabs-indicator {
-  background-color: #f44336!important;
+.label-tab {
+  display: flex;
+  justify-content: space-between;
 }
