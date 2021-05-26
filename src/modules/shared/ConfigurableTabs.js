@@ -1,5 +1,6 @@
-import {AppBar, Box, Tab, Tabs, withStyles} from "@material-ui/core";
 import React, {useEffect} from "react";
+import {AppBar, Box, Tab, Tabs, withStyles} from "@material-ui/core";
+import ErrorIcon from '@material-ui/icons/Error';
 import * as PropTypes from "prop-types";
 import { some } from "lodash";
 
@@ -63,10 +64,6 @@ const ConfigurableTabs = ({ tabs, variant, tabIndex = 0, forceChange = false, on
     onChange(newValue);
   };
 
-  const getClassNameError = (error) => {
-    return error? "error":"";
-  }
-
   return (
     <>
       <AppBar position="static" color="default">
@@ -78,9 +75,8 @@ const ConfigurableTabs = ({ tabs, variant, tabIndex = 0, forceChange = false, on
           variant={variant? variant:"scrollable"}
           scrollButtons="auto"
           aria-label="configurable tabs"
-          className={getClassNameError(some(tabs, tab => tab.error))}
         >
-          {tabs.map(tab => <CustomizedTab className={getClassNameError(tab.error)} key={tab.key} label={tab.label} {...a11yProps(tab.key)} />)}
+          {tabs.map(tab => <CustomizedTab key={tab.key} label={<div className={"label-tab"}><span>{tab.label}</span> {tab.error? <ErrorIcon color={"error"} />:""}</div>} {...a11yProps(tab.key)} />)}
         </Tabs>
       </AppBar>
       {tabs.map(tab => <TabPanel className={tab.className? tab.className:""} key={tab.key} value={value} index={tab.key}>
