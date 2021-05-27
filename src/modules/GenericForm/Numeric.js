@@ -31,7 +31,7 @@ const Numeric = ({ id,
                    onChange, onBlur }) => {
 
   const handleChange = (event) => {
-    onChange(event, parseFloat(event.target.value));
+    onChange(event, !event.target.value? 0:parseFloat(event.target.value));
   }
 
   return <TextField

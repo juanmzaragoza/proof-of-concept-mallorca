@@ -10,14 +10,59 @@ const withValidations = (PassedComponent) => {
 
   const WrappedComponent = (props) => {
 
-    const minMaxValidation = (min, max) => {
+    const strMinMaxValidation = (min, max) => {
       return [
+        {
+          type: "min",
+          params: [min, props.intl.formatMessage({
+            id: "Validaciones.string.min",
+            defaultMessage: "Debe ingresar al menos {min} carácteres"
+          },{min: min})]
+        },
+        {
+          type: "max",
+          params: [max, props.intl.formatMessage({
+            id: "Validaciones.numeros.max",
+            defaultMessage: "Debe string como mucho {max} carácteres"
+          },{max: max})]
+        }
+      ]
+    }
+
+    const numRangeValidation = (min, max) => {
+      return [
+        {
+          type: "typeError",
+          params: [props.intl.formatMessage({
+            id: "Validaciones.numeros.tipo",
+            defaultMessage: "Debe ingresar un número"
+          })]
+        },
         {
           type: "min",
           params: [min, props.intl.formatMessage({
             id: "Validaciones.numeros.min",
             defaultMessage: "Debe ingresar al menos {min} carácteres"
-          },{min: min})]
+          },{min: min? min:0})]
+        },
+        {
+          type: "max",
+          params: [max, props.intl.formatMessage({
+            id: "Validaciones.numeros.max",
+            defaultMessage: "Debe ingresar como mucho {max} carácteres"
+          },{max: max})]
+        }
+      ]
+    }
+
+    const numMaxValidation = (max) => {
+      return [
+        {
+          type: "typeError",
+          params: [props.intl.formatMessage({
+            id: "Validaciones.numeros.tipo",
+            defaultMessage: "Debe ingresar un número"
+          })]
         },
         {
           type: "max",
@@ -91,9 +136,13 @@ const withValidations = (PassedComponent) => {
 
     return <PassedComponent
       stringValidations={{
-        minMaxValidation,
+        minMaxValidation: strMinMaxValidation,
         emailValidation,
         fieldExistsValidation
+      }}
+      numberValidations={{
+        minMaxValidation: numRangeValidation,
+        maxValidation: numMaxValidation
       }}
       commonValidations={{
         requiredValidation,

@@ -122,8 +122,11 @@
   "Selector.otro_documento": "Otro documento",
   "TiposVencimiento.tipos": "Tipos",
   "Validaciones.requerido": "Este campo es obligatorio",
-  "Validaciones.numeros.min": "Debe ingresar al menos {min} carácteres",
-  "Validaciones.numeros.max": "Debe ingresar como mucho {max} carácteres",
+  "Validaciones.string.min": "Debe ingresar al menos {min} carácteres",
+  "Validaciones.string.max": "Debe ingresar como mucho {max} carácteres",
+  "Validaciones.numeros.tipo": "Debe ingresar un número",
+  "Validaciones.numeros.min": "Debe ingresar números mayores a {min}",
+  "Validaciones.numeros.max": "Debe ingresar números menores a {max}",
   "Validaciones.string.email": "Ingrese un e-mail válido. Respete el siguiente formato xx@xxx.xxx",
   "Validaciones.codi.existente": "{name} ya existe en el sistema"
 }
