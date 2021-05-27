@@ -89,12 +89,15 @@ const withValidations = (PassedComponent) => {
       ]
     }
 
-    return <PassedComponent validationsArray={{
-      minMaxValidation,
-      emailValidation,
-      requiredValidation,
-      fieldExistsValidation
-    }} {...props} ></PassedComponent>;
+    return <PassedComponent
+      stringValidations={{
+        minMaxValidation,
+        emailValidation,
+        fieldExistsValidation
+      }}
+      commonValidations={{
+        requiredValidation,
+      }} {...props} ></PassedComponent>;
   }
 
   return compose(

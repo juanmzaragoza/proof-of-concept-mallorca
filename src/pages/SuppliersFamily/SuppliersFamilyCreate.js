@@ -22,8 +22,8 @@ const SuppliersFamilyCreate = (props) => {
       noEditable: true,
       validationType: "string",
       validations: [
-        ...props.validationsArray.requiredValidation(),
-        ...props.validationsArray.minMaxValidation(1,4)
+        ...props.commonValidations.requiredValidation(),
+        ...props.stringValidations.minMaxValidation(1,4)
       ]
     },
     {
@@ -40,8 +40,8 @@ const SuppliersFamilyCreate = (props) => {
       },
       validationType: "string",
       validations: [
-        ...props.validationsArray.requiredValidation(),
-        ...props.validationsArray.minMaxValidation(1,30)
+        ...props.commonValidations.requiredValidation(),
+        ...props.stringValidations.minMaxValidation(1,30)
       ]
     },
     {
@@ -56,7 +56,7 @@ const SuppliersFamilyCreate = (props) => {
         md: 4
       },
       validationType: "string",
-      validations: props.validationsArray.minMaxValidation(1,10)
+      validations: props.stringValidations.minMaxValidation(1,10)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -70,7 +70,7 @@ const SuppliersFamilyCreate = (props) => {
         md: 4
       },
       validationType: "string",
-      validations: props.validationsArray.minMaxValidation(1,2)
+      validations: props.stringValidations.minMaxValidation(1,2)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -84,7 +84,7 @@ const SuppliersFamilyCreate = (props) => {
         md: 4
       },
       validationType: "string",
-      validations: props.validationsArray.minMaxValidation(1,2)
+      validations: props.stringValidations.minMaxValidation(1,2)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -98,7 +98,7 @@ const SuppliersFamilyCreate = (props) => {
         md: 4
       },
       validationType: "string",
-      validations: props.validationsArray.minMaxValidation(1,2)
+      validations: props.stringValidations.minMaxValidation(1,2)
     },
     {
       placeHolder: props.intl.formatMessage({

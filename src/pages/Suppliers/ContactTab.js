@@ -73,7 +73,7 @@ const ContactTab = ({formData, setFormData, ...props}) => {
         md: 6
       },
       validationType: "string",
-      validations: props.validationsArray.minMaxValidation(1,60)
+      validations: props.stringValidations.minMaxValidation(1,60)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -87,7 +87,7 @@ const ContactTab = ({formData, setFormData, ...props}) => {
         md: 6
       },
       validationType: "string",
-      validations: props.validationsArray.minMaxValidation(1,60)
+      validations: props.stringValidations.minMaxValidation(1,60)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -101,7 +101,7 @@ const ContactTab = ({formData, setFormData, ...props}) => {
         md: 6
       },
       validationType: "string",
-      validations: props.validationsArray.minMaxValidation(1,60)
+      validations: props.stringValidations.minMaxValidation(1,60)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -116,8 +116,8 @@ const ContactTab = ({formData, setFormData, ...props}) => {
       },
       validationType: "string",
       validations: [
-        ...props.validationsArray.minMaxValidation(1,60),
-        ...props.validationsArray.emailValidation()
+        ...props.stringValidations.minMaxValidation(1,60),
+        ...props.stringValidations.emailValidation()
       ]
     },
     {
@@ -132,7 +132,7 @@ const ContactTab = ({formData, setFormData, ...props}) => {
         md: 6
       },
       validationType: "string",
-      validations: props.validationsArray.minMaxValidation(1,60)
+      validations: props.stringValidations.minMaxValidation(1,60)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -146,7 +146,7 @@ const ContactTab = ({formData, setFormData, ...props}) => {
         md: 6
       },
       validationType: "string",
-      validations: props.validationsArray.minMaxValidation(1,60)
+      validations: props.stringValidations.minMaxValidation(1,60)
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -160,7 +160,7 @@ const ContactTab = ({formData, setFormData, ...props}) => {
         md: 6
       },
       validationType: "string",
-      validations: props.validationsArray.minMaxValidation(1,15)
+      validations: props.stringValidations.minMaxValidation(1,15)
     },
   ];
 
