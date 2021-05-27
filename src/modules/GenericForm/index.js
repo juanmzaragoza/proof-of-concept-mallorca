@@ -21,6 +21,7 @@ import LOVAutocomplete from "./LOVAutocomplete";
 import Selector from "./Selector";
 import createYupSchema from "./yupSchemaCreator";
 import Observations from "./Observations";
+import Numeric from "./Numeric";
 
 const GenericForm = ({loading, ...props}) => {
   const formRef = useRef(null);
@@ -35,7 +36,8 @@ const GenericForm = ({loading, ...props}) => {
     'checkbox': "",
     'radio': "",
     'LOV': null,
-    'observations': ""
+    'observations': "",
+    'numeric': 0.0
   }
 
   /** Init to avoid uncontrolled inputs */
@@ -133,6 +135,25 @@ const GenericForm = ({loading, ...props}) => {
             disabled={noEnable}
             multiline={Boolean(text && text.multiline)}
             rows={text && text.multiline} />
+        );
+      case 'numeric':
+        return (
+          <Numeric
+            id={key}
+            variant={variant ? variant : 'standard'}
+            size="small"
+            onChange={ (e,v) => {
+              handleChange(e, v);
+              formik.setFieldValue(key,v);
+            }}
+            value={props.getFormData && props.getFormData(key)? props.getFormData(key) : ""}
+            label={placeHolder}
+            required={Boolean(required)}
+            error={hasError(key,formik)}
+            helperText={getMessageError(key, formik)}
+            onBlur={handleBlur}
+            type={"text"}
+            disabled={noEnable} />
         );
       case 'select':
         return (
@@ -316,7 +337,7 @@ const GenericForm = ({loading, ...props}) => {
 GenericForm.propTypes = {
   containerSpacing: PropTypes.number,
   formComponents: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV','observations']),
+    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV','observations','numeric']),
     variant: PropTypes.oneOf(['filled','outlined','standard']),
     placeHolder: PropTypes.string,
     required: PropTypes.bool,
