@@ -8,6 +8,7 @@ const NumberFormatCustom = (props) => {
   return (
     <NumberFormat
       {...other}
+      style={{ textAlign: 'right' }}
       getInputRef={inputRef}
       onValueChange={values => {
         onChange({
@@ -51,6 +52,6 @@ const Numeric = ({ id,
       inputComponent: NumberFormatCustom
     }}
   />
-}
+};
 
 export default Numeric;
