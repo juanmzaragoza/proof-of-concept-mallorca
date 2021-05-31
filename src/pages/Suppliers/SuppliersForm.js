@@ -17,14 +17,22 @@ import {getFormData, getFormErrors, getFormDataByKey, getIsDataLoaded} from "../
 
 import {setFormDataByKey} from "../../redux/genericForm";
 import {getLoading} from "../../redux/app/selectors";
+import BillingTab from "./BillingTab";
 
+/**
+ * Suppliers form module
+ * If you want add a new tab, follow the next steps
+ **/
+/** step 1 */
 const GENERAL_TAB_INDEX = 0;
 const CONTACT_TAB_INDEX = 1;
+const BILLING_TAB_INDEX = 3;
 
 const SuppliersForm = React.memo(({ actions, allFormData, getFormData, submitFromOutside, services, ...props }) => {
   const [editMode, setEditMode] = useState(false);
   const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
-  const [tabIndexWithError, setTabIndexWithError] = useState({[GENERAL_TAB_INDEX]: false, [CONTACT_TAB_INDEX]: false});
+  /** step 2 */
+  const [tabIndexWithError, setTabIndexWithError] = useState({[GENERAL_TAB_INDEX]: false, [CONTACT_TAB_INDEX]: false, [BILLING_TAB_INDEX]: false});
   const [forceTabChange, setForceTabChange] = useState(false);
 
   const tabHasError = (index) => {
@@ -50,6 +58,7 @@ const SuppliersForm = React.memo(({ actions, allFormData, getFormData, submitFro
     }
   }
 
+  /** step 3 */
   const tabs = [
     {
       label: <FormattedMessage id={"Proveedores.tabs.general"} defaultMessage={"General"}/>,
@@ -88,8 +97,17 @@ const SuppliersForm = React.memo(({ actions, allFormData, getFormData, submitFro
     },
     {
       label: <FormattedMessage id={"Proveedores.tabs.facturacion"} defaultMessage={"Facturación"}/>,
-      key: 3,
-      component: "Facturación"
+      key: BILLING_TAB_INDEX,
+      component: <BillingTab
+        setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [BILLING_TAB_INDEX]: !value})}
+        editMode={editMode}
+        getFormData={getFormData}
+        setFormData={actions.setFormData}
+        submitFromOutside={submitFromOutside}
+        onSubmitTab={handleSubmitTab}
+        formErrors={props.formErrors}
+        loading={props.loading}
+        formDataLoaded={props.formDataLoaded} />
     },
     {
       label: <FormattedMessage id={"Proveedores.tabs.personalizacion"} defaultMessage={"Personalización"}/>,
