@@ -196,7 +196,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
   const withRequiredValidation = (extraValidations = []) => {
     return {
       validations: [
-        ...props.validationsArray.requiredValidation(),
+        ...props.commonValidations.requiredValidation(),
         ...extraValidations
       ]
     }
@@ -215,8 +215,8 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       },
       validationType: "string",
       ...withRequiredValidation([
-        ...props.validationsArray.minMaxValidation(1,6),
-        ...props.validationsArray.fieldExistsValidation('suppliers', 'codi', CODE)
+        ...props.stringValidations.minMaxValidation(1,6),
+        ...(!props.editMode? props.stringValidations.fieldExistsValidation('suppliers', 'codi', CODE):[])
       ])
     },
     {
@@ -232,7 +232,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         md: 3
       },
       validationType: "string",
-      ...withRequiredValidation([...props.validationsArray.minMaxValidation(1,40)])
+      ...withRequiredValidation([...props.stringValidations.minMaxValidation(1,40)])
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -247,7 +247,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         md: 6
       },
       validationType: "string",
-      ...withRequiredValidation([...props.validationsArray.minMaxValidation(1,40)])
+      ...withRequiredValidation([...props.stringValidations.minMaxValidation(1,40)])
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -273,7 +273,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         md: 4
       },
       validationType: "string",
-      validations: [...props.validationsArray.minMaxValidation(1,30)]
+      validations: [...props.stringValidations.minMaxValidation(1,30)]
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -308,7 +308,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
               md: 6
             },
             validationType: "string",
-            validations: [...props.validationsArray.minMaxValidation(1,30)]
+            validations: [...props.stringValidations.minMaxValidation(1,30)]
           },
           {
             placeHolder: props.intl.formatMessage({
@@ -356,7 +356,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         md: 2
       },
       validationType: "string",
-      ...withRequiredValidation([...props.validationsArray.minMaxValidation(8,11)])
+      ...withRequiredValidation([...props.stringValidations.minMaxValidation(8,11)])
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -637,7 +637,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         md: 3
       },
       validationType: "string",
-      validations:[...props.validationsArray.minMaxValidation(1,2)]
+      validations:[...props.stringValidations.minMaxValidation(1,2)]
     },
     {
       placeHolder: DOMICILI,
@@ -648,7 +648,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         md: 4
       },
       validationType: "string",
-      validations:[...props.validationsArray.minMaxValidation(1,30)]
+      validations:[...props.stringValidations.minMaxValidation(1,30)]
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -662,7 +662,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         md: 1
       },
       validationType: "string",
-      validations:[...props.validationsArray.minMaxValidation(1,5)]
+      validations:[...props.stringValidations.minMaxValidation(1,5)]
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -676,7 +676,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         md: 1
       },
       validationType: "string",
-      validations:[...props.validationsArray.minMaxValidation(1,2)]
+      validations:[...props.stringValidations.minMaxValidation(1,2)]
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -690,7 +690,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         md: 1
       },
       validationType: "string",
-      validations:[...props.validationsArray.minMaxValidation(1,2)]
+      validations:[...props.stringValidations.minMaxValidation(1,2)]
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -704,7 +704,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         md: 1
       },
       validationType: "string",
-      validations:[...props.validationsArray.minMaxValidation(1,2)]
+      validations:[...props.stringValidations.minMaxValidation(1,2)]
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -718,7 +718,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         md: 7
       },
       validationType: "string",
-      validations:[...props.validationsArray.minMaxValidation(1,60)]
+      validations:[...props.stringValidations.minMaxValidation(1,60)]
     },
     ...codiPostal(4)
   ];
@@ -770,7 +770,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         },
         required: true,
         validationType: "string",
-        ...withRequiredValidation([...props.validationsArray.minMaxValidation(1,30)])
+        ...withRequiredValidation([...props.stringValidations.minMaxValidation(1,30)])
       },
       {
         placeHolder: CONTACTE,

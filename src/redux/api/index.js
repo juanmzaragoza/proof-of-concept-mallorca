@@ -20,3 +20,5 @@ export const usuariIdentificadorEmpresesTree = `api/usuariIdentificadorEmpreses/
 export const moduleUrl = `api/modules`;
 export const functionalities = `api/usuariIdentificadorEmpreses/funcionalitats`;
 export const paisNif = `api/paisosNif`;
+export const rappel = `api/fact/rappels`;
+export const transportista = `api/fact/transportistes`;

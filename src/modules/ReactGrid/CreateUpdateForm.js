@@ -95,7 +95,7 @@ const CreateUpdateForm = ({
 CreateUpdateForm.propTypes = {
   title: PropTypes.string,
   formConfiguration: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV']),
+    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV','numeric']),
     variant: PropTypes.oneOf(['filled','outlined','standard']),
     placeHolder: PropTypes.string,
     required: PropTypes.bool,
