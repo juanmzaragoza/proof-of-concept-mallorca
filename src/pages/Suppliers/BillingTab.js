@@ -7,7 +7,7 @@ import GenericForm from "../../modules/GenericForm";
 import {withValidations} from "modules/wrappers";
 import {useTabForm} from "../../hooks/tab-form";
 import ConfigurableTabs from "../../modules/shared/ConfigurableTabs";
-import {PORTES_SELECTOR_VALUES, TDOC_SELECTOR_VALUES} from "../../constants/selectors";
+import {PORTES_SELECTOR_VALUES} from "../../constants/selectors";
 
 const BILLING_DATA_SECTION_INDEX = 0;
 const ORDERS_SECTION_TAB_INDEX = 1;

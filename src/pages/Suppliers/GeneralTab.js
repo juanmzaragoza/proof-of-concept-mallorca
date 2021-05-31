@@ -489,7 +489,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       key: 'idioma',
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 4
       },
       selector: {
         key: 'idiomas',
@@ -508,103 +508,10 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 4
       },
       selector: {
         key: "regimIvas",
-        labelKey: formatCodeAndDescription,
-        sort: 'descripcio',
-        creationComponents: codeAndDescription()
-      },
-      validationType: "object",
-      ...withRequiredValidation()
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.divisa",
-        defaultMessage: "Divisa"
-      }),
-      type: 'LOV',
-      key: 'divisa',
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 2
-      },
-      selector: {
-        key: "divisas",
-        labelKey: formatCodeAndName,
-        sort: 'nom',
-        creationComponents: [
-          ...codeAndName(4,4),
-          {
-            type: 'input',
-            key: 'valorEuros',
-            placeHolder: props.intl.formatMessage({
-              id: "Divisa.valor_euros",
-              defaultMessage: "Valor Euros"
-            }),
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 4
-            }
-          }
-        ]
-      },
-      validationType: "object",
-      ...withRequiredValidation()
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.tvencimiento",
-        defaultMessage: "Tipo Vencimiento"
-      }),
-      type: 'LOV',
-      key: 'tipusVenciment',
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 3
-      },
-      selector: {
-        key: "tipusVenciments",
-        labelKey: formatCodeAndDescription,
-        sort: 'descripcio',
-        creationComponents: [
-          ...codeAndDescription(4,4),
-          {
-            type: 'input',
-            key: 'tipus',
-            placeHolder: props.intl.formatMessage({
-              id: "TiposVencimiento.tipos",
-              defaultMessage: "Tipos"
-            }),
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 4
-            }
-          }
-        ]
-      },
-      validationType: "object",
-      ...withRequiredValidation()
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.docpago",
-        defaultMessage: "Documento de Pago"
-      }),
-      type: 'LOV',
-      key: 'documentPagamentCobrament',
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 2
-      },
-      selector: {
-        key: "documentPagamentCobraments",
         labelKey: formatCodeAndDescription,
         sort: 'descripcio',
         creationComponents: codeAndDescription()
@@ -619,7 +526,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       required: false,
       breakpoints: {
         xs: 12,
-        md: 1
+        md: 4
       },
     }
   ];
