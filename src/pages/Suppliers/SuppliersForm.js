@@ -31,6 +31,8 @@ const BILLING_TAB_INDEX = 3;
 const SuppliersForm = React.memo(({ actions, allFormData, getFormData, submitFromOutside, services, ...props }) => {
   const [editMode, setEditMode] = useState(false);
   const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
+  const [nameSelectedTab, setNameSelectedTab] = useState('');
+
   /** step 2 */
   const [tabIndexWithError, setTabIndexWithError] = useState({[GENERAL_TAB_INDEX]: false, [CONTACT_TAB_INDEX]: false, [BILLING_TAB_INDEX]: false});
   const [forceTabChange, setForceTabChange] = useState(false);
@@ -44,6 +46,8 @@ const SuppliersForm = React.memo(({ actions, allFormData, getFormData, submitFro
     setTabIndex(parseInt(index));
     setForceTabChange(false);
   }
+
+
 
   const handleSubmitTab = () => {
     // TODO() improve this to make it more generic
@@ -156,6 +160,10 @@ const SuppliersForm = React.memo(({ actions, allFormData, getFormData, submitFro
     }
   },[id]);
 
+  useEffect(()=>{
+    setNameSelectedTab(getTabName(tabIndex));
+  },[tabIndex]);
+
   /** Update HEADER */
   useEffect(()=>{
     if(isEditable()){
@@ -167,10 +175,10 @@ const SuppliersForm = React.memo(({ actions, allFormData, getFormData, submitFro
       actions.setBreadcrumbHeader([
         {title: props.intl.formatMessage({id: "Proveedores.titulo", defaultMessage: "Proveedores"}), href:"/proveedores"},
         {title: nom, href:"/proveedores"},
-        {title: "General"}
+        {title: nameSelectedTab}
       ]);
     }
-  },[getFormData('nomComercial')]);
+  },[getFormData('nomComercial'),nameSelectedTab]);
 
   useEffect(() => {
     if(submitFromOutside){
@@ -188,12 +196,18 @@ const SuppliersForm = React.memo(({ actions, allFormData, getFormData, submitFro
     }
   },[editMode]);
 
+  const getTabName = (value) => {
+    const tab = tabs.find(tab => tab.key === value);
+    return tab?.label;
+  }
+
   return (
     <div style={{padding: '10px'}}>
       <ConfigurableTabs
         tabs={tabs}
         tabIndex={tabIndex}
-        forceChange={forceTabChange} />
+        forceChange={forceTabChange}
+        onChange={(value) => setNameSelectedTab(getTabName(value))} />
     </div>
   )
 });
