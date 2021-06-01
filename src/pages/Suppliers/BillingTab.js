@@ -130,6 +130,7 @@ const ContactTab = ({formData, setFormData, getFormData, ...props}) => {
         xs: 12,
         md: 3
       },
+      suffix: '%',
       validationType: "number",
       validations: [
         ...props.numberValidations.maxValidation(100)
@@ -146,6 +147,7 @@ const ContactTab = ({formData, setFormData, getFormData, ...props}) => {
         xs: 12,
         md: 3
       },
+      suffix: '%',
       validationType: "number",
       validations: [
         ...props.numberValidations.maxValidation(100)
@@ -162,6 +164,7 @@ const ContactTab = ({formData, setFormData, getFormData, ...props}) => {
         xs: 12,
         md: 3
       },
+      suffix: '%',
       validationType: "number",
       validations: [
         ...props.numberValidations.maxValidation(100)
@@ -178,6 +181,7 @@ const ContactTab = ({formData, setFormData, getFormData, ...props}) => {
         xs: 12,
         md: 3
       },
+      suffix: '%',
       validationType: "number",
       validations: [
         ...props.numberValidations.maxValidation(100)
