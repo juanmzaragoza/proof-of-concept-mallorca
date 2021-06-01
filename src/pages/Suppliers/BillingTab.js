@@ -126,14 +126,13 @@ const ContactTab = ({formData, setFormData, getFormData, ...props}) => {
       }),
       type: 'numeric',
       key: 'descompteHabitual',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 3
       },
       validationType: "number",
       validations: [
-        ...props.numberValidations.maxValidation(99.99)
+        ...props.numberValidations.maxValidation(100)
       ]
     },
     {
@@ -143,14 +142,13 @@ const ContactTab = ({formData, setFormData, getFormData, ...props}) => {
       }),
       type: 'numeric',
       key: 'descomptePagamentRapid',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 3
       },
       validationType: "number",
       validations: [
-        ...props.numberValidations.maxValidation(99.99)
+        ...props.numberValidations.maxValidation(100)
       ]
     },
     {
@@ -160,14 +158,13 @@ const ContactTab = ({formData, setFormData, getFormData, ...props}) => {
       }),
       type: 'numeric',
       key: 'descompteFactura1',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 3
       },
       validationType: "number",
       validations: [
-        ...props.numberValidations.maxValidation(99.99)
+        ...props.numberValidations.maxValidation(100)
       ]
     },
     {
@@ -177,14 +174,13 @@ const ContactTab = ({formData, setFormData, getFormData, ...props}) => {
       }),
       type: 'numeric',
       key: 'descompteFactura2',
-      required: true,
       breakpoints: {
         xs: 12,
         md: 3
       },
       validationType: "number",
       validations: [
-        ...props.numberValidations.maxValidation(99.99)
+        ...props.numberValidations.maxValidation(100)
       ]
     },
     {
@@ -444,7 +440,7 @@ const ContactTab = ({formData, setFormData, getFormData, ...props}) => {
         md: 3
       },
       validationType: "string",
-      validations:[...props.stringValidations.minMaxValidation(1,2)]
+      validations:[...props.stringValidations.minMaxValidation(1,30)]
     },
     {
       placeHolder: props.intl.formatMessage({

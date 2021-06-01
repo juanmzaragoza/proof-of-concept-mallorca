@@ -62,10 +62,17 @@ const SuppliersForm = React.memo(({ actions, allFormData, getFormData, submitFro
     }
   }
 
+  const getTranslations = (id, defaultMessage) => {
+    return {
+      label: <FormattedMessage id={id} defaultMessage={defaultMessage}/>,
+      labelStr: props.intl.formatMessage({id: id, defaultMessage: defaultMessage}),
+    }
+  }
+  
   /** step 3 */
   const tabs = [
     {
-      label: <FormattedMessage id={"Proveedores.tabs.general"} defaultMessage={"General"}/>,
+      ...getTranslations("Proveedores.tabs.general","General"),
       key: GENERAL_TAB_INDEX,
       error: tabHasError(GENERAL_TAB_INDEX),
       component: <GeneralTab
@@ -80,7 +87,7 @@ const SuppliersForm = React.memo(({ actions, allFormData, getFormData, submitFro
         formDataLoaded={props.formDataLoaded} />
     },
     {
-      label: <FormattedMessage id={"Proveedores.tabs.contactos"} defaultMessage={"Contactos"}/>,
+      ...getTranslations("Proveedores.tabs.contactos","Contactos"),
       key: CONTACT_TAB_INDEX,
       error: tabHasError(CONTACT_TAB_INDEX),
       component: <ContactTab
@@ -95,12 +102,12 @@ const SuppliersForm = React.memo(({ actions, allFormData, getFormData, submitFro
         formDataLoaded={props.formDataLoaded} />
     },
     {
-      label: <FormattedMessage id={"Proveedores.tabs.contabilidad"} defaultMessage={"Contabilidad"}/>,
+      ...getTranslations("Proveedores.tabs.contabilidad","Contabilidad"),
       key: 2,
       component: "Contabilidad"
     },
     {
-      label: <FormattedMessage id={"Proveedores.tabs.facturacion"} defaultMessage={"Facturación"}/>,
+      ...getTranslations("Proveedores.tabs.facturacion","Facturación"),
       key: BILLING_TAB_INDEX,
       component: <BillingTab
         setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [BILLING_TAB_INDEX]: !value})}
@@ -114,22 +121,23 @@ const SuppliersForm = React.memo(({ actions, allFormData, getFormData, submitFro
         formDataLoaded={props.formDataLoaded} />
     },
     {
-      label: <FormattedMessage id={"Proveedores.tabs.personalizacion"} defaultMessage={"Personalización"}/>,
+      ...getTranslations("Proveedores.tabs.personalizacion","Personalización"),
       key: 4,
       component: "Personalización"
     },
     {
+      ...getTranslations("Proveedores.tabs.documentos","Documentos"),
       label: <FormattedMessage id={"Proveedores.tabs.documentos"} defaultMessage={"Documentos"}/>,
       key: 5,
       component: "Documentos"
     },
     {
-      label: <FormattedMessage id={"Proveedores.tabs.precios_coste"} defaultMessage={"Precios Coste"}/>,
+      ...getTranslations("Proveedores.tabs.precios_coste","Precios Coste"),
       key: 6,
       component: "Precios Coste"
     },
     {
-      label: <FormattedMessage id={"Proveedores.tabs.series"} defaultMessage={"Series"}/>,
+      ...getTranslations("Proveedores.tabs.series","Series"),
       key: 7,
       component: "Series"
     },
@@ -198,7 +206,7 @@ const SuppliersForm = React.memo(({ actions, allFormData, getFormData, submitFro
 
   const getTabName = (value) => {
     const tab = tabs.find(tab => tab.key === value);
-    return tab?.label;
+    return tab?.labelStr;
   }
 
   return (
