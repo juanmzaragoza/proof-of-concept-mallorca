@@ -100,7 +100,7 @@ const GenericForm = ({loading, ...props}) => {
     props.handleIsValid && props.handleIsValid(formik.isValid);
   }
 
-  const getField = ({type, variant, placeHolder, required, key, noEditable, selector, disabled, text}, formik) => {
+  const getField = ({type, variant, placeHolder, required, key, noEditable, selector, disabled, text, prefix, suffix}, formik) => {
     const noEnable = loading || (props.editMode && noEditable) || disabled;
 
     const handleChange = (e, value) => {
@@ -153,7 +153,9 @@ const GenericForm = ({loading, ...props}) => {
             helperText={getMessageError(key, formik)}
             onBlur={handleBlur}
             type={"text"}
-            disabled={noEnable} />
+            disabled={noEnable}
+            prefix={prefix}
+            suffix={suffix} />
         );
       case 'select':
         return (
@@ -376,5 +378,7 @@ GenericForm.propTypes = {
   editMode: PropTypes.bool,
   emptyPaper: PropTypes.bool,
   fieldsContainerStyles: PropTypes.object,
+  prefix: PropTypes.string,
+  suffix: PropTypes.string
 };
 export default GenericForm;

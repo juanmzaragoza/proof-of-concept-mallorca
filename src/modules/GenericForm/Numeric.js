@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import NumberFormat from "react-number-format";
 import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 const NumberFormatCustom = (props) => {
   const { inputRef, onChange, ...other } = props;
@@ -29,6 +30,7 @@ const Numeric = ({ id,
                    size = 'small',
                    required = false,
                    value, label, error, helperText, disabled,
+                   prefix, suffix,
                    onChange, onBlur }) => {
 
   const handleChange = (event) => {
@@ -49,7 +51,9 @@ const Numeric = ({ id,
     onBlur={onBlur}
     disabled={disabled}
     InputProps={{
-      inputComponent: NumberFormatCustom
+      inputComponent: NumberFormatCustom,
+      startAdornment: prefix && <InputAdornment position="start">{prefix}</InputAdornment>,
+      endAdornment: suffix && <InputAdornment position="end">{suffix}</InputAdornment>
     }}
   />
 };
