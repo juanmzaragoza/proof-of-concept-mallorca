@@ -229,7 +229,8 @@ const GenericForm = ({loading, ...props}) => {
             creationComponents={selector.creationComponents}
             onBlur={handleBlur}
             relatedWith={selector.relatedWith}
-            transform={selector.transform}/>
+            transform={selector.transform}
+            advancedSearchColumns={selector.advancedSearchColumns} />
         );
       case 'observations':
         return (
