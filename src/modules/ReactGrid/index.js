@@ -40,6 +40,8 @@ import {
   getTotalCount
 } from "../../redux/reactGrid/selectors";
 import {deleteData, searchData, reset} from "../../redux/reactGrid";
+import {Input, TableCell, TextField} from "@material-ui/core";
+import FormControl from "@material-ui/core/FormControl";
 
 const getRowId = row => row.id;
 
@@ -110,6 +112,20 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
     />
   );
 
+  const FilterCellBase = ({ filter, onFilter }) => {
+    return (
+    <TableCell>
+      <TextField
+        value={filter ? filter.value : ''}
+        onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
+        placeholder="Filter..." />
+    </TableCell>
+  )};
+
+  const FilterCell = (props) => {
+    return <FilterCellBase {...props} />;
+  };
+
   const commitChanges = ({ added, changed, deleted }) => {
     if (added) {}
     if (changed) {}
@@ -153,7 +169,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
                rowComponent={TableRow}
                noDataText={"table-data"} />
         <TableHeaderRow showSortingControls />
-        <TableFilterRow />
+        <TableFilterRow cellComponent={FilterCell} />
         {configuration.enableInlineEdition && <TableInlineCellEditing selectTextOnEditStart />}
         {!configuration.disabledActions && <ActionsColumn title={props.intl.formatMessage({
           id: "ReactGrid.actions_column",
