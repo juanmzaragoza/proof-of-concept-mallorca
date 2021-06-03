@@ -15,6 +15,8 @@ const ContactTab = ({formData, setFormData, ...props}) => {
     formIsValid
   ] = useTabForm({fields: {0:false}, setIsValid: props.setIsValid});
 
+  const CODE = props.intl.formatMessage({id: "Comun.codigo", defaultMessage: "Código"});
+  const NOM = props.intl.formatMessage({id: "Comun.nombre", defaultMessage: "Nombre"});
   const contactsConfig = [
     {
       placeHolder: props.intl.formatMessage({
@@ -35,10 +37,7 @@ const ContactTab = ({formData, setFormData, ...props}) => {
           {
             type: 'input',
             key: 'codi',
-            placeHolder: props.intl.formatMessage({
-              id: "Comun.codigo",
-              defaultMessage: "Código"
-            }),
+            placeHolder: CODE,
             required: true,
             breakpoints: {
               xs: 12,
@@ -48,17 +47,15 @@ const ContactTab = ({formData, setFormData, ...props}) => {
           {
             type: 'input',
             key: 'nom',
-            placeHolder: props.intl.formatMessage({
-              id: "Comun.nombre",
-              defaultMessage: "Nombre"
-            }),
+            placeHolder: NOM,
             required: true,
             breakpoints: {
               xs: 12,
               md: 6
             }
           }
-        ]
+        ],
+        advancedSearchColumns: [{title: CODE, name: 'codi'},{title: NOM, name: 'nom'}]
       }
     },
     {

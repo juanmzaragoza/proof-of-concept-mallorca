@@ -18,6 +18,9 @@ const SuppliersList = ({actions, ...props}) => {
     ]);
   },[]);
 
+  const CODE = props.intl.formatMessage({id: "Comun.codigo", defaultMessage: "Código"});
+  const NOM = props.intl.formatMessage({id: "Comun.nombre", defaultMessage: "Nombre"});
+
   const listConfiguration = {
     title: props.intl.formatMessage({
       id: "Proveedores.titulo",
@@ -26,10 +29,7 @@ const SuppliersList = ({actions, ...props}) => {
     columns: [
       {
         name: 'codi',
-        title: props.intl.formatMessage({
-          id: "Proveedores.codigo",
-          defaultMessage: "Código"
-        })
+        title: CODE
       },
       {
         name: 'nomComercial',
@@ -67,10 +67,7 @@ const SuppliersList = ({actions, ...props}) => {
 
   const advancedFilters = [
     {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.codigo",
-        defaultMessage: "Código"
-      }),
+      placeHolder: CODE,
       type: 'input',
       key: 'codi',
       breakpoints: {
@@ -152,7 +149,7 @@ const SuppliersList = ({actions, ...props}) => {
           {
             type: 'input',
             key: 'codi',
-            placeHolder: props.intl.formatMessage({id: "Comun.codigo", defaultMessage: "Código"}),
+            placeHolder: CODE,
             required: true,
             noEditable: true,
             breakpoints: {
@@ -163,14 +160,15 @@ const SuppliersList = ({actions, ...props}) => {
           {
             type: 'input',
             key: 'nom',
-            placeHolder: props.intl.formatMessage({id: "Comun.nombre", defaultMessage: "Nombre"}),
+            placeHolder: NOM,
             required: true,
             breakpoints: {
               xs: 12,
               md: 6
             }
           }
-        ]
+        ],
+        advancedSearchColumns: [{title: CODE, name: 'codi'},{title: NOM, name: 'nom'}]
       },
     },
   ];

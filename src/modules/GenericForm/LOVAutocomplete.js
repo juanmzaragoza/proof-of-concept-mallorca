@@ -31,14 +31,17 @@ import {
   searchByQueryTerm,
   setQueryFromSelector
 } from 'redux/genericForm';
+import LOVAdvancedSearch from "./LOVAdvancedSearch";
 
 const filter = createFilterOptions();
 
 const ADD_TYPE = 'add';
 const PAGINATION_TYPE = 'pagination';
+const SEARCH_TYPE = 'search';
 
 const LOVAutocomplete = (props) => {
-  const [openModal, setOpenModal] = useState(false);
+  const [openAddModal, setOpenAddModal] = useState(false);
+  const [openSearchModal, setOpenSearchModal] = useState(false);
   const [opts, setOpts] = useState([]);
   const [highlighted, setHighlighted] = useState(null);
   const [value, setValue] = useState();
@@ -98,8 +101,10 @@ const LOVAutocomplete = (props) => {
       value={value && opts.find(option => option.id === value.id)? opts.find(option => option.id === value.id):null}
       onChange={(e, newValue) => {
         if(newValue && newValue.id === ADD_TYPE){
-          setOpenModal(true);
-        } else{
+          setOpenAddModal(true);
+        } else if(newValue && newValue.id === SEARCH_TYPE) {
+          setOpenSearchModal(true);
+        } else {
           // I'm refreshing another LOV -> ACTION FOR ANOTHER
           if(props.relatedWith){
             props.setQuery({
@@ -119,7 +124,7 @@ const LOVAutocomplete = (props) => {
       // Used to determine the string value for a given option.
       // It's used to fill the input (and the list box options if renderOption is not provided).
       getOptionLabel={(option) => {
-        if(option.id && option.id !== ADD_TYPE && option.id !== PAGINATION_TYPE) {
+        if(option.id && option.id !== ADD_TYPE && option.id !== PAGINATION_TYPE && option.id !== SEARCH_TYPE) {
           return (typeof props.labelResponseKey === 'function')? props.labelResponseKey(option):option[props.labelResponseKey];
         } else {
           return option.title;
@@ -146,7 +151,13 @@ const LOVAutocomplete = (props) => {
                 () => props.dispatchIncrementPage(props.id))}
             </React.Fragment>
           );
-        } else{
+        } else if(option.id && option.id === SEARCH_TYPE) {
+          return (
+            <React.Fragment>
+              {option.title}
+            </React.Fragment>
+          )
+        } else {
           return (
             <React.Fragment>
               {(typeof props.labelResponseKey === 'function')? props.labelResponseKey(option):option[props.labelResponseKey]}
@@ -156,7 +167,7 @@ const LOVAutocomplete = (props) => {
       }}
       // Used to determine if an option is selected, considering the current value. Uses strict equality by default.
       getOptionSelected={(option, value) => {
-        if(option.id === value.id && value.id === ADD_TYPE){
+        if(option.id === value.id && (value.id === ADD_TYPE || value.id === SEARCH_TYPE)){
           return true;
         } else{
           return option.id === value.id;
@@ -184,6 +195,14 @@ const LOVAutocomplete = (props) => {
           inputValue: inputValue,
           title: `${props.intl.formatMessage({id: 'LOVElement.agregar_nuevo', defaultMessage: 'Agregar \'{name}\''}, {name: inputValue})}`,
         });
+        // only show the Advanced Search if advancedSearchColumns is not empty
+        props.advancedSearchColumns &&
+          props.advancedSearchColumns.length &&
+          filtered.push({
+            id: SEARCH_TYPE,
+            inputValue: '',
+            title: props.intl.formatMessage({id: 'LOVElement.busqueda_avanzada', defaultMessage: 'Búsqueda Avanzada'})
+          })
         return filtered;
       }}
       /** Fix: when the option is fully highlighted, input a char and after a while comes to the input
@@ -225,7 +244,7 @@ const LOVAutocomplete = (props) => {
       id={props.id}
       title={props.label}
       formComponents={props.creationComponents}
-      open={openModal}
+      open={openAddModal}
       close={(data) => {
         if(data) {
           const list = opts;
@@ -233,12 +252,27 @@ const LOVAutocomplete = (props) => {
           setOpts(list);
           props.setValue({value: data});
         }
-        setOpenModal(false);
+        setOpenAddModal(false);
       }} />}
+    <LOVAdvancedSearch
+      id={props.id}
+      title={props.label}
+      open={openSearchModal}
+      listKey={props.responseKey}
+      columns={props.advancedSearchColumns}
+      close={(data) => {
+        if(data) {
+          const list = opts;
+          list.push(data);
+          setOpts(list);
+          props.setValue({value: data});
+        }
+        setOpenSearchModal(false);
+      }} />
     {Boolean(props.error)? <FormHelperText>{props.helperText}</FormHelperText>:null}
     </>
   );
-}
+};
 
 LOVAutocomplete.propTypes = {
   id: PropTypes.any,
@@ -269,7 +303,12 @@ LOVAutocomplete.propTypes = {
     name: PropTypes.string.isRequired,
     filterBy: PropTypes.string.isRequired,
     keyValue: PropTypes.string,
-  })
+  }),
+  // if not empty, it shows the advanced search
+  advancedSearchColumns: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    title: PropTypes.string,
+  }))
 };
 
 const mapStateToProps = (state, props) => {
