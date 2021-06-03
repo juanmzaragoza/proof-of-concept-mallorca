@@ -31,6 +31,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
 
   const TITLE = props.intl.formatMessage({id: "Proveedores.direcciones_comerciales", defaultMessage: "Direcciones Comerciales"});
   const CODE = props.intl.formatMessage({id: "Comun.codigo", defaultMessage: "Código"});
+  const DESCRIPCIO = props.intl.formatMessage({id: "Comun.descripcion", defaultMessage: "Descripción"});
   const DOMICILI = props.intl.formatMessage({id: "Proveedores.Direccion.domicilio", defaultMessage: "Domicilio"});
   const TELEFON = props.intl.formatMessage({id: "Proveedores.Contacto.telefono", defaultMessage: "Telefóno"});
   const FAX = props.intl.formatMessage({id: "Proveedores.Contacto.fax", defaultMessage: "Fax"});
@@ -83,10 +84,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
     {
       type: 'input',
       key: 'descripcio',
-      placeHolder: props.intl.formatMessage({
-        id: "Comun.descripcion",
-        defaultMessage: "Descripción"
-      }),
+      placeHolder: DESCRIPCIO,
       required: true,
       breakpoints: {
         xs: 12,
@@ -137,7 +135,8 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
                 name: 'provincia',
                 filterBy: 'pais.id',
                 keyValue: 'id'
-              }
+              },
+              advancedSearchColumns: aSCodeAndName
             }
           },
           {
@@ -157,6 +156,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
               labelKey: (data) => `${data.nom} (${data.codi})`,
               sort: 'codi',
               cannotCreate: true,
+              advancedSearchColumns: aSCodeAndName
             }
           },
           {
@@ -185,13 +185,17 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
               md: 6
             }
           },
-        ]
+        ],
+        advancedSearchColumns: aSCodeAndDescription
       }
     },
   ];
 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
   const formatCodeAndDescription = (data) => `${data.descripcio} (${data.codi})`;
+
+  const aSCodeAndDescription = [{title: CODE, name: 'codi'},{title: DESCRIPCIO, name: 'descripcio'}];
+  const aSCodeAndName = [{title: CODE, name: 'codi'},{title: NOM, name: 'nom'}];
 
   const withRequiredValidation = (extraValidations = []) => {
     return {
@@ -325,7 +329,8 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
               options: TDOC_SELECTOR_VALUES
             },
           },
-        ]
+        ],
+        advancedSearchColumns: aSCodeAndName
       }
     },
     {
@@ -386,7 +391,8 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         key: 'familiaProveidors',
         labelKey: formatCodeAndName,
         sort: 'nom',
-        creationComponents: codeAndName()
+        creationComponents: codeAndName(),
+        advancedSearchColumns: aSCodeAndName
       },
       validationType: "object",
       ...withRequiredValidation()
@@ -425,6 +431,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
               labelKey: (data) => `${data.nom} (${data.codi})`,
               sort: 'codi',
               cannotCreate: true,
+              advancedSearchColumns: aSCodeAndName
             }
           },
           {
@@ -453,7 +460,8 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
               md: 4
             }
           }
-        ]
+        ],
+        advancedSearchColumns: aSCodeAndName
       }
     },
     {
@@ -495,7 +503,8 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         key: 'idiomas',
         labelKey: formatCodeAndDescription,
         sort: 'descripcio',
-        creationComponents: codeAndDescription()
+        creationComponents: codeAndDescription(),
+        advancedSearchColumns: aSCodeAndDescription
       }
     },
     {
@@ -514,7 +523,8 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         key: "regimIvas",
         labelKey: formatCodeAndDescription,
         sort: 'descripcio',
-        creationComponents: codeAndDescription()
+        creationComponents: codeAndDescription(),
+        advancedSearchColumns: aSCodeAndDescription
       },
       validationType: "object",
       ...withRequiredValidation()

@@ -22,6 +22,7 @@ const ContactTab = ({formData, setFormData, getFormData, ...props}) => {
 
   const CODE = props.intl.formatMessage({id: "Comun.codigo", defaultMessage: "Código"});
   const NOM = props.intl.formatMessage({id: "Comun.nombre", defaultMessage: "Nombre"});
+  const DESCRIPCIO = props.intl.formatMessage({id: "Comun.descripcion", defaultMessage: "Descripción"});
 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
   const formatCodeAndDescription = (data) => `${data.descripcio} (${data.codi})`;
@@ -33,6 +34,9 @@ const ContactTab = ({formData, setFormData, getFormData, ...props}) => {
       ]
     }
   }
+
+  const aSCodeAndName = [{title: CODE, name: 'codi'},{title: NOM, name: 'nom'}];
+  const aSCodeAndDescription = [{title: CODE, name: 'codi'},{title: DESCRIPCIO, name: 'descripcio'}];
 
   const dataConfig = [
     {
@@ -86,7 +90,8 @@ const ContactTab = ({formData, setFormData, getFormData, ...props}) => {
               md: 4
             }
           }
-        ]
+        ],
+        advancedSearchColumns: aSCodeAndName
       },
       validationType: "object",
       ...withRequiredValidation()
@@ -238,7 +243,8 @@ const ContactTab = ({formData, setFormData, getFormData, ...props}) => {
               md: 4
             }
           }
-        ]
+        ],
+        advancedSearchColumns: aSCodeAndDescription
       },
     },
     {
@@ -282,7 +288,8 @@ const ContactTab = ({formData, setFormData, getFormData, ...props}) => {
               md: 6
             }
           }
-        ]
+        ],
+        advancedSearchColumns: aSCodeAndDescription
       }
     },
   ];
@@ -329,7 +336,8 @@ const ContactTab = ({formData, setFormData, getFormData, ...props}) => {
               md: 6
             }
           }
-        ]
+        ],
+        advancedSearchColumns: aSCodeAndDescription
       }
     },
     {
@@ -414,7 +422,8 @@ const ContactTab = ({formData, setFormData, getFormData, ...props}) => {
               md: 6
             }
           }
-        ]
+        ],
+        advancedSearchColumns: aSCodeAndName
       }
     },
     {

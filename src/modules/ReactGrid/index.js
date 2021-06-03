@@ -40,6 +40,8 @@ import {
   getTotalCount
 } from "../../redux/reactGrid/selectors";
 import {deleteData, searchData, reset} from "../../redux/reactGrid";
+import {Input, TableCell, TextField} from "@material-ui/core";
+import FormControl from "@material-ui/core/FormControl";
 
 const getRowId = row => row.id;
 
@@ -49,7 +51,7 @@ const TableComponent = ({ ...restProps }) => (
 
 const ReactGrid = ({ configuration, enqueueSnackbar,
                      rows, loading, pageSize, totalCount, errors,
-                     extraQuery,
+                     extraQuery, onClickRow,
                      actions, ...props }) => {
 
   const history = useHistory();
@@ -99,6 +101,31 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
     <Table.Cell {...restProps} tabIndex={0} onFocus={onClick} />
   );
 
+  const TableRow = ({ row, ...restProps }) => (
+    <Table.Row
+      {...restProps}
+      // eslint-disable-next-line no-alert
+      onClick={() => onClickRow && onClickRow(row)}
+      style={{
+        cursor: 'pointer',
+      }}
+    />
+  );
+
+  const FilterCellBase = ({ filter, onFilter }) => {
+    return (
+    <TableCell>
+      <TextField
+        value={filter ? filter.value : ''}
+        onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
+        placeholder="Filter..." />
+    </TableCell>
+  )};
+
+  const FilterCell = (props) => {
+    return <FilterCellBase {...props} />;
+  };
+
   const commitChanges = ({ added, changed, deleted }) => {
     if (added) {}
     if (changed) {}
@@ -137,14 +164,17 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
         {/***************************/}
         <EditingState onCommitChanges={commitChanges} />
 
-        <Table tableComponent={TableComponent} cellComponent={FocusableCell} noDataText={"table-data"} />
+        <Table tableComponent={TableComponent}
+               cellComponent={FocusableCell}
+               rowComponent={TableRow}
+               noDataText={"table-data"} />
         <TableHeaderRow showSortingControls />
-        <TableFilterRow />
+        <TableFilterRow cellComponent={FilterCell} />
         {configuration.enableInlineEdition && <TableInlineCellEditing selectTextOnEditStart />}
-        <ActionsColumn title={props.intl.formatMessage({
+        {!configuration.disabledActions && <ActionsColumn title={props.intl.formatMessage({
           id: "ReactGrid.actions_column",
           defaultMessage: "Acciones"
-        })} actions={rows && rows.length? rightMenu:[]} />
+        })} actions={rows && rows.length? rightMenu:[]} />}
         <PagingPanel />
 
       </Grid>
@@ -164,11 +194,12 @@ ReactGrid.propTypes = {
     })),
     listKey: PropTypes.string.isRequired,
     enableInlineEdition: PropTypes.bool,
-    extraQuery: PropTypes.arrayOf(PropTypes.shape({
-      columnName: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
-    }))
-  })
+    disabledActions: PropTypes.bool
+  }),
+  extraQuery: PropTypes.arrayOf(PropTypes.shape({
+    columnName: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired
+  }))
 };
 
 const mapStateToProps = (state, props) => {
