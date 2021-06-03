@@ -195,11 +195,14 @@ const LOVAutocomplete = (props) => {
           inputValue: inputValue,
           title: `${props.intl.formatMessage({id: 'LOVElement.agregar_nuevo', defaultMessage: 'Agregar \'{name}\''}, {name: inputValue})}`,
         });
-        filtered.push({
-          id: SEARCH_TYPE,
-          inputValue: '',
-          title: props.intl.formatMessage({id: 'LOVElement.busqueda_avanzada', defaultMessage: 'Búsqueda Avanzada'})
-        })
+        // only show the Advanced Search if advancedSearchColumns is not empty
+        props.advancedSearchColumns &&
+          props.advancedSearchColumns.length &&
+          filtered.push({
+            id: SEARCH_TYPE,
+            inputValue: '',
+            title: props.intl.formatMessage({id: 'LOVElement.busqueda_avanzada', defaultMessage: 'Búsqueda Avanzada'})
+          })
         return filtered;
       }}
       /** Fix: when the option is fully highlighted, input a char and after a while comes to the input
@@ -301,6 +304,7 @@ LOVAutocomplete.propTypes = {
     filterBy: PropTypes.string.isRequired,
     keyValue: PropTypes.string,
   }),
+  // if not empty, it shows the advanced search
   advancedSearchColumns: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
     title: PropTypes.string,
