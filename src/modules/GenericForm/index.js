@@ -13,7 +13,8 @@ import {
   Paper,
   Radio,
   RadioGroup,
-  TextField
+  TextField,
+  Switch,
 } from '@material-ui/core';
 import FormControl from "@material-ui/core/FormControl";
 
@@ -37,7 +38,10 @@ const GenericForm = ({loading, ...props}) => {
     'radio': "",
     'LOV': null,
     'observations': "",
-    'numeric': 0.0
+    'numeric': 0.0,
+    'date': "",
+    'switch': "",
+
   }
 
   /** Init to avoid uncontrolled inputs */
@@ -113,6 +117,19 @@ const GenericForm = ({loading, ...props}) => {
       handleIsValid(formik);
       props.onBlur && props.onBlur(e);
     }
+
+    const date = (data) =>{
+
+      var any = new Date(data).getFullYear();
+      var mes = new Date(data).getMonth();
+      var dia = new Date(data).getDate();
+  
+      mes = ('00' + mes).slice(-2);
+      dia = ('00' + dia).slice(-2);
+  
+      return any + "-" + mes + "-" + dia;
+      
+      };
 
     switch(type) {
       case 'input':
@@ -245,6 +262,54 @@ const GenericForm = ({loading, ...props}) => {
               formik.setFieldValue(key,v);
             }} />
         );
+        case "date":
+          return (
+            <TextField
+              id={key}
+              label={placeHolder}
+              required={Boolean(required)}
+              type={"date"}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              onChange={(e, v, r) => {
+                handleChange(e, e.currentTarget.value);
+                formik.handleChange(e);
+              }}
+              defaultValue={    
+                date(props.getFormData(key))
+              }
+              error={hasError(key, formik)}
+              helperText={getMessageError(key, formik)}
+              onBlur={handleBlur}
+              disabled={noEnable}
+            />
+          );
+        case "switch":
+        return (
+          <FormControlLabel
+            control={
+              <Switch
+                checked={
+                  props.getFormData && props.getFormData(key) === "S"
+                    ? props.getFormData(key)
+                    : false
+                }
+                onChange={(e) =>
+                  props.setFormData({
+                    key,
+                    value: e.currentTarget.checked ? "S" : "N",
+                  })
+                }
+                name={key}
+                disabled={noEnable}
+                color="primary"
+              />
+            }
+            label={placeHolder}
+          />
+        );
+  
       default:
         return;
     }
@@ -340,7 +405,7 @@ const GenericForm = ({loading, ...props}) => {
 GenericForm.propTypes = {
   containerSpacing: PropTypes.number,
   formComponents: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV','observations','numeric']),
+    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV','observations','numeric','date','switch']),
     variant: PropTypes.oneOf(['filled','outlined','standard']),
     placeHolder: PropTypes.string,
     required: PropTypes.bool,
