@@ -22,3 +22,32 @@ export const functionalities = `api/usuariIdentificadorEmpreses/funcionalitats`;
 export const paisNif = `api/paisosNif`;
 export const rappel = `api/fact/rappels`;
 export const transportista = `api/fact/transportistes`;
+
+export const clientes = `api/fact/clients`;
+export const familiaClient = `api/fact/familiesClient`;
+export const organitzacio = `api/fact/organitzacions`;
+export const departamentClients = `api/fact/departamentsClient`;
+export const clientAdresas = `api/fact/clientsAdresa`;
+export const oficinaBancaria = `api/fact/oficinesBancaries`;
+export const banc = `api/fact/bancs`;
+export const ives = `api/fact/ives`;
+export const regimsIva = `api/fact/regimsIva`;
+export const classeRetencio = `api/fact/classeRetencions`;
+export const compteCorrentEmpresas = `api/fact/comptesCorrentsEmpresa`;
+export const empresa = `api/fact/empreses`;
+export const tarifa1= `api/fact/tarifes`;
+export const tarifa2= `api/fact/tarifes`;
+export const compteComptableEmpresas = `api/fact/comptesComptablesEmpresa`;
+export const serie= `api/fact/seriesVenda`;
+export const tipusFacturacio= `api/fact/tipusFacturacions`;
+export const documentPagament= `api/fact/documentsPagamentCobrament`;
+export const tarifaDescompte= `api/fact/tarifesDescompte`;
+export const tarifaDescompte2 = `api/fact/tarifesDescompte`;
+export const adresaComercialClient = `api/fact/clientsAdresa`;
+export const tipusComissio = `api/fact/tipusComissions`;
+
+export const tipusClient = `api/fact/tipusClients`;
+export const tipusClients = `api/fact/tipusClients`;
+
+export const subClients = `api/fact/subClients`;
+export const aplicadorClients = `api/fact/aplicadorsClient`;

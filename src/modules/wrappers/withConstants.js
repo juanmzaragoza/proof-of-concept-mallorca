@@ -85,6 +85,30 @@ const withConstants = (PassedComponent) => {
         path: 'FAC_PEUDOC', // or has path or has children but not both
         icon: <LocalMall />
       },
+      {
+        key: 'FAC_PAIS', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "Paises.titol",defaultMessage: "Paises"}),
+        path: 'FAC_PAIS', // or has path or has children but not both
+        icon: <LocalMall />
+      },
+      {
+        key: 'FAC_PROVIN', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "Provincias.titol",defaultMessage: "Provincias"}),
+        path: 'FAC_PROVIN', // or has path or has children but not both
+        icon: <LocalMall />
+      },
+      {
+        key: 'FAC_IDIOMA', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "Idiomas.titol",defaultMessage: "Idiomes"}),
+        path: 'FAC_IDIOMA', // or has path or has children but not both
+        icon: <LocalMall />
+      },
+      {
+        key: 'FAC_CLIENT', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "Clientes.titulo",defaultMessage: "Clientes"}),
+        path: 'FAC_CLIENT', // or has path or has children but not both
+        icon: <LocalMall />
+      },
     ];
 
     return <PassedComponent
