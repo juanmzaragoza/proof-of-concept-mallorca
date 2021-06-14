@@ -5,8 +5,8 @@ import {connect} from "react-redux";
 import Paper from "@material-ui/core/Paper";
 import {LocationCity} from "@material-ui/icons";
 
-import ProvinciasList from "./ProvinciasList";
-import ProvinciasCreate from "./ProvinciasCreate";
+import ProvinceList from "./ProvinceList";
+import ProvinceCreate from "./ProvinceCreate";
 import withHeaders from "../../modules/wrappers/withHeaders";
 import {bindActionCreators, compose} from "redux";
 import {setBreadcrumbHeader, setListingConfig} from "redux/pageHeader";
@@ -26,15 +26,15 @@ const mapDispatchToProps = (dispatch, props) => {
 const ProvListIntl = compose(
   injectIntl,
   connect(null,mapDispatchToProps)
-)(ProvinciasList);
+)(ProvinceList);
 
 
-const Provincias = () => (
+const Province = () => (
   <Paper style={{ position: 'relative' }}>
     <Switch>
       <Route exact path={`${URL}`} component={ ProvListIntl }></Route>
-      <Route path={`${URL}/create`} component={ProvinciasCreate}></Route>
-      <Route path={`${URL}/:id`} component={ProvinciasCreate}></Route>
+      <Route path={`${URL}/create`} component={ProvinceCreate}></Route>
+      <Route path={`${URL}/:id`} component={ProvinceCreate}></Route>
     </Switch>
   </Paper>
 );
@@ -42,7 +42,7 @@ const Provincias = () => (
 const component = {
   routeProps: {
     path: `${URL}`,
-    component: withHeaders(Provincias)
+    component: withHeaders(Province)
   },
   name: 'FAC_PROVIN',
   icon: <LocationCity />

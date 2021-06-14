@@ -6,7 +6,7 @@ import { withValidations } from "../../modules/wrappers/index";
 
 
 
-const PaisesCreate = (props) => {
+const CountryCreate = (props) => {
   const createConfiguration = [
     {
       placeHolder: props.intl.formatMessage({
@@ -128,4 +128,4 @@ const PaisesCreate = (props) => {
 export default compose(
   withValidations,
   injectIntl
-)(PaisesCreate);
+)(CountryCreate);

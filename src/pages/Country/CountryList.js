@@ -5,7 +5,7 @@ import {setBreadcrumbHeader, setListingConfig} from "../../redux/pageHeader";
 import {injectIntl} from "react-intl";
 import {connect} from "react-redux";
 
-const Paises = ({ actions, ...props }) => {
+const CountryList = ({ actions, ...props }) => {
 
   useEffect(() => {
     actions.setListingConfig({
@@ -58,4 +58,4 @@ const mapDispatchToProps = (dispatch, props) => {
 export default compose(
   injectIntl,
   connect(null,mapDispatchToProps)
-)(Paises);
+)(CountryList);

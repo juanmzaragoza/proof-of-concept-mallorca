@@ -4,8 +4,8 @@ import {Route, Switch} from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
 import {Public} from "@material-ui/icons";
 
-import PaisesList from "./PaisesList";
-import PaisesCreate from "./PaisesCreate";
+import CountryList from "./CountryList";
+import CountryCreate from "./CountryCreate";
 
 
 import withHeaders from "../../modules/wrappers/withHeaders";
@@ -13,12 +13,12 @@ const URL = '/paises';
 
 
 
-const Paises = () => (
+const Country = () => (
   <Paper style={{ position: 'relative' }}>
     <Switch>
-      <Route exact path={`${URL}`} component={PaisesList}></Route>
-      <Route path={`${URL}/create`} component={PaisesCreate}></Route>
-      <Route path={`${URL}/:id`} component={PaisesCreate}></Route>
+      <Route exact path={`${URL}`} component={CountryList}></Route>
+      <Route path={`${URL}/create`} component={CountryCreate}></Route>
+      <Route path={`${URL}/:id`} component={CountryCreate}></Route>
     </Switch>
   </Paper>
 );
@@ -26,7 +26,7 @@ const Paises = () => (
 const component = {
   routeProps: {
     path: `${URL}`,
-    component: withHeaders(Paises)
+    component: withHeaders(Country)
   },
   name: 'FAC_PAIS',
   icon: <Public />

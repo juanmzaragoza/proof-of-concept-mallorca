@@ -164,9 +164,7 @@ const TiposClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
         exact: true,
       },
     ],
-    extraPostBody: {
-      client: { id: clientId },
-    },
+   
     columns: [
       {
         name: "tipusProveidorClient",

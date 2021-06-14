@@ -7,7 +7,7 @@ import { withValidations } from "../../modules/wrappers";
 
 
 
-const ProvinciasCreate = (props) => {
+const ProvinceCreate = (props) => {
 
 
 
@@ -129,4 +129,4 @@ const ProvinciasCreate = (props) => {
 export default compose(
     withValidations,
     injectIntl
-)(ProvinciasCreate);
+)(ProvinceCreate);

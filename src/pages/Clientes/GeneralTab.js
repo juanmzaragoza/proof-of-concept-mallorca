@@ -16,7 +16,7 @@ import { TIPO_CLIENTE_SELECTOR_VALUES, PAISNIF_SELECTOR_VALUES, TDOC_SELECTOR_VA
 
 import { useTabForm } from "../../hooks/tab-form";
 
-const EMPRESA_SECTION_INDEX = 0;
+const CLIENT_SECTION_INDEX = 0;
 const ADDRESS_SECTION_TAB_INDEX = 1;
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
@@ -212,7 +212,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const aSCodeAndName = [{title: CODE, name: 'codi'},{title: NOM, name: 'nom'}];
   const aSCodeAndDescription = [{title: CODE, name: 'codi'},{title: DESCRIPCIO, name: 'descripcio'}];
 
-  const empresaConfig = [
+  const clientConfig = [
     {
       placeHolder: CODE,
       type: 'input',
@@ -829,7 +829,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     <Grid container >
       <Grid xs={12} item>
         <OutlinedContainer className="general-tab-container" title={<FormattedMessage id={"Proveedores.tabs.general"} defaultMessage={"General"} />}>
-          <GenericForm formComponents={empresaConfig}
+          <GenericForm formComponents={clientConfig}
             emptyPaper={true}
             editMode={props.editMode}
             getFormData={getFormData}
@@ -838,8 +838,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
             formErrors={props.formErrors}
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={value => addValidity(EMPRESA_SECTION_INDEX, value)}
-            onBlur={(e) => handleTouched(EMPRESA_SECTION_INDEX)}
+            handleIsValid={value => addValidity(CLIENT_SECTION_INDEX, value)}
+            onBlur={(e) => handleTouched(CLIENT_SECTION_INDEX)}
             {...props} />
         </OutlinedContainer>
       </Grid>

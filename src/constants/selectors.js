@@ -229,3 +229,17 @@ export const TIPO_DESCUENTO_SELECTOR_VALUES = [
 ];
 
 
+export const TIPO_NIF_SELECTOR_VALUES = [
+  {
+    value: "NUMERIC",
+    labelId: "Selector.numerico",
+    label: "Numérico",
+  },
+  {
+    value: "ALFANUMERIC",
+    labelId: "Selector.Alfanumerico",
+    label: "AlfaNumérico",
+  },
+];
+
+

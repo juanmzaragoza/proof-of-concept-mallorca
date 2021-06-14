@@ -6,7 +6,7 @@ import {compose} from "redux";
 import { withValidations } from "../../modules/wrappers";
 
 
-const IdiomasCreate = (props) => {
+const LanguageCreate = (props) => {
   const createConfiguration = [
     {
       placeHolder: props.intl.formatMessage({
@@ -67,7 +67,7 @@ const IdiomasCreate = (props) => {
   return (
     <CreateUpdateForm title={props.intl.formatMessage({
                         id: "Idiomas.titol",
-                        defaultMessage: "Idiomes"
+                        defaultMessage: "Idiomas"
                       })}
                       formConfiguration={createConfiguration}
                       url={'api/fact/idiomes'} />
@@ -77,4 +77,4 @@ const IdiomasCreate = (props) => {
 export default compose(
   withValidations,
   injectIntl
-)(IdiomasCreate);
+)(LanguageCreate);

@@ -4,18 +4,18 @@ import {Route, Switch} from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
 import {Language} from "@material-ui/icons";
 
-import IdiomasList from "./IdiomasList";
-import IdiomasCreate from "./IdiomasCreate";
+import LanguageList from "./LanguageList";
+import LanguageCreate from "./LanguageCreate";
 import withHeaders from "../../modules/wrappers/withHeaders";
 
 const URL = '/idiomes';
 
-const Idiomas = () => (
+const Languages = () => (
   <Paper style={{ position: 'relative' }}>
     <Switch>
-      <Route exact path={`${URL}`} component={IdiomasList}></Route>
-      <Route path={`${URL}/create`} component={IdiomasCreate}></Route>
-      <Route path={`${URL}/:id`} component={IdiomasCreate}></Route>
+      <Route exact path={`${URL}`} component={LanguageList}></Route>
+      <Route path={`${URL}/create`} component={LanguageCreate}></Route>
+      <Route path={`${URL}/:id`} component={LanguageCreate}></Route>
     </Switch>
   </Paper>
 );
@@ -23,7 +23,7 @@ const Idiomas = () => (
 const component = {
   routeProps: {
     path: `${URL}`,
-    component: withHeaders(Idiomas)
+    component: withHeaders(Languages)
   },
   name: 'FAC_IDIOMA',
   icon: <Language />
