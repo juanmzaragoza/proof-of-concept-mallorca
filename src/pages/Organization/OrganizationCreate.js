@@ -31,34 +31,6 @@ const OrganizationCreate = (props) => {
     },
   });
 
-  const codeAndName = (mdCode = 6, mdName = 6) => [
-    code(mdCode),
-    {
-      type: "input",
-      key: "nom",
-      placeHolder: NOM,
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdName,
-      },
-    },
-  ];
-
-  const codeAndDescription = (mdCode = 6, mdDes = 6) => [
-    code(mdCode),
-    {
-      type: 'input',
-      key: 'descripcio',
-      placeHolder: DESCRIPCIO,
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdDes
-      }
-    }
-  ];
-
   const codiPostal = (md = 6) => [
     {
       placeHolder: props.intl.formatMessage({
@@ -152,18 +124,19 @@ const OrganizationCreate = (props) => {
             }
           },
         ],
-        advancedSearchColumns: aSCodeAndDescription
+        advancedSearchColumns: aSCodeAndPoblacio
       }
     },
   ];
 
 
-  const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
-  const formatCodeAndDescription = (data) =>
-    `${data.descripcio} (${data.codi})`;
-
   const aSCodeAndName = [{title: CODE, name: 'codi'},{title: NOM, name: 'nom'}];
-  const aSCodeAndDescription = [{title: CODE, name: 'codi'},{title: DESCRIPCIO, name: 'descripcio'}];
+
+  const aSCodeAndPoblacio = [
+    { title: CODE, name: "codi" },
+    { title: NOM, name: "poblacioMunicipiCodiTxt" },
+  ];
+
 
 
   const withRequiredValidation = (extraValidations = []) => {

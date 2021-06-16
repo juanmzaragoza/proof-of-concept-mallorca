@@ -9,7 +9,8 @@ import GeneralTab from "./GeneralTab";
 import ContactTab from "./ContactTab";
 import ContabilidadTab from "./ContabilidadTab";
 import FacturacionTab from "./FacturacionTab";
-import TipoClienteTab from "./TiposClienteTab";
+import FacturacionElectronicaTab from "./FacturacionElectronicaTab";
+import SubClienteTab from "./SubClienteTab";
 import AplicadoresTab from "./AplicadoresTab";
 import PersonalizacionTab from "./PersonalizacionTab";
 import ComercialTab from "./ComercialTab";
@@ -27,13 +28,14 @@ const GENERAL_TAB_INDEX = 0;
 const CONTACT_TAB_INDEX = 1;
 const CONTAB_TAB_INDEX = 2;
 const FACT_TAB_INDEX = 3;
-const CLIENTE_TAB_INDEX = 4;
-const PERSONAL_TAB_INDEX = 5;
-const COMERCIAL_TAB_INDEX = 7;
-const APLICADORES_TAB_INDEX = 8;
+const FACT_ELECT_TAB_INDEX = 4;
+const CLIENTE_TAB_INDEX = 5;
+const PERSONAL_TAB_INDEX = 6;
+const COMERCIAL_TAB_INDEX = 8;
+const APLICADORES_TAB_INDEX = 9;
 
 
-const ClientesForm = React.memo(({ actions, allFormData, getFormData, submitFromOutside, services, ...props }) => {
+const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromOutside, services, ...props }) => {
     const [editMode, setEditMode] = useState(false);
     const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
     const [tabIndexWithError, setTabIndexWithError] = useState({ [GENERAL_TAB_INDEX]: false, [CONTACT_TAB_INDEX]: false, [CONTAB_TAB_INDEX]: false, [FACT_TAB_INDEX]: false,[CLIENTE_TAB_INDEX]: false,[APLICADORES_TAB_INDEX]: false, [PERSONAL_TAB_INDEX]: false  });
@@ -123,12 +125,27 @@ const ClientesForm = React.memo(({ actions, allFormData, getFormData, submitFrom
                 loading={props.loading}
                 formDataLoaded={props.formDataLoaded} />
         },
+        {
+            label: <FormattedMessage id={"Clientes.tabs.facturacionElect"} defaultMessage={"Facturación Electrónica"} />,
+            key: FACT_ELECT_TAB_INDEX,
+            error: tabHasError(FACT_ELECT_TAB_INDEX),
+            component: <FacturacionElectronicaTab
+                setIsValid={(value) => setTabIndexWithError({ ...tabIndexWithError, [FACT_ELECT_TAB_INDEX]: !value })}
+                editMode={editMode}
+                getFormData={getFormData}
+                setFormData={actions.setFormData}
+                submitFromOutside={submitFromOutside}
+                onSubmitTab={handleSubmitTab}
+                formErrors={props.formErrors}
+                loading={props.loading}
+                formDataLoaded={props.formDataLoaded} />
+        },
     
         {
-            label: <FormattedMessage id={"Clientes.tipoCliente"} defaultMessage={"Tipo Cliente"} />,
+            label: <FormattedMessage id={"Clientes.SubClientes"} defaultMessage={"SubClientes"} />,
             key: CLIENTE_TAB_INDEX,
             error: tabHasError(CLIENTE_TAB_INDEX),
-            component: <TipoClienteTab
+            component: <SubClienteTab
                 setIsValid={(value) => setTabIndexWithError({ ...tabIndexWithError, [CLIENTE_TAB_INDEX]: !value })}
                 editMode={editMode}
                 getFormData={getFormData}
@@ -156,7 +173,7 @@ const ClientesForm = React.memo(({ actions, allFormData, getFormData, submitFrom
         },
         {
             label: <FormattedMessage id={"Proveedores.tabs.documentos"} defaultMessage={"Documentos"} />,
-            key: 6,
+            key: 7,
             component: "Documentos"
         },
         {
@@ -176,7 +193,7 @@ const ClientesForm = React.memo(({ actions, allFormData, getFormData, submitFrom
         },
         {
             label: <FormattedMessage id={"Clientes.aplicadores"} defaultMessage={"Aplicadores"} />,
-            key: 8,
+            key: APLICADORES_TAB_INDEX,
             error: tabHasError(APLICADORES_TAB_INDEX ),
             component: <AplicadoresTab
                 setIsValid={(value) => setTabIndexWithError({ ...tabIndexWithError, [APLICADORES_TAB_INDEX ]: !value })}
@@ -284,5 +301,5 @@ const component = compose(
     injectIntl,
     connect(mapStateToProps, mapDispatchToProps),
     withAbmServices
-)(ClientesForm);
+)(ClientsForm);
 export default component;

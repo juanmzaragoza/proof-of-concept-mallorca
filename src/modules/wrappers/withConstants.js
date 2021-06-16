@@ -138,7 +138,32 @@ const withConstants = (PassedComponent) => {
         title: props.intl.formatMessage({id: "PaisNif.titulo",defaultMessage: "Pais NIF"}),
         path: 'FAC_PAINIF', // or has path or has children but not both
         icon: <LocalMall />
+      },
+      {
+        key: 'FAC_OFIBAN', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "OficinasBancarias.titulo",defaultMessage: "Oficinas Bancarias"}),
+        path: 'FAC_OFIBAN', // or has path or has children but not both
+        icon: <LocalMall />
+      },
+      {
+        key: 'FAC_IVA', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "Iva.titulo",defaultMessage: "IVA"}),
+        path: 'FAC_IVA', // or has path or has children but not both
+        icon: <LocalMall />
+      },
+      {
+        key: 'FAC_REGIVA', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "RegimenIva.titulo",defaultMessage: "Régimen IVA"}),
+        path: 'FAC_REGIVA', // or has path or has children but not both
+        icon: <LocalMall />
       }
+      , {
+        key: 'FAC_CLARET', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "Retenciones.titulo",defaultMessage: "Clases retenciones"}),
+        path: 'FAC_CLARET', // or has path or has children but not both
+        icon: <LocalMall />
+      },
+   
     ];
 
     return <PassedComponent

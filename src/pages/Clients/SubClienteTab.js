@@ -7,7 +7,6 @@ import { Chip } from "@material-ui/core";
 import "../Suppliers/styles.scss";
 
 import OutlinedContainer from "modules/shared/OutlinedContainer";
-import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "../../modules/ExpandableGrid";
@@ -17,7 +16,7 @@ import { useTabForm } from "../../hooks/tab-form";
 
 
 
-const TiposClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
+const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: { 0: false, 1: false },
     setIsValid: props.setIsValid,
@@ -152,51 +151,6 @@ const TiposClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const { id: clientId } = useParams();
 
-  const tipoClientes = {
-    title: props.intl.formatMessage({
-      id: "Clientes.tipoCliente",
-      defaultMessage: "Tipo Cliente",
-    }),
-    query: [
-      {
-        columnName: "client.id",
-        value: `"${clientId}"`,
-        exact: true,
-      },
-    ],
-   
-    columns: [
-      {
-        name: "tipusProveidorClient",
-        title: props.intl.formatMessage({
-          id: "Clientes.tiposClientes",
-          defaultMessage: "Tipo Proveedor/Cliente",
-        }),
-        getCellValue: (row) => row.tipusProveidorClient?.description ?? "",
-      },
-    ],
-    formComponents: [
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.tiposClientes",
-          defaultMessage: "Tipo Proveedor/Cliente",
-        }),
-        type: "LOV",
-        key: "tipusClients",
-        required: false,
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        selector: {
-          key: "tipusClients",
-          labelKey: (data) => `${data.tipusProveidorClient.description}`,
-          sort: "description",
-          cannotCreate: true,
-        },
-      },
-    ],
-  };
 
   const subclientes = {
     title: props.intl.formatMessage({
@@ -337,25 +291,7 @@ const TiposClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
     ],
   };
 
-  const tabs = [
-    {
-      className: "general-tab-subtab",
-      label: (
-        <FormattedMessage
-          id={"Clientes.subClientes"}
-          defaultMessage={"Subclientes"}
-        />
-      ),
-      key: 0,
-      component: (
-        <ExpandableGrid
-          id="subClients"
-          enabled={props.editMode}
-          configuration={subclientes}
-        />
-      ),
-    },
-  ];
+
 
   return (
     <Grid container>
@@ -364,24 +300,20 @@ const TiposClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           className="general-tab-container"
           title={
             <FormattedMessage
-              id={"Clientes.tipoCliente"}
-              defaultMessage={"Tipo cliente"}
+              id={"Clientes.subClientes"}
+              defaultMessage={"Subclientes"}
             />
           }
         >
-          <ExpandableGrid
-            id="tipusClients"
-            enabled={props.editMode}
-            configuration={tipoClientes}
-          />
+         <ExpandableGrid
+          id="subClients"
+          enabled={props.editMode}
+          configuration={subclientes}
+        />
         </OutlinedContainer>
       </Grid>
-      <Grid xs={12} item>
-        <OutlinedContainer>
-          <ConfigurableTabs tabs={tabs} />
-        </OutlinedContainer>
-      </Grid>
+      
     </Grid>
   );
 };
-export default compose(React.memo, withValidations, injectIntl)(TiposClienteTab);
+export default compose(React.memo, withValidations, injectIntl)(SubClienteTab);

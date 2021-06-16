@@ -10,12 +10,12 @@ import Paper from "@material-ui/core/Paper";
 import * as API from "redux/api";
 import {setBreadcrumbHeader, setListingConfig} from "redux/pageHeader";
 import withHeaders from "modules/wrappers/withHeaders";
-import  ClientesList from "./ClientesList";
-import ClientesForm from "./ClientesForm";
+import  ClientsList from "./ClientsList";
+import ClientsForm from "./ClientsForm";
 
 const URL = '/clientes';
 
-// suppliers list
+
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
     setListingConfig: bindActionCreators(setListingConfig, dispatch),
@@ -24,22 +24,22 @@ const mapDispatchToProps = (dispatch, props) => {
   return { actions };
 };
 
-const ClientesListIntl = compose(
+const ClientsListIntl = compose(
   injectIntl,
   connect(null,mapDispatchToProps)
-)(ClientesList);
+)(ClientsList);
 
 // suppliers form
 // TODO(): maybe we can create a state for the page and set the url there
-const ClientesFormWithUrl = () => < ClientesForm url={API.clientes} />;
+const ClientsFormWithUrl = () => < ClientsForm url={API.clientes} />;
 
 
-const Clientes= () => (
+const Clients= () => (
   <Paper style={{ position: 'relative' }}>
     <Switch>
-      <Route exact path={`${URL}`} component={ ClientesListIntl}></Route>
-      <Route path={`${URL}/create`} component={ClientesFormWithUrl}></Route>
-      <Route path={`${URL}/:id`} component={ClientesFormWithUrl}></Route>
+      <Route exact path={`${URL}`} component={ ClientsListIntl}></Route>
+      <Route path={`${URL}/create`} component={ClientsFormWithUrl}></Route>
+      <Route path={`${URL}/:id`} component={ClientsFormWithUrl}></Route>
      
     </Switch>
   </Paper>
@@ -48,7 +48,7 @@ const Clientes= () => (
 export default {
   routeProps: {
     path: `${URL}`,
-    component: withHeaders(Clientes)
+    component: withHeaders(Clients)
   },
   name: 'FAC_CLIENT',
   icon: <PersonIcon/>

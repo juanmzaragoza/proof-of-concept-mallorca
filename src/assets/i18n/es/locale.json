@@ -354,7 +354,37 @@
   "PaisNif.tipusNif": "Tipus NIF",
   "PaisNif.tamanyNif": "Tamaño NIF",
   "Selector.Alfanumerico": "Alfanumérico",
-  "Selector.numerico": "Numérico"
+  "Selector.numerico": "Numérico",
+  "Clientes.tabs.facturacionElect": "Facturación electrónica",
+  "OficinasBancarias.titulo": "Oficinas Bancarias",
+  "OficinasBancarias.banco": "Banco",
+  "Comun.telefono": "Teléfono",
+  "Comun.contacto": "Contacto",
+  "Comun.codigoPostal": "Código Postal",
+  "Comun.observaciones": "Observaciones",
+  "Comun.fax": "Fax",
+  "Iva.porcentajeIva": "Porcentaje IVA",
+  "Iva.titulo": "IVA",
+  "Iva.texto": "Texto",
+  "Iva.porcentajeRecargo": "Rrecargo equivalencia",
+  "Iva.codigoCont": "Código contabilidad",
+  "Iva.codigoRecCont": "Código recargo contabilidad",
+  "RegimenIva.titulo": "Régimen IVA",
+  "RegimenIva.codigoFact": "Código factura electrónica",
+  "Clientes.SubClientes":"Subclientes",
+  "RegimenIva.tipoReg": "Tipo Régimen",
+  "Retenciones.titulo": "Clases retenciones",
+  "Retenciones.cuentaCompras": "Cuenta compras",
+  "Retenciones.cuentaVentas": "Cuenta ventas",
+  "Retenciones.tipoContab": "Tipo contabilización",
+  "Selector.contabilizar": "Contabilizar",
+  "Selector.soloVencimento": "Solo vencimiento",
+  "Selector.contabilizarMasVEnc": "Contabilizar más vencimiento",
+  "Retenciones.tipo1": "Tipo 1",
+  "Retenciones.tipo2": "Tipo 2",
+  "Retenciones.tipo3": "Tipo 3"
+
+  
   
 
 

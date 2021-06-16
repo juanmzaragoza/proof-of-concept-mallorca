@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
-import { Chip } from "@material-ui/core";
+
 
 import "../Suppliers/styles.scss";
 
@@ -11,7 +11,6 @@ import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
-import ExpandableGrid from "../../modules/ExpandableGrid";
 import {
   TIPO_FACTURA_SELECTOR_VALUES,
   TIPO_ENVIO_FACT_SELECTOR_VALUES,
@@ -26,15 +25,14 @@ const EMPRESA_SECTION_INDEX = 0;
 const ADDRESS_SECTION_TAB_INDEX = 1;
 const DESCUENTOS_SECTION_TAB_INDEX = 2;
 const FACT2_SECTION_TAB_INDEX = 3;
-const FACT_ELECT_SECTION_TAB_INDEX = 4;
 
-const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
+const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: { 0: false, 1: false },
     setIsValid: props.setIsValid,
   });
 
-  const { id: clientId } = useParams();
+
 
 
   const getString = (key) => (getFormData(key) ? getFormData(key) : "");
@@ -833,168 +831,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
   ];
 
-  const factElectronicaConfig = [
-
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Contacto.contacto",
-        defaultMessage: "Contacto",
-      }),
-      type: "input",
-      key: "contacteFacturaElectronica",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Contacto.telefono",
-        defaultMessage: "Teléfono",
-      }),
-      type: "input",
-      key: "telefonFacturaElectronica",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Contacto.email",
-        defaultMessage: "E-mail",
-      }),
-      type: "input",
-      key: "emailFacturaElectronica",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-    },
-  ];
-
-  const oficinaContable = [
-
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Empresas.codigo",
-        defaultMessage: "Código",
-      }),
-      type: "input",
-      key: "oficinaComptable",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.codigoPostal",
-        defaultMessage: "Código postal",
-      }),
-      type: "input",
-      key: "codiPostalOficinaComptableCodi",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.domicilio",
-        defaultMessage: "Domicilio",
-      }),
-      type: "input",
-      key: "domiciliOficinaComptable",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-    },
-  ];
-
-  const organoGestor = [
-
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Empresas.codigo",
-        defaultMessage: "Código",
-      }),
-      type: "input",
-      key: "organGestor",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.codigoPostal",
-        defaultMessage: "Código postal",
-      }),
-      type: "input",
-      key: "codiPostalOrganGestorCodi",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.domicilio",
-        defaultMessage: "Domicilio",
-      }),
-      type: "input",
-      key: "domiciliOrganGestor",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-    },
-  ];
-
-
-  const unidadTramitadora = [
-
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Empresas.codigo",
-        defaultMessage: "Código",
-      }),
-      type: "input",
-      key: "unitatTramitadora",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.codigoPostal",
-        defaultMessage: "Código postal",
-      }),
-      type: "input",
-      key: "codiPostalUnitatTramitadoraCodi",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.domicilio",
-        defaultMessage: "Domicilio",
-      }),
-      type: "input",
-      key: "domiciliUnitatTramitadora",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-    },
-  ];
-
-
+  
 
   const tabs = [
     {
@@ -1073,105 +910,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         />
       ),
     },
-    {
-      className: "general-tab-subtab",
-      label: (
-        <FormattedMessage
-          id={"Clientes.facturacionElect"}
-          defaultMessage={"Facturación electrónica"}
-        />
-      ),
-      key: 3,
-      component: (
-        <>
-        <GenericForm
-          formComponents={factElectronicaConfig}
-          emptyPaper={true}
-          setFormData={setFormData}
-          getFormData={getFormData}
-          loading={props.loading}
-          formErrors={props.formErrors}
-          submitFromOutside={props.submitFromOutside}
-          onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) => addValidity(FACT_ELECT_SECTION_TAB_INDEX, value)}
-          onBlur={(e) => handleTouched(FACT_ELECT_SECTION_TAB_INDEX)}
-          {...props}
-        />
-        <OutlinedContainer
-          className="general-tab-container"
-          title={
-            <FormattedMessage
-              id={"Clientes.fact.ofiContable"}
-              defaultMessage={"Ofinica Contable"}
-            />
-          }
-        >
-          <GenericForm
-            formComponents={oficinaContable}
-            emptyPaper={true}
-            editMode={props.editMode}
-            getFormData={getFormData}
-            setFormData={setFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(FACT_ELECT_SECTION_TAB_INDEX, value)}
-            onBlur={(e) => handleTouched(FACT_ELECT_SECTION_TAB_INDEX)}
-            {...props}
-          />
-        </OutlinedContainer>
-        <OutlinedContainer
-          className="general-tab-container"
-          title={
-            <FormattedMessage
-              id={"Clientes.fact.orgGestor"}
-              defaultMessage={"Órgano Gestor"}
-            />
-          }
-        >
-          <GenericForm
-            formComponents={organoGestor}
-            emptyPaper={true}
-            editMode={props.editMode}
-            getFormData={getFormData}
-            setFormData={setFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(FACT_ELECT_SECTION_TAB_INDEX, value)}
-            onBlur={(e) => handleTouched(FACT_ELECT_SECTION_TAB_INDEX)}
-            {...props}
-          />
-        </OutlinedContainer>
-        <OutlinedContainer
-          className="general-tab-container"
-          title={
-            <FormattedMessage
-              id={"Clientes.fact.unidadTramitadora"}
-              defaultMessage={"Unidad Tramitadora"}
-            />
-          }
-        >
-          <GenericForm
-            formComponents={unidadTramitadora}
-            emptyPaper={true}
-            editMode={props.editMode}
-            getFormData={getFormData}
-            setFormData={setFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(FACT_ELECT_SECTION_TAB_INDEX, value)}
-            onBlur={(e) => handleTouched(FACT_ELECT_SECTION_TAB_INDEX)}
-            {...props}
-          />
-        </OutlinedContainer>
-        </>
-      ),
-    },
+    
   ];
   
   return (
@@ -1210,4 +949,4 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     </Grid>
   );
 };
-export default compose(React.memo, withValidations, injectIntl)(GeneralTab);
+export default compose(React.memo, withValidations, injectIntl)(FacturacionTab);

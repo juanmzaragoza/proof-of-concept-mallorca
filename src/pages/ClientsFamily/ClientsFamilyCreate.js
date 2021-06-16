@@ -55,7 +55,7 @@ const ClientsFamilyCreate = (props) => {
   const createConfiguration = [
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.codigo",
+        id: "Comun.codigo",
         defaultMessage: "Código",
       }),
       type: "input",
@@ -74,7 +74,7 @@ const ClientsFamilyCreate = (props) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.nombre",
+        id: "Comun.nombre",
         defaultMessage: "Nombre",
       }),
       type: "input",

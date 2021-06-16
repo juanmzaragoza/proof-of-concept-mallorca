@@ -797,6 +797,54 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   }
 
 
+  const tipoClientes = {
+    title: props.intl.formatMessage({
+      id: "Clientes.tipoCliente",
+      defaultMessage: "Tipo Cliente",
+    }),
+    query: [
+      {
+        columnName: "client.id",
+        value: `"${clientId}"`,
+        exact: true,
+      },
+    ],
+   
+    columns: [
+      {
+        name: "tipusProveidorClient",
+        title: props.intl.formatMessage({
+          id: "Clientes.tiposClientes",
+          defaultMessage: "Tipo Proveedor/Cliente",
+        }),
+        getCellValue: (row) => row.tipusProveidorClient?.description ?? "",
+      },
+    ],
+    formComponents: [
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Clientes.tiposClientes",
+          defaultMessage: "Tipo Proveedor/Cliente",
+        }),
+        type: "LOV",
+        key: "tipusClients",
+        required: false,
+        breakpoints: {
+          xs: 12,
+          md: 4,
+        },
+        selector: {
+          key: "tipusClients",
+          labelKey: (data) => `${data.tipusProveidorClient.description}`,
+          sort: "description",
+          cannotCreate: true,
+        },
+      },
+    ],
+  };
+
+
+
   const tabs = [
     {
       className: "general-tab-subtab",
@@ -822,6 +870,15 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         enabled={props.editMode}
         configuration={clienteDireccionesComerciales} />
     },
+    {
+      label: <FormattedMessage id={"Clientes.tipoCliente"} defaultMessage={"Tipo Cliente"} />,
+      key: 2,
+      component: <ExpandableGrid
+        id='tipusClient'
+        enabled={props.editMode}
+        configuration={tipoClientes} />
+    },
+
 
   ];
 
