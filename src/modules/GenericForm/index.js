@@ -275,29 +275,25 @@ const GenericForm = ({loading, ...props}) => {
             />
           );
         case "switch":
-        return (
-          <FormControlLabel
-            control={
-              <Switch
-                checked={
-                  props.getFormData && props.getFormData(key) === "S"
-                    ? props.getFormData(key)
-                    : false
-                }
-                onChange={(e) =>
-                  props.setFormData({
-                    key,
-                    value: e.currentTarget.checked ? "S" : "N",
-                  })
-                }
-                name={key}
-                disabled={noEnable}
-                color="primary"
-              />
-            }
-            label={placeHolder}
-          />
-        );
+          return (
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={props.getFormData && props.getFormData(key) === "S"}
+                  onChange={(e) =>
+                    props.setFormData({
+                      key,
+                      value: e.currentTarget.checked ? "S" : "N",
+                    })
+                  }
+                  name={key}
+                  disabled={noEnable}
+                  color="primary"
+                />
+              }
+              label={placeHolder}
+            />
+          );
   
       default:
         return;
