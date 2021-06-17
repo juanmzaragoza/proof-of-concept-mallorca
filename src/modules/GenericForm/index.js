@@ -13,8 +13,10 @@ import {
   Paper,
   Radio,
   RadioGroup,
-  TextField
+  TextField,
+  Switch,
 } from '@material-ui/core';
+import {KeyboardDatePicker} from "@material-ui/pickers";
 import FormControl from "@material-ui/core/FormControl";
 
 import LOVAutocomplete from "./LOVAutocomplete";
@@ -37,7 +39,10 @@ const GenericForm = ({loading, ...props}) => {
     'radio': "",
     'LOV': null,
     'observations': "",
-    'numeric': 0.0
+    'numeric': 0.0,
+    'date': "",
+    'switch': "",
+
   }
 
   /** Init to avoid uncontrolled inputs */
@@ -245,6 +250,51 @@ const GenericForm = ({loading, ...props}) => {
               formik.setFieldValue(key,v);
             }} />
         );
+        case 'date':
+          return (
+            <KeyboardDatePicker
+              id={key}
+              label={placeHolder}
+              placeholder={"dd/mm/yyyy"}
+              required={Boolean(required)}
+              disableToolbar
+              variant={variant ? variant : 'inline'}
+              format="MM/DD/yyyy"
+              value={props.getFormData && props.getFormData(key)? props.getFormData(key) : null}
+              onChange={(e, v) => {
+                handleChange(e, e && e.toDate());
+                formik.setFieldValue(key,e && e.toDate());
+              }}
+              KeyboardButtonProps={{
+                'aria-label': 'change date',
+              }}
+              error={hasError(key, formik)}
+              helperText={getMessageError(key, formik)}
+              onBlur={handleBlur}
+              disabled={noEnable}
+            />
+          );
+        case "switch":
+          return (
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={props.getFormData && props.getFormData(key) === "S"}
+                  onChange={(e) =>
+                    props.setFormData({
+                      key,
+                      value: e.currentTarget.checked ? "S" : "N",
+                    })
+                  }
+                  name={key}
+                  disabled={noEnable}
+                  color="primary"
+                />
+              }
+              label={placeHolder}
+            />
+          );
+  
       default:
         return;
     }
@@ -340,7 +390,7 @@ const GenericForm = ({loading, ...props}) => {
 GenericForm.propTypes = {
   containerSpacing: PropTypes.number,
   formComponents: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV','observations','numeric']),
+    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV','observations','numeric','date','switch']),
     variant: PropTypes.oneOf(['filled','outlined','standard']),
     placeHolder: PropTypes.string,
     required: PropTypes.bool,
