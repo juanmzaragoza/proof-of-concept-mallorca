@@ -229,3 +229,36 @@ export const TIPO_DESCUENTO_SELECTOR_VALUES = [
 ];
 
 
+export const TIPO_NIF_SELECTOR_VALUES = [
+  {
+    value: "NUMERIC",
+    labelId: "Selector.numerico",
+    label: "Numérico",
+  },
+  {
+    value: "ALFANUMERIC",
+    labelId: "Selector.Alfanumerico",
+    label: "AlfaNumérico",
+  },
+];
+
+export const TIPO_CONTABILIZACION_SELECTOR_VALUES = [
+  {
+    value: "COMPTABILITZAR",
+    labelId: "Selector.contabilizar",
+    label: "Contabilizar",
+  },
+  {
+    value: "NOMES_VENCIMENT",
+    labelId: "Selector.soloVencimento",
+    label: "Solo vencimiento",
+  },
+  {
+    value: "COMPTABILITZAR_MES_VENCIMENT",
+    labelId: "Selector.contabilizarMasVEnc",
+    label: "Contabilizar más vencimiento",
+  }
+];
+
+
+

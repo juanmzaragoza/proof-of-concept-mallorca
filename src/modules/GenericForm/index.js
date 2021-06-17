@@ -16,6 +16,7 @@ import {
   TextField,
   Switch,
 } from '@material-ui/core';
+import {KeyboardDatePicker} from "@material-ui/pickers";
 import FormControl from "@material-ui/core/FormControl";
 
 import LOVAutocomplete from "./LOVAutocomplete";
@@ -118,19 +119,6 @@ const GenericForm = ({loading, ...props}) => {
       handleIsValid(formik);
       props.onBlur && props.onBlur(e);
     }
-
-    const date = (data) =>{
-
-      var any = new Date(data).getFullYear();
-      var mes = new Date(data).getMonth();
-      var dia = new Date(data).getDate();
-  
-      mes = ('00' + mes).slice(-2);
-      dia = ('00' + dia).slice(-2);
-  
-      return any + "-" + mes + "-" + dia;
-      
-      };
 
     switch(type) {
       case 'input':
@@ -263,23 +251,24 @@ const GenericForm = ({loading, ...props}) => {
               formik.setFieldValue(key,v);
             }} />
         );
-        case "date":
+        case 'date':
           return (
-            <TextField
+            <KeyboardDatePicker
               id={key}
               label={placeHolder}
+              placeholder={"dd/mm/yyyy"}
               required={Boolean(required)}
-              type={"date"}
-              InputLabelProps={{
-                shrink: true,
+              disableToolbar
+              variant={variant ? variant : 'inline'}
+              format="MM/DD/yyyy"
+              value={props.getFormData && props.getFormData(key)? props.getFormData(key) : null}
+              onChange={(e, v) => {
+                handleChange(e, e && e.toDate());
+                formik.setFieldValue(key,e && e.toDate());
               }}
-              onChange={(e, v, r) => {
-                handleChange(e, e.currentTarget.value);
-                formik.handleChange(e);
+              KeyboardButtonProps={{
+                'aria-label': 'change date',
               }}
-              defaultValue={    
-                date(props.getFormData(key))
-              }
               error={hasError(key, formik)}
               helperText={getMessageError(key, formik)}
               onBlur={handleBlur}
@@ -287,29 +276,25 @@ const GenericForm = ({loading, ...props}) => {
             />
           );
         case "switch":
-        return (
-          <FormControlLabel
-            control={
-              <Switch
-                checked={
-                  props.getFormData && props.getFormData(key) === "S"
-                    ? props.getFormData(key)
-                    : false
-                }
-                onChange={(e) =>
-                  props.setFormData({
-                    key,
-                    value: e.currentTarget.checked ? "S" : "N",
-                  })
-                }
-                name={key}
-                disabled={noEnable}
-                color="primary"
-              />
-            }
-            label={placeHolder}
-          />
-        );
+          return (
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={props.getFormData && props.getFormData(key) === "S"}
+                  onChange={(e) =>
+                    props.setFormData({
+                      key,
+                      value: e.currentTarget.checked ? "S" : "N",
+                    })
+                  }
+                  name={key}
+                  disabled={noEnable}
+                  color="primary"
+                />
+              }
+              label={placeHolder}
+            />
+          );
   
       default:
         return;

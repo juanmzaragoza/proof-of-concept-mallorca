@@ -224,7 +224,7 @@
   "Clientes.re.expedida": "Régimen especial fact expedida",
   "Clientes.retenciones": "Retenciones",
   "Clientes.tipoRetención": "Tipo retención",
-  "Clientes.porcentaje.retencion": "Porcentaj de facturae retención",
+  "Clientes.porcentaje.retencion": "Porcentaje de facturas retención",
   "Clientes.recargo.equivalencia": "Recargo equivalencia",
   "Selector.baseIva": "Sobre base IVA",
   "Selector.baseImponible": "Sobre base imponible",
@@ -324,6 +324,68 @@
   "Clientes.comercial": "Comercial",
   "Empresas.nif": "NIF",
   "Empresas.codigo" : "Código",
-  "Comun.domicilio": "Domicilio"
+  "Comun.domicilio": "Domicilio",
+
+  "FamiliaClientes.titulo": "Familia Cliente",
+  "FamiliaClientes.cuentaVentas": "Cuenta ventas contabilidad",
+  "FamiliaClientes.tipoRiesgo": "Tipo riesgo",
+  "FamiliaClientes.tarifaDescuento": "Tarifa descuento",
+  "Organizacion.titulo": "Organización",
+  "Organizacion.domicilio": "Domicilio",
+  "Organizacion.telefono": "Teléfono",
+  "Organizacion.dirWeb": "Dirección Web",
+  "Organizacion.fax": "Fax",
+
+
+  "Zona.titulo": "Zona",
+  "Zona.precio": "Precio",
+  "Zona.radioKm": "Radio km",
+  "Zona.descripcion": "Descripción",
+  "Divisa.titulo": "Divisa",
+  "Divisa.abreviatura": "Abreviatura",
+  "Divisa.valorEuros": "Valor euros",
+  "Divisa.decimalesPrecio": "Decimales Precio",
+  "Divisa.decimalesImporte": "Decimales Importe",
+  "Divisa.codigoContab": "Código contabilidad",
+  "Divisa.myField": "My field",
+
+
+  "PaisNif.titulo": "País NIF",
+  "PaisNif.tipusNif": "Tipus NIF",
+  "PaisNif.tamanyNif": "Tamaño NIF",
+  "Selector.Alfanumerico": "Alfanumérico",
+  "Selector.numerico": "Numérico",
+  "Clientes.tabs.facturacionElect": "Facturación electrónica",
+  "OficinasBancarias.titulo": "Oficinas Bancarias",
+  "OficinasBancarias.banco": "Banco",
+  "Comun.telefono": "Teléfono",
+  "Comun.contacto": "Contacto",
+  "Comun.codigoPostal": "Código Postal",
+  "Comun.observaciones": "Observaciones",
+  "Comun.fax": "Fax",
+  "Iva.porcentajeIva": "Porcentaje IVA",
+  "Iva.titulo": "IVA",
+  "Iva.texto": "Texto",
+  "Iva.porcentajeRecargo": "Rrecargo equivalencia",
+  "Iva.codigoCont": "Código contabilidad",
+  "Iva.codigoRecCont": "Código recargo contabilidad",
+  "RegimenIva.titulo": "Régimen IVA",
+  "RegimenIva.codigoFact": "Código factura electrónica",
+  "Clientes.SubClientes":"Subclientes",
+  "RegimenIva.tipoReg": "Tipo Régimen",
+  "Retenciones.titulo": "Clases retenciones",
+  "Retenciones.cuentaCompras": "Cuenta compras",
+  "Retenciones.cuentaVentas": "Cuenta ventas",
+  "Retenciones.tipoContab": "Tipo contabilización",
+  "Selector.contabilizar": "Contabilizar",
+  "Selector.soloVencimento": "Solo vencimiento",
+  "Selector.contabilizarMasVEnc": "Contabilizar más vencimiento",
+  "Retenciones.tipo1": "Tipo 1",
+  "Retenciones.tipo2": "Tipo 2",
+  "Retenciones.tipo3": "Tipo 3"
+
+  
+  
+
 
 }

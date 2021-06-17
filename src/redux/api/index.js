@@ -45,9 +45,12 @@ export const tarifaDescompte= `api/fact/tarifesDescompte`;
 export const tarifaDescompte2 = `api/fact/tarifesDescompte`;
 export const adresaComercialClient = `api/fact/clientsAdresa`;
 export const tipusComissio = `api/fact/tipusComissions`;
-
 export const tipusClient = `api/fact/tipusClients`;
 export const tipusClients = `api/fact/tipusClients`;
-
 export const subClients = `api/fact/subClients`;
 export const aplicadorClients = `api/fact/aplicadorsClient`;
+export const tipusRisc = `api/fact/tipusRiscos`;
+
+export const projectes = `api/fact/projectes`;
+export const projecteTipus= `api/fact/projectesTipus`;
+export const client = `api/fact/clients`;

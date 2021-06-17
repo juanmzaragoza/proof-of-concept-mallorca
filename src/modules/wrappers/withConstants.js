@@ -109,6 +109,61 @@ const withConstants = (PassedComponent) => {
         path: 'FAC_CLIENT', // or has path or has children but not both
         icon: <LocalMall />
       },
+      {
+        key: 'FAC_FAMCLI', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "FamiliaClientes.titulo",defaultMessage: "Familia Clientes"}),
+        path: 'FAC_FAMCLI', // or has path or has children but not both
+        icon: <LocalMall />
+      },
+      {
+        key: 'FAC_ORG', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "Organizacion.titulo",defaultMessage: "Organizacion"}),
+        path: 'FAC_ORG', // or has path or has children but not both
+        icon: <LocalMall />
+      },
+      {
+        key: 'FAC_ZONA', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "Zona.titulo",defaultMessage: "Zona"}),
+        path: 'FAC_ZONA', // or has path or has children but not both
+        icon: <LocalMall />
+      },
+      {
+        key: 'FAC_DIVISA', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "Divisa.titulo",defaultMessage: "Divisa"}),
+        path: 'FAC_DIVISA', // or has path or has children but not both
+        icon: <LocalMall />
+      },
+      {
+        key: 'FAC_PAINIF', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "PaisNif.titulo",defaultMessage: "Pais NIF"}),
+        path: 'FAC_PAINIF', // or has path or has children but not both
+        icon: <LocalMall />
+      },
+      {
+        key: 'FAC_OFIBAN', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "OficinasBancarias.titulo",defaultMessage: "Oficinas Bancarias"}),
+        path: 'FAC_OFIBAN', // or has path or has children but not both
+        icon: <LocalMall />
+      },
+      {
+        key: 'FAC_IVA', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "Iva.titulo",defaultMessage: "IVA"}),
+        path: 'FAC_IVA', // or has path or has children but not both
+        icon: <LocalMall />
+      },
+      {
+        key: 'FAC_REGIVA', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "RegimenIva.titulo",defaultMessage: "Régimen IVA"}),
+        path: 'FAC_REGIVA', // or has path or has children but not both
+        icon: <LocalMall />
+      }
+      , {
+        key: 'FAC_CLARET', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "Retenciones.titulo",defaultMessage: "Clases retenciones"}),
+        path: 'FAC_CLARET', // or has path or has children but not both
+        icon: <LocalMall />
+      },
+   
     ];
 
     return <PassedComponent
