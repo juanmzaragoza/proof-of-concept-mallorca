@@ -1,11 +1,11 @@
-import CreateUpdateForm from "../../modules/ReactGrid/CreateUpdateForm";
-import { injectIntl } from "react-intl";
 import React from "react";
+import { injectIntl } from "react-intl";
 import { compose } from "redux";
-import { withValidations } from "../../modules/wrappers";
+
+import CreateUpdateForm from "modules/ReactGrid/CreateUpdateForm";
+import { withValidations } from "modules/wrappers";
 import * as API from "redux/api";
 import { TIPO_REG_IVA_SELECTOR_VALUES } from "constants/selectors";
-
 
 const RegimeVatCreate = (props) => {
 
@@ -124,8 +124,6 @@ const RegimeVatCreate = (props) => {
         validationType: "string",
         validations: [...props.stringValidations.minMaxValidation(1, 2)],
       },
-     
-
   ];
   return (
     <CreateUpdateForm
