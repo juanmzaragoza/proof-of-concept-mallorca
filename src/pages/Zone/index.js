@@ -3,9 +3,10 @@ import { Route, Switch } from "react-router-dom";
 
 import Paper from "@material-ui/core/Paper";
 import LocationSearchingIcon from '@material-ui/icons/LocationSearching';
+
 import ZoneList from "./ZoneList";
 import ZoneCreate from "./ZoneCreate";
-import withHeaders from "../../modules/wrappers/withHeaders";
+import withHeaders from "modules/wrappers/withHeaders";
 
 const URL = "/zona";
 
