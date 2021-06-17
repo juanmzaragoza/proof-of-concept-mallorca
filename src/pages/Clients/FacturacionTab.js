@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
 
@@ -32,46 +31,10 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
     setIsValid: props.setIsValid,
   });
 
-
-
-
-  const getString = (key) => (getFormData(key) ? getFormData(key) : "");
-  useEffect(() => {
-    const dir =
-      getString("sg") +
-      " " +
-      getString("nomDomicili") +
-      " " +
-      getString("numeroDomicili") +
-      " " +
-      getString("escala") +
-      " " +
-      getString("pis") +
-      " " +
-      getString("porta");
-    setFormData({ key: "domicili", value: dir });
-  }, [
-    getFormData("sg"),
-    getFormData("nomDomicili"),
-    getFormData("numeroDomicili"),
-    getFormData("escala"),
-    getFormData("pis"),
-    getFormData("porta"),
-  ]);
-
-  useEffect(() => {
-    const codiPostal = getString("codiPostal");
-    setFormData({
-      key: "poblacio",
-      value: codiPostal ? codiPostal.poblacio : "",
-    });
-  }, [getFormData("codiPostal")]);
-
   const DESCRIPCIO = props.intl.formatMessage({id: "Comun.descripcion", defaultMessage: "Descripción"});
   const CODE = props.intl.formatMessage({id: "Comun.codigo", defaultMessage: "Código"});
   const NOM = props.intl.formatMessage({id: "Comun.nombre", defaultMessage: "Nombre"});
   const DOMICILI = props.intl.formatMessage({id: "Proveedores.Direccion.domicilio", defaultMessage: "Domicilio"});
-
 
 
   const aSCodeAndDescription = [{title: CODE, name: 'codi'},{title: DESCRIPCIO, name: 'descripcio'}];

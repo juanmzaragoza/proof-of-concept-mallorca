@@ -161,11 +161,6 @@ const BankOfficeCreate = (props) => {
 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
 
-  const aSCodeAndDescription = [
-    { title: CODE, name: "codi" },
-    { title: DESCRIPCIO, name: "descripcio" },
-  ];
-
   const aSCodeAndName = [
     { title: CODE, name: "codi" },
     { title: NOM, name: "nom" },

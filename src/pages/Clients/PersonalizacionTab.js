@@ -6,7 +6,6 @@ import { FormattedMessage, injectIntl } from "react-intl";
 import GenericForm from "../../modules/GenericForm";
 import { withValidations } from "modules/wrappers";
 import { useTabForm } from "../../hooks/tab-form";
-import { useParams } from "react-router-dom";
 
 const PERSONAL_SECTION_INDEX = 0;
 

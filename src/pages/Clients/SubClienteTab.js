@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
+import { compose } from "redux";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
 import { Chip } from "@material-ui/core";
@@ -7,20 +8,10 @@ import { Chip } from "@material-ui/core";
 import "../Suppliers/styles.scss";
 
 import OutlinedContainer from "modules/shared/OutlinedContainer";
-import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "../../modules/ExpandableGrid";
 
-
-import { useTabForm } from "../../hooks/tab-form";
-
-
-
 const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
-  const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false, 1: false },
-    setIsValid: props.setIsValid,
-  });
 
   const withRequiredValidation = (extraValidations = []) => {
     return {
@@ -152,7 +143,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
   const { id: clientId } = useParams();
 
 
-  const subclientes = {
+  const subClient = {
     title: props.intl.formatMessage({
       id: "Clientes.subClientes",
       defaultMessage: "Subclientes",
@@ -308,7 +299,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
          <ExpandableGrid
           id="subClients"
           enabled={props.editMode}
-          configuration={subclientes}
+          configuration={subClient}
         />
         </OutlinedContainer>
       </Grid>

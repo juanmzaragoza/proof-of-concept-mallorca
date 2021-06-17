@@ -20,7 +20,6 @@ import {
 import { useTabForm } from "../../hooks/tab-form";
 
 const EMPRESA_SECTION_INDEX = 0;
-const ADDRESS_SECTION_TAB_INDEX = 1;
 
 const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({

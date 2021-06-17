@@ -13,7 +13,6 @@ import { TIPO_MENSAJE_SELECTOR_VALUES } from "constants/selectors";
 
 
 const CLIENTE_SECTION_INDEX = 0;
-const DEP_SECTION_TAB_INDEX = 1;
 
 const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [
