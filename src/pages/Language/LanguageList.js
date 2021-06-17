@@ -1,9 +1,11 @@
 import React, {useEffect} from "react";
-import ReactGrid from "../../modules/ReactGrid";
-import {bindActionCreators,compose} from "redux";
-import {setBreadcrumbHeader, setListingConfig} from "../../redux/pageHeader";
 import {injectIntl} from "react-intl";
 import {connect} from "react-redux";
+import {bindActionCreators,compose} from "redux";
+
+import ReactGrid from "modules/ReactGrid";
+import {setBreadcrumbHeader, setListingConfig} from "redux/pageHeader";
+import * as API from "redux/api";
 
 const LanguageList = ({ actions, ...props }) => {
 
@@ -37,7 +39,7 @@ const LanguageList = ({ actions, ...props }) => {
         })
       },
     ],
-    URL: 'api/fact/idiomes',
+    URL: API.idioma,
     listKey: 'idiomas'
   };
   return (

@@ -1,10 +1,10 @@
-import CreateUpdateForm from "../../modules/ReactGrid/CreateUpdateForm";
-
-import {injectIntl} from "react-intl";
 import React from "react";
 import {compose} from "redux";
-import { withValidations } from "../../modules/wrappers";
+import {injectIntl} from "react-intl";
 
+import CreateUpdateForm from "modules/ReactGrid/CreateUpdateForm";
+import { withValidations } from "modules/wrappers";
+import * as API from "redux/api";
 
 const LanguageCreate = (props) => {
   const createConfiguration = [
@@ -70,7 +70,7 @@ const LanguageCreate = (props) => {
                         defaultMessage: "Idiomas"
                       })}
                       formConfiguration={createConfiguration}
-                      url={'api/fact/idiomes'} />
+                      url={API.idioma} />
   )
 };
 

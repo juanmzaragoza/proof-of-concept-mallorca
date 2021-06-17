@@ -6,7 +6,7 @@ import {Language} from "@material-ui/icons";
 
 import LanguageList from "./LanguageList";
 import LanguageCreate from "./LanguageCreate";
-import withHeaders from "../../modules/wrappers/withHeaders";
+import withHeaders from "modules/wrappers/withHeaders";
 
 const URL = '/idiomes';
 
