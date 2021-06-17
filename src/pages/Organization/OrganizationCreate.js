@@ -7,18 +7,15 @@ import * as API from "redux/api";
 
 const OrganizationCreate = (props) => {
 
-    const CODE = props.intl.formatMessage({
-        id: "Comun.codigo",
-        defaultMessage: "Código",
-      });
-      const NOM = props.intl.formatMessage({
-        id: "Comun.nombre",
-        defaultMessage: "Nombre",
-      });
-      const DESCRIPCIO = props.intl.formatMessage({
-        id: "Comun.descripcion",
-        defaultMessage: "Descripción",
-      });
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
+  const NOM = props.intl.formatMessage({
+    id: "Comun.nombre",
+    defaultMessage: "Nombre",
+  });
+
   const code = (md = 6) => ({
     type: "input",
     key: "codi",

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ReactGrid from "../../modules/ReactGrid";
 import { bindActionCreators, compose } from "redux";
-import { setBreadcrumbHeader, setListingConfig } from "../../redux/pageHeader";
+import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import * as API from "redux/api";
