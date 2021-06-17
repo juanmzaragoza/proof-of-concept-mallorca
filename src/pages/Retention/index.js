@@ -2,12 +2,12 @@ import React from 'react';
 import {Route, Switch} from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
 import AdjustIcon from '@material-ui/icons/Adjust';
+
 import RetentionList from "./RetentionList";
 import RetentionCreate from "./RetentionCreate";
-import withHeaders from "../../modules/wrappers/withHeaders";
+import withHeaders from "modules/wrappers/withHeaders";
+
 const URL = '/retenciones';
-
-
 
 const Retention = () => (
   <Paper style={{ position: 'relative' }}>

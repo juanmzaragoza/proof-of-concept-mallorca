@@ -1,11 +1,11 @@
-import CreateUpdateForm from "../../modules/ReactGrid/CreateUpdateForm";
 import { injectIntl } from "react-intl";
 import React from "react";
 import { compose } from "redux";
-import { withValidations } from "../../modules/wrappers";
+
+import CreateUpdateForm from "modules/ReactGrid/CreateUpdateForm";
+import { withValidations } from "modules/wrappers";
 import * as API from "redux/api";
 import { TIPO_CONTABILIZACION_SELECTOR_VALUES } from "constants/selectors";
-
 
 const RegimeVatCreate = (props) => {
 
