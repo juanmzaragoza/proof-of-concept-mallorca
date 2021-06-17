@@ -1,10 +1,10 @@
-import CreateUpdateForm from "../../modules/ReactGrid/CreateUpdateForm";
-import { injectIntl } from "react-intl";
 import React from "react";
+import { injectIntl } from "react-intl";
 import { compose } from "redux";
+
+import CreateUpdateForm from "../../modules/ReactGrid/CreateUpdateForm";
 import { withValidations } from "../../modules/wrappers/index";
-
-
+import * as API from "../../redux/api";
 
 const CountryCreate = (props) => {
   const createConfiguration = [
@@ -118,7 +118,7 @@ const CountryCreate = (props) => {
       defaultMessage: "Paisos"
     })}
       formConfiguration={createConfiguration}
-      url={'api/fact/paisos'} />
+      url={API.pais} />
 
       
 

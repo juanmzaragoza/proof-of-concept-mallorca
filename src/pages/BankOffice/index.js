@@ -8,8 +8,6 @@ import BankOfficeCreate from "./BankOfficeCreate";
 import withHeaders from "../../modules/wrappers/withHeaders";
 const URL = '/oficina-bancaria';
 
-
-
 const bankOffice = () => (
   <Paper style={{ position: 'relative' }}>
     <Switch>

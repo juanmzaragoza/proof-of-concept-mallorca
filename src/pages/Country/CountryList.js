@@ -1,9 +1,11 @@
 import React, {useEffect} from "react";
+import {injectIntl} from "react-intl";
+import {connect} from "react-redux";
+
 import ReactGrid from "../../modules/ReactGrid";
 import {bindActionCreators,compose} from "redux";
 import {setBreadcrumbHeader, setListingConfig} from "../../redux/pageHeader";
-import {injectIntl} from "react-intl";
-import {connect} from "react-redux";
+import * as API from "../../redux/api";
 
 const CountryList = ({ actions, ...props }) => {
 
@@ -37,7 +39,7 @@ const CountryList = ({ actions, ...props }) => {
         })
       },
     ],
-    URL: 'api/fact/paisos',
+    URL: API.pais,
     listKey: 'paises'
   };
   return (

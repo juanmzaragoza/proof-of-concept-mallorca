@@ -10,10 +10,6 @@ const BankOfficeCreate = (props) => {
     id: "Comun.codigo",
     defaultMessage: "Código",
   });
-  const DESCRIPCIO = props.intl.formatMessage({
-    id: "Comun.descripcion",
-    defaultMessage: "Descripción",
-  });
   const NOM = props.intl.formatMessage({
     id: "Comun.nombre",
     defaultMessage: "Nombre",
