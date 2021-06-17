@@ -10,24 +10,10 @@ const CurrencyCreate = (props) => {
     id: "Comun.codigo",
     defaultMessage: "Código",
   });
-
   const NOM = props.intl.formatMessage({
     id: "Comun.nombre",
     defaultMessage: "Nombre",
   });
-  const DESCRIPCIO = props.intl.formatMessage({
-    id: "Comun.descripcion",
-    defaultMessage: "Descripción",
-  });
-
-  const withRequiredValidation = (extraValidations = []) => {
-    return {
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...extraValidations,
-      ],
-    };
-  };
 
   const createConfiguration = [
     {

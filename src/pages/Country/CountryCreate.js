@@ -120,8 +120,6 @@ const CountryCreate = (props) => {
       formConfiguration={createConfiguration}
       url={API.pais} />
 
-      
-
   )
 };
 
