@@ -43,7 +43,6 @@ const LOVAutocomplete = (props) => {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openSearchModal, setOpenSearchModal] = useState(false);
   const [opts, setOpts] = useState([]);
-  const [highlighted, setHighlighted] = useState(null);
   const [value, setValue] = useState();
 
   useEffect(()=>{
@@ -205,22 +204,9 @@ const LOVAutocomplete = (props) => {
           })
         return filtered;
       }}
-      /** Fix: when the option is fully highlighted, input a char and after a while comes to the input
-       * onHighlight -> save the option in memory */
-      onHighlightChange={(event, option, reason) => {
-        if(option){
-          setHighlighted(option);
-          props.onChange({stopPropagation: () => {}}, null);
-        }
-      }}
-      /** If the user don't select anything -> set the previous value */
-      onClose={(event, reason) => {
-        if((reason === "blur" || reason === "escape") && highlighted){
-          handleChange(event, highlighted);
-        }
-      }}
       // Callback fired when the input value changes.
       onInputChange={(event, newInputValue,reason) => {
+        // this reason executes when the user select an option or when the selector it loads the first time
         if(reason !== 'reset'){
           props.dispatchSearchTerm({name: props.id, text: newInputValue});
         }
