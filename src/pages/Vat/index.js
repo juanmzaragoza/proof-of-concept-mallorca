@@ -1,14 +1,13 @@
 import React from 'react';
 import {Route, Switch} from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
-
 import AddBoxIcon from '@material-ui/icons/AddBox';
+
 import VatList from "./VatList";
 import VatCreate from "./VatCreate";
-import withHeaders from "../../modules/wrappers/withHeaders";
+import withHeaders from "modules/wrappers/withHeaders";
+
 const URL = '/iva';
-
-
 
 const Vat = () => (
   <Paper style={{ position: 'relative' }}>

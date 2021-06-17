@@ -1,36 +1,12 @@
-import CreateUpdateForm from "../../modules/ReactGrid/CreateUpdateForm";
 import { injectIntl } from "react-intl";
 import React from "react";
 import { compose } from "redux";
-import { withValidations } from "../../modules/wrappers";
+
+import CreateUpdateForm from "../../modules/ReactGrid/CreateUpdateForm";
+import { withValidations } from "modules/wrappers";
 import * as API from "redux/api";
 
 const VatCreate = (props) => {
-  const CODE = props.intl.formatMessage({
-    id: "Comun.codigo",
-    defaultMessage: "Código",
-  });
-  const DESCRIPCIO = props.intl.formatMessage({
-    id: "Comun.descripcion",
-    defaultMessage: "Descripción",
-  });
-  const NOM = props.intl.formatMessage({
-    id: "Comun.nombre",
-    defaultMessage: "Nombre",
-  });
-
-  const code = (md = 6) => ({
-    type: "input",
-    key: "codi",
-    placeHolder: CODE,
-    required: true,
-    noEditable: true,
-    breakpoints: {
-      xs: 12,
-      md: md,
-    },
-  });
-
 
   const createConfiguration = [
     {
@@ -171,7 +147,6 @@ const VatCreate = (props) => {
           md: 2
         },
       },
-
   ];
   return (
     <CreateUpdateForm
