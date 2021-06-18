@@ -13,8 +13,9 @@ import withHeaders from "modules/wrappers/withHeaders";
 import  ClientsList from "./ClientsList";
 import ClientsForm from "./ClientsForm";
 
-const URL = '/clientes';
+import {CLIENT_FACT_URL} from "constants/routes";
 
+const URL = CLIENT_FACT_URL;
 
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
@@ -37,10 +38,9 @@ const ClientsFormWithUrl = () => < ClientsForm url={API.clientes} />;
 const Clients= () => (
   <Paper style={{ position: 'relative' }}>
     <Switch>
-      <Route exact path={`${URL}`} component={ ClientsListIntl}></Route>
+      <Route exact path={`${URL}`} component={ClientsListIntl}></Route>
       <Route path={`${URL}/create`} component={ClientsFormWithUrl}></Route>
       <Route path={`${URL}/:id`} component={ClientsFormWithUrl}></Route>
-     
     </Switch>
   </Paper>
 );

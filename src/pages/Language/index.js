@@ -7,8 +7,9 @@ import {Language} from "@material-ui/icons";
 import LanguageList from "./LanguageList";
 import LanguageCreate from "./LanguageCreate";
 import withHeaders from "modules/wrappers/withHeaders";
+import {LANGUAGE_FACT_URL} from "constants/routes";
 
-const URL = '/idiomes';
+const URL = LANGUAGE_FACT_URL;
 
 const Languages = () => (
   <Paper style={{ position: 'relative' }}>

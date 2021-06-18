@@ -6,8 +6,9 @@ import AdjustIcon from '@material-ui/icons/Adjust';
 import RetentionList from "./RetentionList";
 import RetentionCreate from "./RetentionCreate";
 import withHeaders from "modules/wrappers/withHeaders";
+import {RETENTIONS_FACT_URL} from "constants/routes";
 
-const URL = '/retenciones';
+const URL = RETENTIONS_FACT_URL;
 
 const Retention = () => (
   <Paper style={{ position: 'relative' }}>

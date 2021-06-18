@@ -10,8 +10,9 @@ import ProvinceList from "./ProvinceList";
 import ProvinceCreate from "./ProvinceCreate";
 import withHeaders from "modules/wrappers/withHeaders";
 import {setBreadcrumbHeader, setListingConfig} from "redux/pageHeader";
+import {PROVINCE_FACT_URL} from "constants/routes";
 
-const URL = '/provincias';
+const URL = PROVINCE_FACT_URL;
 
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {

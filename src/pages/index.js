@@ -31,6 +31,5 @@ const component = [
   Vat,
   RegimeVat,
   Retention,
-
 ];
 export default component;

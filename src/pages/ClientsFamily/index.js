@@ -6,9 +6,10 @@ import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 
 import ClientsFamilyList from "./ClientsFamilyList";
 import ClientsFamilyCreate from "./ClientsFamilyCreate";
-import withHeaders from "../../modules/wrappers/withHeaders";
+import withHeaders from "modules/wrappers/withHeaders";
+import {CLIENT_FAMILY_URL} from "constants/routes";
 
-const URL = "/familia-clientes";
+const URL = CLIENT_FAMILY_URL;
 
 const ClientsFamily = () => (
   <Paper style={{ position: "relative" }}>

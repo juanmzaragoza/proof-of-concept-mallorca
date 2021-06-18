@@ -6,8 +6,9 @@ import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
 import RegimeVatList from "./RegimeVatList";
 import RegimeVatCreate from "./RegimeVatCreate";
 import withHeaders from "modules/wrappers/withHeaders";
+import {REGIME_VAT_FACT_URL} from "constants/routes";
 
-const URL = '/regimen-iva';
+const URL = REGIME_VAT_FACT_URL;
 
 const RegimeVat = () => (
   <Paper style={{ position: 'relative' }}>

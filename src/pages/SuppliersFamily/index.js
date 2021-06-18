@@ -8,7 +8,7 @@ import SuppliersFamilyList from "./SuppliersFamilyList";
 import SuppliersFamilyCreate from "./SuppliersFamilyCreate";
 import withHeaders from "../../modules/wrappers/withHeaders";
 
-const URL = '/familia-proveedores';
+const URL = '/fact/familia-proveedores';
 
 const SuppliersFamily = () => (
   <Paper style={{ position: 'relative' }}>

@@ -5,9 +5,10 @@ import Paper from "@material-ui/core/Paper";
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import OrganizationList from "./OrganizationList";
 import OrganizationCreate from "./OrganizationCreate";
-import withHeaders from "../../modules/wrappers/withHeaders";
+import withHeaders from "modules/wrappers/withHeaders";
+import {ORGANIZATION_FACT_URL} from "constants/routes";
 
-const URL = "/organizacion";
+const URL = ORGANIZATION_FACT_URL;
 
 const Organization = () => (
   <Paper style={{ position: "relative" }}>

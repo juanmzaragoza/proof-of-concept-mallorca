@@ -7,8 +7,9 @@ import LocationSearchingIcon from '@material-ui/icons/LocationSearching';
 import ZoneList from "./ZoneList";
 import ZoneCreate from "./ZoneCreate";
 import withHeaders from "modules/wrappers/withHeaders";
+import {ZONE_FACT_URL} from "constants/routes";
 
-const URL = "/zona";
+const URL = ZONE_FACT_URL;
 
 const Zone = () => (
   <Paper style={{ position: "relative" }}>

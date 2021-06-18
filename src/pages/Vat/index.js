@@ -6,8 +6,9 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import VatList from "./VatList";
 import VatCreate from "./VatCreate";
 import withHeaders from "modules/wrappers/withHeaders";
+import {IVA_FACT_URL} from "constants/routes";
 
-const URL = '/iva';
+const URL = IVA_FACT_URL;
 
 const Vat = () => (
   <Paper style={{ position: 'relative' }}>

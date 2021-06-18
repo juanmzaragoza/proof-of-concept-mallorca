@@ -6,12 +6,10 @@ import {Public} from "@material-ui/icons";
 
 import CountryList from "./CountryList";
 import CountryCreate from "./CountryCreate";
+import withHeaders from "modules/wrappers/withHeaders";
+import {COUNTRY_FACT_URL} from "constants/routes";
 
-
-import withHeaders from "../../modules/wrappers/withHeaders";
-const URL = '/paises';
-
-
+const URL = COUNTRY_FACT_URL;
 
 const Country = () => (
   <Paper style={{ position: 'relative' }}>

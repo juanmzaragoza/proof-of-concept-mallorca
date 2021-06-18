@@ -11,8 +11,9 @@ import {setBreadcrumbHeader, setListingConfig} from "redux/pageHeader";
 import withHeaders from "modules/wrappers/withHeaders";
 import SuppliersList from "./SuppliersList";
 import SuppliersForm from "./SuppliersForm";
+import {SUPPLIERS_FACT_URL} from "constants/routes";
 
-const URL = '/proveedores';
+const URL = SUPPLIERS_FACT_URL;
 
 // suppliers list
 const mapDispatchToProps = (dispatch, props) => {

@@ -3,11 +3,13 @@ import { Route, Switch } from "react-router-dom";
 
 import Paper from "@material-ui/core/Paper";
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+
 import CurrencyList from "./CurrencyList";
 import CurrencyCreate from "./CurrencyCreate";
-import withHeaders from "../../modules/wrappers/withHeaders";
+import withHeaders from "modules/wrappers/withHeaders";
+import {CURRENCY_FACT_URL} from "constants/routes";
 
-const URL = "/divisa";
+const URL = CURRENCY_FACT_URL;
 
 const Currency = () => (
   <Paper style={{ position: "relative" }}>

@@ -5,9 +5,10 @@ import Paper from "@material-ui/core/Paper";
 import PublicIcon from '@material-ui/icons/Public';
 import CountryNifList from "./CountryNifList";
 import CountryNifCreate from "./CountryNifCreate";
-import withHeaders from "../../modules/wrappers/withHeaders";
+import withHeaders from "modules/wrappers/withHeaders";
+import {COUNTRY_NIF_FACT_URL} from "constants/routes";
 
-const URL = "/paises-nif";
+const URL = COUNTRY_NIF_FACT_URL;
 
 const CountryNif = () => (
   <Paper style={{ position: "relative" }}>

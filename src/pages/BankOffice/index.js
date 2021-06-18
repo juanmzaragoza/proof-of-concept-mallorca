@@ -5,8 +5,10 @@ import Paper from "@material-ui/core/Paper";
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import BankOfficeList from "./BankOfficeList";
 import BankOfficeCreate from "./BankOfficeCreate";
-import withHeaders from "../../modules/wrappers/withHeaders";
-const URL = '/oficina-bancaria';
+import withHeaders from "modules/wrappers/withHeaders";
+import {BANK_OFFICE_FACT_URL} from "constants/routes";
+
+const URL = BANK_OFFICE_FACT_URL;
 
 const bankOffice = () => (
   <Paper style={{ position: 'relative' }}>
