@@ -16,7 +16,7 @@ import CloudQueueIcon from '@material-ui/icons/CloudQueue';
 import Badge from "@material-ui/core/Badge";
 import {AccountCircle ,More} from "@material-ui/icons";
 
-import pages from "./pages";
+import pages from "./pages/fact";
 import * as ROUTES from "constants/routes";
 
 import DrawerMenu from "./components/DrawerMenu/index";
