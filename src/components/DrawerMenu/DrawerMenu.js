@@ -18,7 +18,7 @@ import Drawer from "@material-ui/core/Drawer";
 import {makeStyles, useTheme} from "@material-ui/core/styles";
 import Collapse from '@material-ui/core/Collapse';
 
-import modules from "pages";
+import modules from "pages/fact";
 import {Loading} from "../../modules/shared/Loading";
 
 import {drawerWidth} from "../../constants/styles";
@@ -147,7 +147,7 @@ const DrawerMenu = ({loading, functionalities, selectedModule, constants, getter
   }
 
   const processRoute = (route) => (
-    <ListItem selected={history.location.pathname.includes(route.path)}
+    <ListItem selected={history.location.pathname === route.path}
               button key={route.key}
               onClick={() => history.push(route.path)}>
       <ListItemIcon>{route.icon}</ListItemIcon>

@@ -1,1 +1,16 @@
 export const LOGIN = '/login';
+
+export const BANK_OFFICE_FACT_URL = '/fact/oficina-bancaria';
+export const CLIENT_FACT_URL = '/fact/clientes';
+export const CLIENT_FAMILY_URL = '/fact/familia-clientes';
+export const COUNTRY_FACT_URL = '/fact/paises';
+export const COUNTRY_NIF_FACT_URL = '/fact/paises-nif';
+export const CURRENCY_FACT_URL = '/fact/divisa';
+export const LANGUAGE_FACT_URL = '/fact/idiomes';
+export const ORGANIZATION_FACT_URL = '/fact/organizacion';
+export const PROVINCE_FACT_URL = '/fact/provincias';
+export const REGIME_VAT_FACT_URL = '/fact/regimen-iva';
+export const RETENTIONS_FACT_URL = '/fact/retenciones';
+export const SUPPLIERS_FACT_URL = '/fact/proveedores';
+export const IVA_FACT_URL = '/fact/iva';
+export const ZONE_FACT_URL = '/fact/zona';
