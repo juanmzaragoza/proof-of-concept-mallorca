@@ -16,7 +16,7 @@ import CloudQueueIcon from '@material-ui/icons/CloudQueue';
 import Badge from "@material-ui/core/Badge";
 import {AccountCircle ,More} from "@material-ui/icons";
 
-import pages from "./pages";
+import pages from "./pages/fact";
 import * as ROUTES from "constants/routes";
 
 import DrawerMenu from "./components/DrawerMenu/index";
@@ -47,6 +47,14 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    height: '85px',
+    background: 'rgb(91, 153, 154)',
+    background:` linear-gradient(
+      90deg,
+      rgba(91, 153, 154, 1) 6%,
+      rgba(63, 126, 128, 1) 62%,
+      rgba(68, 104, 160, 1) 100%
+    )`
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -212,7 +220,7 @@ const Layout = ({ children, ...props}) => {
 
             <CloudQueueIcon></CloudQueueIcon>
             <Typography className={classes.title} variant="h6" noWrap>
-              Cecocloud
+              Everet
             </Typography>
 
             <div className={classes.grow} />
