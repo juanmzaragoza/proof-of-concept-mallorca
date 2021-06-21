@@ -23,8 +23,6 @@ const style = {
 const AuthLayout = (props) => {
     return ( 
         <div className="auth-pages-layout" style={style}>
-          <div className="auth-pages-top-bar">
-          </div>
           {props.children}
         </div>
     );
