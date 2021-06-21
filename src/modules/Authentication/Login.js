@@ -11,6 +11,7 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Password from './password.input';
 import AuthLayout from './AuthLayout';
 import {Loading} from "../shared/Loading";
+import LogoLimit from "../../assets/img/logo_limit.svg"
 
 const Login = (props) => {
   const [email, setEmail] = useState('');
@@ -40,9 +41,9 @@ const Login = (props) => {
   return (
     <AuthLayout>
       <Card className='auth-card' id='login' style={{ color: 'white' }}>
-
+      <img src={LogoLimit} alt="logo" width="250px" />
         <div className='welcome-message'>
-          <h4>Welcome</h4>
+          <h2> Everet</h2>
         </div>
 
         <form autoComplete='off' className='auth-form' onSubmit={handleLogin}>
@@ -76,7 +77,7 @@ const Login = (props) => {
 
           {props.error && <p className='auth-warning'>Invalid Email or Password</p>}
           <Link className='reset-link' to='/forgot-password' >Forgot password?</Link>
-          <Button disabled={props.loading} type='submit' color='secondary' variant='outlined' className='accessBtn'>
+          <Button disabled={props.loading} type='submit' variant='outlined' className='accessBtn'>
             Login {props.loading && <Loading size={24} />}
           </Button>
         </form>

@@ -3,43 +3,53 @@
 .auth-pages-layout {
   text-align: center;
 
+  background: rgb(68, 104, 160);
+  background: linear-gradient(
+    90deg,
+    rgba(68, 104, 160, 1) 0%,
+    rgba(63, 149, 151, 1) 49%,
+    rgba(124, 174, 175, 1) 100%
+  );
   @include sm{
     overflow-y: scroll;
   }
 
   .auth-pages-top-bar{
-    background-color: #fff;
+    
     margin-top: 75px;
     width: 100%;
   }
 
   .auth-card{
-    background-color: rgba(0, 0, 0, 0.55);
-    color: white;
-    margin: 75px auto 20px auto;
+    background:white;
+
+    color: rgb(63, 149, 151) !important;
+    margin: 110px auto 20px auto;
     display: flex;
-    padding: 20px;
+    padding: 50px;
     border-radius: 10px;
-    width: 360px;
+   // width: 360px;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
+    //justify-content: center;
+    //font-size: calc(10px + 2vmin);
     min-height: 370px;
   }
 
   .welcome-message{
-    h4{
-      color: white;
+    h2{
+      align-items: center !important;
       line-height: 36px;
+      color: rgba(0, 0, 0, 0.65);
     }
   }
 
   .reset-link {
-    color: $app-red;
+    color: rgb(63, 149, 151) !important;
     font-size: 12px;
     text-decoration: underline;
     font-weight: 600;
+    margin-top: 8px;
   }
   
   .reg-invite{
@@ -71,7 +81,7 @@ form.auth-form {
     }
 
     input{
-      color: $app-gray;
+     // color: $app-gray;
     }
 
     &.Mui-focused{
@@ -108,6 +118,7 @@ form.auth-form {
 button.accessBtn {
   color: #fff;
   margin: 25px auto;
+  margin-top: 35px;
   display: block;
   font-weight: 600;
   line-height: 24px;
@@ -116,4 +127,7 @@ button.accessBtn {
   text-transform: unset;
   background-color: $app-red;
   padding: 5px 25px;
+  background: #3f9597;
+  background: linear-gradient(60deg, #3f9597, #4468a0);
+  background-color: #6e949b;
 }
