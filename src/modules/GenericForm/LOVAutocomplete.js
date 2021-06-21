@@ -23,6 +23,7 @@ import {
   getTotalPagesFormSelectorById
 } from 'redux/genericForm/selectors';
 import {
+  appendDataToFormSelector,
   decrementPageToFormSelector,
   getFormSelectorData,
   getFormSelectorDataById,
@@ -58,7 +59,10 @@ const LOVAutocomplete = (props) => {
     // if value comes from object (update population)
     if(value && value.pk && props.options.length > 0 && !some(props.options,(opt) => opt.id === value.id)){
       props.searchValueById({id: props.id, identifier: value.id});
-    } else{
+    // if value is selected from the form or the advanced search
+    } else if(value && !value.pk && props.options.length > 0 && !some(props.options,(opt) => opt.id === value.id)) {
+      props.dispatchAppendData({name: props.id, data: value})
+    }else{
       setOpts(props.options);
     }
   },[props.options, value]);
@@ -313,6 +317,7 @@ const mapDispatchToProps = (dispatch, props) => {
   const actions = {
     searchData: bindActionCreators(getFormSelectorData, dispatch),
     searchValueById: bindActionCreators(getFormSelectorDataById, dispatch),
+    dispatchAppendData: bindActionCreators(appendDataToFormSelector, dispatch),
     dispatchIncrementPage: bindActionCreators(incrementPageToFormSelector, dispatch),
     dispatchDecrementPage: bindActionCreators(decrementPageToFormSelector, dispatch),
     dispatchSearchTerm: bindActionCreators(searchByQueryTerm, dispatch),
