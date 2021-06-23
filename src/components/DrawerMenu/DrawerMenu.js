@@ -18,7 +18,7 @@ import Drawer from "@material-ui/core/Drawer";
 import {makeStyles, useTheme} from "@material-ui/core/styles";
 import Collapse from '@material-ui/core/Collapse';
 
-import modules from "pages/fact";
+import modules from "pages";
 import {Loading} from "../../modules/shared/Loading";
 
 import {drawerWidth} from "../../constants/styles";

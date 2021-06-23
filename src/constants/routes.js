@@ -14,3 +14,4 @@ export const RETENTIONS_FACT_URL = '/fact/retenciones';
 export const SUPPLIERS_FACT_URL = '/fact/proveedores';
 export const IVA_FACT_URL = '/fact/iva';
 export const ZONE_FACT_URL = '/fact/zona';
+export const BANK_FACT_URL = '/fact/bancos';

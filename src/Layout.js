@@ -16,7 +16,7 @@ import CloudQueueIcon from '@material-ui/icons/CloudQueue';
 import Badge from "@material-ui/core/Badge";
 import {AccountCircle ,More} from "@material-ui/icons";
 
-import pages from "./pages/fact";
+import pages from "./pages";
 import * as ROUTES from "constants/routes";
 
 import DrawerMenu from "./components/DrawerMenu/index";
@@ -48,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     height: '85px',
-    background: 'rgb(91, 153, 154)',
     background:` linear-gradient(
       90deg,
       rgba(91, 153, 154, 1) 6%,
