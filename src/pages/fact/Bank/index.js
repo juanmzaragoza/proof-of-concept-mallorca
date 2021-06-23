@@ -7,23 +7,20 @@ import BankList from "./BankList";
 import BankCreate from "./BankCreate";
 import withHeaders from "modules/wrappers/withHeaders";
 import {BANK_FACT_URL} from "constants/routes";
-import { findByAltText } from '@testing-library/react';
-
-const URL = BANK_FACT_URL;
 
 const bank = () => (
   <Paper style={{ position: 'relative' }}>
     <Switch>
-      <Route exact path={`${URL}`} component={BankList}></Route>
-      <Route path={`${URL}/create`} component={BankCreate}></Route>
-      <Route path={`${URL}/:id`} component={BankCreate}></Route>
+      <Route exact path={`${BANK_FACT_URL}`} component={BankList}></Route>
+      <Route path={`${BANK_FACT_URL}/create`} component={BankCreate}></Route>
+      <Route path={`${BANK_FACT_URL}/:id`} component={BankCreate}></Route>
     </Switch>
   </Paper>
 );
 
 const component = {
   routeProps: {
-    path: `${URL}`,
+    path: `${BANK_FACT_URL}`,
     component: withHeaders(bank)
   },
   name: 'FAC_BANCS',
