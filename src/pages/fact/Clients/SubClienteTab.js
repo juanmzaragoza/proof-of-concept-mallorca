@@ -9,7 +9,7 @@ import "../Suppliers/styles.scss";
 
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import { withValidations } from "modules/wrappers";
-import ExpandableGrid from "../../../modules/ExpandableGrid";
+import ExpandableGrid from "modules/ExpandableGrid";
 
 const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
 
@@ -298,6 +298,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
         >
          <ExpandableGrid
           id="subClients"
+          responseKey="subClients"
           enabled={props.editMode}
           configuration={subClient}
         />

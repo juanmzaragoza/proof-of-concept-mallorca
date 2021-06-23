@@ -8,7 +8,7 @@ import "../Suppliers/styles.scss";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
-import ExpandableGrid from "../../../modules/ExpandableGrid";
+import ExpandableGrid from "modules/ExpandableGrid";
 
 const AplicadoresTab = ({ formData, setFormData, getFormData, ...props }) => {
 
@@ -80,6 +80,7 @@ const AplicadoresTab = ({ formData, setFormData, getFormData, ...props }) => {
         >
           <ExpandableGrid
             id="aplicadorClients"
+            responseKey="aplicadorClients"
             enabled={props.editMode}
             configuration={aplicadores}
           />

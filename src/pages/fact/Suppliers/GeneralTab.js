@@ -12,9 +12,9 @@ import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import {compose} from "redux";
 import {withValidations} from "modules/wrappers";
-import ExpandableGrid from "../../../modules/ExpandableGrid";
+import ExpandableGrid from "modules/ExpandableGrid";
 
-import {useTabForm} from "../../../hooks/tab-form";
+import {useTabForm} from "hooks/tab-form";
 
 const SUPPLIERS_SECTION_INDEX = 0;
 const ADDRESS_SECTION_TAB_INDEX = 1;
@@ -784,6 +784,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       key: 1,
       component: <ExpandableGrid
         id='adresaComercials'
+        responseKey='adresaComercials'
         enabled={props.editMode}
         configuration={commercialAddressesConfig} />
     },

@@ -30,7 +30,7 @@ const TableComponent = ({ ...restProps }) => (
 );
 
 const getRowId = row => row.id;
-const ExpandableGrid = ({ id, configuration,
+const ExpandableGrid = ({ id, responseKey, configuration,
                           rows, totalCount, pageSize, loading, refreshData,
                           actions, ...props}) => {
   const [columns] = useState(configuration.columns.filter(col => !col.hidden));
@@ -46,7 +46,7 @@ const ExpandableGrid = ({ id, configuration,
   },[props.enabled, configuration.query]);
 
   const doRequest = () => {
-    actions.loadData({key: id, page: currentPage, query: query || [], sorting});
+    actions.loadData({apiId: id, key: responseKey, page: currentPage, query: query || [], sorting});
   }
   
   useEffect(() =>{
@@ -144,6 +144,7 @@ const ExpandableGrid = ({ id, configuration,
 
 ExpandableGrid.propTypes = {
   id: PropTypes.string.isRequired,
+  responseKey: PropTypes.string.isRequired,
   enabled: PropTypes.bool,
   configuration: PropTypes.shape({
     title: PropTypes.string,

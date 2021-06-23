@@ -11,13 +11,13 @@ import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
-import ExpandableGrid from "../../../modules/ExpandableGrid";
+import ExpandableGrid from "modules/ExpandableGrid";
 import {
   TIPO_REG_IVA_SELECTOR_VALUES,
   TIPO_RETENCION_SELECTOR_VALUES,
 } from "constants/selectors";
 
-import { useTabForm } from "../../../hooks/tab-form";
+import { useTabForm } from "hooks/tab-form";
 
 const EMPRESA_SECTION_INDEX = 0;
 
@@ -1065,6 +1065,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
       component: (
         <ExpandableGrid
           id="compteCorrentEmpresas"
+          responseKey="compteCorrentEmpresas"
           enabled={props.editMode}
           configuration={cuentasCorrientes}
         />
@@ -1076,6 +1077,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
       component: (
         <ExpandableGrid
           id="compteComptableEmpresas"
+          responseKey="compteComptableEmpresas"
           enabled={props.editMode}
           configuration={cuentasContables}
         />

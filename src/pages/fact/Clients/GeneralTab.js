@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FormattedMessage, injectIntl } from "react-intl";
+import { compose } from "redux";
 import Grid from "@material-ui/core/Grid/Grid";
 import { Chip } from "@material-ui/core";
 
@@ -9,12 +10,11 @@ import "../Suppliers/styles.scss";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
-import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
-import ExpandableGrid from "../../../modules/ExpandableGrid";
+import ExpandableGrid from "modules/ExpandableGrid";
 import { TIPO_CLIENTE_SELECTOR_VALUES, PAISNIF_SELECTOR_VALUES, TDOC_SELECTOR_VALUES, TIPO_EXTRANJ_SELECTOR_VALUES } from "constants/selectors";
 
-import { useTabForm } from "../../../hooks/tab-form";
+import { useTabForm } from "hooks/tab-form";
 
 const CLIENT_SECTION_INDEX = 0;
 const ADDRESS_SECTION_TAB_INDEX = 1;
@@ -866,6 +866,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: 1,
       component: <ExpandableGrid
         id='clientAdresas'
+        responseKey='clientAdresas'
         enabled={props.editMode}
         configuration={clienteDireccionesComerciales} />
     },
@@ -874,6 +875,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: 2,
       component: <ExpandableGrid
         id='tipusClient'
+        responseKey='tipusClient'
         enabled={props.editMode}
         configuration={tipoClientes} />
     },

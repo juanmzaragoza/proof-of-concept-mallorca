@@ -12,33 +12,33 @@ const UPDATE_ROW = "UPDATE_ROW_GRID";
 const ADD_ROW = "ADD_ROW_GRID";
 
 //Functions
-export const searchData = ({ key, page, query = [], sorting = [] }) => {
+export const searchData = ({ apiId, key, page, query = [], sorting = [] }) => {
   return async dispatch => {
     const formedURL = () => {
-      return getFormedURL({id: key, size: EXPANDABLE_GRID_LIMIT_PER_PAGE, page, sorting, query})
+      return getFormedURL({id: apiId, size: EXPANDABLE_GRID_LIMIT_PER_PAGE, page, sorting, query})
     }
     try {
-      dispatch(add({ key, loading: true }));
+      dispatch(add({ key: apiId, loading: true }));
       Axios
         .get(formedURL())
         .then(({data}) => data)
         .then(({_embedded, page}) => {
-          dispatch(add({ key, data: _embedded? _embedded[key]:[] }));
-          dispatch(add({ key, totalCount: page.totalElements }));
-          dispatch(add({ key, loading: false }));
-          dispatch(add({ key, pageSize: EXPANDABLE_GRID_LIMIT_PER_PAGE }));
-          dispatch(add({ key, refresh: false }));
+          dispatch(add({ key: apiId, data: _embedded? _embedded[key]:[] }));
+          dispatch(add({ key: apiId, totalCount: page.totalElements }));
+          dispatch(add({ key: apiId, loading: false }));
+          dispatch(add({ key: apiId, pageSize: EXPANDABLE_GRID_LIMIT_PER_PAGE }));
+          dispatch(add({ key: apiId, refresh: false }));
         })
         .catch(error => {
-          dispatch(add({ key, loading: false }));
-          dispatch(add({ key, errors: error.response? error.response:error }));
+          dispatch(add({ key: apiId, loading: false }));
+          dispatch(add({ key: apiId, errors: error.response? error.response:error }));
         })
         .finally(() => {
-          dispatch(add({ key, loading: false }));
+          dispatch(add({ key: apiId, loading: false }));
         });
     } catch (error) {
-      dispatch(add({ key, loading: false }));
-      dispatch(add({ key, errors: error }));
+      dispatch(add({ key: apiId, loading: false }));
+      dispatch(add({ key: apiId, errors: error }));
     }
   };
 };

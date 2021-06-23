@@ -1,16 +1,16 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 import { compose } from "redux";
-import OutlinedContainer from "../../../modules/shared/OutlinedContainer";
-import { FormattedMessage, injectIntl } from "react-intl";
-import GenericForm from "../../../modules/GenericForm";
-import { withValidations } from "modules/wrappers";
-import { useTabForm } from "../../../hooks/tab-form";
-import ConfigurableTabs from "modules/shared/ConfigurableTabs";
-import ExpandableGrid from "../../../modules/ExpandableGrid";
 import { useParams } from "react-router-dom";
-import { TIPO_MENSAJE_SELECTOR_VALUES } from "constants/selectors";
+import { FormattedMessage, injectIntl } from "react-intl";
 
+import OutlinedContainer from "modules/shared/OutlinedContainer";
+import GenericForm from "modules/GenericForm";
+import { withValidations } from "modules/wrappers";
+import { useTabForm } from "hooks/tab-form";
+import ConfigurableTabs from "modules/shared/ConfigurableTabs";
+import ExpandableGrid from "modules/ExpandableGrid";
+import { TIPO_MENSAJE_SELECTOR_VALUES } from "constants/selectors";
 
 const CLIENTE_SECTION_INDEX = 0;
 
@@ -402,6 +402,7 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: 0,
       component: <ExpandableGrid
         id='departamentClients'
+        responseKey='departamentClients'
         enabled={props.editMode}
         configuration={commercialAddressesConfig} />
     },
