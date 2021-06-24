@@ -48,6 +48,6 @@ export default {
     path: `${URL}`,
     component: withHeaders(Suppliers)
   },
-  name: 'FAC_CP',
+  name: 'FAC_PROVEI',
   icon: <LocalMall />
 }

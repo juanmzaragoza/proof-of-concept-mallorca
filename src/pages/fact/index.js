@@ -14,6 +14,7 @@ import Vat from './Vat';
 import RegimeVat from './RegimeVat';
 import Retention from './Retention';
 import Bank from './Bank';
+import PostalCode from './PostalCode';
 
 
 const component = [
@@ -33,5 +34,6 @@ const component = [
   RegimeVat,
   Retention,
   Bank,
+  PostalCode,
 ];
 export default component;
