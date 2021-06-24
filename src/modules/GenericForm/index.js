@@ -24,6 +24,7 @@ import Selector from "./Selector";
 import createYupSchema from "./yupSchemaCreator";
 import Observations from "./Observations";
 import Numeric from "./Numeric";
+import ImagesUploader from "./ImagesUploader";
 
 const GenericForm = ({loading, ...props}) => {
   const formRef = useRef(null);
@@ -294,7 +295,10 @@ const GenericForm = ({loading, ...props}) => {
               label={placeHolder}
             />
           );
-  
+        case "imgUploader":
+          return (
+            <ImagesUploader />
+          );
       default:
         return;
     }
@@ -390,7 +394,7 @@ const GenericForm = ({loading, ...props}) => {
 GenericForm.propTypes = {
   containerSpacing: PropTypes.number,
   formComponents: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV','observations','numeric','date','switch']),
+    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV','observations','numeric','date','switch','imgUploader']),
     variant: PropTypes.oneOf(['filled','outlined','standard']),
     placeHolder: PropTypes.string,
     required: PropTypes.bool,
