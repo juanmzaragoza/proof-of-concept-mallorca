@@ -44,10 +44,10 @@ const BankList = ({ actions, ...props }) => {
         }),
       },
     ],
-    URL: API.banco,
+    URL: API.banc,
     listKey: "bancs",
   };
-  return <ReactGrid id="banco" configuration={listConfiguration} />;
+  return <ReactGrid id="banc" configuration={listConfiguration} />;
 };
 
 const mapDispatchToProps = (dispatch, props) => {

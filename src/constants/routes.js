@@ -15,3 +15,4 @@ export const SUPPLIERS_FACT_URL = '/fact/proveedores';
 export const IVA_FACT_URL = '/fact/iva';
 export const ZONE_FACT_URL = '/fact/zona';
 export const BANK_FACT_URL = '/fact/bancos';
+export const POSTAL_CODE_FACT_URL = '/fact/codigo-postal';
