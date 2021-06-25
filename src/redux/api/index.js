@@ -53,4 +53,19 @@ export const tipusRisc = `api/fact/tipusRiscos`;
 
 export const projectes = `api/fact/projectes`;
 export const projecteTipus= `api/fact/projectesTipus`;
+
+
 export const client = `api/fact/clients`;
+
+
+
+export const cliente = `api/ecom/clients`;
+
+export const pressupostos = `api/ecom/pressupostos`;
+export const serieVenda = `api/ecom/seriesVenda`;
+export const pressupostLinias = `api/ecom/pressupostosLinia`;
+export const article = `api/ecom/articles`;
+
+
+
+

@@ -4,6 +4,7 @@ import {injectIntl} from "react-intl";
 import {ChevronLeft, ChevronRight, Delete, Save, Undo, VerifiedUser} from "@material-ui/icons";
 import LocalMall from "@material-ui/icons/LocalMall";
 
+
 const withConstants = (PassedComponent) => {
 
 
@@ -163,7 +164,16 @@ const withConstants = (PassedComponent) => {
         path: 'FAC_CLARET', // or has path or has children but not both
         icon: <LocalMall />
       },
-   
+      {
+        key: "COM_PRE", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Presupuestos.titulo",
+          defaultMessage: "Presupuestos",
+        }),
+        path: "COM_PRE", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      
     ];
 
     return <PassedComponent

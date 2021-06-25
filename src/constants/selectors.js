@@ -261,5 +261,29 @@ export const TIPO_CONTABILIZACION_SELECTOR_VALUES = [
 ];
 
 
+export const ESTADO_PRESUPUESTO_SELECTOR_VALUES = [
+  {
+  value: "ACCEPTAT",
+  labelId: "Selector.aceptado",
+  label: "Aceptado",
+  },
+  {
+  value: "PENDENT",
+  labelId: "Selector.pendiente",
+  label: "Pendiente",
+  },
+  {
+  value: "TANCAT",
+  labelId: "Selector.cerrado",
+  label: "Cerrado",
+  },
+  {
+  value: "AJORNAT",
+  labelId: "Selector.aplazado",
+  label: "Aplazado",
+  },
+  ];
+  
+
 
 

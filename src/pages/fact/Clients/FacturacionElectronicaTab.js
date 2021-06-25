@@ -188,19 +188,6 @@ const FactElectronicaTab = ({ formData, setFormData, getFormData, ...props }) =>
   return (
     <Grid container>
       <Grid xs={12} item>
-      <GenericForm
-          formComponents={factElectronicaConfig}
-          emptyPaper={true}
-          setFormData={setFormData}
-          getFormData={getFormData}
-          loading={props.loading}
-          formErrors={props.formErrors}
-          submitFromOutside={props.submitFromOutside}
-          onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) => addValidity(FACT_ELECT_SECTION_TAB_INDEX, value)}
-          onBlur={(e) => handleTouched(FACT_ELECT_SECTION_TAB_INDEX)}
-          {...props}
-        />
         <OutlinedContainer
           className="general-tab-container"
           title={
