@@ -16,3 +16,4 @@ export const IVA_FACT_URL = '/fact/iva';
 export const ZONE_FACT_URL = '/fact/zona';
 export const BANK_FACT_URL = '/fact/bancos';
 export const POSTAL_CODE_FACT_URL = '/fact/codigo-postal';
+export const DOCUMENT_FOOTER_FACT_URL = '/fact/pies-documento';

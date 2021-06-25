@@ -15,6 +15,7 @@ import RegimeVat from './RegimeVat';
 import Retention from './Retention';
 import Bank from './Bank';
 import PostalCode from './PostalCode';
+import DocumentFooter from './DocumentFooter';
 
 
 const component = [
@@ -35,5 +36,6 @@ const component = [
   Retention,
   Bank,
   PostalCode,
+  DocumentFooter,
 ];
 export default component;

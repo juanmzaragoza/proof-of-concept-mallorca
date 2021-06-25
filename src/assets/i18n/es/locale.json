@@ -386,6 +386,19 @@
 
   "Bancos.titulo": "Banco",
   
-  "CodigoPostal.titulo": "Codigos Postales"
+  "CodigoPostal.titulo": "Codigos Postales",
+
+  "PieDocumento.serieCompra": "Series de Compra",
+  "PieDocumento.empresa": "Empresa",
+  "PieDocumento.titulo": "Pies Documentos",
+  "PieDocumento.facturas": "Facturas",
+  "PieDocumento.presupuestos": "Presupuestos",
+  "PieDocumento.certificaciones": "Certificaciones",
+  "PieDocumento.reparaciones": "Reparaciones",
+  "PieDocumento.imprimirEn": "Imprimir en...",
+  "PieDocumento.pie": "Pie",
+  "PieDocumento.familiaClienteProveedor": "Familia Cliente/Proveedor",
+  "PieDocumento.imprimirClase": "Imprimir Clase",
+  "PieDocumento.orden": "Orden"
 
 }
