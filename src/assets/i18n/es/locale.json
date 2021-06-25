@@ -439,7 +439,10 @@
   "Selector.aplazado": "Aplazado",
   "Selector.cerrado": "Cerrado",
   "Selector.pendiente": "Pendiente",
-  "Selector.aceptado": "Aceptado"
+  "Selector.aceptado": "Aceptado",
+
+  "Bancos.titulo": "Banco"
+
 
 
 }

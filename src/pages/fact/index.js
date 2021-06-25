@@ -13,6 +13,7 @@ import BankOffice from './BankOffice';
 import Vat from './Vat';
 import RegimeVat from './RegimeVat';
 import Retention from './Retention';
+import Bank from './Bank';
 
 
 const component = [
@@ -31,5 +32,6 @@ const component = [
   Vat,
   RegimeVat,
   Retention,
+  Bank,
 ];
 export default component;
