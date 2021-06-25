@@ -16,6 +16,7 @@ import Retention from './Retention';
 import Bank from './Bank';
 import PostalCode from './PostalCode';
 import DocumentFooter from './DocumentFooter';
+import ProjectType from './ProjectType';
 
 
 const component = [
@@ -37,5 +38,6 @@ const component = [
   Bank,
   PostalCode,
   DocumentFooter,
+  ProjectType,
 ];
 export default component;

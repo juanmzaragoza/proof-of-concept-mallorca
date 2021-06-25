@@ -399,6 +399,9 @@
   "PieDocumento.pie": "Pie",
   "PieDocumento.familiaClienteProveedor": "Familia Cliente/Proveedor",
   "PieDocumento.imprimirClase": "Imprimir Clase",
-  "PieDocumento.orden": "Orden"
+  "PieDocumento.orden": "Orden",
+
+  "TipoProyecto.titulo": "Tipo de Proyecto"
+
 
 }

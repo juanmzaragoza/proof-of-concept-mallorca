@@ -51,8 +51,8 @@ export const tipusClients = `api/fact/tipusClients`;
 export const subClients = `api/fact/subClients`;
 export const aplicadorClients = `api/fact/aplicadorsClient`;
 export const tipusRisc = `api/fact/tipusRiscos`;
-
 export const peusDocument = `api/fact/peusDocument`;
+export const projectesTipo = `api/fact/projectesTipus`;
 
 export const projectes = `api/fact/projectes`;
 export const projecteTipus= `api/fact/projectesTipus`;
