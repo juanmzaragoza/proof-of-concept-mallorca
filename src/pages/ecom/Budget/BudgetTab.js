@@ -307,6 +307,7 @@ const BudgetTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "idioma",
+      id:"idiomas",
       breakpoints: {
         xs: 12,
         md: 3,
@@ -367,6 +368,7 @@ const BudgetTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "divisa",
+      id:"divisas",
       required: true,
       breakpoints: {
         xs: 12,
@@ -389,6 +391,7 @@ const BudgetTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "magatzem",
+      id:"magatzems",
       breakpoints: {
         xs: 12,
         md: 3,
@@ -408,6 +411,7 @@ const BudgetTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "documentPagamentCobrament",
+      id:"documentPagamentCobraments",
       breakpoints: {
         xs: 12,
         md: 3,
@@ -427,6 +431,7 @@ const BudgetTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "pais",
+      id:"paises",
       breakpoints: {
         xs: 12,
         md: 3,
@@ -448,6 +453,7 @@ const BudgetTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "provincia",
+      id:"provincias",
       breakpoints: {
         xs: 12,
         md: 3,
@@ -468,6 +474,7 @@ const BudgetTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Código Postal",
       }),
       type: "LOV",
+      id:"codigosPostales",
       key: "codiPostal",
       required: true,
       breakpoints: {

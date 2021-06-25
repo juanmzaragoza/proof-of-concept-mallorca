@@ -60,12 +60,18 @@ export const client = `api/fact/clients`;
 
 
 export const cliente = `api/ecom/clients`;
-
 export const pressupostos = `api/ecom/pressupostos`;
 export const serieVenda = `api/ecom/seriesVenda`;
 export const pressupostLinias = `api/ecom/pressupostosLinia`;
 export const article = `api/ecom/articles`;
-
+export const idiomas = `api/ecom/idiomes`;
+export const puntVenda = `api/ecom/puntsVenda`;
+export const divisas = `api/ecom/divises`;
+export const magatzems = `api/ecom/magatzems`;
+export const documentPagamentCobraments = `api/ecom/documentsPagamentCobrament`;
+export const paises = `api/ecom/paisos`;
+export const provincias = `api/ecom/provincies`;
+export const codigosPostales = `api/ecom/codisPostal`;
 
 
 
