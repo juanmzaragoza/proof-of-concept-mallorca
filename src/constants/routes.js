@@ -23,6 +23,7 @@ export const COMPANY_ACCOUNTING_ACCOUNTS_FACT_URL = '/fact/cuentas-contables-emp
 export const BUDGET_ECOM_URL = "/ecom/presupuestos";
 export const ARTICLES_ECOM_URL = '/ecom/articulos';
 export const ART_FAMILIA_ECOM_URL =  '/ecom/familia-articulos';
+export const ART_MODEL_ECOM_URL = '/ecom/modelo-articulos';
 
 
 

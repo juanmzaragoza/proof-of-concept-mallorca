@@ -88,5 +88,6 @@ export const iva = `api/ecom/ives`;
 export const articleFamilias = `api/ecom/articlesFamilia`;
 export const articleFamiliaEmpresas = `api/ecom/articlesFamiliaEmpresa`;
 export const empresas = `api/ecom/empreses`;
+export const articleModels= `api/ecom/articlesModel`;
 
 
