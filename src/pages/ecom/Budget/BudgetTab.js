@@ -1,580 +1,520 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { FormattedMessage, injectIntl } from "react-intl";
+import React, {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
+import {FormattedMessage, injectIntl} from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
 
-import "../../fact/Suppliers/styles.scss";
 
-import { ESTADO_PRESUPUESTO_SELECTOR_VALUES } from "constants/selectors";
+
+import {ESTADO_PRESUPUESTO_SELECTOR_VALUES} from "constants/selectors";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
-import { compose } from "redux";
-
-import { withValidations } from "modules/wrappers";
-import { useTabForm } from "hooks/tab-form";
-import ExpandableGrid from "../../../modules/ExpandableGrid";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
+import {compose} from "redux";
+import {withValidations} from "modules/wrappers";
+import ExpandableGrid from "modules/ExpandableGrid";
+
+import {useTabForm} from "hooks/tab-form";
 
 const BUDGET_SECTION_INDEX = 0;
+const BUDGET_LINE_SECTION_TAB_INDEX = 1;
 
-const BudgetTab = ({ formData, setFormData, getFormData, ...props }) => {
-  const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { [BUDGET_SECTION_INDEX]: false },
-    setIsValid: props.setIsValid,
-  });
+const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
+  const [
+    touched,
+    handleTouched,
+    addValidity,
+    formIsValid
+  ] = useTabForm({fields: {[BUDGET_SECTION_INDEX]: false, [BUDGET_LINE_SECTION_TAB_INDEX]:false}, setIsValid: props.setIsValid});
 
   const { id: budgetId } = useParams();
 
-  const CODE = props.intl.formatMessage({
-    id: "Comun.codigo",
-    defaultMessage: "Código",
-  });
-  const DESCRIPCIO = props.intl.formatMessage({
-    id: "Comun.descripcion",
-    defaultMessage: "Descripción",
-  });
+  const CODE = props.intl.formatMessage({id: "Comun.codigo", defaultMessage: "Código"});
+  const DESCRIPCIO = props.intl.formatMessage({id: "Comun.descripcion", defaultMessage: "Descripción"});
+  const NOM = props.intl.formatMessage({id: "Comun.nombre", defaultMessage: "Nombre"});
 
-  const NOM = props.intl.formatMessage({
-    id: "Comun.nombre",
-    defaultMessage: "Nombre",
-  });
+  const OBS = props.intl.formatMessage({id: "FamiliaProveedores.observaciones",  defaultMessage: "Observaciones"});
 
-  const OBS = props.intl.formatMessage({
-    id: "FamiliaProveedores.observaciones",
-    defaultMessage: "Observaciones",
-  });
 
-  const getString = (key) => (getFormData(key) ? getFormData(key) : "");
 
-  useEffect(() => {
-    const codiPostal = getString("codiPostal");
-    setFormData({
-      key: "poblacio",
-      value: codiPostal ? codiPostal.poblacio : "",
-    });
-  }, [getFormData("codiPostal")]);
-
-  const code = (md = 6) => ({
-    type: "input",
-    key: "codi",
-    placeHolder: CODE,
-    required: true,
-    noEditable: true,
-    breakpoints: {
-      xs: 12,
-      md: md,
-    },
-  });
-
-  const codeAndName = (mdCode = 6, mdName = 6) => [
-    code(mdCode),
-    {
-      type: "input",
-      key: "nom",
-      placeHolder: NOM,
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdName,
-      },
-    },
-  ];
-
-  const codeAndDescription = (mdCode = 6, mdDes = 6) => [
-    code(mdCode),
-    {
-      type: "input",
-      key: "descripcio",
-      placeHolder: DESCRIPCIO,
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdDes,
-      },
-    },
-  ];
 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
-  const formatCodeAndDescription = (data) =>
-    `${data.descripcio} (${data.codi})`;
+  const formatCodeAndDescription = (data) => `${data.descripcio} (${data.codi})`;
 
-  const aSCodeAndDescription = [
-    { title: CODE, name: "codi" },
-    { title: DESCRIPCIO, name: "descripcio" },
-  ];
-  const aSCodeAndName = [
-    { title: CODE, name: "codi" },
-    { title: NOM, name: "nom" },
-  ];
+  const aSCodeAndDescription = [{title: CODE, name: 'codi'},{title: DESCRIPCIO, name: 'descripcio'}];
+  const aSCodeAndName = [{title: CODE, name: 'codi'},{title: NOM, name: 'nom'}];
 
   const withRequiredValidation = (extraValidations = []) => {
     return {
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...extraValidations,
-      ],
-    };
-  };
+        ...extraValidations
+      ]
+    }
+  }
 
-  const budgetConfig = [
+  const suppliersConfig = [
     {
-      placeHolder: CODE,
-      type: "input",
-      key: "codi",
-      noEditable: true,
-      breakpoints: {
-        xs: 12,
-        md: 2,
+        placeHolder: CODE,
+        type: "input",
+        key: "codi",
+        noEditable: true,
+        breakpoints: {
+          xs: 12,
+          md: 2,
+        },
       },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Presupuestos.version",
-        defaultMessage: "Versión",
-      }),
-      type: "numeric",
-      required: true,
-      key: "versio",
-      breakpoints: {
-        xs: 12,
-        md: 2,
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.version",
+          defaultMessage: "Versión",
+        }),
+        type: "input",
+        required: true,
+        key: "versio",
+        breakpoints: {
+          xs: 12,
+          md: 2,
+        },
+        validationType: "string",
+        validations: [
+            ...props.stringValidations.minMaxValidation(0, 1),
+            ...props.commonValidations.requiredValidation()],
       },
-      validationType: "number",
-      validations: [...props.commonValidations.requiredValidation()],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Presupuestos.clase",
-        defaultMessage: "Clase",
-      }),
-      type: "input",
-      key: "classe",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 2,
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.clase",
+          defaultMessage: "Clase",
+        }),
+        type: "input",
+        key: "classe",
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 2,
+        },
+        validationType: "string",
+        validation: [...props.commonValidations.requiredValidation()],
       },
-      validationType: "string",
-      validation: [...props.commonValidations.requiredValidation()],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Presupuestos.fecha",
-        defaultMessage: "Fecha",
-      }),
-      type: "date",
-      key: "data",
-      required: true,
-      noEditable: true,
-      breakpoints: {
-        xs: 12,
-        md: 3,
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.fecha",
+          defaultMessage: "Fecha",
+        }),
+        type: "date",
+        key: "data",
+        required: true,
+        noEditable: true,
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        validationType: "string",
+        validation: [...props.commonValidations.requiredValidation()],
       },
-      validationType: "string",
-      validation: [...props.commonValidations.requiredValidation()],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Presupuestos.fechaInicial",
-        defaultMessage: "Fecha inicial",
-      }),
-      type: "date",
-      key: "dataInicial",
-      breakpoints: {
-        xs: 12,
-        md: 3,
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.fechaInicial",
+          defaultMessage: "Fecha inicial",
+        }),
+        type: "date",
+        key: "dataInici",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
       },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Presupuestos.estado",
-        defaultMessage: "Estado",
-      }),
-      type: "select",
-      key: "estat",
-      breakpoints: {
-        xs: 12,
-        md: 3,
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.estado",
+          defaultMessage: "Estado",
+        }),
+        type: "select",
+        key: "estat",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          options: ESTADO_PRESUPUESTO_SELECTOR_VALUES,
+        },
       },
-      selector: {
-        options: ESTADO_PRESUPUESTO_SELECTOR_VALUES,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Presupuestos.cliente",
-        defaultMessage: "Cliente",
-      }),
-      type: "LOV",
-      key: "client",
-      id: "cliente",
-      required:true,
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      selector: {
-        key: "clients",
-        labelKey: (data) => `${data.nomComercial} (${data.codi})`,
-        sort: "descripcio",
-        cannotCreate: true,
-        advancedSearchColumns: [
-          { title: CODE, name: "codi" },
-          { title: NOM, name: "nomComercial" },
-        ],
-      },
-      validationType: "object",
-      validation: [...props.commonValidations.requiredValidation()],
-    },
-
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Presupuestos.operario",
-        defaultMessage: "Operario",
-      }),
-      type: "LOV",
-      key: "operari",
-      required:true,
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      selector: {
-        key: "operaris",
-        labelKey: formatCodeAndName,
-        sort: "nom",
-        creationComponents: [
-          ...codeAndName(),
-          {
-            placeHolder: props.intl.formatMessage({
-              id: "Comercial.horario",
-              defaultMessage: "Horario",
-            }),
-            type: "LOV",
-            key: "horari",
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-            selector: {
-              key: "horaris",
-              labelKey: (data) => `${data.nom} (${data.codi})`,
-              sort: "codi",
-              cannotCreate: true,
-              advancedSearchColumns: aSCodeAndName,
-            },
-            validationType: "object",
-            validation: [...props.commonValidations.requiredValidation()],
-          },
-          {
-            type: "input",
-            key: "pin",
-            placeHolder: props.intl.formatMessage({
-              id: "Comercial.pin",
-              defaultMessage: "Pin",
-            }),
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-          },
-          {
-            type: "input",
-            key: "ptenmn",
-            placeHolder: props.intl.formatMessage({
-              id: "Comercial.ptenmn",
-              defaultMessage: "Ptenmn",
-            }),
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-          },
-        ],
-        advancedSearchColumns: aSCodeAndName,
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.cliente",
+          defaultMessage: "Cliente",
+        }),
+        type: "LOV",
+        key: "client",
+        id: "cliente",
+        required:true,
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "clients",
+          labelKey: (data) => `${data.nomComercial} (${data.codi})`,
+          sort: "descripcio",
+          cannotCreate: true,
+          advancedSearchColumns: [
+            { title: CODE, name: "codi" },
+            { title: NOM, name: "nomComercial" },
+          ],
+        },
         validationType: "object",
         validation: [...props.commonValidations.requiredValidation()],
       },
-    },
-
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Presupuestos.idioma",
-        defaultMessage: "Idioma",
-      }),
-      type: "LOV",
-      key: "idioma",
-      id:"idiomas",
-      breakpoints: {
-        xs: 12,
-        md: 3,
+  
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.operario",
+          defaultMessage: "Operario",
+        }),
+        type: "LOV",
+        key: "operari",
+        required:true,
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "operaris",
+          labelKey: formatCodeAndName,
+          sort: "nom",
+        //   creationComponents: [
+        //     ...codeAndName(),
+        //     {
+        //       placeHolder: props.intl.formatMessage({
+        //         id: "Comercial.horario",
+        //         defaultMessage: "Horario",
+        //       }),
+        //       type: "LOV",
+        //       key: "horari",
+        //       required: true,
+        //       breakpoints: {
+        //         xs: 12,
+        //         md: 4,
+        //       },
+        //       selector: {
+        //         key: "horaris",
+        //         labelKey: (data) => `${data.nom} (${data.codi})`,
+        //         sort: "codi",
+        //         cannotCreate: true,
+        //         advancedSearchColumns: aSCodeAndName,
+        //       },
+        //       validationType: "object",
+        //       validation: [...props.commonValidations.requiredValidation()],
+        //     },
+        //     {
+        //       type: "input",
+        //       key: "pin",
+        //       placeHolder: props.intl.formatMessage({
+        //         id: "Comercial.pin",
+        //         defaultMessage: "Pin",
+        //       }),
+        //       required: true,
+        //       breakpoints: {
+        //         xs: 12,
+        //         md: 4,
+        //       },
+        //     },
+        //     {
+        //       type: "input",
+        //       key: "ptenmn",
+        //       placeHolder: props.intl.formatMessage({
+        //         id: "Comercial.ptenmn",
+        //         defaultMessage: "Ptenmn",
+        //       }),
+        //       required: true,
+        //       breakpoints: {
+        //         xs: 12,
+        //         md: 4,
+        //       },
+        //     },
+        //   ],
+          cannotCreate:true,
+          advancedSearchColumns: aSCodeAndName,
+          validationType: "object",
+          validation: [...props.commonValidations.requiredValidation()],
+        },
       },
-      selector: {
-        key: "idiomas",
-        labelKey: formatCodeAndDescription,
-        sort: "descripcio",
-        creationComponents: codeAndDescription(),
+  
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.idioma",
+          defaultMessage: "Idioma",
+        }),
+        type: "LOV",
+        key: "idioma",
+        id: "idiomas",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "idiomas",
+          labelKey: formatCodeAndDescription,
+          sort: "descripcio",
+        //   creationComponents: codeAndDescription(),
+          cannotCreate:true,
+          advancedSearchColumns: aSCodeAndDescription,
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.serieVenta",
+          defaultMessage: "Serie Venta",
+        }),
+        type: "LOV",
+        key: "serieVenda",
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "serieVendas",
+          labelKey: formatCodeAndDescription,
+          sort: "descripcio",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndDescription,
+        },
+        validationType: "object",
+        validation: [...props.commonValidations.requiredValidation()],
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.puntoVenta",
+          defaultMessage: "Puntos Venta",
+        }),
+        type: "LOV",
+        key: "puntVenda",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "puntVendas",
+          labelKey: formatCodeAndName,
+          sort: "nom",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndName,
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.divisa",
+          defaultMessage: "Divisa",
+        }),
+        type: "LOV",
+        key: "divisa",
+        id: "divisas",
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "divisas",
+          labelKey: formatCodeAndName,
+          sort: "descripcio",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndName,
+        },
+        validationType: "object",
+        validation: [...props.commonValidations.requiredValidation()],
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.almacen",
+          defaultMessage: "Almacén",
+        }),
+        type: "LOV",
+        key: "magatzem",
+        id:"magatzems",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "magatzems",
+          labelKey: formatCodeAndName,
+          sort: "nom",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndName,
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.documentoPago",
+          defaultMessage: "Documento pago/cobro",
+        }),
+        type: "LOV",
+        key: "documentPagamentCobrament",
+        id:"documentPagamentCobraments",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "documentPagamentCobraments",
+          labelKey: formatCodeAndDescription,
+          sort: "descripcio",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndDescription,
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.pais",
+          defaultMessage: "Pais",
+        }),
+        type: "LOV",
+        key: "pais",
+        id: "paises",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        noEditable: true,
+        selector: {
+          key: "paises",
+          labelKey: formatCodeAndName,
+          sort: "nom",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndName,
+          
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.provincia",
+          defaultMessage: "Provincia",
+        }),
+        type: "LOV",
+        key: "provincia",
+        id:"provincias",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        noEditable: true,
+        selector: {
+          key: "provincias",
+          labelKey: formatCodeAndName,
+          sort: "nom",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndName,
+          
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Proveedores.Direccion.codPostal",
+          defaultMessage: "Código Postal",
+        }),
+        type: "LOV",
+        key: "codiPostal",
+        id: "codigosPostales",
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        validationType: "object",
+        ...withRequiredValidation(),
+        selector: {
+          key: "codiPostals",
+          labelKey: (data) =>
+            `${data.poblacio} ${data.municipi ? ` - ${data.municipi}` : ""} (${
+              data.codi
+            })`,
+          sort: "codi",
+         cannotCreate: true,
         advancedSearchColumns: aSCodeAndDescription,
+        },
       },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Presupuestos.serieVenta",
-        defaultMessage: "Serie Venta",
-      }),
-      type: "LOV",
-      key: "serieVenda",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 3,
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.nombreCliente",
+          defaultMessage: "Nombre cliente",
+        }),
+        type: "input",
+        key: "nomClient",
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        validationType: "string",
+        validation: [...props.commonValidations.requiredValidation()],
       },
-      selector: {
-        key: "serieVendas",
-        labelKey: formatCodeAndDescription,
-        sort: "descripcio",
-        cannotCreate: true,
-        advancedSearchColumns: aSCodeAndDescription,
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.valorDivisa",
+          defaultMessage: "Valor divisa euros",
+        }),
+        type: "input",
+        key: "valorDivisaEuros",
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        validationType: "string",
+        validation: [...props.commonValidations.requiredValidation()],
       },
-      validationType: "object",
-      validation: [...props.commonValidations.requiredValidation()],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Presupuestos.puntoVenta",
-        defaultMessage: "Puntos Venta",
-      }),
-      type: "LOV",
-      key: "puntVenda",
-      breakpoints: {
-        xs: 12,
-        md: 3,
+     
+  
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.desglose",
+          defaultMessage: "desglose",
+        }),
+        type: "checkbox",
+        key: "desglose",
+        breakpoints: {
+          xs: 12,
+          md: 1,
+        },
       },
-      selector: {
-        key: "puntVendas",
-        labelKey: formatCodeAndName,
-        sort: "nom",
-        cannotCreate: true,
-        advancedSearchColumns: aSCodeAndName,
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.certOrigen",
+          defaultMessage: "Certificado origen",
+        }),
+        type: "checkbox",
+        key: "certificacioOrigen",
+        breakpoints: {
+          xs: 12,
+          md: 2,
+        },
       },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Presupuestos.divisa",
-        defaultMessage: "Divisa",
-      }),
-      type: "LOV",
-      key: "divisa",
-      id:"divisas",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 3,
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.seguimiento",
+          defaultMessage: "Seguimento Recepción Material",
+        }),
+        type: "checkbox",
+        key: "seguimentRecepcioMaterial",
+        breakpoints: {
+          xs: 12,
+          md: 2,
+        },
       },
-      selector: {
-        key: "divisas",
-        labelKey: formatCodeAndName,
-        sort: "descripcio",
-        cannotCreate: true,
-        advancedSearchColumns: aSCodeAndName,
+      {
+        placeHolder: OBS,
+        type: "observations",
+        key: "observacions",
+        breakpoints: {
+          xs: 12,
+          md: 1,
+        },
       },
-      validationType: "object",
-      validation: [...props.commonValidations.requiredValidation()],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Presupuestos.almacen",
-        defaultMessage: "Almacén",
-      }),
-      type: "LOV",
-      key: "magatzem",
-      id:"magatzems",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      selector: {
-        key: "magatzems",
-        labelKey: formatCodeAndName,
-        sort: "nom",
-        cannotCreate: true,
-        advancedSearchColumns: aSCodeAndName,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Presupuestos.documentoPago",
-        defaultMessage: "Documento pago/cobro",
-      }),
-      type: "LOV",
-      key: "documentPagamentCobrament",
-      id:"documentPagamentCobraments",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      selector: {
-        key: "documentPagamentCobraments",
-        labelKey: formatCodeAndDescription,
-        sort: "descripcio",
-        cannotCreate: true,
-        advancedSearchColumns: aSCodeAndDescription,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Presupuestos.pais",
-        defaultMessage: "Pais",
-      }),
-      type: "LOV",
-      key: "pais",
-      id:"paises",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      noEditable: true,
-      selector: {
-        key: "paises",
-        labelKey: formatCodeAndName,
-        sort: "nom",
-        cannotCreate: true,
-        advancedSearchColumns: aSCodeAndName,
-        
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Presupuestos.provincia",
-        defaultMessage: "Provincia",
-      }),
-      type: "LOV",
-      key: "provincia",
-      id:"provincias",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      noEditable: true,
-      selector: {
-        key: "provincias",
-        labelKey: formatCodeAndName,
-        sort: "nom",
-        cannotCreate: true,
-        advancedSearchColumns: aSCodeAndName,
-        
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Direccion.codPostal",
-        defaultMessage: "Código Postal",
-      }),
-      type: "LOV",
-      id:"codigosPostales",
-      key: "codiPostal",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      validationType: "object",
-      ...withRequiredValidation(),
-      selector: {
-        key: "codiPostals",
-        labelKey: (data) =>
-          `${data.poblacio} ${data.municipi ? ` - ${data.municipi}` : ""} (${
-            data.codi
-          })`,
-        sort: "codi",
-       cannotCreate: true,
-      advancedSearchColumns: aSCodeAndDescription,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Presupuestos.nombreCliente",
-        defaultMessage: "Nombre cliente",
-      }),
-      type: "input",
-      key: "nomClient",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      validationType: "string",
-      validation: [...props.commonValidations.requiredValidation()],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Presupuestos.valorDivisa",
-        defaultMessage: "Valor divisa euros",
-      }),
-      type: "input",
-      key: "valorDivisaEuros",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      validationType: "string",
-      validation: [...props.commonValidations.requiredValidation()],
-    },
-   
-
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Presupuestos.desglose",
-        defaultMessage: "desglose",
-      }),
-      type: "checkbox",
-      key: "desglose",
-      breakpoints: {
-        xs: 12,
-        md: 1,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Presupuestos.certOrigen",
-        defaultMessage: "Certificado origen",
-      }),
-      type: "checkbox",
-      key: "certificacioOrigen",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Presupuestos.seguimiento",
-        defaultMessage: "Seguimento Recepción Material",
-      }),
-      type: "checkbox",
-      key: "seguimentRecepcioMaterial",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-    },
-    {
-      placeHolder: OBS,
-      type: "observations",
-      key: "observacions",
-      required: false,
-      breakpoints: {
-        xs: 12,
-        md: 1,
-      },
-    },
-  ];
+    ];
 
 
+  
   const budgetLineConfig  = {
     title: props.intl.formatMessage({
       id: "Presupuestos.linias",
@@ -743,9 +683,9 @@ const BudgetTab = ({ formData, setFormData, getFormData, ...props }) => {
   }
 
   const tabs = [
-
+   
     {
-      label: <FormattedMessage id={"Presupuestos.linias"} defaultMessage={"Linias de presupuesto"}/>,
+      label: <FormattedMessage id={"Presupuestos.linias"} defaultMessage={"Linias presupuesto"}/> ,
       key: 0,
       component: <ExpandableGrid
         id='pressupostLinias'
@@ -753,34 +693,25 @@ const BudgetTab = ({ formData, setFormData, getFormData, ...props }) => {
         enabled={props.editMode}
         configuration={budgetLineConfig} />
     },
+ 
   ];
 
   return (
-    <Grid container>
+    <Grid container >
       <Grid xs={12} item>
-        <OutlinedContainer
-          className="general-tab-container"
-          title={
-            <FormattedMessage
-              id={"Presupuestos.titulo"}
-              defaultMessage={"Presupuestos"}
-            />
-          }
-        >
-          <GenericForm
-            formComponents={budgetConfig}
-            emptyPaper={true}
-            editMode={props.editMode}
-            getFormData={getFormData}
-            setFormData={setFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(BUDGET_SECTION_INDEX, value)}
-            onBlur={(e) => handleTouched(BUDGET_SECTION_INDEX)}
-            {...props}
-          />
+        <OutlinedContainer className="general-tab-container" title={<FormattedMessage id={"Presupuestos.titulo"} defaultMessage={"Presupuestos"}/>}>
+          <GenericForm formComponents={suppliersConfig}
+                       emptyPaper={true}
+                       editMode={props.editMode}
+                       getFormData={getFormData}
+                       setFormData={setFormData}
+                       loading={props.loading}
+                       formErrors={props.formErrors}
+                       submitFromOutside={props.submitFromOutside}
+                       onSubmit={() => props.onSubmitTab(formData)}
+                       handleIsValid={value => addValidity(BUDGET_SECTION_INDEX,value)}
+                       onBlur={(e) => handleTouched(BUDGET_SECTION_INDEX)}
+                       {...props} />
         </OutlinedContainer>
       </Grid>
       <Grid xs={12} item>
@@ -791,4 +722,8 @@ const BudgetTab = ({ formData, setFormData, getFormData, ...props }) => {
     </Grid>
   );
 };
-export default compose(React.memo, withValidations, injectIntl)(BudgetTab);
+export default compose(
+  React.memo,
+  withValidations,
+  injectIntl
+)(GeneralTab);

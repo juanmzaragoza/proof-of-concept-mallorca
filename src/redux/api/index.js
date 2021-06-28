@@ -72,6 +72,8 @@ export const documentPagamentCobraments = `api/ecom/documentsPagamentCobrament`;
 export const paises = `api/ecom/paisos`;
 export const provincias = `api/ecom/provincies`;
 export const codigosPostales = `api/ecom/codisPostal`;
-
+export const paisesNif = `api/ecom/paisosNif`;
+export const tipusAdresa = `api/ecom/tipusAdreces`;
+export const codiPostalClient = `api/ecom/codisPostal`;
 
 

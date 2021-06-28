@@ -130,6 +130,7 @@ const CustomerTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "paisNif",
+      id:"paisesNif",
       breakpoints: {
         xs: 12,
         md: 4,
@@ -178,6 +179,7 @@ const CustomerTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "tipusAdresa",
+      id: "tipusAdresa",
       breakpoints: {
         xs: 12,
         md: 2,
@@ -258,6 +260,7 @@ const CustomerTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: 'LOV',
       key: 'codiPostalClient',
+      id:"codiPostalClient",
       breakpoints: {
         xs: 12,
         md: 3,

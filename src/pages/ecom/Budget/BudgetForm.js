@@ -13,17 +13,16 @@ import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import {setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig} from "redux/pageHeader";
 import {getFireSave} from "redux/pageHeader/selectors";
 import {withAbmServices} from "../../../modules/wrappers";
-import {getFormData, getFormErrors, getFormDataByKey, getIsDataLoaded} from "redux/genericForm/selectors";
+import {getFormData, getFormErrors, getFormDataByKey, getIsDataLoaded} from "../../../redux/genericForm/selectors";
 
-import {setFormDataByKey} from "redux/genericForm";
-import {getLoading} from "redux/app/selectors";
+import {setFormDataByKey} from "../../../redux/genericForm";
+import {getLoading} from "../../../redux/app/selectors";
 
-/**
- * If you want add a new tab, follow the next steps
- **/
+
+
 /** step 1 */
 const BUDGET_TAB_INDEX = 0;
-const CUSTOMER_SECTION_INDEX = 1;
+const CUSTOMER_TAB_INDEX = 1;
 
 
 const BudgetForm = React.memo(({ actions, allFormData, getFormData, submitFromOutside, services, ...props }) => {
@@ -32,7 +31,7 @@ const BudgetForm = React.memo(({ actions, allFormData, getFormData, submitFromOu
   const [nameSelectedTab, setNameSelectedTab] = useState('');
 
   /** step 2 */
-  const [tabIndexWithError, setTabIndexWithError] = useState({[BUDGET_TAB_INDEX]: false},{[CUSTOMER_SECTION_INDEX]:false});
+  const [tabIndexWithError, setTabIndexWithError] = useState({[BUDGET_TAB_INDEX]: false, [CUSTOMER_TAB_INDEX]: false});
   const [forceTabChange, setForceTabChange] = useState(false);
 
   const tabHasError = (index) => {
@@ -70,7 +69,7 @@ const BudgetForm = React.memo(({ actions, allFormData, getFormData, submitFromOu
   /** step 3 */
   const tabs = [
     {
-      ...getTranslations("Presupuestos.tabs.general","Datos presupuesto"),
+      ...getTranslations("Presupuestos.tabs.general","General"),
       key: BUDGET_TAB_INDEX,
       error: tabHasError(BUDGET_TAB_INDEX),
       component: <BudgetTab
@@ -84,23 +83,22 @@ const BudgetForm = React.memo(({ actions, allFormData, getFormData, submitFromOu
         loading={props.loading}
         formDataLoaded={props.formDataLoaded} />
     },
-  
     {
       ...getTranslations("Presupuestos.tabs.datosClientes","Datos Clientes"),
-      key: CUSTOMER_SECTION_INDEX,
+      key: CUSTOMER_TAB_INDEX,
+      error: tabHasError(CUSTOMER_TAB_INDEX),
       component: <CustomerTab
-      setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [CUSTOMER_SECTION_INDEX]: !value})}
-      editMode={editMode}
-      getFormData={getFormData}
-      setFormData={actions.setFormData}
-      submitFromOutside={submitFromOutside}
-      onSubmitTab={handleSubmitTab}
-      formErrors={props.formErrors}
-      loading={props.loading}
-      formDataLoaded={props.formDataLoaded} />
-
+        setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [CUSTOMER_TAB_INDEX]: !value})}
+        editMode={editMode}
+        getFormData={getFormData}
+        setFormData={actions.setFormData}
+        submitFromOutside={submitFromOutside}
+        onSubmitTab={handleSubmitTab}
+        formErrors={props.formErrors}
+        loading={props.loading}
+        formDataLoaded={props.formDataLoaded} />
     },
-  
+   
   ];
 
   const { id } = useParams();
@@ -119,7 +117,7 @@ const BudgetForm = React.memo(({ actions, allFormData, getFormData, submitFromOu
       services.getById(id);
     } else{
       actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "Presupuestos.titulo", defaultMessage: "Presupuestos"}), href:"/presupuestos"},
+        {title: props.intl.formatMessage({id: "Presupuestos.titulo", defaultMessage: "Presupeustos"}), href:"/ecom/presupuestos"},
         {title: props.intl.formatMessage({id: "Comun.nuevo", defaultMessage: "Nuevo"})}
       ]);
     }
@@ -135,9 +133,9 @@ const BudgetForm = React.memo(({ actions, allFormData, getFormData, submitFromOu
   /** Update HEADER */
   useEffect(()=>{
     if(isEditable()){
-      const codi = getFormData('nomClient');
-      const nom = codi ?
-     codi
+      const nomComercial = getFormData('nomComercial');
+      const nom = nomComercial?
+        nomComercial
         :
         `${props.intl.formatMessage({id: "Comun.cargando", defaultMessage: "Cargando"})}...`;
       actions.setBreadcrumbHeader([
@@ -146,7 +144,7 @@ const BudgetForm = React.memo(({ actions, allFormData, getFormData, submitFromOu
         {title: nameSelectedTab}
       ]);
     }
-  },[getFormData('codi'),nameSelectedTab]);
+  },[getFormData('nomComercial'),nameSelectedTab]);
 
   useEffect(() => {
     if(submitFromOutside){
