@@ -404,6 +404,16 @@ const withConstants = (PassedComponent) => {
         path: "COM_PAINIF",
         icon: <LocalMall />,
       },
+      {
+        key: "COM_TIPADR", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "TipoDireccion.titulo",
+          defaultMessage: "Tipo Direcciones",
+        }),
+        path: "COM_TIPADR", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+
     ];
 
     return (

@@ -29,5 +29,6 @@ export const ART_GAMA_ECOM_URL = '/ecom/gama-articulos';
 export const CURRENCY_ECOM_URL = '/ecom/divisa';
 export const LANGUAGE_ECOM_URL = '/ecom/idiomas';
 export const COUNTRY_NIF_ECOM_URL = '/ecom/paises-nif';
+export const ADRESS_TYPE_ECOM_URL = '/ecom/tipo-direcciones';
 
 

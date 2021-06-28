@@ -8,6 +8,8 @@ import ArticlesGama from './ArticlesGama';
 import Currency from './Currency';
 import Language from './Language';
 import CountryNif from './CountryNif';
+import AddressType from './AddressType';
+
 
 
 const component = [
@@ -19,7 +21,9 @@ const component = [
  ArticlesGama,
  Currency,
  Language,
- CountryNif
+ CountryNif,
+ AddressType
+
 
 ];
 export default component;

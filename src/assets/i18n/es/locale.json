@@ -441,7 +441,7 @@
 
   "Bancos.titulo": "Banco",
   "Banco.titulo": "Banco",
-  
+
   "CodigoPostal.titulo": "Codigos Postales",
 
   "PieDocumento.serieCompra": "Series de Compra",
@@ -460,7 +460,6 @@
   "TipoProyecto.titulo": "Tipo de Proyecto",
 
   "CuentaContableEmpresa.titulo": "Cuentas Contables Empresas",
-
 
   "Articulos.titulo": "Artículos",
   "Articulos.precio": "Precio",
@@ -482,11 +481,11 @@
   "FamiliaArticulos.web": "Web",
   "FamiliaArticulos.empresa": "Empresa",
   "FamiliaArticulos.artExportables": "Artículos exportables",
-  "Divisa.titulo": "Divisa",
-  "Divisa.abreviatura": "Abreviatura",
-  "Divisa.valorEuros": "Valor euros",
-  "Divisa.decimalesPrecio": "Decimales Precio",
-  "Divisa.decimalesImporte": "Decimales Importe",
-  "Divisa.codigoContab": "Código contabilidad",
-  "Divisa.myField": "My field"
+  "Provincia.titulo": "Provincia",
+  "Paises.titulo": "Países",
+  "Paises.importeNoPrecioReparto": "Importe compra sin precio reparto",
+  "Paises.importeReparto": "Importe reparto",
+  "Paises.importeMinimoReparto": "Importe mínimo reparto",
+  "TipoDireccion.titulo": "Tipo Dirección"
+  
 }
