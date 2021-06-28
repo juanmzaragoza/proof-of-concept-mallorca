@@ -18,3 +18,4 @@ export const BANK_FACT_URL = "/fact/bancos";
 
 export const BUDGET_ECOM_URL = "/ecom/presupuestos";
 export const ARTICLES_ECOM_URL = '/ecom/articulos';
+export const ART_FAMILIA_ECOM_URL =  '/ecom/familia-articulos';

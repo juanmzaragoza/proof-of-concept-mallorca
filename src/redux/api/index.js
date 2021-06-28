@@ -82,5 +82,8 @@ export const marca = `api/ecom/articlesMarca`;
 export const articleTraduccios = `api/ecom/articlesTraduccio`;
 export const model= `api/ecom/articlesModel`;
 export const iva = `api/ecom/ives`;
+export const articleFamilias = `api/ecom/articlesFamilia`;
+export const articleFamiliaEmpresas = `api/ecom/articlesFamiliaEmpresa`;
+export const empresas = `api/ecom/empreses`;
 
 

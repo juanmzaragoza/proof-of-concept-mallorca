@@ -442,7 +442,7 @@
   "Bancos.titulo": "Banco",
   "Banco.titulo": "Banco",
 
-  "Articulos.titulo":"Artículos",
+  "Articulos.titulo": "Artículos",
   "Articulos.precio": "Precio",
   "Articulos.tabs.traducciones": "Traducciones",
   "Articulos.tabs.imagenes": "Imágenes",
@@ -454,9 +454,12 @@
   "Articulos.decimalesPrecioIva": "Decimales precio con IVA",
   "Articulos.precioIva": "Precio con IVA",
   "Articulos.urlImagen": "Url imagen",
-  "FamiliaArticulos.titulo":"Familia",
+  "FamiliaArticulos.titulo": "Familia",
   "ArticulosModelo.titulo": "Modelo",
   "ArticulosMarca.titulo": "Marca",
   "ArticulosGama.titulo": "Gama",
-  "Productos.idiomas":"Idiomas"
+  "Productos.idiomas": "Idiomas",
+  "FamiliaArticulos.web": "Web",
+  "FamiliaArticulos.empresa": "Empresa",
+  "FamiliaArticulos.artExportables": "Artículos exportables"
 }

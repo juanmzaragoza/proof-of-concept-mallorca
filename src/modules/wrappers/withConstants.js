@@ -302,6 +302,15 @@ const withConstants = (PassedComponent) => {
             path: "COM_ARTICL", // or has path or has children but not both
             icon: <LocalMall />,
           },
+          {
+            key: "COM_FAMART",
+            title: props.intl.formatMessage({
+              id: "FamiliaArticulos.titulo",
+              defaultMessage: "Familia artículo",
+            }),
+            path: "COM_FAMART",
+            icon: <LocalMall />,
+          },
         ]
       }
     ];
