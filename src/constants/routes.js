@@ -26,6 +26,6 @@ export const ART_FAMILIA_ECOM_URL =  '/ecom/familia-articulos';
 export const ART_MODEL_ECOM_URL = '/ecom/modelo-articulos';
 export const ART_MARCA_ECOM_URL = '/ecom/marca-articulos';
 export const ART_GAMA_ECOM_URL = '/ecom/gama-articulos';
-
+export const CURRENCY_ECOM_URL = '/ecom/divisa';
 
 

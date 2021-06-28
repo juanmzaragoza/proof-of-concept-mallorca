@@ -5,6 +5,7 @@ import ArticlesFamily from './ArticlesFamily';
 import ArticlesModel from './ArticlesModel';
 import ArticlesBrand from './ArticlesBrand';
 import ArticlesGama from './ArticlesGama';
+import Currency from './Currency';
 
 
 const component = [
@@ -13,7 +14,8 @@ const component = [
  ArticlesFamily,
  ArticlesModel,
  ArticlesBrand,
- ArticlesGama
+ ArticlesGama,
+ Currency
 
 ];
 export default component;

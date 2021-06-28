@@ -481,5 +481,12 @@
   "Productos.idiomas": "Idiomas",
   "FamiliaArticulos.web": "Web",
   "FamiliaArticulos.empresa": "Empresa",
-  "FamiliaArticulos.artExportables": "Artículos exportables"
+  "FamiliaArticulos.artExportables": "Artículos exportables",
+  "Divisa.titulo": "Divisa",
+  "Divisa.abreviatura": "Abreviatura",
+  "Divisa.valorEuros": "Valor euros",
+  "Divisa.decimalesPrecio": "Decimales Precio",
+  "Divisa.decimalesImporte": "Decimales Importe",
+  "Divisa.codigoContab": "Código contabilidad",
+  "Divisa.myField": "My field"
 }

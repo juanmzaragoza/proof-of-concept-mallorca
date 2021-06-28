@@ -360,6 +360,15 @@ const withConstants = (PassedComponent) => {
           },
         ]
       },
+      {
+        key: "COM_DIV", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Divisa.titulo",
+          defaultMessage: "Divisas",
+        }),
+        path: "COM_DIV", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
   
    
 
