@@ -8,6 +8,15 @@ import * as API from "redux/api";
 
 const VatCreate = (props) => {
 
+  const withRequiredValidation = (extraValidations = []) => {
+    return {
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+        ...extraValidations
+      ]
+    }
+  }
+
   const createConfiguration = [
     {
       placeHolder: props.intl.formatMessage({
@@ -22,11 +31,15 @@ const VatCreate = (props) => {
         md: 3,
       },
       noEditable: true,
+  
       validationType: "string",
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 4),
-      ],
+      ...withRequiredValidation([
+        ...props.stringValidations.minMaxValidation(1,4),
+        ...(!props.editMode? props.stringValidations.fieldExistsValidation('iva', 'codi', props.intl.formatMessage({
+          id: "Comun.codigo",
+          defaultMessage: "Código",
+        }),):[])
+      ])
     },
     {
       placeHolder: props.intl.formatMessage({
