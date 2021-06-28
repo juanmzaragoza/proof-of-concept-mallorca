@@ -127,7 +127,7 @@ const ArticlesForm = React.memo(({ actions, allFormData, getFormData, submitFrom
       services.getById(id);
     } else{
       actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "Presupuestos.titulo", defaultMessage: "Presupuestos"}), href:"/presupuestos"},
+        {title: props.intl.formatMessage({id: "Articulos.titulo", defaultMessage: "Articulos"}), href:"/ecom/articulos"},
         {title: props.intl.formatMessage({id: "Comun.nuevo", defaultMessage: "Nuevo"})}
       ]);
     }

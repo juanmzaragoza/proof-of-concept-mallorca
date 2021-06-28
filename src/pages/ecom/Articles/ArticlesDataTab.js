@@ -23,7 +23,14 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
     setIsValid: props.setIsValid,
   });
 
-  const { id: budgetId } = useParams();
+  const withRequiredValidation = (extraValidations = []) => {
+    return {
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+        ...extraValidations
+      ]
+    }
+  }
 
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
@@ -39,9 +46,6 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
     defaultMessage: "Nombre",
   });
 
-
-
-
   const formatCodeAndDescription = (data) =>
     `${data.descripcio} (${data.codi})`;
 
@@ -50,20 +54,25 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
     { title: DESCRIPCIO, name: "descripcio" },
   ];
 
-
   const articlesDataConfig = [
     {
       placeHolder: CODE,
       type: "input",
       key: "codi",
-      required:true,
+      required: true,
       noEditable: true,
       breakpoints: {
         xs: 12,
         md: 2,
       },
       validationType: "string",
-      validation: [...props.commonValidations.requiredValidation()],
+      ...withRequiredValidation([
+        ...props.stringValidations.minMaxValidation(1,15),
+        ...(!props.editMode? props.stringValidations.fieldExistsValidation('articles', 'codi', props.intl.formatMessage({
+          id: "Comun.codigo",
+          defaultMessage: "Código",
+        }),):[])
+      ])
     },
     {
       placeHolder: NOM,
@@ -74,9 +83,7 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 6,
       },
       validationType: "string",
-      validation: [
-        ...props.stringValidations.minMaxValidation(1, 60),
-      ],
+      validation: [...props.stringValidations.minMaxValidation(1, 60)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -90,9 +97,7 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
       validationType: "string",
-      validation: [
-        ...props.stringValidations.minMaxValidation(1, 20),
-      ],
+      validation: [...props.stringValidations.minMaxValidation(1, 20)],
     },
 
     {
@@ -186,9 +191,7 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "string",
-      validation: [
-        ...props.stringValidations.minMaxValidation(0, 4),
-      ],
+      validation: [...props.stringValidations.minMaxValidation(0, 4)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -230,8 +233,8 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "iva",
-      id:"iva",
-      required:true,
+      id: "iva",
+      required: true,
       breakpoints: {
         xs: 12,
         md: 3,
@@ -258,9 +261,7 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "number",
-      validation: [
-        ...props.stringValidations.minMaxValidation(1, 9),
-      ],
+      validation: [...props.stringValidations.minMaxValidation(1, 9)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -315,8 +316,10 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         multiline: 8,
       },
       validationType: "string",
-      validation: [...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 2000),],
+      validation: [
+        ...props.commonValidations.requiredValidation(),
+        ...props.stringValidations.minMaxValidation(1, 2000),
+      ],
     },
   ];
 
