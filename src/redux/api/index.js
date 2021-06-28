@@ -90,4 +90,5 @@ export const articleFamiliaEmpresas = `api/ecom/articlesFamiliaEmpresa`;
 export const empresas = `api/ecom/empreses`;
 export const articleModels= `api/ecom/articlesModel`;
 export const articleMarcas= `api/ecom/articlesMarca`;
+export const articleGammas= `api/ecom/articlesGamma`;
 

@@ -4,6 +4,7 @@
 import ArticlesFamily from './ArticlesFamily';
 import ArticlesModel from './ArticlesModel';
 import ArticlesBrand from './ArticlesBrand';
+import ArticlesGama from './ArticlesGama';
 
 
 const component = [
@@ -11,7 +12,8 @@ const component = [
  Articles,
  ArticlesFamily,
  ArticlesModel,
- ArticlesBrand
+ ArticlesBrand,
+ ArticlesGama
 
 ];
 export default component;
