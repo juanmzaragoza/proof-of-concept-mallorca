@@ -404,7 +404,30 @@
 
   "TipoProyecto.titulo": "Tipo de Proyecto",
 
-  "CuentaContableEmpresa.titulo": "Cuentas Contables Empresas"
+  "CuentaContableEmpresa.titulo": "Cuentas Contables Empresas",
+
+  "RegistroComercial.titulo": "Registros Comerciales",
+  "RegistroComercial.interesado": "Interesado",
+  "RegistroComercial.descripcion": "Descripción del Medio",
+  "RegistroComercial.medio": "Medio",
+  "RegistroComercial.comentarios": "Comentarios",
+  "RegistroComercial.productos": "Productos",
+  "RegistroComercial.fecha": "Fecha",
+  "RegistroComercial.datosContacto": "Datos de Contacto",
+
+  "Selector.llamada": "Llamada",
+  "Selector.correo": "Correo",
+  "Selector.web": "Web de la empresa",
+  "Selector.buscador": "Buscador",
+  "Selector.conocido": "Conocido",
+  "Selector.feria": "Feria o acontecimiento",
+  "Selector.publicidad": "Publicidad",
+  "Selector.conoceEmpresa": "Interesado ya conoce la empresa",
+  "Selector.visitaComercial": "Visita comercial de la empresa",
+  "Selector.reunionTrabajo": "Reunión de trabajo",
+  "Selector.formacion": "Formación",
+  "Selector.visitaPresencial": "Visita Presencial"
+
 
 
 }

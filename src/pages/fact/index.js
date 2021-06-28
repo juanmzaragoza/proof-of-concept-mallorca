@@ -18,6 +18,7 @@ import PostalCode from './PostalCode';
 import DocumentFooter from './DocumentFooter';
 import ProjectType from './ProjectType';
 import CompanyAccountingAccount from './CompanyAccountingAccount';
+import CommercialRegister from './CommercialRegister';
 
 
 const component = [
@@ -41,5 +42,6 @@ const component = [
   DocumentFooter,
   ProjectType,
   CompanyAccountingAccount,
+  CommercialRegister,
 ];
 export default component;

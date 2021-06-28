@@ -260,6 +260,75 @@ export const TIPO_CONTABILIZACION_SELECTOR_VALUES = [
   }
 ];
 
+export const TIPO_REGISTRO_COMERCIAL_SELECTOR_VALUES = [
+  {
+    value: "CRIDADA",
+    labelId: "Selector.llamada",
+    label: "Llamada",
+  },
+  {
+    value: "CORREU",
+    labelId: "Selector.correo",
+    label: "Correo",
+  },
+  {
+    value: "VISITA_PRESENCIAL",
+    labelId: "Selector.visitaPresencial",
+    label: "Visita Presencial",
+  }
+];
 
+export const MEDIO_SELECTOR_VALUES = [
+  {
+    value: "WEB",
+    labelId: "Selector.web",
+    label: "Web de la empresa",
+  },
+  {
+    value: "CERCADOR",
+    labelId: "Selector.buscador",
+    label: "Buscador",
+  },
+  {
+    value: "CONEGUT",
+    labelId: "Selector.conocido",
+    label: "Conocido",
+  },
+  {
+    value: "FIRA",
+    labelId: "Selector.feria",
+    label: "Feria o acontecimiento",
+  },
+  {
+    value: "PUBLICITAT",
+    labelId: "Selector.publicidad",
+    label: "Publicidad",
+  },
+  {
+    value: "CONEIX_EMPRESA",
+    labelId: "Selector.conoceEmpresa",
+    label: "Interesado ya conoce la empresa",
+  },
+  {
+    value: "VISITA_COMERCIAL",
+    labelId: "Selector.visitaComercial",
+    label: "Visita comercial de la empresa",
+  },
+  {
+    value: "REUNIO_DE_TREBALL",
+    labelId: "Selector.reunionTrabajo",
+    label: "Reunión de trabajo",
+  },
+  {
+    value: "FORMACIO",
+    labelId: "Selector.formacion",
+    label: "Formación",
+  },
+  {
+    value: "ALTRES",
+    labelId: "Selector.otros",
+    label: "Otros",
+  }
+];
 
 
