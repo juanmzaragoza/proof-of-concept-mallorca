@@ -17,6 +17,7 @@ import Bank from './Bank';
 import PostalCode from './PostalCode';
 import DocumentFooter from './DocumentFooter';
 import ProjectType from './ProjectType';
+import CompanyAccountingAccount from './CompanyAccountingAccount';
 
 
 const component = [
@@ -39,5 +40,6 @@ const component = [
   PostalCode,
   DocumentFooter,
   ProjectType,
+  CompanyAccountingAccount,
 ];
 export default component;

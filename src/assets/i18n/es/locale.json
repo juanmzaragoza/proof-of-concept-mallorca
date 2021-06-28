@@ -385,6 +385,7 @@
   "Retenciones.tipo3": "Tipo 3",
 
   "Bancos.titulo": "Banco",
+  "Banco.titulo": "Banco",
   
   "CodigoPostal.titulo": "Codigos Postales",
 
@@ -401,7 +402,9 @@
   "PieDocumento.imprimirClase": "Imprimir Clase",
   "PieDocumento.orden": "Orden",
 
-  "TipoProyecto.titulo": "Tipo de Proyecto"
+  "TipoProyecto.titulo": "Tipo de Proyecto",
+
+  "CuentaContableEmpresa.titulo": "Cuentas Contables Empresas"
 
 
 }
