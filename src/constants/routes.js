@@ -30,5 +30,6 @@ export const CURRENCY_ECOM_URL = '/ecom/divisa';
 export const LANGUAGE_ECOM_URL = '/ecom/idiomas';
 export const COUNTRY_NIF_ECOM_URL = '/ecom/paises-nif';
 export const ADRESS_TYPE_ECOM_URL = '/ecom/tipo-direcciones';
+export const IVA_ECOM_URL = '/ecom/iva';
 
 

@@ -486,6 +486,6 @@
   "Paises.importeNoPrecioReparto": "Importe compra sin precio reparto",
   "Paises.importeReparto": "Importe reparto",
   "Paises.importeMinimoReparto": "Importe mínimo reparto",
-  "TipoDireccion.titulo": "Tipo Dirección"
-  
+  "TipoDireccion.titulo": "Tipo Dirección",
+  "TipoDireccion.descripcionCodigo": "Descripción-Código texto"
 }

@@ -9,6 +9,7 @@ import Currency from './Currency';
 import Language from './Language';
 import CountryNif from './CountryNif';
 import AddressType from './AddressType';
+import Vat from './Vat';
 
 
 
@@ -22,7 +23,8 @@ const component = [
  Currency,
  Language,
  CountryNif,
- AddressType
+ AddressType,
+ Vat
 
 
 ];
