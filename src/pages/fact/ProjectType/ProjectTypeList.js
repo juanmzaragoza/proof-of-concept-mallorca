@@ -7,22 +7,22 @@ import ReactGrid from "modules/ReactGrid";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
-const BankList = ({ actions, ...props }) => {
+const ProjectTypeList = ({ actions, ...props }) => {
 
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
-        id: "Bancos.titulo",
-        defaultMessage: "Banco",
+        id: "TipoProyecto.titulo",
+        defaultMessage: "Tipo de Proyecto",
       }),
     });
     actions.setBreadcrumbHeader([
       {
         title: props.intl.formatMessage({
-          id: "Bancos.titulo",
-          defaultMessage: "Banco",
+          id: "TipoProyecto.titulo",
+        defaultMessage: "Tipo de Proyecto",
         }),
-        href: "/bancos",
+        href: "/tiposProyecto",
       },
     ]);
   }, []);
@@ -44,10 +44,10 @@ const BankList = ({ actions, ...props }) => {
         }),
       },
     ],
-    URL: API.banc,
-    listKey: "bancs",
+    URL: API.projectesTipo,
+    listKey: "projecteTipuses",
   };
-  return <ReactGrid id="banc" configuration={listConfiguration} />;
+  return <ReactGrid id="projectesTipo" configuration={listConfiguration} />;
 };
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -61,4 +61,4 @@ const mapDispatchToProps = (dispatch, props) => {
 export default compose(
   injectIntl,
   connect(null, mapDispatchToProps)
-)(BankList);
+)(ProjectTypeList);

@@ -7,22 +7,22 @@ import ReactGrid from "modules/ReactGrid";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
-const BankList = ({ actions, ...props }) => {
+const CompanyAccountingAccountList = ({ actions, ...props }) => {
 
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
-        id: "Bancos.titulo",
-        defaultMessage: "Banco",
+        id: "CuentaContableEmpresa.titulo",
+        defaultMessage: "Cuentas Contables Empresas",
       }),
     });
     actions.setBreadcrumbHeader([
       {
         title: props.intl.formatMessage({
-          id: "Bancos.titulo",
-          defaultMessage: "Banco",
+          id: "CuentaContableEmpresa.titulo",
+        defaultMessage: "Cuentas Contables Empresas",
         }),
-        href: "/bancos",
+        href: "/cuentasContablesEmpresas",
       },
     ]);
   }, []);
@@ -30,24 +30,26 @@ const BankList = ({ actions, ...props }) => {
   const listConfiguration = {
     columns: [
       {
-        name: "codi",
+        name: 'client.description',
         title: props.intl.formatMessage({
-          id: "Comun.codigo",
-          defaultMessage: "Código",
+          id: "Clientes.titulo",
+          defaultMessage: "Clientes"
         }),
+        getCellValue: row => row.client?.description ?? ""
       },
       {
-        name: "nom",
+        name: 'empresa.description',
         title: props.intl.formatMessage({
-          id: "Comun.nombre",
-          defaultMessage: "Nombre",
+          id: "Clientes.empresas",
+          defaultMessage: "Empresas"
         }),
+        getCellValue: row => row.empresa?.description ?? ""
       },
     ],
-    URL: API.banc,
-    listKey: "bancs",
+    URL: API.compteComptableEmpresas,
+    listKey: "compteComptableEmpresas",
   };
-  return <ReactGrid id="banc" configuration={listConfiguration} />;
+  return <ReactGrid id="compteComptableEmpresas" configuration={listConfiguration} />;
 };
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -61,4 +63,4 @@ const mapDispatchToProps = (dispatch, props) => {
 export default compose(
   injectIntl,
   connect(null, mapDispatchToProps)
-)(BankList);
+)(CompanyAccountingAccountList);

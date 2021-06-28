@@ -135,22 +135,18 @@ const withConstants = (PassedComponent) => {
      */
     const menuRoutes = [
       {
-        key: "FAC_CP", // not mandatory for routes with children
-        title: props.intl.formatMessage({
-          id: "Proveedores.titulo",
-          defaultMessage: "Proveedores",
-        }),
-        path: "FAC_CP", // or has path or has children but not both
-        icon: <LocalMall />,
+
+        key: 'FAC_PROVEI', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "Proveedores.titulo",defaultMessage: "Proveedores"}),
+        path: 'FAC_PROVEI', // or has path or has children but not both
+        icon: <LocalMall />
       },
       {
-        key: "FAC_PEUDOC", // not mandatory for routes with children
-        title: props.intl.formatMessage({
-          id: "FamiliaProveedores.titulo",
-          defaultMessage: "Familia de Proveedores",
-        }),
-        path: "FAC_PEUDOC", // or has path or has children but not both
-        icon: <LocalMall />,
+        key: 'FAC_FAMPRO', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "FamiliaProveedores.titulo",defaultMessage: "Familia de Proveedores"}),
+        path: 'FAC_FAMPRO', // or has path or has children but not both
+        icon: <LocalMall />
+
       },
       {
         key: "FAC_PAIS", // not mandatory for routes with children
@@ -279,6 +275,30 @@ const withConstants = (PassedComponent) => {
         icon: <LocalMall />,
       },
       {
+        key: 'FAC_CP', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "CodigoPostal.titulo",defaultMessage: "Codigos Postales"}),
+        path: 'FAC_CP', // or has path or has children but not both
+        icon: <LocalMall />
+      },
+      {
+        key: 'FAC_PEUDOC', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "PieDocumento.titulo",defaultMessage: "Pies Documentos"}),
+        path: 'FAC_PEUDOC', // or has path or has children but not both
+        icon: <LocalMall />
+      },
+      {
+        key: 'FAC_PROTIP', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "TipoProyecto.titulo",defaultMessage: "Tipo de Proyecto"}),
+        path: 'FAC_PROTIP', // or has path or has children but not both
+        icon: <LocalMall />
+      },
+      {
+        key: 'FAC_EMPCCM', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "CuentaContableEmpresa.titulo",defaultMessage: "Cuentas Contables Empresas"}),
+        path: 'FAC_EMPCCM', // or has path or has children but not both
+        icon: <LocalMall />
+      },
+      {
         key: "COM_PRE", // not mandatory for routes with children
         title: props.intl.formatMessage({
           id: "Presupuestos.titulo",
@@ -312,7 +332,10 @@ const withConstants = (PassedComponent) => {
             icon: <LocalMall />,
           },
         ]
-      }
+      },
+  
+   
+
     ];
 
     return (

@@ -14,6 +14,10 @@ import Vat from './Vat';
 import RegimeVat from './RegimeVat';
 import Retention from './Retention';
 import Bank from './Bank';
+import PostalCode from './PostalCode';
+import DocumentFooter from './DocumentFooter';
+import ProjectType from './ProjectType';
+import CompanyAccountingAccount from './CompanyAccountingAccount';
 
 
 const component = [
@@ -33,5 +37,9 @@ const component = [
   RegimeVat,
   Retention,
   Bank,
+  PostalCode,
+  DocumentFooter,
+  ProjectType,
+  CompanyAccountingAccount,
 ];
 export default component;

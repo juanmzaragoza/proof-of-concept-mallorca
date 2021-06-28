@@ -1,28 +1,27 @@
 import React, { useEffect } from "react";
+import ReactGrid from "../../../modules/ReactGrid";
+import { bindActionCreators, compose } from "redux";
+import { setBreadcrumbHeader, setListingConfig } from "../../../redux/pageHeader";
 import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
-import { bindActionCreators, compose } from "redux";
-
-import ReactGrid from "modules/ReactGrid";
-import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
-const BankList = ({ actions, ...props }) => {
+const PostalCodeList = ({ actions, ...props }) => {
 
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
-        id: "Bancos.titulo",
-        defaultMessage: "Banco",
+        id: "CodigosPostales.titulo",
+        defaultMessage: "Codigos Postales",
       }),
     });
     actions.setBreadcrumbHeader([
       {
         title: props.intl.formatMessage({
-          id: "Bancos.titulo",
-          defaultMessage: "Banco",
+          id: "CodigosPostales.titulo",
+          defaultMessage: "Codigos Postales",
         }),
-        href: "/bancos",
+        href: "/codigo-postal",
       },
     ]);
   }, []);
@@ -37,17 +36,26 @@ const BankList = ({ actions, ...props }) => {
         }),
       },
       {
-        name: "nom",
+        name: "pais",
         title: props.intl.formatMessage({
-          id: "Comun.nombre",
-          defaultMessage: "Nombre",
+          id: "Paises.titol",
+          defaultMessage: "País",
         }),
+        getCellValue: row => row.pais?.description ?? ""
+      },
+      {
+        name: "provincia",
+        title: props.intl.formatMessage({
+          id: "Provincias.titol",
+          defaultMessage: "Provincia",
+        }),
+        getCellValue: row => row.provincia?.description ?? ""
       },
     ],
-    URL: API.banc,
-    listKey: "bancs",
+    URL: API.codiPostal,
+    listKey: "codiPostals",
   };
-  return <ReactGrid id="banc" configuration={listConfiguration} />;
+  return <ReactGrid id="codiPostal" configuration={listConfiguration} />;
 };
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -61,4 +69,4 @@ const mapDispatchToProps = (dispatch, props) => {
 export default compose(
   injectIntl,
   connect(null, mapDispatchToProps)
-)(BankList);
+)(PostalCodeList);
