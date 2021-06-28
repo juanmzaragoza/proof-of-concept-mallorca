@@ -6,6 +6,7 @@ import ArticlesModel from './ArticlesModel';
 import ArticlesBrand from './ArticlesBrand';
 import ArticlesGama from './ArticlesGama';
 import Currency from './Currency';
+import Language from './Language';
 
 
 const component = [
@@ -15,7 +16,8 @@ const component = [
  ArticlesModel,
  ArticlesBrand,
  ArticlesGama,
- Currency
+ Currency,
+ Language
 
 ];
 export default component;

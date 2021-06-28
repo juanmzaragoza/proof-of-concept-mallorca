@@ -369,6 +369,15 @@ const withConstants = (PassedComponent) => {
         path: "COM_DIV", // or has path or has children but not both
         icon: <LocalMall />,
       },
+      {
+        key: "COM_IDI", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Idiomas.titol",
+          defaultMessage: "Idiomas",
+        }),
+        path: "COM_IDI", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
   
    
 
