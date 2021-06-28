@@ -17,3 +17,4 @@ export const ZONE_FACT_URL = "/fact/zona";
 export const BANK_FACT_URL = "/fact/bancos";
 
 export const BUDGET_ECOM_URL = "/ecom/presupuestos";
+export const ARTICLES_ECOM_URL = '/ecom/articulos';

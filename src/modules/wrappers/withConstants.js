@@ -10,6 +10,7 @@ import {
   VerifiedUser,
 } from "@material-ui/icons";
 import LocalMall from "@material-ui/icons/LocalMall";
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 
 const withConstants = (PassedComponent) => {
   const WrappedComponent = ({ actions, ...props }) => {
@@ -285,7 +286,24 @@ const withConstants = (PassedComponent) => {
         }),
         path: "COM_PRE", // or has path or has children but not both
         icon: <LocalMall />,
-      },
+      },{
+        title: props.intl.formatMessage({
+          id: "Articulos.titulo",
+          defaultMessage: "Artículos",
+        }),
+        icon: <ShoppingBasketIcon />,
+        children: [
+          {
+            key: "COM_ARTICL", // not mandatory for routes with children
+            title: props.intl.formatMessage({
+              id: "Articulos.titulo",
+              defaultMessage: "Artículos",
+            }),
+            path: "COM_ARTICL", // or has path or has children but not both
+            icon: <LocalMall />,
+          },
+        ]
+      }
     ];
 
     return (

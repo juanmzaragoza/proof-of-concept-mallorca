@@ -75,5 +75,12 @@ export const codigosPostales = `api/ecom/codisPostal`;
 export const paisesNif = `api/ecom/paisosNif`;
 export const tipusAdresa = `api/ecom/tipusAdreces`;
 export const codiPostalClient = `api/ecom/codisPostal`;
+export const articles = `api/ecom/articles`;
+export const familia = `api/ecom/articlesFamilia`;
+export const gamma = `api/ecom/articlesGamma`;
+export const marca = `api/ecom/articlesMarca`;
+export const articleTraduccios = `api/ecom/articlesTraduccio`;
+export const model= `api/ecom/articlesModel`;
+export const iva = `api/ecom/ives`;
 
 
