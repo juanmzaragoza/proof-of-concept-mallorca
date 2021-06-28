@@ -323,25 +323,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 12)],
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.Contab.oficines",
-        defaultMessage: "Oficina Bancaria",
-      }),
-      type: "LOV",
-      key: "banc",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      selector: {
-        key: "bancs",
-        labelKey: formatCodeAndName,
-        sort: "nom",
-        advancedSearchColumns:aSCodeAndName,
-        cannotCreate: true,
-      },
-    },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.Contab.oficines",
