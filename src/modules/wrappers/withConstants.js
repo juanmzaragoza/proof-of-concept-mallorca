@@ -340,6 +340,15 @@ const withConstants = (PassedComponent) => {
             path: "COM_MODART",
             icon: <LocalMall />,
           },
+          {
+            key: "COM_MARART",
+            title: props.intl.formatMessage({
+              id: "ArticulosMarca.titulo",
+              defaultMessage: "Marca",
+            }),
+            path: "COM_MARART",
+            icon: <LocalMall />,
+          },
         ]
       },
   
