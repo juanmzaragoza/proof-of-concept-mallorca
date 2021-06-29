@@ -77,13 +77,11 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 4),
-        ...(!props.editMode
-          ? props.stringValidations.fieldExistsValidation(
-              "documentPagamentCobraments",
-              "codi",
-              CODE
-            )
-          : []),
+        ...props.stringValidations.fieldExistsValidation(
+          "documentPagamentCobraments",
+          "codi",
+          CODE
+        ),
       ],
     },
     {

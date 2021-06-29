@@ -31,10 +31,10 @@ const CurrencyCreate = (props) => {
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 4),
-        ...(!props.editMode? props.stringValidations.fieldExistsValidation('divises', 'codi', props.intl.formatMessage({
+        ...props.stringValidations.fieldExistsValidation('divises', 'codi', props.intl.formatMessage({
           id: "Comun.codigo",
           defaultMessage: "Código",
-        }),):[])
+        }),)
       ],
     },
     {

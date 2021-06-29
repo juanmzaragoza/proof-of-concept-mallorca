@@ -35,10 +35,10 @@ const VatCreate = (props) => {
       validationType: "string",
       ...withRequiredValidation([
         ...props.stringValidations.minMaxValidation(1,4),
-        ...(!props.editMode? props.stringValidations.fieldExistsValidation('iva', 'codi', props.intl.formatMessage({
+        ...props.stringValidations.fieldExistsValidation('iva', 'codi', props.intl.formatMessage({
           id: "Comun.codigo",
           defaultMessage: "Código",
-        }),):[])
+        }),)
       ])
     },
     {

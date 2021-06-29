@@ -68,10 +68,10 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "string",
       ...withRequiredValidation([
         ...props.stringValidations.minMaxValidation(1,15),
-        ...(!props.editMode? props.stringValidations.fieldExistsValidation('articles', 'codi', props.intl.formatMessage({
+        ...props.stringValidations.fieldExistsValidation('articles', 'codi', props.intl.formatMessage({
           id: "Comun.codigo",
           defaultMessage: "Código",
-        }),):[])
+        }),)
       ])
     },
     {

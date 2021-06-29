@@ -45,16 +45,14 @@ const ExpirationTab = ({ formData, setFormData, getFormData, ...props }) => {
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 4),
-        ...(!props.editMode
-          ? props.stringValidations.fieldExistsValidation(
-              "tipusVenciments",
-              "codi",
-              props.intl.formatMessage({
-                id: "Comun.codigo",
-                defaultMessage: "Código",
-              })
-            )
-          : []),
+        ...props.stringValidations.fieldExistsValidation(
+          "tipusVenciments",
+          "codi",
+          props.intl.formatMessage({
+            id: "Comun.codigo",
+            defaultMessage: "Código",
+          })
+        ),
       ],
     },
     {
