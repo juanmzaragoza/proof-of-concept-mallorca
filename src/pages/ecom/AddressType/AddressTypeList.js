@@ -1,66 +1,65 @@
-import React, {useEffect} from "react";
-import {injectIntl} from "react-intl";
-import {connect} from "react-redux";
-import {bindActionCreators,compose} from "redux";
+import React, { useEffect } from "react";
+import { injectIntl } from "react-intl";
+import { connect } from "react-redux";
+import { bindActionCreators, compose } from "redux";
 
 import ReactGrid from "modules/ReactGrid";
-import {setBreadcrumbHeader, setListingConfig} from "redux/pageHeader";
+import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
 const AdressTypeList = ({ actions, ...props }) => {
-
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
         id: "TipoDireccion.titulo",
-        defaultMessage: "Tipo Dirección"
+        defaultMessage: "Tipo Dirección",
       }),
     });
     actions.setBreadcrumbHeader([
-      {title: props.intl.formatMessage({
+      {
+        title: props.intl.formatMessage({
           id: "TipoDireccion.titulo",
-          defaultMessage: "Tipo Dirección"
-        }), href:"/ecom/tipo-direcciones"}
+          defaultMessage: "Tipo Dirección",
+        }),
+        href: "/ecom/tipo-direcciones",
+      },
     ]);
-  },[]);
+  }, []);
 
   const listConfiguration = {
     columns: [
-      { name: 'codi',
+      {
+        name: "codi",
         title: props.intl.formatMessage({
           id: "Comun.codigo",
-          defaultMessage: "Código"
-        })
+          defaultMessage: "Código",
+        }),
       },
-      { name: 'descripcio',
+      {
+        name: "descripcio",
         title: props.intl.formatMessage({
           id: "Comun.descripcion",
-          defaultMessage: "Descripción"
-        })
+          defaultMessage: "Descripción",
+        }),
       },
-      { name: 'descripcioCodiTxt',
-      title: props.intl.formatMessage({
-        id: "TipoDireccion.descripcionCodigo",
-        defaultMessage: "Descripción código texto"
-      })
-    },
-
-
+      {
+        name: "descripcioCodiTxt",
+        title: props.intl.formatMessage({
+          id: "TipoDireccion.descripcionCodigo",
+          defaultMessage: "Descripción código texto",
+        }),
+      },
     ],
     URL: API.tipusAdresa,
-    listKey: 'tipusAdresas'
+    listKey: "tipusAdresas",
   };
-  return (
-    <ReactGrid
-      id='tipusAdresa'
-      configuration={listConfiguration} />
-  );
-}
+  return <ReactGrid id="tipusAdresa" configuration={listConfiguration} />;
+};
 
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
     setListingConfig: bindActionCreators(setListingConfig, dispatch),
-    setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch)
+    setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch),
   };
   return { actions };
 };
