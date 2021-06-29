@@ -553,5 +553,21 @@
   "DocumentosPago.cuentaContableOrigen": "Cuenta contable origen",
   "DocumentosPago.cuentaContableDestino": "Cuenta contable destino",
   "DocumentosPago.ingresos": "Ingresos",
-  "DocumentosPago.pagos": "Pagos"
+  "DocumentosPago.pagos": "Pagos",
+  "Clientes.tabs.contactos": "Contactos",
+  "Clientes.tabs.general":"General",
+  "Clientes.direccion": "Dirección",
+  "Clientes.nif": "NIF",
+  "Clientes.idioma":"Idioma",
+  "Clientes.familia": "Familia cliente",
+  "Clientes.tamanyNif": "Tamaño NIF",
+  "Clientes.pais_nif": "País NIF",
+  "Clientes.tipoDoc": "Tipo documento",
+  "Clientes.nombre_fiscal": "Nombre fiscal",
+  "Clientes.nombre_comercial": "Nombre comercial",
+  "Clientes.contraseña":"Contraseña",
+  "Clientes.domicilioFiscal":"Domicilio fiscal",
+  "Clientes.cpTexto": "Código postal texto",
+  "Clientes.poblacionTexto": "Población texto",
+  "Clientes.provinciaTexto": "Provincia texto"
 }

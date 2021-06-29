@@ -37,4 +37,5 @@ export const BILLING_TYPE_ECOM_URL = '/ecom/tipos-facturacion';
 export const PAYMENT_DOCS_ECOM_URL = '/ecom/documentos-pago';
 export const COUNTRY_ECOM_URL = '/ecom/paises';
 export const PROVINCE_ECOM_URL = '/ecom/provincias';
+export const CUSTOMER_ECOM_URL = '/ecom/clientes';
 

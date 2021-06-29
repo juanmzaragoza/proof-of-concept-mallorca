@@ -15,6 +15,7 @@ import BillingType from "./BillingType";
 import PaymentDocuments from "./PaymentDocuments";
 import Country from "./Country";
 import Province from "./Province";
+import Customer from "./Customer";
 
 const component = [
   Budget,
@@ -33,6 +34,7 @@ const component = [
   BillingType,
   PaymentDocuments,
   Country,
-  Province
+  Province,
+  Customer
 ];
 export default component;
