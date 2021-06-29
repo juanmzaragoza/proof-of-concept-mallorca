@@ -14,6 +14,7 @@ import ExpirationType from "./ExpirationType";
 import BillingType from "./BillingType";
 import PaymentDocuments from "./PaymentDocuments";
 import Country from "./Country";
+import Province from "./Province";
 
 const component = [
   Budget,
@@ -32,5 +33,6 @@ const component = [
   BillingType,
   PaymentDocuments,
   Country,
+  Province
 ];
 export default component;
