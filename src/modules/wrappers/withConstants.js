@@ -458,6 +458,15 @@ const withConstants = (PassedComponent) => {
         path: "COM_DPG", // or has path or has children but not both
         icon: <LocalMall />,
       },
+      {
+        key: "COM_PAI", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Paises.titulo",
+          defaultMessage: "Paises",
+        }),
+        path: "COM_PAI", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
     ];
 
     return (

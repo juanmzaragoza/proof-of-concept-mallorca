@@ -35,4 +35,5 @@ export const REGIME_VAT_ECOM_URL ='/ecom/regimen-iva';
 export const EXPIRATION_TYPE_ECOM_URL = '/ecom/tipos-vencimiento';
 export const BILLING_TYPE_ECOM_URL = '/ecom/tipos-facturacion';
 export const PAYMENT_DOCS_ECOM_URL = '/ecom/documentos-pago';
+export const COUNTRY_ECOM_URL = '/ecom/paises';
 

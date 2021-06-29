@@ -96,3 +96,4 @@ export const regimIvas = `api/ecom/regimsIva`;
 export const tipusVenciments = `api/ecom/tipusVenciments`;
 export const tipusFacturacions = `api/ecom/tipusFacturacions`;
 export const naturalesaPagamentCobrament = `api/ecom/naturalesesPagamentCobrament`;
+export const paisos = `api/ecom/paisos`;
