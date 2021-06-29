@@ -94,3 +94,4 @@ export const articleGammas= `api/ecom/articlesGamma`;
 export const divises = `api/ecom/divises`;
 export const regimIvas = `api/ecom/regimsIva`;
 export const tipusVenciments = `api/ecom/tipusVenciments`;
+export const tipusFacturacions = `api/ecom/tipusFacturacions`;

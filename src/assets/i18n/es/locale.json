@@ -528,5 +528,7 @@
   "Selector.mes.septiembre": "Septiembre",
   "Selector.mes.octubre": "Octubre",
   "Selector.mes.noviembre": "Noviembre",
-  "Selector.mes.diciembre": "Diciembre"
+  "Selector.mes.diciembre": "Diciembre",
+  "TiposFacturacion.titulo": "Tipos Facturación",
+  "TiposFacturacion.concedemosCredito": "Concedemos crédito"
 }
