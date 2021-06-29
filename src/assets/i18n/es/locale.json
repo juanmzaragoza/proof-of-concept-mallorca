@@ -415,6 +415,9 @@
   "RegistroComercial.fecha": "Fecha",
   "RegistroComercial.datosContacto": "Datos de Contacto",
 
+  "Gama.prupes": "Prupes",
+  "Gama.titulo": "Articulos Gama",
+
   "Selector.llamada": "Llamada",
   "Selector.correo": "Correo",
   "Selector.web": "Web de la empresa",
@@ -427,7 +430,6 @@
   "Selector.reunionTrabajo": "Reunión de trabajo",
   "Selector.formacion": "Formación",
   "Selector.visitaPresencial": "Visita Presencial"
-
 
 
 }

@@ -19,6 +19,7 @@ import DocumentFooter from './DocumentFooter';
 import ProjectType from './ProjectType';
 import CompanyAccountingAccount from './CompanyAccountingAccount';
 import CommercialRegister from './CommercialRegister';
+import Gama from './Gama';
 
 
 const component = [
@@ -43,5 +44,6 @@ const component = [
   ProjectType,
   CompanyAccountingAccount,
   CommercialRegister,
+  Gama,
 ];
 export default component;
