@@ -23,6 +23,7 @@ import Gama from './Gama';
 import ItemBrand from './ItemBrand';
 import ItemModel from './ItemModel';
 import CommisionType from './CommisionType';
+import UnitType from './UnitType';
 
 
 const component = [
@@ -51,5 +52,6 @@ const component = [
   ItemBrand,
   ItemModel,
   CommisionType,
+  UnitType,
 ];
 export default component;

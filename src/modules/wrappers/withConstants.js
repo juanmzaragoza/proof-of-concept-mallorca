@@ -231,6 +231,12 @@ const withConstants = (PassedComponent) => {
             path: 'FAC_TIPCOM', // or has path or has children but not both
             icon: <LocalMall />
           },
+          {
+            key: 'FAC_UNITIP', // not mandatory for routes with children
+            title: props.intl.formatMessage({id: "TipoUnidad.titulo",defaultMessage: "Tipo de Unidades"}),
+            path: 'FAC_UNITIP', // or has path or has children but not both
+            icon: <LocalMall />
+          },
         ],
       },
    

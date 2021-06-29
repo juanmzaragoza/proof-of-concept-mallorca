@@ -429,6 +429,9 @@
   "TipoComision.porcentaje": "Porcentaje",
   "TipoComision.minimo": "Mínimo",
 
+  "TipoUnidad.titulo": "Tipo de Unidades",
+  "TipoUnidad.factor": "Factor de Conversión",
+
   "Selector.llamada": "Llamada",
   "Selector.correo": "Correo",
   "Selector.web": "Web de la empresa",
