@@ -93,3 +93,4 @@ export const articleMarcas= `api/ecom/articlesMarca`;
 export const articleGammas= `api/ecom/articlesGamma`;
 export const divises = `api/ecom/divises`;
 export const regimIvas = `api/ecom/regimsIva`;
+export const tipusVenciments = `api/ecom/tipusVenciments`;

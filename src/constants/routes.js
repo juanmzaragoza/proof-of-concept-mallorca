@@ -32,4 +32,5 @@ export const COUNTRY_NIF_ECOM_URL = '/ecom/paises-nif';
 export const ADRESS_TYPE_ECOM_URL = '/ecom/tipo-direcciones';
 export const IVA_ECOM_URL = '/ecom/iva';
 export const REGIME_VAT_ECOM_URL ='/ecom/regimen-iva';
+export const EXPIRATION_TYPE_ECOM_URL = '/ecom/tipos-vencimiento';
 

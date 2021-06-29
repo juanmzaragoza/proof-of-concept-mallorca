@@ -11,6 +11,7 @@ import CountryNif from './CountryNif';
 import AddressType from './AddressType';
 import Vat from './Vat';
 import RegimeVat from './RegimeVat';
+import ExpirationType from './ExpirationType';
 
 
 
@@ -26,7 +27,8 @@ const component = [
  CountryNif,
  AddressType,
  Vat,
- RegimeVat
+ RegimeVat,
+ ExpirationType
 
 
 ];
