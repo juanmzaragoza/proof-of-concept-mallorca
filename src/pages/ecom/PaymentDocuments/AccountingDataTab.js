@@ -106,6 +106,7 @@ const AccountingDataTab = ({
         id: "Iva.titulo",
         defaultMessage: "Iva",
       }),
+      required:true,
       type: "LOV",
       key: "iva",
       breakpoints: {
@@ -122,9 +123,7 @@ const AccountingDataTab = ({
           { title: DESCRIPCIO, name: "descripcio" },
         ],
       },
-      required: true,
-      validationType: "object",
-      validations: [...props.commonValidations.requiredValidation()],
+    
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -194,6 +193,7 @@ const AccountingDataTab = ({
       type: "LOV",
       key: "regimIva",
       id: "regimIvas",
+      required:true,
       breakpoints: {
         xs: 12,
         md: 4,
@@ -208,9 +208,7 @@ const AccountingDataTab = ({
           { title: DESCRIPCIO, name: "descripcio" },
         ],
       },
-      required: true,
-      validationType: "object",
-      validations: [...props.commonValidations.requiredValidation()],
+ 
     },
 
     {
