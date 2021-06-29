@@ -59,6 +59,8 @@ export const articlesMarca = `api/fact/articlesMarca`;
 export const articlesModel = `api/fact/articlesModel`;
 export const tipusUnitats = `api/fact/unitatsTipus`;
 
+export const familiaArticle = `api/fact/articlesFamilia`;
+
 export const projectes = `api/fact/projectes`;
 export const projecteTipus= `api/fact/projectesTipus`;
 export const client = `api/fact/clients`;

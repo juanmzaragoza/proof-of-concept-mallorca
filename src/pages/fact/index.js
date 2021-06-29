@@ -24,6 +24,7 @@ import ItemBrand from './ItemBrand';
 import ItemModel from './ItemModel';
 import CommisionType from './CommisionType';
 import UnitType from './UnitType';
+import ItemsFamily from './ItemsFamily';
 
 
 const component = [
@@ -53,5 +54,6 @@ const component = [
   ItemModel,
   CommisionType,
   UnitType,
+  ItemsFamily,
 ];
 export default component;

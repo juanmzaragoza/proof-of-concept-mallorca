@@ -25,3 +25,4 @@ export const BRAND_FACT_URL = '/fact/articulos-marca';
 export const MODEL_FACT_URL = '/fact/articulos-modelo';
 export const COMMISION_TYPE_FACT_URL = '/fact/tipo-comision';
 export const UNIT_TYPE_FACT_URL = '/fact/tipo-unidad';
+export const ITEM_FAMILY_FACT_URL = '/fact/article-familia';
