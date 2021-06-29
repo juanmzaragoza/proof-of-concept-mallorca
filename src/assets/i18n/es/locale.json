@@ -487,5 +487,8 @@
   "Paises.importeReparto": "Importe reparto",
   "Paises.importeMinimoReparto": "Importe mínimo reparto",
   "TipoDireccion.titulo": "Tipo Dirección",
-  "TipoDireccion.descripcionCodigo": "Descripción-Código texto"
+  "TipoDireccion.descripcionCodigo": "Descripción-Código texto",
+  "Comun.si":"Si",
+  "Comun.no":"No"
+
 }

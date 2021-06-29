@@ -92,3 +92,4 @@ export const articleModels= `api/ecom/articlesModel`;
 export const articleMarcas= `api/ecom/articlesMarca`;
 export const articleGammas= `api/ecom/articlesGamma`;
 export const divises = `api/ecom/divises`;
+export const regimIvas = `api/ecom/regimsIva`;

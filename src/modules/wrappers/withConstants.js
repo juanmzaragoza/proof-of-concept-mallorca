@@ -422,7 +422,15 @@ const withConstants = (PassedComponent) => {
         path: "COM_IVA", // or has path or has children but not both
         icon: <LocalMall />,
       },
-
+      {
+        key: "COM_RGI", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "RegimenIva.titulo",
+          defaultMessage: "Régimen IVA",
+        }),
+        path: "COM_RGI", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
     ];
 
     return (
@@ -430,7 +438,7 @@ const withConstants = (PassedComponent) => {
         constants={{ modulesConfig, menuRoutes }}
         getters={{ getModuleByName }}
         {...props}
-        actions={actions}
+         actions={actions}
       ></PassedComponent>
     );
   };
