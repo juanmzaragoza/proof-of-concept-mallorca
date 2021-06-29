@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import ReactGrid from "modules/ReactGrid";
 import { bindActionCreators, compose } from "redux";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
-import { injectIntl } from "react-intl";
+import { FormattedMessage, injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import * as API from "redux/api";
 
@@ -45,11 +45,15 @@ const ArticlesList = ({ actions, ...props }) => {
         name: "artExportables",
         title: props.intl.formatMessage({
           id: "FamiliaArticulos.artExportables",
-          defaultMessage: "Artiículos exportables",
+          defaultMessage: "Artículos exportables",
         }),
-        getCellValue: row => row.artExportables === true ?  "SI" : "NO"
+        getCellValue: (row) =>
+          row.artExportables === true ? (
+            <FormattedMessage id={"Comun.si"} defaultMessage={"Si"} />
+          ) : (
+            <FormattedMessage id={"Comun.no"} defaultMessage={"No"} />
+          ),
       },
-     
     ],
     URL: API.articleFamilias,
     listKey: "articleFamilias",
