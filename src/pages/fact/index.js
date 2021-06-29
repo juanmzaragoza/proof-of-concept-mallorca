@@ -21,6 +21,7 @@ import CompanyAccountingAccount from './CompanyAccountingAccount';
 import CommercialRegister from './CommercialRegister';
 import Gama from './Gama';
 import ItemBrand from './ItemBrand';
+import ItemModel from './ItemModel';
 
 
 const component = [
@@ -47,5 +48,6 @@ const component = [
   CommercialRegister,
   Gama,
   ItemBrand,
+  ItemModel,
 ];
 export default component;

@@ -22,3 +22,4 @@ export const COMPANY_ACCOUNTING_ACCOUNTS_FACT_URL = '/fact/cuentas-contables-emp
 export const COMMERCIAL_REGISTER_FACT_URL = '/fact/registros-comerciales';
 export const GAMA_FACT_URL = '/fact/articulos-gama';
 export const BRAND_FACT_URL = '/fact/articulos-marca';
+export const MODEL_FACT_URL = '/fact/articulos-modelo';

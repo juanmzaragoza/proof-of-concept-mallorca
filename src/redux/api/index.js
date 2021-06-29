@@ -56,6 +56,7 @@ export const projectesTipo = `api/fact/projectesTipus`;
 export const registreComercial = `api/fact/registresComercials`;
 export const articlesGama = `api/fact/articlesGamma`;
 export const articlesMarca = `api/fact/articlesMarca`;
+export const articlesModel = `api/fact/articlesModel`;
 
 export const projectes = `api/fact/projectes`;
 export const projecteTipus= `api/fact/projectesTipus`;

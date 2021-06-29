@@ -420,6 +420,10 @@
 
   "Marca.titulo": "Articulos Marca",
 
+  "Modelo.titulo": "Articulos Modelo",
+  "Modelo.control": "Control articulos transportados",
+  "Modelo.partida": "Partida",
+
   "Selector.llamada": "Llamada",
   "Selector.correo": "Correo",
   "Selector.web": "Web de la empresa",
