@@ -22,6 +22,7 @@ import CommercialRegister from './CommercialRegister';
 import Gama from './Gama';
 import ItemBrand from './ItemBrand';
 import ItemModel from './ItemModel';
+import CommisionType from './CommisionType';
 
 
 const component = [
@@ -49,5 +50,6 @@ const component = [
   Gama,
   ItemBrand,
   ItemModel,
+  CommisionType,
 ];
 export default component;

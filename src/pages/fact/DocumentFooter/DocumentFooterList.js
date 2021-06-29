@@ -40,13 +40,13 @@ const DocumentFooterList = ({ actions, ...props }) => {
       },
       { name: 'serieCompraCodi',
         title: props.intl.formatMessage({
-          id: "PeuDocument.serieCompra",
+          id: "PieDocumento.serieCompra",
           defaultMessage: "Series de Compra"
         })
       },
       { name: 'empresa2',
         title: props.intl.formatMessage({
-          id: "PeuDocument.empresa",
+          id: "PieDocumento.empresa",
           defaultMessage: "Empresa"
         })
       },

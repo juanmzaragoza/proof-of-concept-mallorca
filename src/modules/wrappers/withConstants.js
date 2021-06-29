@@ -3,6 +3,7 @@ import {compose} from "redux";
 import {injectIntl} from "react-intl";
 import {ChevronLeft, ChevronRight, Delete, Save, Undo, VerifiedUser} from "@material-ui/icons";
 import LocalMall from "@material-ui/icons/LocalMall";
+import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 
 const withConstants = (PassedComponent) => {
 
@@ -200,22 +201,37 @@ const withConstants = (PassedComponent) => {
         icon: <LocalMall />
       },
       {
-        key: 'FAC_GAMART', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "Gama.titulo",defaultMessage: "Articulos Gama"}),
-        path: 'FAC_GAMART', // or has path or has children but not both
-        icon: <LocalMall />
-      },
-      {
-        key: 'FAC_MARART', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "Marca.titulo",defaultMessage: "Articulos Marca"}),
-        path: 'FAC_MARART', // or has path or has children but not both
-        icon: <LocalMall />
-      },
-      {
-        key: 'FAC_MODART', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "Modelo.titulo",defaultMessage: "Articulos Modelo"}),
-        path: 'FAC_MODART', // or has path or has children but not both
-        icon: <LocalMall />
+        title: props.intl.formatMessage({
+          id: "Articulos.titulo",
+          defaultMessage: "Artículos",
+        }),
+        icon: <ShoppingBasketIcon />,
+        children: [
+          {
+            key: 'FAC_GAMART', // not mandatory for routes with children
+            title: props.intl.formatMessage({id: "Gama.titulo",defaultMessage: "Articulos Gama"}),
+            path: 'FAC_GAMART', // or has path or has children but not both
+            icon: <LocalMall />
+          },
+          {
+            key: 'FAC_MARART', // not mandatory for routes with children
+            title: props.intl.formatMessage({id: "Marca.titulo",defaultMessage: "Articulos Marca"}),
+            path: 'FAC_MARART', // or has path or has children but not both
+            icon: <LocalMall />
+          },
+          {
+            key: 'FAC_MODART', // not mandatory for routes with children
+            title: props.intl.formatMessage({id: "Modelo.titulo",defaultMessage: "Articulos Modelo"}),
+            path: 'FAC_MODART', // or has path or has children but not both
+            icon: <LocalMall />
+          },
+          {
+            key: 'FAC_TIPCOM', // not mandatory for routes with children
+            title: props.intl.formatMessage({id: "TipoComision.titulo",defaultMessage: "Tipos de Comisión"}),
+            path: 'FAC_TIPCOM', // or has path or has children but not both
+            icon: <LocalMall />
+          },
+        ],
       },
    
     ];

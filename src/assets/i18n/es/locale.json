@@ -349,6 +349,7 @@
   "Divisa.codigoContab": "Código contabilidad",
   "Divisa.myField": "My field",
 
+  "Articulos.titulo": "Artículos",
 
   "PaisNif.titulo": "País NIF",
   "PaisNif.tipusNif": "Tipus NIF",
@@ -423,6 +424,10 @@
   "Modelo.titulo": "Articulos Modelo",
   "Modelo.control": "Control articulos transportados",
   "Modelo.partida": "Partida",
+
+  "TipoComision.titulo": "Tipos de Comisión",
+  "TipoComision.porcentaje": "Porcentaje",
+  "TipoComision.minimo": "Mínimo",
 
   "Selector.llamada": "Llamada",
   "Selector.correo": "Correo",
