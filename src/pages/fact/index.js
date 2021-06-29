@@ -20,6 +20,7 @@ import ProjectType from './ProjectType';
 import CompanyAccountingAccount from './CompanyAccountingAccount';
 import CommercialRegister from './CommercialRegister';
 import Gama from './Gama';
+import ItemBrand from './ItemBrand';
 
 
 const component = [
@@ -45,5 +46,6 @@ const component = [
   CompanyAccountingAccount,
   CommercialRegister,
   Gama,
+  ItemBrand,
 ];
 export default component;

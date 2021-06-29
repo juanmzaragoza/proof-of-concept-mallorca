@@ -21,3 +21,4 @@ export const PROJECT_TYPE_FACT_URL = '/fact/tipo-proyecto';
 export const COMPANY_ACCOUNTING_ACCOUNTS_FACT_URL = '/fact/cuentas-contables-empresas';
 export const COMMERCIAL_REGISTER_FACT_URL = '/fact/registros-comerciales';
 export const GAMA_FACT_URL = '/fact/articulos-gama';
+export const BRAND_FACT_URL = '/fact/articulos-marca';
