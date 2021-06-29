@@ -1,14 +1,19 @@
 import React from "react";
 import {compose} from "redux";
 import {injectIntl} from "react-intl";
+import {useParams} from "react-router-dom";
 import {getFormedURL} from "../../redux/common";
 import {EXPANDABLE_GRID_LIMIT_PER_PAGE} from "../../constants/config";
 import Axios from "../../Axios";
 
 const withValidations = (PassedComponent) => {
 
-
   const WrappedComponent = (props) => {
+
+    const { id } = useParams();
+    const isEditing = () => {
+      return !!id;
+    }
 
     const strMinMaxValidation = (min, max) => {
       return [
@@ -103,7 +108,7 @@ const withValidations = (PassedComponent) => {
     }
 
     const fieldExistsValidation = (key, field, name) => {
-      return [
+      return !isEditing()? [
         {
           type: "test",
           params: [
@@ -131,7 +136,7 @@ const withValidations = (PassedComponent) => {
             }
           ]
         }
-      ]
+      ]:[]
     }
 
     return <PassedComponent

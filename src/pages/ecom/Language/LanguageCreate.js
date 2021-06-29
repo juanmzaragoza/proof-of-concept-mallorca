@@ -25,10 +25,10 @@ const LanguageCreate = (props) => {
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1,4),
-        ...(!props.editMode? props.stringValidations.fieldExistsValidation('idiomas', 'codi', props.intl.formatMessage({
+        ...props.stringValidations.fieldExistsValidation('idiomas', 'codi', props.intl.formatMessage({
           id: "Comun.codigo",
           defaultMessage: "Código",
-        }),):[])
+        }),)
       ]
     },
     {

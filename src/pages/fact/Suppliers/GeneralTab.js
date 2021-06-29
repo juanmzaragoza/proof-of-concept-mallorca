@@ -220,7 +220,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       validationType: "string",
       ...withRequiredValidation([
         ...props.stringValidations.minMaxValidation(1,6),
-        ...(!props.editMode? props.stringValidations.fieldExistsValidation('suppliers', 'codi', CODE):[])
+        ...props.stringValidations.fieldExistsValidation('suppliers', 'codi', CODE)
       ])
     },
     {
