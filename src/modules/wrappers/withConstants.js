@@ -449,6 +449,15 @@ const withConstants = (PassedComponent) => {
         path: "COM_TFC", // or has path or has children but not both
         icon: <LocalMall />,
       },
+      {
+        key: "COM_DPG", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "DocumentosPago.titulo",
+          defaultMessage: "Documentos Pago/Cobro",
+        }),
+        path: "COM_DPG", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
     ];
 
     return (

@@ -12,6 +12,7 @@ import Vat from "./Vat";
 import RegimeVat from "./RegimeVat";
 import ExpirationType from "./ExpirationType";
 import BillingType from "./BillingType";
+import PaymentDocuments from "./PaymentDocuments";
 
 const component = [
   Budget,
@@ -28,5 +29,7 @@ const component = [
   RegimeVat,
   ExpirationType,
   BillingType,
+  PaymentDocuments
+  
 ];
 export default component;
