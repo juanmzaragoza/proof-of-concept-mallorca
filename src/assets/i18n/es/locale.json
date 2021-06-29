@@ -569,5 +569,6 @@
   "Clientes.domicilioFiscal":"Domicilio fiscal",
   "Clientes.cpTexto": "Código postal texto",
   "Clientes.poblacionTexto": "Población texto",
-  "Clientes.provinciaTexto": "Provincia texto"
+  "Clientes.provinciaTexto": "Provincia texto",
+  "CodigosPostales.titulo": "Códigos postales"
 }

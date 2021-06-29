@@ -16,6 +16,8 @@ import PaymentDocuments from "./PaymentDocuments";
 import Country from "./Country";
 import Province from "./Province";
 import Customer from "./Customer";
+import CustomerFamily from "./CustomerFamily";
+
 
 const component = [
   Budget,
@@ -35,6 +37,8 @@ const component = [
   PaymentDocuments,
   Country,
   Province,
-  Customer
+  Customer,
+  CustomerFamily
+
 ];
 export default component;
