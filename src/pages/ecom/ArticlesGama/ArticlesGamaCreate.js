@@ -24,7 +24,11 @@ const ArticlesGamaCreate = (props) => {
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1,6)
+        ...props.stringValidations.minMaxValidation(1,6),
+        ...props.stringValidations.fieldExistsValidation('articleGammas', 'codi', props.intl.formatMessage({
+          id: "Comun.codigo",
+          defaultMessage: "Código",
+        }),)
       ]
     },
     {
