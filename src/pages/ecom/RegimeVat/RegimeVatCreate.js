@@ -28,6 +28,10 @@ const RegimeVatCreate = (props) => {
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 2),
+        ...props.stringValidations.fieldExistsValidation('regimIvas', 'codi', props.intl.formatMessage({
+          id: "Comun.codigo",
+          defaultMessage: "Código",
+        }),)
       ],
     },
     {
