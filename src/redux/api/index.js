@@ -100,3 +100,4 @@ export const paisos = `api/ecom/paisos`;
 
 export const familiaClients = `api/ecom/familiesClient`;
 export const tipusRiscs = `api/ecom/tipusRiscos`;
+export const caixes = `api/ecom/caixes`;

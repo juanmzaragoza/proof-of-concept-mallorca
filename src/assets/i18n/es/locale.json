@@ -574,12 +574,35 @@
   "Cliente.nombre":"Nombre",
   "Cliente.codigo":"Código",
   "Almacen.titulo": "Almacén",
-  "Almacen.valoracionIventario": "Valoración inventario tranpasos",
+  "Almacen.valoracionInventario": "Valoración inventario tranpasos",
   "Almacen.diarioContable": "Diario contable",
   "Almacen.diarioContabl2": "Diario contable 2",
   "Almacen.cuenta": "Cuenta contable",
   "Almacen.tipoAsiento": "Tipo asiento contable",
-  "Almacen.responsable": "Responsable"
+  "Almacen.responsable": "Responsable",
+  "PuntoVenta.titulo": "Punto venta",
+  "PuntoVenta.codigoApertura":  "Código apertura caja",
+  "PuntoVenta.tipoImpresion": "Tipo impresión",
+  "Selector.siempre":"Siempre",
+  "Selector.nunca":"Nunca",
+  "Selector.preguntar":"Preguntar",
+  "Selector.diaria": "Diaria",
+  "Selector.global": "Global",
+  "PuntoVenta.liniasEnBlanco": "Linias en blanco",
+  "PuntoVenta.enumeracionTipo": "Enumeración tipo",
+  "RegimenIva.codigoApertura":  "Código apertura caja",
+  "PuntoVenta.cajas": "Cajas",
+  "PuntoVenta.direccionIp": "Dirección IP",
+  "PuntoVenta.carpetasTpv": "Carpetas TPV",
+  "PuntoVenta.nombreTpv": "Nombre TPV",
+  "PuntoVenta.ultimoAZ": "Último A-Z",
+  "PuntoVenta.cabezera": "Cabezera ticket",
+  "PuntoVenta.pie": "Píe ticket",
+  "PuntoVenta.cortePapel": "Corte papel",
+  "PuntoVenta.ticketIva": "Ticket IVA incluido",
+  "PuntoVenta.fechaImpresion": "Fecha impresión",
+  "PuntoVenta.carpetasImg": "Carpetas Imágenes"
+
 
 
 }

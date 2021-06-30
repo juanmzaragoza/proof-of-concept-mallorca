@@ -382,3 +382,39 @@ export const TIPO_MES_SELECTOR_VALUES = [
     label: "Diciembre",
   },
 ];
+
+export const TIPO_ENUM_PUNT_VENTA_VALUES = [
+  {
+    value: "DIARIA",
+    labelId: "Selector.diaria",
+    label: "Diaria",
+  },
+  {
+    value: "GLOBAL",
+    labelId: "Selector.global",
+    label: "Global",
+  },
+
+];
+
+export const TIPO_IMPRESION_PUNT_VENTA_VALUES = [
+  {
+    value: "SEMPRE",
+    labelId: "Selector.siempre",
+    label: "Siempre",
+  },
+  {
+    value: "MAI",
+    labelId: "Selector.nunca",
+    label: "Nunca",
+  },
+  {
+    value: "DEMANAR",
+    labelId: "Selector.preguntar",
+    label: "Preguntar",
+  },
+
+];
+
+
+
