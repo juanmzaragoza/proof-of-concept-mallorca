@@ -31,7 +31,7 @@ const ItemsFamilyListIntl = compose(
 
 // Document-Footer form
 // TODO(): maybe we can create a state for the page and set the url there
-const ItemsFamilyFormWithUrl = () => <ItemsFamilyForm url={API.peusDocument} />;
+const ItemsFamilyFormWithUrl = () => <ItemsFamilyForm url={API.familiaArticle} />;
 
 const ItemsFamily = () => (
   <Paper style={{ position: 'relative' }}>

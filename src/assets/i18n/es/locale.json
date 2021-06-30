@@ -434,6 +434,7 @@
 
   "FamiliaArticulos.titulo": "Familia de Artículos",
   "FamiliaArticulos.familiaCoste": "Familia Coste",
+  "FamiliaArticulos.tipoFamilia": "Tipos de Família",
   "FamiliaArticulos.delegacion": "Delegación",
   "FamiliaArticulos.proyecto": "Proyecto",
   "FamiliaArticulos.tabs.seriesVenta": "Cuentas por Series Ventas",
@@ -444,6 +445,28 @@
   "FamiliaArticulos.tabs.cuentasFamiliaArticulo_Cliente": "Cuentas por familias de articulo-cliente",
   "FamiliaArticulos.tabs.cuentasFamiliaArticulo_Proveedor": "Cuentas por familias de articulo-proveedor",
   "FamiliaArticulos.tabs.gama_Modelo": "Gamas-Modelos",
+  "FamiliaArticulos.secuencia": "Secuencia Ordenación",
+  "FamiliaArticulos.margenSobreCoste": "Margen Sobre Coste %",
+  "FamiliaArticulos.minimo": "Margen Mínimo %",
+  "FamiliaArticulos.porcentajePenalizacionDevolucion": "Porcentaje de penalización devolución %",
+  "FamiliaArticulos.excluirAlGenerarAlbaran": "Excluir al generar albarán",
+  "FamiliaArticulos.grupoRecursos": "Grupo de Recursos",
+  "FamiliaArticulos.numeroHoras": "Numero de horas",
+  "FamiliaArticulos.avisosAlbaranesCliente": "Avisos en albaranes de cliente",
+  "FamiliaArticulos.productoPropio": "Producto propio",
+  "FamiliaArticulos.tiempoFabricacionUnidadesMetricas": "Tiempo de fabricación por unidades metricas",
+  "FamiliaArticulos.distribuirCosteAdicional": "Distribuir coste adicional",
+  "FamiliaArticulos.articulosExportables": "Articulos exportables",
+  "FamiliaArticulos.cuentaExistencias": "Cuenta existencias",
+  "FamiliaArticulos.loteNavegable": "Lote navegable",
+  "FamiliaArticulos.ubicacionNavegable": "Ubicación navegable",
+  "FamiliaArticulos.opciones": "Opciones",
+  "FamiliaArticulos.web": "Web",
+  "FamiliaArticulos.tipoServicio": "Tipo de Servicio",
+  "FamiliaArticulos.articuloFamilia": "Articulo Familia",
+  "FamiliaArticulos.descripcionOperacion": "Descripción operación",
+  "FamiliaArticulos.nde": "Numero Días, Máxima Entrada",
+  "FamiliaArticulos.ndf": "Numero Días, Máximo Fabricación",
 
   "Selector.llamada": "Llamada",
   "Selector.correo": "Correo",
@@ -456,7 +479,14 @@
   "Selector.visitaComercial": "Visita comercial de la empresa",
   "Selector.reunionTrabajo": "Reunión de trabajo",
   "Selector.formacion": "Formación",
-  "Selector.visitaPresencial": "Visita Presencial"
+  "Selector.visitaPresencial": "Visita Presencial",
+  "Selector.noAvisar": "No avisar",
+  "Selector.siEsMasPresupuesto": "Si es más de lo presupuesto",
+  "Selector.siNoEsLoPresupuesto": "Si no es lo presupuesto",
+  "Selector.material": "Material",
+  "Selector.manoObra": "Mano de obra",
+  "Selector.obraServicio": "Obra_Servicio",
+  "Selector.taller": "Taller"
 
 
 }

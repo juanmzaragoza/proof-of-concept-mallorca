@@ -331,4 +331,46 @@ export const MEDIO_SELECTOR_VALUES = [
   }
 ];
 
+export const AVISO_ALBARANES_CLIENTE_SELECTOR_VALUES = [
+  {
+    value: "NO_AVISAR",
+    labelId: "Selector.noAvisar",
+    label: "No avisar",
+  },
+  {
+    value: "SI_ES_MES_DE_LO_PRESSUPOSTAT",
+    labelId: "Selector.siEsMasPresupuesto",
+    label: "Si es más de lo presupuesto",
+  },
+  {
+    value: "SI_NO_ES_LO_PRESSUPOSTAT",
+    labelId: "Selector.siNoEsLoPresupuesto",
+    label: "Si no es lo presupuesto",
+  }
+];
 
+export const TIPO_FAMILIA_ARTICULO_SELECTOR_VALUES = [
+  {
+    value: "MATERIAL",
+    labelId: "Selector.material",
+    label: "Material",
+  },
+  {
+    value: "MA_OBRA",
+    labelId: "Selector.manoObra",
+    label: "Mano de obra",
+  }
+];
+
+export const TIPO_SERVEI_FAMILIA_ARTICULO_SELECTOR_VALUES = [
+  {
+    value: "OBRA_SERVEI",
+    labelId: "Selector.obraServicio",
+    label: "Obra_Servicio",
+  },
+  {
+    value: "TALLER",
+    labelId: "Selector.taller",
+    label: "Taller",
+  }
+];
