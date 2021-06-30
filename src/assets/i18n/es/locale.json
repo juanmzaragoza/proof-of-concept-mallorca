@@ -572,6 +572,14 @@
   "Clientes.provinciaTexto": "Provincia texto",
   "CodigosPostales.titulo": "Códigos postales",
   "Cliente.nombre":"Nombre",
-  "Cliente.codigo":"Código"
+  "Cliente.codigo":"Código",
+  "Almacen.titulo": "Almacén",
+  "Almacen.valoracionIventario": "Valoración inventario tranpasos",
+  "Almacen.diarioContable": "Diario contable",
+  "Almacen.diarioContabl2": "Diario contable 2",
+  "Almacen.cuenta": "Cuenta contable",
+  "Almacen.tipoAsiento": "Tipo asiento contable",
+  "Almacen.responsable": "Responsable"
+
 
 }

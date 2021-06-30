@@ -17,6 +17,7 @@ import Country from "./Country";
 import Province from "./Province";
 import Customer from "./Customer";
 import CustomerFamily from "./CustomerFamily";
+import Store from "./Store";
 
 
 const component = [
@@ -38,7 +39,8 @@ const component = [
   Country,
   Province,
   Customer,
-  CustomerFamily
+  CustomerFamily,
+  Store
 
 ];
 export default component;

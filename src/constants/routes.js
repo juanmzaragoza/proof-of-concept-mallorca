@@ -39,5 +39,6 @@ export const COUNTRY_ECOM_URL = '/ecom/paises';
 export const PROVINCE_ECOM_URL = '/ecom/provincias';
 export const CUSTOMER_ECOM_URL = '/ecom/clientes';
 export const CLIENT_FAMILY_ECOM_URL = '/ecom/familia-clientes';
+export const STORE_ECOM_URL = '/ecom/almacenes';
 
 
