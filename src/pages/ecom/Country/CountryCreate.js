@@ -24,7 +24,11 @@ const CountryCreate = (props) => {
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 5)
+        ...props.stringValidations.minMaxValidation(1, 5),
+        ...props.stringValidations.fieldExistsValidation('paisos', 'codi', props.intl.formatMessage({
+          id: "Comun.codigo",
+          defaultMessage: "Código",
+        }),)
       ]
     },
     {
