@@ -9,6 +9,7 @@ import grids from "redux/grids/index";
 import enterpriseGroup from "redux/enterpriseGroup/index";
 import modules from "redux/modules/index";
 import reactGrid from "redux/reactGrid/index";
+import imagesUploader from "redux/imagesUploader/index";
 
 export default combineReducers({
   app,
@@ -20,7 +21,8 @@ export default combineReducers({
   grids,
   enterpriseGroup,
   modules,
-  reactGrid
+  reactGrid,
+  imagesUploader
 });
 
 //Global action to reset the store

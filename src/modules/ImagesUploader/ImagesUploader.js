@@ -1,33 +1,33 @@
 import * as React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
-import {Avatar, Card, CardActionArea, CardActions, CardContent, CardMedia, Grid} from "@material-ui/core";
-import {useState} from "react";
+import {
+  Avatar,
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  CircularProgress,
+  Grid
+} from "@material-ui/core";
+import {useEffect, useRef, useState} from "react";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 
-const ImagesUploader = () => {
-  const [clickedRow, setClickedRow] = useState(null);
-  const [rows,setRows] = useState([
-    { id: 1, lastName: 'Snow', ruta_informe: 'Jon.jpg', age: 35 },
-    { id: 2, lastName: 'Lannister', ruta_informe: 'Cersei.jpg', age: 42 },
-    { id: 3, lastName: 'Lannister', ruta_informe: 'Jaime.jpg', age: 45 },
-    { id: 4, lastName: 'Stark', ruta_informe: 'Arya.jpg', age: 16 },
-    { id: 5, lastName: 'Targaryen', ruta_informe: 'Daenerys.jpg', age: null },
-    { id: 6, lastName: 'Melisandre', ruta_informe: null, age: 150 },
-    { id: 7, lastName: 'Clifford', ruta_informe: 'Ferrara.jpg', age: 44 },
-    { id: 8, lastName: 'Frances', ruta_informe: 'Rossini.jpg', age: 36 },
-    { id: 9, lastName: 'Roxie', ruta_informe: 'Harvey.jpg', age: 65 },
-  ]);
+const HEIGHT_CARD_MEDIA = '200';
+const ImagesUploader = ({ actions, selected, loading, ...props}) => {
+  const [rows,setRows] = useState([]);
+  const inputFile = useRef(null);
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
+    { field: 'referenciaSequencial', headerName: 'Secuencia', width: 150 },
     {
       field: 'preview',
       headerName: 'Preview',
       description: 'This column has a value getter and is not sortable.',
       sortable: false,
-      width: 160,
+      width: 150,
       renderCell: (params) => (
         <div>
           <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
@@ -35,9 +35,9 @@ const ImagesUploader = () => {
       ),
     },
     {
-      field: 'ruta_informe',
+      field: 'rutaInforme',
       headerName: 'Ruta informe',
-      width: 250,
+      width: 700,
       editable: true,
     },
     {
@@ -57,16 +57,29 @@ const ImagesUploader = () => {
     },
   ];
 
+  useEffect(()=>{
+    setRows(props.rows);
+  },[props.rows]);
+
+  useEffect(()=>{
+    actions.loadData({});
+  },[]);
+
   const handleClickRow = (param, event) => {
-    if(clickedRow && param.id === clickedRow.id){
-      setClickedRow(null);
-    } else{
-      setClickedRow(param);
-    }
+    actions.setImage(param.row);
+    actions.loadImage({id: param.row.rutaInforme});
   }
 
-  const handleChangeImage = (event) => {
-    window.alert("Abrir popup de selección de imagen y llamar al servicio para persistirla")
+  const handleUploadImage = (event) => {
+    inputFile.current.click();
+  }
+
+  const handleSelectImage = (event) => {
+    if(event.target && event.target.files[0]){
+      console.log(event.target.files[0])
+      const file = event.target.files[0];
+      actions.uploadImage({ file });
+    }
   }
 
   return (
@@ -76,12 +89,19 @@ const ImagesUploader = () => {
           size="small"
           variant="outlined"
           color="primary"
-          onClick={(e) => console.log(e)}
+          onClick={handleUploadImage}
         >
           <AddIcon fontSize="small" /> Nueva imagen
         </Button>
+        <input
+          id="input-file"
+          type="file"
+          accept="image/*"
+          ref={inputFile}
+          style={{ display: 'none' }}
+          onChange={handleSelectImage}/>
       </Grid>
-      <Grid item xs={clickedRow? 10:12}>
+      <Grid item xs={selected? 10:12}>
         <div style={{ height: 400, width: '100%', paddingRight: '20px'}}>
           <DataGrid
             rows={rows}
@@ -90,31 +110,41 @@ const ImagesUploader = () => {
             checkboxSelection
             disableSelectionOnClick
             onRowClick={handleClickRow}
+            loading={loading}
           />
         </div>
       </Grid>
-      {clickedRow && <Grid item xs={2} >
+      {selected && <Grid item xs={2} >
         <Card style={{width: '100%', height: '100%'}}>
           <CardActionArea>
-            <CardMedia
-              component="img"
-              alt="Contemplative Reptile"
-              height="190"
-              image="https://material-ui.com/static/images/cards/contemplative-reptile.jpg"
-              title="Contemplative Reptile"
-            />
+            {selected.file?
+              <CardMedia
+                component="img"
+                alt="Contemplative Reptile"
+                height={HEIGHT_CARD_MEDIA}
+                image={selected.file}
+                title="Contemplative Reptile"
+              />
+              :
+              <CardMedia
+                component="div"
+                alt="Contemplative Reptile"
+                title="Contemplative Reptile"
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: `${HEIGHT_CARD_MEDIA}px`}}
+              >
+                <CircularProgress size={100}/>
+              </CardMedia>}
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
-                {clickedRow.row.ruta_informe}
+                {selected.rutaInforme}
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
-                Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                across all continents except Antarctica
+                {selected.descripcio}
               </Typography>
             </CardContent>
           </CardActionArea>
           <CardActions>
-            <Button size="small" color="primary" onClick={handleChangeImage}>
+            <Button size="small" color="primary" onClick={handleUploadImage}>
               Cambiar Imagen
             </Button>
           </CardActions>

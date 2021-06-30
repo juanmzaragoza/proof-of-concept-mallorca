@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
-import {isEmpty,isEqual} from 'lodash';
+import {isEmpty} from 'lodash';
 import {Formik} from 'formik';
 import * as yup from "yup";
 import './styles.scss';
@@ -24,7 +24,6 @@ import Selector from "./Selector";
 import createYupSchema from "./yupSchemaCreator";
 import Observations from "./Observations";
 import Numeric from "./Numeric";
-import ImagesUploader from "./ImagesUploader";
 
 const GenericForm = ({loading, ...props}) => {
   const formRef = useRef(null);
@@ -300,10 +299,6 @@ const GenericForm = ({loading, ...props}) => {
               label={placeHolder}
             />
           );
-        case "imgUploader":
-          return (
-            <ImagesUploader />
-          );
       default:
         return;
     }
@@ -400,7 +395,7 @@ GenericForm.propTypes = {
   containerSpacing: PropTypes.number,
   formComponents: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.any,
-    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV','observations','numeric','date','switch','imgUploader']),
+    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV','observations','numeric','date','switch']),
     variant: PropTypes.oneOf(['filled','outlined','standard']),
     placeHolder: PropTypes.string,
     required: PropTypes.bool,

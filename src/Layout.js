@@ -31,6 +31,7 @@ import {isUserAuthenticated} from "helper/login-helper";
 import {logout} from "./redux/app";
 import {getAuthenticated, getLoggedInUserToken} from "./redux/app/selectors";
 import {usePrevious} from "./helper/utils-hook";
+import ImagesUploader from "./modules/ImagesUploader";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -250,7 +251,7 @@ const Layout = ({ children, ...props}) => {
             {/** Private pages */}
             <PrivateRoute isUserAuthenticated={isUserAuthenticated}>
               {/* TODO() add index component */}
-              <Route path={'/'} exact={true} component={() => <div className={classes.bigWord}>Pantalla Principal</div>} />
+              <Route path={'/'} exact={true} component={() => <ImagesUploader />} />
               {pages
                 .filter(module => module.routeProps)
                 .map(module => (
