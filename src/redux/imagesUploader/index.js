@@ -38,32 +38,35 @@ export const loadImages = ({ key, id, data }) => {
 
 export const uploadImage = ({ file, id }) => {
   return async dispatch => {
+    dispatch(add({ loading: true }));
     try {
       const formData = new FormData();
       formData.append('image', file);
-      Axios.post(`api/ecom/articlesInformacio/saveImage/123`, formData, {
+      Axios.post(`api/ecom/articlesInformacio/saveImage/${id}`, formData, {
         headers: new Headers({
           'enctype': "multipart/form-data",
           'responseType': 'blob'
         }),
       })
         .then(({status, data, ...rest}) => {
-          window.alert("Estuvo ok!")
+          dispatch(add({ loading: false }));
         })
         .catch(error => {
-          window.alert("Falló")
+          console.log(error);
+          dispatch(add({ loading: false }));
         });
     } catch (error) {
+      console.log(error);
       dispatch(add({loading: false}));
     }
   }
 }
 
-export const loadImage = ({ key, id }) => {
+export const loadImage = ({ key, rutaInforme }) => {
   return async dispatch => {
     try {
       Axios
-        .get(`api/ecom/articlesInformacio/loadImage/${id}`,{
+        .get(`api/ecom/articlesInformacio/loadImage/${rutaInforme}`,{
           responseType: 'blob'
         })
         .then(({data}) => {

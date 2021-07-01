@@ -70,7 +70,10 @@ const ImagesUploader = ({ actions, selected, loading, ...props}) => {
   }
 
   useEffect(() => {
-    if(selected) actions.loadImage({id: selected.rutaInforme});
+    if(selected) {
+      const rutaInforme = selected.rutaInforme;
+      actions.loadImage({ rutaInforme });
+    }
   },[selected?.id]);
 
   const handleUploadImage = (event) => {
@@ -81,7 +84,8 @@ const ImagesUploader = ({ actions, selected, loading, ...props}) => {
     if(event.target && event.target.files[0]){
       console.log(event.target.files[0])
       const file = event.target.files[0];
-      actions.uploadImage({ file });
+      // articleInformacio ID
+      actions.uploadImage({ file, id: 'eyJpZGVudGlmaWNhZG9yQ29kaSI6IkxJTSIsImFydGljbGVDb2RpIjoiLUFTQyIsInJlZmVyZW5jaWFTZXF1ZW5jaWFsIjo3fQ==' });
     }
   }
 
