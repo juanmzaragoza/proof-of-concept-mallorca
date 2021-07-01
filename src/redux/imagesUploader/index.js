@@ -4,6 +4,7 @@ import {EXPANDABLE_GRID_LIMIT_PER_PAGE} from "../../constants/config";
 
 //Action types
 const ADD = "ADD_IMAGES_UPLOADER";
+const APPEND_DATA = "APPEND_DATA";
 const SELECT_IMAGE = "SELECT_IMAGE";
 const ADD_TO_SELECTED_IMAGE = "ADD_TO_SELECTED_IMAGE";
 const RESET = "RESET_IMAGES_UPLOADER";
@@ -16,7 +17,7 @@ export const loadImages = ({ key, id, data }) => {
     try {
       dispatch(add({ loading: true }));
       Axios
-        .get(`api/ecom/articlesInformacio`)
+        .get(`api/ecom/articlesInformacio?query=article.id=='${id}'`)
         .then(({data}) => data)
         .then(({_embedded, page}) => {
           dispatch(add({ data: _embedded.articleInformacios }));
@@ -36,20 +37,35 @@ export const loadImages = ({ key, id, data }) => {
   };
 };
 
-export const uploadImage = ({ file, id }) => {
+export const uploadImage = ({ file, id, entityIndex }) => {
   return async dispatch => {
     dispatch(add({ loading: true }));
     try {
-      const formData = new FormData();
-      formData.append('image', file);
-      Axios.post(`api/ecom/articlesInformacio/saveImage/${id}`, formData, {
-        headers: new Headers({
-          'enctype': "multipart/form-data",
-          'responseType': 'blob'
-        }),
+      // create record
+      Axios.post(`api/ecom/articlesInformacio`, {
+        [entityIndex]: {id, descripcio: ''},
+        descripcio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        rutaInforme: "-",
+        teImatge: true
       })
         .then(({status, data, ...rest}) => {
-          dispatch(add({ loading: false }));
+          // upload file
+          const formData = new FormData();
+          formData.append('image', file);
+          Axios.post(`api/ecom/articlesInformacio/saveImage/${data.id}`, formData, {
+            headers: new Headers({
+              'enctype': "multipart/form-data",
+              'responseType': 'blob'
+            }),
+          })
+            .then(({status, data, ...rest}) => {
+              dispatch(add({ loading: false }));
+              dispatch(appendData({ data }));
+            })
+            .catch(error => {
+              console.log(error);
+              dispatch(add({ loading: false }));
+            });
         })
         .catch(error => {
           console.log(error);
@@ -114,6 +130,13 @@ export const add = (payload) => {
   };
 }
 
+export const appendData = (payload) => {
+  return {
+    type: APPEND_DATA,
+    payload
+  };
+}
+
 export const selectImage = (payload) => {
   return {
     type: SELECT_IMAGE,
@@ -161,6 +184,9 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case ADD:
       return { ...state, ...action.payload };
+    case APPEND_DATA:
+      const { data } = action.payload;
+      return { ...state, data: [...state.data, data] };
     case SELECT_IMAGE:
       const selected = action.payload?.id === state.selected?.id? null:action.payload;
       return {...state, selected};

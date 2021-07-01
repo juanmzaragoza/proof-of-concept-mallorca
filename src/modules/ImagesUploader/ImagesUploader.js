@@ -16,6 +16,7 @@ import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 
 const HEIGHT_CARD_MEDIA = '200';
+const id = 'eyJpZGVudGlmaWNhZG9yQ29kaSI6IkxJTSIsImNvZGkiOiJYSUFPTUk0WCJ9';
 const ImagesUploader = ({ actions, selected, loading, ...props}) => {
   const [rows,setRows] = useState([]);
   const inputFile = useRef(null);
@@ -62,11 +63,11 @@ const ImagesUploader = ({ actions, selected, loading, ...props}) => {
     setRows(props.rows);
   },[props.rows]);
 
-  const loadData = () => {
-    actions.loadData({});
+  const loadData = ({ id }) => {
+    actions.loadData({ id });
   }
   useEffect(()=>{
-    loadData();
+    loadData({ id });
   },[]);
 
   const handleClickRow = (param, event) => {
@@ -85,11 +86,11 @@ const ImagesUploader = ({ actions, selected, loading, ...props}) => {
   }
 
   const handleSelectImage = (event) => {
+    //TODO() it only allow upload one file -> we need to change it to multiple?
     if(event.target && event.target.files[0]){
-      console.log(event.target.files[0])
       const file = event.target.files[0];
       // articleInformacio ID
-      actions.uploadImage({ file, id: 'eyJpZGVudGlmaWNhZG9yQ29kaSI6IkxJTSIsImFydGljbGVDb2RpIjoiLUFTQyIsInJlZmVyZW5jaWFTZXF1ZW5jaWFsIjo3fQ==' });
+      actions.uploadImage({ id, entityIndex: 'article', file }); //TODO() articule is hardcoded
     }
   }
 
