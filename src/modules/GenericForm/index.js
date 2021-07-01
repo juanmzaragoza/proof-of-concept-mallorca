@@ -404,6 +404,7 @@ GenericForm.propTypes = {
     selector: PropTypes.shape({
       key: PropTypes.any,
       labelKey: PropTypes.any,
+      id: PropTypes.any,
       options: PropTypes.array,
       creationComponents: PropTypes.array,
       cannotCreate: PropTypes.bool,

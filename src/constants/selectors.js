@@ -1,26 +1,45 @@
 export const TDOC_SELECTOR_VALUES = [
-  { value: 'NIF', labelId: 'Selector.nif', label: 'NIF'},
-  { value: 'NIF_OPERADOR_INTRACOMUNITARI', labelId: 'Selector.nif_op_intra', label: 'NIF operador intracomunitario'},
-  { value: 'DOCUMENT_OFICIAL_EXPEDIT_PAIS', labelId: 'Selector.doc_oficial', label: 'Doc. oficial expedido en país'},
-  { value: 'PASSAPORT', labelId: 'Selector.pasaporte', label: 'Pasaporte'},
-  { value: 'CERTIFICAT_RESIDENCIA_FISCAL', labelId: 'Selector.certif_residencia', label: 'Certif. residencia fiscal'},
-  { value: 'ALTRE_DOCUMENT', labelId: 'Selector.otro_documento', label: 'Otro documento'},
+  { value: "NIF", labelId: "Selector.nif", label: "NIF" },
+  {
+    value: "NIF_OPERADOR_INTRACOMUNITARI",
+    labelId: "Selector.nif_op_intra",
+    label: "NIF operador intracomunitario",
+  },
+  {
+    value: "DOCUMENT_OFICIAL_EXPEDIT_PAIS",
+    labelId: "Selector.doc_oficial",
+    label: "Doc. oficial expedido en país",
+  },
+  { value: "PASSAPORT", labelId: "Selector.pasaporte", label: "Pasaporte" },
+  {
+    value: "CERTIFICAT_RESIDENCIA_FISCAL",
+    labelId: "Selector.certif_residencia",
+    label: "Certif. residencia fiscal",
+  },
+  {
+    value: "ALTRE_DOCUMENT",
+    labelId: "Selector.otro_documento",
+    label: "Otro documento",
+  },
 ];
 
 export const PORTES_SELECTOR_VALUES = [
-  { value: 'PAGADOS', labelId: 'Selector.pagados', label: 'Pagados'},
-  { value: 'DEBIDOS', labelId: 'Selector.debidos', label: 'Debidos'},
-  { value: 'CARGADOS_EN_FACTURA', labelId: 'Selector.cargados_en_factura', label: 'Cargados en Factura'},
-  { value: 'OTROS', labelId: 'Selector.otros', label: 'Otros'},
-]
+  { value: "PAGADOS", labelId: "Selector.pagados", label: "Pagados" },
+  { value: "DEBIDOS", labelId: "Selector.debidos", label: "Debidos" },
+  {
+    value: "CARGADOS_EN_FACTURA",
+    labelId: "Selector.cargados_en_factura",
+    label: "Cargados en Factura",
+  },
+  { value: "OTROS", labelId: "Selector.otros", label: "Otros" },
+];
 
 export const MODULE_NAMES = {
-  'cita': {
-    name: 'Cita',
-    icon: 'Icon'
-  }
-}
-
+  cita: {
+    name: "Cita",
+    icon: "Icon",
+  },
+};
 
 export const PAISNIF_SELECTOR_VALUES = [
   { value: "NUMERIC", labelId: "Selector.numerico", label: "Numérico" },
@@ -105,7 +124,6 @@ export const TIPO_RETENCION_SELECTOR_VALUES = [
   },
 ];
 
-
 export const TIPO_FACTURA_SELECTOR_VALUES = [
   {
     value: "SUBCLIENT",
@@ -167,7 +185,6 @@ export const TIPO_ENVIO_FACT_SELECTOR_VALUES = [
   },
 ];
 
-
 export const TIPO_RECIBOS_SELECTOR_VALUES = [
   {
     value: "NO",
@@ -177,7 +194,7 @@ export const TIPO_RECIBOS_SELECTOR_VALUES = [
   {
     value: "PAPER",
     labelId: "Selector.paper",
-    label:"Papel",
+    label: "Papel",
   },
   {
     value: "DISQUET",
@@ -185,7 +202,6 @@ export const TIPO_RECIBOS_SELECTOR_VALUES = [
     label: "Disquete",
   },
 ];
-
 
 export const ALBARAN_CLIENT_SELECTOR_VALUES = [
   {
@@ -196,7 +212,7 @@ export const ALBARAN_CLIENT_SELECTOR_VALUES = [
   {
     value: "CLASE_1",
     labelId: "Selector.clase1",
-    label:"Clase 1",
+    label: "Clase 1",
   },
 ];
 
@@ -209,25 +225,24 @@ export const TIPO_DESCUENTO_SELECTOR_VALUES = [
   {
     value: "SEGON_DESCOMPTE",
     labelId: "Selector.segundoDesc",
-    label:"Segundo descuento",
+    label: "Segundo descuento",
   },
   {
     value: "TERCER_DESCOMPTE",
     labelId: "Selector.tercerDesc",
-    label:"Tercer descuento",
+    label: "Tercer descuento",
   },
   {
     value: "QUART_DESCOMPTE",
     labelId: "Selector.cuartoDesc",
-    label:"Cuarto descuento",
+    label: "Cuarto descuento",
   },
   {
     value: "QUINT_DESCOMPTE",
     labelId: "Selector.quintoDesc",
-    label:"Quinto descuento",
+    label: "Quinto descuento",
   },
 ];
-
 
 export const TIPO_NIF_SELECTOR_VALUES = [
   {
@@ -257,9 +272,149 @@ export const TIPO_CONTABILIZACION_SELECTOR_VALUES = [
     value: "COMPTABILITZAR_MES_VENCIMENT",
     labelId: "Selector.contabilizarMasVEnc",
     label: "Contabilizar más vencimiento",
-  }
+  },
 ];
 
+export const ESTADO_PRESUPUESTO_SELECTOR_VALUES = [
+  {
+    value: "ACCEPTAT",
+    labelId: "Selector.aceptado",
+    label: "Aceptado",
+  },
+  {
+    value: "PENDENT",
+    labelId: "Selector.pendiente",
+    label: "Pendiente",
+  },
+  {
+    value: "TANCAT",
+    labelId: "Selector.cerrado",
+    label: "Cerrado",
+  },
+  {
+    value: "AJORNAT",
+    labelId: "Selector.aplazado",
+    label: "Aplazado",
+  },
+];
+export const TIPO_VENCIMIENTO_SELECTOR_VALUES = [
+  {
+    value: "IMPORT_FIXE",
+    labelId: "Selector.importeFijo",
+    label: "Importe fijo",
+  },
+  {
+    value: "IMPORT_PORCENTUAL",
+    labelId: "Selector.importePorcentual",
+    label: "Importe Porcentual",
+  },
+  {
+    value: "PAGAMENT_TERMINIS",
+    labelId: "Selector.pagoTerminio",
+    label: "Pago Terminio",
+  },
+  {
+    value: "ESCALAT",
+    labelId: "Selector.escalado",
+    label: "Escalado",
+  },
+];
+
+export const TIPO_MES_SELECTOR_VALUES = [
+  {
+    value: "GENER",
+    labelId: "Selector.mes.enero",
+    label: "Enero",
+  },
+  {
+    value: "FEBRER",
+    labelId: "Selector.mes.febrero",
+    label: "Febrero",
+  },
+  {
+    value: "MARÇ",
+    labelId: "Selector.mes.marzo",
+    label: "Marzo",
+  },
+  {
+    value: "ABRIL",
+    labelId: "Selector.mes.abril",
+    label: "Abril",
+  },
+  {
+    value: "MAIG",
+    labelId: "Selector.mes.mayo",
+    label: "Mayo",
+  },
+  {
+    value: "JUNY",
+    labelId: "Selector.mes.junio",
+    label: "Junio",
+  },
+  {
+    value: "JULIOL",
+    labelId: "Selector.mes.julio",
+    label: "Julio",
+  },
+  {
+    value: "AGOST",
+    labelId: "Selector.mes.agosto",
+    label: "Agosto",
+  },
+  {
+    value: "SETEMBRE",
+    labelId: "Selector.mes.septiembre",
+    label: "Septiembre",
+  },
+  {
+    value: "NOVEMBRE",
+    labelId: "Selector.mes.noviembre",
+    label: "Noviembre",
+  },
+  {
+    value: "OCTUBRE",
+    labelId: "Selector.mes.octubre",
+    label: "Octubre",
+  },
+  {
+    value: "DESEMBRE",
+    labelId: "Selector.mes.diciembre",
+    label: "Diciembre",
+  },
+];
+
+export const TIPO_ENUM_PUNT_VENTA_VALUES = [
+  {
+    value: "DIARIA",
+    labelId: "Selector.diaria",
+    label: "Diaria",
+  },
+  {
+    value: "GLOBAL",
+    labelId: "Selector.global",
+    label: "Global",
+  },
+
+];
+
+export const TIPO_IMPRESION_PUNT_VENTA_VALUES = [
+  {
+    value: "SEMPRE",
+    labelId: "Selector.siempre",
+    label: "Siempre",
+  },
+  {
+    value: "MAI",
+    labelId: "Selector.nunca",
+    label: "Nunca",
+  },
+  {
+    value: "DEMANAR",
+    labelId: "Selector.preguntar",
+    label: "Preguntar",
+  },
+
+];
 
 
 

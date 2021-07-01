@@ -1,48 +1,109 @@
 import React from "react";
-import {compose} from "redux";
-import {injectIntl} from "react-intl";
-import {ChevronLeft, ChevronRight, Delete, Save, Undo, VerifiedUser} from "@material-ui/icons";
+import { compose } from "redux";
+import { injectIntl } from "react-intl";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Delete,
+  Save,
+  Undo,
+  VerifiedUser,
+} from "@material-ui/icons";
 import LocalMall from "@material-ui/icons/LocalMall";
+import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 
 const withConstants = (PassedComponent) => {
-
-
-  const WrappedComponent = ({ actions, ...props}) => {
-
+  const WrappedComponent = ({ actions, ...props }) => {
     /** To use it, we have to bind in the wrapped component an action selectModule */
     const modulesConfig = {
       cita: {
-        content: <><Save />&nbsp; {props.intl.formatMessage({id: "Modules.selector.cita",defaultMessage: "Citas"})}</>,
-        onClick: () => actions && actions.selectModule('cita')
+        content: (
+          <>
+            <Save />
+            &nbsp;{" "}
+            {props.intl.formatMessage({
+              id: "Modules.selector.cita",
+              defaultMessage: "Citas",
+            })}
+          </>
+        ),
+        onClick: () => actions && actions.selectModule("cita"),
       },
       fact: {
-        content: <><Undo />&nbsp; {props.intl.formatMessage({id: "Modules.selector.fact",defaultMessage: "Facturación"})}</>,
-        onClick: () => actions && actions.selectModule('fact')
+        content: (
+          <>
+            <Undo />
+            &nbsp;{" "}
+            {props.intl.formatMessage({
+              id: "Modules.selector.fact",
+              defaultMessage: "Facturación",
+            })}
+          </>
+        ),
+        onClick: () => actions && actions.selectModule("fact"),
       },
       lici: {
-        content: <><Delete />&nbsp; {props.intl.formatMessage({id: "Modules.selector.lici",defaultMessage: "Licitaciones"})}</>,
-        onClick: () => actions && actions.selectModule('lici')
+        content: (
+          <>
+            <Delete />
+            &nbsp;{" "}
+            {props.intl.formatMessage({
+              id: "Modules.selector.lici",
+              defaultMessage: "Licitaciones",
+            })}
+          </>
+        ),
+        onClick: () => actions && actions.selectModule("lici"),
       },
       marc: {
-        content: <><ChevronLeft />&nbsp; {props.intl.formatMessage({id: "Modules.selector.marc",defaultMessage: "Marcajes"})}</>,
-        onClick: () => actions && actions.selectModule('marc')
+        content: (
+          <>
+            <ChevronLeft />
+            &nbsp;{" "}
+            {props.intl.formatMessage({
+              id: "Modules.selector.marc",
+              defaultMessage: "Marcajes",
+            })}
+          </>
+        ),
+        onClick: () => actions && actions.selectModule("marc"),
       },
       rrhh: {
-        content: <><ChevronRight />&nbsp; {props.intl.formatMessage({id: "Modules.selector.rrhh",defaultMessage: "Recursos Humanos"})}</>,
-        onClick: () => actions && actions.selectModule('rrhh')
+        content: (
+          <>
+            <ChevronRight />
+            &nbsp;{" "}
+            {props.intl.formatMessage({
+              id: "Modules.selector.rrhh",
+              defaultMessage: "Recursos Humanos",
+            })}
+          </>
+        ),
+        onClick: () => actions && actions.selectModule("rrhh"),
       },
       ecom: {
-        content: <><VerifiedUser />&nbsp; {props.intl.formatMessage({id: "Modules.selector.ecom",defaultMessage: "Ecom"})}</>,
-        onClick: () => actions && actions.selectModule('ecom')
+        content: (
+          <>
+            <VerifiedUser />
+            &nbsp;{" "}
+            {props.intl.formatMessage({
+              id: "Modules.selector.ecom",
+              defaultMessage: "Ecom",
+            })}
+          </>
+        ),
+        onClick: () => actions && actions.selectModule("ecom"),
       },
       _default: {
         content: "-",
-        onClick: () => {}
-      }
-    }
+        onClick: () => {},
+      },
+    };
     const getModuleByName = (module) => {
-      return !modulesConfig[module]? modulesConfig['_default']:modulesConfig[module];
-    }
+      return !modulesConfig[module]
+        ? modulesConfig["_default"]
+        : modulesConfig[module];
+    };
 
     /**
      * Example
@@ -74,137 +135,398 @@ const withConstants = (PassedComponent) => {
      */
     const menuRoutes = [
       {
-        key: 'FAC_PROVEI', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "Proveedores.titulo",defaultMessage: "Proveedores"}),
-        path: 'FAC_PROVEI', // or has path or has children but not both
-        icon: <LocalMall />
+        key: "FAC_PROVEI", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Proveedores.titulo",
+          defaultMessage: "Proveedores",
+        }),
+        path: "FAC_PROVEI", // or has path or has children but not both
+        icon: <LocalMall />,
       },
       {
-        key: 'FAC_FAMPRO', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "FamiliaProveedores.titulo",defaultMessage: "Familia de Proveedores"}),
-        path: 'FAC_FAMPRO', // or has path or has children but not both
-        icon: <LocalMall />
+        key: "FAC_FAMPRO", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "FamiliaProveedores.titulo",
+          defaultMessage: "Familia de Proveedores",
+        }),
+        path: "FAC_FAMPRO", // or has path or has children but not both
+        icon: <LocalMall />,
       },
       {
-        key: 'FAC_PAIS', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "Paises.titol",defaultMessage: "Paises"}),
-        path: 'FAC_PAIS', // or has path or has children but not both
-        icon: <LocalMall />
+        key: "FAC_PAIS", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Paises.titol",
+          defaultMessage: "Paises",
+        }),
+        path: "FAC_PAIS", // or has path or has children but not both
+        icon: <LocalMall />,
       },
       {
-        key: 'FAC_PROVIN', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "Provincias.titol",defaultMessage: "Provincias"}),
-        path: 'FAC_PROVIN', // or has path or has children but not both
-        icon: <LocalMall />
+        key: "FAC_PROVIN", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Provincias.titol",
+          defaultMessage: "Provincias",
+        }),
+        path: "FAC_PROVIN", // or has path or has children but not both
+        icon: <LocalMall />,
       },
       {
-        key: 'FAC_IDIOMA', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "Idiomas.titol",defaultMessage: "Idiomes"}),
-        path: 'FAC_IDIOMA', // or has path or has children but not both
-        icon: <LocalMall />
+        key: "FAC_IDIOMA", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Idiomas.titol",
+          defaultMessage: "Idiomes",
+        }),
+        path: "FAC_IDIOMA", // or has path or has children but not both
+        icon: <LocalMall />,
       },
       {
-        key: 'FAC_CLIENT', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "Clientes.titulo",defaultMessage: "Clientes"}),
-        path: 'FAC_CLIENT', // or has path or has children but not both
-        icon: <LocalMall />
+        key: "FAC_CLIENT", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Clientes.titulo",
+          defaultMessage: "Clientes",
+        }),
+        path: "FAC_CLIENT", // or has path or has children but not both
+        icon: <LocalMall />,
       },
       {
-        key: 'FAC_FAMCLI', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "FamiliaClientes.titulo",defaultMessage: "Familia Clientes"}),
-        path: 'FAC_FAMCLI', // or has path or has children but not both
-        icon: <LocalMall />
+        key: "FAC_FAMCLI", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "FamiliaClientes.titulo",
+          defaultMessage: "Familia Clientes",
+        }),
+        path: "FAC_FAMCLI", // or has path or has children but not both
+        icon: <LocalMall />,
       },
       {
-        key: 'FAC_ORG', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "Organizacion.titulo",defaultMessage: "Organizacion"}),
-        path: 'FAC_ORG', // or has path or has children but not both
-        icon: <LocalMall />
+        key: "FAC_ORG", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Organizacion.titulo",
+          defaultMessage: "Organizacion",
+        }),
+        path: "FAC_ORG", // or has path or has children but not both
+        icon: <LocalMall />,
       },
       {
-        key: 'FAC_ZONA', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "Zona.titulo",defaultMessage: "Zona"}),
-        path: 'FAC_ZONA', // or has path or has children but not both
-        icon: <LocalMall />
+        key: "FAC_ZONA", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Zona.titulo",
+          defaultMessage: "Zona",
+        }),
+        path: "FAC_ZONA", // or has path or has children but not both
+        icon: <LocalMall />,
       },
       {
-        key: 'FAC_DIVISA', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "Divisa.titulo",defaultMessage: "Divisa"}),
-        path: 'FAC_DIVISA', // or has path or has children but not both
-        icon: <LocalMall />
+        key: "FAC_DIVISA", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Divisa.titulo",
+          defaultMessage: "Divisa",
+        }),
+        path: "FAC_DIVISA", // or has path or has children but not both
+        icon: <LocalMall />,
       },
       {
-        key: 'FAC_PAINIF', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "PaisNif.titulo",defaultMessage: "Pais NIF"}),
-        path: 'FAC_PAINIF', // or has path or has children but not both
-        icon: <LocalMall />
+        key: "FAC_PAINIF", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "PaisNif.titulo",
+          defaultMessage: "Pais NIF",
+        }),
+        path: "FAC_PAINIF", // or has path or has children but not both
+        icon: <LocalMall />,
       },
       {
-        key: 'FAC_OFIBAN', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "OficinasBancarias.titulo",defaultMessage: "Oficinas Bancarias"}),
-        path: 'FAC_OFIBAN', // or has path or has children but not both
-        icon: <LocalMall />
+        key: "FAC_OFIBAN", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "OficinasBancarias.titulo",
+          defaultMessage: "Oficinas Bancarias",
+        }),
+        path: "FAC_OFIBAN", // or has path or has children but not both
+        icon: <LocalMall />,
       },
       {
-        key: 'FAC_IVA', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "Iva.titulo",defaultMessage: "IVA"}),
-        path: 'FAC_IVA', // or has path or has children but not both
-        icon: <LocalMall />
+        key: "FAC_IVA", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Iva.titulo",
+          defaultMessage: "IVA",
+        }),
+        path: "FAC_IVA", // or has path or has children but not both
+        icon: <LocalMall />,
       },
       {
-        key: 'FAC_REGIVA', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "RegimenIva.titulo",defaultMessage: "Régimen IVA"}),
-        path: 'FAC_REGIVA', // or has path or has children but not both
-        icon: <LocalMall />
-      }
-      , {
-        key: 'FAC_CLARET', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "Retenciones.titulo",defaultMessage: "Clases retenciones"}),
-        path: 'FAC_CLARET', // or has path or has children but not both
-        icon: <LocalMall />
+        key: "FAC_REGIVA", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "RegimenIva.titulo",
+          defaultMessage: "Régimen IVA",
+        }),
+        path: "FAC_REGIVA", // or has path or has children but not both
+        icon: <LocalMall />,
       },
       {
-        key: 'FAC_BANCS', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "Banco.titulo",defaultMessage: "Bancos"}),
-        path: 'FAC_BANCS', // or has path or has children but not both
-        icon: <LocalMall />
+        key: "FAC_CLARET", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Retenciones.titulo",
+          defaultMessage: "Clases retenciones",
+        }),
+        path: "FAC_CLARET", // or has path or has children but not both
+        icon: <LocalMall />,
       },
       {
-        key: 'FAC_CP', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "CodigoPostal.titulo",defaultMessage: "Codigos Postales"}),
-        path: 'FAC_CP', // or has path or has children but not both
-        icon: <LocalMall />
+        key: "FAC_BANCS", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Banco.titulo",
+          defaultMessage: "Bancos",
+        }),
+        path: "FAC_BANCS", // or has path or has children but not both
+        icon: <LocalMall />,
       },
       {
-        key: 'FAC_PEUDOC', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "PieDocumento.titulo",defaultMessage: "Pies Documentos"}),
-        path: 'FAC_PEUDOC', // or has path or has children but not both
-        icon: <LocalMall />
+        key: "FAC_CP", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "CodigoPostal.titulo",
+          defaultMessage: "Codigos Postales",
+        }),
+        path: "FAC_CP", // or has path or has children but not both
+        icon: <LocalMall />,
       },
       {
-        key: 'FAC_PROTIP', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "TipoProyecto.titulo",defaultMessage: "Tipo de Proyecto"}),
-        path: 'FAC_PROTIP', // or has path or has children but not both
-        icon: <LocalMall />
+        key: "FAC_PEUDOC", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "PieDocumento.titulo",
+          defaultMessage: "Pies Documentos",
+        }),
+        path: "FAC_PEUDOC", // or has path or has children but not both
+        icon: <LocalMall />,
       },
       {
-        key: 'FAC_EMPCCM', // not mandatory for routes with children
-        title: props.intl.formatMessage({id: "CuentaContableEmpresa.titulo",defaultMessage: "Cuentas Contables Empresas"}),
-        path: 'FAC_EMPCCM', // or has path or has children but not both
-        icon: <LocalMall />
+        key: "FAC_PROTIP", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "TipoProyecto.titulo",
+          defaultMessage: "Tipo de Proyecto",
+        }),
+        path: "FAC_PROTIP", // or has path or has children but not both
+        icon: <LocalMall />,
       },
-   
+      {
+        key: "FAC_EMPCCM", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "CuentaContableEmpresa.titulo",
+          defaultMessage: "Cuentas Contables Empresas",
+        }),
+        path: "FAC_EMPCCM", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "COM_PRE", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Presupuestos.titulo",
+          defaultMessage: "Presupuestos",
+        }),
+        path: "COM_PRE", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "COM_CLI", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Clientes.titulo",
+          defaultMessage: "Clientes",
+        }),
+        path: "COM_CLI", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        title: props.intl.formatMessage({
+          id: "Articulos.titulo",
+          defaultMessage: "Artículos",
+        }),
+        icon: <ShoppingBasketIcon />,
+        children: [
+          {
+            key: "COM_ARTICL", // not mandatory for routes with children
+            title: props.intl.formatMessage({
+              id: "Articulos.titulo",
+              defaultMessage: "Artículos",
+            }),
+            path: "COM_ARTICL", // or has path or has children but not both
+            icon: <LocalMall />,
+          },
+          {
+            key: "COM_FAMART",
+            title: props.intl.formatMessage({
+              id: "FamiliaArticulos.titulo",
+              defaultMessage: "Familia artículo",
+            }),
+            path: "COM_FAMART",
+            icon: <LocalMall />,
+          },
+          {
+            key: "COM_MODART",
+            title: props.intl.formatMessage({
+              id: "ArticulosModelo.titulo",
+              defaultMessage: "Modelo",
+            }),
+            path: "COM_MODART",
+            icon: <LocalMall />,
+          },
+          {
+            key: "COM_MARART",
+            title: props.intl.formatMessage({
+              id: "ArticulosMarca.titulo",
+              defaultMessage: "Marca",
+            }),
+            path: "COM_MARART",
+            icon: <LocalMall />,
+          },
+          {
+            key: "COM_GAMART",
+            title: props.intl.formatMessage({
+              id: "ArticulosGama.titulo",
+              defaultMessage: "Gama",
+            }),
+            path: "COM_GAMART",
+            icon: <LocalMall />,
+          },
+        ],
+      },
+      {
+        key: "COM_DIV", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Divisa.titulo",
+          defaultMessage: "Divisas",
+        }),
+        path: "COM_DIV", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "COM_IDI", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Idiomas.titol",
+          defaultMessage: "Idiomas",
+        }),
+        path: "COM_IDI", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "COM_PAINIF",
+        title: props.intl.formatMessage({
+          id: "PaisNif.titulo",
+          defaultMessage: "País NIF",
+        }),
+        path: "COM_PAINIF",
+        icon: <LocalMall />,
+      },
+      {
+        key: "COM_TIPADR", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "TipoDireccion.titulo",
+          defaultMessage: "Tipo Direcciones",
+        }),
+        path: "COM_TIPADR", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "COM_IVA", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Iva.titulo",
+          defaultMessage: "IVA",
+        }),
+        path: "COM_IVA", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "COM_RGI", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "RegimenIva.titulo",
+          defaultMessage: "Régimen IVA",
+        }),
+        path: "COM_RGI", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "COM_TVE", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "TiposVencimiento.titulo",
+          defaultMessage: "Tipos Vencimiento",
+        }),
+        path: "COM_TVE", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "COM_TFC", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "TiposFacturacion.titulo",
+          defaultMessage: "Tipos Facturación",
+        }),
+        path: "COM_TFC", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "COM_DPG", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "DocumentosPago.titulo",
+          defaultMessage: "Documentos Pago/Cobro",
+        }),
+        path: "COM_DPG", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "COM_PAI", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Paises.titulo",
+          defaultMessage: "Paises",
+        }),
+        path: "COM_PAI", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "COM_PRV", 
+        title: props.intl.formatMessage({
+          id: "Provincia.titulo",
+          defaultMessage: "Provincia",
+        }),
+        path: "COM_PRV", 
+        icon: <LocalMall />,
+      },
+      {
+        key: "COM_FMC",
+        title: props.intl.formatMessage({
+          id: "FamiliaClientes.titulo",
+          defaultMessage: "Familia clientes",
+        }),
+        path: "COM_FMC",
+        icon: <LocalMall />,
+      },
+      {
+        key: "COM_MAG",
+        title: props.intl.formatMessage({
+          id: "Almacen.titulo",
+          defaultMessage: "Almacenes",
+        }),
+        path: "COM_MAG",
+        icon: <LocalMall />,
+      },
+      {
+        key: "COM_PTV",
+        title: props.intl.formatMessage({
+          id: "PuntoVenta.titulo",
+          defaultMessage: "Punto Venta",
+        }),
+        path: "COM_PTV",
+        icon: <LocalMall />,
+      },
+    
+  
     ];
 
-    return <PassedComponent
-      constants={{modulesConfig, menuRoutes}}
-      getters={{getModuleByName}} {...props}
-      actions={actions} ></PassedComponent>;
-  }
+    return (
+      <PassedComponent
+        constants={{ modulesConfig, menuRoutes }}
+        getters={{ getModuleByName }}
+        {...props}
+         actions={actions}
+      ></PassedComponent>
+    );
+  };
 
-  return compose(
-    injectIntl
-  )(WrappedComponent);
-}
+  return compose(injectIntl)(WrappedComponent);
+};
 
 export default withConstants;
