@@ -2,9 +2,9 @@ import { connect } from "react-redux";
 import {bindActionCreators} from "redux";
 
 import ImagesUploader from "./ImagesUploader";
-import {deleteData, searchData} from "redux/grids";
 
 import {
+  changeImage,
   deleteImage,
   loadImage,
   loadImages,
@@ -30,9 +30,9 @@ const mapDispatchToProps = (dispatch, props) => {
     loadData: bindActionCreators(loadImages, dispatch),
     setImage: bindActionCreators(selectImage, dispatch),
     uploadImage: bindActionCreators(uploadImage, dispatch),
-    deleteData: bindActionCreators(deleteData, dispatch),
     loadImage: bindActionCreators(loadImage, dispatch),
     deleteImage: bindActionCreators(deleteImage, dispatch),
+    changeImage: bindActionCreators(changeImage, dispatch),
   };
   return { actions };
 };

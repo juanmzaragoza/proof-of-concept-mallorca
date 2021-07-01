@@ -20,6 +20,7 @@ const id = 'eyJpZGVudGlmaWNhZG9yQ29kaSI6IkxJTSIsImNvZGkiOiJYSUFPTUk0WCJ9';
 const ImagesUploader = ({ actions, selected, loading, ...props}) => {
   const [rows,setRows] = useState([]);
   const inputFile = useRef(null);
+  const [isUpdatingImg, setIsUpdatingImg] = useState(false);
 
   const columns = [
     { field: 'referenciaSequencial', headerName: 'Secuencia', width: 150 },
@@ -89,8 +90,11 @@ const ImagesUploader = ({ actions, selected, loading, ...props}) => {
     //TODO() it only allow upload one file -> we need to change it to multiple?
     if(event.target && event.target.files[0]){
       const file = event.target.files[0];
-      // articleInformacio ID
-      actions.uploadImage({ id, entityIndex: 'article', file }); //TODO() articule is hardcoded
+      isUpdatingImg?
+        actions.changeImage({ id: selected.id, file })
+        :
+        //TODO() articule is hardcoded
+        actions.uploadImage({ id, entityIndex: 'article', file }); // articleInformacio ID
     }
   }
 
@@ -101,7 +105,10 @@ const ImagesUploader = ({ actions, selected, loading, ...props}) => {
           size="small"
           variant="outlined"
           color="primary"
-          onClick={handleUploadImage}
+          onClick={(e) => {
+            setIsUpdatingImg(false);
+            handleUploadImage(e)
+          }}
         >
           <AddIcon fontSize="small" /> Nueva imagen
         </Button>
@@ -156,7 +163,10 @@ const ImagesUploader = ({ actions, selected, loading, ...props}) => {
             </CardContent>
           </CardActionArea>
           <CardActions>
-            <Button size="small" color="primary" onClick={handleUploadImage}>
+            <Button size="small" color="primary" onClick={e => {
+              setIsUpdatingImg(true);
+              handleUploadImage(e);
+            }}>
               Cambiar Imagen
             </Button>
           </CardActions>

@@ -1,6 +1,6 @@
 import Axios from "Axios";
 import * as API from "redux/api";
-import {EXPANDABLE_GRID_LIMIT_PER_PAGE} from "../../constants/config";
+import {EXPANDABLE_GRID_LIMIT_PER_PAGE} from "constants/config";
 
 //Action types
 const ADD = "ADD_IMAGES_UPLOADER";
@@ -37,6 +37,29 @@ export const loadImages = ({ key, id, data }) => {
   };
 };
 
+const saveImage = (file, id, dispatch) => {
+  return new Promise((resolve, reject) => {
+    // upload file
+    const formData = new FormData();
+    formData.append('image', file);
+    Axios.post(`api/ecom/articlesInformacio/saveImage/${id}`, formData, {
+      headers: new Headers({
+        'enctype': "multipart/form-data",
+        'responseType': 'blob'
+      }),
+    })
+      .then(({status, data, ...rest}) => {
+        dispatch(add({loading: false}));
+        dispatch(add({selected: null}));
+        resolve(data);
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(add({loading: false}));
+      });
+  })
+};
+
 export const uploadImage = ({ file, id, entityIndex }) => {
   return async dispatch => {
     dispatch(add({ loading: true }));
@@ -49,23 +72,9 @@ export const uploadImage = ({ file, id, entityIndex }) => {
         teImatge: true
       })
         .then(({status, data, ...rest}) => {
-          // upload file
-          const formData = new FormData();
-          formData.append('image', file);
-          Axios.post(`api/ecom/articlesInformacio/saveImage/${data.id}`, formData, {
-            headers: new Headers({
-              'enctype': "multipart/form-data",
-              'responseType': 'blob'
-            }),
-          })
-            .then(({status, data, ...rest}) => {
-              dispatch(add({ loading: false }));
-              dispatch(appendData({ data }));
-            })
-            .catch(error => {
-              console.log(error);
-              dispatch(add({ loading: false }));
-            });
+          saveImage(file, data.id, dispatch).then((data) => {
+            dispatch(appendData({data}));
+          });
         })
         .catch(error => {
           console.log(error);
@@ -76,7 +85,19 @@ export const uploadImage = ({ file, id, entityIndex }) => {
       dispatch(add({loading: false}));
     }
   }
-}
+};
+
+export const changeImage = ({ file, id }) => {
+  return async dispatch => {
+    dispatch(add({ loading: true }));
+    try {
+      await saveImage(file, id, dispatch);
+    } catch (error) {
+      console.log(error);
+      dispatch(add({loading: false}));
+    }
+  }
+};
 
 export const loadImage = ({ key, rutaInforme }) => {
   return async dispatch => {
