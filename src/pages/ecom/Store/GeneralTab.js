@@ -231,7 +231,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Almacen.valoracionIventario",
+        id: "Almacen.valoracionInventario",
         defaultMessage: "Valoracion Iventarios transpasos",
       }),
       required: true,
