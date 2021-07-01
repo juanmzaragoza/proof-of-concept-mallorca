@@ -8,6 +8,7 @@ import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import {compose} from "redux";
 import {withValidations} from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
+import {Chip} from "@material-ui/core";
 
 import {AVISO_ALBARANES_CLIENTE_SELECTOR_VALUES, TIPO_FAMILIA_ARTICULO_SELECTOR_VALUES, TIPO_SERVEI_FAMILIA_ARTICULO_SELECTOR_VALUES} from "../../../constants/selectors";
 
@@ -15,12 +16,13 @@ import {useTabForm} from "hooks/tab-form";
 
 const CREATE_SECTION_INDEX = 0;
 const ACCOUNTING_SECTION_TAB_INDEX = 1;
-const OPTIONS_SECTION_TAB_INDEX = 2;
-const BUSINESS_SECTION_TAB_INDEX = 3;
+const OPEARTION_SECTION_TAB_INDEX = 2;
+const OPTIONS_SECTION_TAB_INDEX = 3;
+const BUSINESS_SECTION_TAB_INDEX = 4;
 
 const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
   const [ touched, handleTouched, addValidity, formIsValid ] 
-  = useTabForm({fields: {[CREATE_SECTION_INDEX]: false, [ACCOUNTING_SECTION_TAB_INDEX]:false,
+  = useTabForm({fields: {[CREATE_SECTION_INDEX]: false, [ACCOUNTING_SECTION_TAB_INDEX]:false, [OPEARTION_SECTION_TAB_INDEX]:false,
     [OPTIONS_SECTION_TAB_INDEX]:false, [ACCOUNTING_SECTION_TAB_INDEX]:false, [BUSINESS_SECTION_TAB_INDEX]:false}, setIsValid: props.setIsValid});
 
   const NOM = props.intl.formatMessage({id: "Comun.nombre", defaultMessage: "Nombre"});
@@ -188,7 +190,6 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       ]
     },
   ]
-
 
   const createConfiguration = [
     {
@@ -407,6 +408,89 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         md: 3
       },
     },
+    ...familiaCoste(5),
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "FamiliaArticulos.tipoFamilia",
+        defaultMessage: "Tipos de Família"
+      }),
+      type: 'select',
+      key: 'tipus',
+      breakpoints: {
+        xs: 12,
+        md: 5
+      },
+      selector: {
+        options: TIPO_FAMILIA_ARTICULO_SELECTOR_VALUES
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "FamiliaProveedores.observaciones",
+        defaultMessage: "Observaciones"
+      }),
+      type: 'observations',
+      key: 'observacions',
+      required: false,
+      breakpoints: {
+        xs: 12,
+        md: 2
+      },
+    }
+  ];
+
+  const ContabilidadConfiguration = [
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "FamiliaProveedores.ctaprcmp",
+        defaultMessage: "Cuenta Compras"
+      }),
+      type: 'input',
+      key: 'compteCompres',
+      breakpoints: {
+        xs: 12,
+        md: 4
+      },
+      validationType: "string",
+      validations: [
+        ...props.stringValidations.minMaxValidation(1, 10)
+      ]
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.cuenta.ventas",
+        defaultMessage: "Cuenta ventas"
+      }),
+      type: 'input',
+      key: 'compteVentes',
+      breakpoints: {
+        xs: 12,
+        md: 4
+      },
+      validationType: "string",
+      validations: [
+        ...props.stringValidations.minMaxValidation(1, 10)
+      ]
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "FamiliaArticulos.cuentaExistencias",
+        defaultMessage: "Cuenta existencias"
+      }),
+      type: 'input',
+      key: 'compteExistencies',
+      breakpoints: {
+        xs: 12,
+        md: 4
+      },
+      validationType: "string",
+      validations: [
+        ...props.stringValidations.minMaxValidation(1, 10)
+      ]
+    },
+  ];
+
+  const OperacionesConfiguration = [
     {
       placeHolder: props.intl.formatMessage({
         id: "FamiliaArticulos.descripcionOperacion",
@@ -508,74 +592,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         advancedSearchColumns: aSCodeAndName,
       },
     },
-    ...familiaCoste(6),
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "FamiliaArticulos.tipoFamilia",
-        defaultMessage: "Tipos de Família"
-      }),
-      type: 'select',
-      key: 'tipus',
-      breakpoints: {
-        xs: 12,
-        md: 6
-      },
-      selector: {
-        options: TIPO_FAMILIA_ARTICULO_SELECTOR_VALUES
-      },
-    },
-  ];
-
-  const ContabilidadConfiguration = [
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "FamiliaProveedores.ctaprcmp",
-        defaultMessage: "Cuenta Compras"
-      }),
-      type: 'input',
-      key: 'compteCompres',
-      breakpoints: {
-        xs: 12,
-        md: 4
-      },
-      validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 10)
-      ]
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.cuenta.ventas",
-        defaultMessage: "Cuenta ventas"
-      }),
-      type: 'input',
-      key: 'compteVentes',
-      breakpoints: {
-        xs: 12,
-        md: 4
-      },
-      validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 10)
-      ]
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "FamiliaArticulos.cuentaExistencias",
-        defaultMessage: "Cuenta existencias"
-      }),
-      type: 'input',
-      key: 'compteExistencies',
-      breakpoints: {
-        xs: 12,
-        md: 4
-      },
-      validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 10)
-      ]
-    },
-  ];
+  ]
 
   const OpcionesConfiguration = [
     {
@@ -607,76 +624,61 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
   const TITLE = props.intl.formatMessage({id: "Clientes.empresas", defaultMessage: "Empresas"});
 
   const EmpresasConfiguration = {
-      title: TITLE,
-      query: [
-        {
-          columnName: 'articleFamilia.id',
-          value: `"${ItemFamilyId}"`,
-          exact: true
-        }
-      ],
-      extraPostBody: {
-        proveidor: {id: ItemFamilyId}
+    title: TITLE,
+    query: [
+      {
+        columnName: 'articleFamilia.id',
+        value: `"${ItemFamilyId}"`,
+        exact: true
+      }
+    ],
+    extraPostBody: {
+      articleFamilia: {id: ItemFamilyId}
+    },
+    columns: [
+      { 
+        name: 'empresa',
+        title: props.intl.formatMessage({
+          id: "PieDocumento.empresa",
+          defaultMessage: "Empresa"
+        }),
+        getCellValue: row => row.empresa?.description ?? ""
       },
-      columns: [
-        { 
-          name: 'empresa',
-          title: props.intl.formatMessage({
-            id: "PieDocumento.empresa",
-            defaultMessage: "Empresa"
-          }),
-          getCellValue: row => row.empresa?.description ?? ""
+      { 
+        name: 'web',
+        title: props.intl.formatMessage({
+          id: "FamiliaArticulos.web",
+          defaultMessage: "Web"
+        }),
+        getCellValue: row => (row.web && row.web === true)?
+          <Chip label="SI" variant="outlined" />
+          :
+          <Chip label="NO" variant="outlined" />
+      },
+      { 
+        name: 'articleFamilia',
+        title: props.intl.formatMessage({
+          id: "FamiliaArticulos.articuloFamilia",
+          defaultMessage: "Articulo Familia"
+        }),
+        getCellValue: row => row.articleFamilia?.description ?? ""
+      },
+    ],
+    formComponents: [
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "FamiliaArticulos.web",
+          defaultMessage: "Web",
+        }),
+        type: 'checkbox',
+        key: 'web',
+        breakpoints: {
+          xs: 12,
+          md: 6
         },
-        { 
-          name: 'web',
-          title: props.intl.formatMessage({
-            id: "FamiliaArticulos.web",
-            defaultMessage: "Web"
-          }),
-        },
-        { 
-          name: 'articleFamilia',
-          title: props.intl.formatMessage({
-            id: "FamiliaArticulos.articuloFamilia",
-            defaultMessage: "Articulo Familia"
-          }),
-          getCellValue: row => row.articleFamilia?.description ?? ""
-        },
-      ],
-      formComponents: [
-        {
-          placeHolder: props.intl.formatMessage({
-            id: "FamiliaArticulos.titulo",
-            defaultMessage: "Familia de Artículos",
-          }),
-          type: "LOV",
-          key: "articleFamilia",
-          breakpoints: {
-            xs: 12,
-            md: 6,
-          },
-          selector: {
-            key: "articleFamilias",
-            labelKey: (data) => `${data.descripcio} (${data.codi})`,
-            sort: "codi",
-            cannotCreate: true,
-            advancedSearchColumns: aSCodeAndDescription,
-          },
-        },
-        {
-          placeHolder: props.intl.formatMessage({
-            id: "FamiliaArticulos.web",
-            defaultMessage: "Web",
-          }),
-          type: 'checkbox',
-          key: 'web',
-          breakpoints: {
-            xs: 12,
-            md: 6
-          },
-        },
-      ],
-    }
+      },
+    ],
+  }
 
   const tabs = [
     {
@@ -697,8 +699,24 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
     },
     {
       className: "general-tab-subtab",
-      label: <FormattedMessage id={"FamiliaArticulos.opciones"} defaultMessage={"Opciones"}/>,
+      label: <FormattedMessage id={"FamiliaArticulos.operaciones"} defaultMessage={"Operaciones"}/>,
       key: 1,
+      component: <GenericForm formComponents={OperacionesConfiguration}
+                              emptyPaper={true}
+                              setFormData={setFormData}
+                              getFormData={getFormData}
+                              loading={props.loading}
+                              formErrors={props.formErrors}
+                              submitFromOutside={props.submitFromOutside}
+                              onSubmit={() => props.onSubmitTab(formData)}
+                              handleIsValid={value => addValidity(ACCOUNTING_SECTION_TAB_INDEX,value)}
+                              onBlur={(e) => handleTouched(ACCOUNTING_SECTION_TAB_INDEX)}
+                              {...props} />
+    },
+    {
+      className: "general-tab-subtab",
+      label: <FormattedMessage id={"FamiliaArticulos.opciones"} defaultMessage={"Opciones"}/>,
+      key: 2,
       component: <GenericForm formComponents={OpcionesConfiguration}
                               emptyPaper={true}
                               setFormData={setFormData}
@@ -713,10 +731,10 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
     },
     {
       label: TITLE,
-      key: 2,
+      key: 3,
       component: <ExpandableGrid
-        id='familiesEmpresa'
-        responseKey='familiesEmpresa'
+        id='articleFamiliaEmpresas'
+        responseKey='articleFamiliaEmpresas'
         enabled={props.editMode}
         configuration={EmpresasConfiguration} />
     },

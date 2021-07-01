@@ -1,5 +1,5 @@
 import React from 'react';
-import AssignmentIcon from '@material-ui/icons/Assignment';
+import ShopTwoIcon from '@material-ui/icons/ShopTwo';
 import {injectIntl} from "react-intl";
 import {Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
@@ -49,5 +49,5 @@ export default {
     component: withHeaders(ItemsFamily)
   },
   name: 'FAC_FAMART',
-  icon: <AssignmentIcon />
+  icon: <ShopTwoIcon />
 }
