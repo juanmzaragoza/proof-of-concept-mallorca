@@ -87,6 +87,25 @@ export const loadImage = ({ key, rutaInforme }) => {
   };
 }
 
+export const deleteImage = ({ key, id }) => {
+  return async dispatch => {
+    dispatch(add({ loading: true }));
+    try {
+      Axios.get(`api/ecom/articlesInformacio/deleteRow/${id}`)
+        .then(({status, data, ...rest}) => {
+          dispatch(add({ loading: false }));
+        })
+        .catch(error => {
+          console.log(error);
+          dispatch(add({ loading: false }));
+        });
+    } catch (error) {
+      dispatch(add({ loading: false }));
+      dispatch(add({ errors: error }));
+    }
+  }
+}
+
 //Action creators
 export const add = (payload) => {
   return {

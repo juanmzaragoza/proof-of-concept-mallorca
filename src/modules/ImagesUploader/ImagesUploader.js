@@ -50,6 +50,7 @@ const ImagesUploader = ({ actions, selected, loading, ...props}) => {
         const onClick = (e) => {
           e.stopPropagation();
           setRows(rows.filter(row => row.id !== params.id));
+          actions.deleteImage({ id: params.id });
         };
 
         return <Button onClick={onClick}>Eliminar</Button>;
@@ -61,8 +62,11 @@ const ImagesUploader = ({ actions, selected, loading, ...props}) => {
     setRows(props.rows);
   },[props.rows]);
 
-  useEffect(()=>{
+  const loadData = () => {
     actions.loadData({});
+  }
+  useEffect(()=>{
+    loadData();
   },[]);
 
   const handleClickRow = (param, event) => {

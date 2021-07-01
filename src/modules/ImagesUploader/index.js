@@ -5,6 +5,7 @@ import ImagesUploader from "./ImagesUploader";
 import {deleteData, searchData} from "redux/grids";
 
 import {
+  deleteImage,
   loadImage,
   loadImages,
   selectImage,
@@ -31,6 +32,7 @@ const mapDispatchToProps = (dispatch, props) => {
     uploadImage: bindActionCreators(uploadImage, dispatch),
     deleteData: bindActionCreators(deleteData, dispatch),
     loadImage: bindActionCreators(loadImage, dispatch),
+    deleteImage: bindActionCreators(deleteImage, dispatch),
   };
   return { actions };
 };
