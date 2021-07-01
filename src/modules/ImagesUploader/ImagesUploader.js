@@ -67,8 +67,11 @@ const ImagesUploader = ({ actions, selected, loading, ...props}) => {
 
   const handleClickRow = (param, event) => {
     actions.setImage(param.row);
-    actions.loadImage({id: param.row.rutaInforme});
   }
+
+  useEffect(() => {
+    if(selected) actions.loadImage({id: selected.rutaInforme});
+  },[selected?.id]);
 
   const handleUploadImage = (event) => {
     inputFile.current.click();
