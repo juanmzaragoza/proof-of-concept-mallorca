@@ -251,7 +251,7 @@ const Layout = ({ children, ...props}) => {
             {/** Private pages */}
             <PrivateRoute isUserAuthenticated={isUserAuthenticated}>
               {/* TODO() add index component */}
-              <Route path={'/'} exact={true} component={() => <ImagesUploader />} />
+              <Route path={'/'} exact={true} component={() => <div className={classes.bigWord}>Pantalla Principal</div>} />
               {pages
                 .filter(module => module.routeProps)
                 .map(module => (

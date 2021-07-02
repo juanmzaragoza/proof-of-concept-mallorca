@@ -10,10 +10,11 @@ import TranslationTab from "./TranslationTab";
 
 
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
+import ImagesUploader from "modules/ImagesUploader";
+import {withAbmServices} from "modules/wrappers";
 
 import {setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig} from "redux/pageHeader";
 import {getFireSave} from "redux/pageHeader/selectors";
-import {withAbmServices} from "../../../modules/wrappers";
 import {getFormData, getFormErrors, getFormDataByKey, getIsDataLoaded} from "redux/genericForm/selectors";
 
 import {setFormDataByKey} from "redux/genericForm";
@@ -48,7 +49,6 @@ const ArticlesForm = React.memo(({ actions, allFormData, getFormData, submitFrom
   }
 
 
-
   const handleSubmitTab = () => {
     // TODO() improve this to make it more generic
     // if exists some error -> go to minimum index
@@ -65,10 +65,12 @@ const ArticlesForm = React.memo(({ actions, allFormData, getFormData, submitFrom
   const getTranslations = (id, defaultMessage) => {
     return {
       label: <FormattedMessage id={id} defaultMessage={defaultMessage}/>,
-      labelStr: props.intl.formatMessage({id: id, defaultMessage: defaultMessage}),
+      labelStr: props.intl.formatMessage({ id, defaultMessage}),
     }
   }
-  
+
+  const { id } = useParams();
+
   /** step 3 */
   const tabs = [
     {
@@ -90,13 +92,12 @@ const ArticlesForm = React.memo(({ actions, allFormData, getFormData, submitFrom
     {
       ...getTranslations("Articulos.tabs.imagenes","Imágenes"),
       key: IMG_TAB_INDEX,
-      component: "IMATGES",
-
+      component: <ImagesUploader id={'articlesInformacio'} parentId={id} />,
     },
     {
-        ...getTranslations("Articulos.tabs.traducciones","Traduciones"),
-        key: TRADUC_TAB_INDEX,
-        component: <TranslationTab
+      ...getTranslations("Articulos.tabs.traducciones","Traduciones"),
+      key: TRADUC_TAB_INDEX,
+      component: <TranslationTab
         setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [ARTICLE_TAB_INDEX]: !value})}
         editMode={editMode}
         getFormData={getFormData}
@@ -106,12 +107,8 @@ const ArticlesForm = React.memo(({ actions, allFormData, getFormData, submitFrom
         formErrors={props.formErrors}
         loading={props.loading}
         formDataLoaded={props.formDataLoaded} />
-  
       },
-  
   ];
-
-  const { id } = useParams();
 
   const isEditable = () => {
     return !!id;

@@ -57,10 +57,7 @@ export const projectesTipo = `api/fact/projectesTipus`;
 export const projectes = `api/fact/projectes`;
 export const projecteTipus= `api/fact/projectesTipus`;
 
-
 export const client = `api/fact/clients`;
-
-
 
 export const cliente = `api/ecom/clients`;
 export const pressupostos = `api/ecom/pressupostos`;
@@ -82,6 +79,7 @@ export const articles = `api/ecom/articles`;
 export const familia = `api/ecom/articlesFamilia`;
 export const gamma = `api/ecom/articlesGamma`;
 export const marca = `api/ecom/articlesMarca`;
+export const articlesInformacio = `api/ecom/articlesInformacio`;
 export const articleTraduccios = `api/ecom/articlesTraduccio`;
 export const model= `api/ecom/articlesModel`;
 export const iva = `api/ecom/ives`;

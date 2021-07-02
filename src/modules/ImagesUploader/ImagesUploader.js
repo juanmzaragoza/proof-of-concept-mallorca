@@ -17,8 +17,7 @@ import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 
 const HEIGHT_CARD_MEDIA = '200';
-const id = 'eyJpZGVudGlmaWNhZG9yQ29kaSI6IkxJTSIsImNvZGkiOiJYSUFPTUk0WCJ9';
-const ImagesUploader = ({ actions, selected, loading, ...props}) => {
+const ImagesUploader = ({ id, parentId, actions, selected, loading, ...props}) => {
   const [rows,setRows] = useState([]);
   const inputFile = useRef(null);
   const [isUpdatingImg, setIsUpdatingImg] = useState(false);
@@ -79,7 +78,7 @@ const ImagesUploader = ({ actions, selected, loading, ...props}) => {
         const onClick = (e) => {
           e.stopPropagation();
           setRows(rows.filter(row => row.id !== params.id));
-          actions.deleteImage({ id: params.id });
+          actions.deleteImage({ key: id, id: params.id });
         };
 
         return <Button onClick={onClick}>
@@ -93,11 +92,11 @@ const ImagesUploader = ({ actions, selected, loading, ...props}) => {
     setRows(props.rows);
   },[props.rows]);
 
-  const loadData = ({ id }) => {
-    actions.loadData({ id });
+  const loadData = () => {
+    actions.loadData({ key: id, id: parentId });
   }
   useEffect(()=>{
-    loadData({ id });
+    loadData();
   },[]);
 
   const handleClickRow = (param, event) => {
@@ -107,7 +106,7 @@ const ImagesUploader = ({ actions, selected, loading, ...props}) => {
   useEffect(() => {
     if(selected) {
       const rutaInforme = selected.rutaInforme;
-      actions.loadImage({ rutaInforme });
+      actions.loadImage({ key: id, rutaInforme });
     }
   },[selected?.id]);
 
@@ -120,10 +119,10 @@ const ImagesUploader = ({ actions, selected, loading, ...props}) => {
     if(event.target && event.target.files[0]){
       const file = event.target.files[0];
       isUpdatingImg?
-        actions.changeImage({ id: selected.id, file })
+        actions.changeImage({ key: id, id: selected.id, file })
         :
         //TODO() articule is hardcoded
-        actions.uploadImage({ id, entityIndex: 'article', file }); // articleInformacio ID
+        actions.uploadImage({ key: id, id: parentId, entityIndex: 'article', file }); // articleInformacio ID
     }
   }
 
@@ -134,6 +133,7 @@ const ImagesUploader = ({ actions, selected, loading, ...props}) => {
           size="small"
           variant="outlined"
           color="primary"
+          style={{ marginBottom: '10px'}}
           onClick={(e) => {
             setIsUpdatingImg(false);
             handleUploadImage(e)

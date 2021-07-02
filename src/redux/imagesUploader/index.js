@@ -12,12 +12,12 @@ const ADD_ERROR_LOV_FORM = "ADD_ERROR_LOV_FORM";
 const SET_STATUS_ERROR_LOV_FORM = "SET_STATUS_ERROR_LOV_FORM";
 
 //Functions
-export const loadImages = ({ key, id, data }) => {
+export const loadImages = ({ key, id }) => {
   return async dispatch => {
     try {
       dispatch(add({ loading: true }));
       Axios
-        .get(`api/ecom/articlesInformacio?query=article.id=='${id}'`)
+        .get(`${API[key]}?query=article.id=='${id}'`)
         .then(({data}) => data)
         .then(({_embedded, page}) => {
           dispatch(add({ data: _embedded.articleInformacios }));
@@ -37,12 +37,12 @@ export const loadImages = ({ key, id, data }) => {
   };
 };
 
-const saveImage = (file, id, dispatch) => {
+const saveImage = ({key, id, file, dispatch}) => {
   return new Promise((resolve, reject) => {
     // upload file
     const formData = new FormData();
     formData.append('image', file);
-    Axios.post(`api/ecom/articlesInformacio/saveImage/${id}`, formData, {
+    Axios.post(`${API[key]}/saveImage/${id}`, formData, {
       headers: new Headers({
         'enctype': "multipart/form-data",
         'responseType': 'blob'
@@ -60,19 +60,19 @@ const saveImage = (file, id, dispatch) => {
   })
 };
 
-export const uploadImage = ({ file, id, entityIndex }) => {
+export const uploadImage = ({ file, key, id, entityIndex }) => {
   return async dispatch => {
     dispatch(add({ loading: true }));
     try {
       // create record
-      Axios.post(`api/ecom/articlesInformacio`, {
+      Axios.post(`${API[key]}`, {
         [entityIndex]: {id, descripcio: ''},
         descripcio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         rutaInforme: "-",
         teImatge: true
       })
         .then(({status, data, ...rest}) => {
-          saveImage(file, data.id, dispatch).then((data) => {
+          saveImage({file, key, id: data.id, dispatch}).then((data) => {
             dispatch(appendData({data}));
           });
         })
@@ -87,11 +87,11 @@ export const uploadImage = ({ file, id, entityIndex }) => {
   }
 };
 
-export const changeImage = ({ file, id }) => {
+export const changeImage = ({ key, id, file }) => {
   return async dispatch => {
     dispatch(add({ loading: true }));
     try {
-      await saveImage(file, id, dispatch);
+      await saveImage({file, key, id, dispatch});
     } catch (error) {
       console.log(error);
       dispatch(add({loading: false}));
@@ -103,7 +103,7 @@ export const loadImage = ({ key, rutaInforme }) => {
   return async dispatch => {
     try {
       Axios
-        .get(`api/ecom/articlesInformacio/loadImage/${rutaInforme}`,{
+        .get(`${API[key]}/loadImage/${rutaInforme}`,{
           responseType: 'blob'
         })
         .then(({data}) => {
@@ -128,7 +128,7 @@ export const deleteImage = ({ key, id }) => {
   return async dispatch => {
     dispatch(add({ loading: true }));
     try {
-      Axios.get(`api/ecom/articlesInformacio/deleteRow/${id}`)
+      Axios.get(`${API[key]}/deleteRow/${id}`)
         .then(({status, data, ...rest}) => {
           dispatch(add({ loading: false }));
         })
