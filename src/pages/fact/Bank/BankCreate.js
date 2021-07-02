@@ -59,7 +59,7 @@ const BankCreate = (props) => {
         defaultMessage: "Banco",
       })}
       formConfiguration={createConfiguration}
-      url={API.banco}
+      url={API.banc}
     />
   );
 };

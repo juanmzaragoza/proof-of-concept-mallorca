@@ -29,10 +29,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const { id: clientId } = useParams();
 
-  const TITLE = props.intl.formatMessage({
-    id: "Proveedores.direcciones_comerciales",
-    defaultMessage: "Direcciones Comerciales",
-  });
+
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
     defaultMessage: "Código",
@@ -53,69 +50,28 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
     id: "Proveedores.Contacto.contacto",
     defaultMessage: "Contacto",
   });
-  const LONG = props.intl.formatMessage({
-    id: "Clientes.contacto.longitud",
-    defaultMessage: "Longitud",
-  });
-  const LAT = props.intl.formatMessage({
-    id: "Clientes.contacto.latitud",
-    defaultMessage: "Latitud",
-  });
-  const DEFECTE = props.intl.formatMessage({
-    id: "Proveedores.DireccionComercial.defecto",
-    defaultMessage: "Defecto",
-  });
+
   const NOM = props.intl.formatMessage({
     id: "Comun.nombre",
     defaultMessage: "Nombre",
   });
 
-  const DIR_EXCLUSIVA = props.intl.formatMessage({
-    id: "Clientes.dreccion_exclusiva",
-    defaultMessage: "Dirección exclusiva",
-  });
-  const BLOQUEJAT = props.intl.formatMessage({
-    id: "Clientes.bloqueado",
-    defaultMessage: "Bloqueado",
-  });
+
   const OBV = props.intl.formatMessage({
     id: "Clientes.observaciones",
     defaultMessage: "Observaciones",
   });
   const DESCRIPCIO = props.intl.formatMessage({id: "Comun.descripcion", defaultMessage: "Descripción"});
 
-
   const getString = (key) => (getFormData(key) ? getFormData(key) : "");
   useEffect(() => {
-    const dir =
-      getString("sg") +
-      " " +
-      getString("nomDomicili") +
-      " " +
-      getString("numeroDomicili") +
-      " " +
-      getString("escala") +
-      " " +
-      getString("pis") +
-      " " +
-      getString("porta");
-    setFormData({ key: "domicili", value: dir });
-  }, [
-    getFormData("sg"),
-    getFormData("nomDomicili"),
-    getFormData("numeroDomicili"),
-    getFormData("escala"),
-    getFormData("pis"),
-    getFormData("porta"),
-  ]);
-
-  useEffect(() => {
-    const codiPostal = getString("codiPostal");
+    const banc = getString("banc");
     setFormData({
-      key: "poblacio",
-      value: codiPostal ? codiPostal.poblacio : "",
+      key: "bancCodi",
+      value: banc ? banc.codi : "",
     });
-  }, [getFormData("codiPostal")]);
+  }, [getFormData("banc")]);
+
 
   const code = (md = 6) => ({
     type: "input",
@@ -367,6 +323,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 12)],
     },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.Contab.oficines",
@@ -405,27 +362,27 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
             },
           },
           ...codiPostal(4),
-          {
-            placeHolder: props.intl.formatMessage({
-              id: "Clientes.banco",
-              defaultMessage: "Banco",
-            }),
-            type: "LOV",
-            key: "banc",
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 3,
-            },
-            validationType: "object",
-            ...withRequiredValidation(),
-            selector: {
-              key: "bancs",
-              labelKey: (data) => `${data.nom} (${data.codi})`,
-              sort: "codi",
-              cannotCreate: true,
-            },
-          },
+          // {
+          //   placeHolder: props.intl.formatMessage({
+          //     id: "Clientes.banco",
+          //     defaultMessage: "Banco",
+          //   }),
+          //   type: "LOV",
+          //   key: "banc",
+          //   required: true,
+          //   breakpoints: {
+          //     xs: 12,
+          //     md: 3,
+          //   },
+          //   validationType: "object",
+          //   ...withRequiredValidation(),
+          //   selector: {
+          //     key: "bancs",
+          //     labelKey: (data) => `${data.nom} (${data.codi})`,
+          //     sort: "codi",
+          //     cannotCreate: true,
+          //   },
+          // },
           {
             placeHolder: TELEFON,
             type: "input",

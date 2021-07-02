@@ -160,57 +160,6 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
 
 
   const contactsConfig = [
-
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.Contacto.contacto",
-        defaultMessage: "Persona de Contacto"
-      }),
-      type: 'input',
-      key: 'personaContacte',
-      breakpoints: {
-        xs: 12,
-        md: 2
-      },
-      validationType: "string",
-      validations: props.stringValidations.minMaxValidation(1, 60)
-    },
-    {
-      placeHolder: TELEFON,
-      type: 'input',
-      key: 'telefon',
-      breakpoints: {
-        xs: 12,
-        md: 2
-      },
-      validationType: "string",
-      validations: props.stringValidations.minMaxValidation(1, 60)
-    },
-    {
-      placeHolder: FAX,
-      type: 'input',
-      key: 'fax',
-      breakpoints: {
-        xs: 12,
-        md: 2
-      },
-      validationType: "string",
-      validations: props.stringValidations.minMaxValidation(1, 60)
-    },
-    {
-      placeHolder: EMAIL,
-      type: 'input',
-      key: 'email',
-      breakpoints: {
-        xs: 12,
-        md: 2
-      },
-      validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 60),
-        ...props.stringValidations.emailValidation()
-      ]
-    },
     {
       placeHolder: props.intl.formatMessage({
         id: "Proveedores.Contacto.zona",
@@ -220,7 +169,7 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: 'zona',
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 3
       },
       selector: {
         key: "zonas",
@@ -255,15 +204,87 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
 
 
     {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.Contacto.contacto",
+        defaultMessage: "Persona de Contacto"
+      }),
+      type: 'input',
+      key: 'personaContacte',
+      breakpoints: {
+        xs: 12,
+        md: 3
+      },
+      validationType: "string",
+      validations: props.stringValidations.minMaxValidation(1, 60)
+    },
+    {
+      placeHolder: TELEFON,
+      type: 'input',
+      key: 'telefon',
+      breakpoints: {
+        xs: 12,
+        md: 3
+      },
+      validationType: "string",
+      validations: props.stringValidations.minMaxValidation(1, 60)
+    },
+    {
+      placeHolder: FAX,
+      type: 'input',
+      key: 'fax',
+      breakpoints: {
+        xs: 12,
+        md: 3
+      },
+      validationType: "string",
+      validations: props.stringValidations.minMaxValidation(1, 60)
+    },
+    {
+      placeHolder: EMAIL,
+      type: 'input',
+      key: 'email',
+      breakpoints: {
+        xs: 12,
+        md: 3
+      },
+      validationType: "string",
+      validations: [
+        ...props.stringValidations.minMaxValidation(1, 60),
+        ...props.stringValidations.emailValidation()
+      ]
+    },
+  
+
+    {
       placeHolder: WWW,
       type: 'input',
       key: 'web',
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 3
       },
       validationType: "string",
       validations: props.stringValidations.minMaxValidation(1, 60)
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.tipo_mensaje",
+        defaultMessage: "Tipo Mensaje"
+      }),
+      type: 'select',
+      key: 'tipusMissatge',
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 2
+      },
+      selector: {
+        options: TIPO_MENSAJE_SELECTOR_VALUES,
+       
+      },
+     
+      validationType: "string",
+      ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -293,26 +314,7 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "string",
       validations: props.stringValidations.minMaxValidation(1, 15)
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.tipo_mensaje",
-        defaultMessage: "Tipo Mensaje"
-      }),
-      type: 'select',
-      key: 'tipusMissatge',
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 2
-      },
-      selector: {
-        options: TIPO_MENSAJE_SELECTOR_VALUES,
-       
-      },
-     
-      validationType: "string",
-      ...withRequiredValidation(),
-    },
+  
   ];
 
 
@@ -405,6 +407,11 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
         responseKey='departamentClients'
         enabled={props.editMode}
         configuration={commercialAddressesConfig} />
+    },
+    {
+      label: "ÓRDENES DE TRABAJO",
+      key: 1,
+      component: "ÓRDENES DE TRABAJO"
     },
 
   ];

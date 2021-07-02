@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
-import {isEmpty,isEqual} from 'lodash';
+import {isEmpty} from 'lodash';
 import {Formik} from 'formik';
 import * as yup from "yup";
 import './styles.scss';
@@ -106,8 +106,9 @@ const GenericForm = ({loading, ...props}) => {
     props.handleIsValid && props.handleIsValid(formik.isValid);
   }
 
-  const getField = ({type, variant, placeHolder, required, key, noEditable, selector, disabled, text, prefix, suffix}, formik) => {
+  const getField = ({id, type, variant, placeHolder, required, key, noEditable, selector, disabled, text, prefix, suffix}, formik) => {
     const noEnable = loading || (props.editMode && noEditable) || disabled;
+    const identification = id? id:key;
 
     const handleChange = (e, value) => {
       Boolean(key) && props.setFormData({key,value});
@@ -124,7 +125,7 @@ const GenericForm = ({loading, ...props}) => {
       case 'input':
         return (
           <TextField
-            id={key}
+            id={identification}
             variant={variant ? variant : 'standard'}
             size="small"
             onChange={ (e,v,r) => {
@@ -145,7 +146,7 @@ const GenericForm = ({loading, ...props}) => {
       case 'numeric':
         return (
           <Numeric
-            id={key}
+            id={identification}
             variant={variant ? variant : 'standard'}
             size="small"
             onChange={ (e,v) => {
@@ -166,7 +167,7 @@ const GenericForm = ({loading, ...props}) => {
       case 'select':
         return (
           <Selector
-            id={key}
+            id={identification}
             placeHolder={placeHolder}
             variant={variant}
             required={required}
@@ -186,6 +187,7 @@ const GenericForm = ({loading, ...props}) => {
           <FormControlLabel
             control={
               <Checkbox
+                id={identification}
                 checked={props.getFormData && props.getFormData(key)? props.getFormData(key) : false}
                 onChange={e => props.setFormData({key,value: e.currentTarget.checked})}
                 name={key}
@@ -200,12 +202,14 @@ const GenericForm = ({loading, ...props}) => {
         return (
           <>
             <FormLabel component="legend">{placeHolder}</FormLabel>
-            <RadioGroup aria-label={key}
-                        name={key}
-                        value={props.getFormData && props.getFormData(key)? props.getFormData(key) : ""}
-                        onChange={e => props.setFormData({key,value: e.currentTarget.value})}
-                        required={required}
-                        disabled={noEnable}>
+            <RadioGroup
+              id={identification}
+              aria-label={key}
+              name={key}
+              value={props.getFormData && props.getFormData(key)? props.getFormData(key) : ""}
+              onChange={e => props.setFormData({key,value: e.currentTarget.value})}
+              required={required}
+              disabled={noEnable}>
               {selector && selector.options.map(option => <FormControlLabel key={option.value} value={option.value} control={<Radio />} label={option.label} />) }
             </RadioGroup>
           </>
@@ -213,7 +217,7 @@ const GenericForm = ({loading, ...props}) => {
       case 'LOV':
         return (
           <LOVAutocomplete
-            id={key}
+            id={identification}
             responseKey={selector.key}
             labelResponseKey={selector.labelKey}
             sortBy={selector.sort}
@@ -241,7 +245,7 @@ const GenericForm = ({loading, ...props}) => {
       case 'observations':
         return (
           <Observations
-            id={key}
+            id={identification}
             placeHolder={placeHolder}
             required={Boolean(required)}
             disabled={noEnable}
@@ -254,7 +258,7 @@ const GenericForm = ({loading, ...props}) => {
         case 'date':
           return (
             <KeyboardDatePicker
-              id={key}
+              id={identification}
               label={placeHolder}
               placeholder={"dd/mm/yyyy"}
               required={Boolean(required)}
@@ -280,6 +284,7 @@ const GenericForm = ({loading, ...props}) => {
             <FormControlLabel
               control={
                 <Switch
+                  id={identification}
                   checked={props.getFormData && props.getFormData(key) === "S"}
                   onChange={(e) =>
                     props.setFormData({
@@ -295,7 +300,6 @@ const GenericForm = ({loading, ...props}) => {
               label={placeHolder}
             />
           );
-  
       default:
         return;
     }
@@ -391,6 +395,7 @@ const GenericForm = ({loading, ...props}) => {
 GenericForm.propTypes = {
   containerSpacing: PropTypes.number,
   formComponents: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.any,
     type: PropTypes.oneOf(['input','select','checkbox','radio','LOV','observations','numeric','date','switch']),
     variant: PropTypes.oneOf(['filled','outlined','standard']),
     placeHolder: PropTypes.string,
@@ -400,6 +405,7 @@ GenericForm.propTypes = {
     selector: PropTypes.shape({
       key: PropTypes.any,
       labelKey: PropTypes.any,
+      id: PropTypes.any,
       options: PropTypes.array,
       creationComponents: PropTypes.array,
       cannotCreate: PropTypes.bool,
