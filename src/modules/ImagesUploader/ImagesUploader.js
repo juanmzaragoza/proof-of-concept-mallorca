@@ -1,4 +1,6 @@
 import * as React from 'react';
+import {useEffect, useRef, useState} from "react";
+import {FormattedMessage} from "react-intl";
 import { DataGrid } from '@material-ui/data-grid';
 import {
   Avatar,
@@ -10,7 +12,6 @@ import {
   CircularProgress,
   Grid
 } from "@material-ui/core";
-import {useEffect, useRef, useState} from "react";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
@@ -23,13 +24,29 @@ const ImagesUploader = ({ actions, selected, loading, ...props}) => {
   const [isUpdatingImg, setIsUpdatingImg] = useState(false);
 
   const columns = [
-    { field: 'referenciaSequencial', headerName: 'Secuencia', width: 150 },
+    {
+      field: 'referenciaSequencial',
+      headerName: props.intl.formatMessage({
+        id: "ImagesUploader.secuencia",
+        defaultMessage: "Secuencia"
+      }),
+      description: props.intl.formatMessage({
+        id: "ImagesUploader.secuencia.descripcion",
+        defaultMessage: "Secuencia generada automaticamente"
+      }),
+      width: 150 },
     {
       field: 'preview',
-      headerName: 'Preview',
-      description: 'This column has a value getter and is not sortable.',
+      headerName: props.intl.formatMessage({
+        id: "ImagesUploader.previsualizacion",
+        defaultMessage: "Previsualización"
+      }),
+      description: props.intl.formatMessage({
+        id: "ImagesUploader.previsualizacion.descripcion",
+        defaultMessage: "Previsualización del recurso"
+      }),
       sortable: false,
-      width: 150,
+      width: 180,
       renderCell: (params) => (
         <div>
           <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
@@ -38,13 +55,23 @@ const ImagesUploader = ({ actions, selected, loading, ...props}) => {
     },
     {
       field: 'rutaInforme',
-      headerName: 'Ruta informe',
+      headerName: props.intl.formatMessage({
+        id: "ImagesUploader.rutaInforme",
+        defaultMessage: "Ruta Informe"
+      }),
+      description: props.intl.formatMessage({
+        id: "ImagesUploader.rutaInforme.descripcion",
+        defaultMessage: "Ruta donde se encuentra guardada la imagen"
+      }),
       width: 700,
       editable: true,
     },
     {
       field: "",
-      headerName: "Acciones",
+      headerName: props.intl.formatMessage({
+        id: "Comun.acciones",
+        defaultMessage: "Acciones"
+      }),
       sortable: false,
       width: 120,
       disableClickEventBubbling: true,
@@ -55,7 +82,9 @@ const ImagesUploader = ({ actions, selected, loading, ...props}) => {
           actions.deleteImage({ id: params.id });
         };
 
-        return <Button onClick={onClick}>Eliminar</Button>;
+        return <Button onClick={onClick}>
+          <FormattedMessage id={"ImagesUploader.eliminar_imagen"} defaultMessage={"Eliminar"}/>
+        </Button>;
       }
     },
   ];
@@ -110,7 +139,8 @@ const ImagesUploader = ({ actions, selected, loading, ...props}) => {
             handleUploadImage(e)
           }}
         >
-          <AddIcon fontSize="small" /> Nueva imagen
+          <AddIcon fontSize="small" />
+          <FormattedMessage id={"ImagesUploader.nueva_imagen"} defaultMessage={"Nueva Imagen"}/>
         </Button>
         <input
           id="input-file"
@@ -139,16 +169,16 @@ const ImagesUploader = ({ actions, selected, loading, ...props}) => {
             {selected.file?
               <CardMedia
                 component="img"
-                alt="Contemplative Reptile"
+                alt={selected.descripcio}
                 height={HEIGHT_CARD_MEDIA}
                 image={selected.file}
-                title="Contemplative Reptile"
+                title={selected.rutaInforme}
               />
               :
               <CardMedia
                 component="div"
-                alt="Contemplative Reptile"
-                title="Contemplative Reptile"
+                alt="Loading indicator"
+                title="Loading indicator"
                 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: `${HEIGHT_CARD_MEDIA}px`}}
               >
                 <CircularProgress size={100}/>
@@ -167,13 +197,13 @@ const ImagesUploader = ({ actions, selected, loading, ...props}) => {
               setIsUpdatingImg(true);
               handleUploadImage(e);
             }}>
-              Cambiar Imagen
+              <FormattedMessage id={"ImagesUploader.cambiar_imagen"} defaultMessage={"Cambiar Imagen"}/>
             </Button>
           </CardActions>
         </Card>
       </Grid>}
     </Grid>
   );
-}
+};
 
 export default ImagesUploader;

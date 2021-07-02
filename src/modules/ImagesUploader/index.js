@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
-import {bindActionCreators} from "redux";
+import {bindActionCreators, compose} from "redux";
+import {injectIntl} from "react-intl";
 
 import ImagesUploader from "./ImagesUploader";
 
@@ -37,7 +38,7 @@ const mapDispatchToProps = (dispatch, props) => {
   return { actions };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ImagesUploader);
+export default compose(
+  injectIntl,
+  connect(mapStateToProps,mapDispatchToProps)
+)(ImagesUploader)
