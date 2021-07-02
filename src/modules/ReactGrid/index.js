@@ -41,7 +41,6 @@ import {
 } from "../../redux/reactGrid/selectors";
 import {deleteData, searchData, reset} from "../../redux/reactGrid";
 import {Input, TableCell, TextField} from "@material-ui/core";
-import FormControl from "@material-ui/core/FormControl";
 
 const getRowId = row => row.id;
 
@@ -172,7 +171,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
         <TableFilterRow cellComponent={FilterCell} />
         {configuration.enableInlineEdition && <TableInlineCellEditing selectTextOnEditStart />}
         {!configuration.disabledActions && <ActionsColumn title={props.intl.formatMessage({
-          id: "ReactGrid.actions_column",
+          id: "Comun.acciones",
           defaultMessage: "Acciones"
         })} actions={rows && rows.length? rightMenu:[]} />}
         <PagingPanel />
