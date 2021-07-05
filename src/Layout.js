@@ -31,7 +31,6 @@ import {isUserAuthenticated} from "helper/login-helper";
 import {logout} from "./redux/app";
 import {getAuthenticated, getLoggedInUserToken} from "./redux/app/selectors";
 import {usePrevious} from "./helper/utils-hook";
-import ImagesUploader from "./modules/ImagesUploader";
 
 const useStyles = makeStyles((theme) => ({
   root: {

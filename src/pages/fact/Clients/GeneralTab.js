@@ -17,6 +17,7 @@ import {
   PAISNIF_SELECTOR_VALUES,
   TDOC_SELECTOR_VALUES,
   TIPO_EXTRANJ_SELECTOR_VALUES,
+  TIPO_DIR_COMERCIALES_SELECTOR_VALUES
 } from "constants/selectors";
 
 import { useTabForm } from "hooks/tab-form";
@@ -846,6 +847,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           ...props.stringValidations.minMaxValidation(1, 30),
         ]),
       },
+      ...codiPostal(3),
 
       {
         placeHolder: TELEFON,
@@ -884,34 +886,52 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         },
       },
 
-      ...codiPostal(3),
+      
       {
         placeHolder: DIR_EXCLUSIVA,
-        type: "switch",
+        type: "select",
         key: "direccionExclusivaEnvio",
+        required:true,
         breakpoints: {
           xs: 12,
           md: 3,
         },
+        selector:{
+          options:TIPO_DIR_COMERCIALES_SELECTOR_VALUES,
+        },
+        validationType: "string",
+        ...withRequiredValidation(),
       },
       {
         placeHolder: DEFECTE,
-        type: "switch",
+        type: "select",
         key: "domiciliDefecte",
+        required:true,
         breakpoints: {
           xs: 12,
           md: 3,
         },
+        selector:{
+          options:TIPO_DIR_COMERCIALES_SELECTOR_VALUES,
+        },
+        validationType: "string",
+        ...withRequiredValidation(),
       },
 
       {
         placeHolder: BLOQUEJAT,
-        type: "switch",
+        type: "select",
         key: "bloquejada",
+        required:true,
         breakpoints: {
           xs: 12,
           md: 3,
         },
+        selector:{
+          options:TIPO_DIR_COMERCIALES_SELECTOR_VALUES,
+        },
+        validationType: "string",
+        ...withRequiredValidation(),
       },
     ],
   };
@@ -928,10 +948,14 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         exact: true,
       },
     ],
+    extraPostBody: {
+      client : {id : clientId}
+    },
 
+  
     columns: [
       {
-        name: "tipusProveidorClient",
+        name: "tipusProveidorClient.description",
         title: props.intl.formatMessage({
           id: "Clientes.tiposClientes",
           defaultMessage: "Tipo Proveedor/Cliente",
@@ -946,23 +970,24 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Tipo Proveedor/Cliente",
         }),
         type: "LOV",
-        key: "tipusClients",
+        key: "tipusProveidorClient",
         required: false,
         breakpoints: {
           xs: 12,
           md: 4,
         },
         selector: {
-          key: "tipusClients",
-          labelKey: (data) => `${data.tipusProveidorClient.description}`,
+          key: "tipusProveidorClients",
+          labelKey: (data) => `${data.descripcio} (${data.codi})`,
           sort: "description",
           cannotCreate: true,
+         
         },
+       
       },
     ],
   };
 
-  
   const oficinaContable = [
     {
       placeHolder: props.intl.formatMessage({
@@ -1247,7 +1272,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       component: (
         <ExpandableGrid
           id="tipusClient"
-          responseKey="tipusClient"
+          responseKey="tipusClients"
           enabled={props.editMode}
           configuration={tipoClientes}
         />

@@ -59,6 +59,10 @@ export const projecteTipus= `api/fact/projectesTipus`;
 
 export const client = `api/fact/clients`;
 
+export const aplicador = `api/fact/aplicadors`;
+export const tipusProveidorClient = `api/fact/tipusProveidorsClient`;
+
+
 export const cliente = `api/ecom/clients`;
 export const pressupostos = `api/ecom/pressupostos`;
 export const serieVenda = `api/ecom/seriesVenda`;
@@ -99,3 +103,17 @@ export const paisos = `api/ecom/paisos`;
 export const familiaClients = `api/ecom/familiesClient`;
 export const tipusRiscs = `api/ecom/tipusRiscos`;
 export const caixes = `api/ecom/caixes`;
+
+export const tipusVencimentCodi = `api/fact/tipusVenciments`;
+
+export const bancos = `api/fact/bancs`;
+
+
+export const magatzem = `api/fact/magatzems`;
+export const subClient = `api/fact/subClients`;
+export const clientAdresa = `api/fact/clientsAdresa`;
+export const areaNegoci = `api/fact/areaNegocis`;
+export const finalFactura = `api/fact/finalFactures`;
+export const producte = `api/fact/productes`;
+export const expedient = `api/fact/expedients`;
+
