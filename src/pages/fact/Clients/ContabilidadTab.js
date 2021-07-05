@@ -852,10 +852,12 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "Clientes.codigoBanco",
           defaultMessage: "Código banco",
         }),
+        required:true,
         breakpoints: {
           xs: 12,
           md: 3,
         },
+        ...withRequiredValidation([]),
       },
       {
         type: "input",
@@ -979,6 +981,13 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Num cuenta",
         }),
       },
+      {
+        name: "compteVendes",
+        title: props.intl.formatMessage({
+          id: "Clientes.cuentasVentas",
+          defaultMessage: "Num cuenta Ventas",
+        }),
+      },
     ],
     formComponents: [
       {
@@ -988,7 +997,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         type: "LOV",
         key: "empresa",
-        required: false,
+        required: true,
         breakpoints: {
           xs: 12,
           md: 4,
@@ -1007,6 +1016,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
       {
         type: "input",
         key: "compteComptable",
+        required: true,
         placeHolder: props.intl.formatMessage({
           id: "Clientes.cuentasContables",
           defaultMessage: "Num cuenta contable",
@@ -1015,6 +1025,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
+        ...withRequiredValidation([]),
       },
       {
         type: "input",

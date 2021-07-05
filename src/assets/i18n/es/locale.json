@@ -617,6 +617,17 @@
   "Clientes.tabs.iban": "Iban",
   "Clientes.tabs.numeroCuenta":"Número cuenta",
   "Clientes.tabs.cuentasCorrientes": "Cuentas corrientes",
-  "Clientes.fact.fechaMandato":"Fecha firma mandato"
+  "Clientes.fact.fechaMandato":"Fecha firma mandato",
+  "Clientes.porcentajeFacturas": "Porcentaje facturas permitido",
+  "Clientes.mostrarPorcentaje": "Mostrar porcentaje facturación",
+  "Clientes.emails": "E-mails",
+  "Clientes.tabs.pedidos": "Pedidos",
+  "Clientes.tabs.norma19":"Norma 19",
+  "Clientes.fact.emailContabilidad":"Email aviso contabilidad",
+  "Clientes.fact.emailReparacion":"Email aviso reparación",
+  "Clientes.fact.emailComercial":"Email aviso comercial",
+  "Clientes.fact.emailWeb":"Email Web"
 
+  
+  
 }
