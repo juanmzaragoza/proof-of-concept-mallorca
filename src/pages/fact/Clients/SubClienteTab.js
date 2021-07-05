@@ -233,6 +233,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "Comun.nombre",
           defaultMessage: "Nombre",
         }),
+        required:true,
         type: "input",
         key: "nom",
         breakpoints: {

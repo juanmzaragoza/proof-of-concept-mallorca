@@ -416,5 +416,21 @@ export const TIPO_IMPRESION_PUNT_VENTA_VALUES = [
 
 ];
 
+export const TIPO_DIR_COMERCIALES_SELECTOR_VALUES = [
+  {
+    value: "S",
+    labelId: "Comun.si",
+    label: "Si",
+  },
+  {
+    value: "N",
+    labelId: "Comun.no",
+    label: "No",
+  },
+
+];
+
+
+
 
 

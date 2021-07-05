@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
-
+import { useParams } from "react-router-dom";
 
 import "../Suppliers/styles.scss";
 
@@ -31,14 +31,40 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
     setIsValid: props.setIsValid,
   });
 
-  const DESCRIPCIO = props.intl.formatMessage({id: "Comun.descripcion", defaultMessage: "Descripción"});
-  const CODE = props.intl.formatMessage({id: "Comun.codigo", defaultMessage: "Código"});
-  const NOM = props.intl.formatMessage({id: "Comun.nombre", defaultMessage: "Nombre"});
-  const DOMICILI = props.intl.formatMessage({id: "Proveedores.Direccion.domicilio", defaultMessage: "Domicilio"});
+  const DESCRIPCIO = props.intl.formatMessage({
+    id: "Comun.descripcion",
+    defaultMessage: "Descripción",
+  });
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
+  const NOM = props.intl.formatMessage({
+    id: "Comun.nombre",
+    defaultMessage: "Nombre",
+  });
+  const DOMICILI = props.intl.formatMessage({
+    id: "Proveedores.Direccion.domicilio",
+    defaultMessage: "Domicilio",
+  });
 
+  const aSCodeAndDescription = [
+    { title: CODE, name: "codi" },
+    { title: DESCRIPCIO, name: "descripcio" },
+  ];
+  const aSCodeAndName = [
+    { title: CODE, name: "codi" },
+    { title: NOM, name: "nom" },
+  ];
 
-  const aSCodeAndDescription = [{title: CODE, name: 'codi'},{title: DESCRIPCIO, name: 'descripcio'}];
-  const aSCodeAndName = [{title: CODE, name: 'codi'},{title: NOM, name: 'nom'}];
+  const getString = (key) => (getFormData(key) ? getFormData(key) : "");
+  useEffect(() => {
+    const tipusVenc = getString("tipusVenciments");
+    setFormData({
+      key: "tipusVencimentCodi",
+      value: tipusVenc ? tipusVenc.codi : "",
+    });
+  }, [getFormData("tipusVenciments")]);
 
   const code = (md = 6) => ({
     type: "input",
@@ -83,7 +109,6 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
-
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
   const formatCodeAndDescription = (data) =>
     `${data.descripcio} (${data.codi})`;
@@ -96,22 +121,22 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
       ],
     };
   };
-
+  const { id: clientId } = useParams();
   const facturacionConfig = [
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.empresaCodigo",
-        defaultMessage: "código empresa",
-      }),
-      type: "input",
-      key: "empresaCodi",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 4)],
-    },
+    // {
+    //   placeHolder: props.intl.formatMessage({
+    //     id: "Clientes.fact.empresaCodigo",
+    //     defaultMessage: "código empresa",
+    //   }),
+    //   type: "input",
+    //   key: "empresaCodi",
+    //   breakpoints: {
+    //     xs: 12,
+    //     md: 2,
+    //   },
+    //   validationType: "string",
+    //   validations: [...props.stringValidations.minMaxValidation(1, 4)],
+    // },
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.fact.tarifa1",
@@ -207,6 +232,33 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "object",
       ...withRequiredValidation(),
     },
+    // {
+    //   placeHolder: props.intl.formatMessage({
+    //     id: "Clientes.fact.numCopias",
+    //     defaultMessage: "Num copias a imprimir",
+    //   }),
+    //   type: "input",
+    //   key: "copiesFactura",
+    //   breakpoints: {
+    //     xs: 12,
+    //     md: 1,
+    //   },
+    //   validationType: "string",
+    //   validations: [...props.stringValidations.minMaxValidation(1, 4)],
+    // },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.fact.facturas_sinDescuento",
+        defaultMessage: "Imprimir facturas sin descuento",
+      }),
+      type: "checkbox",
+      key: "facturesSenseDescompte",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+    },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.fact.tipoFactura",
@@ -240,26 +292,6 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         options: TIPO_ENVIO_FACT_SELECTOR_VALUES,
       },
     },
-
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.recibos",
-        defaultMessage: "Recibos",
-      }),
-      type: "select",
-      key: "rebuts",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      selector: {
-        options: TIPO_RECIBOS_SELECTOR_VALUES,
-      },
-      validationType: "string",
-      ...withRequiredValidation(),
-    },
-
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.fact.tipoFact",
@@ -278,7 +310,6 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         sort: "descripcio",
         creationComponents: [...codeAndDescription(6, 6)],
         advancedSearchColumns: aSCodeAndDescription,
-        
       },
       validationType: "object",
       ...withRequiredValidation(),
@@ -286,55 +317,24 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
 
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.docCobro",
-        defaultMessage: "Documento cobro",
+        id: "Clientes.fact.recibos",
+        defaultMessage: "Recibos",
       }),
-      type: "LOV",
-      key: "documentPagament",
+      type: "select",
+      key: "rebuts",
       required: true,
       breakpoints: {
         xs: 12,
         md: 3,
       },
       selector: {
-        key: "documentPagamentCobraments",
-        labelKey: formatCodeAndDescription,
-        sort: "descripcio",
-        advancedSearchColumns: aSCodeAndDescription,
-        creationComponents: [...codeAndDescription(6, 6)],
-      },
-      validationType: "object",
-      ...withRequiredValidation(),
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.tipoVencimiento",
-        defaultMessage: "Código tipo vencimiento",
-      }),
-      type: "input",
-      key: "tipusVencimentCodi",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 2,
+        options: TIPO_RECIBOS_SELECTOR_VALUES,
       },
       validationType: "string",
-      ...withRequiredValidation([
-        ...props.stringValidations.minMaxValidation(1, 4),
-      ]),
+      ...withRequiredValidation(),
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.tipoVencimiento1",
-        defaultMessage: "Código tipo vencimiento 1",
-      }),
-      type: "input",
-      key: "tipusVenciment1Codi",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-    },
+    
+
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.fact.paletsDevueltos",
@@ -349,6 +349,126 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
+        id: "Proveedores.tvencimiento",
+        defaultMessage: "Tipo Vencimiento",
+      }),
+      type: "LOV",
+      key: "tipusVenciments",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      selector: {
+        key: "tipusVenciments",
+        labelKey: formatCodeAndDescription,
+        sort: "descripcio",
+        creationComponents: [
+          {
+            type: "input",
+            key: "codi",
+            placeHolder: CODE,
+            required: true,
+            noEditable: true,
+            breakpoints: {
+              xs: 12,
+              md: 4,
+            },
+          },
+          {
+            type: "input",
+            key: "nom",
+            placeHolder: NOM,
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 4,
+            },
+          },
+          {
+            type: "input",
+            key: "tipus",
+            placeHolder: props.intl.formatMessage({
+              id: "TiposVencimiento.tipos",
+              defaultMessage: "Tipos",
+            }),
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 4,
+            },
+          },
+        ],
+        advancedSearchColumns: aSCodeAndDescription,
+      },
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.fact.docCobro",
+        defaultMessage: "Documento cobro",
+      }),
+      type: "LOV",
+      key: "documentPagament",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      selector: {
+        key: "documentPagamentCobraments",
+        labelKey: formatCodeAndDescription,
+        sort: "descripcio",
+        advancedSearchColumns: aSCodeAndDescription,
+        creationComponents: [...codeAndDescription(6, 6)],
+      },
+      validationType: "object",
+      ...withRequiredValidation(),
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.fact.dirEnvio",
+        defaultMessage: "Dirección envio",
+      }),
+      type: "LOV",
+      key: "adresaComercialClient",
+
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      selector: {
+        key: "clientAdresas",
+        labelKey: (data) => `${data.domicili} (${data.codi})`,
+        sort: "codi",
+        creationComponents: [...codeAndDescription(6, 6)],
+        advancedSearchColumns: [
+          { title: CODE, name: "codi" },
+          { title: DOMICILI, name: "domicili" },
+        ],
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.fact.tipoComision",
+        defaultMessage: "Tipo comisión",
+      }),
+      type: "LOV",
+      key: "tipusComissio",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      selector: {
+        key: "tipusComissios",
+        labelKey: (data) => `${data.nom} (${data.codi})`,
+        sort: "codi",
+        creationComponents: [...codeAndName(6, 6)],
+        advancedSearchColumns: aSCodeAndName,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
         id: "Clientes.fact.publicaDocumentos",
         defaultMessage: "Publicar domumentos en la web",
       }),
@@ -359,18 +479,19 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.facturas_sinDescuento",
-        defaultMessage: "Imprimir facturas sin descuento",
-      }),
-      type: "checkbox",
-      key: "facturesSenseDescompte",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-    },
+    // {
+    //   placeHolder: props.intl.formatMessage({
+    //     id: "Clientes.fact.tipoVencimiento1",
+    //     defaultMessage: "Código tipo vencimiento 1",
+    //   }),
+    //   type: "input",
+    //   key: "tipusVenciment1Codi",
+    //   breakpoints: {
+    //     xs: 12,
+    //     md: 2,
+    //   },
+    // },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.fact.numCopias",
@@ -398,45 +519,6 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 4)],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.dirEnvio",
-        defaultMessage: "Dirección envio",
-      }),
-      type: "LOV",
-      key: "adresaComercialClient",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      selector: {
-        key: "clientAdresas",
-        labelKey: (data) => `${data.domicili} (${data.codi})`,
-        sort: "codi",
-        creationComponents: [...codeAndDescription(6, 6)],
-        advancedSearchColumns: [{title: CODE, name: 'codi'},{title: DOMICILI, name: 'domicili'}],
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.tipoComision",
-        defaultMessage: "Tipo comisión",
-      }),
-      type: "LOV",
-      key: "tipusComissio",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      selector: {
-        key: "tipusComissios",
-        labelKey: (data) => `${data.nom} (${data.codi})`,
-        sort: "codi",
-        creationComponents: [...codeAndName(6, 6)],
-        advancedSearchColumns: aSCodeAndName,
-      },
-
     },
 
     {
@@ -468,7 +550,6 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
       selector: {
         options: ALBARAN_CLIENT_SELECTOR_VALUES,
       },
-
     },
 
     {
@@ -577,7 +658,6 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         creationComponents: [...codeAndDescription(6, 6)],
         advancedSearchColumns: aSCodeAndDescription,
       },
-
     },
 
     {
@@ -629,7 +709,7 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "rappel",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
       selector: {
         key: "rappels",
@@ -648,14 +728,14 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "transportista",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
       selector: {
         key: "transportistas",
         labelKey: (data) => `${data.nom}`,
         sort: "nom",
         creationComponents: [...codeAndDescription(6, 6)],
-        advancedSearchColumns: aSCodeAndName
+        advancedSearchColumns: aSCodeAndName,
       },
     },
 
@@ -668,7 +748,7 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "riscMaxim",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 4,
       },
     },
     {
@@ -680,7 +760,7 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "riscLimit",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 4,
       },
     },
     {
@@ -692,11 +772,42 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "facturacioMinima",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 4,
       },
     },
 
+  
+  ];
+
+  const norma19Config = [
     {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.fact.referenciaMandato",
+        defaultMessage: "Referencia única mandato",
+      }),
+      type: "input",
+      key: "referenciaUnicaMandat",
+      breakpoints: {
+        xs: 12,
+        md: 12,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.fact.fechaMandato",
+        defaultMessage: "Fecha firma mandato",
+      }),
+      type: "date",
+      key: "dataFirmaMandat",
+      breakpoints: {
+        xs: 12,
+        md: 12,
+      },
+    },
+  ];
+
+  const checkboxs = [
+      {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.fact.impuestoVerde",
         defaultMessage: "Aplicar impuesto punto verde",
@@ -709,92 +820,66 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     },
     {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.fact.impuestoServicio",
-          defaultMessage: "Aplicar impuesto de servicio",
-        }),
-        type: "checkbox",
-        key: "aplicarImpostServei",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.fact.impuestoServicio",
+        defaultMessage: "Aplicar impuesto de servicio",
+      }),
+      type: "checkbox",
+      key: "aplicarImpostServei",
+      breakpoints: {
+        xs: 12,
+        md: 2,
       },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.fact.impuestoIncluido",
-          defaultMessage: "Impuesto incluido",
-        }),
-        type: "checkbox",
-        key: "impostInclos",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.fact.impuestoIncluido",
+        defaultMessage: "Impuesto incluido",
+      }),
+      type: "checkbox",
+      key: "impostInclos",
+      breakpoints: {
+        xs: 12,
+        md: 2,
       },
-      {
-        placeHolder: props.intl.formatMessage({
-          id:  "Clientes.fact.controlOperario",
-          defaultMessage: "Control operario",
-        }),
-        type: "checkbox",
-        key: "permesEntrarPartes",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.fact.controlOperario",
+        defaultMessage: "Control operario",
+      }),
+      type: "checkbox",
+      key: "permesEntrarPartes",
+      breakpoints: {
+        xs: 12,
+        md: 2,
       },
-      {
-        placeHolder: props.intl.formatMessage({
-          id:  "Clientes.fact.cobrarDias",
-          defaultMessage: "Cobrar dias alquiler",
-        }),
-        type: "checkbox",
-        key: "cobrarDiesLloguer",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.fact.cobrarDias",
+        defaultMessage: "Cobrar dias alquiler",
+      }),
+      type: "checkbox",
+      key: "cobrarDiesLloguer",
+      breakpoints: {
+        xs: 12,
+        md: 2,
       },
-      {
-        placeHolder: props.intl.formatMessage({
-          id:  "Clientes.fact.facturaE",
-          defaultMessage: "Factura Electrónica",
-        }),
-        type: "checkbox",
-        key: "facturaElectronica",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.fact.facturaE",
+        defaultMessage: "Factura Electrónica",
+      }),
+      type: "checkbox",
+      key: "facturaElectronica",
+      breakpoints: {
+        xs: 12,
+        md: 2,
       },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.fact.referenciaMandato",
-          defaultMessage: "Referencia única mandato",
-        }),
-        type: "input",
-        key: "referenciaUnicaMandat",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.fact.referenciaMandato",
-          defaultMessage: "Referencia única mandato",
-        }),
-        type: "date",
-        key: "dataFirmaMandat",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-      },
+    },
   ];
-
-  
 
   const tabs = [
     {
@@ -858,24 +943,85 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
       ),
       key: 2,
       component: (
+        <>
+        <Grid container spacing={2}>
+          <Grid xs={9} item>
+            <OutlinedContainer
+              className="general-tab-container"
+              title={
+                <FormattedMessage
+                  id={"Proveedores.tabs.pedidos"}
+                  defaultMessage={"Pedidos"}
+                />
+              }
+            >
+
+            <GenericForm
+              formComponents={fact2Config}
+              emptyPaper={true}
+              setFormData={setFormData}
+              getFormData={getFormData}
+              loading={props.loading}
+              formErrors={props.formErrors}
+              submitFromOutside={props.submitFromOutside}
+              onSubmit={() => props.onSubmitTab(formData)}
+              handleIsValid={(value) =>
+                addValidity(FACT2_SECTION_TAB_INDEX, value)
+              }
+              onBlur={(e) => handleTouched(FACT2_SECTION_TAB_INDEX)}
+              {...props}
+            />
+            </OutlinedContainer>
+          </Grid>
+          <Grid xs={3} item>
+            <OutlinedContainer
+              className="general-tab-container"
+              title={
+                <FormattedMessage
+                  id={"Proveedores.tabs.norma19"}
+                  defaultMessage={"Norma 19"}
+                />
+              }
+            >
+
+            <GenericForm
+              formComponents={norma19Config}
+              emptyPaper={true}
+              setFormData={setFormData}
+              getFormData={getFormData}
+              loading={props.loading}
+              formErrors={props.formErrors}
+              submitFromOutside={props.submitFromOutside}
+              onSubmit={() => props.onSubmitTab(formData)}
+              handleIsValid={(value) =>
+                addValidity(FACT2_SECTION_TAB_INDEX, value)
+              }
+              onBlur={(e) => handleTouched(FACT2_SECTION_TAB_INDEX)}
+              {...props}
+            />
+            </OutlinedContainer>
+          </Grid>
+        </Grid>
         <GenericForm
-          formComponents={fact2Config}
-          emptyPaper={true}
-          setFormData={setFormData}
-          getFormData={getFormData}
-          loading={props.loading}
-          formErrors={props.formErrors}
-          submitFromOutside={props.submitFromOutside}
-          onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) => addValidity(FACT2_SECTION_TAB_INDEX, value)}
-          onBlur={(e) => handleTouched(FACT2_SECTION_TAB_INDEX)}
-          {...props}
-        />
+        formComponents={checkboxs}
+        emptyPaper={true}
+        setFormData={setFormData}
+        getFormData={getFormData}
+        loading={props.loading}
+        formErrors={props.formErrors}
+        submitFromOutside={props.submitFromOutside}
+        onSubmit={() => props.onSubmitTab(formData)}
+        handleIsValid={(value) =>
+          addValidity(FACT2_SECTION_TAB_INDEX, value)
+        }
+        onBlur={(e) => handleTouched(FACT2_SECTION_TAB_INDEX)}
+        {...props}
+      />
+      </>
       ),
     },
-    
   ];
-  
+
   return (
     <Grid container>
       <Grid xs={12} item>

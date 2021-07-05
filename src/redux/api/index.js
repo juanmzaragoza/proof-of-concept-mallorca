@@ -59,7 +59,8 @@ export const projecteTipus= `api/fact/projectesTipus`;
 
 
 export const client = `api/fact/clients`;
-
+export const aplicador = `api/fact/aplicadors`;
+export const tipusProveidorClient = `api/fact/tipusProveidorsClient`;
 
 
 export const cliente = `api/ecom/clients`;
@@ -101,3 +102,5 @@ export const paisos = `api/ecom/paisos`;
 export const familiaClients = `api/ecom/familiesClient`;
 export const tipusRiscs = `api/ecom/tipusRiscos`;
 export const caixes = `api/ecom/caixes`;
+export const tipusVencimentCodi = `api/fact/tipusVenciments`;
+
