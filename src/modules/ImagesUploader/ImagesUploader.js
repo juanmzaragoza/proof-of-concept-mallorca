@@ -221,7 +221,13 @@ ImagesUploader.propTypes = {
   loading: PropTypes.bool.isRequired,
   rows: PropTypes.array.isRequired,
   actions: PropTypes.object,
-  bodyIndex: PropTypes.string.isRequired
+  bodyIndex: PropTypes.string.isRequired,
+  responseKey: PropTypes.string.isRequired,
+  query: PropTypes.arrayOf(PropTypes.shape({
+    columnName: PropTypes.string,
+    value: PropTypes.any,
+    exact: PropTypes.bool
+  }))
 };
 
 export default ImagesUploader;
