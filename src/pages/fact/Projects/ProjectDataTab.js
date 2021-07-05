@@ -228,7 +228,13 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 6)],
+      validation: [
+        ...props.stringValidations.minMaxValidation(1,6),
+        ...props.stringValidations.fieldExistsValidation('projectes', 'codi', props.intl.formatMessage({
+          id: "Comun.codigo",
+          defaultMessage: "Código",
+        }),)
+      ],
     },
     {
       placeHolder: NOM,
@@ -416,7 +422,6 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       placeHolder: OBS,
       type: "observations",
       key: "observacions",
-      required: false,
       breakpoints: {
         xs: 12,
         md: 1,
@@ -516,11 +521,14 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Previsión fin",
       }),
       type: "date",
-      key: "previsioFi",
+      required:true,
+      key: "dataFiPrevist",
       breakpoints: {
         xs: 12,
         md: 3,
       },
+      validationType: "string",
+      ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({

@@ -698,7 +698,15 @@
   "Proyectos.ejecucionGarantia": "Ejecución Garantía",
   "Proyectos.ejecucionLibre": "Ejecución Libre",
   "Proyectos.mesesGarantia": "Meses Garantía",
-  "Proyectos.construccionGarantia": "Construcción y Garantía"
+  "Proyectos.construccionGarantia": "Construcción y Garantía",
+  "Proyectos.importeMaquinaria": "Importe fijo coste maquinaria",
+  "Proyectos.costeMaquinaria": "Porcentaje Coste Maquinaria",
+  "Proyectos.costeMonetario": "Porcentaje Coste Monetario",
+  "Proyectos.importeMonetario":"Importe fijo coste monetario",
+  "Proyectos.costes": "Costes Proyecto",
+  "Proyectos.km":"Km. a la obra",
+  "Proyectos.producto":"Producto",
+  "Proyectos.expedientes":"Expedientes"
   
   
 
