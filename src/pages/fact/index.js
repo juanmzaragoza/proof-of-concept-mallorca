@@ -18,6 +18,7 @@ import PostalCode from './PostalCode';
 import DocumentFooter from './DocumentFooter';
 import ProjectType from './ProjectType';
 import CompanyAccountingAccount from './CompanyAccountingAccount';
+import Projects from './Projects';
 
 
 const component = [
@@ -37,9 +38,11 @@ const component = [
   RegimeVat,
   Retention,
   Bank,
+  Projects,
   PostalCode,
   DocumentFooter,
   ProjectType,
   CompanyAccountingAccount,
+
 ];
 export default component;
