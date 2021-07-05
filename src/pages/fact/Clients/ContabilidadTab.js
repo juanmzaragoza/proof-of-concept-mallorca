@@ -431,7 +431,8 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "IVA",
       }),
       type: "LOV",
-      key: "ives",
+      key: "iva",
+      id:"ives",
       breakpoints: {
         xs: 12,
         md: 5,
