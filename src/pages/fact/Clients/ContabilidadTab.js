@@ -64,6 +64,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
   });
 
   const getString = (key) => (getFormData(key) ? getFormData(key) : "");
+
   useEffect(() => {
     const banc = getString("banc");
     setFormData({
@@ -71,6 +72,10 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
       value: banc ? banc.codi : "",
     });
   }, [getFormData("banc")]);
+
+
+
+
 
   const code = (md = 6) => ({
     type: "input",
@@ -758,6 +763,8 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
   ];
 
   const cuentasConfig = [
+
+  
     {
       type: "input",
       key: "compteContable",
@@ -784,6 +791,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
+
   const cuentasCorrientes = {
     title: props.intl.formatMessage({
       id: "Clientes.cuentasCorrientes",
@@ -798,6 +806,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
     ],
     extraPostBody: {
       client: { id: clientId },
+      bancCodi: `${getFormData("bancCodi") ? getFormData("bancCodi") : ""}`
     },
     columns: [
       {
@@ -846,23 +855,48 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     ],
     formComponents: [
+      // {
+      //   type: "input",
+      //   key: "bancCodi",
+      //   placeHolder: props.intl.formatMessage({
+      //     id: "Clientes.codigoBanco",
+      //     defaultMessage: "Código banco",
+      //   }),
+      //   required:true,
+      //   breakpoints: {
+      //     xs: 12,
+      //     md: 3,
+      //   },
+      //   ...withRequiredValidation([]),
+      // },
       {
-        type: "input",
-        key: "bancCodi",
         placeHolder: props.intl.formatMessage({
-          id: "Clientes.codigoBanco",
-          defaultMessage: "Código banco",
+          id: "Clientes.banco",
+          defaultMessage: "Banco",
         }),
+        type: "LOV",
+        key: "banc",
         required:true,
         breakpoints: {
           xs: 12,
           md: 3,
         },
-        ...withRequiredValidation([]),
+        selector: {
+          key: "bancs",
+          labelKey: (data) => `${data.nom} (${data.codi})`,
+          sort: "codi",
+          cannotCreate: true,
+          relatedWith: {
+            name: "oficinaBancaria",
+            filterBy: "banc.id",
+            keyValue: "id",
+          },
+        },
       },
       {
         type: "input",
         key: "numeroCompteCorrent",
+        required:true,
         placeHolder: props.intl.formatMessage({
           id: "Clientes.numCuenta",
           defaultMessage: "Num cuenta",
@@ -871,6 +905,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 3,
         },
+        ...withRequiredValidation([]),
       },
       {
         type: "input",
@@ -892,6 +927,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
       {
         type: "input",
         key: "digitControlIban",
+        required:true,
         placeHolder: props.intl.formatMessage({
           id: "Clientes.digitosIban",
           defaultMessage: "Dígitos iban",
@@ -900,6 +936,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 3,
         },
+        ...withRequiredValidation([]),
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -909,6 +946,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         type: "LOV",
         key: "empresa",
         noEditable: true,
+        required:true,
         breakpoints: {
           xs: 12,
           md: 3,
@@ -933,6 +971,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         type: "LOV",
         key: "oficinaBancaria",
         noEditable: true,
+        required:true,
         breakpoints: {
           xs: 12,
           md: 3,

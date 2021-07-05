@@ -105,3 +105,4 @@ export const tipusRiscs = `api/ecom/tipusRiscos`;
 export const caixes = `api/ecom/caixes`;
 export const tipusVencimentCodi = `api/fact/tipusVenciments`;
 
+export const bancos = `api/fact/bancs`;
