@@ -752,7 +752,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       label: TITLE,
       key: 3,
       component: <ExpandableGrid
-        id='articleFamiliaEmpresas'
+        id='articlesFamiliaEmpresas'
         responseKey='articleFamiliaEmpresas'
         enabled={props.editMode}
         configuration={EmpresasConfiguration} />

@@ -63,7 +63,7 @@ export const tipusUnitats = `api/fact/unitatsTipus`;
 
 export const familiaArticle = `api/fact/articlesFamilia`;
 export const articleFamilia = `api/fact/articlesFamilia`;
-export const articleFamiliaEmpresas = `api/fact/articlesFamiliaEmpresa`;
+export const articlesFamiliaEmpresas = `api/fact/articlesFamiliaEmpresa`;
 
 export const serieVendas = 'api/fact/seriesVenda';
 
