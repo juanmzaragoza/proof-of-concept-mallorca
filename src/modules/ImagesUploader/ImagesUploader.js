@@ -37,7 +37,7 @@ const ImagesUploader = ({ id, parentId, actions, selected, loading, entityIndex,
       }),
       width: 150 },
     {
-      field: 'preview',
+      field: 'image',
       headerName: props.intl.formatMessage({
         id: "ImagesUploader.previsualizacion",
         defaultMessage: "Previsualización"
@@ -48,11 +48,17 @@ const ImagesUploader = ({ id, parentId, actions, selected, loading, entityIndex,
       }),
       sortable: false,
       width: 180,
-      renderCell: (params) => (
-        <div>
-          <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
-        </div>
-      ),
+      renderCell: (params) => {
+        return params.value? (
+          <div>
+            <Avatar alt={params?.row?.descripcio} src={`data:image/jpeg;base64,${params.value}`} />
+          </div>
+        ):(
+          <div>
+            <Avatar alt="Empty Avatar" />
+          </div>
+        )
+      },
     },
     {
       field: 'rutaInforme',

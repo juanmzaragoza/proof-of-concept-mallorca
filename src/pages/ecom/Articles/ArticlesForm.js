@@ -88,7 +88,6 @@ const ArticlesForm = React.memo(({ actions, allFormData, getFormData, submitFrom
         loading={props.loading}
         formDataLoaded={props.formDataLoaded} />
     },
-  
     {
       ...getTranslations("Articulos.tabs.imagenes","Imágenes"),
       key: IMG_TAB_INDEX,
