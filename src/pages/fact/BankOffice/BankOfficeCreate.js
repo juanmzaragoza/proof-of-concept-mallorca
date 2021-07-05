@@ -174,7 +174,7 @@ const BankOfficeCreate = (props) => {
         id: "Clientes.codigo",
         defaultMessage: "Código",
       }),
-      type: "numeric",
+      type: "input",
       key: "codi",
       required: true,
       breakpoints: {
@@ -182,10 +182,10 @@ const BankOfficeCreate = (props) => {
         md: 2,
       },
       noEditable: true,
-      validationType: "number",
+      validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 10),
+        ...props.stringValidations.minMaxValidation(0, 9999),
       ],
     },
     {
