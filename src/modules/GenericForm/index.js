@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
-import {isEmpty,isEqual} from 'lodash';
+import {isEmpty} from 'lodash';
 import {Formik} from 'formik';
 import * as yup from "yup";
 import './styles.scss';
@@ -299,7 +299,6 @@ const GenericForm = ({loading, ...props}) => {
               label={placeHolder}
             />
           );
-  
       default:
         return;
     }
@@ -405,6 +404,7 @@ GenericForm.propTypes = {
     selector: PropTypes.shape({
       key: PropTypes.any,
       labelKey: PropTypes.any,
+      id: PropTypes.any,
       options: PropTypes.array,
       creationComponents: PropTypes.array,
       cannotCreate: PropTypes.bool,

@@ -61,5 +61,49 @@ export const tipusUnitats = `api/fact/unitatsTipus`;
 
 export const projectes = `api/fact/projectes`;
 export const projecteTipus= `api/fact/projectesTipus`;
+
 export const client = `api/fact/clients`;
+
 export const producte = `api/fact/productes`;
+
+
+export const cliente = `api/ecom/clients`;
+export const pressupostos = `api/ecom/pressupostos`;
+export const serieVenda = `api/ecom/seriesVenda`;
+export const pressupostLinias = `api/ecom/pressupostosLinia`;
+export const article = `api/ecom/articles`;
+export const idiomas = `api/ecom/idiomes`;
+export const puntVenda = `api/ecom/puntsVenda`;
+export const divisas = `api/ecom/divises`;
+export const magatzems = `api/ecom/magatzems`;
+export const documentPagamentCobraments = `api/ecom/documentsPagamentCobrament`;
+export const paises = `api/ecom/paisos`;
+export const provincias = `api/ecom/provincies`;
+export const codigosPostales = `api/ecom/codisPostal`;
+export const paisesNif = `api/ecom/paisosNif`;
+export const tipusAdresa = `api/ecom/tipusAdreces`;
+export const codiPostalClient = `api/ecom/codisPostal`;
+export const articles = `api/ecom/articles`;
+export const familia = `api/ecom/articlesFamilia`;
+export const gamma = `api/ecom/articlesGamma`;
+export const marca = `api/ecom/articlesMarca`;
+export const articlesInformacio = `api/ecom/articlesInformacio`;
+export const articleTraduccios = `api/ecom/articlesTraduccio`;
+export const model= `api/ecom/articlesModel`;
+export const iva = `api/ecom/ives`;
+export const articleFamilias = `api/ecom/articlesFamilia`;
+export const articleFamiliaEmpresas = `api/ecom/articlesFamiliaEmpresa`;
+export const empresas = `api/ecom/empreses`;
+export const articleModels= `api/ecom/articlesModel`;
+export const articleMarcas= `api/ecom/articlesMarca`;
+export const articleGammas= `api/ecom/articlesGamma`;
+export const divises = `api/ecom/divises`;
+export const regimIvas = `api/ecom/regimsIva`;
+export const tipusVenciments = `api/ecom/tipusVenciments`;
+export const tipusFacturacions = `api/ecom/tipusFacturacions`;
+export const naturalesaPagamentCobrament = `api/ecom/naturalesesPagamentCobrament`;
+export const paisos = `api/ecom/paisos`;
+
+export const familiaClients = `api/ecom/familiesClient`;
+export const tipusRiscs = `api/ecom/tipusRiscos`;
+export const caixes = `api/ecom/caixes`;
