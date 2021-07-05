@@ -66,6 +66,8 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
     });
   }, [getFormData("tipusVenciments")]);
 
+
+
   const code = (md = 6) => ({
     type: "input",
     key: "codi",
@@ -353,6 +355,7 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "tipusVenciments",
+      id:"tipusVencimentCodi",
       required: true,
       breakpoints: {
         xs: 12,
