@@ -412,7 +412,6 @@ export const TIPO_ENUM_PUNT_VENTA_VALUES = [
     labelId: "Selector.global",
     label: "Global",
   },
-
 ];
 
 export const TIPO_IMPRESION_PUNT_VENTA_VALUES = [
@@ -431,7 +430,88 @@ export const TIPO_IMPRESION_PUNT_VENTA_VALUES = [
     labelId: "Selector.preguntar",
     label: "Preguntar",
   },
+];
 
+export const PRECIO_ALBARAN_SELECTOR_VALUES = [
+  {
+    value: "TARIFA_CLIENT",
+    labelId: "Selector.tarifaCliente",
+    label: "Tarifa cliente",
+  },
+  {
+    value: "ALBARA_PROVEIDOR_AMB_DTE",
+    labelId: "Selector.albaranConDesc",
+    label: "Albarán proveedor con descuento",
+  },
+  {
+    value: "ALBARA_PROVEIDOR_SENSE_DTE",
+    labelId: "Selector.albaranSinDesc",
+    label: "Albarán proveedor sin descuento",
+  },
+];
+
+export const TIPO_PROYECTO_ALBARAN_SELECTOR_VALUES = [
+  {
+    value: "MEDICIO",
+    labelId: "Selector.medicion",
+    label: "Medición",
+  },
+  {
+    value: "ADMINISTRACIO",
+    labelId: "Selector.administracion",
+    label: "Administración",
+  },
+  {
+    value: "PRESSUPOST",
+    labelId: "Selector.presupuesto",
+    label: "Presupuesto",
+  },
+];
+
+export const TIPO_RETENCION2_SELECTOR_VALUES = [
+  {
+    value: "SOBRE_BASE_IMP",
+    labelId: "Selector.baseImponible",
+    label: "Sobre base imponible",
+  },
+  {
+    value: "SOBRE_BASE_AMB_IVA",
+    labelId: "Selector.baseIva",
+    label: "Sobre base IVA",
+  },
+  {
+    value: "ABANS_BASE_IMP",
+    labelId: "Selector.antesBaseImp",
+    label: "Antes de base imponible",
+  },
+];
+
+export const TIPO_ESTADO_PROYECTO_SELECTOR_VALUES = [
+  {
+    value: "ADJUDICAT",
+    labelId: "Selector.adjudicado",
+    label: "Adjudicado",
+  },
+  {
+    value: "EXECUCIO",
+    labelId: "Selector.ejecucion",
+    label: "Ejecución",
+  },
+  {
+    value: "RECEPCIO_FINAL",
+    labelId: "Selector.recepcionFinal",
+    label: "Recepción final",
+  },
+  {
+    value: "TANCAT",
+    labelId: "Selector.cerrado",
+    label: "Cerrado",
+  },
+  {
+    value: "RECEPCIO_PROV",
+    labelId: "Selector.recepcionProv",
+    label: "Recepción provisional",
+  },
 ];
 
 export const MEDIO_SELECTOR_VALUES = [
@@ -516,6 +596,28 @@ export const TIPO_FAMILIA_ARTICULO_SELECTOR_VALUES = [
     labelId: "Selector.manoObra",
     label: "Mano de obra",
   }
+];
+export const TIPO_EJECUCION_PROYECTO_SELECTOR_VALUES = [
+  {
+    value: "LLIURE",
+    labelId: "Selector.libre",
+    label: "Libre",
+  },
+  {
+    value: "FACTUR",
+    labelId: "Selector.facturado",
+    label: "Facturado",
+  },
+  {
+    value: "IMPUTA",
+    labelId: "Selector.imputado",
+    label: "Imputado",
+  },
+  {
+    value: "ASSIG",
+    labelId: "Selector.asignado",
+    label: "Asignado",
+  },
 ];
 
 export const TIPO_SERVEI_FAMILIA_ARTICULO_SELECTOR_VALUES = [

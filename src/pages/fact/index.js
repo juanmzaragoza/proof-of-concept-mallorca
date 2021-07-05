@@ -18,6 +18,7 @@ import PostalCode from './PostalCode';
 import DocumentFooter from './DocumentFooter';
 import ProjectType from './ProjectType';
 import CompanyAccountingAccount from './CompanyAccountingAccount';
+
 import CommercialRegister from './CommercialRegister';
 import Gama from './Gama';
 import ItemBrand from './ItemBrand';
@@ -25,6 +26,8 @@ import ItemModel from './ItemModel';
 import CommisionType from './CommisionType';
 import UnitType from './UnitType';
 import ItemsFamily from './ItemsFamily';
+
+import Projects from './Projects';
 
 
 const component = [
@@ -44,10 +47,12 @@ const component = [
   RegimeVat,
   Retention,
   Bank,
+  Projects,
   PostalCode,
   DocumentFooter,
   ProjectType,
   CompanyAccountingAccount,
+  
   CommercialRegister,
   Gama,
   ItemBrand,
@@ -55,5 +60,6 @@ const component = [
   CommisionType,
   UnitType,
   ItemsFamily,
+  
 ];
 export default component;

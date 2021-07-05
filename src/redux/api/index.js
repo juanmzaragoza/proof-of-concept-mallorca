@@ -119,3 +119,11 @@ export const recursGrupCodi = 'api/rrhh/recursosGrup';
 export const familiaCost = 'api/fact/familiesCost';
 
 export const empresaCodi = `api/fact/empreses`;
+
+export const magatzem = `api/fact/magatzems`;
+export const subClient = `api/fact/subClients`;
+export const clientAdresa = `api/fact/clientsAdresa`;
+export const areaNegoci = `api/fact/areaNegocis`;
+export const finalFactura = `api/fact/finalFactures`;
+export const producte = `api/fact/productes`;
+export const expedient = `api/fact/expedients`;
