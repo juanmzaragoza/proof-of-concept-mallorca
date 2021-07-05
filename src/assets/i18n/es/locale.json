@@ -73,6 +73,7 @@
   "Observaciones.titulo": "Información extra",
   "Observaciones.subtitulo": "Para agregar una descripción, por favor complete la información que aparecen a continuación",
   "Proveedores.titulo": "Proveedores",
+  "Proveedores.proveedor": "Proveedor",
   "Proveedores.direccion": "Dirección",
   "Proveedores.direcciones_comerciales": "Direcciones Comerciales",
   "Proveedores.tipos_proveedor": "Tipos de Proveedor",
@@ -495,7 +496,7 @@
   "TipoUnidad.titulo": "Tipo de Unidades",
   "TipoUnidad.factor": "Factor de Conversión",
 
-  "FamiliaArticulos.titulo": "Familia de Artículos",
+  "FamiliasArticulos.titulo": "Familia de Artículos",
   "FamiliaArticulos.familiaCoste": "Familia Coste",
   "FamiliaArticulos.tipoFamilia": "Tipos de Família",
   "FamiliaArticulos.delegacion": "Delegación",
@@ -530,6 +531,7 @@
   "FamiliaArticulos.ndf": "Numero Días, Máximo Fabricación",
   "FamiliaArticulos.operaciones": "Opearciones",
 
+  "SerieVenta.serie": "Série",
   "SerieVenta.diaInicio": "Día Inicio",
   "SerieVenta.diaFin": "Día Fin",
   "SerieVenta.cuentasVentas": "Cuentas de Ventas",
@@ -580,7 +582,11 @@
   "SerieVenta.aplicarDescuento": "Aplicar descuento",
   "SerieVenta.desglosarIva": "Desglorar IVA",
 
+  "SerieVenta.cuentasCompras": "Cuentas de Compras",
+  "SerieVenta.cuentasContablesProforma": "Cuenta contable proformas",
+  "SerieVenta.cuentasContablesComprasProforma": "Cuenta contable compras proformas",
 
+  "CuentaClientes.cliente": "Cliente",
 
   "Selector.llamada": "Llamada",
   "Selector.correo": "Correo",

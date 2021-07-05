@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { compose } from "redux";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
-import { Chip } from "@material-ui/core";
 
 import {FACTURA_RECTIFICATIVA_SELECTOR_VALUES} from "../../../constants/selectors";
 
@@ -13,59 +12,28 @@ import OutlinedContainer from "modules/shared/OutlinedContainer";
 import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
 
-const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
+const SalesSeriesAccountsTab = ({ formData, setFormData, getFormData, ...props }) => {
 
-  const withRequiredValidation = (extraValidations = []) => {
-    return {
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...extraValidations,
-      ],
-    };
-  };
-
-  const CODE = props.intl.formatMessage({id: "Comun.codigo", defaultMessage: "Código"});
+  const CODE = props.intl.formatMessage({id: "SerieVenta.Serie", defaultMessage: "Série"});
   const DESCRIPCIO = props.intl.formatMessage({id: "Comun.descripcion", defaultMessage: "Descripción"});
   const NOM = props.intl.formatMessage({id: "Comun.descripcion", defaultMessage: "Descripción"});
-
-  const code = (md = 6) => ({
-    type: "input",
-    key: "codi",
-    placeHolder: CODE,
-    required: true,
-    noEditable: true,
-    breakpoints: {
-      xs: 12,
-      md: md,
-    },
-  });
 
   const aSCodeAndDescription = [{title: CODE, name: 'codi'},{title: DESCRIPCIO, name: 'descripcio'}];
   const aSCodeAndName = [{title: CODE, name: 'codi'},{title: NOM, name: 'nom'}];
   const aSCodeAndComercialName = [{title: CODE, name: 'codi'},{title: NOM, name: 'nomComercial'}];
 
-  const { id: clientId } = useParams();
-
-
-  const subClient = {
+  const seriesVenta = {
     title: props.intl.formatMessage({
       id: "FamiliaArticulos.tabs.seriesVenta",
       defaultMessage: "Cuentas Series Ventas",
     }),
-    // query: [
-    //   {
-    //     columnName: "client.id",
-    //     value: `"${clientId}"`,
-    //     exact: true,
-    //   },
-    // ],
-    // extraPostBody: {
-    //   client: { id: clientId },
-    // },
     columns: [
       {
         name: "codi",
-        title: CODE,
+        title: props.intl.formatMessage({
+          id: "SerieVenta.Serie",
+          defaultMessage: "Série",
+        }),
       },
       {
         name: "descripcio",
@@ -104,7 +72,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
-        validationType: "strings",
+        validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 2)
@@ -119,7 +87,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
-        validationType: "strings",
+        validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 30)
@@ -246,7 +214,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
-        validationType: "strings",
+        validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 2)
@@ -263,7 +231,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
-        validationType: "strings",
+        validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 2)
@@ -281,7 +249,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
-        validationType: "strings",
+        validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 10)
@@ -298,7 +266,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
-        validationType: "strings",
+        validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 10)
@@ -315,7 +283,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
-        validationType: "strings",
+        validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 2)
@@ -332,7 +300,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
-        validationType: "strings",
+        validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 10)
@@ -349,7 +317,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
-        validationType: "strings",
+        validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 10)
@@ -366,7 +334,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
-        validationType: "strings",
+        validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 10)
@@ -383,7 +351,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
-        validationType: "strings",
+        validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 10)
@@ -400,7 +368,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
-        validationType: "strings",
+        validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 10)
@@ -420,7 +388,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
         text: {
           multiline: 3
         },
-        validationType: "strings",
+        validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 500)
@@ -610,7 +578,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
-        validationType: "strings",
+        validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 2)
@@ -627,7 +595,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
-        validationType: "strings",
+        validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 2)
@@ -644,7 +612,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
-        validationType: "strings",
+        validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 2)
@@ -661,7 +629,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
-        validationType: "strings",
+        validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 2)
@@ -678,7 +646,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
-        validationType: "strings",
+        validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 2)
@@ -695,7 +663,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
-        validationType: "strings",
+        validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 500)
@@ -750,7 +718,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
-        validationType: "strings",
+        validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 10)
@@ -888,7 +856,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
-        validationType: "strings",
+        validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 20)
@@ -970,7 +938,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           id="serieVendas"
           responseKey="serieVendas"
           enabled={props.editMode}
-          configuration={subClient}
+          configuration={seriesVenta}
         />
         </OutlinedContainer>
       </Grid>
@@ -978,4 +946,4 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
     </Grid>
   );
 };
-export default compose(React.memo, withValidations, injectIntl)(SubClienteTab);
+export default compose(React.memo, withValidations, injectIntl)(SalesSeriesAccountsTab);

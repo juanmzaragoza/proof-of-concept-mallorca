@@ -66,6 +66,8 @@ export const articleFamilia = `api/fact/articlesFamilia`;
 export const articlesFamiliaEmpresas = `api/fact/articlesFamiliaEmpresa`;
 
 export const serieVendas = 'api/fact/seriesVenda';
+export const compteVentes = 'api/fact/seriesVenda';
+export const serieCompras = 'api/fact/seriesCompra';
 
 export const projectes = `api/fact/projectes`;
 export const projecteTipus= `api/fact/projectesTipus`;

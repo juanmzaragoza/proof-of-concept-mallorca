@@ -206,7 +206,7 @@ const ItemsFamilyForm = React.memo(({ actions, allFormData, getFormData, submitF
       services.getById(id);
     } else{
       actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "FamiliaArticulos.titulo", defaultMessage: "Familia de Artículos"}), href:"/article-familia"},
+        {title: props.intl.formatMessage({id: "FamiliasArticulos.titulo", defaultMessage: "Familia de Artículos"}), href:"/article-familia"},
         {title: props.intl.formatMessage({id: "Comun.nuevo", defaultMessage: "Nuevo"})}
       ]);
     }
@@ -228,7 +228,7 @@ const ItemsFamilyForm = React.memo(({ actions, allFormData, getFormData, submitF
         :
         `${props.intl.formatMessage({id: "Comun.cargando", defaultMessage: "Cargando"})}...`;
       actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "FamiliaArticulos.titulo", defaultMessage: "Familia de Artículos"}), href:"/article-familia"},
+        {title: props.intl.formatMessage({id: "FamiliasArticulos.titulo", defaultMessage: "Familia de Artículos"}), href:"/article-familia"},
         {title: desc, href:"/article-familia"},
         {title: nameSelectedTab}
       ]);

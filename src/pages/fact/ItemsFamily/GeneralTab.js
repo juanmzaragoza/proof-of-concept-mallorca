@@ -128,7 +128,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
           },
           {
             placeHolder: props.intl.formatMessage({
-              id: "FamiliaArticulos.titulo",
+              id: "FamiliasArticulos.titulo",
               defaultMessage: "Familia de Artículos",
             }),
             type: "LOV",
@@ -762,7 +762,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
   return (
     <Grid container >
       <Grid xs={12} item>
-        <OutlinedContainer className="general-tab-container" title={<FormattedMessage id={"PieDocumento.titulo"} defaultMessage={"Pies Documentos"}/>}>
+        <OutlinedContainer className="general-tab-container" title={<FormattedMessage id={"FamiliasArticulos.titulo"} defaultMessage={"Familia de Artículos"}/>}>
           <GenericForm formComponents={createConfiguration}
                        emptyPaper={true}
                        editMode={props.editMode}
