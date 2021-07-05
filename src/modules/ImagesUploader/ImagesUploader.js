@@ -19,7 +19,7 @@ import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 
 const HEIGHT_CARD_MEDIA = '200';
-const ImagesUploader = ({ id, parentId, actions, selected, loading, ...props}) => {
+const ImagesUploader = ({ id, parentId, actions, selected, loading, entityIndex, ...props}) => {
   const [rows,setRows] = useState([]);
   const inputFile = useRef(null);
   const [isUpdatingImg, setIsUpdatingImg] = useState(false);
@@ -124,7 +124,7 @@ const ImagesUploader = ({ id, parentId, actions, selected, loading, ...props}) =
         actions.changeImage({ key: id, id: selected.id, file })
         :
         //TODO() articule is hardcoded
-        actions.uploadImage({ key: id, id: parentId, entityIndex: 'article', file }); // articleInformacio ID
+        actions.uploadImage({ key: id, id: parentId, entityIndex, file }); // articleInformacio ID
     }
   }
 
@@ -214,7 +214,8 @@ ImagesUploader.propTypes = {
   selected: PropTypes.object,
   loading: PropTypes.bool.isRequired,
   rows: PropTypes.array.isRequired,
-  actions: PropTypes.object
+  actions: PropTypes.object,
+  entityIndex: PropTypes.string.isRequired
 };
 
 export default ImagesUploader;
