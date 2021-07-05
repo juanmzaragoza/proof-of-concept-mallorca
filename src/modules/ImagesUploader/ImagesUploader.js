@@ -1,6 +1,8 @@
 import * as React from 'react';
 import {useEffect, useRef, useState} from "react";
 import {FormattedMessage} from "react-intl";
+import PropTypes from "prop-types";
+
 import { DataGrid } from '@material-ui/data-grid';
 import {
   Avatar,
@@ -204,6 +206,15 @@ const ImagesUploader = ({ id, parentId, actions, selected, loading, ...props}) =
       </Grid>}
     </Grid>
   );
+};
+
+ImagesUploader.propTypes = {
+  id: PropTypes.string.isRequired,
+  parentId: PropTypes.string.isRequired,
+  selected: PropTypes.object,
+  loading: PropTypes.bool.isRequired,
+  rows: PropTypes.array.isRequired,
+  actions: PropTypes.object
 };
 
 export default ImagesUploader;
