@@ -374,3 +374,21 @@ export const TIPO_SERVEI_FAMILIA_ARTICULO_SELECTOR_VALUES = [
     label: "Taller",
   }
 ];
+
+export const FACTURA_RECTIFICATIVA_SELECTOR_VALUES = [
+  {
+    value: "NO",
+    labelId: "Selector.no",
+    label: "No",
+  },
+  {
+    value: "SI",
+    labelId: "Selector.si",
+    label: "Si",
+  },
+  {
+    value: "MULTIPLE",
+    labelId: "Selector.multiple",
+    label: "Múltiple",
+  }
+];

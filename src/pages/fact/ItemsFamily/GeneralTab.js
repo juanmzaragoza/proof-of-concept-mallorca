@@ -667,6 +667,25 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
     formComponents: [
       {
         placeHolder: props.intl.formatMessage({
+          id: "PieDocumento.empresa",
+          defaultMessage: "Empresa"
+        }),
+        type: "LOV",
+        key: "empresa",
+        breakpoints: {
+          xs: 12,
+          md: 4,
+        },
+        selector: {
+          key: "empresas",
+          labelKey: (data) => `${data.nomComercial} (${data.codi})`,
+          sort: "codi",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndComercialName,
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
           id: "FamiliaArticulos.web",
           defaultMessage: "Web",
         }),
