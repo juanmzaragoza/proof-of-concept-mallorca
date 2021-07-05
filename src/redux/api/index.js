@@ -58,12 +58,10 @@ export const projectes = `api/fact/projectes`;
 export const projecteTipus= `api/fact/projectesTipus`;
 
 export const client = `api/fact/clients`;
-<<<<<<< HEAD
+
 export const aplicador = `api/fact/aplicadors`;
 export const tipusProveidorClient = `api/fact/tipusProveidorsClient`;
 
-=======
->>>>>>> development
 
 export const cliente = `api/ecom/clients`;
 export const pressupostos = `api/ecom/pressupostos`;
