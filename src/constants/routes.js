@@ -27,7 +27,6 @@ export const MODEL_FACT_URL = '/fact/articulos-modelo';
 export const COMMISION_TYPE_FACT_URL = '/fact/tipo-comision';
 export const UNIT_TYPE_FACT_URL = '/fact/tipo-unidad';
 
-
 export const BUDGET_ECOM_URL = "/ecom/presupuestos";
 export const ARTICLES_ECOM_URL = '/ecom/articulos';
 export const ART_FAMILIA_ECOM_URL =  '/ecom/familia-articulos';
@@ -50,3 +49,4 @@ export const CLIENT_FAMILY_ECOM_URL = '/ecom/familia-clientes';
 export const STORE_ECOM_URL = '/ecom/almacenes';
 export const POINT_SALE_ECOM_URL = '/ecom/punto-ventas';
 
+export const ITEM_FAMILY_FACT_URL = '/fact/article-familia';
