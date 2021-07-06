@@ -850,7 +850,6 @@
   "Selector.multiple": "Múltiple",
   "Selector.si": "Si",
 
-
   "Clientes.cuentasVentas":"Cuentas ventas",
   "Clientes.tabs.cuentasContables": "Cuentas contables",
   "Clientes.tabs.datosContables" : "Datos contables",
@@ -866,5 +865,28 @@
   "Clientes.fact.emailContabilidad":"Email aviso contabilidad",
   "Clientes.fact.emailReparacion":"Email aviso reparación",
   "Clientes.fact.emailComercial":"Email aviso comercial",
-  "Clientes.fact.emailWeb":"Email Web"
+  "Clientes.fact.emailWeb":"Email Web",
+
+  "Selector.tarifaGeneralSobreCoste": "Tarifa general sobre coste",
+  "Selector.tarifaGeneralSobrePvp": "Tarifa general sobre PVP",
+  "Selector.tarifaParticularSobreCoste": "Tarifa particular sobre coste",
+  "Selector.tarifaParticularSobrePvp": "Tarifa particular sobre PVP",
+  "Selector.coste": "Coste",
+  "Selector.venta": "Venta",
+
+  "Tarifa.titulo": "Tarifas",
+  "Tarifa.precios": "Precios",
+  "Tarifa.generar": "Generar",
+  "Tarifa.copiar": "Copiar",
+  "Tarifa.actualizarPvp": "Actualizar PVP",
+  "Tarifa.clientes": "Clientes",
+  "Tarifa.actualizarPrecio": "Actualizar precio",
+  "Tarifa.descuentosGenerales": "Descuentos generales",
+  "Tarifa.tarifaOferta": "Tarifa oferta",
+  "Tarifa.tarifaTipo": "Tipo de tarifa",
+  "Tarifa.porcentajes": "Porcentajes",
+  "Tarifa.fechasValidez": "Fechas validez",
+  "Tarifa.porcentajeMaterial": "Porcentaje material",
+  "Tarifa.porcentajeManoObra": "Porcentaje mano de obra",
+  "Tarifa.formaCalculo": "Forma de calculo"
 }

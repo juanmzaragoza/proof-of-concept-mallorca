@@ -50,3 +50,5 @@ export const STORE_ECOM_URL = '/ecom/almacenes';
 export const POINT_SALE_ECOM_URL = '/ecom/punto-ventas';
 
 export const ITEM_FAMILY_FACT_URL = '/fact/article-familia';
+
+export const RATES_FACT_URL = '/fact/tarifes';

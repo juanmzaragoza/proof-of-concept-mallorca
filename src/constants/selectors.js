@@ -665,3 +665,39 @@ export const FACTURA_RECTIFICATIVA_SELECTOR_VALUES = [
     label: "Múltiple",
   }
 ];
+
+export const TIPO_TARIFA_SELECTOR_VALUES = [
+  {
+    value: "TARIFA_GENERAL_SOBRE_COST",
+    labelId: "Selector.tarifaGeneralSobreCoste",
+    label: "Tarifa general sobre coste",
+  },
+  {
+    value: "TARIFA_GENERAL_SOBRE_PVP",
+    labelId: "Selector.tarifaGeneralSobrePvp",
+    label: "Tarifa general sobre PVP",
+  },
+  {
+    value: "tarifaParticularSobreCoste",
+    labelId: "Selector.tarifaGeneralSobrePvp",
+    label: "Tarifa particular sobre coste",
+  },
+  {
+    value: "TARIFA_PARTICULAR_SOBRE_PVP",
+    labelId: "Selector.tarifaParticularSobrePvp",
+    label: "Tarifa particular sobre PVP",
+  }
+];
+
+export const FORMA_CALCULO_SELECTOR_VALUES = [
+  {
+    value: "COST",
+    labelId: "Selector.coste",
+    label: "Coste",
+  },
+  {
+    value: "VENDA",
+    labelId: "Selector.venta",
+    label: "Venta",
+  }
+];

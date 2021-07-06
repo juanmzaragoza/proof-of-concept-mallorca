@@ -29,6 +29,8 @@ import ItemsFamily from './ItemsFamily';
 
 import Projects from './Projects';
 
+import Rates from './Rates';
+
 
 const component = [
   SuppliersFamily,
@@ -60,6 +62,8 @@ const component = [
   CommisionType,
   UnitType,
   ItemsFamily,
+
+  Rates,
   
 ];
 export default component;
