@@ -7,6 +7,12 @@ import { withValidations } from "../../../modules/wrappers";
 import * as API from "../../../redux/api";
 
 const ItemModelCreate = (props) => {
+
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
+
   const createConfiguration = [
     {
       placeHolder: props.intl.formatMessage({
@@ -24,7 +30,8 @@ const ItemModelCreate = (props) => {
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 6)
+        ...props.stringValidations.minMaxValidation(1, 6),
+        ...props.stringValidations.fieldExistsValidation('articlesModel', 'codi', CODE)
       ]
     },
     {

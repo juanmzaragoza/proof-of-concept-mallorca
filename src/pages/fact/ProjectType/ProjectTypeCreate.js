@@ -38,6 +38,7 @@ const ProjectTypeCreate = (props) => {
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 6),
+        ...props.stringValidations.fieldExistsValidation('projectesTipo', 'codi', CODE)
       ],
     },
     {

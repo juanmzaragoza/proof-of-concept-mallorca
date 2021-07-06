@@ -33,6 +33,7 @@ const ItemBrandCreate = (props) => {
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 6),
+        ...props.stringValidations.fieldExistsValidation('articlesMarca', 'codi', CODE)
       ],
     },
     {

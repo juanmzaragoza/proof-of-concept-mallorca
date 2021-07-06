@@ -208,7 +208,8 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 6)
+        ...props.stringValidations.minMaxValidation(1, 6),
+        ...props.stringValidations.fieldExistsValidation('familiaArticle', 'codi', CODE)
       ]
     },
     {

@@ -38,6 +38,7 @@ const CommisionTypeCreate = (props) => {
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 4),
+        ...props.stringValidations.fieldExistsValidation('tipusComissio', 'codi', CODE)
       ],
     },
     {

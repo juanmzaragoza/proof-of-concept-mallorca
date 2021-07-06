@@ -19,6 +19,11 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
   const [ touched, handleTouched, addValidity, formIsValid ] 
   = useTabForm({fields: {[CREATE_SECTION_INDEX]: false, [PERCENTAGES_SECTION_TAB_INDEX]:false, [VALIDITY_DATES_SECTION_TAB_INDEX]:false}, setIsValid: props.setIsValid});
 
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
+
   const createConfiguration = [
     {
       placeHolder: props.intl.formatMessage({
@@ -36,7 +41,8 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 4)
+        ...props.stringValidations.minMaxValidation(1, 4),
+        ...props.stringValidations.fieldExistsValidation('tarifas', 'codi', CODE)
       ]
     },
     {
