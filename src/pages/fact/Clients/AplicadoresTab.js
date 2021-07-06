@@ -28,7 +28,7 @@ const AplicadoresTab = ({ formData, setFormData, getFormData, ...props }) => {
     ],
 
     extraPostBody: {
-      client: { id: `"${clientId}"` }
+      client: { id: `${clientId}` }
     },
 
     columns: [
@@ -50,14 +50,14 @@ const AplicadoresTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Aplicadores",
         }),
         type: "LOV",
-        key: "aplicadorClients",
+        key: "aplicador",
         breakpoints: {
           xs: 12,
           md: 3,
         },
         selector: {
-          key: "aplicadorClients",
-          labelKey: (data) => `${data.aplicador.description}`,
+          key: "aplicadors",
+          labelKey: (data) => `${data.nom} ${data.cognoms}`,
           sort: "aplicador",
           cannotCreate: true,
         },

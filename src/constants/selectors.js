@@ -597,6 +597,21 @@ export const TIPO_FAMILIA_ARTICULO_SELECTOR_VALUES = [
     label: "Mano de obra",
   }
 ];
+
+export const TIPO_DIR_COMERCIALES_SELECTOR_VALUES = [
+  {
+    value: "S",
+    labelId: "Comun.si",
+    label: "Si",
+  },
+  {
+    value: "N",
+    labelId: "Comun.no",
+    label: "No",
+  },
+
+];
+
 export const TIPO_EJECUCION_PROYECTO_SELECTOR_VALUES = [
   {
     value: "LLIURE",

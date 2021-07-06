@@ -1,6 +1,6 @@
 import Axios from "Axios";
 import * as API from "redux/api";
-import {EXPANDABLE_GRID_LIMIT_PER_PAGE} from "constants/config";
+import {buildQuery} from "../common";
 
 //Action types
 const ADD = "ADD_IMAGES_UPLOADER";
@@ -12,18 +12,18 @@ const ADD_ERROR_LOV_FORM = "ADD_ERROR_LOV_FORM";
 const SET_STATUS_ERROR_LOV_FORM = "SET_STATUS_ERROR_LOV_FORM";
 
 //Functions
-export const loadImages = ({ key, id }) => {
+export const loadImages = ({ key, responseKey, query }) => {
   return async dispatch => {
     try {
+      const queryStr = buildQuery({ query });
       dispatch(add({ loading: true }));
       Axios
-        .get(`${API[key]}?query=article.id=='${id}'`)
+        .get(`${API[key]}?${queryStr}`)
         .then(({data}) => data)
         .then(({_embedded, page}) => {
-          dispatch(add({ data: _embedded.articleInformacios }));
+          dispatch(add({ data: _embedded[responseKey] }));
           dispatch(add({ totalCount: page.totalElements }));
           dispatch(add({ loading: false }));
-          dispatch(add({ pageSize: EXPANDABLE_GRID_LIMIT_PER_PAGE }));
         })
         .catch(error => {
           dispatch(add({ loading: false }));
@@ -60,13 +60,13 @@ const saveImage = ({key, id, file, dispatch}) => {
   })
 };
 
-export const uploadImage = ({ file, key, id, entityIndex }) => {
+export const uploadImage = ({ file, key, id, bodyIndex }) => {
   return async dispatch => {
     dispatch(add({ loading: true }));
     try {
       // create record
       Axios.post(`${API[key]}`, {
-        [entityIndex]: {id, descripcio: ''},
+        [bodyIndex]: {id, descripcio: ''},
         descripcio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         rutaInforme: "-",
         teImatge: true

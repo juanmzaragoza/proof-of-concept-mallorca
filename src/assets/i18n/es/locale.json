@@ -210,7 +210,7 @@
   "Clientes.departamentos_actividad": "Actividad",
   "Clientes.Contab.oficines": "Oficinas bancarias",
   "Clientes.cuenta": "Cuenta bancaria",
-  "Clientes.controlDigitos": "Control dígitos",
+  "Clientes.controlDigitos": "Dígitos",
   "Clientes.codigoBanco": "Código Banco",
   "Clientes.digitosIban": "Dígitos Iban",
   "Clientes.paisIban": "País Iban",
@@ -233,7 +233,7 @@
   "Clientes.re.expedida": "Régimen especial fact expedida",
   "Clientes.retenciones": "Retenciones",
   "Clientes.tipoRetención": "Tipo retención",
-  "Clientes.porcentaje.retencion": "Porcentaje de facturas retención",
+  "Clientes.porcentaje.retencion": "Facturas retención",
   "Clientes.recargo.equivalencia": "Recargo equivalencia",
   "Selector.baseIva": "Sobre base IVA",
   "Selector.baseImponible": "Sobre base imponible",
@@ -848,5 +848,23 @@
   "Selector.obraServicio": "Obra_Servicio",
   "Selector.taller": "Taller",
   "Selector.multiple": "Múltiple",
-  "Selector.si": "Si"
+  "Selector.si": "Si",
+
+
+  "Clientes.cuentasVentas":"Cuentas ventas",
+  "Clientes.tabs.cuentasContables": "Cuentas contables",
+  "Clientes.tabs.datosContables" : "Datos contables",
+  "noEditable: true,.iban": "Iban",
+  "Clientes.tabs.numeroCuenta":"Número cuenta",
+  "Clientes.tabs.cuentasCorrientes": "Cuentas corrientes",
+  "Clientes.fact.fechaMandato":"Fecha firma mandato",
+  "Clientes.porcentajeFacturas": "Porcentaje facturas permitido",
+  "Clientes.mostrarPorcentaje": "Mostrar porcentaje facturación",
+  "Clientes.emails": "E-mails",
+  "Clientes.tabs.pedidos": "Pedidos",
+  "Clientes.tabs.norma19":"Norma 19",
+  "Clientes.fact.emailContabilidad":"Email aviso contabilidad",
+  "Clientes.fact.emailReparacion":"Email aviso reparación",
+  "Clientes.fact.emailComercial":"Email aviso comercial",
+  "Clientes.fact.emailWeb":"Email Web"
 }

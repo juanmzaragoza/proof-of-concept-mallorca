@@ -88,11 +88,21 @@ const ArticlesForm = React.memo(({ actions, allFormData, getFormData, submitFrom
         loading={props.loading}
         formDataLoaded={props.formDataLoaded} />
     },
-  
     {
       ...getTranslations("Articulos.tabs.imagenes","Imágenes"),
       key: IMG_TAB_INDEX,
-      component: <ImagesUploader id={'articlesInformacio'} parentId={id} />,
+      component: <ImagesUploader
+        id={'articlesInformacio'}
+        parentId={id}
+        bodyIndex={'article'}
+        responseKey={'articleInformacios'}
+        query={[
+          {
+            columnName: 'article.id',
+            value: `'${id}'`,
+            exact: true
+          }
+        ]}/>,
     },
     {
       ...getTranslations("Articulos.tabs.traducciones","Traduciones"),

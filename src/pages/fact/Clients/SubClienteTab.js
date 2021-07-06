@@ -10,9 +10,9 @@ import "../Suppliers/styles.scss";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
+import { TIPO_DESCUENTO_SELECTOR_VALUES } from "constants/selectors";
 
 const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
-
   const withRequiredValidation = (extraValidations = []) => {
     return {
       validations: [
@@ -22,9 +22,18 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
     };
   };
 
-  const CODE = props.intl.formatMessage({id: "Comun.codigo", defaultMessage: "Código"});
-  const DESCRIPCIO = props.intl.formatMessage({id: "Comun.descripcion", defaultMessage: "Descripción"});
-  const NOM = props.intl.formatMessage({id: "Comun.nombre", defaultMessage: "Nombre"});
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
+  const DESCRIPCIO = props.intl.formatMessage({
+    id: "Comun.descripcion",
+    defaultMessage: "Descripción",
+  });
+  const NOM = props.intl.formatMessage({
+    id: "Comun.nombre",
+    defaultMessage: "Nombre",
+  });
 
   const code = (md = 6) => ({
     type: "input",
@@ -42,106 +51,116 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
     {
       placeHolder: props.intl.formatMessage({
         id: "Proveedores.Direccion.codPostal",
-        defaultMessage: "Código Postal"
+        defaultMessage: "Código Postal",
       }),
-      type: 'LOV',
-      key: 'codiPostal',
+      type: "LOV",
+      key: "codiPostal",
       required: true,
       breakpoints: {
         xs: 12,
-        md: md
+        md: md,
       },
       validationType: "object",
       ...withRequiredValidation(),
       selector: {
         key: "codiPostals",
-        labelKey: (data) => `${data.poblacio} ${data.municipi?` - ${data.municipi}`:''} (${data.codi})`,
-        sort: 'codi',
+        labelKey: (data) =>
+          `${data.poblacio} ${data.municipi ? ` - ${data.municipi}` : ""} (${
+            data.codi
+          })`,
+        sort: "codi",
         creationComponents: [
           code(4),
           {
             placeHolder: props.intl.formatMessage({
               id: "CodigoPostal.pais",
-              defaultMessage: "País"
+              defaultMessage: "País",
             }),
-            type: 'LOV',
-            key: 'pais',
+            type: "LOV",
+            key: "pais",
             required: false,
             breakpoints: {
               xs: 12,
-              md: 4
+              md: 4,
             },
             selector: {
               key: "paises",
               labelKey: (data) => `${data.nom} (${data.codi})`,
-              sort: 'codi',
+              sort: "codi",
               cannotCreate: true,
               relatedWith: {
-                name: 'provincia',
-                filterBy: 'pais.id',
-                keyValue: 'id'
+                name: "provincia",
+                filterBy: "pais.id",
+                keyValue: "id",
               },
-              advancedSearchColumns: aSCodeAndName
-            }
+              advancedSearchColumns: aSCodeAndName,
+            },
           },
           {
             placeHolder: props.intl.formatMessage({
               id: "CodigoPostal.provincia",
-              defaultMessage: "Provincia"
+              defaultMessage: "Provincia",
             }),
-            type: 'LOV',
-            key: 'provincia',
+            type: "LOV",
+            key: "provincia",
             required: false,
             breakpoints: {
               xs: 12,
-              md: 4
+              md: 4,
             },
             selector: {
               key: "provincias",
               labelKey: (data) => `${data.nom} (${data.codi})`,
-              sort: 'codi',
+              sort: "codi",
               cannotCreate: true,
-              advancedSearchColumns: aSCodeAndName
-            }
+              advancedSearchColumns: aSCodeAndName,
+            },
           },
           {
-            type: 'input',
-            key: 'municipi',
+            type: "input",
+            key: "municipi",
             placeHolder: props.intl.formatMessage({
               id: "CodigoPostal.municipio",
-              defaultMessage: "Municipio"
+              defaultMessage: "Municipio",
             }),
             required: true,
             breakpoints: {
               xs: 12,
-              md: 6
-            }
+              md: 6,
+            },
           },
           {
-            type: 'input',
-            key: 'poblacio',
+            type: "input",
+            key: "poblacio",
             placeHolder: props.intl.formatMessage({
               id: "CodigoPostal.poblacion",
-              defaultMessage: "Población"
+              defaultMessage: "Población",
             }),
             required: true,
             breakpoints: {
               xs: 12,
-              md: 6
-            }
+              md: 6,
+            },
           },
         ],
-        advancedSearchColumns: aSCodeAndDescription
-      }
+        advancedSearchColumns: aSCodeAndDescription,
+      },
     },
   ];
 
+  const aSCodeAndDescription = [
+    { title: CODE, name: "codi" },
+    { title: DESCRIPCIO, name: "descripcio" },
+  ];
+  const aSCodeAndName = [
+    { title: CODE, name: "codi" },
+    { title: NOM, name: "nom" },
+  ];
 
-  const aSCodeAndDescription = [{title: CODE, name: 'codi'},{title: DESCRIPCIO, name: 'descripcio'}];
-  const aSCodeAndName = [{title: CODE, name: 'codi'},{title: NOM, name: 'nom'}];
-
+  const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
+  const formatCodeAndDescription = (data) =>
+    `${data.descripcio} (${data.codi})`;
   const { id: clientId } = useParams();
-
 
   const subClient = {
     title: props.intl.formatMessage({
@@ -170,21 +189,37 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Nombre",
         }),
       },
-      {
-        name: "domicili",
-        title: props.intl.formatMessage({
-          id: "Comun.domicilio",
-          defaultMessage: "Domicilio",
-        }),
-      },
+      // {
+      //   name: "domicili",
+      //   title: props.intl.formatMessage({
+      //     id: "Comun.domicilio",
+      //     defaultMessage: "Domicilio",
+      //   }),
+      // },
       {
         name: "codiPostal",
         title: props.intl.formatMessage({
           id: "Clientes.fact.codigoPostal",
           defaultMessage: "Código Postal",
         }),
-        getCellValue: (row) => row?.codiPostal?.description || ""
-        ,
+        getCellValue: (row) => row?.codiPostal?.description || "",
+      },
+
+      {
+        name: "tarifa1",
+        title: props.intl.formatMessage({
+          id: "Clientes.fact.tarifa1",
+          defaultMessage: "Tarifa 1",
+        }),
+        getCellValue: (row) => row?.tarifa1?.description || "",
+      },
+      {
+        name: "tarifaDescompte",
+        title: props.intl.formatMessage({
+          id: "Clientes.fact.tarifaDescuento",
+          defaultMessage: "Tarifa descuento",
+        }),
+        getCellValue: (row) => row?.tarifaDescompte?.description || "",
       },
       {
         name: "bloquejat",
@@ -223,21 +258,27 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "codi",
         breakpoints: {
           xs: 12,
-          md: 1,
+          md: 2,
         },
-        validationType: "strings",
-        ...withRequiredValidation(),
+        validationType: "string",
+        ...withRequiredValidation([
+          ...props.stringValidations.fieldExistsValidation('subClients', 'codi', props.intl.formatMessage({
+            id: "Comun.codigo",
+            defaultMessage: "Código",
+          }),)
+        ])
       },
       {
         placeHolder: props.intl.formatMessage({
           id: "Comun.nombre",
           defaultMessage: "Nombre",
         }),
+        required: true,
         type: "input",
         key: "nom",
         breakpoints: {
           xs: 12,
-          md: 3,
+          md: 4,
         },
         validationType: "strings",
         ...withRequiredValidation(),
@@ -251,10 +292,102 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "domicili",
         breakpoints: {
           xs: 12,
-          md: 5,
+          md: 6,
         },
       },
       ...codiPostal(3),
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Clientes.fact.tarifa1",
+          defaultMessage: "Tarifa 1",
+        }),
+        type: "LOV",
+        key: "tarifa1",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "tarifas",
+          labelKey: formatCodeAndDescription,
+          sort: "descripcio",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndDescription,
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Clientes.fact.tarifa2",
+          defaultMessage: "Tarifa 2",
+        }),
+        type: "LOV",
+        key: "tarifa2",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "tarifas",
+          labelKey: formatCodeAndDescription,
+          cannotCreate: true,
+          sort: "descripcio",
+          advancedSearchColumns: aSCodeAndDescription,
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Clientes.fact.tarifaDescuento",
+          defaultMessage: "Tarifa descuento",
+        }),
+        type: "LOV",
+        key: "tarifaDescompte",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "tarifaDescomptes",
+          labelKey: formatCodeAndDescription,
+          sort: "descripcio",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndDescription,
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Clientes.fact.tipoDescuentos",
+          defaultMessage: "Tipo descuento",
+        }),
+        type: "select",
+        key: "tipusDescompte",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          options: TIPO_DESCUENTO_SELECTOR_VALUES,
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Clientes.fact.tipoComision",
+          defaultMessage: "Tipo comisión",
+        }),
+        type: "LOV",
+        key: "tipusComissio",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "tipusComissios",
+          labelKey: (data) => `${data.nom} (${data.codi})`,
+          sort: "codi",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndName,
+        },
+      },
+
       {
         placeHolder: props.intl.formatMessage({
           id: "Clientes.bloqueado",
@@ -264,7 +397,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "bloquejat",
         breakpoints: {
           xs: 12,
-          md: 2,
+          md: 3,
         },
       },
       {
@@ -276,13 +409,11 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "preusPerVolum",
         breakpoints: {
           xs: 12,
-          md: 2,
+          md: 3,
         },
       },
     ],
   };
-
-
 
   return (
     <Grid container>
@@ -296,15 +427,14 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
             />
           }
         >
-         <ExpandableGrid
-          id="subClients"
-          responseKey="subClients"
-          enabled={props.editMode}
-          configuration={subClient}
-        />
+          <ExpandableGrid
+            id="subClients"
+            responseKey="subClients"
+            enabled={props.editMode}
+            configuration={subClient}
+          />
         </OutlinedContainer>
       </Grid>
-      
     </Grid>
   );
 };

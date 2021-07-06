@@ -1,6 +1,8 @@
 import * as React from 'react';
 import {useEffect, useRef, useState} from "react";
 import {FormattedMessage} from "react-intl";
+import PropTypes from "prop-types";
+
 import { DataGrid } from '@material-ui/data-grid';
 import {
   Avatar,
@@ -17,7 +19,7 @@ import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 
 const HEIGHT_CARD_MEDIA = '200';
-const ImagesUploader = ({ id, parentId, actions, selected, loading, ...props}) => {
+const ImagesUploader = ({ id, parentId, actions, selected, loading, bodyIndex, responseKey, query, ...props}) => {
   const [rows,setRows] = useState([]);
   const inputFile = useRef(null);
   const [isUpdatingImg, setIsUpdatingImg] = useState(false);
@@ -35,7 +37,7 @@ const ImagesUploader = ({ id, parentId, actions, selected, loading, ...props}) =
       }),
       width: 150 },
     {
-      field: 'preview',
+      field: 'image',
       headerName: props.intl.formatMessage({
         id: "ImagesUploader.previsualizacion",
         defaultMessage: "Previsualización"
@@ -46,11 +48,17 @@ const ImagesUploader = ({ id, parentId, actions, selected, loading, ...props}) =
       }),
       sortable: false,
       width: 180,
-      renderCell: (params) => (
-        <div>
-          <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
-        </div>
-      ),
+      renderCell: (params) => {
+        return params.value? (
+          <div>
+            <Avatar alt={params?.row?.descripcio} src={`data:image/jpeg;base64,${params.value}`} />
+          </div>
+        ):(
+          <div>
+            <Avatar alt="Empty Avatar" />
+          </div>
+        )
+      },
     },
     {
       field: 'rutaInforme',
@@ -93,7 +101,7 @@ const ImagesUploader = ({ id, parentId, actions, selected, loading, ...props}) =
   },[props.rows]);
 
   const loadData = () => {
-    actions.loadData({ key: id, id: parentId });
+    actions.loadData({ key: id, responseKey, query });
   }
   useEffect(()=>{
     loadData();
@@ -122,7 +130,7 @@ const ImagesUploader = ({ id, parentId, actions, selected, loading, ...props}) =
         actions.changeImage({ key: id, id: selected.id, file })
         :
         //TODO() articule is hardcoded
-        actions.uploadImage({ key: id, id: parentId, entityIndex: 'article', file }); // articleInformacio ID
+        actions.uploadImage({ key: id, id: parentId, bodyIndex, file }); // articleInformacio ID
     }
   }
 
@@ -204,6 +212,22 @@ const ImagesUploader = ({ id, parentId, actions, selected, loading, ...props}) =
       </Grid>}
     </Grid>
   );
+};
+
+ImagesUploader.propTypes = {
+  id: PropTypes.string.isRequired,
+  parentId: PropTypes.string.isRequired,
+  selected: PropTypes.object,
+  loading: PropTypes.bool.isRequired,
+  rows: PropTypes.array.isRequired,
+  actions: PropTypes.object,
+  bodyIndex: PropTypes.string.isRequired,
+  responseKey: PropTypes.string.isRequired,
+  query: PropTypes.arrayOf(PropTypes.shape({
+    columnName: PropTypes.string,
+    value: PropTypes.any,
+    exact: PropTypes.bool
+  }))
 };
 
 export default ImagesUploader;
