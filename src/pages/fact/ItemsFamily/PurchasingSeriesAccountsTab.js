@@ -12,7 +12,7 @@ import ExpandableGrid from "modules/ExpandableGrid";
 
 const PurchasingSeriesAccountsTab = ({ formData, setFormData, getFormData, ...props }) => {
 
-  const CODE = props.intl.formatMessage({id: "SerieVenta.Serie", defaultMessage: "Série"});
+  const CODE = props.intl.formatMessage({id: "SerieVenta.serie", defaultMessage: "Série"});
   const DESCRIPCIO = props.intl.formatMessage({id: "Comun.descripcion", defaultMessage: "Descripción"});
   const NOM = props.intl.formatMessage({id: "Comun.descripcion", defaultMessage: "Descripción"});
 
@@ -28,7 +28,7 @@ const PurchasingSeriesAccountsTab = ({ formData, setFormData, getFormData, ...pr
       {
         name: "codi",
         title: props.intl.formatMessage({
-          id: "SerieVenta.Serie",
+          id: "SerieVenta.serie",
           defaultMessage: "Série",
         }),
       },

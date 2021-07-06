@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, Switch} from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
 
-import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import StorefrontIcon from '@material-ui/icons/Storefront';
 import GamaList from "./GamaList";
 import GamaCreate from "./GamaCreate";
 import withHeaders from "modules/wrappers/withHeaders";
@@ -24,6 +24,6 @@ const component = {
     component: withHeaders(gama)
   },
   name: 'FAC_GAMART',
-  icon: <AccountBalanceIcon />
+  icon: <StorefrontIcon />
 }
 export default component;

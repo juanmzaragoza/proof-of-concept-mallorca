@@ -12,15 +12,15 @@ const ItemBrandList = ({ actions, ...props }) => {
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
-        id: "Marca.titulo",
-        defaultMessage: "Articulos Marca",
+        id: "ArticulosMarca.titulo",
+        defaultMessage: "Marca",
       }),
     });
     actions.setBreadcrumbHeader([
       {
         title: props.intl.formatMessage({
-          id: "Marca.titulo",
-          defaultMessage: "Articulos Marca",
+          id: "ArticulosMarca.titulo",
+          defaultMessage: "Marca",
         }),
         href: "/articulos-marca",
       },

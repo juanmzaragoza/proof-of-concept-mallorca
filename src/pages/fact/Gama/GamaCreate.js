@@ -67,8 +67,8 @@ const GamaCreate = (props) => {
   return (
     <CreateUpdateForm
       title={props.intl.formatMessage({
-        id: "Gama.titulo",
-        defaultMessage: "Articulos Gama",
+        id: "ArticulosGama.titulo",
+        defaultMessage: "Gama",
       })}
       formConfiguration={createConfiguration}
       url={API.articlesGama}

@@ -12,15 +12,15 @@ const GamaList = ({ actions, ...props }) => {
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
-        id: "Gama.titulo",
-        defaultMessage: "Articulos Gama",
+        id: "ArticulosGama.titulo",
+        defaultMessage: "Gama",
       }),
     });
     actions.setBreadcrumbHeader([
       {
         title: props.intl.formatMessage({
-          id: "Gama.titulo",
-          defaultMessage: "Articulos Gama",
+          id: "ArticulosGama.titulo",
+          defaultMessage: "Gama",
         }),
         href: "/articlesGama",
       },

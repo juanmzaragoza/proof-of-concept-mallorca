@@ -159,7 +159,7 @@ const SupplierAccountTab = ({ formData, setFormData, getFormData, ...props }) =>
   return (
     <Grid container >
       <Grid xs={12} item>
-        <OutlinedContainer className="general-tab-container" title={<FormattedMessage id={"FamiliasArticulos.titulo"} defaultMessage={"Familia de Artículos"}/>}>
+        <OutlinedContainer className="general-tab-container" title={<FormattedMessage id={"FamiliaArticulos.titulo"} defaultMessage={"Familia"}/>}>
           <GenericForm formComponents={Create}
                        emptyPaper={true}
                        editMode={props.editMode}

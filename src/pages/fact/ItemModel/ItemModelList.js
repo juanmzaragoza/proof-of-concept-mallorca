@@ -12,17 +12,17 @@ const ItemModelList = ({ actions, ...props }) => {
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
-        id: "Marca.titulo",
-        defaultMessage: "Articulos Marca",
+        id: "ArticulosModelo.titulo",
+        defaultMessage: "Modelo",
       }),
     });
     actions.setBreadcrumbHeader([
       {
         title: props.intl.formatMessage({
-          id: "Marca.titulo",
-          defaultMessage: "Articulos Marca",
+          id: "ArticulosModelo.titulo",
+          defaultMessage: "Modelo",
         }),
-        href: "/articulos-marca",
+        href: "/articulos-modelo",
       },
     ]);
   }, []);

@@ -22,8 +22,8 @@ const Gama_ModelTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const GamaConfig = {
     title: props.intl.formatMessage({
-      id: "Gama.titulo",
-      defaultMessage: "Articulos Gama",
+      id: "ArticulosGama.titulo",
+      defaultMessage: "Gama",
     }),
     columns: [
       {
@@ -45,8 +45,8 @@ const Gama_ModelTab = ({ formData, setFormData, getFormData, ...props }) => {
     formComponents: [
       {
         placeHolder: props.intl.formatMessage({
-          id: "Gama.titulo",
-          defaultMessage: "Articulos Gama",
+          id: "ArticulosGama.titulo",
+          defaultMessage: "Gama",
         }),
         type: "LOV",
         key: "articlesGama",
@@ -66,8 +66,8 @@ const Gama_ModelTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const ModelConfig = {
     title: props.intl.formatMessage({
-      id: "Modelo.titulo",
-      defaultMessage: "Articulos Modelo",
+      id: "ArticulosModelo.titulo",
+      defaultMessage: "Modelo",
     }),
     columns: [
       {
@@ -89,8 +89,8 @@ const Gama_ModelTab = ({ formData, setFormData, getFormData, ...props }) => {
     formComponents: [
       {
         placeHolder: props.intl.formatMessage({
-          id: "Modelo.titulo",
-          defaultMessage: "Articulos Modelo",
+          id: "ArticulosModelo.titulo",
+          defaultMessage: "Modelo",
         }),
         type: "LOV",
         key: "articlesModel",
@@ -110,7 +110,7 @@ const Gama_ModelTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const tabs = [
     {
-      label: <FormattedMessage id={"Modelo.titulo"} defaultMessage={"Articulos Modelo"}/>,
+      label: <FormattedMessage id={"ArticulosModelo.titulo"} defaultMessage={"Modelo"}/>,
       key: 0,
       component: <ExpandableGrid
         id='articlesModel'
@@ -127,8 +127,8 @@ const Gama_ModelTab = ({ formData, setFormData, getFormData, ...props }) => {
         className="general-tab-container"
         title={
           <FormattedMessage
-            id = {"Gama.titulo"}
-            defaultMessage = {"Articulos Gama"}
+            id = {"ArticulosGama.titulo"}
+            defaultMessage = {"Gama"}
           />
         }
       >

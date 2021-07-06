@@ -13,13 +13,13 @@ const ItemsFamilyList = ({ actions, ...props }) => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
         id: "FamiliaArticulos.titulo",
-        defaultMessage: "Familia de Artículos"
+        defaultMessage: "Familia"
       }),
     });
     actions.setBreadcrumbHeader([
       {title: props.intl.formatMessage({
         id: "FamiliaArticulos.titulo",
-        defaultMessage: "Familia de Artículos"
+        defaultMessage: "Familia"
         }), href:"/article-familia"}
     ]);
   },[]);

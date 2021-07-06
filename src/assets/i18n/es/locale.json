@@ -481,11 +481,7 @@
   "RegistroComercial.datosContacto": "Datos de Contacto",
 
   "Gama.prupes": "Prupes",
-  "Gama.titulo": "Articulos Gama",
 
-  "Marca.titulo": "Articulos Marca",
-
-  "Modelo.titulo": "Articulos Modelo",
   "Modelo.control": "Control articulos transportados",
   "Modelo.partida": "Partida",
 
@@ -496,7 +492,6 @@
   "TipoUnidad.titulo": "Tipo de Unidades",
   "TipoUnidad.factor": "Factor de Conversión",
 
-  "FamiliasArticulos.titulo": "Familia de Artículos",
   "FamiliaArticulos.familiaCoste": "Familia Coste",
   "FamiliaArticulos.tipoFamilia": "Tipos de Família",
   "FamiliaArticulos.delegacion": "Delegación",
@@ -618,7 +613,6 @@
   "ArticulosMarca.titulo": "Marca",
   "ArticulosGama.titulo": "Gama",
   "Productos.idiomas": "Idiomas",
-  "FamiliaArticulos.web": "Web",
   "FamiliaArticulos.empresa": "Empresa",
   "FamiliaArticulos.artExportables": "Artículos exportables",
   "Provincia.titulo": "Provincia",

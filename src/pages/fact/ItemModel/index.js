@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, Switch} from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
 
-import AdjustOutlinedIcon from '@material-ui/icons/AdjustOutlined';
+import StoreIcon from '@material-ui/icons/Store';
 import ItemModelList from "./ItemModelList";
 import ItemModelCreate from "./ItemModelCreate";
 import withHeaders from "modules/wrappers/withHeaders";
@@ -24,6 +24,6 @@ const component = {
     component: withHeaders(model)
   },
   name: 'FAC_MODART',
-  icon: <AdjustOutlinedIcon />
+  icon: <StoreIcon />
 }
 export default component;

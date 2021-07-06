@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, Switch} from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
 
-import LocalMallOutlinedIcon from '@material-ui/icons/LocalMallOutlined';
+import StoreMallDirectoryOutlinedIcon from '@material-ui/icons/StoreMallDirectoryOutlined';
 import ItemBrandList from "./ItemBrandList";
 import ItemBrandCreate from "./ItemBrandCreate";
 import withHeaders from "modules/wrappers/withHeaders";
@@ -24,6 +24,6 @@ const component = {
     component: withHeaders(brand)
   },
   name: 'FAC_MARART',
-  icon: <LocalMallOutlinedIcon />
+  icon: <StoreMallDirectoryOutlinedIcon />
 }
 export default component;

@@ -74,8 +74,8 @@ const ItemModelCreate = (props) => {
   ];
   return (
     <CreateUpdateForm title={props.intl.formatMessage({
-      id: "Marca.titulo",
-        defaultMessage: "Articulos Marca",
+      id: "ArticulosModelo.titulo",
+        defaultMessage: "Modelo",
     })}
       formConfiguration={createConfiguration}
       url={API.articlesModel} />

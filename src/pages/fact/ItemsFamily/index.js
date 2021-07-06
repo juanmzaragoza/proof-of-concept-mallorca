@@ -1,5 +1,5 @@
 import React from 'react';
-import ShopTwoIcon from '@material-ui/icons/ShopTwo';
+import StorefrontIcon from '@material-ui/icons/Storefront';
 import {injectIntl} from "react-intl";
 import {Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
@@ -49,5 +49,5 @@ export default {
     component: withHeaders(ItemsFamily)
   },
   name: 'FAC_FAMART',
-  icon: <ShopTwoIcon />
+  icon: <StorefrontIcon />
 }
