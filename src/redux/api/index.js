@@ -116,4 +116,4 @@ export const areaNegoci = `api/fact/areaNegocis`;
 export const finalFactura = `api/fact/finalFactures`;
 export const producte = `api/fact/productes`;
 export const expedient = `api/fact/expedients`;
-
+export const idiomes = `api/ecom/idiomes`;
