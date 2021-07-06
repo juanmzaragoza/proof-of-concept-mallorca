@@ -147,3 +147,4 @@ export const magatzemCodi = `api/fact/magatzems`;
 export const codiPostalComercialCodi = `api/fact/codisPostal`;
 export const codiPostalFiscalCodi = `api/fact/codisPostal`;
 export const bancCodi = `api/fact/bancs`;
+export const paisNifCodi =`api/paisosNif`;

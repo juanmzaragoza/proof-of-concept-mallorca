@@ -877,9 +877,6 @@
   "Empresas.imprimirLogo":"Imprimir Logo",
  
   
-  
-
-
   "Selector.tarifaGeneralSobreCoste": "Tarifa general sobre coste",
   "Selector.tarifaGeneralSobrePvp": "Tarifa general sobre PVP",
   "Selector.tarifaParticularSobreCoste": "Tarifa particular sobre coste",
@@ -901,5 +898,21 @@
   "Tarifa.fechasValidez": "Fechas validez",
   "Tarifa.porcentajeMaterial": "Porcentaje material",
   "Tarifa.porcentajeManoObra": "Porcentaje mano de obra",
-  "Tarifa.formaCalculo": "Forma de calculo"
-  }
+  "Tarifa.formaCalculo": "Forma de calculo",
+
+  "Empresas.codPostalComercial":"Código postal Comercial",
+  "Empresas.codPostalFiscal":"Código postal Fiscal",
+  "Empresas.registroMercantil":"Registro Mercantil",
+  "Empresas.registroMercantil2":"Registro Mercantil 2",
+  "Empresas.tabs.contabilidadFact": "Contabilidad y facturación",
+  "Empresas.valorFact":"Valor Facturación",
+  "Empresas.diarioFact":"Diario Facturación Prov.",
+  "Empresas.diarioProf":"Diario Prof. Prov.",
+  "Empresas.fechaCierre": "Fecha Cierre",
+  "Empresas.contabCodigo":"Código Contabilidad",
+  "Empresas.contabAsiento": "Contabilidad Asiento Tipo",
+  "Empresas.partida":"Partida",
+  "Empresas.ApiUrl":"Url API"
+
+
+}

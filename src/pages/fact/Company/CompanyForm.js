@@ -6,7 +6,7 @@ import {useParams} from "react-router-dom";
 import { some, min, pickBy, cloneDeep } from "lodash";
 
 import GeneralTab from "./GeneralTab";
-import ContactTab from "./ContactTab";
+import ContabilidadTab from "./ContabilidadTab";
 
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
@@ -82,10 +82,10 @@ const CompanyForm = React.memo(({ actions, allFormData, getFormData, submitFromO
         formDataLoaded={props.formDataLoaded} />
     },
     {
-      ...getTranslations("Proveedores.tabs.contactos","Contactos"),
+      ...getTranslations("Empresas.tabs.contabilidadFact","Contabilidad y facturación"),
       key: CONTACT_TAB_INDEX,
       error: tabHasError(CONTACT_TAB_INDEX),
-      component: <ContactTab
+      component: <ContabilidadTab
         setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [CONTACT_TAB_INDEX]: !value})}
         editMode={editMode}
         getFormData={getFormData}
