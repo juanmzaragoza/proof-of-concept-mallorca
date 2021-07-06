@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, Switch} from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
 
-import {LocationCity} from "@material-ui/icons";
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import CompanyAccountingAccountList from "./CompanyAccountingAccountList";
 import CompanyAccountingAccountCreate from "./CompanyAccountingAccountCreate";
 import withHeaders from "modules/wrappers/withHeaders";
@@ -24,6 +24,6 @@ const component = {
     component: withHeaders(CompanyAccountingAccount)
   },
   name: 'FAC_EMPCCM',
-  icon: <LocationCity />
+  icon: <AccountBalanceWalletIcon />
 }
 export default component;

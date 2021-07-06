@@ -6,17 +6,12 @@ import CreateUpdateForm from "modules/ReactGrid/CreateUpdateForm";
 import { withValidations } from "modules/wrappers";
 import * as API from "redux/api";
 
-const ProjectTypeCreate = (props) => {
+const ItemBrandCreate = (props) => {
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
     defaultMessage: "Código",
   });
   
-  const NOM = props.intl.formatMessage({
-    id: "Comun.nombre",
-    defaultMessage: "Nombre",
-  });
-
   const DESCRIPCIO = props.intl.formatMessage({
     id: "Comun.descripcion",
     defaultMessage: "Descripción",
@@ -31,30 +26,14 @@ const ProjectTypeCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 12,
+        md: 6,
       },
       noEditable: true,
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 6),
-        ...props.stringValidations.fieldExistsValidation('projectesTipo', 'codi', CODE)
-      ],
-    },
-    {
-      placeHolder: NOM,
-
-      type: "input",
-      key: "nom",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 12,
-      },
-      validationType: "string",
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 30),
+        ...props.stringValidations.fieldExistsValidation('articlesMarca', 'codi', CODE)
       ],
     },
     {
@@ -62,12 +41,14 @@ const ProjectTypeCreate = (props) => {
 
       type: "input",
       key: "descripcio",
+      required: true,
       breakpoints: {
         xs: 12,
-        md: 12,
+        md: 6,
       },
       validationType: "string",
       validations: [
+        ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 30),
       ],
     },
@@ -75,13 +56,13 @@ const ProjectTypeCreate = (props) => {
   return (
     <CreateUpdateForm
       title={props.intl.formatMessage({
-        id: "TipoProyecto.titulo",
-        defaultMessage: "Tipo de Proyecto",
+        id: "ArticulosMarca.titulo",
+          defaultMessage: "Marca",
       })}
       formConfiguration={createConfiguration}
-      url={API.projectesTipo}
+      url={API.articlesMarca}
     />
   );
 };
 
-export default compose(withValidations, injectIntl)(ProjectTypeCreate);
+export default compose(withValidations, injectIntl)(ItemBrandCreate);
