@@ -340,6 +340,8 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
             />
           }
         >
+
+
           <GenericForm
             formComponents={articlesDataConfig}
             emptyPaper={true}

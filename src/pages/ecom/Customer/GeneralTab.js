@@ -233,10 +233,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
       validationType: "string",
-      validations: [
-        ...props.commonValidations.requiredValidation(),
+
+      ...withRequiredValidation([
         ...props.stringValidations.minMaxValidation(1, 6),
-      ],
+      ]),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -440,6 +440,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndDescription,
         creationComponents: [...codeAndDescription(6, 6)],
       },
+      validationType: "object",
+      ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({

@@ -156,6 +156,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           { title: DESCRIPCIO, name: "descripcio" },
         ],
       },
+      validationType: "object",
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+      ],
   
     },
 
