@@ -136,3 +136,4 @@ export const finalFactura = `api/fact/finalFactures`;
 
 export const producte = `api/fact/productes`;
 export const expedient = `api/fact/expedients`;
+export const ubicacios = 'api/fact/ubicacions';

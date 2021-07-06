@@ -714,6 +714,16 @@
   "Almacen.cuenta": "Cuenta contable",
   "Almacen.tipoAsiento": "Tipo asiento contable",
   "Almacen.responsable": "Responsable",
+  "Almacen.diarioContableTraspasos1": "Diario contable traspasos 1",
+  "Almacen.diarioContableTraspasos2": "Diario contable traspasos 2",
+  "Almacen.cuentaTraspasos": "Cuenta traspasos",
+  "Almacen.codigoPostal.titulo": "Codigo Postal",
+  "Almacen.select.valoracionInventarioTrabajo": "Valoración inventario traspaso",
+  "Almacen.select.precioMedioCosteGlobal": "Precio medio coste global",
+  "Almacen.select.ultimoPrecioCoste": "Último precio de coste",
+  "Almacen.select.precioMedioCosteExistencia": "Precio medio coste de existencia",
+  "Almacen.select.precioCompraTeoricoArticulo": "Precio compra teórico de artículo",
+  "Almacen.select.precioCosteTeoricoArticulo": "Precio coste teórico de artículo",
   "PuntoVenta.titulo": "Punto venta",
   "PuntoVenta.codigoApertura":  "Código apertura caja",
   "PuntoVenta.tipoImpresion": "Tipo impresión",
@@ -882,5 +892,9 @@
   "Tarifa.fechasValidez": "Fechas validez",
   "Tarifa.porcentajeMaterial": "Porcentaje material",
   "Tarifa.porcentajeManoObra": "Porcentaje mano de obra",
-  "Tarifa.formaCalculo": "Forma de calculo"
+  "Tarifa.formaCalculo": "Forma de calculo",
+
+  "Ubicaion.titulo": "Ubicación",
+  "Ubicaion.codigoExterno": "Código externo"
+
 }
