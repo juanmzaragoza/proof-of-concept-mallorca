@@ -31,6 +31,7 @@ import Projects from './Projects';
 
 import Rates from './Rates';
 import Location from './Location';
+import ArticlesLocation from './ArticlesLocation';
 
 const component = [
   SuppliersFamily,
@@ -65,6 +66,7 @@ const component = [
 
   Rates,
   Location,
+  ArticlesLocation,
   
 ];
 export default component;

@@ -7,7 +7,7 @@ import { withValidations } from "modules/wrappers";
 import * as API from "redux/api";
 import {VALORACION_INVENTARIO_TRABAJO_SELECTOR_VALUES} from "../../../constants/selectors";
 
-const LocationCreate = (props) => {
+const ArticlesLocationCreate = (props) => {
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
     defaultMessage: "Código",
@@ -47,6 +47,11 @@ const LocationCreate = (props) => {
     { title: CODE, name: "codi" },
     { title: NOM, name: "poblacioMunicipiCodiTxt" },
   ];
+
+  const aSCodeAndDescription = [
+    { title: CODE, name: "codi" },
+    { title: DESCRIPTION, name: "descripcio" },
+  ]
 
   const aSCodeAndName = [
     { title: CODE, name: "codi" },
@@ -322,46 +327,12 @@ const LocationCreate = (props) => {
 
   const createConfiguration = [
     {
-      placeHolder: CODE,
-
-      type: "input",
-      key: "codi",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 6,
-      },
-      noEditable: true,
-      validationType: "string",
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 6),
-        ...props.stringValidations.fieldExistsValidation('ubicacios', 'codi', CODE)
-      ],
-    },
-    {
-      placeHolder: DESCRIPTION,
-
-      type: "input",
-      key: "descripcio",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 6,
-      },
-      validationType: "string",
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 30),
-      ],
-    },
-    {
       placeHolder:  props.intl.formatMessage({
-        id: "Ubicacion.codigoExterno",
-        defaultMessage: "Código externo",
+        id: "ArticulosUbicacion.unidad",
+        defaultMessage: "Unidad",
       }),
       type: "input",
-      key: "codiExtern",
+      key: "unitat",
       required: true,
       breakpoints: {
         xs: 12,
@@ -369,19 +340,65 @@ const LocationCreate = (props) => {
       },
       validationType: "number",
     },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Ubicacion.titulo",
+        defaultMessage: "Ubicación",
+      }),
+      type: "LOV",
+      key: "ubicacio",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 6,
+      },
+      selector: {
+        key: "ubicacios",
+        labelKey: (data) => `${data.description} (${data.codi})`,
+        sort: "codi",
+        cannotCreate: true,
+        relatedWith: {
+          name: "magatzem",
+          filterBy: "ubicacio.id",
+          keyValue: "id",
+        },
+        advancedSearchColumns: aSCodeAndDescription,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "ArticulosUbicacion.articulo.titulo",
+        defaultMessage: "Articulo",
+      }),
+      type: "LOV",
+      key: "article",
+      id:"articlesFact",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 6,
+      },
+      selector: {
+        key: "articles",
+        labelKey: (data) => `${data.descripcioCurta} (${data.codi})`,
+        sort: "codi",
+        cannotCreate: true,
+        advancedSearchColumns: aSCodeAndDescription,
+      },
+    },
     ...almacen(6),
   ];
 
   return (
     <CreateUpdateForm
       title={props.intl.formatMessage({
-        id: "Ubicacion.titulo",
-        defaultMessage: "Ubicación",
+        id: "ArticulosUbicacion.titulo",
+        defaultMessage: "Articulos ubicación",
       })}
       formConfiguration={createConfiguration}
-      url={API.ubicacios}
+      url={API.ubicacioArticles}
     />
   );
 };
 
-export default compose(withValidations, injectIntl)(LocationCreate);
+export default compose(withValidations, injectIntl)(ArticlesLocationCreate);

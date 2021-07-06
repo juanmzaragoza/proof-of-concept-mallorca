@@ -52,4 +52,5 @@ export const POINT_SALE_ECOM_URL = '/ecom/punto-ventas';
 export const ITEM_FAMILY_FACT_URL = '/fact/article-familia';
 
 export const RATES_FACT_URL = '/fact/tarifes';
-export const LOCATION_FACT_URL = '/fact/ubicaion';
+export const LOCATION_FACT_URL = '/fact/ubicacion';
+export const ARTICLES_LOCATION_FACT_URL = '/fact/articulo-ubicacion';

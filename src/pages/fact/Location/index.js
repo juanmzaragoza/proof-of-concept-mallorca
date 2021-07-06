@@ -8,7 +8,7 @@ import LocationCreate from "./LocationCreate";
 import withHeaders from "modules/wrappers/withHeaders";
 import {LOCATION_FACT_URL} from "constants/routes";
 
-const bank = () => (
+const location = () => (
   <Paper style={{ position: 'relative' }}>
     <Switch>
       <Route exact path={`${LOCATION_FACT_URL}`} component={LocationList}></Route>
@@ -21,7 +21,7 @@ const bank = () => (
 const component = {
   routeProps: {
     path: `${LOCATION_FACT_URL}`,
-    component: withHeaders(bank)
+    component: withHeaders(location)
   },
   name: 'FAC_UBICAC',
   icon: <PinDropIcon />

@@ -7,22 +7,22 @@ import ReactGrid from "modules/ReactGrid";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
-const LocationList = ({ actions, ...props }) => {
+const ArticleLocationList = ({ actions, ...props }) => {
 
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
-        id: "Ubicaciones.titulo",
-        defaultMessage: "Ubicaciones",
+        id: "ArticulosUbicacion.titulo",
+        defaultMessage: "Articulos ubicación",
       }),
     });
     actions.setBreadcrumbHeader([
       {
         title: props.intl.formatMessage({
-          id: "Ubicaciones.titulo",
-          defaultMessage: "Ubicaciones",
+          id: "ArticulosUbicacion.titulo",
+          defaultMessage: "Articulos ubicación",
         }),
-        href: "/ubicacion",
+        href: "/articulo-ubicacion",
       },
     ]);
   }, []);
@@ -30,32 +30,33 @@ const LocationList = ({ actions, ...props }) => {
   const listConfiguration = {
     columns: [
       {
-        name: "codi",
+        name: "unitat",
         title: props.intl.formatMessage({
-          id: "Comun.codigo",
-          defaultMessage: "Código",
+          id: "ArticulosUbicacion.unidad",
+          defaultMessage: "Unidad",
         }),
       },
       {
-        name: "descripcio",
+        name: "ubicacio",
         title: props.intl.formatMessage({
-          id: "Comun.descripcion",
-          defaultMessage: "Descripción",
+          id: "Ubicacion.titulo",
+          defaultMessage: "Ubicación",
         }),
+        getCellValue: row => row.ubicacio?.description ?? ""
       },
       {
-        name: "magatzem",
+        name: "article",
         title: props.intl.formatMessage({
-          id: "Presupuestos.almacen",
-          defaultMessage: "Almacén",
+          id: "ArticulosUbicacion.articulo.titulo",
+          defaultMessage: "Articulo",
         }),
-        getCellValue: row => row.magatzem?.description ?? ""
+        getCellValue: row => row.article?.description ?? ""
       },
     ],
-    URL: API.ubicacios,
-    listKey: "ubicacios",
+    URL: API.ubicacioArticles,
+    listKey: "ubicacioArticles",
   };
-  return <ReactGrid id="ubicacios" configuration={listConfiguration} />;
+  return <ReactGrid id="ubicacioArticles" configuration={listConfiguration} />;
 };
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -69,4 +70,4 @@ const mapDispatchToProps = (dispatch, props) => {
 export default compose(
   injectIntl,
   connect(null, mapDispatchToProps)
-)(LocationList);
+)(ArticleLocationList);

@@ -894,7 +894,11 @@
   "Tarifa.porcentajeManoObra": "Porcentaje mano de obra",
   "Tarifa.formaCalculo": "Forma de calculo",
 
-  "Ubicaion.titulo": "Ubicación",
-  "Ubicaion.codigoExterno": "Código externo"
+  "Ubicacion.titulo": "Ubicación",
+  "Ubicaciones.titulo": "Ubicaciones",
+  "Ubicacion.codigoExterno": "Código externo",
 
+  "ArticulosUbicacion.titulo": "Articulos ubicación",
+  "ArticulosUbicacion.unidad": "Unidad",
+  "ArticulosUbicacion.articulo.titulo": "Articulo"
 }

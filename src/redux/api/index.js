@@ -139,3 +139,6 @@ export const expedient = `api/fact/expedients`;
 export const idiomes = `api/ecom/idiomes`;
 
 export const ubicacios = 'api/fact/ubicacions';
+export const ubicacioArticles = 'api/fact/ubicacionsArticle';
+
+export const articlesFact = 'api/fact/articles';
