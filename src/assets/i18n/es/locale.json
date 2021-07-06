@@ -526,6 +526,8 @@
   "FamiliaArticulos.ndf": "Numero Días, Máximo Fabricación",
   "FamiliaArticulos.operaciones": "Opearciones",
 
+  "FamiliaCostes.titulo": "Familia costes",
+
   "SerieVenta.serie": "Série",
   "SerieVenta.diaInicio": "Día Inicio",
   "SerieVenta.diaFin": "Día Fin",
