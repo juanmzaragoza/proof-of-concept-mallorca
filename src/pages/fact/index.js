@@ -30,7 +30,7 @@ import ItemsFamily from './ItemsFamily';
 import Projects from './Projects';
 
 import Rates from './Rates';
-
+import Location from './Location';
 
 const component = [
   SuppliersFamily,
@@ -64,6 +64,7 @@ const component = [
   ItemsFamily,
 
   Rates,
+  Location,
   
 ];
 export default component;
