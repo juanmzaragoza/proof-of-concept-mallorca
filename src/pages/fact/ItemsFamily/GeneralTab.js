@@ -23,7 +23,7 @@ const BUSINESS_SECTION_TAB_INDEX = 4;
 const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
   const [ touched, handleTouched, addValidity, formIsValid ] 
   = useTabForm({fields: {[CREATE_SECTION_INDEX]: false, [ACCOUNTING_SECTION_TAB_INDEX]:false, [OPEARTION_SECTION_TAB_INDEX]:false,
-    [OPTIONS_SECTION_TAB_INDEX]:false, [ACCOUNTING_SECTION_TAB_INDEX]:false, [BUSINESS_SECTION_TAB_INDEX]:false}, setIsValid: props.setIsValid});
+    [OPTIONS_SECTION_TAB_INDEX]:false, [BUSINESS_SECTION_TAB_INDEX]:false}, setIsValid: props.setIsValid});
 
   const NOM = props.intl.formatMessage({id: "Comun.nombre", defaultMessage: "Nombre"});
   const CODE = props.intl.formatMessage({id: "Comun.codigo", defaultMessage: "Código"});
@@ -728,8 +728,8 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
                               formErrors={props.formErrors}
                               submitFromOutside={props.submitFromOutside}
                               onSubmit={() => props.onSubmitTab(formData)}
-                              handleIsValid={value => addValidity(ACCOUNTING_SECTION_TAB_INDEX,value)}
-                              onBlur={(e) => handleTouched(ACCOUNTING_SECTION_TAB_INDEX)}
+                              handleIsValid={value => addValidity(OPEARTION_SECTION_TAB_INDEX,value)}
+                              onBlur={(e) => handleTouched(OPEARTION_SECTION_TAB_INDEX)}
                               {...props} />
     },
     {
