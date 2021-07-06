@@ -420,8 +420,8 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 8,
       },
-      // validationType: "string",
-      // validations: [...props.stringValidations.minMaxValidation(1, 20)],
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 20)],
     },
   ];
 

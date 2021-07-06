@@ -117,6 +117,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     });
   }, [getFormData("codiPostal")]);
 
+
+
   const code = (md = 6) => ({
     type: "input",
     key: "codi",
@@ -360,7 +362,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "País NIF",
       }),
       type: "LOV",
-      key: "paisNif",
+      key: "paisNifCodi",
       breakpoints: {
         xs: 12,
         md: 2,
@@ -370,7 +372,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         labelKey: formatCodeAndName,
         sort: "nom",
         transform: {
-          apply: (pais) => pais && pais.codi,
+          apply: (paisNifs) => paisNifs && paisNifs.codi,
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
         },
         creationComponents: [
