@@ -65,14 +65,6 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const getString = (key) => (getFormData(key) ? getFormData(key) : "");
 
-  useEffect(() => {
-    const banc = getString("banc");
-    setFormData({
-      key: "bancCodi",
-      value: banc ? banc.codi : "",
-    });
-  }, [getFormData("banc")]);
-
 
 
 
@@ -247,7 +239,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Banco",
       }),
       type: "LOV",
-      key: "banc",
+      key: "bancCodi",
       breakpoints: {
         xs: 12,
         md: 3,
@@ -262,6 +254,10 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
           filterBy: "banc.id",
           keyValue: "id",
         },
+        transform: {
+          apply: (bancs) => bancs && bancs.codi,
+          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+        }
       },
     },
     {
@@ -579,13 +575,13 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Régimen IVA",
       }),
       type: "LOV",
+      required:true,
       key: "regimIva",
       breakpoints: {
         xs: 12,
         md: 5,
       },
-      validationType: "object",
-      ...withRequiredValidation(),
+
       selector: {
         key: "regimIvas",
         labelKey: (data) => `${data.descripcio} (${data.codi})`,
@@ -700,6 +696,8 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
           },
         ],
       },
+      validationType: "object",
+      ...withRequiredValidation(),
     },
     {
       type: "checkbox",

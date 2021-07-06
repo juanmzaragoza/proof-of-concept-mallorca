@@ -143,3 +143,7 @@ export const codiPostals= `api/fact/codisPostal`;
 
 export const idiomes = `api/ecom/idiomes`;
 
+export const magatzemCodi = `api/fact/magatzems`;
+export const codiPostalComercialCodi = `api/fact/codisPostal`;
+export const codiPostalFiscalCodi = `api/fact/codisPostal`;
+export const bancCodi = `api/fact/bancs`;
