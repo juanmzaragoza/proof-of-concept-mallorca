@@ -123,6 +123,10 @@ const AccountingDataTab = ({
           { title: DESCRIPCIO, name: "descripcio" },
         ],
       },
+      validationType: "object",
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+      ],
     
     },
     {
@@ -208,6 +212,10 @@ const AccountingDataTab = ({
           { title: DESCRIPCIO, name: "descripcio" },
         ],
       },
+      validationType: "object",
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+      ],
  
     },
 

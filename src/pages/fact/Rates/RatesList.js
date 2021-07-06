@@ -7,20 +7,20 @@ import {bindActionCreators,compose} from "redux";
 import {setBreadcrumbHeader, setListingConfig} from "../../../redux/pageHeader";
 import * as API from "../../../redux/api";
 
-const DocumentFooterList = ({ actions, ...props }) => {
+const RatesList = ({ actions, ...props }) => {
 
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
-        id: "PieDocumento.titulo",
-        defaultMessage: "Piés Documentos"
+        id: "Tarifa.titulo",
+        defaultMessage: "Tarifas"
       }),
     });
     actions.setBreadcrumbHeader([
       {title: props.intl.formatMessage({
-        id: "PieDocumento.titulo",
-        defaultMessage: "Piés Documentos"
-        }), href:"/peus-document"}
+        id: "Tarifa.titulo",
+        defaultMessage: "Tarifas"
+        }), href:"/tarifes"}
     ]);
   },[]);
 
@@ -38,23 +38,17 @@ const DocumentFooterList = ({ actions, ...props }) => {
           defaultMessage: "Descripción"
         })
       },
-      { name: 'serieCompraCodi',
+      { name: 'tarifaTipus',
         title: props.intl.formatMessage({
-          id: "PieDocumento.serieCompra",
-          defaultMessage: "Series de Compra"
-        })
-      },
-      { name: 'empresa2',
-        title: props.intl.formatMessage({
-          id: "PieDocumento.empresa",
-          defaultMessage: "Empresa"
-        })
+          id: "Tarifa.tarifaTipo",
+          defaultMessage: "Tipo de tarifa"
+        }),
       },
     ],
-    URL: API.peusDocument,
-    listKey: 'peuDocuments'
+    URL: API.tarifas,
+    listKey: 'tarifas'
   };
-  return <ReactGrid id="peusDocument" configuration={listConfiguration} />;
+  return <ReactGrid id="tarifas" configuration={listConfiguration} />;
 };
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -68,4 +62,4 @@ const mapDispatchToProps = (dispatch, props) => {
 export default compose(
   injectIntl,
   connect(null,mapDispatchToProps)
-)(DocumentFooterList);
+)(RatesList);

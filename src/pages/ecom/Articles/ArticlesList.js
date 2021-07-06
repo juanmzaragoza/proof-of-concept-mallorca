@@ -49,7 +49,7 @@ const BudgetList = ({actions, ...props}) => {
         getCellValue: row => row.familia?.description ?? ""
       },
       {
-        name: 'preuAmbIva',
+        name: 'pvp',
         title: props.intl.formatMessage({
           id: "Articulos.precio",
           defaultMessage: "Precio"

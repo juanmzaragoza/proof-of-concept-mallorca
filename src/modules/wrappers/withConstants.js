@@ -530,9 +530,63 @@ const withConstants = (PassedComponent) => {
         path: "COM_PTV",
         icon: <LocalMall />,
       },
-  
-    
-  
+      {
+        key: 'FAC_REGCOM', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "RegistroComercial.titulo",defaultMessage: "Registros Comerciales"}),
+        path: 'FAC_REGCOM', // or has path or has children but not both
+        icon: <LocalMall />
+      },
+      {
+        key: 'FAC_TARIFA', // not mandatory for routes with children
+        title: props.intl.formatMessage({id: "Tarifa.titulo",defaultMessage: "Tarifas"}),
+        path: 'FAC_TARIFA', // or has path or has children but not both
+        icon: <LocalMall />
+      },
+      {
+        title: props.intl.formatMessage({
+          id: "Articulos.titulo",
+          defaultMessage: "Artículos",
+        }),
+        icon: <ShoppingBasketIcon />,
+        children: [
+          {
+            key: 'FAC_FAMART', // not mandatory for routes with children
+            title: props.intl.formatMessage({id: "FamiliaArticulos.titulo",defaultMessage: "Familia de Artículos"}),
+            path: 'FAC_FAMART', // or has path or has children but not both
+            icon: <LocalMall />
+          },
+          {
+            key: 'FAC_MODART', // not mandatory for routes with children
+            title: props.intl.formatMessage({id: "ArticulosModelo.titulo",defaultMessage: "Modelo"}),
+            path: 'FAC_MODART', // or has path or has children but not both
+            icon: <LocalMall />
+          },
+          {
+            key: 'FAC_MARART', // not mandatory for routes with children
+            title: props.intl.formatMessage({id: "ArticulosMarca.titulo",defaultMessage: "Marca"}),
+            path: 'FAC_MARART', // or has path or has children but not both
+            icon: <LocalMall />
+          },
+          {
+            key: 'FAC_GAMART', // not mandatory for routes with children
+            title: props.intl.formatMessage({id: "ArticulosGama.titulo",defaultMessage: "Gama"}),
+            path: 'FAC_GAMART', // or has path or has children but not both
+            icon: <LocalMall />
+          },
+          {
+            key: 'FAC_TIPCOM', // not mandatory for routes with children
+            title: props.intl.formatMessage({id: "TipoComision.titulo",defaultMessage: "Tipos de Comisión"}),
+            path: 'FAC_TIPCOM', // or has path or has children but not both
+            icon: <LocalMall />
+          },
+          {
+            key: 'FAC_UNITIP', // not mandatory for routes with children
+            title: props.intl.formatMessage({id: "TipoUnidad.titulo",defaultMessage: "Tipo de Unidades"}),
+            path: 'FAC_UNITIP', // or has path or has children but not both
+            icon: <LocalMall />
+          },
+        ],
+      },
     ];
 
     return (

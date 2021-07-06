@@ -77,7 +77,6 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         },
         validationType: "string",
         validations: [
-            ...props.stringValidations.minMaxValidation(0, 1),
             ...props.commonValidations.requiredValidation()],
       },
       {
@@ -93,7 +92,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
           md: 2,
         },
         validationType: "string",
-        validation: [...props.commonValidations.requiredValidation()],
+        validations: [...props.commonValidations.requiredValidation()],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -109,7 +108,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
           md: 3,
         },
         validationType: "string",
-        validation: [...props.commonValidations.requiredValidation()],
+        validations: [...props.commonValidations.requiredValidation()],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -162,7 +161,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
           ],
         },
         validationType: "object",
-        validation: [...props.commonValidations.requiredValidation()],
+        validations: [...props.commonValidations.requiredValidation()],
       },
   
       {
@@ -235,7 +234,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
           cannotCreate:true,
           advancedSearchColumns: aSCodeAndName,
           validationType: "object",
-          validation: [...props.commonValidations.requiredValidation()],
+          validations: [...props.commonValidations.requiredValidation()],
         },
       },
   
@@ -280,7 +279,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
           advancedSearchColumns: aSCodeAndDescription,
         },
         validationType: "object",
-        validation: [...props.commonValidations.requiredValidation()],
+        validations: [...props.commonValidations.requiredValidation()],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -322,7 +321,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
           advancedSearchColumns: aSCodeAndName,
         },
         validationType: "object",
-        validation: [...props.commonValidations.requiredValidation()],
+        validations: [...props.commonValidations.requiredValidation()],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -447,7 +446,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
           md: 3,
         },
         validationType: "string",
-        validation: [...props.commonValidations.requiredValidation()],
+        validations: [...props.commonValidations.requiredValidation()],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -462,7 +461,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
           md: 3,
         },
         validationType: "string",
-        validation: [...props.commonValidations.requiredValidation()],
+        validations: [...props.commonValidations.requiredValidation()],
       },
      
   
@@ -586,7 +585,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
           ],
         },
         validationType: "object",
-        validation: [...props.commonValidations.requiredValidation()],
+        validations: [...props.commonValidations.requiredValidation()],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -601,7 +600,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
           md: 6
         },
         validationType: "string",
-        validation: [...props.commonValidations.requiredValidation()],
+        validations: [...props.commonValidations.requiredValidation()],
       },
       {
         placeHolder: props.intl.formatMessage({

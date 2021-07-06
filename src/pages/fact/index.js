@@ -18,8 +18,23 @@ import PostalCode from './PostalCode';
 import DocumentFooter from './DocumentFooter';
 import ProjectType from './ProjectType';
 import CompanyAccountingAccount from './CompanyAccountingAccount';
+
+import CommercialRegister from './CommercialRegister';
+import Gama from './Gama';
+import ItemBrand from './ItemBrand';
+import ItemModel from './ItemModel';
+import CommisionType from './CommisionType';
+import UnitType from './UnitType';
+import ItemsFamily from './ItemsFamily';
+
 import Projects from './Projects';
+
 import Company from './Company';
+
+
+import Rates from './Rates';
+
+
 
 const component = [
   SuppliersFamily,
@@ -43,7 +58,20 @@ const component = [
   DocumentFooter,
   ProjectType,
   CompanyAccountingAccount,
-  Company
 
+  Company,
+
+  
+  CommercialRegister,
+  Gama,
+  ItemBrand,
+  ItemModel,
+  CommisionType,
+  UnitType,
+  ItemsFamily,
+
+
+  Rates,
+  
 ];
 export default component;

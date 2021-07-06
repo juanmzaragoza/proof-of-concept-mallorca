@@ -1,27 +1,28 @@
 import React, {useEffect, useState} from "react";
 import {FormattedMessage, injectIntl} from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
-
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import {compose} from "redux";
 import {withValidations} from "modules/wrappers";
 
+import {TIPO_TARIFA_SELECTOR_VALUES, FORMA_CALCULO_SELECTOR_VALUES} from "../../../constants/selectors";
+
 import {useTabForm} from "hooks/tab-form";
 
 const CREATE_SECTION_INDEX = 0;
-const CHECKBOX_SECTION_TAB_INDEX = 1;
-const FAMILY_CLIENTS_SUPPLIERS_SECTION_TAB_INDEX = 2;
+const PERCENTAGES_SECTION_TAB_INDEX = 1;
+const VALIDITY_DATES_SECTION_TAB_INDEX = 2;
 
-const DocumentFooterTab = ({formData, setFormData, getFormData, ...props}) => {
+const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
   const [ touched, handleTouched, addValidity, formIsValid ] 
-  = useTabForm({fields: {[CREATE_SECTION_INDEX]: false, [CHECKBOX_SECTION_TAB_INDEX]:false, [FAMILY_CLIENTS_SUPPLIERS_SECTION_TAB_INDEX]:false}, setIsValid: props.setIsValid});
+  = useTabForm({fields: {[CREATE_SECTION_INDEX]: false, [PERCENTAGES_SECTION_TAB_INDEX]:false, [VALIDITY_DATES_SECTION_TAB_INDEX]:false}, setIsValid: props.setIsValid});
 
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
     defaultMessage: "Código",
-  }); 
+  });
 
   const createConfiguration = [
     {
@@ -34,14 +35,14 @@ const DocumentFooterTab = ({formData, setFormData, getFormData, ...props}) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4
+        md: 3
       },
       noEditable: true,
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 4),
-        ...props.stringValidations.fieldExistsValidation('peusDocument', 'codi', CODE)
+        ...props.stringValidations.fieldExistsValidation('tarifas', 'codi', CODE)
       ]
     },
     {
@@ -64,188 +65,138 @@ const DocumentFooterTab = ({formData, setFormData, getFormData, ...props}) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "PieDocumento.pie",
-        defaultMessage: "Pie"
+        id: "Tarifa.tarifaTipo",
+        defaultMessage: "Tipo de tarifa"
       }),
-      type: 'input',
-      key: 'pie',
+      type: 'select',
+      key: 'tarifaTipus',
       breakpoints: {
         xs: 12,
-        md: 12
-      },
-      text: {
-        multiline: 8
-      },
-      validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 1000)
-      ]
-    },
-  ];
-
-  const checkConfiguration = [
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.albaran",
-        defaultMessage: "Albaranes"
-      }),
-      type: 'checkbox',
-      key: 'albara',
-      breakpoints: {
-        xs: 6,
-        sm: 4,
-        md: 2
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "PieDocumento.facturas",
-        defaultMessage: "Facturas"
-      }),
-      type: 'checkbox',
-      key: 'factura',
-      breakpoints: {
-        xs: 6,
-        sm: 4,
-        md: 2
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "PieDocumento.presupuestos",
-        defaultMessage: "Presupuestos"
-      }),
-      type: 'checkbox',
-      key: 'pre',
-      breakpoints: {
-        xs: 6,
-        sm: 4,
-        md: 2
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Facturacion.pedidos",
-        defaultMessage: "Pedidos"
-      }),
-      type: 'checkbox',
-      key: 'com',
-      breakpoints: {
-        xs: 6,
-        sm: 4,
-        md: 2
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "PieDocumento.certificaciones",
-        defaultMessage: "Certificaciones"
-      }),
-      type: 'checkbox',
-      key: 'imprimirPeuCertificacio',
-      breakpoints: {
-        xs: 6,
-        sm: 4,
-        md: 2
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "PieDocumento.reparaciones",
-        defaultMessage: "Reparaciones"
-      }),
-      type: 'checkbox',
-      key: 'avr',
-      breakpoints: {
-        xs: 6,
-        sm: 4,
-        md: 2
-      },
-    },
-
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "PieDocumento.orden",
-        defaultMessage: "Orden"
-      }),
-      type: 'input',
-      key: 'ordre',
-      breakpoints: {
-        xs: 6,
-        md: 3
-      },
-      validationType: "number",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 99)
-      ]
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "PieDocumento.serieCompra",
-        defaultMessage: "Series de Compra"
-      }),
-      type: 'input',
-      key: 'serieCompraCodi',
-      breakpoints: {
-        xs: 6,
-        md: 3
-      },
-      validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 2)
-      ]
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "PieDocumento.empresa",
-        defaultMessage: "Empresa"
-      }),
-      type: 'input',
-      key: 'empresa2',
-      breakpoints: {
-        xs: 6,
-        md: 3
-      },
-      validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 4)
-      ]
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "PieDocumento.imprimirClase",
-        defaultMessage: "Imprimir Clase"
-      }),
-      type: 'checkbox',
-      key: 'impCls',
-      breakpoints: {
-        xs: 6,
-        md: 3
-      },
-    },
-  ];
-
-  const familyClientsSuppliersConfiguration = [
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "PieDocumento.familiaClienteProveedor",
-        defaultMessage: "Familia Cliente/Proveedor"
-      }),
-      type: 'checkbox',
-      key: 'familiaCliProv',
-      breakpoints: {
-        xs: 6,
         md: 6
       },
+      selector: {
+        options: TIPO_TARIFA_SELECTOR_VALUES
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Tarifa.formaCalculo",
+        defaultMessage: "Forma de calculo"
+      }),
+      type: 'select',
+      key: 'formaCalcul',
+      breakpoints: {
+        xs: 12,
+        md: 6
+      },
+      selector: {
+        options: FORMA_CALCULO_SELECTOR_VALUES
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Tarifa.actualizarPrecio",
+        defaultMessage: "Actualizar precio"
+      }),
+      type: 'checkbox',
+      key: 'actualitzarPreu',
+      breakpoints: {
+        xs: 12,
+        md: 4
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Tarifa.descuentosGenerales",
+        defaultMessage: "Descuentos generales"
+      }),
+      type: 'checkbox',
+      key: 'descomptesGenerals',
+      breakpoints: {
+        xs: 12,
+        md: 4
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Tarifa.tarifaOferta",
+        defaultMessage: "Tarifa oferta"
+      }),
+      type: 'checkbox',
+      key: 'tarifaOferta',
+      breakpoints: {
+        xs: 12,
+        md: 4
+      },
     },
   ];
+
+  const PorcentajeConfiguration = [
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Tarifa.porcentajeMaterial",
+        defaultMessage: "Porcentaje material"
+      }),
+      type: 'input',
+      key: 'percentatgeMaterial',
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 6
+      },
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Tarifa.porcentajeManoObra",
+        defaultMessage: "Porcentaje mano de obra"
+      }),
+      type: 'input',
+      key: 'percentatgeMaObra',
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 6
+      },
+      validationType: "number",
+    },
+  ];
+
+  const FechasValidezConfiguration = [
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proyectos.fechaInicio",
+        defaultMessage: "Fecha inicio",
+      }),
+      type: "date",
+      key: "dataInici",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 6,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proyectos.fechaFin",
+        defaultMessage: "Fecha fin",
+      }),
+      type: "date",
+      key: "dataFi",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 6,
+      },
+    },
+  ]
 
   const tabs = [
     {
       className: "general-tab-subtab",
-      label: <FormattedMessage id={"PieDocumento.imprimirEn"} defaultMessage={"Imprimir en..."}/>,
+      label: <FormattedMessage id={"Tarifa.porcentajes"} defaultMessage={"Porcentajes"}/>,
       key: 0,
-      component: <GenericForm formComponents={checkConfiguration}
+      component: <GenericForm formComponents={PorcentajeConfiguration}
                               emptyPaper={true}
                               setFormData={setFormData}
                               getFormData={getFormData}
@@ -253,15 +204,15 @@ const DocumentFooterTab = ({formData, setFormData, getFormData, ...props}) => {
                               formErrors={props.formErrors}
                               submitFromOutside={props.submitFromOutside}
                               onSubmit={() => props.onSubmitTab(formData)}
-                              handleIsValid={value => addValidity(CHECKBOX_SECTION_TAB_INDEX,value)}
-                              onBlur={(e) => handleTouched(CHECKBOX_SECTION_TAB_INDEX)}
+                              handleIsValid={value => addValidity(PERCENTAGES_SECTION_TAB_INDEX,value)}
+                              onBlur={(e) => handleTouched(PERCENTAGES_SECTION_TAB_INDEX)}
                               {...props} />
     },
     {
       className: "general-tab-subtab",
-      label: <FormattedMessage id={"Proveedores.familia"} defaultMessage={"Familia"}/>,
+      label: <FormattedMessage id={"Tarifa.fechasValidez"} defaultMessage={"Fechas validez"}/>,
       key: 1,
-      component: <GenericForm formComponents={familyClientsSuppliersConfiguration}
+      component: <GenericForm formComponents={FechasValidezConfiguration}
                               emptyPaper={true}
                               setFormData={setFormData}
                               getFormData={getFormData}
@@ -269,8 +220,8 @@ const DocumentFooterTab = ({formData, setFormData, getFormData, ...props}) => {
                               formErrors={props.formErrors}
                               submitFromOutside={props.submitFromOutside}
                               onSubmit={() => props.onSubmitTab(formData)}
-                              handleIsValid={value => addValidity(FAMILY_CLIENTS_SUPPLIERS_SECTION_TAB_INDEX,value)}
-                              onBlur={(e) => handleTouched(FAMILY_CLIENTS_SUPPLIERS_SECTION_TAB_INDEX)}
+                              handleIsValid={value => addValidity(VALIDITY_DATES_SECTION_TAB_INDEX,value)}
+                              onBlur={(e) => handleTouched(VALIDITY_DATES_SECTION_TAB_INDEX)}
                               {...props} />
     },
   ];
@@ -278,7 +229,7 @@ const DocumentFooterTab = ({formData, setFormData, getFormData, ...props}) => {
   return (
     <Grid container >
       <Grid xs={12} item>
-        <OutlinedContainer className="general-tab-container" title={<FormattedMessage id={"PieDocumento.titulo"} defaultMessage={"Pies Documentos"}/>}>
+        <OutlinedContainer className="general-tab-container" title={<FormattedMessage id={"Tarifa.titulo"} defaultMessage={"Tarifas"}/>}>
           <GenericForm formComponents={createConfiguration}
                        emptyPaper={true}
                        editMode={props.editMode}
@@ -305,4 +256,4 @@ export default compose(
   React.memo,
   withValidations,
   injectIntl
-)(DocumentFooterTab);
+)(GeneralTab);

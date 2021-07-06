@@ -7,20 +7,20 @@ import {bindActionCreators,compose} from "redux";
 import {setBreadcrumbHeader, setListingConfig} from "../../../redux/pageHeader";
 import * as API from "../../../redux/api";
 
-const DocumentFooterList = ({ actions, ...props }) => {
+const ItemsFamilyList = ({ actions, ...props }) => {
 
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
-        id: "PieDocumento.titulo",
-        defaultMessage: "Piés Documentos"
+        id: "FamiliaArticulos.titulo",
+        defaultMessage: "Familia"
       }),
     });
     actions.setBreadcrumbHeader([
       {title: props.intl.formatMessage({
-        id: "PieDocumento.titulo",
-        defaultMessage: "Piés Documentos"
-        }), href:"/peus-document"}
+        id: "FamiliaArticulos.titulo",
+        defaultMessage: "Familia"
+        }), href:"/article-familia"}
     ]);
   },[]);
 
@@ -38,23 +38,32 @@ const DocumentFooterList = ({ actions, ...props }) => {
           defaultMessage: "Descripción"
         })
       },
-      { name: 'serieCompraCodi',
+      { name: 'familiaCost',
         title: props.intl.formatMessage({
-          id: "PieDocumento.serieCompra",
-          defaultMessage: "Series de Compra"
-        })
+          id: "FamiliaArticulos.familiaCoste",
+          defaultMessage: "Familia Coste"
+        }),
+        getCellValue: row => row.familiaCost?.description ?? ""
       },
-      { name: 'empresa2',
+      { name: 'delegacio',
         title: props.intl.formatMessage({
-          id: "PieDocumento.empresa",
-          defaultMessage: "Empresa"
-        })
+          id: "FamiliaArticulos.delegacion",
+          defaultMessage: "Delegación"
+        }),
+        getCellValue: row => row.delegacio?.description ?? ""
+      },
+      { name: 'projecte',
+        title: props.intl.formatMessage({
+          id: "FamiliaArticulos.proyecto",
+          defaultMessage: "Proyecto"
+        }),
+        getCellValue: row => row.projecte?.description ?? ""
       },
     ],
-    URL: API.peusDocument,
-    listKey: 'peuDocuments'
+    URL: API.familiaArticle,
+    listKey: 'articleFamilias'
   };
-  return <ReactGrid id="peusDocument" configuration={listConfiguration} />;
+  return <ReactGrid id="familiaArticle" configuration={listConfiguration} />;
 };
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -68,4 +77,4 @@ const mapDispatchToProps = (dispatch, props) => {
 export default compose(
   injectIntl,
   connect(null,mapDispatchToProps)
-)(DocumentFooterList);
+)(ItemsFamilyList);
