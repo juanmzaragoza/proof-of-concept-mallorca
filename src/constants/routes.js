@@ -41,5 +41,4 @@ export const CUSTOMER_ECOM_URL = '/ecom/clientes';
 export const CLIENT_FAMILY_ECOM_URL = '/ecom/familia-clientes';
 export const STORE_ECOM_URL = '/ecom/almacenes';
 export const POINT_SALE_ECOM_URL = '/ecom/punto-ventas';
-
-
+export const COMPANY_FACT_URL = '/fact/empresas';

@@ -724,8 +724,22 @@
   "Clientes.fact.emailContabilidad":"Email aviso contabilidad",
   "Clientes.fact.emailReparacion":"Email aviso reparación",
   "Clientes.fact.emailComercial":"Email aviso comercial",
-  "Clientes.fact.emailWeb":"Email Web"
+  "Clientes.fact.emailWeb":"Email Web",
 
+  "Empresas.titulo":"Empresas",
+  "Empresas.recargoEquivalencia": "Recargo equivalencia",
+  "Empresas.almacen":"Almacén",
+  "Empresas.domicilioFiscal": "Domicilio Fiscal",
+  "Empresas.domicilioComercial": "Domicilio Comercial",
+  "Selector.no_tratar": "No tratar",
+  "Selector.alta":"Alta",
+  "Selector.alta_modificacion":"Alta modificación",
+  "Selector.tratarTranspasos": "Tratar en transpaso factura",
+  "Empresas.contabilidadProv": "Cotabilidad Proveedor",
+  "Empresas.contabilidadClientes":"Contabilidad Clientes",
+  "Empresas.logo": "Ruta logo",
+  "Empresas.imprimirLogo":"Imprimir Logo"
+ 
   
   
 }

@@ -51,25 +51,29 @@ export const PAISNIF_SELECTOR_VALUES = [
 ];
 
 export const CONTABILIDAD_SELECTOR_VALUES = [
-  { value: "NO_TRACTAR", labelId: "NO_TRACTAR", label: "NO TRATAR" },
-  { value: "ALTA", labelId: "ALTA", label: "ALTA" },
+  { value: "NO_TRACTAR", labelId: "Selector.no_tratar", label: "NO TRATAR" },
+  { value: "ALTA", labelId: "Selector.alta", label: "ALTA" },
   {
     value: "ALTA_MODIFICACIO",
-    labelId: "ALTA_MODIFICACIO",
+    labelId: "Selector.alta_modificacion",
     label: "ALTA MODIFICACIÓN",
   },
   {
     value: "TRACTAR_EN_TRASPASSOS_FACTURA",
-    labelId: "TRACTAR_EN_TRASPASSOS_FACTURA",
+    labelId: "Selector.tratarTranspasos",
     label: "TRATAR EN TRASPASOS FACTURA",
   },
 ];
 
 export const FACT_TIPO_SELECTOR_VALUES = [
-  { value: "PRESSUPOST", labelId: "Selector.PRESSUPOST", label: "Presupuesto" },
+  {
+    value: "PRESSUPOST",
+    labelId: "Selector.presupuesto",
+    label: "Presupuesto",
+  },
   {
     value: "ADMINISTRACIO",
-    labelId: "Selector.ADMINISTRACIO",
+    labelId: "Selector.administracion",
     label: "Administración",
   },
 ];
@@ -496,7 +500,6 @@ export const TIPO_ESTADO_PROYECTO_SELECTOR_VALUES = [
   },
 ];
 
-
 export const TIPO_DIR_COMERCIALES_SELECTOR_VALUES = [
   {
     value: "S",
@@ -508,11 +511,7 @@ export const TIPO_DIR_COMERCIALES_SELECTOR_VALUES = [
     labelId: "Comun.no",
     label: "No",
   },
-
 ];
-
-
-
 
 export const TIPO_EJECUCION_PROYECTO_SELECTOR_VALUES = [
   {
@@ -536,6 +535,3 @@ export const TIPO_EJECUCION_PROYECTO_SELECTOR_VALUES = [
     label: "Asignado",
   },
 ];
-
-
-

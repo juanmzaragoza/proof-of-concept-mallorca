@@ -19,7 +19,7 @@ import DocumentFooter from './DocumentFooter';
 import ProjectType from './ProjectType';
 import CompanyAccountingAccount from './CompanyAccountingAccount';
 import Projects from './Projects';
-
+import Company from './Company';
 
 const component = [
   SuppliersFamily,
@@ -43,6 +43,7 @@ const component = [
   DocumentFooter,
   ProjectType,
   CompanyAccountingAccount,
+  Company
 
 ];
 export default component;
