@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
-
-import "../../fact/Suppliers/styles.scss";
 
 import { TDOC_SELECTOR_VALUES } from "constants/selectors";
 import OutlinedContainer from "modules/shared/OutlinedContainer";

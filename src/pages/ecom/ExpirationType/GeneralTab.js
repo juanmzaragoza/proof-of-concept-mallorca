@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
 
-import "../../fact/Suppliers/styles.scss";
 import {
   TIPO_VENCIMIENTO_SELECTOR_VALUES,
   TIPO_MES_SELECTOR_VALUES,
