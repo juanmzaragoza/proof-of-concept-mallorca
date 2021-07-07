@@ -148,3 +148,10 @@ export const codiPostalComercialCodi = `api/fact/codisPostal`;
 export const codiPostalFiscalCodi = `api/fact/codisPostal`;
 export const bancCodi = `api/fact/bancs`;
 export const paisNifCodi =`api/paisosNif`;
+
+export const idiomes = `api/ecom/idiomes`;
+
+export const ubicacios = 'api/fact/ubicacions';
+export const ubicacioArticles = 'api/fact/ubicacionsArticle';
+
+export const articlesFact = 'api/fact/articles';

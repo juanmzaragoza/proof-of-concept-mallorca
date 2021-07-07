@@ -53,5 +53,9 @@ export const COMPANY_FACT_URL = '/fact/empresas';
 
 
 export const ITEM_FAMILY_FACT_URL = '/fact/article-familia';
+export const FAMILY_COSTS_FACT_URL = '/fact/familia-costes';
 
 export const RATES_FACT_URL = '/fact/tarifes';
+
+export const LOCATION_FACT_URL = '/fact/ubicacion';
+export const ARTICLES_LOCATION_FACT_URL = '/fact/articulo-ubicacion';

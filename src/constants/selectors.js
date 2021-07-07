@@ -708,3 +708,31 @@ export const FORMA_CALCULO_SELECTOR_VALUES = [
   }
 ];
 
+
+export const VALORACION_INVENTARIO_TRABAJO_SELECTOR_VALUES = [
+  {
+    value: "PREU_MITJA_COST_GLOBAL",
+    labelId: "Almacen.select.precioMedioCosteGlobal",
+    label: "Precio medio coste global",
+  },
+  {
+    value: "ULTIM_PREU_DE_COST",
+    labelId: "Almacen.select.ultimoPrecioCoste",
+    label: "Último precio de coste",
+  },
+  {
+    value: "PREU_MITJA_COST_EXISTENCIA",
+    labelId: "Almacen.select.precioMedioCosteExistencia",
+    label: "Precio medio coste de existencia",
+  },
+  {
+    value: "PREU_COMPRA_TEORIC_DE_ARTICLE",
+    labelId: "Almacen.select.precioCompraTeoricoArticulo",
+    label: "Precio compra teórico de artículo",
+  },
+  {
+    value: "PREU_COST_TEORIC_DE_ARTICLE",
+    labelId: "Almacen.select.precioCosteTeoricoArticulo",
+    label: "Precio coste teórico de artículo",
+  }
+];
