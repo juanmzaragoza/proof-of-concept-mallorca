@@ -633,6 +633,7 @@
   "Articulos.precio.decimalesPrecio": "Decimales precio",
   "Articulos.precio.decimalesPrecioIva": "Decimales precio con IVA",
   "Articulos.precio.pvp": "P.V.P",
+  "Articulos.precio.precioCosteExistencias": "Precio coste existencias",
   "FamiliaArticulos.titulo": "Familia",
   "ArticulosModelo.titulo": "Modelo",
   "ArticulosMarca.titulo": "Marca",
