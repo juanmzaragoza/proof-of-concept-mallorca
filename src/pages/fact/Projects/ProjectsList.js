@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import * as API from "redux/api";
-import AdvancedFilters from "modules/AdvancedFilters/AdvancedFilters";
+import AdvancedFilters from "modules/AdvancedFilters";
 import ReactGrid from "modules/ReactGrid";
 
 const ProjectsList = ({actions, ...props}) => {

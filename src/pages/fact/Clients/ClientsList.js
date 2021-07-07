@@ -8,7 +8,7 @@ import {
 } from "redux/pageHeader";
 import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
-import AdvancedFilters from "modules/AdvancedFilters/AdvancedFilters";
+import AdvancedFilters from "modules/AdvancedFilters";
 
 const ClientList = ({ actions, ...props }) => {
   useEffect(() => {
