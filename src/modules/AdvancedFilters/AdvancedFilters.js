@@ -1,7 +1,4 @@
 import React, {useState} from "react";
-import { connect } from "react-redux";
-import {bindActionCreators, compose} from "redux";
-import {injectIntl} from "react-intl";
 import PropTypes from "prop-types";
 import { find } from "lodash";
 
@@ -10,9 +7,8 @@ import {Chip, Fade, Paper} from "@material-ui/core";
 import _ from 'lodash';
 
 import GenericForm from "modules/GenericForm";
-import {getFilters, getValueByKey} from "redux/advancedFilters/selectors";
-import {add, reset} from "redux/advancedFilters";
 
+import "./styles.scss";
 
 const AdvancedFilters = ({actions, filters, getValueByKey, fields = [], ...props}) => {
   const [showMore, setShowMore] = useState(false);
@@ -90,24 +86,4 @@ AdvancedFilters.propTypes = {
   handleSearch: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state, props) => {
-  return {
-    filters: getFilters(state),
-    getValueByKey: getValueByKey(state)
-  };
-};
-
-const mapDispatchToProps = (dispatch, props) => {
-  const actions = {
-    setFilters: bindActionCreators(add, dispatch),
-    resetFilters: bindActionCreators(reset, dispatch)
-  };
-  return { actions };
-};
-
-const component = compose(
-  injectIntl,
-  connect(mapStateToProps,mapDispatchToProps)
-)(AdvancedFilters);
-
-export default component;
+export default AdvancedFilters;

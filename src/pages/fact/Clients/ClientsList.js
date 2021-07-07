@@ -1,14 +1,14 @@
 import React, { useEffect,useState} from "react";
-import * as API from "../../../redux/api";
-import ReactGrid from "../../../modules/ReactGrid";
+import * as API from "redux/api";
+import ReactGrid from "modules/ReactGrid";
 import { bindActionCreators, compose } from "redux";
 import {
   setBreadcrumbHeader,
   setListingConfig,
-} from "../../../redux/pageHeader";
+} from "redux/pageHeader";
 import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
-import AdvancedFilters from "./AdvancedFilters";
+import AdvancedFilters from "modules/AdvancedFilters";
 
 const ClientList = ({ actions, ...props }) => {
   useEffect(() => {
