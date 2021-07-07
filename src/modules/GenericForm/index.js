@@ -102,7 +102,6 @@ const GenericForm = ({loading, ...props}) => {
   }
 
   const handleIsValid = (formik) => {
-    console.log(formik.isValid, formik.errors, formik.values)
     props.handleIsValid && props.handleIsValid(formik.isValid);
   }
 
