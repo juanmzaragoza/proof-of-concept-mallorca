@@ -17,7 +17,6 @@ import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 
-
 import { useTabForm } from "../../../hooks/tab-form";
 
 const CUSTOMER_SECTION_INDEX = 0;
@@ -31,7 +30,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     setIsValid: props.setIsValid,
   });
-
 
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
@@ -49,7 +47,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     id: "Comun.nombre",
     defaultMessage: "Nombre",
   });
-  
 
   const getString = (key) => (getFormData(key) ? getFormData(key) : "");
 
@@ -109,7 +106,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "codiPostal",
-      id:'codigosPostales',
+      id: "codigosPostales",
       breakpoints: {
         xs: 12,
         md: md,
@@ -130,7 +127,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
             }),
             type: "LOV",
             key: "pais",
-            id:'paises',
+            id: "paises",
             required: false,
             breakpoints: {
               xs: 12,
@@ -156,7 +153,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
             }),
             type: "LOV",
             key: "provincia",
-            id:'provincias',
+            id: "provincias",
             required: false,
             breakpoints: {
               xs: 12,
@@ -230,17 +227,16 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       type: "input",
       key: "codi",
       noEditable: true,
-      required:true,
+      required: true,
       breakpoints: {
         xs: 12,
         md: 2,
       },
       validationType: "string",
-      validation: [
-        ...props.commonValidations.requiredValidation(),
+
+      ...withRequiredValidation([
         ...props.stringValidations.minMaxValidation(1, 6),
-       
-      ],
+      ]),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -286,7 +282,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "paisNif",
-      id: 'paisesNif',
+      id: "paisesNif",
       breakpoints: {
         xs: 12,
         md: 3,
@@ -359,7 +355,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "string",
-      validation: [...props.stringValidations.minMaxValidation(8, 11)],
+      validations: [...props.stringValidations.minMaxValidation(8, 11)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -367,7 +363,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Contraseña",
       }),
       type: "input",
-      required:true,
+      required: true,
       key: "password",
 
       breakpoints: {
@@ -386,7 +382,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       type: "LOV",
       key: "familiaClient",
       required: true,
-      id:'familiaClients',
+      id: "familiaClients",
       breakpoints: {
         xs: 12,
         md: 3,
@@ -398,7 +394,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndName,
       },
-
+      validationType: "object",
+      ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -407,7 +404,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "tipusFacturacio",
-      id:'tipusFacturacions',
+      id: "tipusFacturacions",
       required: true,
       breakpoints: {
         xs: 12,
@@ -420,7 +417,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         creationComponents: [...codeAndDescription(6, 6)],
         advancedSearchColumns: aSCodeAndDescription,
       },
-
+      validationType: "object",
+      ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -429,7 +427,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "documentPagament",
-      id:"documentPagamentCobraments",
+      id: "documentPagamentCobraments",
       required: true,
       breakpoints: {
         xs: 12,
@@ -442,6 +440,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndDescription,
         creationComponents: [...codeAndDescription(6, 6)],
       },
+      validationType: "object",
+      ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -450,7 +450,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "tipusVenciment",
-      id:'tipusVenciments',
+      id: "tipusVenciments",
       required: true,
       breakpoints: {
         xs: 12,
@@ -498,6 +498,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         ],
         advancedSearchColumns: aSCodeAndDescription,
       },
+      validationType: "object",
+      ...withRequiredValidation(),
     },
 
     {
@@ -507,7 +509,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "regimIva",
-      id:'regimIvas',
+      id: "regimIvas",
       required: true,
       breakpoints: {
         xs: 12,
@@ -627,6 +629,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           },
         ],
       },
+      validationType: "object",
+      ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -635,7 +639,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "ives",
-      id:'iva',
+      id: "iva",
       breakpoints: {
         xs: 12,
         md: 3,
@@ -764,7 +768,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
             validationType: "string",
             validations: [...props.stringValidations.minMaxValidation(1, 12)],
           },
-         
         ],
       },
     },
@@ -775,7 +778,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "idioma",
-      id:'idiomes',
+      id: "idiomes",
       breakpoints: {
         xs: 12,
         md: 3,
@@ -792,24 +795,24 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const addressConfig = [
     {
-        placeHolder: props.intl.formatMessage({
-          id: "Presupuestos.tipodireccion",
-          defaultMessage: "Tipo direcciñon",
-        }),
-        type: "LOV",
-        key: "tipusAdresa",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-        selector: {
-          key: "tipusAdresas",
-          labelKey: formatCodeAndDescription,
-          sort: "descripcio",
-          creationComponents: codeAndDescription(),
-          advancedSearchColumns: aSCodeAndDescription,
-        },
+      placeHolder: props.intl.formatMessage({
+        id: "Presupuestos.tipodireccion",
+        defaultMessage: "Tipo direcciñon",
+      }),
+      type: "LOV",
+      key: "tipusAdresa",
+      breakpoints: {
+        xs: 12,
+        md: 2,
       },
+      selector: {
+        key: "tipusAdresas",
+        labelKey: formatCodeAndDescription,
+        sort: "descripcio",
+        creationComponents: codeAndDescription(),
+        advancedSearchColumns: aSCodeAndDescription,
+      },
+    },
     {
       placeHolder: DOMICILI,
       type: "input",

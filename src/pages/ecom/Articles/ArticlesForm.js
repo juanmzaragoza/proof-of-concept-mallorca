@@ -108,7 +108,7 @@ const ArticlesForm = React.memo(({ actions, allFormData, getFormData, submitFrom
       ...getTranslations("Articulos.tabs.traducciones","Traduciones"),
       key: TRADUC_TAB_INDEX,
       component: <TranslationTab
-        setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [ARTICLE_TAB_INDEX]: !value})}
+        setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [TRADUC_TAB_INDEX]: !value})}
         editMode={editMode}
         getFormData={getFormData}
         setFormData={actions.setFormData}

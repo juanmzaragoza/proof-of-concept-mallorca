@@ -228,7 +228,7 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "string",
-      validation: [
+      validations: [
         ...props.stringValidations.minMaxValidation(1,6),
         ...props.stringValidations.fieldExistsValidation('projectes', 'codi', props.intl.formatMessage({
           id: "Comun.codigo",
@@ -360,6 +360,8 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
           },
         ],
       },
+      validationType:"object",
+      ...withRequiredValidation()
   
     },
 

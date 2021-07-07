@@ -77,7 +77,7 @@ const TranslationTab = ({formData, setFormData, getFormData, ...props}) => {
         noEditable: true,
         breakpoints: {
           xs: 12,
-          md: 4,
+          md: 3,
         },
         selector: {
             key: 'idiomas',
@@ -98,9 +98,12 @@ const TranslationTab = ({formData, setFormData, getFormData, ...props}) => {
   
         breakpoints: {
           xs: 12,
-          md: 4,
+          md: 9,
         },
         validationType: "string",
+        text:{
+          multiline: 10,
+        }
     
       },
     ],

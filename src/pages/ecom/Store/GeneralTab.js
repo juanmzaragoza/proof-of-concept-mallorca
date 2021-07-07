@@ -282,7 +282,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndName,
       },
       validationType: "object",
-      validation: [...props.commonValidations.requiredValidation()],
+      validations: [...props.commonValidations.requiredValidation()],
     },
     {
       placeHolder: props.intl.formatMessage({

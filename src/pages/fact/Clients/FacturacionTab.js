@@ -57,15 +57,6 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
     { title: NOM, name: "nom" },
   ];
 
-  const getString = (key) => (getFormData(key) ? getFormData(key) : "");
-  useEffect(() => {
-    const tipusVenc = getString("tipusVenciments");
-    setFormData({
-      key: "tipusVencimentCodi",
-      value: tipusVenc ? tipusVenc.codi : "",
-    });
-  }, [getFormData("tipusVenciments")]);
-
 
 
   const code = (md = 6) => ({
@@ -354,8 +345,7 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Tipo Vencimiento",
       }),
       type: "LOV",
-      key: "tipusVenciments",
-      id:"tipusVencimentCodi",
+      key: "tipusVencimentCodi",
       required: true,
       breakpoints: {
         xs: 12,
@@ -365,6 +355,7 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "tipusVenciments",
         labelKey: formatCodeAndDescription,
         sort: "descripcio",
+        cannotCreate: true,
         creationComponents: [
           {
             type: "input",
@@ -402,7 +393,13 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
           },
         ],
         advancedSearchColumns: aSCodeAndDescription,
+        transform: {
+          apply: (tipusVenciments) => tipusVenciments && tipusVenciments.codi,
+          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+        }
       },
+      validationType: "object",
+      ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({

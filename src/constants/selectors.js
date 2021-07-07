@@ -51,25 +51,29 @@ export const PAISNIF_SELECTOR_VALUES = [
 ];
 
 export const CONTABILIDAD_SELECTOR_VALUES = [
-  { value: "NO_TRACTAR", labelId: "NO_TRACTAR", label: "NO TRATAR" },
-  { value: "ALTA", labelId: "ALTA", label: "ALTA" },
+  { value: "NO_TRACTAR", labelId: "Selector.no_tratar", label: "NO TRATAR" },
+  { value: "ALTA", labelId: "Selector.alta", label: "ALTA" },
   {
     value: "ALTA_MODIFICACIO",
-    labelId: "ALTA_MODIFICACIO",
+    labelId: "Selector.alta_modificacion",
     label: "ALTA MODIFICACIÓN",
   },
   {
     value: "TRACTAR_EN_TRASPASSOS_FACTURA",
-    labelId: "TRACTAR_EN_TRASPASSOS_FACTURA",
+    labelId: "Selector.tratarTranspasos",
     label: "TRATAR EN TRASPASOS FACTURA",
   },
 ];
 
 export const FACT_TIPO_SELECTOR_VALUES = [
-  { value: "PRESSUPOST", labelId: "Selector.PRESSUPOST", label: "Presupuesto" },
+  {
+    value: "PRESSUPOST",
+    labelId: "Selector.presupuesto",
+    label: "Presupuesto",
+  },
   {
     value: "ADMINISTRACIO",
-    labelId: "Selector.ADMINISTRACIO",
+    labelId: "Selector.administracion",
     label: "Administración",
   },
 ];
@@ -383,6 +387,24 @@ export const TIPO_MES_SELECTOR_VALUES = [
   },
 ];
 
+export const TIPO_REGISTRO_COMERCIAL_SELECTOR_VALUES = [
+  {
+    value: "CRIDADA",
+    labelId: "Selector.llamada",
+    label: "Llamada",
+  },
+  {
+    value: "CORREU",
+    labelId: "Selector.correo",
+    label: "Correo",
+  },
+  {
+    value: "VISITA_PRESENCIAL",
+    labelId: "Selector.visitaPresencial",
+    label: "Visita Presencial",
+  }
+];
+
 export const TIPO_ENUM_PUNT_VENTA_VALUES = [
   {
     value: "DIARIA",
@@ -497,6 +519,91 @@ export const TIPO_ESTADO_PROYECTO_SELECTOR_VALUES = [
 ];
 
 
+export const MEDIO_SELECTOR_VALUES = [
+  {
+    value: "WEB",
+    labelId: "Selector.web",
+    label: "Web de la empresa",
+  },
+  {
+    value: "CERCADOR",
+    labelId: "Selector.buscador",
+    label: "Buscador",
+  },
+  {
+    value: "CONEGUT",
+    labelId: "Selector.conocido",
+    label: "Conocido",
+  },
+  {
+    value: "FIRA",
+    labelId: "Selector.feria",
+    label: "Feria o acontecimiento",
+  },
+  {
+    value: "PUBLICITAT",
+    labelId: "Selector.publicidad",
+    label: "Publicidad",
+  },
+  {
+    value: "CONEIX_EMPRESA",
+    labelId: "Selector.conoceEmpresa",
+    label: "Interesado ya conoce la empresa",
+  },
+  {
+    value: "VISITA_COMERCIAL",
+    labelId: "Selector.visitaComercial",
+    label: "Visita comercial de la empresa",
+  },
+  {
+    value: "REUNIO_DE_TREBALL",
+    labelId: "Selector.reunionTrabajo",
+    label: "Reunión de trabajo",
+  },
+  {
+    value: "FORMACIO",
+    labelId: "Selector.formacion",
+    label: "Formación",
+  },
+  {
+    value: "ALTRES",
+    labelId: "Selector.otros",
+    label: "Otros",
+  }
+];
+
+export const AVISO_ALBARANES_CLIENTE_SELECTOR_VALUES = [
+  {
+    value: "NO_AVISAR",
+    labelId: "Selector.noAvisar",
+    label: "No avisar",
+  },
+  {
+    value: "SI_ES_MES_DE_LO_PRESSUPOSTAT",
+    labelId: "Selector.siEsMasPresupuesto",
+    label: "Si es más de lo presupuesto",
+  },
+  {
+    value: "SI_NO_ES_LO_PRESSUPOSTAT",
+    labelId: "Selector.siNoEsLoPresupuesto",
+    label: "Si no es lo presupuesto",
+  }
+];
+
+export const TIPO_FAMILIA_ARTICULO_SELECTOR_VALUES = [
+  {
+    value: "MATERIAL",
+    labelId: "Selector.material",
+    label: "Material",
+  },
+  {
+    value: "MA_OBRA",
+    labelId: "Selector.manoObra",
+    label: "Mano de obra",
+  }
+];
+
+
 export const TIPO_DIR_COMERCIALES_SELECTOR_VALUES = [
   {
     value: "S",
@@ -508,11 +615,7 @@ export const TIPO_DIR_COMERCIALES_SELECTOR_VALUES = [
     labelId: "Comun.no",
     label: "No",
   },
-
 ];
-
-
-
 
 export const TIPO_EJECUCION_PROYECTO_SELECTOR_VALUES = [
   {
@@ -538,4 +641,98 @@ export const TIPO_EJECUCION_PROYECTO_SELECTOR_VALUES = [
 ];
 
 
+export const TIPO_SERVEI_FAMILIA_ARTICULO_SELECTOR_VALUES = [
+  {
+    value: "OBRA_SERVEI",
+    labelId: "Selector.obraServicio",
+    label: "Obra_Servicio",
+  },
+  {
+    value: "TALLER",
+    labelId: "Selector.taller",
+    label: "Taller",
+  }
+];
 
+export const FACTURA_RECTIFICATIVA_SELECTOR_VALUES = [
+  {
+    value: "NO",
+    labelId: "Selector.no",
+    label: "No",
+  },
+  {
+    value: "SI",
+    labelId: "Selector.si",
+    label: "Si",
+  },
+  {
+    value: "MULTIPLE",
+    labelId: "Selector.multiple",
+    label: "Múltiple",
+  }
+];
+
+export const TIPO_TARIFA_SELECTOR_VALUES = [
+  {
+    value: "TARIFA_GENERAL_SOBRE_COST",
+    labelId: "Selector.tarifaGeneralSobreCoste",
+    label: "Tarifa general sobre coste",
+  },
+  {
+    value: "TARIFA_GENERAL_SOBRE_PVP",
+    labelId: "Selector.tarifaGeneralSobrePvp",
+    label: "Tarifa general sobre PVP",
+  },
+  {
+    value: "tarifaParticularSobreCoste",
+    labelId: "Selector.tarifaGeneralSobrePvp",
+    label: "Tarifa particular sobre coste",
+  },
+  {
+    value: "TARIFA_PARTICULAR_SOBRE_PVP",
+    labelId: "Selector.tarifaParticularSobrePvp",
+    label: "Tarifa particular sobre PVP",
+  }
+];
+
+export const FORMA_CALCULO_SELECTOR_VALUES = [
+  {
+    value: "COST",
+    labelId: "Selector.coste",
+    label: "Coste",
+  },
+  {
+    value: "VENDA",
+    labelId: "Selector.venta",
+    label: "Venta",
+  }
+];
+
+
+export const VALORACION_INVENTARIO_TRABAJO_SELECTOR_VALUES = [
+  {
+    value: "PREU_MITJA_COST_GLOBAL",
+    labelId: "Almacen.select.precioMedioCosteGlobal",
+    label: "Precio medio coste global",
+  },
+  {
+    value: "ULTIM_PREU_DE_COST",
+    labelId: "Almacen.select.ultimoPrecioCoste",
+    label: "Último precio de coste",
+  },
+  {
+    value: "PREU_MITJA_COST_EXISTENCIA",
+    labelId: "Almacen.select.precioMedioCosteExistencia",
+    label: "Precio medio coste de existencia",
+  },
+  {
+    value: "PREU_COMPRA_TEORIC_DE_ARTICLE",
+    labelId: "Almacen.select.precioCompraTeoricoArticulo",
+    label: "Precio compra teórico de artículo",
+  },
+  {
+    value: "PREU_COST_TEORIC_DE_ARTICLE",
+    labelId: "Almacen.select.precioCosteTeoricoArticulo",
+    label: "Precio coste teórico de artículo",
+  }
+];

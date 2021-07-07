@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import NumberFormat from "react-number-format";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 
 const NumberFormatCustom = (props) => {
+  const [enableChanges, setEnableChanges] = useState(false);
   const { inputRef, onChange, ...other } = props;
 
   return (
@@ -11,8 +12,12 @@ const NumberFormatCustom = (props) => {
       {...other}
       style={{ textAlign: 'right' }}
       getInputRef={inputRef}
+      onFocus={e => {
+        // Fix to enable changes only when the user inputs a value
+        setEnableChanges(true);
+      }}
       onValueChange={values => {
-        onChange({
+        enableChanges && onChange({
           target: {
             name: props.name,
             value: values.value
@@ -39,7 +44,7 @@ const Numeric = ({ id,
 
   return <TextField
     id={id}
-    namee={id}
+    name={id}
     variant={variant}
     size={size}
     onChange={handleChange}

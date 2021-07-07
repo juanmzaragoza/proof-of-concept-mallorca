@@ -18,6 +18,11 @@ const DocumentFooterTab = ({formData, setFormData, getFormData, ...props}) => {
   const [ touched, handleTouched, addValidity, formIsValid ] 
   = useTabForm({fields: {[CREATE_SECTION_INDEX]: false, [CHECKBOX_SECTION_TAB_INDEX]:false, [FAMILY_CLIENTS_SUPPLIERS_SECTION_TAB_INDEX]:false}, setIsValid: props.setIsValid});
 
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  }); 
+
   const createConfiguration = [
     {
       placeHolder: props.intl.formatMessage({
@@ -35,7 +40,8 @@ const DocumentFooterTab = ({formData, setFormData, getFormData, ...props}) => {
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 4)
+        ...props.stringValidations.minMaxValidation(1, 4),
+        ...props.stringValidations.fieldExistsValidation('peusDocument', 'codi', CODE)
       ]
     },
     {

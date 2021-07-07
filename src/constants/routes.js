@@ -20,6 +20,13 @@ export const DOCUMENT_FOOTER_FACT_URL = '/fact/pies-documento';
 export const PROJECT_TYPE_FACT_URL = '/fact/tipo-proyecto';
 export const COMPANY_ACCOUNTING_ACCOUNTS_FACT_URL = '/fact/cuentas-contables-empresas';
 
+export const COMMERCIAL_REGISTER_FACT_URL = '/fact/registros-comerciales';
+export const GAMA_FACT_URL = '/fact/articulos-gama';
+export const BRAND_FACT_URL = '/fact/articulos-marca';
+export const MODEL_FACT_URL = '/fact/articulos-modelo';
+export const COMMISION_TYPE_FACT_URL = '/fact/tipo-comision';
+export const UNIT_TYPE_FACT_URL = '/fact/tipo-unidad';
+
 export const BUDGET_ECOM_URL = "/ecom/presupuestos";
 export const ARTICLES_ECOM_URL = '/ecom/articulos';
 export const ART_FAMILIA_ECOM_URL =  '/ecom/familia-articulos';
@@ -42,4 +49,13 @@ export const CLIENT_FAMILY_ECOM_URL = '/ecom/familia-clientes';
 export const STORE_ECOM_URL = '/ecom/almacenes';
 export const POINT_SALE_ECOM_URL = '/ecom/punto-ventas';
 
+export const COMPANY_FACT_URL = '/fact/empresas';
 
+
+export const ITEM_FAMILY_FACT_URL = '/fact/article-familia';
+export const FAMILY_COSTS_FACT_URL = '/fact/familia-costes';
+
+export const RATES_FACT_URL = '/fact/tarifes';
+
+export const LOCATION_FACT_URL = '/fact/ubicacion';
+export const ARTICLES_LOCATION_FACT_URL = '/fact/articulo-ubicacion';

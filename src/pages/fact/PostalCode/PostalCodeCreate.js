@@ -153,7 +153,7 @@ const PostalCodeCreate = (props) => {
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 4)
+        ...props.stringValidations.minMaxValidation(1, 4),
       ]
     },
     {
@@ -217,6 +217,7 @@ const PostalCodeCreate = (props) => {
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 99999999),
+        ...props.stringValidations.fieldExistsValidation('codiPostal', 'codi', CODE)
       ],
     },
     {
