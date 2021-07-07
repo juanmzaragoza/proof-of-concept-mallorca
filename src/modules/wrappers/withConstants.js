@@ -541,6 +541,12 @@ const withConstants = (PassedComponent) => {
         icon: <ShoppingBasketIcon />,
         children: [
           {
+            key: 'FAC_ARTICL', // not mandatory for routes with children
+            title: props.intl.formatMessage({id: "Articulos.titulo",defaultMessage: "Artículos"}),
+            path: 'FAC_ARTICL', // or has path or has children but not both
+            icon: <LocalMall />
+          },
+          {
             key: 'FAC_FAMART', // not mandatory for routes with children
             title: props.intl.formatMessage({id: "FamiliaArticulos.titulo",defaultMessage: "Familia de Artículos"}),
             path: 'FAC_FAMART', // or has path or has children but not both
