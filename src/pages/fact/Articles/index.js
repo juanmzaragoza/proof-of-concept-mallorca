@@ -31,7 +31,7 @@ const ArticlesListIntl = compose(
 
 // suppliers form
 // TODO(): maybe we can create a state for the page and set the url there
-const ArticlesFormWithUrl = () => < ArticlesForm url={API.articlesFact} />;
+const ArticlesFormWithUrl = () => <ArticlesForm url={API.articlesFact} />;
 
 
 const Articles= () => (

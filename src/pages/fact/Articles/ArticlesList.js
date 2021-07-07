@@ -115,7 +115,7 @@ const ArticlesList = ({ actions, ...props }) => {
         defaultMessage: "Modelo",
       }),
       type: "LOV",
-      key: "model.codi",
+      key: "model",
       id: "articlesModel",
       required: false,
       breakpoints: {
@@ -128,10 +128,6 @@ const ArticlesList = ({ actions, ...props }) => {
         sort: "codi",
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndDescription,
-        transform: {
-          apply: (model) => model && model.codi,
-          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-        }      
       },
     },
   ];
