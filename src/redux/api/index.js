@@ -154,3 +154,6 @@ export const ubicacios = 'api/fact/ubicacions';
 export const ubicacioArticles = 'api/fact/ubicacionsArticle';
 
 export const articlesFact = 'api/fact/articles';
+export const facturas = `api/fact/factures`;
+export const pressupostCodi = `api/fact/pressupostos`;
+export const operariCodi = `api/rrhh/operaris`;

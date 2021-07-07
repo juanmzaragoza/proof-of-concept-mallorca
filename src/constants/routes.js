@@ -59,3 +59,4 @@ export const RATES_FACT_URL = '/fact/tarifes';
 
 export const LOCATION_FACT_URL = '/fact/ubicacion';
 export const ARTICLES_LOCATION_FACT_URL = '/fact/articulo-ubicacion';
+export const INVOICE_FACT_URL = '/fact/facturas';

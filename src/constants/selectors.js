@@ -736,3 +736,37 @@ export const VALORACION_INVENTARIO_TRABAJO_SELECTOR_VALUES = [
     label: "Precio coste teórico de artículo",
   }
 ];
+
+
+export const FORMA_PAGO_FACT_SELECTOR_VALUES =[
+  {
+    value: "PLAZO",
+    labelId: "Selector.aPlazos",
+    label: "A plazos",
+  },
+  {
+    value: "CONTADO",
+    labelId: "Selector.alContado",
+    label: "Al contado",
+  },
+];
+
+
+export const TIPO_RETENCION3_SELECTOR_VALUES = [
+
+  {
+    value: "DESPUES_BASE",
+    labelId: "Selector.despuesBaseImp",
+    label: "Después de base imponible",
+  },
+  {
+    value: "SOBRE_BASE_MASIVA",
+    labelId: "Selector.baseIva",
+    label: "Sobre base IVA",
+  },
+  {
+    value: "ANTES_BASE",
+    labelId: "Selector.antesBaseImp",
+    label: "Antes de base imponible",
+  },
+];
