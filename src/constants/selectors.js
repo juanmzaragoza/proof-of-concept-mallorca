@@ -729,3 +729,44 @@ export const VALORACION_INVENTARIO_TRABAJO_SELECTOR_VALUES = [
     label: "Precio coste teórico de artículo",
   }
 ];
+
+export const RAPPEL_SELECTOR_VALUES = [
+  {
+    value: "NO",
+    labelId: "Articulos.precio.select.no",
+    label: "No",
+  },
+  {
+    value: "ALBARA_TIPUS_0",
+    labelId: "Articulos.precio.select.albaranTipo0",
+    label: "Albaran tipo 0",
+  },
+  {
+    value: "ALBARA_TIPUS_1",
+    labelId: "Articulos.precio.select.albaranTipo1",
+    label: "Albaran tipo 1",
+  },
+  {
+    value: "ALBARA_TIPUS_0_Y_1",
+    labelId: "Articulos.precio.select.albaranTipo0Y1",
+    label: "Albaran tipo 0 y 1",
+  },
+];
+
+export const TIPO_RAPPEL_SELECTOR_VALUES = [
+  {
+    value: "PER_UNITATS",
+    labelId: "Articulos.precio.select.porUnidades",
+    label: "Por unidades",
+  },
+  {
+    value: "PER_IMPORTS",
+    labelId: "Almacen.precio.select.porImportes",
+    label: "Por importes",
+  },
+  {
+    value: "PER_MARGE",
+    labelId: "Almacen.precio.select.porMargen",
+    label: "Por margen",
+  }
+];

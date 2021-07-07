@@ -10,7 +10,7 @@ import { withValidations } from "modules/wrappers";
 import { useTabForm } from "hooks/tab-form";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import ExpandableGrid from "modules/ExpandableGrid";
-import { TIPO_MENSAJE_SELECTOR_VALUES } from "constants/selectors";
+import { RAPPEL_SELECTOR_VALUES, TIPO_RAPPEL_SELECTOR_VALUES } from "constants/selectors";
 
 const PRECIO_SECTION_INDEX = 0;
 const DESCUENTOS_SECTION_INDEX = 1;
@@ -176,7 +176,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
             },
           },
         ],
-        advancedSearchColumns: aSCodeAndPoblacio,
+        advancedSearchColumns: aSCodeAndDescription,
       },
     },
   ];
@@ -303,7 +303,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
     {
       placeHolder: props.intl.formatMessage({
         id: "Articulos.precio.pvp",
-        defaultMessage: "Precio con IVA"
+        defaultMessage: "P.V.P"
       }),
       type: 'input',
       key: 'pvpFact',
@@ -316,11 +316,23 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
     ...iva(2),
     {
       placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.precioCosteIva",
+        defaultMessage: "Precio con IVA"
+      }),
+      type: 'input',
+      key: 'pvpFact',
+      breakpoints: {
+        xs: 12,
+        md: 2
+      },
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
         id: "Articulos.precio.precioCosteExistencias",
         defaultMessage: "Precio coste existencias"
       }),
       type: 'input',
-      disabled: true,
       key: 'preuCostExistencies',
       breakpoints: {
         xs: 12,
@@ -328,282 +340,413 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       validationType: "number",
     },
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     {
       placeHolder: props.intl.formatMessage({
-        id: "Articulos.precio.margen",
-        defaultMessage: "Tipo Mensaje"
-      }),
-      type: 'select',
-      key: 'tipusMissatge',
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 2
-      },
-      selector: {
-        options: TIPO_MENSAJE_SELECTOR_VALUES,
-       
-      },
-     
-      validationType: "string",
-      ...withRequiredValidation(),
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.contacto.latitud",
-        defaultMessage: "Lazonatitud"
+        id: "Articulos.precio.precioMin",
+        defaultMessage: "Precio mínimo"
       }),
       type: 'input',
-      key: 'latitud',
+      disabled: true,
+      key: 'preuMin',
       breakpoints: {
         xs: 12,
         md: 2
       },
-      validationType: "string",
-      validations: props.stringValidations.minMaxValidation(1, 60)
+      validationType: "number",
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.contacto.longitud",
-        defaultMessage: "Longitud"
+        id: "Articulos.precio.dtoMaxProFix",
+        defaultMessage: "Descuento máximo proveedor ( fijo )"
       }),
       type: 'input',
-      key: 'longitud',
+      disabled: true,
+      key: 'dteMaxProvFix',
+      breakpoints: {
+        xs: 12,
+        md: 3
+      },
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.dtoMaxProTemp",
+        defaultMessage: "Descuento máximo proveedor ( temporal )"
+      }),
+      type: 'input',
+      disabled: true,
+      key: 'dteMaxProvTemp',
+      breakpoints: {
+        xs: 12,
+        md: 3
+      },
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.puntoVerde",
+        defaultMessage: "Punto verde"
+      }),
+      type: 'input',
+      disabled: true,
+      key: 'puntVerd',
       breakpoints: {
         xs: 12,
         md: 2
       },
-      validationType: "string",
-      validations: props.stringValidations.minMaxValidation(1, 15)
+      validationType: "number",
     },
-  
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.impuestosIncluidos",
+        defaultMessage: "Impuestos incluidos"
+      }),
+      type: 'checkbox',
+      disabled: true,
+      key: 'impostosIncl',
+      breakpoints: {
+        xs: 12,
+        md: 2
+      },
+    },
   ];
 
   const descuentos = [
     {
       placeHolder: props.intl.formatMessage({
-        id: "Retenciones.cuentaCompras",
-        defaultMessage: "Cuenta compras",
+        id: "Articulos.precio.dte1",
+        defaultMessage: "Descuento 1",
       }),
       type: "input",
-      key: "compteCompres",
+      key: "dte1",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 2,
       },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 10)],
+      validationType: "number",
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.cuenta.ventas",
-        defaultMessage: "Cuenta ventas",
+        id: "Articulos.precio.dte2",
+        defaultMessage: "Descuento 2",
       }),
       type: "input",
-      key: "compteVendes",
+      key: "dte2",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 2,
       },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 10)],
+      validationType: "number",
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "FamiliaArticulos.cuentaExistencias",
-        defaultMessage: "Cuenta existencias",
+        id: "Articulos.precio.dte3",
+        defaultMessage: "Descuento 3",
       }),
       type: "input",
-      key: "compteExistencies",
+      key: "dte3",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 1,
       },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 10)],
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.dte4",
+        defaultMessage: "Descuento 4",
+      }),
+      type: "input",
+      key: "dte4",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.dte5",
+        defaultMessage: "Descuento 5",
+      }),
+      type: "input",
+      key: "dte5",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.pvpDescuento",
+        defaultMessage: "P.V.P con descuento",
+      }),
+      type: "input",
+      disabled: true,
+      key: "pvpDte",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.margen",
+        defaultMessage: "% Margen",
+      }),
+      type: "input",
+      disabled: true,
+      key: "margeDte",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.dte1Fab",
+        defaultMessage: "Dto 1 fabricante",
+      }),
+      type: "input",
+      key: "dte1Fab",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.dte2Fab",
+        defaultMessage: "Dto 2 fabricante",
+      }),
+      type: "input",
+      key: "dte2Fab",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.dte3Fab",
+        defaultMessage: "Dto 3 fabricante",
+      }),
+      type: "input",
+      key: "dte3Fab",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.dte4Fab",
+        defaultMessage: "Dto 4 fabricante",
+      }),
+      type: "input",
+      key: "dte4Fab",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.dte5Fab",
+        defaultMessage: "Dto 5 fabricante",
+      }),
+      type: "input",
+      key: "dte5Fab",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.pvpDescuentoFab",
+        defaultMessage: "P.V.P con dto fabricante",
+      }),
+      type: "input",
+      disabled: true,
+      key: "pvpDteFab",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.margen",
+        defaultMessage: "% Margen",
+      }),
+      type: "input",
+      disabled: true,
+      key: "margeDteFab",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
     },
   ];
 
   const rappel = [
     {
       placeHolder: props.intl.formatMessage({
-        id: "Retenciones.cuentaCompras",
-        defaultMessage: "Cuenta compras",
+        id: "Proveedores.Facturacion.rappel",
+        defaultMessage: "Rappel"
       }),
-      type: "input",
-      key: "compteCompres",
+      type: 'select',
+      key: 'rappel',
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3
+      },
+      selector: {
+        options: RAPPEL_SELECTOR_VALUES,
       },
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 10)],
+      ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.cuenta.ventas",
-        defaultMessage: "Cuenta ventas",
+        id: "Articulos.precio.valorRappel",
+        defaultMessage: "Valor Rappel",
       }),
       type: "input",
-      key: "compteVendes",
+      key: "valorRappel",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 10)],
+      validationType: "number",
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "FamiliaArticulos.cuentaExistencias",
-        defaultMessage: "Cuenta existencias",
+        id: "Articulos.precio.tipoRappel",
+        defaultMessage: "Tipo Rappel"
       }),
-      type: "input",
-      key: "compteExistencies",
+      type: 'select',
+      key: 'rappelTipus',
+      required: true,
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3
+      },
+      selector: {
+        options: TIPO_RAPPEL_SELECTOR_VALUES,
       },
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 10)],
+      ...withRequiredValidation(),
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.navegacionAutomatica",
+        defaultMessage: "Navegación automática",
+      }),
+      type: "checkbox",
+      key: "navegacioAutomatica",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
     },
   ];
 
-  const precioPorVolumen = {
-    title: TITLE,
-    query: [
-      {
-        columnName: 'client.id',
-        value: `"${clienteId}"`,
-        exact: true
-      }
-    ],
-    extraPostBody: {
-      client: { id: clienteId }
-    },
-    columns: [
-      { name: 'codi', title: CODE },
-      { name: 'nom', title: NOM },
-      { name: 'telefon1', title: TELEFON },
-      { name: 'email', title: EMAIL },
-      { name: 'domicili', title: DOMICILI },
-      { name: 'activitat', title: ACTIVIDAD },
+  // const precioPorVolumen = {
+  //   title: TITLE,
+  //   query: [
+  //     {
+  //       columnName: 'client.id',
+  //       value: `"${clienteId}"`,
+  //       exact: true
+  //     }
+  //   ],
+  //   extraPostBody: {
+  //     client: { id: clienteId }
+  //   },
+  //   columns: [
+  //     { name: 'codi', title: CODE },
+  //     { name: 'nom', title: NOM },
+  //     { name: 'telefon1', title: TELEFON },
+  //     { name: 'email', title: EMAIL },
+  //     { name: 'domicili', title: DOMICILI },
+  //     { name: 'activitat', title: ACTIVIDAD },
 
-    ],
-    formComponents: [
-      code(3),
-      {
-        placeHolder: NOM,
-        type: 'input',
-        key: 'nom',
-        required: true,
-        breakpoints: {
-          xs: 12,
-          md: 3
-        },
-        validationType: "string",
-        ...withRequiredValidation(),
-      },
-      {
-        placeHolder: TELEFON,
-        type: 'input',
-        key: 'telefon1',
-        breakpoints: {
-          xs: 12,
-          md: 3
-        },
-      },
-      {
-        placeHolder: EMAIL,
-        type: 'input',
-        key: 'email',
-        breakpoints: {
-          xs: 12,
-          md: 3
-        },
-      },
-      {
-        placeHolder: DOMICILI,
-        type: 'input',
-        key: 'domicili',
-        breakpoints: {
-          xs: 12,
-          md: 6
-        },
-      },
-      {
-        placeHolder: ACTIVIDAD,
-        type: 'input',
-        key: 'activitat',
-        breakpoints: {
-          xs: 12,
-          md: 3
-        },
-      },
-      ...codiPostal(3)
+  //   ],
+  //   formComponents: [
+  //     code(3),
+  //     {
+  //       placeHolder: NOM,
+  //       type: 'input',
+  //       key: 'nom',
+  //       required: true,
+  //       breakpoints: {
+  //         xs: 12,
+  //         md: 3
+  //       },
+  //       validationType: "string",
+  //       ...withRequiredValidation(),
+  //     },
+  //     {
+  //       placeHolder: TELEFON,
+  //       type: 'input',
+  //       key: 'telefon1',
+  //       breakpoints: {
+  //         xs: 12,
+  //         md: 3
+  //       },
+  //     },
+  //     {
+  //       placeHolder: EMAIL,
+  //       type: 'input',
+  //       key: 'email',
+  //       breakpoints: {
+  //         xs: 12,
+  //         md: 3
+  //       },
+  //     },
+  //     {
+  //       placeHolder: DOMICILI,
+  //       type: 'input',
+  //       key: 'domicili',
+  //       breakpoints: {
+  //         xs: 12,
+  //         md: 6
+  //       },
+  //     },
+  //     {
+  //       placeHolder: ACTIVIDAD,
+  //       type: 'input',
+  //       key: 'activitat',
+  //       breakpoints: {
+  //         xs: 12,
+  //         md: 3
+  //       },
+  //     },
+  //     ...codiPostal(3)
 
 
 
-    ]
-  };
+  //   ]
+  // };
 
   const tabs = [
     {
       className: "general-tab-subtab",
-      label: <FormattedMessage id={"Articulos.categorias"} defaultMessage={"Categorías"}/>,
+      label: <FormattedMessage id={"Clientes.descuentos"} defaultMessage={"Descuentos"}/>,
       key: 0,
-      component: <GenericForm formComponents={categoria}
+      component: <GenericForm formComponents={descuentos}
                               emptyPaper={true}
                               setFormData={setFormData}
                               getFormData={getFormData}
@@ -611,15 +754,15 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
                               formErrors={props.formErrors}
                               submitFromOutside={props.submitFromOutside}
                               onSubmit={() => props.onSubmitTab(formData)}
-                              handleIsValid={value => addValidity(CATEGORIAS_SECTION_TAB_INDEX,value)}
-                              onBlur={(e) => handleTouched(CATEGORIAS_SECTION_TAB_INDEX)}
+                              handleIsValid={value => addValidity(DESCUENTOS_SECTION_INDEX,value)}
+                              onBlur={(e) => handleTouched(DESCUENTOS_SECTION_INDEX)}
                               {...props} />
     },
     {
       className: "general-tab-subtab",
-      label: <FormattedMessage id={"Articulos.alternativos"} defaultMessage={"Alternativos"}/>,
+      label: <FormattedMessage id={"Clientes.fact.rappel"} defaultMessage={"Rappel"}/>,
       key: 1,
-      component: <GenericForm formComponents={alternativo}
+      component: <GenericForm formComponents={rappel}
                               emptyPaper={true}
                               setFormData={setFormData}
                               getFormData={getFormData}
@@ -627,26 +770,26 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
                               formErrors={props.formErrors}
                               submitFromOutside={props.submitFromOutside}
                               onSubmit={() => props.onSubmitTab(formData)}
-                              handleIsValid={value => addValidity(ALTERNATIVO_SECTION_TAB_INDEX,value)}
-                              onBlur={(e) => handleTouched(ALTERNATIVO_SECTION_TAB_INDEX)}
+                              handleIsValid={value => addValidity(RAPPEL_SECTION_INDEX,value)}
+                              onBlur={(e) => handleTouched(RAPPEL_SECTION_INDEX)}
                               {...props} />
     },
-    {
-      className: "general-tab-subtab",
-      label: <FormattedMessage id={"Articulos.contabilidad"} defaultMessage={"Contabilidad"}/>,
-      key: 2,
-      component: <GenericForm formComponents={contabilidad}
-                              emptyPaper={true}
-                              setFormData={setFormData}
-                              getFormData={getFormData}
-                              loading={props.loading}
-                              formErrors={props.formErrors}
-                              submitFromOutside={props.submitFromOutside}
-                              onSubmit={() => props.onSubmitTab(formData)}
-                              handleIsValid={value => addValidity(CONTABILIDAD_SECTION_TAB_INDEX,value)}
-                              onBlur={(e) => handleTouched(CONTABILIDAD_SECTION_TAB_INDEX)}
-                              {...props} />
-    },
+    // {
+    //   className: "general-tab-subtab",
+    //   label: <FormattedMessage id={"Articulos.precio.precioPorVolumen"} defaultMessage={"Precio por volumen"}/>,
+    //   key: 2,
+    //   component: <GenericForm formComponents={precioPorVolumen}
+    //                           emptyPaper={true}
+    //                           setFormData={setFormData}
+    //                           getFormData={getFormData}
+    //                           loading={props.loading}
+    //                           formErrors={props.formErrors}
+    //                           submitFromOutside={props.submitFromOutside}
+    //                           onSubmit={() => props.onSubmitTab(formData)}
+    //                           handleIsValid={value => addValidity(PRECIO_VOLUMEN_SECTION_INDEX,value)}
+    //                           onBlur={(e) => handleTouched(PRECIO_VOLUMEN_SECTION_INDEX)}
+    //                           {...props} />
+    // },
   ];
 
   return (
