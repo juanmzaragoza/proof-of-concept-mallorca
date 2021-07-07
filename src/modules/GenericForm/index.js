@@ -225,6 +225,7 @@ const GenericForm = ({loading, ...props}) => {
             onChange={(e,v,r) => {
               e.stopPropagation();
               handleChange(e, v);
+              key === "client" && console.log(key, id, identification)
               formik.setFieldValue(key,v);
             }}
             value={props.getFormData && props.getFormData(key)? props.getFormData(key) : null}
@@ -337,7 +338,7 @@ const GenericForm = ({loading, ...props}) => {
   } = props;
 
   // frontend validation
-  const yepSchema = formComponents.map(({key,...component}) => ({id: key, ...component})).reduce(createYupSchema, {});
+  const yepSchema = formComponents.map(({key, ...component}) => ({...component, id: key})).reduce(createYupSchema, {});
   const validateSchema = yup.object().shape(yepSchema);
 
   const OnRenderedComponent = ({formik}) => {
