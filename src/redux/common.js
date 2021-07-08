@@ -14,6 +14,6 @@ export const getFormedURL = ({id, size, page, sorting = [], search, query = []})
   const sort = `&sort=${sorting.length > 0? sorting.map(({ columnName, direction }) => `${columnName}${!direction? "":`,${direction}`}`).join(';'):"codi"}`;
   const quickFilter = search && search !== "" ? `&quickFilter=${search}` : "";
   const searchQuery = buildQuery({ query });
-  const URL = `${API[id]}?size=${size}${pagination}${sort}${quickFilter}${searchQuery.length && `&${searchQuery}`}`;
+  const URL = `${API[id]}?size=${size}${pagination}${sort}${quickFilter}${searchQuery.length? `&${searchQuery}`:""}`;
   return URL;
 }
