@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {injectIntl} from "react-intl";
 import {Route, Switch} from "react-router-dom";
@@ -14,7 +13,6 @@ import  ProjectsList from "./ProjectsList";
 import ProjectsForm from "./ProjectsForm";
 
 const URL = '/proyectos';
-
 
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {

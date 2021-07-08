@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 
 import {FACTURA_RECTIFICATIVA_SELECTOR_VALUES} from "../../../constants/selectors";
 
-import "../Suppliers/styles.scss";
+
 
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import { withValidations } from "modules/wrappers";

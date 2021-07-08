@@ -4,8 +4,6 @@ import {FormattedMessage, injectIntl} from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
 import {Chip} from "@material-ui/core";
 
-import "./styles.scss";
-
 import {TDOC_SELECTOR_VALUES} from "constants/selectors";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
