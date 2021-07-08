@@ -1,22 +1,45 @@
 import React from 'react';
+import {injectIntl} from "react-intl";
 import {Route, Switch} from "react-router-dom";
-
+import {connect} from "react-redux";
+import {bindActionCreators, compose} from "redux";
 import Paper from "@material-ui/core/Paper";
+
+import * as API from "redux/api";
+import {setBreadcrumbHeader, setListingConfig} from "redux/pageHeader";
+import withHeaders from "modules/wrappers/withHeaders";
 
 import StoreIcon from '@material-ui/icons/Store';
 import ArticlesModelList from "./ArticlesModelList";
 import ArticlesModelCreate from "./ArticlesModelCreate";
-import withHeaders from "modules/wrappers/withHeaders";
+import ArticlesModelForm from "./ArticlesModelForm";
+
 import {ART_MODEL_ECOM_URL} from "constants/routes";
 
 const URL = ART_MODEL_ECOM_URL;
 
+
+const mapDispatchToProps = (dispatch, props) => {
+  const actions = {
+    setListingConfig: bindActionCreators(setListingConfig, dispatch),
+    setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch),
+  };
+  return { actions };
+};
+
+const ArticlesModelListIntl = compose(
+  injectIntl,
+  connect(null,mapDispatchToProps)
+)(ArticlesModelList);
+
+const ArticlesModelWithUrl = () => < ArticlesModelForm url={API.articleModels} />;
+
 const ArticlesModel = () => (
   <Paper style={{ position: 'relative' }}>
     <Switch>
-      <Route exact path={`${URL}`} component={ArticlesModelList}></Route>
-      <Route path={`${URL}/create`} component={ArticlesModelCreate}></Route>
-      <Route path={`${URL}/:id`} component={ArticlesModelCreate}></Route>
+      <Route exact path={`${URL}`} component={ArticlesModelListIntl}></Route>
+      <Route path={`${URL}/create`} component={ArticlesModelWithUrl}></Route>
+      <Route path={`${URL}/:id`} component={ArticlesModelWithUrl}></Route>
     </Switch>
   </Paper>
 );
@@ -30,3 +53,4 @@ const component = {
   icon: <StoreIcon />
 }
 export default component;
+

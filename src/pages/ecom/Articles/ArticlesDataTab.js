@@ -81,31 +81,45 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       ]
     },
     {
-      placeHolder: NOM,
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.descCorta",
+        defaultMessage: "Descripción corta"
+      }),
       type: "input",
       key: "descripcioCurta",
       breakpoints: {
         xs: 12,
-        md: 6,
+        md: 8,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 60)],
     },
+    // {
+    //   placeHolder: props.intl.formatMessage({
+    //     id: "Articulos.tipoUnidad",
+    //     defaultMessage: "Tipo unidad",
+    //   }),
+    //   type: "input",
+    //   key: "descripcioTipusUnitat",
+    //   breakpoints: {
+    //     xs: 12,
+    //     md: 2,
+    //   },
+    //   validationType: "string",
+    //   validations: [...props.stringValidations.minMaxValidation(0, 4)],
+    // },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Articulo.titulo",
-        defaultMessage: "Título",
+        id: "Articulos.bloqueado",
+        defaultMessage: "Bloqueado",
       }),
-      type: "input",
-      key: "titol",
+      type: "checkbox",
+      key: "bloquejat",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 2,
       },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 20)],
     },
-
     {
       placeHolder: props.intl.formatMessage({
         id: "FamiliaArticulos.titulo",
@@ -187,20 +201,7 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndDescription,
       },
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Articulos.tipoUnidad",
-        defaultMessage: "Tipo unidad",
-      }),
-      type: "input",
-      key: "descripcioTipusUnitat",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(0, 4)],
-    },
+   
     {
       placeHolder: props.intl.formatMessage({
         id: "Articulos.decimalesPrecio",
@@ -211,7 +212,7 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 1,
       },
       validationType: "number",
       validations: [...props.commonValidations.requiredValidation(),
@@ -227,7 +228,7 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "pvp",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "number",
       validations:[...props.commonValidations.requiredValidation()]
@@ -258,16 +259,16 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
     {
       placeHolder: props.intl.formatMessage({
         id: "Articulos.decimalesPrecioIva",
-        defaultMessage: "Decimales precio IVA",
+        defaultMessage: "Dc. precio IVA",
       }),
       type: "numeric",
       key: "decimalsPreuIva",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 1,
       },
       validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(1, 9)],
+      validations: [...props.stringValidations.minMaxValidation(0, 9)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -278,34 +279,39 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "preuAmbIva",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
     },
+   
     {
       placeHolder: props.intl.formatMessage({
-        id: "Articulos.urlImagen",
-        defaultMessage: "Url imagen",
+        id: "Articulos.tipoUnidad",
+        defaultMessage: "Tipo unidad",
       }),
       type: "input",
-      noEditable: true,
-      key: "rutaInforme",
+      key: "descripcioTipusUnitat",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 4)],
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Articulos.bloqueado",
-        defaultMessage: "Bloqueado",
-      }),
-      type: "checkbox",
-      key: "bloquejat",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-    },
+    
+    // {
+    //   placeHolder: props.intl.formatMessage({
+    //     id: "Articulos.urlImagen",
+    //     defaultMessage: "Url imagen",
+    //   }),
+    //   type: "input",
+    //   noEditable: true,
+    //   key: "rutaInforme",
+    //   breakpoints: {
+    //     xs: 12,
+    //     md: 3,
+    //   },
+    // },
+    
     {
       placeHolder: props.intl.formatMessage({
         id: "Comun.descripcion",
