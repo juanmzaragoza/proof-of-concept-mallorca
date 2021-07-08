@@ -4,6 +4,8 @@ import { compose } from "redux";
 import { useParams } from "react-router-dom";
 import { FormattedMessage, injectIntl } from "react-intl";
 
+import {Chip} from "@material-ui/core";
+
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
 import { withValidations } from "modules/wrappers";
@@ -24,13 +26,21 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
     [RAPPEL_SECTION_INDEX]: false, [PRECIO_VOLUMEN_SECTION_INDEX]:false}, 
     setIsValid: props.setIsValid});
 
+  const { id: articulosId } = useParams();
 
-  const { id: clienteId } = useParams();
+  const ARTICLE = props.intl.formatMessage({ id: "Presupuestos.articulo", defaultMessage:"Artículo"});
+  const ENVAS = props.intl.formatMessage({ id: "Articulos.precio.preciosPorVolumen.envase", defaultMessage:"Envase"});
 
-  const TITLE = props.intl.formatMessage({ id: "Presupuestos.precio", defaultMessage: "Precio" });
+  const TITLE = props.intl.formatMessage({ id: "Articulos.precio.precioPorVolumen", defaultMessage: "Precio por volumen" });
   const CODE = props.intl.formatMessage({ id: "Comun.codigo", defaultMessage: "Código" });
   const DESCRIPCIO = props.intl.formatMessage({id: "Comun.descripcion", defaultMessage: "Descripción"});
 
+  const INFLIM = props.intl.formatMessage({ id: "Articulos.precio.preciosPorVolumen.limiteInferior", defaultMessage: "Límite inferior" });
+  const SUPLIM = props.intl.formatMessage({ id: "Articulos.precio.preciosPorVolumen.limiteSuperior", defaultMessage: "Límite superior" });
+  const PRICE = props.intl.formatMessage({ id: "Articulos.precio.preciosPorVolumen.precio", defaultMessage: "Precio" });
+  const APLDTO = props.intl.formatMessage({ id: "Articulos.precio.preciosPorVolumen.aplicarDescuento", defaultMessage: "Aplicar descuento" });
+  const DTO1 = props.intl.formatMessage({ id: "Articulos.precio.preciosPorVolumen.descuento1", defaultMessage: "Descuento 1" });
+  const DTO2 = props.intl.formatMessage({ id: "Articulos.precio.preciosPorVolumen.descuento2", defaultMessage: "Descuento 2" });
 
   const code = (md = 6) => ({
     type: 'input',
@@ -47,6 +57,8 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         ...props.stringValidations.fieldExistsValidation('ivaFact', 'codi', CODE)
       ],
   });
+
+  const aSArticleAndEnvas = [{ title: ARTICLE, name: "article.description" }, { title: ENVAS, name: "envas.description" }];
 
   const aSCodeAndDescription = [{title: CODE, name: 'codi'},{title: DESCRIPCIO, name: 'descripcio'}];
 
@@ -320,7 +332,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Precio con IVA"
       }),
       type: 'input',
-      key: 'pvpFact',
+      key: 'preuIva',
       breakpoints: {
         xs: 12,
         md: 2
@@ -346,7 +358,6 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Precio mínimo"
       }),
       type: 'input',
-      disabled: true,
       key: 'preuMin',
       breakpoints: {
         xs: 12,
@@ -360,7 +371,6 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Descuento máximo proveedor ( fijo )"
       }),
       type: 'input',
-      disabled: true,
       key: 'dteMaxProvFix',
       breakpoints: {
         xs: 12,
@@ -374,7 +384,6 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Descuento máximo proveedor ( temporal )"
       }),
       type: 'input',
-      disabled: true,
       key: 'dteMaxProvTemp',
       breakpoints: {
         xs: 12,
@@ -388,7 +397,6 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Punto verde"
       }),
       type: 'input',
-      disabled: true,
       key: 'puntVerd',
       breakpoints: {
         xs: 12,
@@ -402,7 +410,6 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Impuestos incluidos"
       }),
       type: 'checkbox',
-      disabled: true,
       key: 'impostosIncl',
       breakpoints: {
         xs: 12,
@@ -447,7 +454,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "dte3",
       breakpoints: {
         xs: 12,
-        md: 1,
+        md: 2,
       },
       validationType: "number",
     },
@@ -460,7 +467,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "dte4",
       breakpoints: {
         xs: 12,
-        md: 1,
+        md: 2,
       },
       validationType: "number",
     },
@@ -480,14 +487,14 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
     {
       placeHolder: props.intl.formatMessage({
         id: "Articulos.precio.pvpDescuento",
-        defaultMessage: "P.V.P con descuento",
+        defaultMessage: "P.V.P Dto",
       }),
       type: "input",
       disabled: true,
       key: "pvpDte",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
       validationType: "number",
     },
@@ -501,7 +508,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "margeDte",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
       validationType: "number",
     },
@@ -540,7 +547,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "dte3Fab",
       breakpoints: {
         xs: 12,
-        md: 1,
+        md: 2,
       },
       validationType: "number",
     },
@@ -553,7 +560,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "dte4Fab",
       breakpoints: {
         xs: 12,
-        md: 1,
+        md: 2,
       },
       validationType: "number",
     },
@@ -580,7 +587,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "pvpDteFab",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
       validationType: "number",
     },
@@ -594,7 +601,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "margeDteFab",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
       validationType: "number",
     },
@@ -663,83 +670,119 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
-  // const precioPorVolumen = {
-  //   title: TITLE,
-  //   query: [
-  //     {
-  //       columnName: 'client.id',
-  //       value: `"${clienteId}"`,
-  //       exact: true
-  //     }
-  //   ],
-  //   extraPostBody: {
-  //     client: { id: clienteId }
-  //   },
-  //   columns: [
-  //     { name: 'codi', title: CODE },
-  //     { name: 'nom', title: NOM },
-  //     { name: 'telefon1', title: TELEFON },
-  //     { name: 'email', title: EMAIL },
-  //     { name: 'domicili', title: DOMICILI },
-  //     { name: 'activitat', title: ACTIVIDAD },
+  const precioPorVolumen = {
+    title: TITLE,
+    query: [
+      {
+        columnName: 'article.id',
+        value: `"${articulosId}"`,
+        exact: true
+      }
+    ],
+    extraPostBody: {
+      article: { id: articulosId }
+    },
+    columns: [
+      { name: 'limitInferior', title: INFLIM },
+      { name: 'limitSuperior', title: SUPLIM },
+      { name: 'preu', title: PRICE },
+      { name: 'aplicaDescompte', title: APLDTO, getCellValue: row => (row.aplicaDescompte && row.aplicaDescompte === true)?
+      <Chip label="SI" variant="outlined" />
+      :
+      <Chip label="NO" variant="outlined" />},
+      { name: 'dte001', title: DTO1 },
+      { name: 'dte002', title: DTO2 },
 
-  //   ],
-  //   formComponents: [
-  //     code(3),
-  //     {
-  //       placeHolder: NOM,
-  //       type: 'input',
-  //       key: 'nom',
-  //       required: true,
-  //       breakpoints: {
-  //         xs: 12,
-  //         md: 3
-  //       },
-  //       validationType: "string",
-  //       ...withRequiredValidation(),
-  //     },
-  //     {
-  //       placeHolder: TELEFON,
-  //       type: 'input',
-  //       key: 'telefon1',
-  //       breakpoints: {
-  //         xs: 12,
-  //         md: 3
-  //       },
-  //     },
-  //     {
-  //       placeHolder: EMAIL,
-  //       type: 'input',
-  //       key: 'email',
-  //       breakpoints: {
-  //         xs: 12,
-  //         md: 3
-  //       },
-  //     },
-  //     {
-  //       placeHolder: DOMICILI,
-  //       type: 'input',
-  //       key: 'domicili',
-  //       breakpoints: {
-  //         xs: 12,
-  //         md: 6
-  //       },
-  //     },
-  //     {
-  //       placeHolder: ACTIVIDAD,
-  //       type: 'input',
-  //       key: 'activitat',
-  //       breakpoints: {
-  //         xs: 12,
-  //         md: 3
-  //       },
-  //     },
-  //     ...codiPostal(3)
-
-
-
-  //   ]
-  // };
+    ],
+    formComponents: [
+      code(3),
+      {
+        placeHolder: INFLIM,
+        type: 'input',
+        key: 'limitInferior',
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 3
+        },
+        validationType: "number",
+      },
+      {
+        placeHolder: SUPLIM,
+        type: 'input',
+        key: 'limitSuperior',
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 3
+        },
+      },
+      {
+        placeHolder: PRICE,
+        type: 'input',
+        key: 'preu',
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 3
+        },
+      },
+      {
+        placeHolder: APLDTO,
+        type: 'checkbox',
+        key: 'aplicaDescompte',
+        breakpoints: {
+          xs: 12,
+          md: 3
+        },
+      },
+      {
+        placeHolder: DTO1,
+        type: 'input',
+        key: 'dte001',
+        breakpoints: {
+          xs: 12,
+          md: 3
+        },
+      },
+      {
+        placeHolder: DTO2,
+        type: 'input',
+        key: 'dte002',
+        breakpoints: {
+          xs: 12,
+          md: 3
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Articulos.precio.preciosPorVolumen.precioArticuloEnvase",
+          defaultMessage: "Precio artículo envase",
+        }),
+        type: 'LOV',
+        key: 'preuArticleEnvas',
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "preuArticleEnvases",
+          labelKey: (data) =>
+          `${data.article.description} ( ${data.envas.description} )`,
+          sort: "article",
+          cannotCreate: true,
+          relatedWith: {
+            name: "article",
+            filterBy: "article.id",
+            keyValue: "id",
+          },
+          advancedSearchColumns: aSArticleAndEnvas,
+        },
+        validationType: "object",
+        ...withRequiredValidation(),
+      },
+    ]
+  };
 
   const tabs = [
     {
@@ -774,22 +817,15 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
                               onBlur={(e) => handleTouched(RAPPEL_SECTION_INDEX)}
                               {...props} />
     },
-    // {
-    //   className: "general-tab-subtab",
-    //   label: <FormattedMessage id={"Articulos.precio.precioPorVolumen"} defaultMessage={"Precio por volumen"}/>,
-    //   key: 2,
-    //   component: <GenericForm formComponents={precioPorVolumen}
-    //                           emptyPaper={true}
-    //                           setFormData={setFormData}
-    //                           getFormData={getFormData}
-    //                           loading={props.loading}
-    //                           formErrors={props.formErrors}
-    //                           submitFromOutside={props.submitFromOutside}
-    //                           onSubmit={() => props.onSubmitTab(formData)}
-    //                           handleIsValid={value => addValidity(PRECIO_VOLUMEN_SECTION_INDEX,value)}
-    //                           onBlur={(e) => handleTouched(PRECIO_VOLUMEN_SECTION_INDEX)}
-    //                           {...props} />
-    // },
+    {
+      label: TITLE,
+      key: 2,
+      component: <ExpandableGrid
+        id='preusPerVolum'
+        responseKey='preuPerVolums'
+        enabled={props.editMode}
+        configuration={precioPorVolumen} />
+    },
   ];
 
   return (
