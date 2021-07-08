@@ -38,6 +38,12 @@ const LanguageList = ({ actions, ...props }) => {
           defaultMessage: "Descripción"
         })
       },
+      { name: 'codiIso',
+      title: props.intl.formatMessage({
+        id: "Idiomas.codigoIso",
+        defaultMessage: "Código ISO"
+      })
+    },
     ],
     URL: API.idiomas,
     listKey: 'idiomas'

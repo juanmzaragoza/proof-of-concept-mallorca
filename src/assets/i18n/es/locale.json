@@ -607,7 +607,7 @@
   "Articulos.decimalesPrecio": "Decimales precio",
   "Articulos.tipoUnidad": "Tipo unidad",
   "Articulos.bloqueado": "Bloqueado",
-  "Articulos.decimalesPrecioIva": "Decimales precio con IVA",
+  "Articulos.decimalesPrecioIva": "Dc. precio IVA",
   "Articulos.precioIva": "Precio con IVA",
   "Articulos.urlImagen": "Url imagen",
   "FamiliaArticulos.titulo": "Familia",
@@ -936,5 +936,12 @@
 
   "ArticulosUbicacion.titulo": "Articulos ubicación",
   "ArticulosUbicacion.unidad": "Unidad",
-  "ArticulosUbicacion.articulo.titulo": "Articulo"
+  "ArticulosUbicacion.articulo.titulo": "Articulo",
+  "Articulos.descCorta":"Descripción Corta",
+  "Traduccion.titulo": "Traducción",
+  "Traducciones.titulo": "Traducción",
+  "Idiomas.titulo":"Idiomas",
+  "TraducionesFamilia.titulo":"Traducciones",
+  "Configuracion.titulo": "Configuración",
+  "Facturacion.titulo" :"Facturación"
 }
