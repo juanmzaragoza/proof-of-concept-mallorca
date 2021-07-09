@@ -943,5 +943,30 @@
   "Idiomas.titulo":"Idiomas",
   "TraducionesFamilia.titulo":"Traducciones",
   "Configuracion.titulo": "Configuración",
-  "Facturacion.titulo" :"Facturación"
+  "Facturacion.titulo" :"Facturación",
+  "Proveedores.Contacto.telefono2": "Teléfono 2",
+  "Proveedores.Contacto.fax2": "Fax 2",
+  "Proveedores.Contacto.responsable": "Responsable",
+  "Proveedores.Facturacion.horario": "Horario",
+  "Proveedores.Facturacion.vacaciones": "Vacaciones",
+  "Clientes.tabs.iban": "Iban",
+  "Proveedores.cuenta.compra": "Cuenta compras",
+  "Proveedores.regimenCaja": "Régimen criterio caja",
+  "Proveedores.contab.noTraspasar": "No traspasar",
+  "Proveedores.personalizacion.alfanumericos": "Parámetros Alfanuméricos",
+  "Proveedores.personalizacion.numericos":"Parámetors Numéricos",
+  "Proveedores.tabs.facturas": "Facturas",
+  "Proveedores.retencion":"Retención",
+  "Proveedores.facturaConforme":"Factura conforme",
+  "Proveedores.Documentos.nombreFiscal":"Nombre fiscal",
+  "Proveedores.Documentos.facturaTotal":"Factura total",
+  "Proveedores.Documentos.cantidadIva": "IVA",
+  "Proveedores.Documentos.baseImponible": "Base imponible",
+  "Proveedores.Documentos.facturaBruto": "Factura Bruto",
+  "Divisas.titulo":"Divisa",
+  "Proveedores.Documentos.referencia":"Referencia",
+  "Proveedores.Documentos.fecha":"Fecha",
+  "Proveedores.Documentos.documento":"Documento"
+
+  
 }

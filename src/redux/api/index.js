@@ -156,3 +156,13 @@ export const ubicacios = 'api/fact/ubicacions';
 export const ubicacioArticles = 'api/fact/ubicacionsArticle';
 
 export const articlesFact = 'api/fact/articles';
+
+export const tipusProveidors = `api/fact/tipusProveidors`;
+export const departamentProveidor = `api/fact/departamentsProveidor`;
+export const proveidorsVencimentEmpresa = `api/fact/proveidorsVencimentEmpresa`;
+export const oficinaBancariaCodi = `api/fact/oficinesBancaries`;
+export const comptesProveidorEmpresa = `api/fact/comptesProveidorEmpresa`;
+export const facturesProveidor = `api/fact/facturesProveidor`;
+export const caixa = `api/fact/caixes`;
+export const proveidorsCaixa = `api/fact/proveidorsCaixa`;
+export const proveidorsArticle = `api/fact/proveidorsArticle`;
