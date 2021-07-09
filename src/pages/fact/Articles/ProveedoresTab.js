@@ -32,8 +32,8 @@ const ProveedoresTab = ({formData, setFormData, getFormData, ...props}) => {
   const ULTIMODTO = props.intl.formatMessage({ id: "Articulos.proveedores.preciosProveedor.ultimoDto", defaultMessage: "Último dto (%)" });
   const ULTIMODTO2 = props.intl.formatMessage({ id: "Articulos.proveedores.preciosProveedor.ultimoDto2", defaultMessage: "Último dto 2 (%)" });
   const OBS = props.intl.formatMessage({ id: "Articulos.proveedores.preciosProveedor.observaciones", defaultMessage: "Observaciones" });
-  const ULTIMOPRECOMP = props.intl.formatMessage({ id: "Articulos.precio.preciosPorVolumen.ultimoPrecioComplementos", defaultMessage: "Último precio complementos" });
-  const ULTIMODIACARGOCOMP = props.intl.formatMessage({ id: "Articulos.precio.preciosPorVolumen.ultimoDiaCargoComplementos", defaultMessage: "Último día cargo complementos" });
+  const ULTIMOPRECOMP = props.intl.formatMessage({ id: "Articulos.proveedores.preciosProveedor.ultimoPrecioComplementos", defaultMessage: "Último precio complementos" });
+  const ULTIMODIACARGOCOMP = props.intl.formatMessage({ id: "Articulos.proveedores.preciosProveedor.ultimoDiaCargoComplementos", defaultMessage: "Último día cargo complementos" });
   const PRECIONETO = props.intl.formatMessage({ id: "Articulos.proveedores.preciosProveedor.precioNeto", defaultMessage: "Precio neto €" });
 
   const { id: articulosId } = useParams();

@@ -761,12 +761,12 @@ export const TIPO_RAPPEL_SELECTOR_VALUES = [
   },
   {
     value: "PER_IMPORTS",
-    labelId: "Almacen.precio.select.porImportes",
+    labelId: "Articulos.precio.select.porImportes",
     label: "Por importes",
   },
   {
     value: "PER_MARGE",
-    labelId: "Almacen.precio.select.porMargen",
+    labelId: "Articulos.precio.select.porMargen",
     label: "Por margen",
   }
 ];
