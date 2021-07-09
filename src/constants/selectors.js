@@ -770,3 +770,26 @@ export const TIPO_RAPPEL_SELECTOR_VALUES = [
     label: "Por margen",
   }
 ];
+
+export const CLASIFICACION_SELECTOR_VALUES = [
+  {
+    value: "VIVAS",
+    labelId: "Articulos.stock.descuentos.select.vivas",
+    label: "Vivas",
+  },
+  {
+    value: "DORMIDAS",
+    labelId: "Articulos.stock.descuentos.select.dormidas",
+    label: "Dormidas",
+  },
+  {
+    value: "OBSOLETAS",
+    labelId: "Articulos.stock.descuentos.select.obsoletas",
+    label: "Obsoletas",
+  },
+  {
+    value: "MUERTAS",
+    labelId: "Articulos.stock.descuentos.select.muertas",
+    label: "Muertas",
+  }
+];

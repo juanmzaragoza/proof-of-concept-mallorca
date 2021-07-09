@@ -145,3 +145,4 @@ export const articlesFact = 'api/fact/articles';
 export const preuArticleEnvas = 'api/fact/preusArticleEnvas';
 export const ivaFact = 'api/fact/ives';
 export const preusPerVolum = 'api/fact/preusPerVolum';
+export const magatzemsArticlesFact = 'api/fact/magatzemsArticlesFact';

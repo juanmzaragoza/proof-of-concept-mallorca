@@ -692,7 +692,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       <Chip label="NO" variant="outlined" />},
       { name: 'dte001', title: DTO1 },
       { name: 'dte002', title: DTO2 },
-
+      { name: 'article.description', title: ARTICLE, getCellValue: row => (row.article.description ? row.article.description : "" )},
     ],
     formComponents: [
       code(3),
