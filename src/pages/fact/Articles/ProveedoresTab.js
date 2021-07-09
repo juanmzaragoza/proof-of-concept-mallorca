@@ -1,441 +1,290 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import { compose } from "redux";
-import { FormattedMessage, injectIntl } from "react-intl";
+import React, {useEffect, useState} from "react";
+import {FormattedMessage, injectIntl} from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
-import { Chip } from "@material-ui/core";
-
-import "../Suppliers/styles.scss";
-
+import {useParams} from "react-router-dom";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
-import { withValidations } from "modules/wrappers";
+import GenericForm from "modules/GenericForm";
+import ConfigurableTabs from "modules/shared/ConfigurableTabs";
+import {compose} from "redux";
+import {withValidations} from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
-import { TIPO_DESCUENTO_SELECTOR_VALUES } from "constants/selectors";
+import {Chip} from "@material-ui/core";
 
-const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
-  const withRequiredValidation = (extraValidations = []) => {
-    return {
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...extraValidations,
-      ],
-    };
-  };
+import {useTabForm} from "hooks/tab-form";
 
-  const CODE = props.intl.formatMessage({
-    id: "Comun.codigo",
-    defaultMessage: "Código",
-  });
-  const DESCRIPCIO = props.intl.formatMessage({
-    id: "Comun.descripcion",
-    defaultMessage: "Descripción",
-  });
-  const NOM = props.intl.formatMessage({
-    id: "Comun.nombre",
-    defaultMessage: "Nombre",
-  });
+const CREATE_SECTION_INDEX = 0;
+const PRECIO_PROVEEDOR_SECTION_TAB_INDEX = 1;
 
-  const code = (md = 6) => ({
-    type: "input",
-    key: "codi",
-    placeHolder: CODE,
-    required: true,
-    noEditable: true,
-    breakpoints: {
-      xs: 12,
-      md: md,
-    },
-  });
+const ProveedoresTab = ({formData, setFormData, getFormData, ...props}) => {
+  const [ touched, handleTouched, addValidity, formIsValid ] 
+  = useTabForm({fields: {[CREATE_SECTION_INDEX]: false, [PRECIO_PROVEEDOR_SECTION_TAB_INDEX]:false}, setIsValid: props.setIsValid});
 
-  const codiPostal = (md = 6) => [
+  const CODE = props.intl.formatMessage({id: "Comun.codigo", defaultMessage: "Código"});
+  const COMERCIALNAME = props.intl.formatMessage({id: "Proveedores.nombre_comercial", defaultMessage: "Nombre Comercial"});
+  const NAME = props.intl.formatMessage({id: "Comun.nombre", defaultMessage: "Nombre"});
+  const PROVEEDOR = props.intl.formatMessage({ id: "Proveedores.proveedor", defaultMessage: "Proveedor" });
+  const DIVISA = props.intl.formatMessage({ id: "Proyectos.divisa", defaultMessage: "Divisa" });
+  const CODARTPRO = props.intl.formatMessage({ id: "Articulos.proveedores.preciosProveedor.codigoArticuloProveedor", defaultMessage: "Código artículo proveedor" });
+  const PRECIOCOSTE = props.intl.formatMessage({ id: "Articulos.proveedores.preciosProveedor.precioCoste", defaultMessage: "Precio coste" });
+  const DIASESPERA = props.intl.formatMessage({ id: "Articulos.proveedores.preciosProveedor.diasEspera", defaultMessage: "Días espera" });
+  const ULTIMACOMPRA = props.intl.formatMessage({ id: "Articulos.proveedores.preciosProveedor.ultimaCompra", defaultMessage: "Última compra" });
+  const ULTIMOPRECIOCOMPRA = props.intl.formatMessage({ id: "Articulos.proveedores.preciosProveedor.ultimoPrecioCompra", defaultMessage: "Último precio Compra" });
+  const ULTIMODTO = props.intl.formatMessage({ id: "Articulos.proveedores.preciosProveedor.ultimoDto", defaultMessage: "Último dto (%)" });
+  const ULTIMODTO2 = props.intl.formatMessage({ id: "Articulos.proveedores.preciosProveedor.ultimoDto2", defaultMessage: "Último dto 2 (%)" });
+  const OBS = props.intl.formatMessage({ id: "Articulos.proveedores.preciosProveedor.observaciones", defaultMessage: "Observaciones" });
+  const ULTIMOPRECOMP = props.intl.formatMessage({ id: "Articulos.precio.preciosPorVolumen.ultimoPrecioComplementos", defaultMessage: "Último precio complementos" });
+  const ULTIMODIACARGOCOMP = props.intl.formatMessage({ id: "Articulos.precio.preciosPorVolumen.ultimoDiaCargoComplementos", defaultMessage: "Último día cargo complementos" });
+  const PRECIONETO = props.intl.formatMessage({ id: "Articulos.proveedores.preciosProveedor.precioNeto", defaultMessage: "Precio neto €" });
+
+  const { id: articulosId } = useParams();
+
+  const aSCodeAndComercialName = [{title: CODE, name: 'codi'},{title: COMERCIALNAME, name: 'nomComercial'}];
+
+  const aSCodeAndName = [{title: CODE, name: 'codi'},{title: NAME, name: 'nom'}];
+
+  const createConfiguration = [
     {
       placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Direccion.codPostal",
-        defaultMessage: "Código Postal",
+        id: "Articulos.proveedores.proveedorHabitual",
+        defaultMessage: "Proveedor habitual"
       }),
       type: "LOV",
-      key: "codiPostal",
-      required: true,
+      key: "proveidor",
+      id:"suppliers",
       breakpoints: {
         xs: 12,
-        md: md,
+        md: 4,
       },
-      validationType: "object",
-      ...withRequiredValidation(),
       selector: {
-        key: "codiPostals",
-        labelKey: (data) =>
-          `${data.poblacio} ${data.municipi ? ` - ${data.municipi}` : ""} (${
-            data.codi
-          })`,
+        key: "proveidors",
+        labelKey: (data) => `${data.nomComercial} (${data.codi})`,
         sort: "codi",
-        creationComponents: [
-          code(4),
-          {
-            placeHolder: props.intl.formatMessage({
-              id: "CodigoPostal.pais",
-              defaultMessage: "País",
-            }),
-            type: "LOV",
-            key: "pais",
-            required: false,
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-            selector: {
-              key: "paises",
-              labelKey: (data) => `${data.nom} (${data.codi})`,
-              sort: "codi",
-              cannotCreate: true,
-              relatedWith: {
-                name: "provincia",
-                filterBy: "pais.id",
-                keyValue: "id",
-              },
-              advancedSearchColumns: aSCodeAndName,
-            },
-          },
-          {
-            placeHolder: props.intl.formatMessage({
-              id: "CodigoPostal.provincia",
-              defaultMessage: "Provincia",
-            }),
-            type: "LOV",
-            key: "provincia",
-            required: false,
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-            selector: {
-              key: "provincias",
-              labelKey: (data) => `${data.nom} (${data.codi})`,
-              sort: "codi",
-              cannotCreate: true,
-              advancedSearchColumns: aSCodeAndName,
-            },
-          },
-          {
-            type: "input",
-            key: "municipi",
-            placeHolder: props.intl.formatMessage({
-              id: "CodigoPostal.municipio",
-              defaultMessage: "Municipio",
-            }),
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 6,
-            },
-          },
-          {
-            type: "input",
-            key: "poblacio",
-            placeHolder: props.intl.formatMessage({
-              id: "CodigoPostal.poblacion",
-              defaultMessage: "Población",
-            }),
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 6,
-            },
-          },
-        ],
-        advancedSearchColumns: aSCodeAndDescription,
+        cannotCreate: true,
+        advancedSearchColumns: aSCodeAndComercialName,
       },
     },
   ];
 
-  const aSCodeAndDescription = [
-    { title: CODE, name: "codi" },
-    { title: DESCRIPCIO, name: "descripcio" },
-  ];
-  const aSCodeAndName = [
-    { title: CODE, name: "codi" },
-    { title: NOM, name: "nom" },
-  ];
+  const TITLE = props.intl.formatMessage({id: "Articulos.proveedores.preciosProveedor", defaultMessage: "Precios proveedor"});
 
-  const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
-  const formatCodeAndDescription = (data) =>
-    `${data.descripcio} (${data.codi})`;
-  const { id: clientId } = useParams();
-
-  const subClient = {
-    title: props.intl.formatMessage({
-      id: "Clientes.subClientes",
-      defaultMessage: "Subclientes",
-    }),
+  const precioProveedor = {
+    title: TITLE,
     query: [
       {
-        columnName: "client.id",
-        value: `"${clientId}"`,
-        exact: true,
-      },
+        columnName: 'article.id',
+        value: `"${articulosId}"`,
+        exact: true
+      }
     ],
     extraPostBody: {
-      client: { id: clientId },
+      article: { id: articulosId }
     },
     columns: [
-      {
-        name: "codi",
-        title: CODE,
-      },
-      {
-        name: "nom",
-        title: props.intl.formatMessage({
-          id: "Comun.nombre",
-          defaultMessage: "Nombre",
-        }),
-      },
-      // {
-      //   name: "domicili",
-      //   title: props.intl.formatMessage({
-      //     id: "Comun.domicilio",
-      //     defaultMessage: "Domicilio",
-      //   }),
-      // },
-      {
-        name: "codiPostal",
-        title: props.intl.formatMessage({
-          id: "Clientes.fact.codigoPostal",
-          defaultMessage: "Código Postal",
-        }),
-        getCellValue: (row) => row?.codiPostal?.description || "",
-      },
-
-      {
-        name: "tarifa1",
-        title: props.intl.formatMessage({
-          id: "Clientes.fact.tarifa1",
-          defaultMessage: "Tarifa 1",
-        }),
-        getCellValue: (row) => row?.tarifa1?.description || "",
-      },
-      {
-        name: "tarifaDescompte",
-        title: props.intl.formatMessage({
-          id: "Clientes.fact.tarifaDescuento",
-          defaultMessage: "Tarifa descuento",
-        }),
-        getCellValue: (row) => row?.tarifaDescompte?.description || "",
-      },
-      {
-        name: "bloquejat",
-        title: props.intl.formatMessage({
-          id: "Clientes.bloqueado",
-          defaultMessage: "Bloqueado",
-        }),
-        getCellValue: (row) =>
-          row.bloquejat && row.bloquejat === true ? (
-            <Chip label="SI" variant="outlined" />
-          ) : (
-            <Chip label="NO" variant="outlined" />
-          ),
-      },
-      {
-        name: "preusPerVolum",
-        title: props.intl.formatMessage({
-          id: "Clientes.subClientes.precioPorVolumen",
-          defaultMessage: "Precios por volúmen",
-        }),
-
-        getCellValue: (row) =>
-          row.preusPerVolum && row.preusPerVolum === true ? (
-            <Chip label="SI" variant="outlined" />
-          ) : (
-            <Chip label="NO" variant="outlined" />
-          ),
-      },
+      { name: 'proveidor', title: PROVEEDOR, getCellValue: row => (row.proveidor.description ? row.proveidor.description : "" )},
+      { name: 'codi', title: CODARTPRO },
+      { name: 'actualitzarPreuCostArticle', title: PRECIOCOSTE, getCellValue: row => (row.actualitzarPreuCostArticle && row.actualitzarPreuCostArticle === true)?
+      <Chip label="SI" variant="outlined" /> : <Chip label="NO" variant="outlined" /> },
+      { name: 'diesEsperaEntrega', title: DIASESPERA },
+      { name: 'ultimDiaCompra', title: ULTIMACOMPRA, getCellValue: row => row.ultimDiaCompra ? new Date(row.ultimDiaCompra).toLocaleDateString() : ""  },
+      { name: 'ultimPreuCompra', title: ULTIMOPRECIOCOMPRA },
+      { name: 'ultimDescompte', title: ULTIMODTO },
+      { name: 'ultimDescomptePp', title: ULTIMODTO2 },
+      { name: 'preuNetExtraField', title: PRECIONETO },
     ],
-
     formComponents: [
       {
-        placeHolder: CODE,
-        type: "input",
+        placeHolder: CODARTPRO,
+        type: 'input',
+        key: 'codi',
         required: true,
-        key: "codi",
         breakpoints: {
           xs: 12,
-          md: 2,
+          md: 3
         },
         validationType: "string",
-        ...withRequiredValidation([
-          ...props.stringValidations.fieldExistsValidation('subClients', 'codi', props.intl.formatMessage({
-            id: "Comun.codigo",
-            defaultMessage: "Código",
-          }),)
-        ])
+        validations: [
+          ...props.commonValidations.requiredValidation(),
+          ...props.stringValidations.minMaxValidation(1, 20)
+        ]
       },
       {
-        placeHolder: props.intl.formatMessage({
-          id: "Comun.nombre",
-          defaultMessage: "Nombre",
-        }),
-        required: true,
-        type: "input",
-        key: "nom",
+        placeHolder: PRECIOCOSTE,
+        type: 'checkbox',
+        key: 'actualitzarPreuCostArticle',
+        breakpoints: {
+          xs: 12,
+          md: 2
+        },
+      },
+      {
+        placeHolder: DIASESPERA,
+        type: 'input',
+        key: 'diesEsperaEntrega',
+        breakpoints: {
+          xs: 12,
+          md: 2
+        },
+        validationType: "number",
+      },
+      {
+        placeHolder: ULTIMACOMPRA,
+        type: 'date',
+        key: 'ultimDiaCompra',
+        breakpoints: {
+          xs: 12,
+          md: 2
+        },
+      },
+      {
+        placeHolder: ULTIMOPRECIOCOMPRA,
+        type: 'input',
+        key: 'ultimPreuCompra',
+        breakpoints: {
+          xs: 12,
+          md: 3
+        },
+        validationType: "number",
+      },
+      {
+        placeHolder: ULTIMOPRECOMP,
+        type: 'input',
+        key: 'ultimPreuComplements',
+        breakpoints: {
+          xs: 12,
+          md: 3
+        },
+        validationType: "number",
+      },
+      {
+        placeHolder: ULTIMODTO,
+        type: 'input',
+        key: 'ultimDescompte',
+        breakpoints: {
+          xs: 12,
+          md: 2
+        },
+        validationType: "number",
+      },
+      {
+        placeHolder: ULTIMODTO2,
+        type: 'input',
+        key: 'ultimDescomptePp',
+        breakpoints: {
+          xs: 12,
+          md: 2
+        },
+        validationType: "number",
+      },
+      {
+        placeHolder: ULTIMODIACARGOCOMP,
+        type: 'date',
+        key: 'ultimDiaCarrecComplements',
+        breakpoints: {
+          xs: 12,
+          md: 4
+        },
+      },
+      {
+        placeHolder: PROVEEDOR,
+        type: "LOV",
+        key: "proveidor",
+        id:"suppliers",
         breakpoints: {
           xs: 12,
           md: 4,
         },
-        validationType: "strings",
-        ...withRequiredValidation(),
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Comun.domicilio",
-          defaultMessage: "Domicilio",
-        }),
-        type: "input",
-        key: "domicili",
-        breakpoints: {
-          xs: 12,
-          md: 6,
-        },
-      },
-      ...codiPostal(3),
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.fact.tarifa1",
-          defaultMessage: "Tarifa 1",
-        }),
-        type: "LOV",
-        key: "tarifa1",
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
         selector: {
-          key: "tarifas",
-          labelKey: formatCodeAndDescription,
-          sort: "descripcio",
+          key: "proveidors",
+          labelKey: (data) => `${data.nomComercial} (${data.codi})`,
+          sort: "codi",
           cannotCreate: true,
-          advancedSearchColumns: aSCodeAndDescription,
+          advancedSearchColumns: aSCodeAndComercialName,
         },
       },
       {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.fact.tarifa2",
-          defaultMessage: "Tarifa 2",
-        }),
+        placeHolder: DIVISA,
         type: "LOV",
-        key: "tarifa2",
+        key: "divisa",
         breakpoints: {
           xs: 12,
-          md: 3,
+          md: 4,
         },
         selector: {
-          key: "tarifas",
-          labelKey: formatCodeAndDescription,
-          cannotCreate: true,
-          sort: "descripcio",
-          advancedSearchColumns: aSCodeAndDescription,
-        },
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.fact.tarifaDescuento",
-          defaultMessage: "Tarifa descuento",
-        }),
-        type: "LOV",
-        key: "tarifaDescompte",
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        selector: {
-          key: "tarifaDescomptes",
-          labelKey: formatCodeAndDescription,
-          sort: "descripcio",
-          cannotCreate: true,
-          advancedSearchColumns: aSCodeAndDescription,
-        },
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.fact.tipoDescuentos",
-          defaultMessage: "Tipo descuento",
-        }),
-        type: "select",
-        key: "tipusDescompte",
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        selector: {
-          options: TIPO_DESCUENTO_SELECTOR_VALUES,
-        },
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.fact.tipoComision",
-          defaultMessage: "Tipo comisión",
-        }),
-        type: "LOV",
-        key: "tipusComissio",
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        selector: {
-          key: "tipusComissios",
+          key: "divisas",
           labelKey: (data) => `${data.nom} (${data.codi})`,
           sort: "codi",
           cannotCreate: true,
           advancedSearchColumns: aSCodeAndName,
         },
       },
-
       {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.bloqueado",
-          defaultMessage: "Bloqueado",
-        }),
-        type: "checkbox",
-        key: "bloquejat",
+        placeHolder: PRECIONETO,
+        type: 'input',
+        disabled: true,
+        key: 'ultimDescompte',
         breakpoints: {
           xs: 12,
-          md: 3,
+          md: 2
         },
+        validationType: "number",
       },
       {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.subClientes.precioPorVolumen",
-          defaultMessage: "Precios por volúmen",
-        }),
-        type: "checkbox",
-        key: "preusPerVolum",
+        placeHolder: OBS,
+        type: 'input',
+        key: 'observacions',
         breakpoints: {
           xs: 12,
-          md: 3,
+          md: 12
         },
+        validationType: "string",
+        validations: [
+          ...props.commonValidations.requiredValidation(),
+          ...props.stringValidations.minMaxValidation(1, 1000)
+        ]
       },
-    ],
+    ]
   };
 
+  const tabs = [
+    {
+      label: TITLE,
+      key: 0,
+      component: <ExpandableGrid
+        id='proveidorsArticle'
+        responseKey='proveidorArticles'
+        enabled={props.editMode}
+        configuration={precioProveedor} />
+    },
+  ];
+
   return (
-    <Grid container>
+    <Grid container >
       <Grid xs={12} item>
-        <OutlinedContainer
-          className="general-tab-container"
-          title={
-            <FormattedMessage
-              id={"Clientes.subClientes"}
-              defaultMessage={"Subclientes"}
-            />
-          }
-        >
-          <ExpandableGrid
-            id="subClients"
-            responseKey="subClients"
-            enabled={props.editMode}
-            configuration={subClient}
-          />
+        <OutlinedContainer className="general-tab-container" title={<FormattedMessage id={"FamiliaArticulos.titulo"} defaultMessage={"Familia"}/>}>
+          <GenericForm formComponents={createConfiguration}
+                       emptyPaper={true}
+                       editMode={props.editMode}
+                       getFormData={getFormData}
+                       setFormData={setFormData}
+                       loading={props.loading}
+                       formErrors={props.formErrors}
+                       submitFromOutside={props.submitFromOutside}
+                       onSubmit={() => props.onSubmitTab(formData)}
+                       handleIsValid={value => addValidity(CREATE_SECTION_INDEX,value)}
+                       onBlur={(e) => handleTouched(CREATE_SECTION_INDEX)}
+                       {...props} />
+        </OutlinedContainer>
+      </Grid>
+      <Grid xs={12} item>
+        <OutlinedContainer>
+          <ConfigurableTabs tabs={tabs} />
         </OutlinedContainer>
       </Grid>
     </Grid>
   );
 };
-export default compose(React.memo, withValidations, injectIntl)(SubClienteTab);
+export default compose(
+  React.memo,
+  withValidations,
+  injectIntl
+)(ProveedoresTab);

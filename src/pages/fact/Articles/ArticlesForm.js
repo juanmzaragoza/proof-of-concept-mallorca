@@ -27,18 +27,17 @@ const GENERAL_TAB_INDEX = 0;
 const PRICE_TAB_INDEX = 1;
 const STOCK_TAB_INDEX = 2;
 const PRESENTACION_TAB_INDEX = 3;
-const PROVEEDORES_TAB_INDEX = 4 ;
-const COSTES_TAB_INDEX = 5;
-const PERSONALIZACION_TAB_INDEX = 6;
-const ESCANDALLOS_TAB_INDEX = 7;
-
+const PROVEEDORES_TAB_INDEX = 4;
+const PERSONALIZACION_TAB_INDEX = 5;
+const ESCANDALLOS_TAB_INDEX = 6;
+const COSTES_TAB_INDEX = 7;
 
 const ArticlesForm = React.memo(({ actions, allFormData, getFormData, submitFromOutside, services, ...props }) => {
   const [editMode, setEditMode] = useState(false);
   const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
   const [tabIndexWithError, setTabIndexWithError] = useState({ [GENERAL_TAB_INDEX]: false, [PRICE_TAB_INDEX]: false, 
-    [STOCK_TAB_INDEX]: false, [PRESENTACION_TAB_INDEX]: false, [PROVEEDORES_TAB_INDEX]: false, [COSTES_TAB_INDEX]: false, 
-    [PERSONALIZACION_TAB_INDEX]: false, [ESCANDALLOS_TAB_INDEX]: false });
+    [STOCK_TAB_INDEX]: false, [PRESENTACION_TAB_INDEX]: false, [PROVEEDORES_TAB_INDEX]: false, [PERSONALIZACION_TAB_INDEX]: false, 
+    [ESCANDALLOS_TAB_INDEX]: false, [COSTES_TAB_INDEX]: false, });
 
   const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -141,22 +140,6 @@ const ArticlesForm = React.memo(({ actions, allFormData, getFormData, submitFrom
         loading={props.loading}
         formDataLoaded={props.formDataLoaded} />
     },
-
-    {
-      label: <FormattedMessage id={"Articulos.tab.costes"} defaultMessage={"Costes"} />,
-      key: COSTES_TAB_INDEX,
-      error: tabHasError(COSTES_TAB_INDEX),
-      component: <CostesTab
-        setIsValid={(value) => setTabIndexWithError({ ...tabIndexWithError, [COSTES_TAB_INDEX]: !value })}
-        editMode={editMode}
-        getFormData={getFormData}
-        setFormData={actions.setFormData}
-        submitFromOutside={submitFromOutside}
-        onSubmitTab={handleSubmitTab}
-        formErrors={props.formErrors}
-        loading={props.loading}
-        formDataLoaded={props.formDataLoaded} />
-    },
     {
       label: <FormattedMessage id={"Proveedores.tabs.personalizacion"} defaultMessage={"Personalización"} />,
       key: PERSONALIZACION_TAB_INDEX,
@@ -178,6 +161,21 @@ const ArticlesForm = React.memo(({ actions, allFormData, getFormData, submitFrom
       error: tabHasError(ESCANDALLOS_TAB_INDEX),
       component: <EscandallosTab
         setIsValid={(value) => setTabIndexWithError({ ...tabIndexWithError, [ESCANDALLOS_TAB_INDEX ]: !value })}
+        editMode={editMode}
+        getFormData={getFormData}
+        setFormData={actions.setFormData}
+        submitFromOutside={submitFromOutside}
+        onSubmitTab={handleSubmitTab}
+        formErrors={props.formErrors}
+        loading={props.loading}
+        formDataLoaded={props.formDataLoaded} />
+    },
+    {
+      label: <FormattedMessage id={"Articulos.tab.costes"} defaultMessage={"Costes"} />,
+      key: COSTES_TAB_INDEX,
+      error: tabHasError(COSTES_TAB_INDEX),
+      component: <CostesTab
+        setIsValid={(value) => setTabIndexWithError({ ...tabIndexWithError, [COSTES_TAB_INDEX]: !value })}
         editMode={editMode}
         getFormData={getFormData}
         setFormData={actions.setFormData}
