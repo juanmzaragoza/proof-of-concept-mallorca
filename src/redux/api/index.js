@@ -146,3 +146,5 @@ export const preuArticleEnvas = 'api/fact/preusArticleEnvas';
 export const ivaFact = 'api/fact/ives';
 export const preusPerVolum = 'api/fact/preusPerVolum';
 export const magatzemsArticlesFact = 'api/fact/magatzemsArticlesFact';
+export const categoriaToxicologica = 'api/fact/categoriesToxicologiques';
+export const subvencions = 'api/fact/subvencions';

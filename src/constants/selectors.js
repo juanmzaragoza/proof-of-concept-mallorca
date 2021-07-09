@@ -793,3 +793,26 @@ export const CLASIFICACION_SELECTOR_VALUES = [
     label: "Muertas",
   }
 ];
+
+export const DIMENSION_SELECTOR_VALUES = [
+  {
+    value: "NO_TE_DIMENSIONS",
+    labelId: "Articulos.presentacion.dimensiones.select.noDimensiones",
+    label: "No tiene dimensiones",
+  },
+  {
+    value: "LLARG",
+    labelId: "Articulos.presentacion.dimensiones.select.largo",
+    label: "Largo",
+  },
+  {
+    value: "LLARG_X_AMPLE",
+    labelId: "Articulos.presentacion.dimensiones.select.largoXAncho",
+    label: "Largo x ancho",
+  },
+  {
+    value: "LLARG_X_AMPLE_X_ALT",
+    labelId: "Articulos.presentacion.dimensiones.select.largoXAnchoXAlto",
+    label: "Largo x ancho x alto",
+  }
+];
