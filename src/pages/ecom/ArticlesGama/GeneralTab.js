@@ -14,7 +14,7 @@ import ExpandableGrid from "modules/ExpandableGrid";
 
 import { useTabForm } from "hooks/tab-form";
 
-const ARTICLE_FAMILY_SECTION_INDEX = 0;
+const ARTICLE_GAMA_SECTION_INDEX = 0;
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
@@ -22,7 +22,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     setIsValid: props.setIsValid,
   });
 
-  const { id: articleFamilyId } = useParams();
+  const { id: gamaId } = useParams();
   
 
   const CODE = props.intl.formatMessage({
@@ -30,7 +30,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     defaultMessage: "Código",
   });
 
-  const ArticlesFamilyConfig = [
+  const ArticlesGamaConfig = [
     {
       placeHolder: CODE,
       type: "input",
@@ -46,7 +46,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 6),
         ...props.stringValidations.fieldExistsValidation(
-          "articleFamilias",
+          "articleGammas",
           "codi",
           CODE
         ),
@@ -58,28 +58,16 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Descripción",
       }),
       type: "input",
-      required:true,
       key: "descripcio",
+      required:true,
       breakpoints: {
         xs: 12,
         md: 8,
       },
       validationType: "string",
-      ...props.commonValidations.requiredValidation(),
-      validations: [...props.stringValidations.minMaxValidation(1, 30)],
-    },
-
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "FamiliaArticulos.artExportables",
-        defaultMessage: "Artículos exportables",
-      }),
-      type: "checkbox",
-      key: "artExportables",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+        ...props.stringValidations.minMaxValidation(1, 30)],
     },
   ];
 
@@ -92,13 +80,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
 
     query: [
       {
-        columnName: "familia.id",
-        value: `'${articleFamilyId}'`,
+        columnName: "gamma.id",
+        value: `'${gamaId}'`,
         exact: true,
       },
     ],
     extraPostBody: {
-        familia: { id: articleFamilyId },
+        gamma: { id: gamaId },
       },
    
     columns: [
@@ -161,89 +149,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     ]
   };
 
-  const companyConfig= {
 
-    title: props.intl.formatMessage({
-        id: "FamiliaArticulos.empresa",
-        defaultMessage: "Empresa",
-      }),
-
-    query: [
-      {
-        columnName: "articleFamilia.id",
-        value: `'${articleFamilyId}'`,
-        exact: true,
-      },
-    ],
-    extraPostBody: {
-        articleFamilia: { id: articleFamilyId },
-      },
-   
-    columns: [
-        {
-            name: "empresa",
-            title: props.intl.formatMessage({
-              id: "FamiliaArticulos.empresa",
-              defaultMessage: "Empresa",
-            }),
-            getCellValue: (row) =>
-            row.empresa?.description ?? ""
-          },
-          {
-            name: "web",
-            title: props.intl.formatMessage({
-              id: "FamiliaArticulos.web",
-              defaultMessage: "Web",
-            }),
-            getCellValue: (row) =>
-              row.web && row.web === true ? (
-                <Chip label="SI" variant="outlined" />
-              ) : (
-                <Chip label="NO" variant="outlined" />
-              ),
-          },
-    ],
-    formComponents: [
-        {
-            placeHolder: props.intl.formatMessage({
-              id: "FamiliaArticulos.empresa",
-              defaultMessage: "Empresas",
-            }),
-            type: "LOV",
-            key: "empresa",
-            id:"empresas",
-            noEditable: true,
-            breakpoints: {
-              xs: 12,
-              md: 3,
-            },
-            selector: {
-              key: "empresas",
-              labelKey: (data) => `${data.nomComercial} (${data.codi})`,
-              sort: "nomComercial",
-              cannotCreate: true,
-              advancedSearchColumns: [{title: CODE, name: 'codi'},{title: props.intl.formatMessage({
-                id: "Comun.nombre",
-                defaultMessage: "Nombre",
-              }), name: 'nomComercial'}],
-            },
-        },
-        {
-            placeHolder: props.intl.formatMessage({
-              id: "FamiliaArticulos.web",
-              defaultMessage: "Web",
-            }),
-            type: "checkbox",
-            key: "web",
-            breakpoints: {
-              xs: 12,
-              md: 3,
-            },
-          },
-
-    
-    ]
-  };
 
 
   const tabs = [
@@ -259,18 +165,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         />
       ),
     },
-    {
-      label:<FormattedMessage id={"FamiliaArticulos.empresa"} defaultMessage={"Empresa"} />,
-      key: 1,
-      component: (
-        <ExpandableGrid
-          id="articleFamiliaEmpresas"
-          responseKey="articleFamiliaEmpresas"
-          enabled={props.editMode}
-          configuration={companyConfig}
-        />
-      ),
-    },
   ];
 
   return (
@@ -279,7 +173,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
        
      
           <GenericForm
-            formComponents={ArticlesFamilyConfig}
+            formComponents={ArticlesGamaConfig}
             emptyPaper={true}
             editMode={props.editMode}
             getFormData={getFormData}
@@ -289,9 +183,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
             handleIsValid={(value) =>
-              addValidity(ARTICLE_FAMILY_SECTION_INDEX, value)
+              addValidity(ARTICLE_GAMA_SECTION_INDEX, value)
             }
-            onBlur={(e) => handleTouched(ARTICLE_FAMILY_SECTION_INDEX)}
+            onBlur={(e) => handleTouched(ARTICLE_GAMA_SECTION_INDEX)}
             {...props}
           />
       
