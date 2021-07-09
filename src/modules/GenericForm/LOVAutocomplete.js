@@ -20,7 +20,8 @@ import {
   getQueryFormSelectorById,
   getQuerySearchFormSelectorById,
   getRefreshFormSelectorById,
-  getTotalPagesFormSelectorById
+  getTotalPagesFormSelectorById,
+  getIsDisabledById
 } from 'redux/genericForm/selectors';
 import {
   appendDataToFormSelector,
@@ -30,7 +31,8 @@ import {
   incrementPageToFormSelector,
   refreshAFormSelector,
   searchByQueryTerm,
-  setQueryFromSelector
+  setQueryFromSelector,
+  disableRelatedField
 } from 'redux/genericForm';
 import LOVAdvancedSearch from "./LOVAdvancedSearch";
 
@@ -45,6 +47,20 @@ const LOVAutocomplete = (props) => {
   const [openSearchModal, setOpenSearchModal] = useState(false);
   const [opts, setOpts] = useState([]);
   const [value, setValue] = useState();
+
+  // initialization
+  useEffect(() => {
+    disabledRelatedField();
+  },[]);
+
+  const disabledRelatedField = (disabled = true) => {
+    if(props.relatedWith){
+      props.disableRelatedField({
+        name: props.relatedWith.name,
+        disabled
+      })
+    }
+  }
 
   useEffect(()=>{
     requestDataToServer();
@@ -76,7 +92,14 @@ const LOVAutocomplete = (props) => {
   },[props.refresh]);
 
   const requestDataToServer = () => {
-    props.responseKey && props.searchData({id: props.id, key: props.responseKey, page: props.page, sorting: [{columnName: props.sortBy}], search: props.querySearch, query: props.query});
+    props.responseKey && props.searchData({
+      id: props.id,
+      key: props.responseKey,
+      page: props.page,
+      sorting: [{columnName: props.sortBy}],
+      search: props.querySearch,
+      query: props.query
+    });
   }
 
   const buttonInsideSelector = (icon, disabled = false, onClick) => {
@@ -92,6 +115,7 @@ const LOVAutocomplete = (props) => {
     props.onChange(e, props.transform? props.transform.apply(v):v);
   };
 
+  props.disabledByAnotherLOV && console.log(props.disabledByAnotherLOV)
   return (
     <>
     <Autocomplete
@@ -178,7 +202,7 @@ const LOVAutocomplete = (props) => {
       }}
       getOptionDisabled={(option) => props.loading}
       loading={props.loading}
-      disabled={props.disabled}
+      disabled={props.disabled || props.disabledByAnotherLOV}
       required={props.required}
       noOptionsText={props.intl.formatMessage({id: 'LOVElement.sin_resultados', defaultMessage: 'Sin resultados '})}
       loadingText={`${props.intl.formatMessage({id: 'Comun.cargando', defaultMessage: 'Cargando'})}...`}
@@ -213,6 +237,12 @@ const LOVAutocomplete = (props) => {
         // this reason executes when the user select an option or when the selector it loads the first time
         if(reason !== 'reset'){
           props.dispatchSearchTerm({name: props.id, text: newInputValue});
+        }
+        // if the user clear the value -> disabled related field if exists
+        if(!newInputValue?.length) {
+          disabledRelatedField();
+        } else{
+          disabledRelatedField(false);
         }
       }}
       renderInput={(params) =>
@@ -309,7 +339,8 @@ const mapStateToProps = (state, props) => {
     totalPages: getTotalPagesFormSelectorById(state, props.id),
     querySearch: getQuerySearchFormSelectorById(state, props.id),
     refresh: getRefreshFormSelectorById(state, props.id),
-    query: getQueryFormSelectorById(state, props.id)
+    query: getQueryFormSelectorById(state, props.id),
+    disabledByAnotherLOV: getIsDisabledById(state, props.id)
   };
 };
 
@@ -323,6 +354,7 @@ const mapDispatchToProps = (dispatch, props) => {
     dispatchSearchTerm: bindActionCreators(searchByQueryTerm, dispatch),
     refreshData: bindActionCreators(refreshAFormSelector, dispatch),
     setQuery:  bindActionCreators(setQueryFromSelector, dispatch),
+    disableRelatedField: bindActionCreators(disableRelatedField, dispatch),
   };
   return actions;
 };
