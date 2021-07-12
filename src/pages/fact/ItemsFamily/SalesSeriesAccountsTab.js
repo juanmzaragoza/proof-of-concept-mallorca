@@ -45,6 +45,7 @@ const SalesSeriesAccountsTab = ({ formData, setFormData, getFormData, ...props }
           id: "SerieVenta.diaInicio",
           defaultMessage: "Día Inicio",
         }),
+        getCellValue: row => row.validDesde ? new Date(row.validDesde).toLocaleDateString() : "" 
       },
       {
         name: "validFins",
@@ -52,6 +53,7 @@ const SalesSeriesAccountsTab = ({ formData, setFormData, getFormData, ...props }
           id: "SerieVenta.diaFin",
           defaultMessage: "Día Fin",
         }),
+        getCellValue: row => row.validFins ? new Date(row.validFins).toLocaleDateString() : "" 
       },
       {
         name: "compteVendes",

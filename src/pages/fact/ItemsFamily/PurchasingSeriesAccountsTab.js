@@ -42,6 +42,7 @@ const PurchasingSeriesAccountsTab = ({ formData, setFormData, getFormData, ...pr
           id: "SerieVenta.diaInicio",
           defaultMessage: "Día Inicio",
         }),
+        getCellValue: row => row.validDesde ? new Date(row.validDesde).toLocaleDateString() : "" 
       },
       {
         name: "validFins",
@@ -49,6 +50,7 @@ const PurchasingSeriesAccountsTab = ({ formData, setFormData, getFormData, ...pr
           id: "SerieVenta.diaFin",
           defaultMessage: "Día Fin",
         }),
+        getCellValue: row => row.validFins ? new Date(row.validFins).toLocaleDateString() : "" 
       },
       {
         name: "compteComptableCompres",
@@ -311,7 +313,7 @@ const PurchasingSeriesAccountsTab = ({ formData, setFormData, getFormData, ...pr
           defaultMessage: "Empresa",
         }),
         type: "LOV",
-        key: "empresaOp",
+        key: "empresa",
         breakpoints: {
           xs: 12,
           md: 4,

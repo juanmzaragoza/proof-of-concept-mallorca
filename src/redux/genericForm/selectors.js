@@ -11,4 +11,5 @@ export const getTotalPagesFormSelectorById = (state, id) => get(state, `genericF
 export const getQuerySearchFormSelectorById = (state, id) => get(state, `genericForm.formSelectors[${id}].querySearch`, null);
 export const getRefreshFormSelectorById = (state, id) => get(state, `genericForm.formSelectors[${id}].refresh`, false);
 export const getQueryFormSelectorById = (state, id) => get(state, `genericForm.formSelectors[${id}].query`, []);
+export const getIsDisabledById = (state, id) => get(state, `genericForm.formSelectors[${id}].disabled`, false);
 export const getIsDataLoaded = state => get(state, "genericForm.loaded", false);
