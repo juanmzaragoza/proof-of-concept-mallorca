@@ -686,10 +686,13 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       { name: 'limitInferior', title: INFLIM },
       { name: 'limitSuperior', title: SUPLIM },
       { name: 'preu', title: PRICE },
-      { name: 'aplicaDescompte', title: APLDTO, getCellValue: row => (row.aplicaDescompte && row.aplicaDescompte === true)?
-      <Chip label="SI" variant="outlined" />
-      :
-      <Chip label="NO" variant="outlined" />},
+      { name: 'aplicaDescompte',
+        title: APLDTO,
+        getCellValue: row => (row.aplicaDescompte && row.aplicaDescompte === true)?
+          <Chip label={props.intl.formatMessage({id: "Comun.SI", defaultMessage: "SI",})} variant="outlined" />
+          :
+          <Chip label={props.intl.formatMessage({id: "Comun.NO", defaultMessage: "NO",})} variant="outlined" />
+      },
       { name: 'dte001', title: DTO1 },
       { name: 'dte002', title: DTO2 },
       { name: 'article.description', title: ARTICLE, getCellValue: row => (row.article.description ? row.article.description : "" )},
