@@ -156,3 +156,11 @@ export const ubicacios = 'api/fact/ubicacions';
 export const ubicacioArticles = 'api/fact/ubicacionsArticle';
 
 export const articlesFact = 'api/fact/articles';
+
+export const preuArticleEnvas = 'api/fact/preusArticleEnvas';
+export const ivaFact = 'api/fact/ives';
+export const preusPerVolum = 'api/fact/preusPerVolum';
+export const magatzemsArticlesFact = 'api/fact/magatzemsArticlesFact';
+export const categoriaToxicologica = 'api/fact/categoriesToxicologiques';
+export const subvencions = 'api/fact/subvencions';
+export const proveidorsArticle = 'api/fact/proveidorsArticle';
