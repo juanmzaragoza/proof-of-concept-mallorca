@@ -375,6 +375,22 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
   ];
 
   const ibanConfig = [
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.paisIban",
+        defaultMessage: "Pais Iban",
+      }),
+      type: "input",
+      key: "paisIban",
+
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
+    },
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.digitosIban",
@@ -391,21 +407,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 2)],
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.paisIban",
-        defaultMessage: "Pais Iban",
-      }),
-      type: "input",
-      key: "paisIban",
-
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 2)],
-    },
+   
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.bicIban",

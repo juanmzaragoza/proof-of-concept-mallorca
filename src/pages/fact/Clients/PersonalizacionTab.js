@@ -30,7 +30,7 @@ const PersonalizacionTab = ({
       key: "parametreTxt1",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
     {
@@ -42,7 +42,7 @@ const PersonalizacionTab = ({
       key: "parametreTxt2",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
     {
@@ -54,7 +54,7 @@ const PersonalizacionTab = ({
       key: "parametreTxt3",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
     {
@@ -66,7 +66,7 @@ const PersonalizacionTab = ({
       key: "parametreTxt4",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
     {
@@ -78,7 +78,7 @@ const PersonalizacionTab = ({
       key: "parametreTxt5",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
   ];
@@ -93,7 +93,7 @@ const PersonalizacionTab = ({
       key: "parametreNum1",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
     {
@@ -105,7 +105,7 @@ const PersonalizacionTab = ({
       key: "parametreNum2",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
     {
@@ -117,7 +117,7 @@ const PersonalizacionTab = ({
       key: "parametreNum3",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
     {
@@ -129,7 +129,7 @@ const PersonalizacionTab = ({
       key: "parametreNum4",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
     {
@@ -141,58 +141,70 @@ const PersonalizacionTab = ({
       key: "parametreNum5",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
   ];
 
   return (
-    <Grid container>
-      <Grid xs={12} item>
+    <Grid container spacing={2}>
+    <Grid xs={6} item>
         <OutlinedContainer
           className="contact-tab-container"
           title={
             <FormattedMessage
-              id={"Clientes.personalizacion"}
-              defaultMessage={"Personalización"}
+              id={"Proveedores.personalizacion.alfanumericos"}
+              defaultMessage={"Parámetros Alfanuméricos"}
             />
           }
         >
-          <GenericForm
-            formComponents={personalAlfConfig}
-            emptyPaper={true}
-            editMode={props.editMode}
-            setFormData={setFormData}
-            getFormData={getFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) =>
-              addValidity(PERSONAL_SECTION_INDEX, value)
-            }
-            onBlur={(e) => handleTouched(PERSONAL_SECTION_INDEX)}
-            {...props}
-          />
-          <GenericForm
-            formComponents={personalNumConfig}
-            emptyPaper={true}
-            editMode={props.editMode}
-            setFormData={setFormData}
-            getFormData={getFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) =>
-              addValidity(PERSONAL_SECTION_INDEX, value)
-            }
-            onBlur={(e) => handleTouched(PERSONAL_SECTION_INDEX)}
-            {...props}
-          />
-        </OutlinedContainer>
+        <GenericForm
+          formComponents={personalAlfConfig}
+          emptyPaper={true}
+          editMode={props.editMode}
+          setFormData={setFormData}
+          getFormData={getFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) =>
+            addValidity(PERSONAL_SECTION_INDEX, value)
+          }
+          onBlur={(e) => handleTouched(PERSONAL_SECTION_INDEX)}
+          {...props}
+        />
+      </OutlinedContainer>
       </Grid>
+      <Grid xs={6} item>
+      <OutlinedContainer
+        className="contact-tab-container"
+        title={
+          <FormattedMessage
+              id={"Proveedores.personalizacion.numericos"}
+              defaultMessage={"Parámetros Numéricos"}
+            />
+        }
+      >
+        <GenericForm
+          formComponents={personalNumConfig}
+          emptyPaper={true}
+          editMode={props.editMode}
+          setFormData={setFormData}
+          getFormData={getFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) =>
+            addValidity(PERSONAL_SECTION_INDEX, value)
+          }
+          onBlur={(e) => handleTouched(PERSONAL_SECTION_INDEX)}
+          {...props}
+        />
+      </OutlinedContainer>
     </Grid>
+  </Grid>
   );
 };
 

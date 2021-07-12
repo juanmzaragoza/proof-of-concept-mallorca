@@ -1084,5 +1084,7 @@
   "Clientes.Contacto.movil":"Telf. Móvil",
   "Proveedores.Contacto.telefono2": "Teléfono 2",
   "Proveedores.Contacto.fax2": "Fax 2",
-  "Proveedores.Contacto.responsable": "Responsable"
+  "Proveedores.Contacto.responsable": "Responsable",
+  "Proveedores.personalizacion.alfanumericos": "Parametros Alfanuméricos",
+  "Proveedores.personalizacion.numericos":"Parametros Numéricos"
 }
