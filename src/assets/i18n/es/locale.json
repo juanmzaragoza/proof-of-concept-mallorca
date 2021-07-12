@@ -1079,6 +1079,7 @@
   "TraducionesFamilia.titulo":"Traducciones",
   "Configuracion.titulo": "Configuración",
   "Facturacion.titulo" :"Facturación",
+
   "Clientes.proyectoObligatorio":"Proyecto obligatorio",
   "Clientes.Contacto.cif":"CIF",
   "Clientes.Contacto.movil":"Telf. Móvil",
@@ -1086,5 +1087,37 @@
   "Proveedores.Contacto.fax2": "Fax 2",
   "Proveedores.Contacto.responsable": "Responsable",
   "Proveedores.personalizacion.alfanumericos": "Parametros Alfanuméricos",
-  "Proveedores.personalizacion.numericos":"Parametros Numéricos"
+  "Proveedores.personalizacion.numericos":"Parametros Numéricos",
+
+  "Proveedores.Facturacion.horario": "Horario",
+  "Proveedores.Facturacion.vacaciones": "Vacaciones",
+  "Clientes.tabs.iban": "Iban",
+  "Proveedores.cuenta.compra": "Cuenta compras",
+  "Proveedores.regimenCaja": "Régimen criterio caja",
+  "Proveedores.contab.noTraspasar": "No traspasar",
+
+  "Proveedores.tabs.facturas": "Facturas",
+  "Proveedores.retencion":"Retención",
+  "Proveedores.facturaConforme":"Factura conforme",
+  "Proveedores.Documentos.nombreFiscal":"Nombre fiscal",
+  "Proveedores.Documentos.facturaTotal":"Factura total",
+  "Proveedores.Documentos.cantidadIva": "IVA",
+  "Proveedores.Documentos.baseImponible": "Base imponible",
+  "Proveedores.Documentos.facturaBruto": "Factura Bruto",
+  "Divisas.titulo":"Divisa",
+  "Proveedores.Documentos.referencia":"Referencia",
+  "Proveedores.Documentos.fecha":"Fecha",
+  "Proveedores.Documentos.documento":"Documento",
+  "Proveedores.Documentos.precioNeto":"Precio neto",
+  "Proveedores.Precios.articulo":"Artículo",
+  "Proveedores.tabs.precioCoste":"Precio coste",
+  "Proveedores.serieCompra": "Serie Compra",
+  "Proveedores.tabs.seriesEmpresa": "Series Empresas",
+  "Proveedores.ultimoPrecioCompra": "Último Precio Compra",
+  "Proveedores.ultimoDiaCompra":"Último Dia Compra",
+  "Proveedores.ultimoDescuento": "Último Descuento",
+  "Proveedores.codigoArticulo": "Código Artículo Proveedor"
+
+
+  
 }
