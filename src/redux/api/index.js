@@ -164,3 +164,7 @@ export const magatzemsArticlesFact = 'api/fact/magatzemsArticlesFact';
 export const categoriaToxicologica = 'api/fact/categoriesToxicologiques';
 export const subvencions = 'api/fact/subvencions';
 export const proveidorsArticle = 'api/fact/proveidorsArticle';
+export const projectesPressupost = `api/fact/projectesPressupost`;
+export const capitol =`api/fact/capitols`;
+export const pressupost = `api/fact/pressupostos`;
+export const partida = `api/fact/partides`;

@@ -38,17 +38,12 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
     defaultMessage: "Nombre",
   });
 
-
   const getString = (key) => (getFormData(key) ? getFormData(key) : "");
-
-
-
 
   const aSCodeAndName = [
     { title: CODE, name: "codi" },
     { title: NOM, name: "nom" },
   ];
-
 
   const projectsConfig = [
     {
@@ -68,43 +63,42 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
     {
       placeHolder: props.intl.formatMessage({
         id: "Proyectos.zona",
-        defaultMessage: "Zona"
+        defaultMessage: "Zona",
       }),
-      type: 'LOV',
-      key: 'zona',
+      type: "LOV",
+      key: "zona",
       breakpoints: {
         xs: 12,
-        md: 4
+        md: 4,
       },
       selector: {
         key: "zonas",
         labelKey: (data) => `${data.nom} (${data.codi})`,
-        sort: 'nom',
+        sort: "nom",
         creationComponents: [
           {
-            type: 'input',
-            key: 'codi',
+            type: "input",
+            key: "codi",
             placeHolder: CODE,
             required: true,
             breakpoints: {
               xs: 12,
-              md: 6
-            }
+              md: 6,
+            },
           },
           {
-            type: 'input',
-            key: 'nom',
+            type: "input",
+            key: "nom",
             placeHolder: NOM,
             required: true,
             breakpoints: {
               xs: 12,
-              md: 6
-            }
-          }
+              md: 6,
+            },
+          },
         ],
-        advancedSearchColumns: aSCodeAndName
+        advancedSearchColumns: aSCodeAndName,
       },
-     
     },
 
     {
@@ -134,35 +128,33 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     },
     {
-        placeHolder: props.intl.formatMessage({
-          id: "Proyectos.estudioTasa",
-          defaultMessage: "Estudio Tasa",
-        }),
-        type: "numeric",
-        key: "estudiTasaPercent",
-        suffix: "%",
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
+      placeHolder: props.intl.formatMessage({
+        id: "Proyectos.estudioTasa",
+        defaultMessage: "Estudio Tasa",
+      }),
+      type: "numeric",
+      key: "estudiTasaPercent",
+      suffix: "%",
+      breakpoints: {
+        xs: 12,
+        md: 4,
       },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Proyectos.estudioSuma",
-          defaultMessage: "Estudio suma valoración en exceso",
-        }),
-        type: "checkbox",
-        key: "estudiSumarValoracioEnExces",
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proyectos.estudioSuma",
+        defaultMessage: "Estudio suma valoración en exceso",
+      }),
+      type: "checkbox",
+      key: "estudiSumarValoracioEnExces",
+      breakpoints: {
+        xs: 12,
+        md: 4,
       },
-      
+    },
   ];
 
   const garantiaData = [
-    
     {
       placeHolder: props.intl.formatMessage({
         id: "Proyectos.mesesGarantia",
@@ -170,7 +162,7 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "numeric",
       key: "mesosGarantia",
-      required:true,
+      required: true,
       breakpoints: {
         xs: 12,
         md: 4,
@@ -190,7 +182,7 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
     },
-    
+
     {
       placeHolder: props.intl.formatMessage({
         id: "Proyectos.horasGarantia",
@@ -242,10 +234,7 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
     },
-  
   ];
-  
-
 
   const code = (md = 6) => ({
     type: "input",
@@ -275,7 +264,6 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
   ];
 
   const costesConfig = [
-
     {
       placeHolder: props.intl.formatMessage({
         id: "Proyectos.costeMonetario",
@@ -286,7 +274,7 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
       suffix: "%",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
     },
 
@@ -297,10 +285,10 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "numeric",
       key: "impfixmo",
-  
+
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
     },
     {
@@ -313,7 +301,7 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
       suffix: "%",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
     },
 
@@ -324,26 +312,16 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "numeric",
       key: "impfixmaq",
-  
+
       breakpoints: {
         xs: 12,
-        md: 3,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proyectos.km",
-        defaultMessage: "Km. a la obra",
-      }),
-      type: "numeric",
-      key: "kmt",
-  
-      breakpoints: {
-        xs: 12,
-        md: 3,
+        md: 6,
       },
     },
 
+  ];
+
+  const MoreCofig = [
     {
       placeHolder: props.intl.formatMessage({
         id: "Proyectos.producto",
@@ -353,7 +331,7 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "producte",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
       variant: "outlined",
       selector: {
@@ -373,7 +351,7 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "expedient",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
       variant: "outlined",
       selector: {
@@ -384,10 +362,20 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndName,
       },
     },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proyectos.km",
+        defaultMessage: "Km. a la obra",
+      }),
+      type: "numeric",
+      key: "kmt",
+
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+    },
   ];
-
-
-
 
   return (
     <Grid container spacing={2}>
@@ -416,8 +404,8 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
             {...props}
           />
         </OutlinedContainer>
-        </Grid>
-        <Grid xs={6} item>
+      </Grid>
+      <Grid xs={6} item>
         <OutlinedContainer
           className="general-tab-container"
           title={
@@ -443,7 +431,7 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
           />
         </OutlinedContainer>
       </Grid>
-      <Grid xs={12} item>
+      <Grid xs={6} item>
         <OutlinedContainer
           className="general-tab-container"
           title={
@@ -468,8 +456,23 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
             {...props}
           />
         </OutlinedContainer>
-        </Grid>
-
+      </Grid>
+      <Grid xs={6} item>
+      <GenericForm
+            formComponents={MoreCofig}
+            emptyPaper={true}
+            editMode={props.editMode}
+            getFormData={getFormData}
+            setFormData={setFormData}
+            loading={props.loading}
+            formErrors={props.formErrors}
+            submitFromOutside={props.submitFromOutside}
+            onSubmit={() => props.onSubmitTab(formData)}
+            handleIsValid={(value) => addValidity(PROJECT_SECTION_INDEX, value)}
+            onBlur={(e) => handleTouched(PROJECT_SECTION_INDEX)}
+            {...props}
+          />
+      </Grid>
     </Grid>
   );
 };

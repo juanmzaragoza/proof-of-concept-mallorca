@@ -25,6 +25,7 @@ import { setFormDataByKey } from "redux/genericForm";
 import { getLoading } from "redux/app/selectors";
 import ProjectDataTab from "./ProjectDataTab";
 import MoreTab from "./MoreTab";
+import BudgetTab from "./BudgetTab";
 
 /**
  * Suppliers form module
@@ -33,8 +34,9 @@ import MoreTab from "./MoreTab";
 /** step 1 */
 const GENERAL_TAB_INDEX = 0;
 const MORE_TAB_INDEX = 1;
+const BUDGET_TAB_INDEX = 2;
 
-const SuppliersForm = React.memo(
+const ProjectsForm = React.memo(
   ({
     actions,
     allFormData,
@@ -51,6 +53,7 @@ const SuppliersForm = React.memo(
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [GENERAL_TAB_INDEX]: false,
       [MORE_TAB_INDEX]: false,
+      [BUDGET_TAB_INDEX]:false
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -144,6 +147,30 @@ const SuppliersForm = React.memo(
           />
         ),
       },
+      {
+        ...getTranslations("Proyectos.presupuestos", "Presupuestos"),
+        key: BUDGET_TAB_INDEX,
+        error: tabHasError(BUDGET_TAB_INDEX),
+        component: (
+          <BudgetTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [BUDGET_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+          />
+        ),
+      },
+      
     ];
 
     const { id } = useParams();
@@ -269,5 +296,5 @@ const component = compose(
   injectIntl,
   connect(mapStateToProps, mapDispatchToProps),
   withAbmServices
-)(SuppliersForm);
+)(ProjectsForm);
 export default component;
