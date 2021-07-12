@@ -164,3 +164,4 @@ export const magatzemsArticlesFact = 'api/fact/magatzemsArticlesFact';
 export const categoriaToxicologica = 'api/fact/categoriesToxicologiques';
 export const subvencions = 'api/fact/subvencions';
 export const proveidorsArticle = 'api/fact/proveidorsArticle';
+export const operariCodi = 'api/rrhh/operaris';

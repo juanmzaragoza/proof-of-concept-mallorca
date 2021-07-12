@@ -1078,5 +1078,8 @@
   "Idiomas.titulo":"Idiomas",
   "TraducionesFamilia.titulo":"Traducciones",
   "Configuracion.titulo": "Configuración",
-  "Facturacion.titulo" :"Facturación"
+  "Facturacion.titulo" :"Facturación",
+  "Clientes.proyectoObligatorio":"Proyecto obligatorio",
+  "Clientes.Contacto.cif":"CIF",
+  "Clientes.Contacto.movil":"Telf. Móvil"
 }
