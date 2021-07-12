@@ -227,9 +227,9 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         getCellValue: (row) =>
           row.bloquejat && row.bloquejat === true ? (
-            <Chip label="SI" variant="outlined" />
+            <Chip label={props.intl.formatMessage({id: "Comun.SI", defaultMessage: "SI"})} variant="outlined" />
           ) : (
-            <Chip label="NO" variant="outlined" />
+            <Chip label={props.intl.formatMessage({id: "Comun.NO", defaultMessage: "NO"})} variant="outlined" />
           ),
       },
       {
@@ -241,9 +241,9 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
 
         getCellValue: (row) =>
           row.preusPerVolum && row.preusPerVolum === true ? (
-            <Chip label="SI" variant="outlined" />
+            <Chip label={props.intl.formatMessage({id: "Comun.SI", defaultMessage: "SI"})} variant="outlined" />
           ) : (
-            <Chip label="NO" variant="outlined" />
+            <Chip label={props.intl.formatMessage({id: "Comun.NO", defaultMessage: "NO"})} variant="outlined" />
           ),
       },
     ],
