@@ -350,17 +350,21 @@ const ContactTab = ({ formData, setFormData, ...props }) => {
       { name: "codi", title: CODE },
       { name: "nom", title: NOM },
       { name: "domicili", title: DOMICILI },
-      // {
-      //   name: "codiPostal",
-      //   title: props.intl.formatMessage({
-      //     id: "Proveedores.Direccion.codPostal",
-      //     defaultMessage: "Código Postal",
-      //   }),
-      //   getCellValue: (row) => row.codiPostal?.description,
-      // },
+      {
+        name: "codiPostal",
+        title: props.intl.formatMessage({
+          id: "Proveedores.Direccion.codPostal",
+          defaultMessage: "Código Postal",
+        }),
+        getCellValue: (row) => row.codiPostal?.description,
+        hidden:true,
+      },
       { name: "telefon1", title: TELEFON },
+      { name: "telefon2", title: TELEFON2 , hidden:true },
       { name: "fax1", title: FAX },
+      { name: "fax2", title: FAX2, hidden:true, },
       { name: "email", title: EMAIL },
+      { name: "www", title: WWW, hidden:true },
       {
         name: "responsable",
         title: props.intl.formatMessage({
