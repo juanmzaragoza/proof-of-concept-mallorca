@@ -781,6 +781,13 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
           },
           advancedSearchColumns: aSArticleAndEnvas,
         },
+        extraQuery: [
+          {
+            columnName: 'article.id',
+            value: `"${articulosId}"`,
+            exact: true
+          }
+        ],
         validationType: "object",
         ...withRequiredValidation(),
       },
