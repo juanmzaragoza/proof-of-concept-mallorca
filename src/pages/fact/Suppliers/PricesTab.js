@@ -45,8 +45,8 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
       {
         name: "codi",
         title: props.intl.formatMessage({
-          id: "Comun.codigo",
-          defaultMessage: "Código",
+          id: "Proveedores.codigoArticulo",
+          defaultMessage: "Código Articulo Proveedor",
         }),
       },
       {
@@ -55,9 +55,44 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
           id: "Proveedores.Documentos.precioNeto",
           defaultMessage: "Precio Neto",
         }),
-
+        getCellValue: (row) =>
+          row.preuNetExtraField && parseInt(row.preuNetExtraField).toFixed(2),
       },
-    
+      {
+        name: "ultimPreuCompra",
+        title: props.intl.formatMessage({
+          id: "Proveedores.ultimoPrecioCompra",
+          defaultMessage: "Último Precio Compra",
+        }),
+        hidden: true,
+      },
+      {
+        name: "ultimDescompte",
+        title: props.intl.formatMessage({
+          id: "Proveedores.ultimoDescuento",
+          defaultMessage: "Último descuento",
+        }),
+        hidden: true,
+      },
+      {
+        name: "ultimDiaCompra",
+        title: props.intl.formatMessage({
+          id: "Proveedores.ultimoDiaCompra",
+          defaultMessage: "Último Dia Compra",
+        }),
+        getCellValue: row => row.ultimDiaCompra ? new Date(row.ultimDiaCompra).toLocaleDateString() : "",
+        hidden: true,
+      },
+      {
+        name: "divisa",
+        title: props.intl.formatMessage({
+          id: "Divisas.titulo",
+          defaultMessage: "Divisas",
+        }),
+        getCellValue: (row) =>
+          row.divisa?.description ? row.divisa?.description : "",
+      },
+
     ],
     formComponents: [],
   };
@@ -65,23 +100,13 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
   return (
     <Grid container>
       <Grid xs={12} item>
-        <OutlinedContainer
-          className="contact-tab-container"
-          title={
-            <FormattedMessage
-              id={"Proveedores.tabs.facturas"}
-              defaultMessage={"Facturas"}
-            />
-          }
-        >
-          <ExpandableGrid
-            id="proveidorsArticle"
-            responseKey="proveidorArticles"
-            enabled={props.editMode}
-            configuration={departamentsConfig}
-            cannotCreate={true}
-          />
-        </OutlinedContainer>
+        <ExpandableGrid
+          id="proveidorsArticle"
+          responseKey="proveidorArticles"
+          enabled={props.editMode}
+          configuration={departamentsConfig}
+          cannotCreate={true}
+        />
       </Grid>
     </Grid>
   );

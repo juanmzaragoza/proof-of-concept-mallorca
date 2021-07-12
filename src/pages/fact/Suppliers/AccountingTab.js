@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
+import { Chip } from "@material-ui/core";
 
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
@@ -74,9 +75,6 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
       md: md,
     },
   });
-
-
-
 
   const codiPostal = (md = 6) => [
     {
@@ -179,8 +177,6 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
-
-
   const aSCodeAndName = [
     { title: CODE, name: "codi" },
     { title: NOM, name: "nom" },
@@ -217,7 +213,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
         sort: "codi",
         cannotCreate: true,
         relatedWith: {
-          name: "oficinaBancaria",
+          name: "oficinaBancariaCodi",
           filterBy: "banc.id",
           keyValue: "id",
         },
@@ -247,9 +243,10 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
           { title: DOMICILI, name: "domicili" },
         ],
         transform: {
-            apply: (oficinaBancarias) => oficinaBancarias && oficinaBancarias.codi,
-            reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-          },
+          apply: (oficinaBancarias) =>
+            oficinaBancarias && oficinaBancarias.codi,
+          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+        },
         creationComponents: [
           {
             type: "input",
@@ -380,18 +377,18 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
       validations: [...props.stringValidations.minMaxValidation(1, 2)],
     },
     {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.bicIban",
-          defaultMessage: "Bic Iban",
-        }),
-        type: "input",
-        key: "numeroContaNacional",
-  
-        breakpoints: {
-          xs: 12,
-          md: 5,
-        },
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.bicIban",
+        defaultMessage: "Bic Iban",
+      }),
+      type: "input",
+      key: "numeroContaNacional",
+
+      breakpoints: {
+        xs: 12,
+        md: 5,
       },
+    },
 
     {
       placeHolder: props.intl.formatMessage({
@@ -772,8 +769,6 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
- 
-
   const cuentasContables = {
     title: props.intl.formatMessage({
       id: "Clientes.cuentasContables",
@@ -812,31 +807,44 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Num cuenta Compras",
         }),
       },
+      {
+        name: "noTraspassar",
+        title: props.intl.formatMessage({
+          id: "Proveedores.contab.noTraspasar",
+          defaultMessage: "No Traspasar",
+        }),
+        getCellValue: (row) =>
+          row.noTraspassar && row.noTraspassar === true ? (
+            <Chip label="SI" variant="outlined" />
+          ) : (
+            <Chip label="NO" variant="outlined" />
+          ),
+      },
     ],
     formComponents: [
-    //   {
-    //     placeHolder: props.intl.formatMessage({
-    //       id: "Clientes.empresas",
-    //       defaultMessage: "Empresas",
-    //     }),
-    //     type: "LOV",
-    //     key: "empresa",
-    //     required: true,
-    //     breakpoints: {
-    //       xs: 12,
-    //       md: 4,
-    //     },
-    //     selector: {
-    //       key: "empresas",
-    //       labelKey: (data) => `${data.nomFiscal} (${data.codi})`,
-    //       sort: "nomFiscal",
-    //       cannotCreate: true,
-    //       advancedSearchColumns: [
-    //         { title: CODE, name: "codi" },
-    //         { title: NOM, name: "nomFiscal" },
-    //       ],
-    //     },
-    //   },
+      //   {
+      //     placeHolder: props.intl.formatMessage({
+      //       id: "Clientes.empresas",
+      //       defaultMessage: "Empresas",
+      //     }),
+      //     type: "LOV",
+      //     key: "empresa",
+      //     required: true,
+      //     breakpoints: {
+      //       xs: 12,
+      //       md: 4,
+      //     },
+      //     selector: {
+      //       key: "empresas",
+      //       labelKey: (data) => `${data.nomFiscal} (${data.codi})`,
+      //       sort: "nomFiscal",
+      //       cannotCreate: true,
+      //       advancedSearchColumns: [
+      //         { title: CODE, name: "codi" },
+      //         { title: NOM, name: "nomFiscal" },
+      //       ],
+      //     },
+      //   },
       {
         type: "input",
         key: "compteComptable",
@@ -849,7 +857,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 3,
         },
-        validationType: 'string',
+        validationType: "string",
         ...withRequiredValidation(),
       },
       {
@@ -864,7 +872,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 3,
         },
-        validationType: 'string',
+        validationType: "string",
         ...withRequiredValidation(),
       },
       {
@@ -878,13 +886,11 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 2,
         },
-
       },
     ],
   };
 
   const tabs = [
-  
     {
       label: "Cuentas Contables",
       key: 0,

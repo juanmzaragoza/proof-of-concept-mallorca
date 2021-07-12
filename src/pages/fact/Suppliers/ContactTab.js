@@ -76,7 +76,6 @@ const ContactTab = ({ formData, setFormData, ...props }) => {
     },
   });
 
-
   const codiPostal = (md = 6) => [
     {
       placeHolder: props.intl.formatMessage({
@@ -478,12 +477,15 @@ const ContactTab = ({ formData, setFormData, ...props }) => {
         }),
         type: "input",
         key: "responsable",
+        required:true,
         breakpoints: {
           xs: 12,
           md: 3,
         },
         validationType: "string",
-        validations: props.stringValidations.minMaxValidation(1, 60),
+        ...withRequiredValidation([
+          ...props.stringValidations.minMaxValidation(1, 60),
+        ]),
       },
     ],
   };

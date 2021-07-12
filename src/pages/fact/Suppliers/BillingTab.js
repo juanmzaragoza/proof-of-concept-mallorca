@@ -597,10 +597,13 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
         },
         selector: {
           key: "empresas",
-          labelKey: formatCodeAndDescription,
-          sort: "descripcio",
+          labelKey: (data) => `${data.nomFiscal} (${data.codi})`,
+          sort: "nomFiscal",
           cannotCreate: true,
-          advancedSearchColumns: aSCodeAndDescription,
+          advancedSearchColumns: [
+            { title: CODE, name: "codi" },
+            { title: NOM, name: "nomFiscal" },
+          ],
         },
         validationType: "object",
         ...withRequiredValidation(),

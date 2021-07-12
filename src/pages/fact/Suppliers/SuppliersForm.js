@@ -31,6 +31,7 @@ import AccountingTab from "./AccountingTab";
 import PersonalizationTab from "./PersonalizationTab";
 import DocumentsTab from "./DocumentsTab";
 import PricesTab from "./PricesTab";
+import SerieTab from "./SerieTab";
 
 /**
  * Suppliers form module
@@ -43,6 +44,8 @@ const ACCOUNTING_TAB_INDEX = 2;
 const BILLING_TAB_INDEX = 3;
 const PERSONAL_TAB_INDEX = 4;
 const DOCUMENTS_TAB_INDEX = 5;
+const PRICE_TAB_INDEX = 6;
+const SERIE_TAB_INDEX = 7;
 
 const SuppliersForm = React.memo(
   ({
@@ -65,6 +68,8 @@ const SuppliersForm = React.memo(
       [ACCOUNTING_TAB_INDEX]: false,
       [PERSONAL_TAB_INDEX]: false,
       [DOCUMENTS_TAB_INDEX]: false,
+      [PRICE_TAB_INDEX]: false,
+      [SERIE_TAB_INDEX]: false,
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -257,13 +262,13 @@ const SuppliersForm = React.memo(
       },
       {
         ...getTranslations("Proveedores.tabs.precios_coste", "Precios Coste"),
-        key: 6,
+        key: PRICE_TAB_INDEX,
         component: (
           <PricesTab
             setIsValid={(value) =>
               setTabIndexWithError({
                 ...tabIndexWithError,
-                [DOCUMENTS_TAB_INDEX]: !value,
+                [PRICE_TAB_INDEX]: !value,
               })
             }
             editMode={editMode}
@@ -279,8 +284,25 @@ const SuppliersForm = React.memo(
       },
       {
         ...getTranslations("Proveedores.tabs.series", "Series"),
-        key: 7,
-        component: "Series",
+        key: SERIE_TAB_INDEX,
+        component: (
+          <SerieTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [SERIE_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+          />
+        ),
       },
     ];
 

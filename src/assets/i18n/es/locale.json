@@ -966,7 +966,17 @@
   "Divisas.titulo":"Divisa",
   "Proveedores.Documentos.referencia":"Referencia",
   "Proveedores.Documentos.fecha":"Fecha",
-  "Proveedores.Documentos.documento":"Documento"
+  "Proveedores.Documentos.documento":"Documento",
+  "Proveedores.Documentos.precioNeto":"Precio neto",
+  "Proveedores.Precios.articulo":"Artículo",
+  "Proveedores.tabs.precioCoste":"Precio coste",
+  "Proveedores.serieCompra": "Serie Compra",
+  "Proveedores.tabs.seriesEmpresa": "Series Empresas",
+  "Proveedores.ultimoPrecioCompra": "Último Precio Compra",
+  "Proveedores.ultimoDiaCompra":"Último Dia Compra",
+  "Proveedores.ultimoDescuento": "Último Descuento",
+  "Proveedores.codigoArticulo": "Código Artículo Proveedor"
+
 
   
 }
