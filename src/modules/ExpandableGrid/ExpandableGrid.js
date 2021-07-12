@@ -32,7 +32,7 @@ const TableComponent = ({ ...restProps }) => (
 const getRowId = row => row.id;
 const ExpandableGrid = ({ id, responseKey, configuration,
                           rows, totalCount, pageSize, loading, refreshData,
-                          actions, cannotCreate, ...props}) => {
+                          actions, readOnly, ...props}) => {
   const [columns] = useState(configuration.columns.filter(col => !col.hidden));
   const [expandedRowIds, setExpandedRowIds] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -107,7 +107,7 @@ const ExpandableGrid = ({ id, responseKey, configuration,
         />
         <Table tableComponent={TableComponent} rowComponent={RowComponent}/>
         <TableHeaderRow showSortingControls />
-        {!cannotCreate &&
+        {!readOnly &&
         <TableEditColumn
           showAddCommand={enabled}
           showEditCommand

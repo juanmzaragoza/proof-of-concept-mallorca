@@ -105,7 +105,7 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
           responseKey="proveidorArticles"
           enabled={props.editMode}
           configuration={departamentsConfig}
-          cannotCreate={true}
+          readOnly={true}
         />
       </Grid>
     </Grid>
