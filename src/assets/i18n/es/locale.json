@@ -1081,5 +1081,8 @@
   "Facturacion.titulo" :"Facturación",
   "Clientes.proyectoObligatorio":"Proyecto obligatorio",
   "Clientes.Contacto.cif":"CIF",
-  "Clientes.Contacto.movil":"Telf. Móvil"
+  "Clientes.Contacto.movil":"Telf. Móvil",
+  "Proveedores.Contacto.telefono2": "Teléfono 2",
+  "Proveedores.Contacto.fax2": "Fax 2",
+  "Proveedores.Contacto.responsable": "Responsable"
 }
