@@ -3,8 +3,6 @@ import { FormattedMessage, injectIntl } from "react-intl";
 import { compose } from "redux";
 import Grid from "@material-ui/core/Grid/Grid";
 
-import "../Suppliers/styles.scss";
-
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
