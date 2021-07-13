@@ -1130,7 +1130,18 @@
   "Clientes.aplicacion":"Aplicación",
   "Clientes.codigoOtraApp":"Código cliente otra App.",
   "Clientes.porcentaje":"Porcentaje",
-  "Clientes.otraAplicacion": "Clientes otras Aplicaciones"
+  "Clientes.otraAplicacion": "Clientes otras Aplicaciones",
+  "Almacen.datosComerciales":"Datos comerciales",
+  "Almacen.datosStock":"Datos Stock",
+  "Almacen.datosContables":"Datos Contables",
+  "Almacen.periodos":"Períodos",
+  "Almacen.periodo":"Período",
+  "Almacen.fechaInicio":"Fecha Inicio",
+  "Almacen.situacionesIniciales":"Situaciones Iniciales",
+  "Alamcen.articulo":"Artículo",
+  "Almacen.precioCoste":"Precio Coste Unitario",
+  "Almacen.unidadesMetricas":"Unidades Métricas Iniciales",
+  "Almacen.unidadesIniciales":"Unidades Iniciales"
 
 
   
