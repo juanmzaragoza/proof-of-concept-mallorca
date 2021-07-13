@@ -25,7 +25,7 @@ const ComercialTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "parametreTxtComercial1",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
     {
@@ -37,7 +37,7 @@ const ComercialTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "parametreTxtComercial2",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
     {
@@ -49,7 +49,7 @@ const ComercialTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "parametreTxtComercial3",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
     {
@@ -61,7 +61,7 @@ const ComercialTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "parametreTxtComercial4",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
     {
@@ -73,7 +73,7 @@ const ComercialTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "parametreTxtComercial5",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
   ];
@@ -88,7 +88,7 @@ const ComercialTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "parametreNumComercial1",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
     {
@@ -100,7 +100,7 @@ const ComercialTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "parametreNumComercial2",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
     {
@@ -112,7 +112,7 @@ const ComercialTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "parametreNumComercial3",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
     {
@@ -124,7 +124,7 @@ const ComercialTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "parametreNumComercial4",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
     {
@@ -136,20 +136,20 @@ const ComercialTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "parametreNumComercial5",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
   ];
 
   return (
-    <Grid container>
-      <Grid xs={12} item>
+    <Grid container spacing={2}>
+      <Grid xs={6} item>
         <OutlinedContainer
           className="contact-tab-container"
           title={
             <FormattedMessage
-              id={"Clientes.comercial"}
-              defaultMessage={"Comercial"}
+              id={"Proveedores.personalizacion.alfanumericos"}
+              defaultMessage={"Parámetros Alfanuméricos"}
             />
           }
         >
@@ -169,7 +169,18 @@ const ComercialTab = ({ formData, setFormData, getFormData, ...props }) => {
             onBlur={(e) => handleTouched(COMERCIAL_SECTION_INDEX)}
             {...props}
           />
-
+        </OutlinedContainer>
+      </Grid>
+      <Grid xs={6} item>
+        <OutlinedContainer
+          className="contact-tab-container"
+          title={
+            <FormattedMessage
+              id={"Proveedores.personalizacion.numericos"}
+              defaultMessage={"Parámetros Numéricos"}
+            />
+          }
+        >
           <GenericForm
             formComponents={comercialNumConfig}
             emptyPaper={true}

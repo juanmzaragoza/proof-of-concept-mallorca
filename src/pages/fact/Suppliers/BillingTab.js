@@ -557,6 +557,14 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         getCellValue: (row) => row.tipusVenciment?.description ?? "",
       },
+      {
+        name: "empresa",
+        title: props.intl.formatMessage({
+          id: "Clientes.empresas",
+          defaultMessage: "Empresas",
+        }),
+        getCellValue: (row) => row.empresa?.description ?? "",
+      },
     ],
     formComponents: [
       {

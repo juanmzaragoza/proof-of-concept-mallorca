@@ -15,7 +15,7 @@ import {
   PAISNIF_SELECTOR_VALUES,
   TDOC_SELECTOR_VALUES,
   TIPO_EXTRANJ_SELECTOR_VALUES,
-  TIPO_DIR_COMERCIALES_SELECTOR_VALUES
+  TIPO_DIR_COMERCIALES_SELECTOR_VALUES,
 } from "constants/selectors";
 
 import { useTabForm } from "hooks/tab-form";
@@ -83,6 +83,29 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     defaultMessage: "Descripción",
   });
 
+  const CONTACTE = props.intl.formatMessage({
+    id: "Proveedores.Contacto.contacto",
+    defaultMessage: "Contacto",
+  });
+
+  const EMAIL = props.intl.formatMessage({
+    id: "Proveedores.Contacto.email",
+    defaultMessage: "Email",
+  });
+  const ACTIVIDAD = props.intl.formatMessage({
+    id: "Clientes.departamentos_actividad",
+    defaultMessage: "Actividad",
+  });
+
+  const MOVIL = props.intl.formatMessage({
+    id: "Clientes.Contacto.movil",
+    defaultMessage: "Telf. Móvil",
+  });
+  const CIF = props.intl.formatMessage({
+    id: "Clientes.Contacto.cif",
+    defaultMessage: "CIF",
+  });
+
   const getString = (key) => (getFormData(key) ? getFormData(key) : "");
   useEffect(() => {
     const dir =
@@ -114,8 +137,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       value: codiPostal ? codiPostal.poblacio : "",
     });
   }, [getFormData("codiPostal")]);
-
-
 
   const code = (md = 6) => ({
     type: "input",
@@ -530,19 +551,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndDescription,
       },
     },
-    // {
-    //   placeHolder: props.intl.formatMessage({
-    //     id: "Clientes.op_codi",
-    //     defaultMessage: "Código operario",
-    //   }),
-    //   type: "input",
-    //   key: "operariCodi",
-    //   breakpoints: {
-    //     xs: 12,
-    //     md: 2,
-    //   },
-    // },
-
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.entidad_publica",
@@ -556,18 +564,103 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     },
 
-    // {
-    //   placeHolder: props.intl.formatMessage({
-    //     id: "Clientes.observaciones",
-    //     defaultMessage: "Observaciones",
-    //   }),
-    //   type: "observations",
-    //   key: "observacions",
-    //   breakpoints: {
-    //     xs: 12,
-    //     md: 1,
-    //   },
-    // },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.comercial",
+        defaultMessage: "Comercial",
+      }),
+      type: "LOV",
+      key: "operariCodi",
+      breakpoints: {
+        xs: 12,
+        md: 4,
+      },
+      selector: {
+        key: "operaris",
+        labelKey: formatCodeAndName,
+        sort: "nom",
+        transform: {
+          apply: (operaris) => operaris && operaris.codi,
+          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+        },
+
+        creationComponents: [
+          ...codeAndName(),
+          {
+            placeHolder: props.intl.formatMessage({
+              id: "Comercial.horario",
+              defaultMessage: "Horario",
+            }),
+            type: "LOV",
+            key: "horari",
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 4,
+            },
+            selector: {
+              key: "horaris",
+              labelKey: (data) => `${data.nom} (${data.codi})`,
+              sort: "codi",
+              cannotCreate: true,
+              advancedSearchColumns: aSCodeAndName,
+            },
+          },
+          {
+            type: "input",
+            key: "pin",
+            placeHolder: props.intl.formatMessage({
+              id: "Comercial.pin",
+              defaultMessage: "Pin",
+            }),
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 4,
+            },
+          },
+          {
+            type: "input",
+            key: "ptenmn",
+            placeHolder: props.intl.formatMessage({
+              id: "Comercial.ptenmn",
+              defaultMessage: "Ptenmn",
+            }),
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 4,
+            },
+          },
+        ],
+        advancedSearchColumns: aSCodeAndName,
+      },
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.observaciones",
+        defaultMessage: "Observaciones",
+      }),
+      type: "observations",
+      key: "observacions",
+      breakpoints: {
+        xs: 12,
+        md: 6,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.proyectoObligatorio",
+        defaultMessage: "Proyecto Obligatorio",
+      }),
+      type: "checkbox",
+      key: "projecteObl",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+    },
   ];
   const addressConfig = [
     {
@@ -798,7 +891,24 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     columns: [
       { name: "codi", title: CODE },
       { name: "domicili", title: DOMICILI },
+      {
+        name: "codiPostal",
+        title: props.intl.formatMessage({
+          id: "Proveedores.Direccion.codPostal",
+          defaultMessage: "Código Postal",
+        }),
+        getCellValue: (row) => row.codiPostal && row.codiPostal?.description,
+        hidden: true,
+      },
       { name: "telefon", title: TELEFON },
+      { name: "fax", title: FAX, hidden: true },
+      { name: "latitut", title: LAT, hidden: true },
+      { name: "longitut", title: LONG, hidden: true },
+      { name: "contacte", title: CONTACTE, hidden: true },
+      { name: "telefonMovil", title: MOVIL, hidden: true },
+      { name: "email", title: EMAIL, hidden: true },
+      { name: "activitat", title: ACTIVIDAD, hidden: true },
+      { name: "cif", title: CIF, hidden: true },
       {
         name: "direccionExclusivaEnvio",
         title: DIR_EXCLUSIVA,
@@ -870,7 +980,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       {
         placeHolder: LONG,
         type: "input",
-        key: "longitud",
+        key: "longitut",
         breakpoints: {
           xs: 12,
           md: 3,
@@ -879,25 +989,69 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       {
         placeHolder: LAT,
         type: "input",
-        key: "latitud",
+        key: "latitut",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+      },
+      {
+        placeHolder: CONTACTE,
+        type: "input",
+        key: "contacte",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+      },
+      {
+        placeHolder: MOVIL,
+        type: "input",
+        key: "telefonMovil",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+      },
+      {
+        placeHolder: EMAIL,
+        type: "input",
+        key: "email",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+      },
+      {
+        placeHolder: ACTIVIDAD,
+        type: "input",
+        key: "activitat",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+      },
+      {
+        placeHolder: CIF,
+        type: "input",
+        key: "cif",
         breakpoints: {
           xs: 12,
           md: 3,
         },
       },
 
-      
       {
         placeHolder: DIR_EXCLUSIVA,
         type: "select",
         key: "direccionExclusivaEnvio",
-        required:true,
+        required: true,
         breakpoints: {
           xs: 12,
           md: 3,
         },
-        selector:{
-          options:TIPO_DIR_COMERCIALES_SELECTOR_VALUES,
+        selector: {
+          options: TIPO_DIR_COMERCIALES_SELECTOR_VALUES,
         },
         validationType: "string",
         ...withRequiredValidation(),
@@ -906,13 +1060,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         placeHolder: DEFECTE,
         type: "select",
         key: "domiciliDefecte",
-        required:true,
+        required: true,
         breakpoints: {
           xs: 12,
           md: 3,
         },
-        selector:{
-          options:TIPO_DIR_COMERCIALES_SELECTOR_VALUES,
+        selector: {
+          options: TIPO_DIR_COMERCIALES_SELECTOR_VALUES,
         },
         validationType: "string",
         ...withRequiredValidation(),
@@ -922,13 +1076,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         placeHolder: BLOQUEJAT,
         type: "select",
         key: "bloquejada",
-        required:true,
+        required: true,
         breakpoints: {
           xs: 12,
           md: 3,
         },
-        selector:{
-          options:TIPO_DIR_COMERCIALES_SELECTOR_VALUES,
+        selector: {
+          options: TIPO_DIR_COMERCIALES_SELECTOR_VALUES,
         },
         validationType: "string",
         ...withRequiredValidation(),
@@ -949,10 +1103,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     ],
     extraPostBody: {
-      client : {id : clientId}
+      client: { id: clientId },
     },
 
-  
     columns: [
       {
         name: "tipusProveidorClient.description",
@@ -972,6 +1125,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         type: "LOV",
         key: "tipusProveidorClient",
         required: false,
+        noEditable: true,
         breakpoints: {
           xs: 12,
           md: 4,
@@ -981,9 +1135,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           labelKey: (data) => `${data.descripcio} (${data.codi})`,
           sort: "description",
           cannotCreate: true,
-         
         },
-       
       },
     ],
   };

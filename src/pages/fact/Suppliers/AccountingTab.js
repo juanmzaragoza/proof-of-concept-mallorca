@@ -378,8 +378,8 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.bicIban",
-        defaultMessage: "Bic Iban",
+        id: "Clientes.numeroCuentaNacional",
+        defaultMessage: "Num Cuenta Nacional",
       }),
       type: "input",
       key: "numeroContaNacional",
@@ -815,36 +815,48 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         getCellValue: (row) =>
           row.noTraspassar && row.noTraspassar === true ? (
-            <Chip label="SI" variant="outlined" />
+            <Chip
+            label={props.intl.formatMessage({
+              id: "Comun.SI",
+              defaultMessage: "SI",
+            })}
+            variant="outlined"
+          />
           ) : (
-            <Chip label="NO" variant="outlined" />
+            <Chip
+            label={props.intl.formatMessage({
+              id: "Comun.NO",
+              defaultMessage: "NO",
+            })}
+            variant="outlined"
+          />
           ),
       },
     ],
     formComponents: [
-      //   {
-      //     placeHolder: props.intl.formatMessage({
-      //       id: "Clientes.empresas",
-      //       defaultMessage: "Empresas",
-      //     }),
-      //     type: "LOV",
-      //     key: "empresa",
-      //     required: true,
-      //     breakpoints: {
-      //       xs: 12,
-      //       md: 4,
-      //     },
-      //     selector: {
-      //       key: "empresas",
-      //       labelKey: (data) => `${data.nomFiscal} (${data.codi})`,
-      //       sort: "nomFiscal",
-      //       cannotCreate: true,
-      //       advancedSearchColumns: [
-      //         { title: CODE, name: "codi" },
-      //         { title: NOM, name: "nomFiscal" },
-      //       ],
-      //     },
-      //   },
+        {
+          placeHolder: props.intl.formatMessage({
+            id: "Clientes.empresas",
+            defaultMessage: "Empresas",
+          }),
+          type: "LOV",
+          key: "empresa",
+          required: true,
+          breakpoints: {
+            xs: 12,
+            md: 4,
+          },
+          selector: {
+            key: "empresas",
+            labelKey: (data) => `${data.nomFiscal} (${data.codi})`,
+            sort: "nomFiscal",
+            cannotCreate: true,
+            advancedSearchColumns: [
+              { title: CODE, name: "codi" },
+              { title: NOM, name: "nomFiscal" },
+            ],
+          },
+        },
       {
         type: "input",
         key: "compteComptable",

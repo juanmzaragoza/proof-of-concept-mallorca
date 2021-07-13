@@ -823,3 +823,16 @@ export const DIMENSION_SELECTOR_VALUES = [
     label: "Largo x ancho x alto",
   }
 ];
+
+export const INCIDENCIA_PORCENTAJE_SELECTOR_VALUES = [
+  {
+    value: "SOBRE_TOTAL_CALCULADO",
+    labelId: "Articulos.costes.select.sobreTotalCalculado",
+    label: "Sobre total calculado",
+  },
+  {
+    value: "SOBRE_SUMA_DE_IMPORTES",
+    labelId: "Articulos.costes.select.sobreSumaImportes",
+    label: "Sobre suma de importes",
+  },
+];
