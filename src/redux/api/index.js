@@ -182,6 +182,10 @@ export const partida = `api/fact/partides`;
 export const operariCodi = 'api/rrhh/operaris';
 export const factures = `api/fact/factures`;
 export const aplicacionsClients = `api/fact/aplicacionsClients`;
-
+export const projectesAplicacio = `api/fact/projectesAplicacio`;
+export const proveidorsVenciment = `api/fact/proveidorsVenciment`;
+export const proveidor = `api/fact/proveidors`;
+export const historicsResponsables = `api/fact/historicsResponsables`;
+export const serieIntracomunitaria = `api/fact/seriesIntracomunitaria`;
 
 

@@ -30,28 +30,29 @@ const BudgetTab = ({ formData, setFormData, getFormData, ...props }) => {
 
     columns: [
       {
-        name: "comun.description",
-        title: props.intl.formatMessage({
-          id: "Proyectos.capitulo",
-          defaultMessage: "Capítulo",
-        }),
-        getCellValue: (row) => row?.capitol?.description || "",
-      },
-      {
         name: "pressupost.description",
         title: props.intl.formatMessage({
           id: "Presupuestos.titulo",
           defaultMessage: "Presupuesto",
         }),
-        getCellValue: (row) => row?.pressupost?.description || "",
+        getCellValue: (row) => row.pressupost && row.pressupost?.description,
       },
+      {
+        name: "capitulo",
+        title: props.intl.formatMessage({
+          id: "Proyectos.capitulo",
+          defaultMessage: "Capítulo",
+        }),
+        getCellValue: (row) => row.capitulo && row.capitulo?.description,
+      },
+
       {
         name: "partida.description",
         title: props.intl.formatMessage({
           id: "Proyectos.partida",
           defaultMessage: "Partida",
         }),
-        getCellValue: (row) => row?.partida?.description || "",
+        getCellValue: (row) => row.partida && row.partida?.description,
       },
       {
         name: "import",
@@ -73,24 +74,6 @@ const BudgetTab = ({ formData, setFormData, getFormData, ...props }) => {
     formComponents: [
       {
         placeHolder: props.intl.formatMessage({
-          id: "Proyectos.capitulos",
-          defaultMessage: "Capítulos",
-        }),
-        type: "LOV",
-        key: "capitol",
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        selector: {
-          key: "capitols",
-          labelKey: (data) => `${data.descripcio} (${data.codi})`,
-          sort: "nom",
-          cannotCreate: true,
-        },
-      },
-      {
-        placeHolder: props.intl.formatMessage({
           id: "Presupuestos.titulo",
           defaultMessage: "Presupuesto",
         }),
@@ -105,8 +88,38 @@ const BudgetTab = ({ formData, setFormData, getFormData, ...props }) => {
           labelKey: (data) => `(${data.codi})`,
           sort: "codi",
           cannotCreate: true,
+          relatedWith: {
+            name: "capitol",
+            filterBy: "pressupostCodi",
+            keyValue: "codi",
+          },
         },
       },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Proyectos.capitulos",
+          defaultMessage: "Capítulos",
+        }),
+        type: "LOV",
+        key: "capitol",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "capitols",
+          labelKey: (data) => `${data.descripcio} (${data.codi})`,
+          sort: "nom",
+          cannotCreate: true,
+          relatedWith: {
+            name: "partida",
+            filterBy: "capitol.id",
+            keyValue: "id",
+          },
+        },
+      
+      },
+      
       {
         placeHolder: props.intl.formatMessage({
           id: "Proyectos.partida",

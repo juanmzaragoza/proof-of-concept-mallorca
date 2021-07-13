@@ -26,6 +26,10 @@ import { getLoading } from "redux/app/selectors";
 import ProjectDataTab from "./ProjectDataTab";
 import MoreTab from "./MoreTab";
 import BudgetTab from "./BudgetTab";
+import ProjectsAppTab from "./ProjectsAppTab";
+import ExpirationSupplierTab from "./ExpirationSupplierTab";
+import RespHistoryTab from "./RespHistoryTab";
+import InvSujetoPasivoTab from "./InvSujetoPasivoTab";
 
 /**
  * Suppliers form module
@@ -35,6 +39,10 @@ import BudgetTab from "./BudgetTab";
 const GENERAL_TAB_INDEX = 0;
 const MORE_TAB_INDEX = 1;
 const BUDGET_TAB_INDEX = 2;
+const PROJECT_APP_TAB_INDEX = 3;
+const EXPIRATION_TAB_INDEX = 4;
+const INV_SUJ_TAB_INDEX = 5;
+const HISTORY_TAB_INDEX = 6;
 
 const ProjectsForm = React.memo(
   ({
@@ -53,7 +61,11 @@ const ProjectsForm = React.memo(
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [GENERAL_TAB_INDEX]: false,
       [MORE_TAB_INDEX]: false,
-      [BUDGET_TAB_INDEX]:false
+      [BUDGET_TAB_INDEX]:false,
+      [PROJECT_APP_TAB_INDEX]:false,
+      [EXPIRATION_TAB_INDEX]:false,
+      [INV_SUJ_TAB_INDEX]:false,
+      [HISTORY_TAB_INDEX]:false
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -170,6 +182,100 @@ const ProjectsForm = React.memo(
           />
         ),
       },
+      {
+        ...getTranslations("Proyectos.otraAplicacion", "Proyectos otras App"),
+        key: PROJECT_APP_TAB_INDEX,
+        error: tabHasError(PROJECT_APP_TAB_INDEX),
+        component: (
+          <ProjectsAppTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [PROJECT_APP_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+          />
+        ),
+      },
+      {
+        ...getTranslations("Proyectos.vencProv", "Vencimeintos por proveedor"),
+        key: EXPIRATION_TAB_INDEX,
+        error: tabHasError(EXPIRATION_TAB_INDEX),
+        component: (
+          <ExpirationSupplierTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [EXPIRATION_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+          />
+        ),
+      },
+      {
+        ...getTranslations("Proyectos.inversionSujeto", "Inversión Sujeto Pasivo"),
+        key: INV_SUJ_TAB_INDEX,
+        error: tabHasError(INV_SUJ_TAB_INDEX),
+        component: (
+          <InvSujetoPasivoTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [INV_SUJ_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+          />
+        ),
+      },
+      
+      {
+        ...getTranslations("Proyectos.historialResp", "Historial Responsables"),
+        key: HISTORY_TAB_INDEX,
+        error: tabHasError(HISTORY_TAB_INDEX),
+        component: (
+          <RespHistoryTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [HISTORY_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+          />
+        ),
+      },
+      
       
     ];
 
