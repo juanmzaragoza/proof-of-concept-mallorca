@@ -21,6 +21,7 @@ const RESET_ALL_GENERIC_FORM = "RESET_ALL_GENERIC_FORM";
 const REFRESH_A_FORM_SELECTOR = "REFRESH_A_FORM_SELECTOR";
 const SET_QUERY_FORM_SELECTOR = "SET_QUERY_FORM_SELECTOR";
 const DISABLE_RELATED_FIELD = "DISABLE_RELATED_FIELD";
+const CHANGE_RESET_VALUE = "CHANGE_RESET_VALUE";
 
 //Functions
 export const getFormSelectorData = ({id, key, page, sorting, search, query = []}) => {
@@ -165,6 +166,13 @@ export function disableRelatedField(payload) {
   }
 }
 
+export function changeResetValue(payload) {
+  return {
+    type: CHANGE_RESET_VALUE,
+    payload
+  }
+}
+
 //Reducers
 const initialState = {
   formErrors: {},
@@ -246,6 +254,13 @@ export default (state = initialState, action) => {
         ...state.formSelectors,
         [name]: {...state.formSelectors[name], disabled, data: []}
       }};
+    }
+    case CHANGE_RESET_VALUE: {
+      const {name, reset} = action.payload;
+      return { ...state, formSelectors: {
+          ...state.formSelectors,
+          [name]: {...state.formSelectors[name], reset}
+        }};
     }
     case RESET_ALL_GENERIC_FORM:
     case "RESET":

@@ -21,7 +21,8 @@ import {
   getQuerySearchFormSelectorById,
   getRefreshFormSelectorById,
   getTotalPagesFormSelectorById,
-  getIsDisabledById
+  getIsDisabledById,
+  getIsResetById
 } from 'redux/genericForm/selectors';
 import {
   appendDataToFormSelector,
@@ -32,7 +33,8 @@ import {
   refreshAFormSelector,
   searchByQueryTerm,
   setQueryFromSelector,
-  disableRelatedField
+  disableRelatedField,
+  changeResetValue
 } from 'redux/genericForm';
 import LOVAdvancedSearch from "./LOVAdvancedSearch";
 
@@ -62,6 +64,33 @@ const LOVAutocomplete = (props) => {
     }
   }
 
+  /**
+   * Functionality to reset the value of another LOV
+   * One is for who fires the signal and the another for how receives it
+   */
+  // if this component is related with another LOV
+  useEffect(() => {
+    if(props.relatedWith){
+      // it sends a reset signal
+      props.resetValueRelatedField({
+        name: props.relatedWith.name,
+        reset: true
+      })
+    }
+  },[value]);
+  // if a reset signal is received
+  useEffect(()=>{
+    if(props.resetByAnotherLOV) {
+      // reset the signal to false and set value  to null
+      props.resetValueRelatedField({
+        name: props.id,
+        reset: false
+      });
+      handleChange({stopPropagation: () => {}},null);
+      setValue(null);
+    }
+  },[props.resetByAnotherLOV]);
+
   useEffect(()=>{
     requestDataToServer();
   },[props.page, props.querySearch]);
@@ -77,7 +106,7 @@ const LOVAutocomplete = (props) => {
       props.searchValueById({id: props.id, identifier: value.id});
     // if value is selected from the form or the advanced search
     } else if(value && !value.pk && props.options.length > 0 && !some(props.options,(opt) => opt.id === value.id)) {
-      props.dispatchAppendData({name: props.id, data: value})
+      props.dispatchAppendData({name: props.id, data: value});
     }else{
       setOpts(props.options);
     }
@@ -116,7 +145,6 @@ const LOVAutocomplete = (props) => {
     props.onChange(e, props.transform? props.transform.apply(v):v);
   };
 
-  props.disabledByAnotherLOV && console.log(props.disabledByAnotherLOV)
   return (
     <>
     <Autocomplete
@@ -346,7 +374,8 @@ const mapStateToProps = (state, props) => {
     querySearch: getQuerySearchFormSelectorById(state, props.id),
     refresh: getRefreshFormSelectorById(state, props.id),
     query: getQueryFormSelectorById(state, props.id),
-    disabledByAnotherLOV: getIsDisabledById(state, props.id)
+    disabledByAnotherLOV: getIsDisabledById(state, props.id),
+    resetByAnotherLOV: getIsResetById(state, props.id)
   };
 };
 
@@ -361,6 +390,7 @@ const mapDispatchToProps = (dispatch, props) => {
     refreshData: bindActionCreators(refreshAFormSelector, dispatch),
     setQuery:  bindActionCreators(setQueryFromSelector, dispatch),
     disableRelatedField: bindActionCreators(disableRelatedField, dispatch),
+    resetValueRelatedField: bindActionCreators(changeResetValue, dispatch),
   };
   return actions;
 };
