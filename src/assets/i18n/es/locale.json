@@ -1123,7 +1123,14 @@
   "Clientes.recargoEquivalencia":"Recargo equivalencia",
   "Clientes.Documentos.importeFactura": "Importe Factura",
   "Clientes.Documentos.importeIva":"Importe IVA",
-  "Clientes.Documentos.numeroFactura":"Num. Factura"
+  "Clientes.Documentos.numeroFactura":"Num. Factura",
+  "Clientes.Documentos.proyecto":"Proyecto",
+  "Clientes.Documuentos.presupuesto":"Presupuesto",
+  "Clientes.Documentos.importeAnticipado":"Importe Anticipado",
+  "Clientes.aplicacion":"Aplicación",
+  "Clientes.codigoOtraApp":"Código cliente otra App.",
+  "Clientes.porcentaje":"Porcentaje",
+  "Clientes.otraAplicacion": "Clientes otras Aplicaciones"
 
 
   

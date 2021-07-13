@@ -176,5 +176,6 @@ export const subvencions = 'api/fact/subvencions';
 
 export const operariCodi = 'api/rrhh/operaris';
 export const factures = `api/fact/factures`;
+export const aplicacionsClients = `api/fact/aplicacionsClients`;
 
 
