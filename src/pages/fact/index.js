@@ -37,6 +37,7 @@ import Location from './Location';
 import ArticlesLocation from './ArticlesLocation';
 import FamilyCosts from './FamilyCosts';
 import Articles from './Articles';
+import SalesSeries from './SalesSeries';
 
 
 const component = [
@@ -79,6 +80,7 @@ const component = [
   ArticlesLocation,
   FamilyCosts,
   Articles,
+  SalesSeries,
   
 ];
 export default component;
