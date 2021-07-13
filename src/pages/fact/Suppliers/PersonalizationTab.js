@@ -9,7 +9,7 @@ import { useTabForm } from "../../../hooks/tab-form";
 
 const PERSONAL_SECTION_INDEX = 0;
 
-const PersonalizacionTab = ({
+const PersonalizationTab = ({
   formData,
   setFormData,
   getFormData,
@@ -27,7 +27,7 @@ const PersonalizacionTab = ({
         defaultMessage: "Parámetro alfanumérico 1",
       }),
       type: "input",
-      key: "parametreTxt1",
+      key: "parametreAlfanumeric1",
       breakpoints: {
         xs: 12,
         md: 6,
@@ -39,7 +39,7 @@ const PersonalizacionTab = ({
         defaultMessage: "Parámetro alfanumérico 2",
       }),
       type: "input",
-      key: "parametreTxt2",
+      key: "parametreAlfanumeric2",
       breakpoints: {
         xs: 12,
         md: 6,
@@ -51,7 +51,7 @@ const PersonalizacionTab = ({
         defaultMessage: "Parámetro alfanumérico 3",
       }),
       type: "input",
-      key: "parametreTxt3",
+      key: "parametreAlfanumeric3",
       breakpoints: {
         xs: 12,
         md: 6,
@@ -63,7 +63,7 @@ const PersonalizacionTab = ({
         defaultMessage: "Parámetro alfanumérico 4",
       }),
       type: "input",
-      key: "parametreTxt4",
+      key: "parametreAlfanumeric4",
       breakpoints: {
         xs: 12,
         md: 6,
@@ -75,7 +75,7 @@ const PersonalizacionTab = ({
         defaultMessage: "Parámetro alfanumérico 5",
       }),
       type: "input",
-      key: "parametreTxt5",
+      key: "parametreAlfanumeric5",
       breakpoints: {
         xs: 12,
         md: 6,
@@ -90,7 +90,7 @@ const PersonalizacionTab = ({
         defaultMessage: "Parámetro numérico 1",
       }),
       type: "input",
-      key: "parametreNum1",
+      key: "parametreNumeric1",
       breakpoints: {
         xs: 12,
         md: 6,
@@ -102,7 +102,7 @@ const PersonalizacionTab = ({
         defaultMessage: "Parámetro numérico 2",
       }),
       type: "input",
-      key: "parametreNum2",
+      key: "parametreNumeric2",
       breakpoints: {
         xs: 12,
         md: 6,
@@ -114,7 +114,7 @@ const PersonalizacionTab = ({
         defaultMessage: "Parámetro numérico 3",
       }),
       type: "input",
-      key: "parametreNum3",
+      key: "parametreNumeric3",
       breakpoints: {
         xs: 12,
         md: 6,
@@ -126,7 +126,7 @@ const PersonalizacionTab = ({
         defaultMessage: "Parámetro numérico 4",
       }),
       type: "input",
-      key: "parametreNum4",
+      key: "parametreNumeric4",
       breakpoints: {
         xs: 12,
         md: 6,
@@ -138,7 +138,7 @@ const PersonalizacionTab = ({
         defaultMessage: "Parámetro numérico 5",
       }),
       type: "input",
-      key: "parametreNum5",
+      key: "parametreNumeric5",
       breakpoints: {
         xs: 12,
         md: 6,
@@ -148,63 +148,63 @@ const PersonalizacionTab = ({
 
   return (
     <Grid container spacing={2}>
-    <Grid xs={6} item>
+      <Grid xs={6} item>
+          <OutlinedContainer
+            className="contact-tab-container"
+            title={
+              <FormattedMessage
+                id={"Proveedores.personalizacion.alfanumericos"}
+                defaultMessage={"Parámetros Alfanuméricos"}
+              />
+            }
+          >
+          <GenericForm
+            formComponents={personalAlfConfig}
+            emptyPaper={true}
+            editMode={props.editMode}
+            setFormData={setFormData}
+            getFormData={getFormData}
+            loading={props.loading}
+            formErrors={props.formErrors}
+            submitFromOutside={props.submitFromOutside}
+            onSubmit={() => props.onSubmitTab(formData)}
+            handleIsValid={(value) =>
+              addValidity(PERSONAL_SECTION_INDEX, value)
+            }
+            onBlur={(e) => handleTouched(PERSONAL_SECTION_INDEX)}
+            {...props}
+          />
+        </OutlinedContainer>
+        </Grid>
+        <Grid xs={6} item>
         <OutlinedContainer
           className="contact-tab-container"
           title={
             <FormattedMessage
-              id={"Proveedores.personalizacion.alfanumericos"}
-              defaultMessage={"Parámetros Alfanuméricos"}
-            />
+                id={"Proveedores.personalizacion.numericos"}
+                defaultMessage={"Parámetros Numéricos"}
+              />
           }
         >
-        <GenericForm
-          formComponents={personalAlfConfig}
-          emptyPaper={true}
-          editMode={props.editMode}
-          setFormData={setFormData}
-          getFormData={getFormData}
-          loading={props.loading}
-          formErrors={props.formErrors}
-          submitFromOutside={props.submitFromOutside}
-          onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) =>
-            addValidity(PERSONAL_SECTION_INDEX, value)
-          }
-          onBlur={(e) => handleTouched(PERSONAL_SECTION_INDEX)}
-          {...props}
-        />
-      </OutlinedContainer>
+          <GenericForm
+            formComponents={personalNumConfig}
+            emptyPaper={true}
+            editMode={props.editMode}
+            setFormData={setFormData}
+            getFormData={getFormData}
+            loading={props.loading}
+            formErrors={props.formErrors}
+            submitFromOutside={props.submitFromOutside}
+            onSubmit={() => props.onSubmitTab(formData)}
+            handleIsValid={(value) =>
+              addValidity(PERSONAL_SECTION_INDEX, value)
+            }
+            onBlur={(e) => handleTouched(PERSONAL_SECTION_INDEX)}
+            {...props}
+          />
+        </OutlinedContainer>
       </Grid>
-      <Grid xs={6} item>
-      <OutlinedContainer
-        className="contact-tab-container"
-        title={
-          <FormattedMessage
-              id={"Proveedores.personalizacion.numericos"}
-              defaultMessage={"Parámetros Numéricos"}
-            />
-        }
-      >
-        <GenericForm
-          formComponents={personalNumConfig}
-          emptyPaper={true}
-          editMode={props.editMode}
-          setFormData={setFormData}
-          getFormData={getFormData}
-          loading={props.loading}
-          formErrors={props.formErrors}
-          submitFromOutside={props.submitFromOutside}
-          onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) =>
-            addValidity(PERSONAL_SECTION_INDEX, value)
-          }
-          onBlur={(e) => handleTouched(PERSONAL_SECTION_INDEX)}
-          {...props}
-        />
-      </OutlinedContainer>
     </Grid>
-  </Grid>
   );
 };
 
@@ -212,4 +212,4 @@ export default compose(
   React.memo,
   withValidations,
   injectIntl
-)(PersonalizacionTab);
+)(PersonalizationTab);

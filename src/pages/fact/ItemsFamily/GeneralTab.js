@@ -652,9 +652,9 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
           defaultMessage: "Web"
         }),
         getCellValue: row => (row.web && row.web === true)?
-          <Chip label="SI" variant="outlined" />
+          <Chip label={props.intl.formatMessage({id: "Comun.SI", defaultMessage: "SI"})} variant="outlined" />
           :
-          <Chip label="NO" variant="outlined" />
+          <Chip label={props.intl.formatMessage({id: "Comun.NO", defaultMessage: "NO"})} variant="outlined" />
       },
       { 
         name: 'articleFamilia',
