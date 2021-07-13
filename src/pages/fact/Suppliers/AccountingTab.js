@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
+import { Chip } from "@material-ui/core";
 
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
@@ -16,15 +17,15 @@ import {
 
 import { useTabForm } from "hooks/tab-form";
 
-const EMPRESA_SECTION_INDEX = 0;
+const ACCOUNTS_SECTION_INDEX = 0;
 
-const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
+const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: { 0: false, 1: false },
     setIsValid: props.setIsValid,
   });
 
-  const { id: clientId } = useParams();
+  const { id: supplierId } = useParams();
 
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
@@ -63,10 +64,6 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const getString = (key) => (getFormData(key) ? getFormData(key) : "");
 
-
-
-
-
   const code = (md = 6) => ({
     type: "input",
     key: "codi",
@@ -78,34 +75,6 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
       md: md,
     },
   });
-
-  const codeAndName = (mdCode = 6, mdName = 6) => [
-    code(mdCode),
-    {
-      type: "input",
-      key: "nom",
-      placeHolder: NOM,
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdName,
-      },
-    },
-  ];
-
-  const codeAndDescription = (mdCode = 6, mdDes = 6) => [
-    code(mdCode),
-    {
-      type: "input",
-      key: "descripcio",
-      placeHolder: DESCRIPCIO,
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdDes,
-      },
-    },
-  ];
 
   const codiPostal = (md = 6) => [
     {
@@ -208,10 +177,6 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
-  const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
-  const formatCodeAndDescription = (data) =>
-    `${data.descripcio} (${data.codi})`;
-
   const aSCodeAndName = [
     { title: CODE, name: "codi" },
     { title: NOM, name: "nom" },
@@ -240,7 +205,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "bancCodi",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       selector: {
         key: "bancs",
@@ -248,14 +213,14 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         sort: "codi",
         cannotCreate: true,
         relatedWith: {
-          name: "oficinaBancaria",
+          name: "oficinaBancariaCodi",
           filterBy: "banc.id",
           keyValue: "id",
         },
         transform: {
           apply: (bancs) => bancs && bancs.codi,
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-        }
+        },
       },
     },
     {
@@ -264,10 +229,10 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Oficina Bancaria",
       }),
       type: "LOV",
-      key: "oficinaBancaria",
+      key: "oficinaBancariaCodi",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       selector: {
         key: "oficinaBancarias",
@@ -277,6 +242,11 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
           { title: CODE, name: "codi" },
           { title: DOMICILI, name: "domicili" },
         ],
+        transform: {
+          apply: (oficinaBancarias) =>
+            oficinaBancarias && oficinaBancarias.codi,
+          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+        },
         creationComponents: [
           {
             type: "input",
@@ -348,11 +318,11 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Control Digitos",
       }),
       type: "input",
-      key: "digitsControl",
+      key: "digitsControls",
 
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 2)],
@@ -363,11 +333,11 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Cuenta",
       }),
       type: "input",
-      key: "numeroCC",
+      key: "contaCorrent",
 
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 12)],
@@ -375,14 +345,13 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
   ];
 
   const ibanConfig = [
-
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.paisIban",
         defaultMessage: "Pais Iban",
       }),
       type: "input",
-      key: "paisIban",
+      key: "codiPais",
 
       breakpoints: {
         xs: 12,
@@ -397,7 +366,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Digitos Iban",
       }),
       type: "input",
-      key: "digitsControlIban",
+      key: "digitsControlsIban",
 
       breakpoints: {
         xs: 12,
@@ -407,18 +376,31 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 2)],
     },
-   
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.numeroCuentaNacional",
+        defaultMessage: "Num Cuenta Nacional",
+      }),
+      type: "input",
+      key: "numeroContaNacional",
+
+      breakpoints: {
+        xs: 12,
+        md: 5,
+      },
+    },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.bicIban",
         defaultMessage: "Bic Iban",
       }),
       type: "input",
-      key: "bicIban",
+      key: "bankIdentificationCode",
 
       breakpoints: {
         xs: 12,
-        md: 8,
+        md: 3,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 20)],
@@ -433,7 +415,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "iva",
-      id:"ives",
+      id: "ives",
       breakpoints: {
         xs: 12,
         md: 5,
@@ -575,11 +557,11 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Régimen IVA",
       }),
       type: "LOV",
-      required:true,
+      required: true,
       key: "regimIva",
       breakpoints: {
         xs: 12,
-        md: 5,
+        md: 4,
       },
 
       selector: {
@@ -701,14 +683,14 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       type: "checkbox",
-      key: "recarrecEquivalencia",
+      key: "regimCaixa",
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.recargo.equivalencia",
-        defaultMessage: "Recargo Equivalencia",
+        id: "Proveedores.regimenCaja",
+        defaultMessage: "Régimen criterio caja",
       }),
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
     },
     {
@@ -761,11 +743,9 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
   ];
 
   const cuentasConfig = [
-
-  
     {
       type: "input",
-      key: "compteContable",
+      key: "contaComptable",
       placeHolder: props.intl.formatMessage({
         id: "Clientes.cuenta.contable",
         defaultMessage: "Cuenta Contable",
@@ -777,10 +757,10 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       type: "input",
-      key: "compteVentesComptabilitat",
+      key: "contaCompres",
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.cuenta.ventas",
-        defaultMessage: "Cuenta Ventas",
+        id: "Proveedores.cuenta.compra",
+        defaultMessage: "Cuenta Compras",
       }),
       breakpoints: {
         xs: 12,
@@ -789,205 +769,6 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
-
-  const cuentasCorrientes = {
-    title: props.intl.formatMessage({
-      id: "Clientes.cuentasCorrientes",
-      defaultMessage: "Cuentas corrientes",
-    }),
-    query: [
-      {
-        columnName: "client.id",
-        value: `"${clientId}"`,
-        exact: true,
-      },
-    ],
-    extraPostBody: {
-      client: { id: clientId },
-      bancCodi: `${getFormData("bancCodi") ? getFormData("bancCodi") : ""}`
-    },
-    columns: [
-      {
-        name: "empresa",
-        title: props.intl.formatMessage({
-          id: "Clientes.empresas",
-          defaultMessage: "Empresas",
-        }),
-        getCellValue: (row) => row.empresa?.description ?? "",
-      },
-      {
-        name: "bancCodi",
-        title: props.intl.formatMessage({
-          id: "Clientes.codigoBanco",
-          defaultMessage: "Código banco",
-        }),
-      },
-      {
-        name: "oficinaBancaria",
-        title: props.intl.formatMessage({
-          id: "Clientes.Contab.oficines",
-          defaultMessage: "Oficinas bancarias",
-        }),
-        getCellValue: (row) => row.oficinaBancaria?.description ?? "",
-      },
-      {
-        name: "numeroCompteCorrent",
-        title: props.intl.formatMessage({
-          id: "Clientes.numCuenta",
-          defaultMessage: "Num cuenta",
-        }),
-      },
-      {
-        name: "digitControl",
-        title: props.intl.formatMessage({
-          id: "Clientes.controlDigitos",
-          defaultMessage: "Control dígitos",
-        }),
-      },
-      {
-        name: "digitControlIban",
-        title: props.intl.formatMessage({
-          id: "Clientes.digitosIban",
-          defaultMessage: "Dígitos iban",
-        }),
-      },
-    ],
-    formComponents: [
-      // {
-      //   type: "input",
-      //   key: "bancCodi",
-      //   placeHolder: props.intl.formatMessage({
-      //     id: "Clientes.codigoBanco",
-      //     defaultMessage: "Código banco",
-      //   }),
-      //   required:true,
-      //   breakpoints: {
-      //     xs: 12,
-      //     md: 3,
-      //   },
-      //   ...withRequiredValidation([]),
-      // },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.banco",
-          defaultMessage: "Banco",
-        }),
-        type: "LOV",
-        key: "banc",
-        required:true,
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        selector: {
-          key: "bancs",
-          labelKey: (data) => `${data.nom} (${data.codi})`,
-          sort: "codi",
-          cannotCreate: true,
-          relatedWith: {
-            name: "oficinaBancaria",
-            filterBy: "banc.id",
-            keyValue: "id",
-          },
-        },
-      },
-      {
-        type: "input",
-        key: "numeroCompteCorrent",
-        required:true,
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.numCuenta",
-          defaultMessage: "Num cuenta",
-        }),
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        ...withRequiredValidation([]),
-      },
-      {
-        type: "input",
-        key: "digitControl",
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.controlDigitos",
-          defaultMessage: "Control dígitos",
-        }),
-        required: true,
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        validationType: "string",
-        ...withRequiredValidation([
-          ...props.stringValidations.minMaxValidation(1, 2),
-        ]),
-      },
-      {
-        type: "input",
-        key: "digitControlIban",
-        required:true,
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.digitosIban",
-          defaultMessage: "Dígitos iban",
-        }),
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        ...withRequiredValidation([]),
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.empresas",
-          defaultMessage: "Empresas",
-        }),
-        type: "LOV",
-        key: "empresa",
-        noEditable: true,
-        required:true,
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        selector: {
-          key: "empresas",
-          labelKey: (data) => `${data.nomFiscal} (${data.codi})`,
-          sort: "nomFiscal",
-          cannotCreate: true,
-          advancedSearchColumns: [
-            { title: CODE, name: "codi" },
-            { title: NOM, name: "nomFiscal" },
-          ],
-        },
-      },
-
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.Contab.oficines",
-          defaultMessage: "Oficina Bancaria",
-        }),
-        type: "LOV",
-        key: "oficinaBancaria",
-        noEditable: true,
-        required:true,
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        selector: {
-          key: "oficinaBancarias",
-          labelKey: (data) => `${data.domicili} (${data.codi})`,
-          sort: "codi",
-          cannotCreate: true,
-          advancedSearchColumns: [
-            { title: CODE, name: "codi" },
-            { title: DOMICILI, name: "domicili" },
-          ],
-        },
-      },
-    ],
-  };
-
   const cuentasContables = {
     title: props.intl.formatMessage({
       id: "Clientes.cuentasContables",
@@ -995,13 +776,13 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
     }),
     query: [
       {
-        columnName: "client.id",
-        value: `"${clientId}"`,
+        columnName: "proveidor.id",
+        value: `"${supplierId}"`,
         exact: true,
       },
     ],
     extraPostBody: {
-      client: { id: clientId },
+      proveidor: { id: supplierId },
     },
     columns: [
       {
@@ -1020,37 +801,62 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
       },
       {
-        name: "compteVendes",
+        name: "compteCompres",
         title: props.intl.formatMessage({
-          id: "Clientes.cuentasVentas",
-          defaultMessage: "Num cuenta Ventas",
+          id: "Proveedores.cuenta.compra",
+          defaultMessage: "Num cuenta Compras",
         }),
+      },
+      {
+        name: "noTraspassar",
+        title: props.intl.formatMessage({
+          id: "Proveedores.contab.noTraspasar",
+          defaultMessage: "No Traspasar",
+        }),
+        getCellValue: (row) =>
+          row.noTraspassar && row.noTraspassar === true ? (
+            <Chip
+            label={props.intl.formatMessage({
+              id: "Comun.SI",
+              defaultMessage: "SI",
+            })}
+            variant="outlined"
+          />
+          ) : (
+            <Chip
+            label={props.intl.formatMessage({
+              id: "Comun.NO",
+              defaultMessage: "NO",
+            })}
+            variant="outlined"
+          />
+          ),
       },
     ],
     formComponents: [
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.empresas",
-          defaultMessage: "Empresas",
-        }),
-        type: "LOV",
-        key: "empresa",
-        required: true,
-        breakpoints: {
-          xs: 12,
-          md: 4,
+        {
+          placeHolder: props.intl.formatMessage({
+            id: "Clientes.empresas",
+            defaultMessage: "Empresas",
+          }),
+          type: "LOV",
+          key: "empresa",
+          required: true,
+          breakpoints: {
+            xs: 12,
+            md: 4,
+          },
+          selector: {
+            key: "empresas",
+            labelKey: (data) => `${data.nomFiscal} (${data.codi})`,
+            sort: "nomFiscal",
+            cannotCreate: true,
+            advancedSearchColumns: [
+              { title: CODE, name: "codi" },
+              { title: NOM, name: "nomFiscal" },
+            ],
+          },
         },
-        selector: {
-          key: "empresas",
-          labelKey: (data) => `${data.nomFiscal} (${data.codi})`,
-          sort: "nomFiscal",
-          cannotCreate: true,
-          advancedSearchColumns: [
-            { title: CODE, name: "codi" },
-            { title: NOM, name: "nomFiscal" },
-          ],
-        },
-      },
       {
         type: "input",
         key: "compteComptable",
@@ -1061,20 +867,36 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         breakpoints: {
           xs: 12,
-          md: 4,
+          md: 3,
         },
-        ...withRequiredValidation([]),
+        validationType: "string",
+        ...withRequiredValidation(),
       },
       {
         type: "input",
-        key: "compteVendes",
+        key: "compteCompres",
+        required: true,
         placeHolder: props.intl.formatMessage({
-          id: "Clientes.cuentasVentas",
-          defaultMessage: "Num cuenta Ventas",
+          id: "Proveedores.cuenta.compra",
+          defaultMessage: "Num cuenta Compras",
         }),
         breakpoints: {
           xs: 12,
-          md: 4,
+          md: 3,
+        },
+        validationType: "string",
+        ...withRequiredValidation(),
+      },
+      {
+        type: "checkbox",
+        key: "noTraspassar",
+        placeHolder: props.intl.formatMessage({
+          id: "Proveedores.contab.noTraspasar",
+          defaultMessage: "No traspasar ",
+        }),
+        breakpoints: {
+          xs: 12,
+          md: 2,
         },
       },
     ],
@@ -1082,24 +904,12 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const tabs = [
     {
-      label: "Cuentas Corrientes",
+      label: "Cuentas Contables",
       key: 0,
       component: (
         <ExpandableGrid
-          id="compteCorrentEmpresas"
-          responseKey="compteCorrentEmpresas"
-          enabled={props.editMode}
-          configuration={cuentasCorrientes}
-        />
-      ),
-    },
-    {
-      label: "Cuentas Contables",
-      key: 1,
-      component: (
-        <ExpandableGrid
-          id="compteComptableEmpresas"
-          responseKey="compteComptableEmpresas"
+          id="comptesProveidorEmpresa"
+          responseKey="compteProveidorEmpresas"
           enabled={props.editMode}
           configuration={cuentasContables}
         />
@@ -1110,73 +920,73 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
   return (
     <Grid container>
       <Grid xs={12} item>
-      <OutlinedContainer
-              className="general-tab-container"
-              title={
-                <FormattedMessage
-                  id={"Clientes.tabs.cuentasCorrientes"}
-                  defaultMessage={"Cuentas corrientes"}
-                />
-              }
-            >
-        <Grid container spacing={2}>
-          <Grid xs={7} item>
-            <OutlinedContainer
-              className="general-tab-container"
-              title={
-                <FormattedMessage
-                  id={"Clientes.tabs.numeroCuenta"}
-                  defaultMessage={"Número Cuenta"}
-                />
-              }
-            >
-              <GenericForm
-                formComponents={contabilidadConfig}
-                emptyPaper={true}
-                editMode={props.editMode}
-                getFormData={getFormData}
-                setFormData={setFormData}
-                loading={props.loading}
-                formErrors={props.formErrors}
-                submitFromOutside={props.submitFromOutside}
-                onSubmit={() => props.onSubmitTab(formData)}
-                handleIsValid={(value) =>
-                  addValidity(EMPRESA_SECTION_INDEX, value)
+        <OutlinedContainer
+          className="general-tab-container"
+          title={
+            <FormattedMessage
+              id={"Clientes.tabs.cuentasCorrientes"}
+              defaultMessage={"Cuentas corrientes"}
+            />
+          }
+        >
+          <Grid container spacing={2}>
+            <Grid xs={7} item>
+              <OutlinedContainer
+                className="general-tab-container"
+                title={
+                  <FormattedMessage
+                    id={"Clientes.tabs.numeroCuenta"}
+                    defaultMessage={"Número Cuenta"}
+                  />
                 }
-                onBlur={(e) => handleTouched(EMPRESA_SECTION_INDEX)}
-                {...props}
-              />
-            </OutlinedContainer>
-          </Grid>
-          <Grid xs={5} item>
-            <OutlinedContainer
-              className="general-tab-container"
-              title={
-                <FormattedMessage
-                  id={ "Clientes.tabs.iban"}
-                  defaultMessage={"Iban"}
+              >
+                <GenericForm
+                  formComponents={contabilidadConfig}
+                  emptyPaper={true}
+                  editMode={props.editMode}
+                  getFormData={getFormData}
+                  setFormData={setFormData}
+                  loading={props.loading}
+                  formErrors={props.formErrors}
+                  submitFromOutside={props.submitFromOutside}
+                  onSubmit={() => props.onSubmitTab(formData)}
+                  handleIsValid={(value) =>
+                    addValidity(ACCOUNTS_SECTION_INDEX, value)
+                  }
+                  onBlur={(e) => handleTouched(ACCOUNTS_SECTION_INDEX)}
+                  {...props}
                 />
-              }
-            >
-              <GenericForm
-                formComponents={ibanConfig}
-                emptyPaper={true}
-                editMode={props.editMode}
-                getFormData={getFormData}
-                setFormData={setFormData}
-                loading={props.loading}
-                formErrors={props.formErrors}
-                submitFromOutside={props.submitFromOutside}
-                onSubmit={() => props.onSubmitTab(formData)}
-                handleIsValid={(value) =>
-                  addValidity(EMPRESA_SECTION_INDEX, value)
+              </OutlinedContainer>
+            </Grid>
+            <Grid xs={5} item>
+              <OutlinedContainer
+                className="general-tab-container"
+                title={
+                  <FormattedMessage
+                    id={"Clientes.tabs.iban"}
+                    defaultMessage={"Iban"}
+                  />
                 }
-                onBlur={(e) => handleTouched(EMPRESA_SECTION_INDEX)}
-                {...props}
-              />
-            </OutlinedContainer>
+              >
+                <GenericForm
+                  formComponents={ibanConfig}
+                  emptyPaper={true}
+                  editMode={props.editMode}
+                  getFormData={getFormData}
+                  setFormData={setFormData}
+                  loading={props.loading}
+                  formErrors={props.formErrors}
+                  submitFromOutside={props.submitFromOutside}
+                  onSubmit={() => props.onSubmitTab(formData)}
+                  handleIsValid={(value) =>
+                    addValidity(ACCOUNTS_SECTION_INDEX, value)
+                  }
+                  onBlur={(e) => handleTouched(ACCOUNTS_SECTION_INDEX)}
+                  {...props}
+                />
+              </OutlinedContainer>
+            </Grid>
           </Grid>
-        </Grid>
         </OutlinedContainer>
 
         <Grid container spacing={2}>
@@ -1201,9 +1011,9 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
                 submitFromOutside={props.submitFromOutside}
                 onSubmit={() => props.onSubmitTab(formData)}
                 handleIsValid={(value) =>
-                  addValidity(EMPRESA_SECTION_INDEX, value)
+                  addValidity(ACCOUNTS_SECTION_INDEX, value)
                 }
-                onBlur={(e) => handleTouched(EMPRESA_SECTION_INDEX)}
+                onBlur={(e) => handleTouched(ACCOUNTS_SECTION_INDEX)}
                 {...props}
               />
             </OutlinedContainer>
@@ -1229,9 +1039,9 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
                 submitFromOutside={props.submitFromOutside}
                 onSubmit={() => props.onSubmitTab(formData)}
                 handleIsValid={(value) =>
-                  addValidity(EMPRESA_SECTION_INDEX, value)
+                  addValidity(ACCOUNTS_SECTION_INDEX, value)
                 }
-                onBlur={(e) => handleTouched(EMPRESA_SECTION_INDEX)}
+                onBlur={(e) => handleTouched(ACCOUNTS_SECTION_INDEX)}
                 {...props}
               />
             </OutlinedContainer>
@@ -1246,8 +1056,4 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
     </Grid>
   );
 };
-export default compose(
-  React.memo,
-  withValidations,
-  injectIntl
-)(ContabilidadTab);
+export default compose(React.memo, withValidations, injectIntl)(AccountingTab);

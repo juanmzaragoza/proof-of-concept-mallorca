@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {injectIntl} from 'react-intl';
 import {bindActionCreators, compose} from 'redux';
-import { some, get } from 'lodash';
+import {some, get, unionBy} from 'lodash';
 
 import {Autocomplete, createFilterOptions} from '@material-ui/lab';
 import {FormHelperText, IconButton, TextField} from '@material-ui/core';
@@ -92,13 +92,14 @@ const LOVAutocomplete = (props) => {
   },[props.refresh]);
 
   const requestDataToServer = () => {
+    const query = unionBy(props.extraQuery || [],props.query || [],(filter) => filter.columnName) || [];
     props.responseKey && props.searchData({
       id: props.id,
       key: props.responseKey,
       page: props.page,
       sorting: [{columnName: props.sortBy}],
       search: props.querySearch,
-      query: props.query
+      query
     });
   }
 
@@ -328,7 +329,12 @@ LOVAutocomplete.propTypes = {
   advancedSearchColumns: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
     title: PropTypes.string,
-  }))
+  })),
+  extraQuery: PropTypes.arrayOf(PropTypes.shape({ // for the searching
+    columnName: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    exact: PropTypes.bool
+  })),
 };
 
 const mapStateToProps = (state, props) => {

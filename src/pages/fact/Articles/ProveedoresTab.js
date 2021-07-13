@@ -83,7 +83,7 @@ const ProveedoresTab = ({formData, setFormData, getFormData, ...props}) => {
       { name: 'proveidor', title: PROVEEDOR, getCellValue: row => (row.proveidor.description ? row.proveidor.description : "" )},
       { name: 'codi', title: CODARTPRO },
       { name: 'actualitzarPreuCostArticle', title: PRECIOCOSTE, getCellValue: row => (row.actualitzarPreuCostArticle && row.actualitzarPreuCostArticle === true)?
-      <Chip label="SI" variant="outlined" /> : <Chip label="NO" variant="outlined" /> },
+      <Chip label={props.intl.formatMessage({id: "Comun.SI", defaultMessage: "SI"})} variant="outlined" /> : <Chip label={props.intl.formatMessage({id: "Comun.NO", defaultMessage: "NO"})} variant="outlined" /> },
       { name: 'diesEsperaEntrega', title: DIASESPERA },
       { name: 'ultimDiaCompra', title: ULTIMACOMPRA, getCellValue: row => row.ultimDiaCompra ? new Date(row.ultimDiaCompra).toLocaleDateString() : ""  },
       { name: 'ultimPreuCompra', title: ULTIMOPRECIOCOMPRA },
