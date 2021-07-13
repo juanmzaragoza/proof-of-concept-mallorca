@@ -175,6 +175,6 @@ export const categoriaToxicologica = 'api/fact/categoriesToxicologiques';
 export const subvencions = 'api/fact/subvencions';
 
 export const operariCodi = 'api/rrhh/operaris';
-
+export const factures = `api/fact/factures`;
 
 

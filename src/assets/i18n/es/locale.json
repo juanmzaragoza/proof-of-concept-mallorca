@@ -1116,7 +1116,12 @@
   "Proveedores.ultimoPrecioCompra": "Último Precio Compra",
   "Proveedores.ultimoDiaCompra":"Último Dia Compra",
   "Proveedores.ultimoDescuento": "Último Descuento",
-  "Proveedores.codigoArticulo": "Código Artículo Proveedor"
+  "Proveedores.codigoArticulo": "Código Artículo Proveedor",
+  "Clientes.numeroCuentaNacional":"Num. Cuenta Nacional",
+  "Clientes.recargoEquivalencia":"Recargo equivalencia",
+  "Clientes.Documentos.importeFactura": "Importe Factura",
+  "Clientes.Documentos.importeIva":"Importe IVA",
+  "Clientes.Documentos.numeroFactura":"Num. Factura"
 
 
   
