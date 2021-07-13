@@ -21,6 +21,8 @@
   "Comun.error.servidor_fuera_servicio": "Servidor fuera de servicio",
   "Comun.error.sin_permisos": "No posee los permisos suficientes ;(",
   "Comun.acciones": "Acciones",
+  "Comun.SI": "SI",
+  "Comun.NO": "NO",
   "ContentHeader.busqueda": "Búsqueda",
   "CreateUpdateForm.actualizacion_correcta": "Registro actualizado correctamente",
   "CreateUpdateForm.creacion_correcta": "Registro creado correctamente",

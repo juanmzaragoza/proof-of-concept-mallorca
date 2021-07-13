@@ -53,9 +53,9 @@ const ArticlesList = ({ actions, ...props }) => {
           defaultMessage: "Web"
         }),
         getCellValue: row => (row.bloquejat && row.bloquejat === true)?
-          <Chip label="SI" />
+          <Chip label={props.intl.formatMessage({id: "Comun.SI", defaultMessage: "SI"})} />
           :
-          <Chip label="NO" />
+          <Chip label={props.intl.formatMessage({id: "Comun.NO", defaultMessage: "NO"})} />
       },
     ],
     URL: API.articles,

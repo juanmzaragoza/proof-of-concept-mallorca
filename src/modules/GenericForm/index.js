@@ -105,7 +105,7 @@ const GenericForm = ({loading, ...props}) => {
     props.handleIsValid && props.handleIsValid(formik.isValid);
   }
 
-  const getField = ({id, type, variant, placeHolder, required, key, noEditable, selector, disabled, text, prefix, suffix}, formik) => {
+  const getField = ({id, type, variant, placeHolder, required, key, noEditable, selector, disabled, text, prefix, suffix, extraQuery}, formik) => {
     const noEnable = loading || (props.editMode && noEditable) || disabled;
     const identification = id? id:key;
 
@@ -224,7 +224,6 @@ const GenericForm = ({loading, ...props}) => {
             onChange={(e,v,r) => {
               e.stopPropagation();
               handleChange(e, v);
-              key === "client" && console.log(key, id, identification)
               formik.setFieldValue(key,v);
             }}
             value={props.getFormData && props.getFormData(key)? props.getFormData(key) : null}
@@ -240,7 +239,8 @@ const GenericForm = ({loading, ...props}) => {
             onBlur={handleBlur}
             relatedWith={selector.relatedWith}
             transform={selector.transform}
-            advancedSearchColumns={selector.advancedSearchColumns} />
+            advancedSearchColumns={selector.advancedSearchColumns}
+            extraQuery={extraQuery} />
         );
       case 'observations':
         return (
@@ -425,7 +425,15 @@ GenericForm.propTypes = {
       type: PropTypes.string.isRequired,
       value: PropTypes.string,
       error_message: PropTypes.string,
-    }))
+    })),
+    prefix: PropTypes.string,
+    suffix: PropTypes.string,
+    // when you request filtering by extra fields in some request
+    extraQuery: PropTypes.arrayOf(PropTypes.shape({
+      columnName: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+      exact: PropTypes.bool
+    })),
   })),
   onSubmit: PropTypes.func,
   formDataLoaded: PropTypes.bool,
@@ -436,7 +444,5 @@ GenericForm.propTypes = {
   editMode: PropTypes.bool,
   emptyPaper: PropTypes.bool,
   fieldsContainerStyles: PropTypes.object,
-  prefix: PropTypes.string,
-  suffix: PropTypes.string
 };
 export default GenericForm;

@@ -915,9 +915,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
 
         getCellValue: (row) =>
           row.direccionExclusivaEnvio && row.direccionExclusivaEnvio === "S" ? (
-            <Chip label="SI" variant="outlined" />
+            <Chip label={props.intl.formatMessage({id: "Comun.SI", defaultMessage: "SI"})} variant="outlined" />
           ) : (
-            <Chip label="NO" variant="outlined" />
+            <Chip label={props.intl.formatMessage({id: "Comun.NO", defaultMessage: "NO"})} variant="outlined" />
           ),
       },
       {
@@ -925,9 +925,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         title: DEFECTE,
         getCellValue: (row) =>
           row?.domiciliDefecte && row.domiciliDefecte === "S" ? (
-            <Chip label="SI" variant="outlined" />
+            <Chip label={props.intl.formatMessage({id: "Comun.SI", defaultMessage: "SI"})} variant="outlined" />
           ) : (
-            <Chip label="NO" variant="outlined" />
+            <Chip label={props.intl.formatMessage({id: "Comun.NO", defaultMessage: "NO"})} variant="outlined" />
           ),
       },
       {
@@ -935,9 +935,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         title: BLOQUEJAT,
         getCellValue: (row) =>
           row?.bloquejada && row.bloquejada === "S" ? (
-            <Chip label="SI" variant="outlined" />
+            <Chip label={props.intl.formatMessage({id: "Comun.SI", defaultMessage: "SI"})} variant="outlined" />
           ) : (
-            <Chip label="NO" variant="outlined" />
+            <Chip label={props.intl.formatMessage({id: "Comun.NO", defaultMessage: "NO"})} variant="outlined" />
           ),
       },
     ],

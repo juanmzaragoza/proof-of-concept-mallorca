@@ -273,9 +273,21 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
 
         getCellValue: (row) =>
           row.preusPerVolum && row.preusPerVolum === true ? (
-            <Chip label="SI" variant="outlined" />
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
           ) : (
-            <Chip label="NO" variant="outlined" />
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
           ),
       },
       {
@@ -286,13 +298,25 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         getCellValue: (row) =>
           row.bloquejat && row.bloquejat === true ? (
-            <Chip label="SI" variant="outlined" />
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
           ) : (
-            <Chip label="NO" variant="outlined" />
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
           ),
       },
       { name: "contacte", title: CONTACTE, hidden: true },
-  
+
       {
         name: "iva",
         title: props.intl.formatMessage({
@@ -300,7 +324,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "IVA",
         }),
         getCellValue: (row) => row?.iva?.description || "",
-        hidden:true
+        hidden: true,
       },
       {
         name: "regimIva",
@@ -309,7 +333,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Régimen IVA",
         }),
         getCellValue: (row) => row?.regimIva?.description || "",
-        hidden:true
+        hidden: true,
       },
       { name: "activitat", title: ACTIVIDAD, hidden: true },
       {
@@ -319,7 +343,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Zona",
         }),
         getCellValue: (row) => row?.zona?.description || "",
-        hidden:true
+        hidden: true,
       },
     ],
 

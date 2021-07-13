@@ -731,23 +731,18 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       proveidor: { id: supplierId },
     },
     columns: [
-      { name: "codi", title: CODE },
-      { name: "domicili", title: DOMICILI },
-      { name: "telefon", title: TELEFON },
-      { name: "fax", title: FAX },
-      { name: "email", title: EMAIL },
-      { name: "contacte", title: CONTACTE },
-      {
-        name: "defecte",
-        title: DEFECTE,
-        getCellValue: (row) =>
-          row.defecte && row.defecte === true ? (
-            <Chip label="SI" variant="outlined" />
-          ) : (
-            <Chip label="NO" variant="outlined" />
-          ),
-      },
-      { name: "observacions", title: OBS, hidden: true },
+      { name: 'codi', title: CODE },
+      { name: 'domicili', title: DOMICILI },
+      { name: 'telefon', title: TELEFON },
+      { name: 'fax', title: FAX },
+      { name: 'email', title: EMAIL },
+      { name: 'contacte', title: CONTACTE },
+      { name: 'defecte', title: DEFECTE,
+        getCellValue: row => (row.defecte && row.defecte === true)?
+          <Chip label={props.intl.formatMessage({id: "Comun.SI", defaultMessage: "SI"})} variant="outlined" />
+          :
+          <Chip label={props.intl.formatMessage({id: "Comun.NO", defaultMessage: "NO"})} variant="outlined" />},
+      { name: 'observacions', title: OBS, hidden: true },
     ],
     formComponents: [
       code(),
