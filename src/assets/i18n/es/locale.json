@@ -1216,7 +1216,14 @@
   "Clientes.Documentos.tipo":"Tipo",
   "Clientes.Documentos.formaPago":"Forma Pago",
   "Clientes.destino":"Destino",
-  "Clientes.Documentos.albaranes":"Albaranes"
+  "Clientes.Documentos.albaranes":"Albaranes",
+  "Clientes.Documentos.tipoDocumento":"Tipo Documento",
+  "Clientes.Documentos.numeroDocumento":"Num. Documento",
+  "Clientes.conforme":"Conforme",
+  "Clientes.facturaRegAgrario":"Fact. Régimen Agrario",
+  "Proveedores.Documentos.kilos":"Kilos",
+  "Proveedores.traspasado":"Traspasado",
+  "Proveedores.Documuentos.pedidos":"Pedidos"
 
   
 }
