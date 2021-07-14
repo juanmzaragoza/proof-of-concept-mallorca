@@ -65,4 +65,4 @@ export const STORE_FACT_URL = "/fact/almacenes";
 
 
 export const SALES_SERIES_FACT_URL = '/fact/series-ventas';
-
+export const DOCUMENTO_PAGO_COBRO_FACT_URL = '/fact/documentos-pago-cobro';

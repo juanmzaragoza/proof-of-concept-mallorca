@@ -195,3 +195,5 @@ export const albarans = `api/fact/albarans`;
 export const albaransProveidor = `api/fact/albaransProveidor`;
 export const comandesProveidor = `api/fact/comandesProveidor`;
 
+
+export const naturalesaPagoCobro = 'api/fact/naturalesesPagamentCobrament';

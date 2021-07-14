@@ -39,6 +39,7 @@ import FamilyCosts from './FamilyCosts';
 import Articles from './Articles';
 import Store from './Store';
 import SalesSeries from './SalesSeries';
+import DocumentoPagoCobro from './DocumentoPagoCobro';
 
 
 const component = [
@@ -83,7 +84,7 @@ const component = [
   Articles,
   Store,
   SalesSeries,
-
+  DocumentoPagoCobro,
   
 ];
 export default component;
