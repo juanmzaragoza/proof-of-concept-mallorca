@@ -1223,7 +1223,8 @@
   "Clientes.facturaRegAgrario":"Fact. Régimen Agrario",
   "Proveedores.Documentos.kilos":"Kilos",
   "Proveedores.traspasado":"Traspasado",
-  "Proveedores.Documuentos.pedidos":"Pedidos"
+  "Proveedores.Documuentos.pedidos":"Pedidos",
+  "Clientes.almacen":"Almacén"
 
   
 }
