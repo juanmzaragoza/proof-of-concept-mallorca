@@ -183,3 +183,5 @@ export const factures = `api/fact/factures`;
 export const aplicacionsClients = `api/fact/aplicacionsClients`;
 
 export const departament = 'api/fact/departaments';
+
+export const naturalesaPagoCobro = 'api/fact/naturalesesPagamentCobrament';

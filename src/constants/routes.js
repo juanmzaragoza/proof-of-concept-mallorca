@@ -62,3 +62,4 @@ export const LOCATION_FACT_URL = '/fact/ubicacion';
 export const ARTICLES_LOCATION_FACT_URL = '/fact/articulo-ubicacion';
 
 export const SALES_SERIES_FACT_URL = '/fact/series-ventas';
+export const DOCUMENTO_PAGO_COBRO_FACT_URL = '/fact/documentos-pago-cobro';

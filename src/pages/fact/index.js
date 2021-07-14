@@ -38,6 +38,7 @@ import ArticlesLocation from './ArticlesLocation';
 import FamilyCosts from './FamilyCosts';
 import Articles from './Articles';
 import SalesSeries from './SalesSeries';
+import DocumentoPagoCobro from './DocumentoPagoCobro';
 
 
 const component = [
@@ -81,6 +82,7 @@ const component = [
   FamilyCosts,
   Articles,
   SalesSeries,
+  DocumentoPagoCobro,
   
 ];
 export default component;
