@@ -192,13 +192,13 @@ export const TIPO_ENVIO_FACT_SELECTOR_VALUES = [
 export const TIPO_RECIBOS_SELECTOR_VALUES = [
   {
     value: "NO",
-    labelId: "Selector.no",
+    labelId: "Selector.sinRecibos",
     label: "No",
   },
   {
     value: "PAPER",
-    labelId: "Selector.paper",
-    label: "Papel",
+    labelId: "Selector.formatoPapel",
+    label: "Formato Papel",
   },
   {
     value: "DISQUET",

@@ -1201,8 +1201,22 @@
   "Almacen.almacenPeriodo":"Almacén Periodo",
   "Almacen.numProyecto": "Num. Proyecto",
   "Almacen.proyectosCuentas":"Proyectos y cuentas",
-  "Almacen.cuentaContable":"Cuenta contable"
-
+  "Almacen.cuentaContable":"Cuenta contable",
+  "Selector.sinRecibos":"Sin recibo",
+  "Selector.formatoPapel":"Formato papel",
+  "Clientes.Documentos.numero" :"Numero",
+  "Clientes.presupuestos":"Presupuestos",
+  "Clientes.facturas":"Facturas",
+  "Proveedores.presupuestos":"Presupuestos",
+  "Clientes.Documentos.fechaAceptacion":"Fecha Aceptación",
+  "Clientes.Documentos.movimientoCaja":"Movimientos caja",
+  "Clientes.importeMovimiento":"Importe movimiento",
+  "Clientes.caja":"Caja",
+  "Clientes.documentoPago":"Documento Pago/Cobro",
+  "Clientes.Documentos.tipo":"Tipo",
+  "Clientes.Documentos.formaPago":"Forma Pago",
+  "Clientes.destino":"Destino",
+  "Clientes.Documentos.albaranes":"Albaranes"
 
   
 }

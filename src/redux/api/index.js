@@ -189,4 +189,7 @@ export const articlesCost = 'api/fact/articlesCost';
 
 
 export const departament = 'api/fact/departaments';
+export const pressuposts = `api/fact/pressupostos`;
+export const movimentsCaixa = `api/fact/movimentsCaixa`;
+export const albarans = `api/fact/albarans`;
 
