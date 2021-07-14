@@ -55,8 +55,7 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
           id: "Proveedores.Documentos.precioNeto",
           defaultMessage: "Precio Neto",
         }),
-        getCellValue: (row) =>
-          row.preuNetExtraField && parseInt(row.preuNetExtraField).toFixed(2),
+          
       },
       {
         name: "ultimPreuCompra",

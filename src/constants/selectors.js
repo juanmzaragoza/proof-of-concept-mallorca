@@ -192,13 +192,13 @@ export const TIPO_ENVIO_FACT_SELECTOR_VALUES = [
 export const TIPO_RECIBOS_SELECTOR_VALUES = [
   {
     value: "NO",
-    labelId: "Selector.no",
+    labelId: "Selector.sinRecibos",
     label: "No",
   },
   {
     value: "PAPER",
-    labelId: "Selector.paper",
-    label: "Papel",
+    labelId: "Selector.formatoPapel",
+    label: "Formato Papel",
   },
   {
     value: "DISQUET",
@@ -939,4 +939,17 @@ export const TIPO_OBRA_SELECTOR_VALUES =
 
 
 
+];
+
+export const INCIDENCIA_PORCENTAJE_SELECTOR_VALUES = [
+  {
+    value: "SOBRE_TOTAL_CALCULADO",
+    labelId: "Articulos.costes.select.sobreTotalCalculado",
+    label: "Sobre total calculado",
+  },
+  {
+    value: "SOBRE_SUMA_DE_IMPORTES",
+    labelId: "Articulos.costes.select.sobreSumaImportes",
+    label: "Sobre suma de importes",
+  },
 ];
