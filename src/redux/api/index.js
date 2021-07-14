@@ -178,3 +178,6 @@ export const factures = `api/fact/factures`;
 export const aplicacionsClients = `api/fact/aplicacionsClients`;
 export const magatzemsPeriode = `api/fact/magatzemsPeriode`;
 export const situacionsInicial = `api/fact/situacionsInicial`;
+export const magatzemPeriode = `api/fact/magatzemsPeriode`;
+export const magatzemsComptes = `api/fact/magatzemsComptes`;
+export const projecteNum = `api/fact/projectes`;

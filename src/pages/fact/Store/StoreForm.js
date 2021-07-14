@@ -6,7 +6,7 @@ import {useParams} from "react-router-dom";
 import { some, min, pickBy, cloneDeep } from "lodash";
 
 import GeneralTab from "./GeneralTab";
-// import ContactTab from "./ContactTab";
+
 
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
@@ -19,11 +19,15 @@ import {setFormDataByKey} from "../../../redux/genericForm";
 import {getLoading} from "../../../redux/app/selectors";
 import PeriodTab from './PeriodTab';
 import InitialSituationsTab from './InitialSituationsTab';
+import LocationsTab from './LocationsTab';
+import AccountingTab from './AccountingTab';
 
 
 const GENERAL_TAB_INDEX = 0;
 const PERIOD_TAB_INDEX = 1;
 const INITIAL_SITUATION_TAB_INDEX = 2;
+const LOCATION_TAB_INDEX = 3;
+const ACCOUNTING_TAB_INDEX = 4;
 
 const StoreForm = React.memo(({ actions, allFormData, getFormData, submitFromOutside, services, ...props }) => {
   const [editMode, setEditMode] = useState(false);
@@ -31,7 +35,7 @@ const StoreForm = React.memo(({ actions, allFormData, getFormData, submitFromOut
   const [nameSelectedTab, setNameSelectedTab] = useState('');
 
   /** step 2 */
-  const [tabIndexWithError, setTabIndexWithError] = useState({[GENERAL_TAB_INDEX]: false, [PERIOD_TAB_INDEX]: false,[INITIAL_SITUATION_TAB_INDEX]:false});
+  const [tabIndexWithError, setTabIndexWithError] = useState({[GENERAL_TAB_INDEX]: false, [PERIOD_TAB_INDEX]: false,[INITIAL_SITUATION_TAB_INDEX]:false,[LOCATION_TAB_INDEX]: false,[ACCOUNTING_TAB_INDEX]:false});
   const [forceTabChange, setForceTabChange] = useState(false);
 
   const tabHasError = (index) => {
@@ -113,6 +117,40 @@ const StoreForm = React.memo(({ actions, allFormData, getFormData, submitFromOut
         loading={props.loading}
         formDataLoaded={props.formDataLoaded} />
     },
+    {
+      ...getTranslations("Almacen.ubicaciones","Ubicaciones"),
+      key: LOCATION_TAB_INDEX,
+      error: tabHasError(LOCATION_TAB_INDEX),
+      component: <LocationsTab
+        setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [LOCATION_TAB_INDEX]: !value})}
+        editMode={editMode}
+        getFormData={getFormData}
+        setFormData={actions.setFormData}
+        submitFromOutside={submitFromOutside}
+        onSubmitTab={handleSubmitTab}
+        formErrors={props.formErrors}
+        loading={props.loading}
+        formDataLoaded={props.formDataLoaded} />
+    },
+    {
+      ...getTranslations("Almacen.proyectosCuentas","Proyectos y Cuentas"),
+      key: ACCOUNTING_TAB_INDEX,
+      error: tabHasError(ACCOUNTING_TAB_INDEX),
+      component: <AccountingTab
+        setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [ACCOUNTING_TAB_INDEX]: !value})}
+        editMode={editMode}
+        getFormData={getFormData}
+        setFormData={actions.setFormData}
+        submitFromOutside={submitFromOutside}
+        onSubmitTab={handleSubmitTab}
+        formErrors={props.formErrors}
+        loading={props.loading}
+        formDataLoaded={props.formDataLoaded} />
+    },
+
+    
+
+    
     
   ];
 

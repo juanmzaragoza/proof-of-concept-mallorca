@@ -1141,7 +1141,16 @@
   "Alamcen.articulo":"Artículo",
   "Almacen.precioCoste":"Precio Coste Unitario",
   "Almacen.unidadesMetricas":"Unidades Métricas Iniciales",
-  "Almacen.unidadesIniciales":"Unidades Iniciales"
+  "Almacen.unidadesIniciales":"Unidades Iniciales",
+  "Almacen.valorDivisa":"Valor divisa",
+  "Almacen.clase":"Clase",
+  "Almacen.ubicaciones":"Ubicaciones",
+  "Almacen.codigoExterno":"Código externo",
+  "Almacen.numeroMovimientos":"Num. Movimientos",
+  "Almacen.almacenPeriodo":"Almacén Periodo",
+  "Almacen.numProyecto": "Num. Proyecto",
+  "Almacen.proyectosCuentas":"Proyectos y cuentas",
+  "Almacen.cuentaContable":"Cuenta contable"
 
 
   

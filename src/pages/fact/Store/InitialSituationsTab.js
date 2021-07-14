@@ -19,7 +19,39 @@ const InitialSituationTab = ({
     fields: { 0: false },
     setIsValid: props.setIsValid,
   });
+  const aSCodeAndName = [
+    {
+      title: props.intl.formatMessage({
+        id: "Comun.codigo",
+        defaultMessage: "Código",
+      }),
+      name: "codi",
+    },
+    {
+      title: props.intl.formatMessage({
+        id: "Comun.nombre",
+        defaultMessage: "Nombre",
+      }),
+      name: "nom",
+    },
+  ];
 
+  const aSCodeAndDescription = [
+    {
+      title: props.intl.formatMessage({
+        id: "Comun.codigo",
+        defaultMessage: "Código",
+      }),
+      name: "codi",
+    },
+    {
+      title: props.intl.formatMessage({
+        id: "Comun.descripcion",
+        defaultMessage: "Descripción",
+      }),
+      name: "descripcio",
+    },
+  ];
   const storeCodi = getFormData("codi");
 
   const periodConfig = {
@@ -48,6 +80,14 @@ const InitialSituationTab = ({
           row.article.description ? row.article?.description : "",
       },
       {
+        name: "classe",
+        title: props.intl.formatMessage({
+          id: "Almacen.clase",
+          defaultMessage: "Clase",
+        }),
+        hidden: true,
+      },
+      {
         name: "unitatsInicials",
         title: props.intl.formatMessage({
           id: "Almacen.unidadesIniciales",
@@ -69,6 +109,14 @@ const InitialSituationTab = ({
         }),
       },
       {
+        name: "valorDivisaEuro",
+        title: props.intl.formatMessage({
+          id: "Almacen.valorDivisa",
+          defaultMessage: "Valor divisa euro",
+        }),
+        hidden: true,
+      },
+      {
         name: "divisa",
         title: props.intl.formatMessage({
           id: "Divisas.titulo",
@@ -77,50 +125,178 @@ const InitialSituationTab = ({
         getCellValue: (row) =>
           row.divisa.description ? row.divisa?.description : "",
       },
+      {
+        name: "numMoviments",
+        title: props.intl.formatMessage({
+          id: "Almacen.numeroMovimientos",
+          defaultMessage: "Número Movimientos ",
+        }),
+        hidden: true,
+      },
+      {
+        name: "magatzemPeriode",
+        title: props.intl.formatMessage({
+          id: "Almacen.almacenPeriodo",
+          defaultMessage: "Almacén Periodo",
+        }),
+        getCellValue: (row) =>
+          row.magatzemPeriode.description
+            ? row.magatzemPeriode?.description
+            : "",
+        hidden: true,
+      },
     ],
     formComponents: [
       {
         placeHolder: props.intl.formatMessage({
-          id: "Almacen.periodo",
-          defaultMessage: "Período",
+          id: "ArticulosUbicacion.articulo.titulo",
+          defaultMessage: "Articulo",
         }),
-        type: "input",
-        key: "codi",
-        required: true,
+        type: "LOV",
+        key: "article",
+        id: "articlesFact",
         noEditable: true,
+        required: true,
         breakpoints: {
           xs: 12,
-          md: 2,
+          md: 3,
         },
-        validationType: "number",
-        validations: props.commonValidations.requiredValidation(),
+        selector: {
+          key: "articles",
+          labelKey: (data) => `${data.descripcioCurta} (${data.codi})`,
+          sort: "codi",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndDescription,
+        },
       },
       {
         placeHolder: props.intl.formatMessage({
-          id: "Comun.descripcion",
-          defaultMessage: "Descripción",
+          id: "Almacen.unidadesIniciales",
+          defaultMessage: "Unidades Iniciales",
         }),
         type: "input",
-        key: "descripcio",
+        key: "unitatsInicials",
         required: true,
         breakpoints: {
           xs: 12,
-          md: 8,
+          md: 3,
         },
         validationType: "string",
         validations: props.commonValidations.requiredValidation(),
       },
       {
         placeHolder: props.intl.formatMessage({
-          id: "Almacen.fechaInicio",
-          defaultMessage: "Fecha Inicio",
+          id: "Almacen.unidadesMetricas",
+          defaultMessage: "Unidades Métricas Iniciales",
         }),
-        type: "date",
-        key: "dataInici",
-        noEditable: true,
+        type: "input",
+        key: "unitatsMetriquesInicials",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Almacen.precioCoste",
+          defaultMessage: "Precio Coste Unitario",
+        }),
+        type: "input",
+        key: "preuCostUnitari",
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        validationType: "string",
+        validations: [...props.commonValidations.requiredValidation()],
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Almacen.clase",
+          defaultMessage: "Clase",
+        }),
+        type: "input",
+        key: "classe",
+        required: true,
         breakpoints: {
           xs: 12,
           md: 2,
+        },
+        validationType: "string",
+        validations: [
+          ...props.commonValidations.requiredValidation(),
+          ...props.stringValidations.minMaxValidation(0, 1),
+        ],
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Almacen.valorDivisa",
+          defaultMessage: "Valor Divisa Euro",
+        }),
+        type: "input",
+        key: "valorDivisaEuro",
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 2,
+        },
+        validationType: "string",
+        validations: props.commonValidations.requiredValidation(),
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Almacen.numeroMovimientos",
+          defaultMessage: "Num. Movimientos",
+        }),
+        type: "input",
+        key: "numMoviments",
+        breakpoints: {
+          xs: 12,
+          md: 2,
+        },
+
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Proyectos.divisa",
+          defaultMessage: "Divisa",
+        }),
+        type: "LOV",
+        key: "divisa",
+        noEditable: true,
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "divisas",
+          labelKey: (data) => `${data.nom} (${data.codi})`,
+          sort: "codi",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndName,
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Almacen.periodo",
+          defaultMessage: "Período",
+        }),
+        type: "LOV",
+        key: "magatzemPeriode",
+        noEditable: true,
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "magatzemPeriodes",
+          labelKey: (data) => `${data.descripcio} (${data.codi})`,
+          sort: "codi",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndDescription,
         },
       },
     ],
