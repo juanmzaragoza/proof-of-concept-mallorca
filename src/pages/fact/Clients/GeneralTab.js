@@ -313,7 +313,12 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 6)],
+      validations: [...props.stringValidations.minMaxValidation(1, 6),
+        ...props.stringValidations.fieldExistsValidation(
+          "clientes",
+          "codi",
+          CODE
+        ),],
     },
     {
       placeHolder: props.intl.formatMessage({
