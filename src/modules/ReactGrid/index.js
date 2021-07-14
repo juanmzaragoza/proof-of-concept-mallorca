@@ -168,7 +168,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
                rowComponent={TableRow}
                noDataText={"table-data"} />
         <TableHeaderRow showSortingControls />
-        <TableFilterRow cellComponent={FilterCell} />
+        {!configuration.disabledFiltering && <TableFilterRow cellComponent={FilterCell} />}
         {configuration.enableInlineEdition && <TableInlineCellEditing selectTextOnEditStart />}
         {!configuration.disabledActions && <ActionsColumn title={props.intl.formatMessage({
           id: "Comun.acciones",
@@ -193,7 +193,8 @@ ReactGrid.propTypes = {
     })),
     listKey: PropTypes.string.isRequired,
     enableInlineEdition: PropTypes.bool,
-    disabledActions: PropTypes.bool
+    disabledActions: PropTypes.bool,
+    disabledFiltering: PropTypes.bool
   }),
   extraQuery: PropTypes.arrayOf(PropTypes.shape({
     columnName: PropTypes.string.isRequired,
