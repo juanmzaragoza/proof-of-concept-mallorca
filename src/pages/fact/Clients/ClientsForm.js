@@ -9,7 +9,7 @@ import GeneralTab from "./GeneralTab";
 import ContactTab from "./ContactTab";
 import ContabilidadTab from "./ContabilidadTab";
 import FacturacionTab from "./FacturacionTab";
-import FacturacionElectronicaTab from "./FacturacionElectronicaTab";
+
 import SubClienteTab from "./SubClienteTab";
 import AplicadoresTab from "./AplicadoresTab";
 import PersonalizacionTab from "./PersonalizacionTab";
@@ -24,6 +24,7 @@ import { getFormData, getFormErrors, getFormDataByKey, getIsDataLoaded } from ".
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
 import DocumentsTab from './DocumentsTab';
+import ClientsApp from './ClientsApp';
 
 const GENERAL_TAB_INDEX = 0;
 const CONTACT_TAB_INDEX = 1;
@@ -34,13 +35,14 @@ const CLIENTE_TAB_INDEX = 4 ;
 const PERSONAL_TAB_INDEX = 5;
 const COMERCIAL_TAB_INDEX = 7;
 const DOC_TAB_INDEX = 6;
-const APLICADORES_TAB_INDEX = 8;
+const CLIENTS_APP_TAB_INDEX = 8;
+const APLICADORES_TAB_INDEX = 9;
 
 
 const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromOutside, services, ...props }) => {
   const [editMode, setEditMode] = useState(false);
   const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
-  const [tabIndexWithError, setTabIndexWithError] = useState({ [GENERAL_TAB_INDEX]: false, [CONTACT_TAB_INDEX]: false, [CONTAB_TAB_INDEX]: false, [FACT_TAB_INDEX]: false,[CLIENTE_TAB_INDEX]: false,[APLICADORES_TAB_INDEX]: false, [PERSONAL_TAB_INDEX]: false,[DOC_TAB_INDEX]: false  });
+  const [tabIndexWithError, setTabIndexWithError] = useState({ [GENERAL_TAB_INDEX]: false, [CONTACT_TAB_INDEX]: false, [CONTAB_TAB_INDEX]: false, [FACT_TAB_INDEX]: false,[CLIENTE_TAB_INDEX]: false,[APLICADORES_TAB_INDEX]: false, [PERSONAL_TAB_INDEX]: false,[DOC_TAB_INDEX]: false ,[CLIENTS_APP_TAB_INDEX]:false });
   const [forceTabChange, setForceTabChange] = useState(false);
 
   const tabHasError = (index) => {
@@ -203,6 +205,21 @@ const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromO
         formDataLoaded={props.formDataLoaded} />
     },
     {
+      label: <FormattedMessage id={"Clientes.otraAplicacion"} defaultMessage={"Otra Aplicaciones"} />,
+      key: CLIENTS_APP_TAB_INDEX,
+      error: tabHasError(CLIENTS_APP_TAB_INDEX ),
+      component: <ClientsApp
+        setIsValid={(value) => setTabIndexWithError({ ...tabIndexWithError, [CLIENTS_APP_TAB_INDEX ]: !value })}
+        editMode={editMode}
+        getFormData={getFormData}
+        setFormData={actions.setFormData}
+        submitFromOutside={submitFromOutside}
+        onSubmitTab={handleSubmitTab}
+        formErrors={props.formErrors}
+        loading={props.loading}
+        formDataLoaded={props.formDataLoaded} />
+    },
+    {
       label: <FormattedMessage id={"Clientes.aplicadores"} defaultMessage={"Aplicadores"} />,
       key: APLICADORES_TAB_INDEX,
       error: tabHasError(APLICADORES_TAB_INDEX ),
@@ -217,6 +234,8 @@ const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromO
         loading={props.loading}
         formDataLoaded={props.formDataLoaded} />
     },
+
+    
     
 
   ];

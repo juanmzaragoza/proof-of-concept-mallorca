@@ -61,4 +61,8 @@ export const RATES_FACT_URL = '/fact/tarifes';
 export const LOCATION_FACT_URL = '/fact/ubicacion';
 export const ARTICLES_LOCATION_FACT_URL = '/fact/articulo-ubicacion';
 
+export const STORE_FACT_URL = "/fact/almacenes";
+
+
 export const SALES_SERIES_FACT_URL = '/fact/series-ventas';
+

@@ -62,8 +62,6 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
     defaultMessage: "Descripción",
   });
 
-  const getString = (key) => (getFormData(key) ? getFormData(key) : "");
-
   const code = (md = 6) => ({
     type: "input",
     key: "codi",
@@ -340,7 +338,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 12)],
+      validations: [...props.stringValidations.minMaxValidation(1, 10)],
     },
   ];
 
@@ -754,6 +752,8 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 12,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 10)],
     },
     {
       type: "input",
@@ -766,6 +766,8 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 12,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 10)],
     },
   ];
 
@@ -816,47 +818,47 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
         getCellValue: (row) =>
           row.noTraspassar && row.noTraspassar === true ? (
             <Chip
-            label={props.intl.formatMessage({
-              id: "Comun.SI",
-              defaultMessage: "SI",
-            })}
-            variant="outlined"
-          />
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
           ) : (
             <Chip
-            label={props.intl.formatMessage({
-              id: "Comun.NO",
-              defaultMessage: "NO",
-            })}
-            variant="outlined"
-          />
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
           ),
       },
     ],
     formComponents: [
-        {
-          placeHolder: props.intl.formatMessage({
-            id: "Clientes.empresas",
-            defaultMessage: "Empresas",
-          }),
-          type: "LOV",
-          key: "empresa",
-          required: true,
-          breakpoints: {
-            xs: 12,
-            md: 4,
-          },
-          selector: {
-            key: "empresas",
-            labelKey: (data) => `${data.nomFiscal} (${data.codi})`,
-            sort: "nomFiscal",
-            cannotCreate: true,
-            advancedSearchColumns: [
-              { title: CODE, name: "codi" },
-              { title: NOM, name: "nomFiscal" },
-            ],
-          },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Clientes.empresas",
+          defaultMessage: "Empresas",
+        }),
+        type: "LOV",
+        key: "empresa",
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 4,
         },
+        selector: {
+          key: "empresas",
+          labelKey: (data) => `${data.nomFiscal} (${data.codi})`,
+          sort: "nomFiscal",
+          cannotCreate: true,
+          advancedSearchColumns: [
+            { title: CODE, name: "codi" },
+            { title: NOM, name: "nomFiscal" },
+          ],
+        },
+      },
       {
         type: "input",
         key: "compteComptable",
@@ -870,7 +872,9 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
           md: 3,
         },
         validationType: "string",
-        ...withRequiredValidation(),
+        ...withRequiredValidation([
+          ...props.stringValidations.minMaxValidation(0, 10),
+        ]),
       },
       {
         type: "input",
@@ -885,7 +889,9 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
           md: 3,
         },
         validationType: "string",
-        ...withRequiredValidation(),
+        ...withRequiredValidation([
+          ...props.stringValidations.minMaxValidation(0, 10),
+        ]),
       },
       {
         type: "checkbox",

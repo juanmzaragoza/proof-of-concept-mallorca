@@ -12,7 +12,7 @@ import {
 import LocalMall from "@material-ui/icons/LocalMall";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import SettingsIcon from "@material-ui/icons/Settings";
-import AssignmentIcon from '@material-ui/icons/Assignment';
+import AssignmentIcon from "@material-ui/icons/Assignment";
 
 const withConstants = (PassedComponent) => {
   const WrappedComponent = ({ actions, ...props }) => {
@@ -458,8 +458,7 @@ const withConstants = (PassedComponent) => {
             path: "COM_RGI", // or has path or has children but not both
             icon: <LocalMall />,
           },
-          
-    
+
           {
             key: "COM_MAG",
             title: props.intl.formatMessage({
@@ -553,7 +552,6 @@ const withConstants = (PassedComponent) => {
         ],
       },
 
-    
       {
         key: "FAC_REGCOM", // not mandatory for routes with children
         title: props.intl.formatMessage({
@@ -573,12 +571,21 @@ const withConstants = (PassedComponent) => {
         icon: <LocalMall />,
       },
       {
+        key: "FAC_MAGATZ", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Almacen.titulo",
+          defaultMessage: "Almacen",
+        }),
+        path: "FAC_MAGATZ", // or has path or has children but not both
+      },
+      {
         key: "FAC_SERVEN", // not mandatory for routes with children
         title: props.intl.formatMessage({
           id: "SerieVenta.titulo",
           defaultMessage: "Serie ventas",
         }),
         path: "FAC_SERVEN", // or has path or has children but not both
+
         icon: <LocalMall />,
       },
       {
@@ -589,16 +596,22 @@ const withConstants = (PassedComponent) => {
         icon: <ShoppingBasketIcon />,
         children: [
           {
-            key: 'FAC_ARTICL', // not mandatory for routes with children
-            title: props.intl.formatMessage({id: "Articulos.titulo",defaultMessage: "Artículos"}),
-            path: 'FAC_ARTICL', // or has path or has children but not both
-            icon: <LocalMall />
+            key: "FAC_ARTICL", // not mandatory for routes with children
+            title: props.intl.formatMessage({
+              id: "Articulos.titulo",
+              defaultMessage: "Artículos",
+            }),
+            path: "FAC_ARTICL", // or has path or has children but not both
+            icon: <LocalMall />,
           },
           {
-            key: 'FAC_FAMART', // not mandatory for routes with children
-            title: props.intl.formatMessage({id: "FamiliaArticulos.titulo",defaultMessage: "Familia de Artículos"}),
-            path: 'FAC_FAMART', // or has path or has children but not both
-            icon: <LocalMall />
+            key: "FAC_FAMART", // not mandatory for routes with children
+            title: props.intl.formatMessage({
+              id: "FamiliaArticulos.titulo",
+              defaultMessage: "Familia de Artículos",
+            }),
+            path: "FAC_FAMART", // or has path or has children but not both
+            icon: <LocalMall />,
           },
           {
             key: "FAC_FAMCOS", // not mandatory for routes with children

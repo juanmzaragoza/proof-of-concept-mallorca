@@ -149,7 +149,6 @@ export const paisNifCodi = `api/paisosNif`;
 
 export const categoriesTraduccio = `api/ecom/categoriesTraduccio`;
 
-
 export const ubicacios = "api/fact/ubicacions";
 export const ubicacioArticles = "api/fact/ubicacionsArticle";
 
@@ -167,19 +166,32 @@ export const proveidorsArticle = `api/fact/proveidorsArticle`;
 export const proveidorsSerieCompra = `api/fact/proveidorsSerieCompra`;
 export const serieCompra = `api/fact/seriesCompra`;
 
-export const preuArticleEnvas = 'api/fact/preusArticleEnvas';
-export const ivaFact = 'api/fact/ives';
-export const preusPerVolum = 'api/fact/preusPerVolum';
-export const magatzemsArticlesFact = 'api/fact/magatzemsArticlesFact';
-export const categoriaToxicologica = 'api/fact/categoriesToxicologiques';
-export const subvencions = 'api/fact/subvencions';
+export const preuArticleEnvas = "api/fact/preusArticleEnvas";
+export const ivaFact = "api/fact/ives";
+export const preusPerVolum = "api/fact/preusPerVolum";
+export const magatzemsArticlesFact = "api/fact/magatzemsArticlesFact";
+export const categoriaToxicologica = "api/fact/categoriesToxicologiques";
+export const subvencions = "api/fact/subvencions";
+
+
+export const operariCodi = "api/rrhh/operaris";
+export const factures = `api/fact/factures`;
+export const aplicacionsClients = `api/fact/aplicacionsClients`;
+export const magatzemsPeriode = `api/fact/magatzemsPeriode`;
+export const situacionsInicial = `api/fact/situacionsInicial`;
+export const magatzemPeriode = `api/fact/magatzemsPeriode`;
+export const magatzemsComptes = `api/fact/magatzemsComptes`;
+export const projecteNum = `api/fact/projectes`;
 
 export const escandalls = 'api/fact/escandalls';
 export const tipusCost = 'api/fact/tipusCostos';
 export const articlesCost = 'api/fact/articlesCost';
 
-export const operariCodi = 'api/rrhh/operaris';
-export const factures = `api/fact/factures`;
-export const aplicacionsClients = `api/fact/aplicacionsClients`;
 
 export const departament = 'api/fact/departaments';
+export const pressuposts = `api/fact/pressupostos`;
+export const movimentsCaixa = `api/fact/movimentsCaixa`;
+export const albarans = `api/fact/albarans`;
+export const albaransProveidor = `api/fact/albaransProveidor`;
+export const comandesProveidor = `api/fact/comandesProveidor`;
+
