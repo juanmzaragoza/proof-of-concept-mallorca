@@ -684,8 +684,8 @@ export const TIPO_TARIFA_SELECTOR_VALUES = [
     label: "Tarifa general sobre PVP",
   },
   {
-    value: "tarifaParticularSobreCoste",
-    labelId: "Selector.tarifaGeneralSobrePvp",
+    value: "TARIFA_PARTICULAR_SOBRE_COST",
+    labelId: "Selector.tarifaParticularSobreCoste",
     label: "Tarifa particular sobre coste",
   },
   {
