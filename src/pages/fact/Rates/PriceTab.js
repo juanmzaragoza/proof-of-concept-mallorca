@@ -27,6 +27,8 @@ const PriceTab = ({ actions, ...props }) => {
 
   const listConfiguration = {
     disabledFiltering: true,
+    disabledActions: true,
+    
     columns: [
       {
          name: 'codi',
