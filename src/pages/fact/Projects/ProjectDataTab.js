@@ -392,6 +392,7 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "magatzem",
+      required:true,
       breakpoints: {
         xs: 12,
         md: 3,
@@ -403,6 +404,8 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndName,
         cannotCreate: true,
       },
+      validationType: "object",
+      validations:[...props.commonValidations.requiredValidation()]
     },
     {
       placeHolder: DESCRIPCIO,
@@ -644,6 +647,7 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
     ...codiPostal(4),
   ];
 
+  console.log(getFormData('client'));
   const customerData = [
     {
       placeHolder: props.intl.formatMessage({
@@ -668,6 +672,12 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         relatedWith: 
           {
             name: "clientAdresa",
+            filterBy: "client.id",
+            keyValue: "id",
+          },
+        relatedWith: 
+          {
+            name: "subClient",
             filterBy: "client.id",
             keyValue: "id",
           },

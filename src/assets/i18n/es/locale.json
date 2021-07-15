@@ -1265,6 +1265,7 @@
   "Proyectos.valor":"Valor",
   "Proyectos.total":"Total",
   "Proyectos.Documentos.albaranesProv":"Albaranes Proveedores",
-  "Proyectos.Documentos.albaranesCli":"Albaranes Clientes"
+  "Proyectos.Documentos.albaranesCli":"Albaranes Clientes",
+  "Proyectos.mantenerCoste":"Mantener Coste Artículo"
 
 }

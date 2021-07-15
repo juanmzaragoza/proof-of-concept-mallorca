@@ -365,13 +365,13 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
       },
 
       {
-        name: "traspassat",
+        name: "mantenirCostsArticle",
         title: props.intl.formatMessage({
-          id: "Proveedores.traspasado",
-          defaultMessage: "Traspasado",
+          id: "Proyectos.mantenerCoste",
+          defaultMessage: "Mantener Coste Artículo",
         }),
         getCellValue: (row) =>
-          row.traspassat && row.traspassat === true ? (
+          row.mantenirCostsArticle && row.mantenirCostsArticle === true ? (
             <Chip
               label={props.intl.formatMessage({
                 id: "Comun.SI",
