@@ -598,6 +598,15 @@ const withConstants = (PassedComponent) => {
         icon: <LocalMall />,
       },
       {
+        key: "FAC_TIPVEN", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Proveedores.tvencimiento",
+          defaultMessage: "Tipo Vencimiento",
+        }),
+        path: "FAC_TIPVEN", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
         title: props.intl.formatMessage({
           id: "Articulos.titulo",
           defaultMessage: "Artículos",
