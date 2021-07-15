@@ -1260,5 +1260,11 @@
   "Selector.rehabilitacion": "Rehabilitació Edificaciones",
   "Proyectos.dia1": "Dia 1",
   "Proyectos.dia2": "Dia 2",
-  "Proyectos.serieIntracomunitari":"Serie intracomuntaria"
+  "Proyectos.serieIntracomunitari":"Serie intracomuntaria",
+  "Proyectos.certificaciones":"Certificaciones",
+  "Proyectos.valor":"Valor",
+  "Proyectos.total":"Total",
+  "Proyectos.Documentos.albaranesProv":"Albaranes Proveedores",
+  "Proyectos.Documentos.albaranesCli":"Albaranes Clientes"
+
 }

@@ -38,12 +38,12 @@ const BudgetTab = ({ formData, setFormData, getFormData, ...props }) => {
         getCellValue: (row) => row.pressupost && row.pressupost?.description,
       },
       {
-        name: "capitulo",
+        name: "capitol",
         title: props.intl.formatMessage({
           id: "Proyectos.capitulo",
           defaultMessage: "Capítulo",
         }),
-        getCellValue: (row) => row.capitulo && row.capitulo?.description,
+        getCellValue: (row) => row.capitol && row.capitol?.description,
       },
 
       {

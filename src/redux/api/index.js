@@ -208,4 +208,4 @@ export const movimentsCaixa = `api/fact/movimentsCaixa`;
 export const albarans = `api/fact/albarans`;
 export const albaransProveidor = `api/fact/albaransProveidor`;
 export const comandesProveidor = `api/fact/comandesProveidor`;
-
+export const certificatsProjecte = `api/fact/certificatsProjecte`;
