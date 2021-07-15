@@ -174,9 +174,23 @@ export const categoriaToxicologica = "api/fact/categoriesToxicologiques";
 export const subvencions = "api/fact/subvencions";
 
 
-export const operariCodi = "api/rrhh/operaris";
+
+export const projectesPressupost = `api/fact/projectesPressupost`;
+export const capitol =`api/fact/capitols`;
+export const pressupost = `api/fact/pressupostos`;
+export const partida = `api/fact/partides`;
+
+export const operariCodi = 'api/rrhh/operaris';
 export const factures = `api/fact/factures`;
 export const aplicacionsClients = `api/fact/aplicacionsClients`;
+export const projectesAplicacio = `api/fact/projectesAplicacio`;
+export const proveidorsVenciment = `api/fact/proveidorsVenciment`;
+export const proveidor = `api/fact/proveidors`;
+export const historicsResponsables = `api/fact/historicsResponsables`;
+export const serieIntracomunitaria = `api/fact/seriesIntracomunitaria`;
+
+
+
 export const magatzemsPeriode = `api/fact/magatzemsPeriode`;
 export const situacionsInicial = `api/fact/situacionsInicial`;
 export const magatzemPeriode = `api/fact/magatzemsPeriode`;
@@ -197,3 +211,4 @@ export const comandesProveidor = `api/fact/comandesProveidor`;
 
 
 export const naturalesaPagoCobro = 'api/fact/naturalesesPagamentCobrament';
+export const certificatsProjecte = `api/fact/certificatsProjecte`;
