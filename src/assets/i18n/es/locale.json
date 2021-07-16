@@ -1111,6 +1111,8 @@
   "Tarifa.porcentajeMaterial": "Porcentaje material",
   "Tarifa.porcentajeManoObra": "Porcentaje mano de obra",
   "Tarifa.formaCalculo": "Forma de calculo",
+  
+  "TarifaDescuento.titulo": "Tarifas de Descuento",
 
   "Empresas.codPostalComercial": "Código postal Comercial",
   "Empresas.codPostalFiscal": "Código postal Fiscal",
@@ -1284,6 +1286,8 @@
   "Proyectos.total":"Total",
   "Proyectos.Documentos.albaranesProv":"Albaranes Proveedores",
   "Proyectos.Documentos.albaranesCli":"Albaranes Clientes",
-  "Proyectos.mantenerCoste":"Mantener Coste Artículo"
+  "Proyectos.mantenerCoste":"Mantener Coste Artículo",
 
+  "tiposFacturacion.titulo":"Tipos de Facturación",
+  "tiposFacturacion.conceder":"Conceder Crédito"
 }

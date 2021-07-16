@@ -41,6 +41,8 @@ import Store from './Store';
 import SalesSeries from './SalesSeries';
 import DocumentoPagoCobro from './DocumentoPagoCobro';
 import MaturityType from './MaturityType';
+import BillingType from './BillingType';
+import DiscountRates from './DiscountRates';
 
 
 const component = [
@@ -87,6 +89,8 @@ const component = [
   SalesSeries,
   DocumentoPagoCobro,
   MaturityType,
+  BillingType,
+  DiscountRates,
   
 ];
 export default component;
