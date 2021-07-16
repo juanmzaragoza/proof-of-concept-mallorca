@@ -6,8 +6,7 @@ import {useParams} from "react-router-dom";
 import { some, min, pickBy, cloneDeep } from "lodash";
 
 import GeneralTab from "./GeneralTab";
-import PriceTab from "./PriceTab";
-import Price2Tab from "./Price2Tab";
+import DatosContablesTab from "./DatosContablesTab";
 
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
@@ -20,28 +19,20 @@ import {setFormDataByKey} from "../../../redux/genericForm";
 import {getLoading} from "../../../redux/app/selectors";
 
 /**
- * Rates form module
+ * Documento Pago/Cobro form module
  * If you want add a new tab, follow the next steps
  **/
 /** step 1 */
 const GENERAL_TAB_INDEX = 0;
-const PRICE_TAB_INDEX = 1;
-const PRICE_2_TAB_INDEX = 2;
-const GENERATE_TAB_INDEX = 4;
-const COPY_TAB_INDEX = 5;
-const UPDATE_PVP_TAB_INDEX = 6;
-const CLIENTS_TAB_INDEX = 7;
+const DATOS_CONTABLES_TAB_INDEX = 1;
 
-const RatesForm = React.memo(({ actions, allFormData, getFormData, submitFromOutside, services, ...props }) => {
+const DocumentoPagoCobroForm = React.memo(({ actions, allFormData, getFormData, submitFromOutside, services, ...props }) => {
   const [editMode, setEditMode] = useState(false);
   const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
   const [nameSelectedTab, setNameSelectedTab] = useState('');
 
   /** step 2 */
-  const [tabIndexWithError, setTabIndexWithError] = useState({[GENERAL_TAB_INDEX]: false, 
-    [PRICE_TAB_INDEX]: false, [PRICE_2_TAB_INDEX]: false, [GENERATE_TAB_INDEX]: false,
-    [COPY_TAB_INDEX]: false, [UPDATE_PVP_TAB_INDEX]: false, [CLIENTS_TAB_INDEX]: false,
-  });
+  const [tabIndexWithError, setTabIndexWithError] = useState({[GENERAL_TAB_INDEX]: false, [DATOS_CONTABLES_TAB_INDEX]: false });
   const [forceTabChange, setForceTabChange] = useState(false);
 
   const tabHasError = (index) => {
@@ -94,11 +85,11 @@ const RatesForm = React.memo(({ actions, allFormData, getFormData, submitFromOut
         formDataLoaded={props.formDataLoaded} />
     },
     {
-        ...getTranslations("Tarifa.precios","Precios"),
-        key: PRICE_TAB_INDEX,
-        error: tabHasError(PRICE_TAB_INDEX),
-        component: <PriceTab
-          setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [PRICE_TAB_INDEX]: !value})}
+        ...getTranslations("DocumentosPago.datosContables","Datos contables"),
+        key: DATOS_CONTABLES_TAB_INDEX,
+        error: tabHasError(DATOS_CONTABLES_TAB_INDEX),
+        component: <DatosContablesTab
+          setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [DATOS_CONTABLES_TAB_INDEX]: !value})}
           editMode={editMode}
           getFormData={getFormData}
           setFormData={actions.setFormData}
@@ -107,41 +98,6 @@ const RatesForm = React.memo(({ actions, allFormData, getFormData, submitFromOut
           formErrors={props.formErrors}
           loading={props.loading}
           formDataLoaded={props.formDataLoaded} />
-    },
-    {
-      ...getTranslations("Tarifa.precios2","Precios 2"),
-      key: PRICE_2_TAB_INDEX,
-      error: tabHasError(PRICE_2_TAB_INDEX),
-      component: <Price2Tab
-        setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [PRICE_2_TAB_INDEX]: !value})}
-        editMode={editMode}
-        getFormData={getFormData}
-        setFormData={actions.setFormData}
-        submitFromOutside={submitFromOutside}
-        onSubmitTab={handleSubmitTab}
-        formErrors={props.formErrors}
-        loading={props.loading}
-        formDataLoaded={props.formDataLoaded} />
-    },
-    {
-      label: <FormattedMessage id={"Tarifa.generar"} defaultMessage={"Generar"} />,
-      key: 3,
-      component: "Generar ..."
-    },
-    {
-      label: <FormattedMessage id={"Tarifa.copiar"} defaultMessage={"Copiar"} />,
-      key: 4,
-      component: "Copiar ..."
-    },
-    {
-      label: <FormattedMessage id={"Tarifa.actualizarPvp"} defaultMessage={"Actualizar PVP"} />,
-      key: 5,
-      component: "Actualizar PVP ..."
-    },
-    {
-      label: <FormattedMessage id={"Tarifa.clientes"} defaultMessage={"Clientes"} />,
-      key: 6,
-      component: "Clientes ..."
     },
   ];
 
@@ -161,7 +117,7 @@ const RatesForm = React.memo(({ actions, allFormData, getFormData, submitFromOut
       services.getById(id);
     } else{
       actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "Tarifa.titulo", defaultMessage: "Tarifas"}), href:"/tarifes"},
+        {title: props.intl.formatMessage({id: "DocumentosPago.titulo", defaultMessage: "Documentos pago/cobro"}), href:"/documentos-pago-cobro"},
         {title: props.intl.formatMessage({id: "Comun.nuevo", defaultMessage: "Nuevo"})}
       ]);
     }
@@ -183,8 +139,8 @@ const RatesForm = React.memo(({ actions, allFormData, getFormData, submitFromOut
         :
         `${props.intl.formatMessage({id: "Comun.cargando", defaultMessage: "Cargando"})}...`;
       actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "Tarifa.titulo", defaultMessage: "Tarifas"}), href:"/tarifes"},
-        {title: desc, href:"/tarifes"},
+        {title: props.intl.formatMessage({id: "DocumentosPago.titulo", defaultMessage: "Documentos pago/cobro"}), href:"/documentos-pago-cobro"},
+        {title: desc, href:"/documentos-pago-cobro"},
         {title: nameSelectedTab}
       ]);
     }
@@ -247,5 +203,5 @@ const component = compose(
   injectIntl,
   connect(mapStateToProps, mapDispatchToProps),
   withAbmServices
-)(RatesForm);
+)(DocumentoPagoCobroForm);
 export default component;

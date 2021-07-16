@@ -208,4 +208,7 @@ export const movimentsCaixa = `api/fact/movimentsCaixa`;
 export const albarans = `api/fact/albarans`;
 export const albaransProveidor = `api/fact/albaransProveidor`;
 export const comandesProveidor = `api/fact/comandesProveidor`;
+
+
+export const naturalesaPagoCobro = 'api/fact/naturalesesPagamentCobrament';
 export const certificatsProjecte = `api/fact/certificatsProjecte`;
