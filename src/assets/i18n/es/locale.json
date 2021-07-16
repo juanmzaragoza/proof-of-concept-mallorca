@@ -1284,6 +1284,17 @@
   "Proyectos.total":"Total",
   "Proyectos.Documentos.albaranesProv":"Albaranes Proveedores",
   "Proyectos.Documentos.albaranesCli":"Albaranes Clientes",
-  "Proyectos.mantenerCoste":"Mantener Coste Artículo"
+  "Proyectos.mantenerCoste":"Mantener Coste Artículo",
+  "Productos.titulo":"Productos",
+  "Productos.abrv":"Abreviatura",
+  "Productos.referencia":"Referencia",
+  "Productos.activo":"Activo",
+  "Productos.visible":"Visible",
+  "Productos.tabs.datosProd":"Datos producto",
+  "Productos.tabs.sector":"Sectores",
+  "Productos.sector":"Sector",
+  "Selector.producto":"Producto",
+  "Selector.aplicacion":"Aplicación",
+  "Productos.tipo":"Tipo producto"
 
 }

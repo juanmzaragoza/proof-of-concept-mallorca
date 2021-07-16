@@ -212,3 +212,8 @@ export const comandesProveidor = `api/fact/comandesProveidor`;
 
 export const naturalesaPagoCobro = 'api/fact/naturalesesPagamentCobrament';
 export const certificatsProjecte = `api/fact/certificatsProjecte`;
+export const productes = `api/fact/productes`;
+export const productesInformacio = `api/fact/productesInformacio`;
+export const productesTraduccio = `api/fact/productesTraduccio`;
+export const sector = `api/fact/sectors`;
+export const productesSector = `api/fact/productesSector`;
