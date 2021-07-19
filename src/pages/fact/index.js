@@ -46,6 +46,7 @@ import BillingType from './BillingType';
 import DiscountRates from './DiscountRates';
 import FinalesFacturas from './FinalesFacturas';
 import SeriesIntracomunitarias from './SeriesIntracomunitarias';
+import PurchaseSeries from './PurchaseSeries';
 
 import Sector from './Sector';
 
@@ -107,6 +108,7 @@ const component = [
   
   Sector,
   SeriesIntracomunitarias,
+  PurchaseSeries,
   
   CommercialSituation,
 ];

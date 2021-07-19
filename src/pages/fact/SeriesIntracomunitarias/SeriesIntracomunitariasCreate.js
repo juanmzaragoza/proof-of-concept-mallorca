@@ -76,7 +76,7 @@ const SeriesIntracomunitariasCreate = (props) => {
       },
     },
     {
-      placeHolder: DESCRIPTION,
+      placeHolder: SERDEF,
       type: "checkbox",
       key: "serieDefecto",
       breakpoints: {
