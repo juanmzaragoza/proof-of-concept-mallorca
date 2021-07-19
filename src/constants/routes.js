@@ -22,6 +22,7 @@ export const BILLING_TYPE_FACT_URL = '/fact/tipo-facturacion';
 export const DISCOUNT_RATES_FACT_URL = '/fact/tarifas-descuento';
 export const FINALES_FACTURAS_FACT_URL = '/fact/finales-facturas';
 export const COMPANY_ACCOUNTING_ACCOUNTS_FACT_URL = '/fact/cuentas-contables-empresas';
+export const BUSINESS_AREA_FACT_URL = '/fact/area-negocios';
 
 export const COMMERCIAL_REGISTER_FACT_URL = '/fact/registros-comerciales';
 export const GAMA_FACT_URL = '/fact/articulos-gama';

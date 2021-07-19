@@ -31,6 +31,7 @@ import Projects from './Projects';
 
 import Company from './Company';
 
+import BusinessArea from './BusinessArea';
 
 import Rates from './Rates';
 import Location from './Location';
@@ -71,6 +72,7 @@ const component = [
 
   Company,
 
+  BusinessArea,
   
   CommercialRegister,
   Gama,
