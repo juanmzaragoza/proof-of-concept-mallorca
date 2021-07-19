@@ -338,7 +338,7 @@
   "Comun.domicilio": "Domicilio",
 
   "FinalFacturas.titulo": "Finales de facturas",
-  "FinalFacturas.activo": "Activo",
+  "FinalFacturas.activo": "Activo", 
 
   "FamiliaClientes.titulo": "Familia Cliente",
   "FamiliaClientes.cuentaVentas": "Cuenta ventas contabilidad",
@@ -1249,6 +1249,14 @@
   "Proveedores.traspasado":"Traspasado",
   "Proveedores.Documuentos.pedidos":"Pedidos",
   "Clientes.almacen":"Almacén",
+
+  "AreaNegocios.codigoContabilidad":"Código de contabilidad",
+  "AreaNegocios.contabilidadCuentaExistencias":"Contabilidad cuenta existencias",
+  "AreaNegocios.contabilidadCuentaCostes":"Contabilidad cuenta costes",
+  "AreaNegocios.contabilidadCuentaProveedores":"Contabilidad cuenta proveedores",
+  "AreaNegocios.contabilidadCuentaClientes":"Contabilidad cuenta clientes",
+  "AreaNegocios.cuentaAlmacen":"Cuenta almacén",
+  "AreaNegocios.cuentaObraEjecutada":"Cuenta obra ejecutada",
 
   "Proyectos.codigoOtraApp": "Código Proyecto otra App ",
   "Proyectos.otraAplicacion": "Proyectos otras Aplicaciones",
