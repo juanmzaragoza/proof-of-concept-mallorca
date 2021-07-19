@@ -23,6 +23,8 @@ export const DISCOUNT_RATES_FACT_URL = '/fact/tarifas-descuento';
 export const FINALES_FACTURAS_FACT_URL = '/fact/finales-facturas';
 export const COMPANY_ACCOUNTING_ACCOUNTS_FACT_URL = '/fact/cuentas-contables-empresas';
 export const BUSINESS_AREA_FACT_URL = '/fact/area-negocios';
+export const SERIES_INTRACOMUNITARIAS_FACT_URL = '/fact/series-intracomunitarias';
+export const PURCHASE_SERIES_FACT_URL = '/fact/series-compras';
 
 export const COMMERCIAL_REGISTER_FACT_URL = '/fact/registros-comerciales';
 export const GAMA_FACT_URL = '/fact/articulos-gama';

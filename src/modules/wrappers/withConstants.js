@@ -787,18 +787,32 @@ const withConstants = (PassedComponent) => {
         icon: <LocalMall />,
       },
       {
-        key: "FAC_RAPPEL", 
+        key: "FAC_SERINT", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Proyectos.serieIntracomunitari",
+          defaultMessage: "Serie intracomuntaria",
+        }),
+        path: "FAC_SERINT", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_RAPPEL",
         title: props.intl.formatMessage({
           id: "Rappel.titulo",
           defaultMessage: "Rappel",
         }),
-        path: "FAC_RAPPEL", 
+        path: "FAC_RAPPEL",
         icon: <LocalMall />,
       },
-
-
-      
-    ];
+     {      
+      key: "FAC_SERCOM", // not mandatory for routes with children
+      title: props.intl.formatMessage({
+        id: "Proveedores.serieCompra",
+        defaultMessage: "Serie Compra",
+      }),
+      path: "FAC_SERCOM", // or has path or has children but not both
+      icon: <LocalMall />,
+    },    ];
 
     return (
       <PassedComponent
