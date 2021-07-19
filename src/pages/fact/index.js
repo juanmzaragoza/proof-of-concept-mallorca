@@ -50,6 +50,7 @@ import Sector from "./Sector";
 import Vehicle from "./Vehicle";
 import Carrier from "./Carrier";
 import CommercialSituation from "./CommercialSituation";
+import Rappel from "./Rappel";
 
 const component = [
   SuppliersFamily,
@@ -102,5 +103,6 @@ const component = [
   DiscountRates,
   FinalesFacturas,
   CommercialSituation,
+  Rappel,
 ];
 export default component;

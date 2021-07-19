@@ -75,3 +75,4 @@ export const SECTOR_FACT_URL = '/fact/sectores';
 export const VEHICLE_FACT_URL = '/fact/vehiculos';
 export const CARRIER_FACT_URL = '/fact/transportistas';
 export const COMMERCIAL_FACT_URL = '/fact/situaciones-comerciales';
+export const RAPPEL_FACT_URL = '/fact/rappels';

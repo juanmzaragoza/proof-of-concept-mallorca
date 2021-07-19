@@ -1318,6 +1318,13 @@
   "Transportistas.horarioReparto":"Horario de Reparto",
   "tiposFacturacion.titulo":"Tipos de Facturación",
   "tiposFacturacion.conceder":"Conceder Crédito",
-  "SituacionesComerciales.titulo":"Situaciones Comerciales"
+  "SituacionesComerciales.titulo":"Situaciones Comerciales",
+  "Rappel.titulo":"Rappel",
+  "Rappel.porcentaje":"Porcentaje",
+  "Rappel.limiteInferior":"Límite Inferior",
+  "Rappel.limiteSuperior":"Límite Superior",
+  "Rappel.escalado":"Escalado",
+  "Rappel.absoluto":"Absoluto",
+  "Rappel.porcentaje2":"Porcentaje 2"
 
 }
