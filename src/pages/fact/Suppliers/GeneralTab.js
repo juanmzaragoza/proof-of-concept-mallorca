@@ -905,6 +905,14 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     columns: [
       {
+        name: "empresa",
+        title: props.intl.formatMessage({
+          id: "Clientes.empresas",
+          defaultMessage: "Empresas",
+        }),
+        getCellValue: (row) => row.empresa?.description ?? "",
+      },
+      {
         name: "caixa",
         title: props.intl.formatMessage({
           id: "Proveedores.cajas",
@@ -914,6 +922,30 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     ],
     formComponents: [
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Clientes.empresas",
+          defaultMessage: "Empresas",
+        }),
+        type: "LOV",
+        key: "empresa",
+        noEditable: true,
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 4,
+        },
+        selector: {
+          key: "empresas",
+          labelKey: (data) => `${data.nomFiscal} (${data.codi})`,
+          sort: "nomFiscal",
+          cannotCreate: true,
+          advancedSearchColumns: [
+            { title: CODE, name: "codi" },
+            { title: NOM, name: "nomFiscal" },
+          ],
+        },
+      },
       {
         placeHolder: props.intl.formatMessage({
           id: "Proveedores.cajas",

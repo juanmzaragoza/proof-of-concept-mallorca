@@ -80,6 +80,10 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
     id: "Clientes.bloqueado",
     defaultMessage: "Bloqueado",
   });
+  const OBS = props.intl.formatMessage({
+    id: "Comun.observaciones",
+    defaultMessage: "Observaciones",
+  });
 
   const code = (md = 6) => ({
     type: "input",
@@ -536,6 +540,46 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 3,
         },
+
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Proyectos.subcliente",
+          defaultMessage: "Subcliente",
+        }),
+        type: "LOV",
+        key: "subClient",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "subClients",
+          labelKey: (data) => `${data.nom} (${data.codi})`,
+          sort: "nom",
+          advancedSearchColumns: aSCodeAndName,
+          cannotCreate: true,
+         
+        },
+        extraQuery: [
+          {
+            columnName: 'client.id',
+            value: `"${clienteId}"`,
+            exact: true
+          }
+        ],
+      },
+      {
+        placeHolder: OBS,
+        type: "input",
+        key: "observacions",
+        breakpoints: {
+          xs: 12,
+          md: 12,
+        },
+        text:{
+          multiline:2
+        }
 
       },
     ],

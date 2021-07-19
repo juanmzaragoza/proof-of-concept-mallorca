@@ -24,6 +24,7 @@ import Selector from "./Selector";
 import createYupSchema from "./yupSchemaCreator";
 import Observations from "./Observations";
 import Numeric from "./Numeric";
+import WYSIWYGEditor from "./WYSIWYGEditor";
 
 const GenericForm = ({loading, ...props}) => {
   const formRef = useRef(null);
@@ -42,7 +43,7 @@ const GenericForm = ({loading, ...props}) => {
     'numeric': 0.0,
     'date': "",
     'switch': "",
-
+    'wysiwyg': ""
   }
 
   /** Init to avoid uncontrolled inputs */
@@ -233,7 +234,7 @@ const GenericForm = ({loading, ...props}) => {
             error={hasError(key,formik)}
             helperText={getMessageError(key,formik)}
             required={Boolean(required)}
-            disabled={(props.editMode && noEditable) || disabled}
+            disabled={noEnable}
             cannotCreate={selector.cannotCreate}
             creationComponents={selector.creationComponents}
             onBlur={handleBlur}
@@ -299,6 +300,23 @@ const GenericForm = ({loading, ...props}) => {
               }
               label={placeHolder}
             />
+          );
+        case "wysiwyg":
+          return (
+            <WYSIWYGEditor
+              id={identification}
+              disabled={noEnable}
+              value={props.getFormData && props.getFormData(key)? props.getFormData(key) : ""}
+              required={Boolean(required)}
+              placeHolder={placeHolder}
+              rows={text && text.multiline}
+              error={hasError(key,formik)}
+              helperText={getMessageError(key, formik)}
+              onChange={(e,v) => {
+                handleChange(e, v);
+                formik.setFieldValue(key,v);
+              }}
+              onBlur={handleBlur}/>
           );
       default:
         return;
@@ -396,7 +414,7 @@ GenericForm.propTypes = {
   containerSpacing: PropTypes.number,
   formComponents: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.any,
-    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV','observations','numeric','date','switch']),
+    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV','observations','numeric','date','switch','wysiwyg']),
     variant: PropTypes.oneOf(['filled','outlined','standard']),
     placeHolder: PropTypes.string,
     required: PropTypes.bool,

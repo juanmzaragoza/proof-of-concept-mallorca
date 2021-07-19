@@ -15,9 +15,8 @@ import {
   TIPO_RETENCION2_SELECTOR_VALUES,
   TIPO_CONTABILIZACION_SELECTOR_VALUES,
   TIPO_ESTADO_PROYECTO_SELECTOR_VALUES,
-  TIPO_EJECUCION_PROYECTO_SELECTOR_VALUES
+  TIPO_EJECUCION_PROYECTO_SELECTOR_VALUES,
 } from "constants/selectors";
-
 
 const PROJECT_SECTION_INDEX = 0;
 const CLIENT_SECTION_TAB_INDEX = 1;
@@ -37,7 +36,6 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
     setIsValid: props.setIsValid,
   });
 
-
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
     defaultMessage: "Código",
@@ -56,7 +54,6 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
   });
 
   const getString = (key) => (getFormData(key) ? getFormData(key) : "");
-
 
   useEffect(() => {
     const codiPostal = getString("codiPostal");
@@ -91,7 +88,6 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     },
   ];
-
 
   const codiPostal = (md = 6) => [
     {
@@ -229,11 +225,15 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       validationType: "string",
       validations: [
-        ...props.stringValidations.minMaxValidation(1,6),
-        ...props.stringValidations.fieldExistsValidation('projectes', 'codi', props.intl.formatMessage({
-          id: "Comun.codigo",
-          defaultMessage: "Código",
-        }),)
+        ...props.stringValidations.minMaxValidation(1, 6),
+        ...props.stringValidations.fieldExistsValidation(
+          "projectes",
+          "codi",
+          props.intl.formatMessage({
+            id: "Comun.codigo",
+            defaultMessage: "Código",
+          })
+        ),
       ],
     },
     {
@@ -360,9 +360,8 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
           },
         ],
       },
-      validationType:"object",
-      ...withRequiredValidation()
-  
+      validationType: "object",
+      ...withRequiredValidation(),
     },
 
     {
@@ -386,7 +385,6 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     },
 
-  
     {
       placeHolder: props.intl.formatMessage({
         id: "Proyectos.almacen",
@@ -394,6 +392,7 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "magatzem",
+      required:true,
       breakpoints: {
         xs: 12,
         md: 3,
@@ -405,6 +404,8 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndName,
         cannotCreate: true,
       },
+      validationType: "object",
+      validations:[...props.commonValidations.requiredValidation()]
     },
     {
       placeHolder: DESCRIPCIO,
@@ -470,7 +471,7 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
     },
-   
+
     {
       placeHolder: props.intl.formatMessage({
         id: "Proyectos.estado",
@@ -482,24 +483,24 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      selector:{
-        options: TIPO_ESTADO_PROYECTO_SELECTOR_VALUES
-      }
+      selector: {
+        options: TIPO_ESTADO_PROYECTO_SELECTOR_VALUES,
+      },
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "Proyectos.tipoEjecucion",
         defaultMessage: "Tipo ejecución",
       }),
-      required:true,
+      required: true,
       type: "select",
       key: "tipusExecucio",
       breakpoints: {
         xs: 12,
         md: 2,
       },
-      selector:{
-        options: TIPO_EJECUCION_PROYECTO_SELECTOR_VALUES
+      selector: {
+        options: TIPO_EJECUCION_PROYECTO_SELECTOR_VALUES,
       },
       validationType: "string",
       ...withRequiredValidation(),
@@ -523,7 +524,7 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Previsión fin",
       }),
       type: "date",
-      required:true,
+      required: true,
       key: "dataFiPrevist",
       breakpoints: {
         xs: 12,
@@ -644,9 +645,9 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     },
     ...codiPostal(4),
-   
   ];
 
+  console.log(getFormData('client'));
   const customerData = [
     {
       placeHolder: props.intl.formatMessage({
@@ -673,7 +674,14 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
             name: "clientAdresa",
             filterBy: "client.id",
             keyValue: "id",
-          },   
+          },
+        relatedWith: 
+          {
+            name: "subClient",
+            filterBy: "client.id",
+            keyValue: "id",
+          },
+        
       },
     },
     {
@@ -863,11 +871,9 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
     },
-   
   ];
 
   const configAlbaran = [
-   
     {
       placeHolder: props.intl.formatMessage({
         id: "Proyectos.precioAlbaran",

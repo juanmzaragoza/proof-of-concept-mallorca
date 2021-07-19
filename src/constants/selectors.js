@@ -192,13 +192,13 @@ export const TIPO_ENVIO_FACT_SELECTOR_VALUES = [
 export const TIPO_RECIBOS_SELECTOR_VALUES = [
   {
     value: "NO",
-    labelId: "Selector.no",
+    labelId: "Selector.sinRecibos",
     label: "No",
   },
   {
     value: "PAPER",
-    labelId: "Selector.paper",
-    label: "Papel",
+    labelId: "Selector.formatoPapel",
+    label: "Formato Papel",
   },
   {
     value: "DISQUET",
@@ -684,8 +684,8 @@ export const TIPO_TARIFA_SELECTOR_VALUES = [
     label: "Tarifa general sobre PVP",
   },
   {
-    value: "tarifaParticularSobreCoste",
-    labelId: "Selector.tarifaGeneralSobrePvp",
+    value: "TARIFA_PARTICULAR_SOBRE_COST",
+    labelId: "Selector.tarifaParticularSobreCoste",
     label: "Tarifa particular sobre coste",
   },
   {
@@ -822,6 +822,123 @@ export const DIMENSION_SELECTOR_VALUES = [
     labelId: "Articulos.presentacion.dimensiones.select.largoXAnchoXAlto",
     label: "Largo x ancho x alto",
   }
+];
+
+export const APP_PROYECTOS_SELECTOR_VALUES = [
+  {
+    value: "APL0",
+    labelId: "Selector.aplicacion1",
+    label: "Aplicación 1",
+  },
+  {
+    value: "APL1",
+    labelId: "Selector.aplicacion2",
+    label: "Aplicación 2",
+  },
+  {
+    value: "APL2",
+    labelId: "Selector.aplicacion3",
+    label: "Aplicación 3",
+  },
+  {
+    value: "APL3",
+    labelId: "Selector.aplicacion4",
+    label: "Aplicación Clientes",
+  },
+  {
+    value: "APL4",
+    labelId: "Selector.aplicacion5",
+    label: "Prueba",
+  },
+  {
+    value: "APL5",
+    labelId: "Selector.aplicacion6",
+    label: "Canteras Ibiza",
+  },
+
+];
+
+export const ROL_OPERARIO_SELECTOR_VALUES = [
+  {
+    value: "CAPGRUP",
+    labelId: "Selector.jefeGrupo",
+    label: "Jefe Grupo",
+  },
+  {
+    value: "RESPONSABLE",
+    labelId: "Selector.responsable",
+    label: "Responsable",
+  },
+  {
+    value: "ENCARREGAT",
+    labelId: "Selector.encargado",
+    label: "Encargado",
+  },
+  {
+    value: "ADMINISTRATIU",
+    labelId: "Selector.administrativo",
+    label: "Administrativo ",
+  },
+
+
+];
+
+export const TIPO_INVERSION_SELECTOR_VALUES =
+[
+  {
+    value: "NO_SUJETO_INVERSION",
+    labelId: "Selector.noSujeto",
+    label: "No sujeto a inversión",
+  },
+  {
+    value: "PROMOTOR",
+    labelId: "Selector.promotor",
+    label: "Promotor",
+  },
+  {
+    value: "CONTRATISTA",
+    labelId: "Selector.contratista",
+    label: "Contratista",
+  },
+  {
+    value: "SUBCONTRATISTA",
+    labelId: "Selector.subcontratista",
+    label: "Subcontratista",
+  },
+  {
+    value: "ESBORRAR_DE_AQUI",
+    labelId: "Selector.borrar",
+    label: "Borrar ",
+  },
+
+
+];
+
+export const TIPO_OBRA_SELECTOR_VALUES =
+[
+  {
+    value: "CONTRUCCION_EDIFICACIONES",
+    labelId: "Selector.construccion",
+    label: "Construccion Edificaciones",
+  },
+  {
+    value: "REHABILITACION_EDIFICACIONES",
+    labelId: "Selector.rehabilitacion",
+    label: "Rehabilitacion Edificacionesr",
+  },
+  {
+    value: "URBANIZACION_TERRENOS",
+    labelId: "Selector.urbanizacion",
+    label: "Urbanización Terrenos",
+  },
+  {
+    value: "OTROS",
+    labelId: "Selector.otros",
+    label: "Otros",
+  },
+
+
+
 ];
 
 export const INCIDENCIA_PORCENTAJE_SELECTOR_VALUES = [
