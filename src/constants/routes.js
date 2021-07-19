@@ -71,3 +71,4 @@ export const TIPO_VENCIMIENTO_FACT_URL = '/fact/tipo-vencimiento';
 
 export const SALES_SERIES_FACT_URL = '/fact/series-ventas';
 export const DOCUMENTO_PAGO_COBRO_FACT_URL = '/fact/documentos-pago-cobro';
+export const SECTOR_FACT_URL = '/fact/sectores';

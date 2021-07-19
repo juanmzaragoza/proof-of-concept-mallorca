@@ -94,13 +94,11 @@ const component = [
   SalesSeries,
   DocumentoPagoCobro,
   MaturityType,
-<<<<<<< HEAD
+
   BillingType,
   DiscountRates,
   FinalesFacturas,
-=======
   Sector
->>>>>>> ecd651981ef1612e3d82ceb5af10c38a395498f2
   
 ];
 export default component;
