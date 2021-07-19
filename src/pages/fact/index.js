@@ -42,6 +42,8 @@ import SalesSeries from './SalesSeries';
 import DocumentoPagoCobro from './DocumentoPagoCobro';
 import MaturityType from './MaturityType';
 
+import Sector from './Sector';
+
 
 const component = [
   SuppliersFamily,
@@ -87,6 +89,7 @@ const component = [
   SalesSeries,
   DocumentoPagoCobro,
   MaturityType,
+  Sector
   
 ];
 export default component;
