@@ -777,6 +777,17 @@ const withConstants = (PassedComponent) => {
         path: "FAC_TRANSP", // or has path or has children but not both
         icon: <LocalMall />,
       },
+      {
+        key: "FAC_SITCOM", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "SituacionesComerciales.titulo",
+          defaultMessage: "Situaciones Comerciales",
+        }),
+        path: "FAC_SITCOM", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+
+      
     ];
 
     return (

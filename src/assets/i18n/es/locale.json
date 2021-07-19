@@ -1317,6 +1317,7 @@
   "Transportistas.titulo":"Transportistas",
   "Transportistas.horarioReparto":"Horario de Reparto",
   "tiposFacturacion.titulo":"Tipos de Facturación",
-  "tiposFacturacion.conceder":"Conceder Crédito"
+  "tiposFacturacion.conceder":"Conceder Crédito",
+  "SituacionesComerciales.titulo":"Situaciones Comerciales"
 
 }
