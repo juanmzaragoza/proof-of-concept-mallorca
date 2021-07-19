@@ -1299,8 +1299,10 @@
   "Proyectos.Documentos.albaranesCli":"Albaranes Clientes",
   "Proyectos.mantenerCoste":"Mantener Coste Artículo",
   
-  "Sectores.titulo":"Sectores",
-  "Sectores.descripcionIdioma":"Descripción Idioma",
+  "Sectores.titulo": "Sectores",
+  "Sectores.descripcionIdioma": "Descripción Idioma",
+
+  "SerieIntracomunitaria.serieDefecto": "Séries defecto",
 
   "tiposFacturacion.titulo":"Tipos de Facturación",
   "tiposFacturacion.conceder":"Conceder Crédito"

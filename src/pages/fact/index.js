@@ -45,6 +45,7 @@ import MaturityType from './MaturityType';
 import BillingType from './BillingType';
 import DiscountRates from './DiscountRates';
 import FinalesFacturas from './FinalesFacturas';
+import SeriesIntracomunitarias from './SeriesIntracomunitarias';
 
 import Sector from './Sector';
 
@@ -98,7 +99,8 @@ const component = [
   BillingType,
   DiscountRates,
   FinalesFacturas,
-  Sector
+  Sector,
+  SeriesIntracomunitarias,
   
 ];
 export default component;
