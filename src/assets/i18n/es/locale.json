@@ -1295,6 +1295,7 @@
   "Productos.sector":"Sector",
   "Selector.producto":"Producto",
   "Selector.aplicacion":"Aplicación",
-  "Productos.tipo":"Tipo producto"
+  "Productos.tipo":"Tipo producto",
+  "Productos.editorHtml":"Editor HTML"
 
 }

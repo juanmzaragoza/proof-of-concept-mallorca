@@ -4,7 +4,7 @@ import {Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
 import {bindActionCreators, compose} from "redux";
 import Paper from "@material-ui/core/Paper";
-import AppsIcon from '@material-ui/icons/Apps';
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
 import * as API from "redux/api";
 import {setBreadcrumbHeader, setListingConfig} from "redux/pageHeader";
@@ -50,5 +50,5 @@ export default {
     component: withHeaders(Products)
   },
   name: 'FAC_PROD',
-  icon: <AppsIcon/>
+  icon: <LocalOfferIcon/>
 }

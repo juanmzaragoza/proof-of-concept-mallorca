@@ -19,12 +19,10 @@ const ProductsDataTab = ({ formData, setFormData, getFormData, ...props }) => {
     setIsValid: props.setIsValid,
   });
 
-
   const NOM = props.intl.formatMessage({
     id: "Comun.nombre",
     defaultMessage: "Nombre",
   });
-
 
   const productsDataConfig = [
     {
@@ -37,7 +35,7 @@ const ProductsDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "string",
       validations: [
@@ -60,13 +58,58 @@ const ProductsDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 7,
+        md: 4,
       },
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 30),
       ],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Productos.abrv",
+        defaultMessage: "Abreviatura",
+      }),
+      type: "input",
+      key: "abreviatura",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 3)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Productos.referencia",
+        defaultMessage: "Referencia",
+      }),
+      type: "input",
+      key: "referencia",
+      noEditable: true,
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Productos.tipo",
+        defaultMessage: "Tipo producto",
+      }),
+      type: "select",
+      key: "tipus",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      selector: {
+        options: TIPO_PRODUCTO_SELECTOR_VALUES,
+      },
+      validationType: "string",
+      validations: [...props.commonValidations.requiredValidation()],
     },
 
     {
@@ -81,6 +124,7 @@ const ProductsDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 1,
       },
     },
+    
     {
       placeHolder: props.intl.formatMessage({
         id: "Productos.visible",
@@ -95,51 +139,33 @@ const ProductsDataTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Productos.abrv",
-        defaultMessage: "Abreviatura",
+        id: "Comun.descripcion",
+        defaultMessage: "Descripción",
       }),
       type: "input",
-      key: "abreviatura",
+      key: "descripcio",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(0, 3)],
+      text: {
+        multiline: 16,
+      },
     },
+
     {
-        placeHolder: props.intl.formatMessage({
-          id: "Productos.referencia",
-          defaultMessage: "Referencia",
-        }),
-        type: "input",
-        key: "referencia",
-        noEditable:true,
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
+      placeHolder: props.intl.formatMessage({
+        id: "Productos.editorHtml",
+        defaultMessage: "Editor HTML",
+      }),
+      type: "wysiwyg",
+      key: "text",
+      breakpoints: {
+        xs: 12,
+        md: 6,
       },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Productos.tipo",
-          defaultMessage: "Tipo producto",
-        }),
-        type: "select",
-        key: "tipus",
-        required:true,
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        selector:{
-            options: TIPO_PRODUCTO_SELECTOR_VALUES
-        },
-        validationType: "string",
-        validations: [
-          ...props.commonValidations.requiredValidation(),
-        ],
-      },
+    },
+  
   ];
 
   return (
