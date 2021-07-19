@@ -56,7 +56,7 @@ import Rappel from "./Rappel";
 
 import AddressType from "./AddressType";
 import CustomerAdress from "./CustomerAdress";
-
+import Subvenciones from "./Subvenciones";
 
 const component = [
   SuppliersFamily,
@@ -113,7 +113,10 @@ const component = [
   CommercialSituation,
   Rappel,
   AddressType,
-  CustomerAdress
+  CustomerAdress,
+  Subvenciones,
+
+
 ];
   
 

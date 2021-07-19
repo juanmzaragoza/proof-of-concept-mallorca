@@ -1257,6 +1257,7 @@
   "Proveedores.Documuentos.pedidos": "Pedidos",
   "Clientes.almacen": "Almacén",
 
+
   "AreaNegocios.codigoContabilidad": "Código de contabilidad",
   "AreaNegocios.contabilidadCuentaExistencias": "Contabilidad cuenta existencias",
   "AreaNegocios.contabilidadCuentaCostes": "Contabilidad cuenta costes",
@@ -1264,6 +1265,8 @@
   "AreaNegocios.contabilidadCuentaClientes": "Contabilidad cuenta clientes",
   "AreaNegocios.cuentaAlmacen": "Cuenta almacén",
   "AreaNegocios.cuentaObraEjecutada": "Cuenta obra ejecutada",
+
+  "Subvenciones.titulo": "Subvenciones",
 
   "Proyectos.codigoOtraApp": "Código Proyecto otra App ",
   "Proyectos.otraAplicacion": "Proyectos otras Aplicaciones",
