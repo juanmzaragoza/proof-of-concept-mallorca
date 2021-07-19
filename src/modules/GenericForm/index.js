@@ -307,8 +307,11 @@ const GenericForm = ({loading, ...props}) => {
               id={identification}
               disabled={noEnable}
               value={props.getFormData && props.getFormData(key)? props.getFormData(key) : ""}
+              required={Boolean(required)}
               placeHolder={placeHolder}
               rows={text && text.multiline}
+              error={hasError(key,formik)}
+              helperText={getMessageError(key, formik)}
               onChange={(e,v) => {
                 handleChange(e, v);
                 formik.setFieldValue(key,v);

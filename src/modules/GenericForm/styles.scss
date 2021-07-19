@@ -16,3 +16,9 @@
   width: 100%;
   padding: 10px!important;
 }
+
+/* ck editor */
+.ck-error .ck.ck-content {
+  border: 2px solid;
+  border-color: red!important;
+}
