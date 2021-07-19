@@ -31,6 +31,7 @@ import Projects from './Projects';
 
 import Company from './Company';
 
+import BusinessArea from './BusinessArea';
 
 import Rates from './Rates';
 import Location from './Location';
@@ -41,6 +42,9 @@ import Store from './Store';
 import SalesSeries from './SalesSeries';
 import DocumentoPagoCobro from './DocumentoPagoCobro';
 import MaturityType from './MaturityType';
+import BillingType from './BillingType';
+import DiscountRates from './DiscountRates';
+import FinalesFacturas from './FinalesFacturas';
 
 import Sector from './Sector';
 import Vehicle from './Vehicle';
@@ -72,6 +76,7 @@ const component = [
 
   Company,
 
+  BusinessArea,
   
   CommercialRegister,
   Gama,
@@ -93,7 +98,11 @@ const component = [
   MaturityType,
   Sector,
   Vehicle,
-  Carrier
-  
+  Carrier,
+  BillingType,
+  DiscountRates,
+  FinalesFacturas,
+
+
 ];
 export default component;
