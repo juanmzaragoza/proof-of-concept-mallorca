@@ -49,11 +49,11 @@ import SeriesIntracomunitarias from './SeriesIntracomunitarias';
 import PurchaseSeries from './PurchaseSeries';
 
 import Sector from './Sector';
-
-import Sector from "./Sector";
 import Vehicle from "./Vehicle";
 import Carrier from "./Carrier";
 import CommercialSituation from "./CommercialSituation";
+
+import AddressType from "./AddressType";
 
 const component = [
   SuppliersFamily,
@@ -111,5 +111,7 @@ const component = [
   PurchaseSeries,
   
   CommercialSituation,
+  AddressType,
+  
 ];
 export default component;
