@@ -43,6 +43,7 @@ import DocumentoPagoCobro from './DocumentoPagoCobro';
 import MaturityType from './MaturityType';
 import BillingType from './BillingType';
 import DiscountRates from './DiscountRates';
+import FinalesFacturas from './FinalesFacturas';
 
 
 const component = [
@@ -91,6 +92,7 @@ const component = [
   MaturityType,
   BillingType,
   DiscountRates,
+  FinalesFacturas,
   
 ];
 export default component;

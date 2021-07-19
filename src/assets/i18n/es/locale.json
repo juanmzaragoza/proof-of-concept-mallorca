@@ -337,6 +337,9 @@
   "Empresas.codigo": "Código",
   "Comun.domicilio": "Domicilio",
 
+  "FinalFacturas.titulo": "Finales de facturas",
+  "FinalFacturas.activo": "Activo",
+
   "FamiliaClientes.titulo": "Familia Cliente",
   "FamiliaClientes.cuentaVentas": "Cuenta ventas contabilidad",
   "FamiliaClientes.tipoRiesgo": "Tipo riesgo",
