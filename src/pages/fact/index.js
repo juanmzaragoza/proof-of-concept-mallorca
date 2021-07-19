@@ -55,6 +55,7 @@ import CommercialSituation from "./CommercialSituation";
 import Rappel from "./Rappel";
 
 import AddressType from "./AddressType";
+import Subvenciones from "./Subvenciones";
 
 const component = [
   SuppliersFamily,
@@ -113,6 +114,9 @@ const component = [
   CommercialSituation,
   Rappel,
   AddressType,
+  
+  Subvenciones,
+
 ];
   
 
