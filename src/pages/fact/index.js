@@ -55,6 +55,8 @@ import CommercialSituation from "./CommercialSituation";
 import Rappel from "./Rappel";
 
 import AddressType from "./AddressType";
+import CustomerAdress from "./CustomerAdress";
+
 
 const component = [
   SuppliersFamily,
@@ -106,13 +108,12 @@ const component = [
   BillingType,
   DiscountRates,
   FinalesFacturas,
-  
-  Sector,
   SeriesIntracomunitarias,
   PurchaseSeries,
   CommercialSituation,
   Rappel,
   AddressType,
+  CustomerAdress
 ];
   
 
