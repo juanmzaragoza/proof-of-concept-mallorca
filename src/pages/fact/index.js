@@ -50,7 +50,6 @@ import PurchaseSeries from './PurchaseSeries';
 
 import Sector from './Sector';
 
-import Sector from "./Sector";
 import Vehicle from "./Vehicle";
 import Carrier from "./Carrier";
 import CommercialSituation from "./CommercialSituation";
