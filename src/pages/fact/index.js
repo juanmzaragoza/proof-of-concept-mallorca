@@ -1,37 +1,37 @@
-import SuppliersFamily from './SuppliersFamily';
-import Suppliers from './Suppliers';
-import Country from './Country';
-import Province from './Province';
-import Language from './Language';
-import Clients from './Clients';
-import Zone from './Zone';
-import Currency from './Currency';
-import ClientsFamily from './ClientsFamily';
-import Organization from './Organization';
-import CountryNif from './CountryNif';
-import BankOffice from './BankOffice';
-import Vat from './Vat';
-import RegimeVat from './RegimeVat';
-import Retention from './Retention';
-import Bank from './Bank';
-import PostalCode from './PostalCode';
-import DocumentFooter from './DocumentFooter';
-import ProjectType from './ProjectType';
-import CompanyAccountingAccount from './CompanyAccountingAccount';
+import SuppliersFamily from "./SuppliersFamily";
+import Suppliers from "./Suppliers";
+import Country from "./Country";
+import Province from "./Province";
+import Language from "./Language";
+import Clients from "./Clients";
+import Zone from "./Zone";
+import Currency from "./Currency";
+import ClientsFamily from "./ClientsFamily";
+import Organization from "./Organization";
+import CountryNif from "./CountryNif";
+import BankOffice from "./BankOffice";
+import Vat from "./Vat";
+import RegimeVat from "./RegimeVat";
+import Retention from "./Retention";
+import Bank from "./Bank";
+import PostalCode from "./PostalCode";
+import DocumentFooter from "./DocumentFooter";
+import ProjectType from "./ProjectType";
+import CompanyAccountingAccount from "./CompanyAccountingAccount";
 
-import CommercialRegister from './CommercialRegister';
-import Gama from './Gama';
-import ItemBrand from './ItemBrand';
-import ItemModel from './ItemModel';
-import CommisionType from './CommisionType';
-import UnitType from './UnitType';
-import ItemsFamily from './ItemsFamily';
+import CommercialRegister from "./CommercialRegister";
+import Gama from "./Gama";
+import ItemBrand from "./ItemBrand";
+import ItemModel from "./ItemModel";
+import CommisionType from "./CommisionType";
+import UnitType from "./UnitType";
+import ItemsFamily from "./ItemsFamily";
 
-import Projects from './Projects';
+import Projects from "./Projects";
 
-import Company from './Company';
+import Company from "./Company";
 
-import BusinessArea from './BusinessArea';
+import BusinessArea from "./BusinessArea";
 
 import Rates from './Rates';
 import Location from './Location';
@@ -49,6 +49,10 @@ import SeriesIntracomunitarias from './SeriesIntracomunitarias';
 
 import Sector from './Sector';
 
+import Sector from "./Sector";
+import Vehicle from "./Vehicle";
+import Carrier from "./Carrier";
+import CommercialSituation from "./CommercialSituation";
 
 const component = [
   SuppliersFamily,
@@ -76,7 +80,7 @@ const component = [
   Company,
 
   BusinessArea,
-  
+
   CommercialRegister,
   Gama,
   ItemBrand,
@@ -84,7 +88,6 @@ const component = [
   CommisionType,
   UnitType,
   ItemsFamily,
-
 
   Rates,
   Location,
@@ -95,12 +98,16 @@ const component = [
   SalesSeries,
   DocumentoPagoCobro,
   MaturityType,
-
+  Sector,
+  Vehicle,
+  Carrier,
   BillingType,
   DiscountRates,
   FinalesFacturas,
+  
   Sector,
   SeriesIntracomunitarias,
   
+  CommercialSituation,
 ];
 export default component;

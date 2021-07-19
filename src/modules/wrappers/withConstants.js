@@ -13,7 +13,7 @@ import LocalMall from "@material-ui/icons/LocalMall";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AssignmentIcon from "@material-ui/icons/Assignment";
-import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
+import MonetizationOnOutlinedIcon from "@material-ui/icons/MonetizationOnOutlined";
 
 const withConstants = (PassedComponent) => {
   const WrappedComponent = ({ actions, ...props }) => {
@@ -766,6 +766,33 @@ const withConstants = (PassedComponent) => {
           defaultMessage: "Serie intracomuntaria",
         }),
         path: "FAC_SERINT", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_VEHICL", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Vehiculos.titulo",
+          defaultMessage: "Vehículos",
+        }),
+        path: "FAC_VEHICL", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_TRANSP", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Transportistas.titulo",
+          defaultMessage: "Transportistas",
+        }),
+        path: "FAC_TRANSP", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_SITCOM", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "SituacionesComerciales.titulo",
+          defaultMessage: "Situaciones Comerciales",
+        }),
+        path: "FAC_SITCOM", // or has path or has children but not both
         icon: <LocalMall />,
       },
     ];
