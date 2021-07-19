@@ -213,3 +213,4 @@ export const comandesProveidor = `api/fact/comandesProveidor`;
 export const naturalesaPagoCobro = 'api/fact/naturalesesPagamentCobrament';
 export const certificatsProjecte = `api/fact/certificatsProjecte`;
 export const sectors = `api/fact/sectors`;
+export const vehicles = `api/fact/vehicles`;

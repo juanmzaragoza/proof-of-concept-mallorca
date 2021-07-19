@@ -43,6 +43,8 @@ import DocumentoPagoCobro from './DocumentoPagoCobro';
 import MaturityType from './MaturityType';
 
 import Sector from './Sector';
+import Vehicle from './Vehicle';
+import Carrier from './Carrier';
 
 
 const component = [
@@ -89,7 +91,9 @@ const component = [
   SalesSeries,
   DocumentoPagoCobro,
   MaturityType,
-  Sector
+  Sector,
+  Vehicle,
+  Carrier
   
 ];
 export default component;

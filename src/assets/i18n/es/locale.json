@@ -1286,6 +1286,21 @@
   "Proyectos.Documentos.albaranesCli":"Albaranes Clientes",
   "Proyectos.mantenerCoste":"Mantener Coste Artículo",
   "Sectores.titulo":"Sectores",
-  "Sectores.descripcionIdioma":"Descripción Idioma"
-
+  "Sectores.descripcionIdioma":"Descripción Idioma",
+  "Vehiculos.titulo":"Vehículos",
+  "Vehiculos.matricula":"Matricula",
+  "Vehiculos.remolque":"Remolque",
+  "Vehiculos.conductor":"Conductor",
+  "Vehiculos.tara":"Tara",
+  "Vehiculos.pesoMaximo":"Peso máximo",
+  "Vehiculos.codigoMaquina":"Código Máquina",
+  "Vehiculos.activo":"Activo",
+  "Vehiculos.vhEmpresa":"Vehículo Empresa",
+  "Vehiculos.numProyecto":"Número Proyecto",
+  "Vehiculos.dni":"DNI",
+  "Vehiculos.pwd":"PWD",
+  "Transportistas.titulo":"Transportistas",
+  "Transportistas.horarioReparto":"Horario de Reparto"
+  
+  
 }
