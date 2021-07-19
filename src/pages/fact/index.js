@@ -54,6 +54,7 @@ import Carrier from "./Carrier";
 import CommercialSituation from "./CommercialSituation";
 
 import AddressType from "./AddressType";
+import Subvenciones from "./Subvenciones";
 
 const component = [
   SuppliersFamily,
@@ -112,6 +113,7 @@ const component = [
   
   CommercialSituation,
   AddressType,
+  Subvenciones,
   
 ];
 export default component;

@@ -26,6 +26,7 @@ export const BUSINESS_AREA_FACT_URL = '/fact/area-negocios';
 export const SERIES_INTRACOMUNITARIAS_FACT_URL = '/fact/series-intracomunitarias';
 export const PURCHASE_SERIES_FACT_URL = '/fact/series-compras';
 export const ADDRESS_TYPE_FACT_URL = '/fact/tipo-direccion';
+export const SUBVENCIONES_FACT_URL = '/fact/subvenciones';
 
 export const COMMERCIAL_REGISTER_FACT_URL = '/fact/registros-comerciales';
 export const GAMA_FACT_URL = '/fact/articulos-gama';

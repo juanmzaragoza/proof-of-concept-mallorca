@@ -1258,6 +1258,8 @@
   "Proveedores.Documuentos.pedidos":"Pedidos",
   "Clientes.almacen":"Almacén",
 
+  "Subvenciones.titulo": "Subvenciones",
+
   "AreaNegocios.codigoContabilidad":"Código de contabilidad",
   "AreaNegocios.contabilidadCuentaExistencias":"Contabilidad cuenta existencias",
   "AreaNegocios.contabilidadCuentaCostes":"Contabilidad cuenta costes",
