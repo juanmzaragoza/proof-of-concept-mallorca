@@ -595,6 +595,14 @@
   "SerieVenta.opciones": "Opciones",
   "SerieVenta.sii": "SII",
 
+  "SerieCompra.cuentaContableCompras": "Cuenta contable compras",
+  "SerieCompra.validoDesde": "Válido desde",
+  "SerieCompra.validoHasta": "Válido hasta",
+  "SerieCompra.codigoSituacionRectificativa": "Código situación rectificativa",
+  "SerieCompra.descripcionOperario": "Descripción operario",
+  "SerieCompra.codigoSituacionRegimenEspecial": "Código situación régimen especial",
+  "SerieCompra.codigoSituacionFactura": "Código situación factura",
+
   "CuentaClientes.cliente": "Cliente",
 
   "Selector.llamada": "Llamada",
