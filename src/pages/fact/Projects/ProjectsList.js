@@ -14,7 +14,7 @@ const ProjectsList = ({actions, ...props}) => {
       }),
     });
     actions.setBreadcrumbHeader([
-      {title: "Proyectos", href:"/proyectos"}
+      {title: "Proyectos", href:"/fact/proyectos"}
     ]);
   },[]);
 

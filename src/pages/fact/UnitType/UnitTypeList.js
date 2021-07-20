@@ -22,7 +22,7 @@ const UnitTypeList = ({ actions, ...props }) => {
           id: "TipoUnidad.titulo",
           defaultMessage: "Tipo de Unidades",
         }),
-        href: "/tipo-unidad",
+        href: "/fact/tipo-unidad",
       },
     ]);
   }, []);

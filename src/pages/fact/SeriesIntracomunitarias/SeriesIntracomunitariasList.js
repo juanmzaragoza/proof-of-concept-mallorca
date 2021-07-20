@@ -22,7 +22,7 @@ const SeriesIntracomunitariasList = ({ actions, ...props }) => {
           id: "Proyectos.serieIntracomunitari",
           defaultMessage: "Serie intracomuntaria",
         }),
-        href: "/series-intracomunitarias",
+        href: "/fact/series-intracomunitarias",
       },
     ]);
   }, []);

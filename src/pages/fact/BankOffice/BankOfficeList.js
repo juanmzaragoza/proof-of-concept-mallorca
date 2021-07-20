@@ -21,7 +21,7 @@ const BankOfficeList = ({ actions, ...props }) => {
           id: "OficinasBancarias.titulo",
           defaultMessage: "Oficinas Bancarias",
         }),
-        href: "/oficina-bancaria",
+        href: "/fact/oficina-bancaria",
       },
     ]);
   }, []);

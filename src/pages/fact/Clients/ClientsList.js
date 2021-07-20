@@ -18,7 +18,7 @@ const ClientList = ({ actions, ...props }) => {
         defaultMessage: " Clientes",
       }),
     });
-    actions.setBreadcrumbHeader([{ title: "Clientes", href: "/clientes" }]);
+    actions.setBreadcrumbHeader([{ title: "Clientes", href: "/fact/clientes" }]);
   }, []);
 
   const [filters, setFilters] = useState([]);

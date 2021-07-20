@@ -22,7 +22,7 @@ const RegimeVatList = ({ actions, ...props }) => {
           id: "RegimenIva.titulo",
           defaultMessage: "Régimen Iva",
         }),
-        href: "/iva",
+        href: "/fact/iva",
       },
     ]);
   }, []);

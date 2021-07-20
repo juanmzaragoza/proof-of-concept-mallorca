@@ -20,7 +20,7 @@ const DocumentoPagoCobroList = ({ actions, ...props }) => {
       {title: props.intl.formatMessage({
         id: "DocumentosPago.titulo",
         defaultMessage: "Documentos pago/cobro"
-        }), href:"/documentos-pago-cobro"}
+        }), href:"/fact/documentos-pago-cobro"}
     ]);
   },[]);
 

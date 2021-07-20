@@ -63,6 +63,8 @@ import SubClients from "./SubClients";
 import CustomerDepartments from "./CustomerDepartments";
 import Departaments from "./Departaments";
 
+import CustomerApp from "./CustomerApp";
+
 const component = [
   SuppliersFamily,
   Suppliers,
@@ -124,7 +126,8 @@ const component = [
 
 
   CustomerDepartments,
-  Departaments
+  Departaments,
+  CustomerApp,
 
 ];
   

@@ -22,7 +22,7 @@ const AddressTypeList = ({ actions, ...props }) => {
           id: "Presupuestos.tipodireccion",
           defaultMessage: "Tipo dirección",
         }),
-        href: "/tipo-direccion",
+        href: "/fact/tipo-direccion",
       },
     ]);
   }, []);

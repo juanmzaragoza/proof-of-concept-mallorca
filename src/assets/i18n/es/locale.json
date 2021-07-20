@@ -1283,6 +1283,10 @@
 
   "Subvenciones.titulo": "Subvenciones",
 
+  "AplicacionesCliente.titulo": "Aplicaciones Cliente",
+  "AplicacionesCliente.aplicacion": "Aplicación",
+  "AplicacionesCliente.porcentaje": "Porcentaje",
+
   "Proyectos.codigoOtraApp": "Código Proyecto otra App ",
   "Proyectos.otraAplicacion": "Proyectos otras Aplicaciones",
   "Selector.aplicacion6": "Canteras Ibiza",

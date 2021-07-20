@@ -22,7 +22,7 @@ const FinalesFacturasList = ({ actions, ...props }) => {
           id: "FinalFacturas.titulo",
           defaultMessage: "Finales de facturas",
         }),
-        href: "/finales-facturas",
+        href: "/fact/finales-facturas",
       },
     ]);
   }, []);
