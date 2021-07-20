@@ -841,6 +841,15 @@ const withConstants = (PassedComponent) => {
         path: "FAC_SUBVEN", // or has path or has children but not both
         icon: <LocalMall />,
       },
+      {
+        key: "FAC_SUBCLI", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Subclientes.titulo",
+          defaultMessage: "SubClientes",
+        }),
+        path: "FAC_SUBCLI", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
     ];
 
     return (

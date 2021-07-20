@@ -1339,5 +1339,9 @@
   "Rappel.absoluto": "Absoluto",
   "Rappel.porcentaje2": "Porcentaje 2",
   "DireccionesClientes.titulo": "Direcciones Clientes",
-  "DireccionesClientes.dreccion_exclusiva": "Dir. Exclusiva"
+  "DireccionesClientes.dreccion_exclusiva": "Dir. Exclusiva",
+  "Subclientes.titulo":"Subclientes",
+  "Subclientes.preciosVolumen":"Precios por volumen",
+  "Proveedores.Contacto.emailFactura":"Email Factura",
+  "Proveedores.Contacto.telefonoFactura":"Telefono Factura"
 }

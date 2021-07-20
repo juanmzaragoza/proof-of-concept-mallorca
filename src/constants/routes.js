@@ -80,4 +80,5 @@ export const VEHICLE_FACT_URL = '/fact/vehiculos';
 export const CARRIER_FACT_URL = '/fact/transportistas';
 export const COMMERCIAL_FACT_URL = '/fact/situaciones-comerciales';
 export const RAPPEL_FACT_URL = '/fact/rappels';
-export const CUSTOMER_ADDRESS_FACT_URL ='/fact/direcciones-clientes'
+export const CUSTOMER_ADDRESS_FACT_URL ='/fact/direcciones-clientes';
+export const SUBCLIENTS_FACT_URL = '/fact/subclientes';

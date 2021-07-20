@@ -57,6 +57,7 @@ import Rappel from "./Rappel";
 import AddressType from "./AddressType";
 import CustomerAdress from "./CustomerAdress";
 import Subvenciones from "./Subvenciones";
+import SubClients from "./SubClients";
 
 const component = [
   SuppliersFamily,
@@ -115,6 +116,7 @@ const component = [
   AddressType,
   CustomerAdress,
   Subvenciones,
+  SubClients
 
 
 ];
