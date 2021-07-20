@@ -77,10 +77,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     id: "Proveedores.Contacto.email",
     defaultMessage: "Email",
   });
-  const ACTIVIDAD = props.intl.formatMessage({
-    id: "Clientes.departamentos_actividad",
-    defaultMessage: "Actividad",
-  });
+
 
   const MOVIL = props.intl.formatMessage({
     id: "Clientes.Contacto.movil",
@@ -256,6 +253,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       type: "input",
       key: "codi",
       noEditable: true,
+      required:true,
       breakpoints: {
         xs: 12,
         md: 2,

@@ -49,8 +49,8 @@ const ArticlesList = ({ actions, ...props }) => {
       {
         name: "bloquejat",
         title: props.intl.formatMessage({
-          id: "FamiliaArticulos.web",
-          defaultMessage: "Web"
+          id: "Proveedores.bloqueado",
+          defaultMessage: "Bloqueado"
         }),
         getCellValue: row => (row.bloquejat && row.bloquejat === true)?
           <Chip label={props.intl.formatMessage({id: "Comun.SI", defaultMessage: "SI"})} />
