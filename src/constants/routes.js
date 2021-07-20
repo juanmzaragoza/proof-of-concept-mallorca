@@ -83,3 +83,4 @@ export const COMMERCIAL_FACT_URL = '/fact/situaciones-comerciales';
 export const RAPPEL_FACT_URL = '/fact/rappels';
 export const CUSTOMER_ADDRESS_FACT_URL ='/fact/direcciones-clientes';
 export const SUBCLIENTS_FACT_URL = '/fact/subclientes';
+export const DEPART_FACT_URL = '/fact/departamentos';

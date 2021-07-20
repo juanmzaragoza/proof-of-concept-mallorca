@@ -1360,5 +1360,6 @@
   "Proveedores.Contacto.emailFactura":"Email Factura",
   "Proveedores.Contacto.telefonoFactura":"Telefono Factura",
   "Clientes.tabs.facturacion" :"Facturación",
-  "Proveedores.tabs.contabilidadFact":"Contabilidad y Facturación"
+  "Proveedores.tabs.contabilidadFact":"Contabilidad y Facturación",
+  "Departamentos.titulo":"Departamentos"
 }

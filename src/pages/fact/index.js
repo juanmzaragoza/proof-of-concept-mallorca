@@ -61,6 +61,7 @@ import Subvenciones from "./Subvenciones";
 import SubClients from "./SubClients";
 
 import CustomerDepartments from "./CustomerDepartments";
+import Departaments from "./Departaments";
 
 const component = [
   SuppliersFamily,
@@ -123,6 +124,7 @@ const component = [
 
 
   CustomerDepartments,
+  Departaments
 
 ];
   
