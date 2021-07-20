@@ -22,7 +22,7 @@ const PurchaseSeriesList = ({ actions, ...props }) => {
           id: "Proveedores.serieCompra",
           defaultMessage: "Serie Compra",
         }),
-        href: "/series-compras",
+        href: "/fact/series-compras",
       },
     ]);
   }, []);

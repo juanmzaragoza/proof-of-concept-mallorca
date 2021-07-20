@@ -100,7 +100,7 @@ const RatesForm = React.memo(({ actions, allFormData, getFormData, submitFromOut
       services.getById(id);
     } else{
       actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "Proveedores.tvencimiento", defaultMessage: "Tipo Vencimiento"}), href:"/tipo-vencimiento"},
+        {title: props.intl.formatMessage({id: "Proveedores.tvencimiento", defaultMessage: "Tipo Vencimiento"}), href:"/fact/tipo-vencimiento"},
         {title: props.intl.formatMessage({id: "Comun.nuevo", defaultMessage: "Nuevo"})}
       ]);
     }
@@ -122,8 +122,8 @@ const RatesForm = React.memo(({ actions, allFormData, getFormData, submitFromOut
         :
         `${props.intl.formatMessage({id: "Comun.cargando", defaultMessage: "Cargando"})}...`;
       actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "Proveedores.tvencimiento", defaultMessage: "Tipo Vencimiento"}), href:"/tipo-vencimiento"},
-        {title: desc, href:"/tarifes"},
+        {title: props.intl.formatMessage({id: "Proveedores.tvencimiento", defaultMessage: "Tipo Vencimiento"}), href:"/fact/tipo-vencimiento"},
+        {title: desc, href:"/fact/tipo-vencimiento"},
         {title: nameSelectedTab}
       ]);
     }

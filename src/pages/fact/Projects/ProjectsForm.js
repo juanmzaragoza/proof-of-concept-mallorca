@@ -354,7 +354,7 @@ const ProjectsForm = React.memo(
               id: "Proyectos.titulo",
               defaultMessage: "Proyectos",
             }),
-            href: "/proyectos",
+            href: "/fact/proyectos",
           },
           {
             title: props.intl.formatMessage({
@@ -389,9 +389,9 @@ const ProjectsForm = React.memo(
               id: "Proyectos.titulo",
               defaultMessage: "Proyectos",
             }),
-            href: "/proyectos",
+            href: "/fact/proyectos",
           },
-          { title: nom, href: "/proyectos" },
+          { title: nom, href: "/fact/proyectos" },
           { title: nameSelectedTab },
         ]);
       }

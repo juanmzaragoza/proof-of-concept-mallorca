@@ -20,7 +20,7 @@ const MaturityTypeList = ({ actions, ...props }) => {
       {title: props.intl.formatMessage({
         id: "Proveedores.tvencimiento",
         defaultMessage: "Tipo Vencimiento"
-        }), href:"/tipo-vencimiento"}
+        }), href:"/fact/tipo-vencimiento"}
     ]);
   },[]);
 

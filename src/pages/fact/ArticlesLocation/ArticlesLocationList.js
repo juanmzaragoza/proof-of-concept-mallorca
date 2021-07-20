@@ -22,7 +22,7 @@ const ArticleLocationList = ({ actions, ...props }) => {
           id: "ArticulosUbicacion.titulo",
           defaultMessage: "Articulos ubicación",
         }),
-        href: "/articulo-ubicacion",
+        href: "/fact/articulo-ubicacion",
       },
     ]);
   }, []);

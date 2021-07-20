@@ -28,6 +28,9 @@ export const PURCHASE_SERIES_FACT_URL = '/fact/series-compras';
 export const ADDRESS_TYPE_FACT_URL = '/fact/tipo-direccion';
 export const SUBVENCIONES_FACT_URL = '/fact/subvenciones';
 export const CUSTOMER_DEPARTMENT_FACT_URL = '/fact/departamentos-cliente';
+export const CUSTOMER_APP_FACT_URL = '/fact/aplicaciones-cliente';
+export const PROJECT_FACT_URL = '/fact/proyectos';
+export const SUPPLIERS_FAMILY_FACT_URL  = '/fact/familia-proveedores';
 
 export const COMMERCIAL_REGISTER_FACT_URL = '/fact/registros-comerciales';
 export const GAMA_FACT_URL = '/fact/articulos-gama';

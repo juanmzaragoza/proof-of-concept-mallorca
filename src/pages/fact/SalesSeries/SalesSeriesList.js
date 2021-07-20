@@ -20,7 +20,7 @@ const SalesSeriesList = ({ actions, ...props }) => {
       {title: props.intl.formatMessage({
         id: "SerieVenta.titulo",
         defaultMessage: "Serie ventas"
-        }), href:"/series-ventas"}
+        }), href:"/fact/series-ventas"}
     ]);
   },[]);
 

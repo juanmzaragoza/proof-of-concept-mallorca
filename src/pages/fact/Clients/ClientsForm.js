@@ -256,7 +256,7 @@ const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromO
       services.getById(id);
     } else {
       actions.setBreadcrumbHeader([
-        { title: props.intl.formatMessage({ id: "Clientes.titulo", defaultMessage: "Clientes" }), href: "/clientes" },
+        { title: props.intl.formatMessage({ id: "Clientes.titulo", defaultMessage: "Clientes" }), href: "/fact/clientes" },
         { title: props.intl.formatMessage({ id: "Comun.nuevo", defaultMessage: "Nuevo" }) }
       ]);
     }
@@ -274,8 +274,8 @@ const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromO
         :
         `${props.intl.formatMessage({ id: "Comun.cargando", defaultMessage: "Cargando" })}...`;
       actions.setBreadcrumbHeader([
-        { title: props.intl.formatMessage({ id: "Clientes.titulo", defaultMessage: "Clientes" }), href: "/clientes" },
-        { title: nom, href: "/clientes" },
+        { title: props.intl.formatMessage({ id: "Clientes.titulo", defaultMessage: "Clientes" }), href: "/fact/clientes" },
+        { title: nom, href: "/fact/clientes" },
         { title: "Modificar" }
       ]);
     }

@@ -19,7 +19,7 @@ const SuppliersFamilyList = ({ actions, ...props }) => {
       {title: props.intl.formatMessage({
           id: "FamiliaProveedores.titulo",
           defaultMessage: "Familias proveedor"
-        }), href:"/familia-proveedores"}
+        }), href:"/fact/familia-proveedores"}
     ]);
   },[]);
 
