@@ -327,7 +327,7 @@ const SuppliersForm = React.memo(
               id: "Proveedores.titulo",
               defaultMessage: "Proveedores",
             }),
-            href: "/proveedores",
+            href: "/fact/proveedores",
           },
           {
             title: props.intl.formatMessage({
@@ -362,9 +362,9 @@ const SuppliersForm = React.memo(
               id: "Proveedores.titulo",
               defaultMessage: "Proveedores",
             }),
-            href: "/proveedores",
+            href: "/fact/proveedores",
           },
-          { title: nom, href: "/proveedores" },
+          { title: nom, href: "/fact/proveedores" },
           { title: nameSelectedTab },
         ]);
       }

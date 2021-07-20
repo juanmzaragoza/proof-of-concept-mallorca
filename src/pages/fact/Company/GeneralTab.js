@@ -679,8 +679,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           className="general-tab-container"
           title={
             <FormattedMessage
-              id={"Proveedores.titulo"}
-              defaultMessage={"Proveedores"}
+              id={"Clientes.empresas"}
+              defaultMessage={"Empresas"}
             />
           }
         >

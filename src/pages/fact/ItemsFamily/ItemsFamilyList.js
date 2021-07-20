@@ -20,7 +20,7 @@ const ItemsFamilyList = ({ actions, ...props }) => {
       {title: props.intl.formatMessage({
         id: "FamiliaArticulos.titulo",
         defaultMessage: "Familia"
-        }), href:"/article-familia"}
+        }), href:"/fact/article-familia"}
     ]);
   },[]);
 

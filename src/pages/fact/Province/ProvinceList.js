@@ -19,7 +19,7 @@ const Province = ({ actions, ...props }) => {
         title: props.intl.formatMessage({
           id: "Provincias.titol",
           defaultMessage: "Provincias"
-        }), href: "/provincias"
+        }), href: "/fact/provincias"
       }
     ]);
   }, []);

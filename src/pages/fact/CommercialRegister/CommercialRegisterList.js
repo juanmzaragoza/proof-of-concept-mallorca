@@ -21,7 +21,7 @@ const CommercialRegisterList = ({ actions, ...props }) => {
           id: "RegistroComercial.titulo",
         defaultMessage: "Registros Comerciales",
         }),
-        href: "/registros-comerciales",
+        href: "/fact/registros-comerciales",
       },
     ]);
   }, []);

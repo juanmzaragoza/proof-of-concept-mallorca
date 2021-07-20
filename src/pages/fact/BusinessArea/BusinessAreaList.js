@@ -22,7 +22,7 @@ const BusinessAreaList = ({ actions, ...props }) => {
           id: "Proyectos.areaNegocio",
           defaultMessage: "Área negocio",
         }),
-        href: "/area-negocios",
+        href: "/fact/area-negocios",
       },
     ]);
   }, []);

@@ -100,7 +100,7 @@ const SalesSeriesForm = React.memo(({ actions, allFormData, getFormData, submitF
       services.getById(id);
     } else{
       actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "SerieVenta.titulo", defaultMessage: "Serie ventas"}), href:"/series-ventas"},
+        {title: props.intl.formatMessage({id: "SerieVenta.titulo", defaultMessage: "Serie ventas"}), href:"/fact/series-ventas"},
         {title: props.intl.formatMessage({id: "Comun.nuevo", defaultMessage: "Nuevo"})}
       ]);
     }
@@ -122,8 +122,8 @@ const SalesSeriesForm = React.memo(({ actions, allFormData, getFormData, submitF
         :
         `${props.intl.formatMessage({id: "Comun.cargando", defaultMessage: "Cargando"})}...`;
       actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "SerieVenta.titulo", defaultMessage: "Serie ventas"}), href:"/series-ventas"},
-        {title: desc, href:"/series-ventas"},
+        {title: props.intl.formatMessage({id: "SerieVenta.titulo", defaultMessage: "Serie ventas"}), href:"/fact/series-ventas"},
+        {title: desc, href:"/fact/series-ventas"},
         {title: nameSelectedTab}
       ]);
     }

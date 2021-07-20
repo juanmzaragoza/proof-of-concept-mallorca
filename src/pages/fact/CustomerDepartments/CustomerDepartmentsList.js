@@ -22,7 +22,7 @@ const CustomerDepartmentsList = ({ actions, ...props }) => {
           id: "DepartamentosCliente.titulo",
           defaultMessage: "Departamentos Cliente",
         }),
-        href: "/departamentos-cliente",
+        href: "/fact/departamentos-cliente",
       },
     ]);
   }, []);

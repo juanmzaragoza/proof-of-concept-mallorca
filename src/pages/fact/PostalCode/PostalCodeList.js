@@ -21,7 +21,7 @@ const PostalCodeList = ({ actions, ...props }) => {
           id: "CodigosPostales.titulo",
           defaultMessage: "Codigos Postales",
         }),
-        href: "/codigo-postal",
+        href: "/fact/codigo-postal",
       },
     ]);
   }, []);

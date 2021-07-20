@@ -12,7 +12,7 @@ import withHeaders from "modules/wrappers/withHeaders";
 import  ProjectsList from "./ProjectsList";
 import ProjectsForm from "./ProjectsForm";
 
-const URL = '/proyectos';
+import {PROJECT_FACT_URL} from "constants/routes";
 
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
@@ -35,9 +35,9 @@ const ProjectsFormWithUrl = () => <ProjectsForm url={API.projectes} />;
 const Projects= () => (
   <Paper style={{ position: 'relative' }}>
     <Switch>
-      <Route exact path={`${URL}`} component={ProjectsistIntl}></Route>
-      <Route path={`${URL}/create`} component={ProjectsFormWithUrl}></Route>
-      <Route path={`${URL}/:id`} component={ProjectsFormWithUrl}></Route>
+      <Route exact path={`${PROJECT_FACT_URL}`} component={ProjectsistIntl}></Route>
+      <Route path={`${PROJECT_FACT_URL}/create`} component={ProjectsFormWithUrl}></Route>
+      <Route path={`${PROJECT_FACT_URL}/:id`} component={ProjectsFormWithUrl}></Route>
      
     </Switch>
   </Paper>
@@ -45,7 +45,7 @@ const Projects= () => (
 
 export default {
   routeProps: {
-    path: `${URL}`,
+    path: `${PROJECT_FACT_URL}`,
     component: withHeaders(Projects)
   },
   name: 'FAC_PROJEC',

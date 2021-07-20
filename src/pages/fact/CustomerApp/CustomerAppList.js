@@ -7,22 +7,22 @@ import ReactGrid from "modules/ReactGrid";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
-const CompanyAccountingAccountList = ({ actions, ...props }) => {
+const CustomerAppList = ({ actions, ...props }) => {
 
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
-        id: "CuentaContableEmpresa.titulo",
-        defaultMessage: "Cuentas Contables Empresas",
+        id: "AplicacionesCliente.titulo",
+        defaultMessage: "Aplicaciones Cliente",
       }),
     });
     actions.setBreadcrumbHeader([
       {
         title: props.intl.formatMessage({
-          id: "CuentaContableEmpresa.titulo",
-        defaultMessage: "Cuentas Contables Empresas",
+          id: "AplicacionesCliente.titulo",
+          defaultMessage: "Aplicaciones Cliente",
         }),
-        href: "/fact/cuentas-contables-empresas",
+        href: "/fact/aplicaciones-cliente",
       },
     ]);
   }, []);
@@ -30,26 +30,33 @@ const CompanyAccountingAccountList = ({ actions, ...props }) => {
   const listConfiguration = {
     columns: [
       {
-        name: 'client.description',
+        name: "aplicacioCodi",
         title: props.intl.formatMessage({
-          id: "Clientes.titulo",
-          defaultMessage: "Clientes"
+          id: "Comun.codigo",
+          defaultMessage: "Código",
+        }),
+      },
+      {
+        name: "client",
+        title: props.intl.formatMessage({
+          id: "Presupuestos.cliente",
+          defaultMessage: "Cliente",
         }),
         getCellValue: row => row.client?.description ?? ""
       },
       {
-        name: 'empresa.description',
+        name: "empresa",
         title: props.intl.formatMessage({
-          id: "Clientes.empresas",
-          defaultMessage: "Empresas"
+          id: "PieDocumento.empresa",
+          defaultMessage: "Empresa",
         }),
         getCellValue: row => row.empresa?.description ?? ""
       },
     ],
-    URL: API.compteComptableEmpresas,
-    listKey: "compteComptableEmpresas",
+    URL: API.aplicacionsClients,
+    listKey: "aplicacioClients",
   };
-  return <ReactGrid id="compteComptableEmpresas" configuration={listConfiguration} />;
+  return <ReactGrid id="aplicacionsClients" configuration={listConfiguration} />;
 };
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -63,4 +70,4 @@ const mapDispatchToProps = (dispatch, props) => {
 export default compose(
   injectIntl,
   connect(null, mapDispatchToProps)
-)(CompanyAccountingAccountList);
+)(CustomerAppList);

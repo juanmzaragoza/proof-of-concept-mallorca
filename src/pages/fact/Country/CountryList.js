@@ -20,7 +20,7 @@ const CountryList = ({ actions, ...props }) => {
       {title: props.intl.formatMessage({
           id: "Paises.titol",
           defaultMessage: "Paises"
-        }), href:"/paises"}
+        }), href:"/fact/paises"}
     ]);
   },[]);
 

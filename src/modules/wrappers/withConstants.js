@@ -850,6 +850,15 @@ const withConstants = (PassedComponent) => {
         path: "FAC_DEPCLI", // or has path or has children but not both
         icon: <LocalMall />,
       },
+      {
+        key: "FAC_APLCLI", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "AplicacionesCliente.titulo",
+          defaultMessage: "Aplicaciones Cliente",
+        }),
+        path: "FAC_APLCLI", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
     ];
 
     return (
