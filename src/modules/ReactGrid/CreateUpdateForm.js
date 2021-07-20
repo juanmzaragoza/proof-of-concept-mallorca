@@ -36,7 +36,7 @@ const CreateUpdateForm = ({
     return !!id;
   };
 
-  const getBaseUrl = () => `/${match.path.split('/')[1]}`;
+  const getBaseUrl = () => `/${match.path.split('/')[1]}/${match.path.split('/')[2]}`;
 
   useEffect(() => {
     setFormConfig({
