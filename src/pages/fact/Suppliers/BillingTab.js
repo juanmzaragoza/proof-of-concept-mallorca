@@ -195,6 +195,8 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
         ],
         advancedSearchColumns: aSCodeAndDescription,
       },
+      validationType: "object",
+      ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -240,6 +242,8 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
         ],
         advancedSearchColumns: aSCodeAndDescription,
       },
+      validationType: "object",
+      ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -339,7 +343,6 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "rappel",
-      required: true,
       breakpoints: {
         xs: 12,
         md: 4,
@@ -425,7 +428,6 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "transportista",
-      required: true,
       breakpoints: {
         xs: 12,
         md: 4,
