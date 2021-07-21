@@ -1374,5 +1374,7 @@
   "Clientes.Documentos.numeroParte":"Num Parte",
   "Clientes.Documentos.situacion":"Situación",
   "Clientes.Documentos.matricula":"Matrícula",
-  "AlmacenPeriodo.titulo":"Almacén Periodo"
+  "AlmacenPeriodo.titulo":"Periodo Almacén",
+  "SituacionesIniciales.titulo":"Situaciones Iniciales",
+  "SituacionesIniciales.codigoAlmacen":"Código Almacén"
 }

@@ -88,3 +88,4 @@ export const CUSTOMER_ADDRESS_FACT_URL ='/fact/direcciones-clientes';
 export const SUBCLIENTS_FACT_URL = '/fact/subclientes';
 export const DEPART_FACT_URL = '/fact/departamentos';
 export const PERIOD_STORE_FACT_URL = '/fact/periodos-almacen';
+export const INITIAL_SITUATION_FACT_URL ='/fact/situaciones-inicales';
