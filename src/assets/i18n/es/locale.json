@@ -1365,5 +1365,13 @@
   "Proveedores.Contacto.telefonoFactura":"Telefono Factura",
   "Clientes.tabs.facturacion" :"Facturación",
   "Proveedores.tabs.contabilidadFact":"Contabilidad y Facturación",
-  "Departamentos.titulo":"Departamentos"
+  "Departamentos.titulo":"Departamentos",
+  "Clientes.Documentos.operarioCodigo":"Código operario",
+  "Clientes.Documentos.fechaCreacion":"Fecha Creación",
+  "Clientes.Documentos.diaAviso":"Dia Aviso",
+  "Clientes.Documentos.diaFin":"Dia Fin",
+  "Clientes.Documentos.numeroSerie":"Num Serie",
+  "Clientes.Documentos.numeroParte":"Num Parte",
+  "Clientes.Documentos.situacion":"Situación",
+  "Clientes.Documentos.matricula":"Matrícula"
 }

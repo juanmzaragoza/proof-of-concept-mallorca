@@ -217,3 +217,4 @@ export const vehicles = `api/fact/vehicles`;
 export const situacionsComercial = `api/fact/situacionsComercial`;
 export const claseRetencio = `api/fact/classeRetencions`;
 export const departaments = `api/fact/departaments`;
+export const avaries = `api/fact/avaries`;
