@@ -1376,5 +1376,6 @@
   "Clientes.Documentos.matricula":"Matrícula",
   "AlmacenPeriodo.titulo":"Periodo Almacén",
   "SituacionesIniciales.titulo":"Situaciones Iniciales",
-  "SituacionesIniciales.codigoAlmacen":"Código Almacén"
+  "SituacionesIniciales.codigoAlmacen":"Código Almacén",
+  "SeccionEmpresa.titulo":"Sección Empresa"
 }

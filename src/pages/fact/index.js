@@ -66,6 +66,7 @@ import Departaments from "./Departaments";
 import CustomerApp from "./CustomerApp";
 import TermStore from "./TermStore";
 import InitialSituation from "./InitialSituation";
+import SectionCompany from "./SecctionCompany";
 
 
 const component = [
@@ -132,7 +133,8 @@ const component = [
   Departaments,
   CustomerApp,
   TermStore,
-  InitialSituation
+  InitialSituation,
+  SectionCompany
 
 ];
   
