@@ -1378,5 +1378,6 @@
   "SituacionesIniciales.titulo":"Situaciones Iniciales",
   "SituacionesIniciales.codigoAlmacen":"Código Almacén",
   "ProductosSector.titulo":"Productos Sectores ",
-  "ProductosSector.sector":"Sector"
+  "ProductosSector.sector":"Sector",
+  "CuentaCorrienteEmpresa.titulo":"Cuentas corrientes Empresa"
 }
