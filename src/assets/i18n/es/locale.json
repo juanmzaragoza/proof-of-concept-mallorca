@@ -1377,5 +1377,8 @@
   "AlmacenPeriodo.titulo":"Periodo Almacén",
   "SituacionesIniciales.titulo":"Situaciones Iniciales",
   "SituacionesIniciales.codigoAlmacen":"Código Almacén",
-  "SeccionEmpresa.titulo":"Sección Empresa"
+  "SeccionEmpresa.titulo":"Sección Empresa",
+  "SeccionEmpresa.seccion":"Sección",
+  "SeccionEmpresa.familiaArticulo":"Familia Artículo",
+  "SeccionEmpresa.valorPorcentual":"Valor Porcentual"
 }

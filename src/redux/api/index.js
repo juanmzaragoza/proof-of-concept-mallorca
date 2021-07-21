@@ -219,3 +219,5 @@ export const claseRetencio = `api/fact/classeRetencions`;
 export const departaments = `api/fact/departaments`;
 export const avaries = `api/fact/avaries`;
 export const seccionsEmpresa = `api/fact/seccionsEmpresa`;
+
+export const seccio = `api/rrhh/seccions`;

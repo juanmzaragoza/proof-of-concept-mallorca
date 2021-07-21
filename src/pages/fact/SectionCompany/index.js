@@ -14,8 +14,8 @@ const SectionCompany = () => (
   <Paper style={{ position: 'relative' }}>
     <Switch>
       <Route exact path={`${URL}`} component={SectionCompanyList}></Route>
-      {/* <Route path={`${URL}/create`} component={SectionCompanyCreate}></Route>
-      <Route path={`${URL}/:id`} component={SectionCompanyCreate}></Route> */}
+      <Route path={`${URL}/create`} component={SectionCompanyCreate}></Route>
+      <Route path={`${URL}/:id`} component={SectionCompanyCreate}></Route>
     </Switch>
   </Paper>
 );

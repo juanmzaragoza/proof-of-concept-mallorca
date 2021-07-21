@@ -29,36 +29,36 @@ const SectionCompanyList = ({ actions, ...props }) => {
     }),
     columns: [
       {
-        name: "codi",
+        name: "articleFamilia",
         title: props.intl.formatMessage({
-          id: "Comun.codigo",
-          defaultMessage: "Código",
-        }),
-      },
-      {
-        name: "descripcio",
-        title: props.intl.formatMessage({
-          id: "Comun.descripcion",
-          defaultMessage: "Descripción",
-        }),
-      },
-      {
-        name: "dataInici",
-        title: props.intl.formatMessage({
-          id: "Almacen.fechaInicio",
-          defaultMessage: "Fecha Inicio",
+          id: "SeccionEmpresa.familiaArticulo",
+          defaultMessage: "Familia Artículo ",
         }),
         getCellValue: (row) =>
-          row.dataInici ? new Date(row.dataInici).toLocaleDateString() : "",
+          row.articleFamilia?.description ? row.articleFamilia.description : "",
       },
       {
-        name: "magatzem",
+        name: "valorPercentual",
         title: props.intl.formatMessage({
-          id: "Almacen.titulo",
-          defaultMessage: "Almacen ",
+          id: "SeccionEmpresa.valorPorcentual",
+          defaultMessage: "Valor Porcentual",
+        }),
+      },
+      {
+        name: "seccio",
+        title: props.intl.formatMessage({
+          id: "SeccionesEmpresa.seccion",
+          defaultMessage: "Sección ",
         }),
         getCellValue: (row) =>
-          row.magatzem?.description ? row.magatzem.description : "",
+          row.seccio?.description ? row.seccio.description : "",
+      },
+      {
+        name: "observacions",
+        title: props.intl.formatMessage({
+          id: "Comun.observaciones",
+          defaultMessage: "Observaciones",
+        }),
       },
     ],
     URL: API.seccionsEmpresa,
