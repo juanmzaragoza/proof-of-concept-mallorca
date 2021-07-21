@@ -64,6 +64,8 @@ import CustomerDepartments from "./CustomerDepartments";
 import Departaments from "./Departaments";
 
 import CustomerApp from "./CustomerApp";
+import TermStore from "./TermStore";
+
 
 const component = [
   SuppliersFamily,
@@ -128,6 +130,7 @@ const component = [
   CustomerDepartments,
   Departaments,
   CustomerApp,
+  TermStore
 
 ];
   

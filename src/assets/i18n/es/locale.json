@@ -1373,5 +1373,6 @@
   "Clientes.Documentos.numeroSerie":"Num Serie",
   "Clientes.Documentos.numeroParte":"Num Parte",
   "Clientes.Documentos.situacion":"Situación",
-  "Clientes.Documentos.matricula":"Matrícula"
+  "Clientes.Documentos.matricula":"Matrícula",
+  "AlmacenPeriodo.titulo":"Almacén Periodo"
 }

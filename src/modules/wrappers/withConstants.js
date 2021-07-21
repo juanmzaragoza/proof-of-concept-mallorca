@@ -879,6 +879,15 @@ const withConstants = (PassedComponent) => {
         path: "FAC_APLCLI", // or has path or has children but not both
         icon: <LocalMall />,
       },
+      {
+        key: "FAC_MAGPER", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "AlmacenPeriodo.titulo",
+          defaultMessage: "Periodo Almacén",
+        }),
+        path: "FAC_MAGPER", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
     ];
 
     return (
