@@ -89,4 +89,5 @@ export const SUBCLIENTS_FACT_URL = '/fact/subclientes';
 export const DEPART_FACT_URL = '/fact/departamentos';
 export const PERIOD_STORE_FACT_URL = '/fact/periodos-almacen';
 export const INITIAL_SITUATION_FACT_URL ='/fact/situaciones-inicales';
-export const PRODUCT_SECTOR_FACT_URL = '/fact/productos-sectores'
+export const PRODUCT_SECTOR_FACT_URL = '/fact/productos-sectores';
+export const APP_FACT_URL = '/fact/aplicaicones';

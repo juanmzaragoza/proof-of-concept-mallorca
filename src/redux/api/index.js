@@ -220,3 +220,4 @@ export const departaments = `api/fact/departaments`;
 export const avaries = `api/fact/avaries`;
 export const productesSector = `api/fact/productesSector`;
 export const sector = `api/fact/sectors`;
+export const aplicacions = `api/fact/aplicacions`;

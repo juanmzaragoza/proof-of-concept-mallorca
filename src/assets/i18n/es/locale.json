@@ -1378,5 +1378,15 @@
   "SituacionesIniciales.titulo":"Situaciones Iniciales",
   "SituacionesIniciales.codigoAlmacen":"Código Almacén",
   "ProductosSector.titulo":"Productos Sectores ",
-  "ProductosSector.sector":"Sector"
+  "ProductosSector.sector":"Sector",
+  "Aplicaciones.titulo":"Aplicaciones",
+  "Aplicaciones.identificador":"Identificador",
+  "Aplicaciones.tipoMantenimiento":"Tipo Mantenimiento",
+  "Aplicaciones.servidor":"Servidor",
+  "Aplicaciones.usuarioPropietario":"Usuario Propietario",
+  "Aplicaciones.fechaInstalacion":"Fecha instalación",
+  "Aplicaciones.versionBD":"Versión Base Datos",
+  "Aplicaciones.instalacionParcial":"Instalacioón Parcial",
+  "Aplicaciones.usuario2":"Usuario 2"
+
 }
