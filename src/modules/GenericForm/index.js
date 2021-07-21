@@ -36,7 +36,7 @@ const GenericForm = ({loading, ...props}) => {
   const initialValues = {
     'input': "",
     'select': "",
-    'checkbox': "",
+    'checkbox': false,
     'radio': "",
     'LOV': null,
     'observations': "",
@@ -56,7 +56,18 @@ const GenericForm = ({loading, ...props}) => {
       data[component.key] = value;
     }
     setInitVal(data);
+    setEnableReinitialize(true);
   }
+
+  /** First effect: initialize the formik */
+  useEffect(() => {
+    initValues();
+  },[]);
+
+  /** Turn off the initialization to avoid initialize the values again */
+  useEffect(()=>{
+    enableReinitialize && setEnableReinitialize(false);
+  },[enableReinitialize]);
 
   /**
    * Effect to submit from outside
@@ -80,10 +91,8 @@ const GenericForm = ({loading, ...props}) => {
   useEffect(() => {
     if(props.formDataLoaded) {
       initValues();
-      setEnableReinitialize(true);
     } else{
       setIsManualValidated(false);
-      setEnableReinitialize(false);
     }
   },[props.formDataLoaded]);
 
