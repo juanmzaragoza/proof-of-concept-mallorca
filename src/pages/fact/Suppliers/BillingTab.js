@@ -17,7 +17,11 @@ const VARIOUS_SECTION_TAB_INDEX = 2;
 
 const BillingTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { [BILLING_DATA_SECTION_INDEX]: false },
+    fields: {
+      [BILLING_DATA_SECTION_INDEX]: false,
+      [ORDERS_SECTION_TAB_INDEX]: false,
+      [VARIOUS_SECTION_TAB_INDEX]: false,
+    },
     setIsValid: props.setIsValid,
   });
 
