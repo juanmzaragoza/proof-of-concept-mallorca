@@ -11,7 +11,6 @@ const authToken = () => 'Bearer ' + getPlainFrom(TOKEN_LOCALSTORAGE_KEY);
 
 //Axios.defaults.baseURL = config.apiRoot;
 Axios.defaults.baseURL = 'https://10.35.3.44:8083/';
-//'';
 
 Axios.interceptors.request.use(function (conf) {
   // Do something before request is sent
