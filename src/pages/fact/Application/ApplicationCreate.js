@@ -168,6 +168,11 @@ const ApplicationCreate = (props) => {
           { title: CODE, name: "codi" },
           { title: NOM, name: "nomComercial" },
         ],
+        relatedWith: {
+          name: "subClient",
+          filterBy: "client.id",
+          keyValue: "id",
+        },
       },
     },
     {
