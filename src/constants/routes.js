@@ -18,7 +18,19 @@ export const BANK_FACT_URL = "/fact/bancos";
 export const POSTAL_CODE_FACT_URL = '/fact/codigo-postal';
 export const DOCUMENT_FOOTER_FACT_URL = '/fact/pies-documento';
 export const PROJECT_TYPE_FACT_URL = '/fact/tipo-proyecto';
+export const BILLING_TYPE_FACT_URL = '/fact/tipo-facturacion';
+export const DISCOUNT_RATES_FACT_URL = '/fact/tarifas-descuento';
+export const FINALES_FACTURAS_FACT_URL = '/fact/finales-facturas';
 export const COMPANY_ACCOUNTING_ACCOUNTS_FACT_URL = '/fact/cuentas-contables-empresas';
+export const BUSINESS_AREA_FACT_URL = '/fact/area-negocios';
+export const SERIES_INTRACOMUNITARIAS_FACT_URL = '/fact/series-intracomunitarias';
+export const PURCHASE_SERIES_FACT_URL = '/fact/series-compras';
+export const ADDRESS_TYPE_FACT_URL = '/fact/tipo-direccion';
+export const SUBVENCIONES_FACT_URL = '/fact/subvenciones';
+export const CUSTOMER_DEPARTMENT_FACT_URL = '/fact/departamentos-cliente';
+export const CUSTOMER_APP_FACT_URL = '/fact/aplicaciones-cliente';
+export const PROJECT_FACT_URL = '/fact/proyectos';
+export const SUPPLIERS_FAMILY_FACT_URL  = '/fact/familia-proveedores';
 
 export const COMMERCIAL_REGISTER_FACT_URL = '/fact/registros-comerciales';
 export const GAMA_FACT_URL = '/fact/articulos-gama';
@@ -67,4 +79,17 @@ export const TIPO_VENCIMIENTO_FACT_URL = '/fact/tipo-vencimiento';
 
 export const SALES_SERIES_FACT_URL = '/fact/series-ventas';
 export const DOCUMENTO_PAGO_COBRO_FACT_URL = '/fact/documentos-pago-cobro';
+
 export const PRODUCT_FACT_URL ='/fact/productos';
+
+export const SECTOR_FACT_URL = '/fact/sectores';
+export const VEHICLE_FACT_URL = '/fact/vehiculos';
+export const CARRIER_FACT_URL = '/fact/transportistas';
+export const COMMERCIAL_FACT_URL = '/fact/situaciones-comerciales';
+export const RAPPEL_FACT_URL = '/fact/rappels';
+export const CUSTOMER_ADDRESS_FACT_URL ='/fact/direcciones-clientes';
+export const SUBCLIENTS_FACT_URL = '/fact/subclientes';
+export const DEPART_FACT_URL = '/fact/departamentos';
+export const PERIOD_STORE_FACT_URL = '/fact/periodos-almacen';
+export const INITIAL_SITUATION_FACT_URL ='/fact/situaciones-inicales';
+export const PRODUCT_SECTOR_FACT_URL = '/fact/productos-sectores'

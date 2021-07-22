@@ -203,7 +203,7 @@ const ArticlesForm = React.memo(({ actions, allFormData, getFormData, submitFrom
       services.getById(id);
     } else {
       actions.setBreadcrumbHeader([
-        { title: props.intl.formatMessage({ id: "Articulos.titulo", defaultMessage: "Artículos" }), href: "/article" },
+        { title: props.intl.formatMessage({ id: "Articulos.titulo", defaultMessage: "Artículos" }), href: "/fact/article" },
         { title: props.intl.formatMessage({ id: "Comun.nuevo", defaultMessage: "Nuevo" }) }
       ]);
     }
@@ -221,8 +221,8 @@ const ArticlesForm = React.memo(({ actions, allFormData, getFormData, submitFrom
         :
         `${props.intl.formatMessage({ id: "Comun.cargando", defaultMessage: "Cargando" })}...`;
       actions.setBreadcrumbHeader([
-        { title: props.intl.formatMessage({ id: "Articulos.titulo", defaultMessage: "Artículos" }), href: "/article" },
-        { title: des, href: "/article" },
+        { title: props.intl.formatMessage({ id: "Articulos.titulo", defaultMessage: "Artículos" }), href: "/fact/article" },
+        { title: des, href: "/fact/article" },
         { title: "Modificar" }
       ]);
     }

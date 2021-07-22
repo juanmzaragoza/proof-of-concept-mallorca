@@ -22,7 +22,7 @@ const CompanyAccountingAccountList = ({ actions, ...props }) => {
           id: "CuentaContableEmpresa.titulo",
         defaultMessage: "Cuentas Contables Empresas",
         }),
-        href: "/cuentasContablesEmpresas",
+        href: "/fact/cuentas-contables-empresas",
       },
     ]);
   }, []);

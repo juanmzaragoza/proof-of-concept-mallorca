@@ -22,7 +22,7 @@ const CommisionTypeList = ({ actions, ...props }) => {
           id: "TipoComision.titulo",
         defaultMessage: "Tipos de Comisión",
         }),
-        href: "/tipo-comision",
+        href: "/fact/tipo-comision",
       },
     ]);
   }, []);

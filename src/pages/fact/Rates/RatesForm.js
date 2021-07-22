@@ -161,7 +161,7 @@ const RatesForm = React.memo(({ actions, allFormData, getFormData, submitFromOut
       services.getById(id);
     } else{
       actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "Tarifa.titulo", defaultMessage: "Tarifas"}), href:"/tarifes"},
+        {title: props.intl.formatMessage({id: "Tarifa.titulo", defaultMessage: "Tarifas"}), href:"/fact/tarifes"},
         {title: props.intl.formatMessage({id: "Comun.nuevo", defaultMessage: "Nuevo"})}
       ]);
     }
@@ -183,8 +183,8 @@ const RatesForm = React.memo(({ actions, allFormData, getFormData, submitFromOut
         :
         `${props.intl.formatMessage({id: "Comun.cargando", defaultMessage: "Cargando"})}...`;
       actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "Tarifa.titulo", defaultMessage: "Tarifas"}), href:"/tarifes"},
-        {title: desc, href:"/tarifes"},
+        {title: props.intl.formatMessage({id: "Tarifa.titulo", defaultMessage: "Tarifas"}), href:"/fact/tarifes"},
+        {title: desc, href:"/fact/tarifes"},
         {title: nameSelectedTab}
       ]);
     }

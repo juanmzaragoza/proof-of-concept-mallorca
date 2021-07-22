@@ -117,7 +117,7 @@ const DocumentoPagoCobroForm = React.memo(({ actions, allFormData, getFormData, 
       services.getById(id);
     } else{
       actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "DocumentosPago.titulo", defaultMessage: "Documentos pago/cobro"}), href:"/documentos-pago-cobro"},
+        {title: props.intl.formatMessage({id: "DocumentosPago.titulo", defaultMessage: "Documentos pago/cobro"}), href:"/fact/documentos-pago-cobro"},
         {title: props.intl.formatMessage({id: "Comun.nuevo", defaultMessage: "Nuevo"})}
       ]);
     }
@@ -139,8 +139,8 @@ const DocumentoPagoCobroForm = React.memo(({ actions, allFormData, getFormData, 
         :
         `${props.intl.formatMessage({id: "Comun.cargando", defaultMessage: "Cargando"})}...`;
       actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "DocumentosPago.titulo", defaultMessage: "Documentos pago/cobro"}), href:"/documentos-pago-cobro"},
-        {title: desc, href:"/documentos-pago-cobro"},
+        {title: props.intl.formatMessage({id: "DocumentosPago.titulo", defaultMessage: "Documentos pago/cobro"}), href:"/fact/documentos-pago-cobro"},
+        {title: desc, href:"/fact/documentos-pago-cobro"},
         {title: nameSelectedTab}
       ]);
     }

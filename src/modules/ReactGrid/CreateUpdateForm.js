@@ -36,7 +36,7 @@ const CreateUpdateForm = ({
     return !!id;
   };
 
-  const getBaseUrl = () => `/${match.path.split('/')[1]}`;
+  const getBaseUrl = () => `/${match.path.split('/')[1]}/${match.path.split('/')[2]}`;
 
   useEffect(() => {
     setFormConfig({
@@ -95,7 +95,7 @@ const CreateUpdateForm = ({
 CreateUpdateForm.propTypes = {
   title: PropTypes.string,
   formConfiguration: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV','numeric']),
+    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV','numeric','date']),
     variant: PropTypes.oneOf(['filled','outlined','standard']),
     placeHolder: PropTypes.string,
     required: PropTypes.bool,

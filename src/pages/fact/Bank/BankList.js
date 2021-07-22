@@ -22,7 +22,7 @@ const BankList = ({ actions, ...props }) => {
           id: "Bancos.titulo",
           defaultMessage: "Banco",
         }),
-        href: "/bancos",
+        href: "/fact/bancos",
       },
     ]);
   }, []);

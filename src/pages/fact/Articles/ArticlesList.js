@@ -16,7 +16,7 @@ const ArticlesList = ({ actions, ...props }) => {
       defaultMessage: "Artículos",
       }),
     });
-    actions.setBreadcrumbHeader([{ title: "Artículos", href: "/article" }]);
+    actions.setBreadcrumbHeader([{ title: "Artículos", href: "/fact/article" }]);
   }, []);
 
   const [filters, setFilters] = useState([]);
@@ -49,8 +49,8 @@ const ArticlesList = ({ actions, ...props }) => {
       {
         name: "bloquejat",
         title: props.intl.formatMessage({
-          id: "FamiliaArticulos.web",
-          defaultMessage: "Web"
+          id: "Proveedores.bloqueado",
+          defaultMessage: "Bloqueado"
         }),
         getCellValue: row => (row.bloquejat && row.bloquejat === true)?
           <Chip label={props.intl.formatMessage({id: "Comun.SI", defaultMessage: "SI"})} />

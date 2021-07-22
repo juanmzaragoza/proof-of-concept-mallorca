@@ -20,7 +20,7 @@ const DocumentFooterList = ({ actions, ...props }) => {
       {title: props.intl.formatMessage({
         id: "PieDocumento.titulo",
         defaultMessage: "Piés Documentos"
-        }), href:"/peus-document"}
+        }), href:"/fact/pies-documento"}
     ]);
   },[]);
 

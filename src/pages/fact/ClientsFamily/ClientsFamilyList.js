@@ -20,7 +20,7 @@ const ClientsFamilyList = ({ actions, ...props }) => {
           id: "FamiliaClientes.titulo",
           defaultMessage: "Familias cliente",
         }),
-        href: "/familia-clientes",
+        href: "/fact/familia-clientes",
       },
     ]);
   }, []);

@@ -22,7 +22,7 @@ const ProjectTypeList = ({ actions, ...props }) => {
           id: "TipoProyecto.titulo",
         defaultMessage: "Tipo de Proyecto",
         }),
-        href: "/tiposProyecto",
+        href: "/fact/tipo-proyecto",
       },
     ]);
   }, []);

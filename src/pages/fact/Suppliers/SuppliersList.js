@@ -14,7 +14,7 @@ const SuppliersList = ({actions, ...props}) => {
       }),
     });
     actions.setBreadcrumbHeader([
-      {title: "Proveedores", href:"/proveedores"}
+      {title: "Proveedores", href:"fact/proveedores"}
     ]);
   },[]);
 

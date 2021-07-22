@@ -396,7 +396,7 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
       {
         name: "operariCodi",
         title: props.intl.formatMessage({
-          id:  "Presupuestos.operario",
+          id: "Presupuestos.operario",
           defaultMessage: "Operario",
         }),
         hidden: true,
@@ -409,7 +409,6 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
           defaultMessage: "Divisa",
         }),
         getCellValue: (row) => row.divisa && row.divisa?.description,
-       
       },
       {
         name: "valorDivisaEuros",
@@ -417,7 +416,6 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
           id: "Presupuestos.valorDivisa",
           defaultMessage: "Valor divisa",
         }),
-       
       },
       {
         name: "caixa",
@@ -426,7 +424,6 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
           defaultMessage: "Caja",
         }),
         getCellValue: (row) => row.caixa && row.caixa?.description,
-       
       },
       {
         name: "importMoviment",
@@ -441,20 +438,16 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
           id: "Clientes.documentoPago",
           defaultMessage: "Documento Pago/Cobro",
         }),
-        getCellValue: (row) => row.documentPagamentCobrament && row.documentPagamentCobrament?.description,
+        getCellValue: (row) =>
+          row.documentPagamentCobrament &&
+          row.documentPagamentCobrament?.description,
         hidden: true,
       },
-
-
-  
-
     ],
     formComponents: [],
   };
 
-
   const albaranConfig = {
-  
     title: props.intl.formatMessage({
       id: "Clientes.Documentos.albaranes",
       defaultMessage: "Albaranes",
@@ -496,7 +489,7 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
       {
         name: "operariCmlCodi",
         title: props.intl.formatMessage({
-          id:  "Presupuestos.operario",
+          id: "Presupuestos.operario",
           defaultMessage: "Operario",
         }),
         hidden: true,
@@ -509,7 +502,6 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
           defaultMessage: "Divisa",
         }),
         getCellValue: (row) => row.divisa && row.divisa?.description,
-       
       },
       {
         name: "divisaValorEuros",
@@ -517,7 +509,6 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
           id: "Presupuestos.valorDivisa",
           defaultMessage: "Valor divisa",
         }),
-       
       },
       {
         name: "serieVenda",
@@ -530,11 +521,10 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
       {
         name: "puntVenda",
         title: props.intl.formatMessage({
-          id:  "Presupuestos.puntoVenta",
+          id: "Presupuestos.puntoVenta",
           defaultMessage: "Punto Venta",
         }),
         getCellValue: (row) => row.puntVenda && row.puntVenda?.description,
-       
       },
       {
         name: "desti",
@@ -542,7 +532,7 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
           id: "Clientes.destino",
           defaultMessage: "Destino",
         }),
-        hidden:true
+        hidden: true,
       },
       {
         name: "nomClient",
@@ -560,14 +550,179 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
         }),
         hidden: true,
       },
-
-
-
-  
-
     ],
     formComponents: [],
+  };
 
+  const reparacionesConfig = {
+    title: props.intl.formatMessage({
+      id: "Clientes.Documentos.reparaciones",
+      defaultMessage: "Reparaciones",
+    }),
+    query: [
+      {
+        columnName: "client.id",
+        value: `"${clientId}"`,
+        exact: true,
+      },
+    ],
+    extraPostBody: {
+      client: { id: clientId },
+    },
+    columns: [
+      {
+        name: "num",
+        title: props.intl.formatMessage({
+          id: "Clientes.Documentos.numero",
+          defaultMessage: "Número",
+        }),
+      },
+      {
+        name: "numSerie",
+        title: props.intl.formatMessage({
+          id: "Clientes.Documentos.numeroSerie",
+          defaultMessage: "Nun Serie",
+        }),
+
+      },
+      {
+        name: "numParte",
+        title: props.intl.formatMessage({
+          id: "Clientes.Documentos.numeroParte",
+          defaultMessage: "Nun Parte",
+        }),
+
+      },
+      {
+        name: "referencia",
+        title: props.intl.formatMessage({
+          id: "Proyectos.referencia",
+          defaultMessage: "Referencia",
+        }),
+      },
+      {
+        name: "situacio",
+        title: props.intl.formatMessage({
+          id: "Clientes.Documentos.situacion",
+          defaultMessage: "Situación",
+        }),
+    
+      },
+      {
+        name: "matricula",
+        title: props.intl.formatMessage({
+          id: "Clientes.Documentos.matricula",
+          defaultMessage: "Matricula",
+        }),
+        hidden: true,
+      },
+      {
+        name: "estat",
+        title: props.intl.formatMessage({
+          id: "Presupuestos.estado",
+          defaultMessage: "Estado ",
+        }),
+        hidden: true,
+      },
+      {
+        name: "operariCodi",
+        title: props.intl.formatMessage({
+          id: "Clientes.Documentos.operarioCodigo",
+          defaultMessage: "Código operario",
+        }),
+      },
+      {
+        name: "descripcioAvaria",
+        title: props.intl.formatMessage({
+          id: "Comun.descripcion",
+          defaultMessage: "Descripción",
+        }),
+      },
+      {
+        name: "diaCreacio",
+        title: props.intl.formatMessage({
+          id: "Clientes.Documentos.fechaCreacion",
+          defaultMessage: "Fecha Creación",
+        }),
+        getCellValue: (row) =>
+          row.diaCreacio ? new Date(row.diaCreacio).toLocaleDateString() : "",
+      },
+
+      {
+        name: "diaAviso",
+        title: props.intl.formatMessage({
+          id: "Clientes.Documentos.diaAviso",
+          defaultMessage: "Dia Aviso",
+        }),
+        getCellValue: (row) =>
+          row.diaAviso ? new Date(row.diaAviso).toLocaleDateString() : "",
+        hidden: true,
+      },
+      {
+        name: "diaFin",
+        title: props.intl.formatMessage({
+          id: "Clientes.Documentos.diaFin",
+          defaultMessage: "Dia Fin",
+        }),
+        getCellValue: (row) =>
+          row.diaFin ? new Date(row.diaFin).toLocaleDateString() : "",
+        hidden: true,
+      },
+      {
+        name: "serieVenda",
+        title: props.intl.formatMessage({
+          id: "Clientes.fact.serie",
+          defaultMessage: "Serie",
+        }),
+        getCellValue: (row) => row.serieVenda && row.serieVenda?.description,
+        hidden: true,
+      },
+      {
+        name: "subClient",
+        title: props.intl.formatMessage({
+          id: "Proyectos.subcliente",
+          defaultMessage: "Subcliente",
+        }),
+        getCellValue: (row) => row.subClient && row.subClient?.description,
+        hidden: true,
+      },
+      {
+        name: "projecte",
+        title: props.intl.formatMessage({
+          id: "FamiliaArticulos.proyecto",
+          defaultMessage: "Proyecto",
+        }),
+        getCellValue: (row) => row.projecte && row.projecte?.description,
+        hidden: true,
+      },
+      {
+        name: "nom",
+        title: props.intl.formatMessage({
+          id: "Comun.nombre",
+          defaultMessage: "Nombre",
+        }),
+        hidden: true,
+      },
+
+      {
+        name: "nif",
+        title: props.intl.formatMessage({
+          id: "Proveedores.nif",
+          defaultMessage: "Nif",
+        }),
+        hidden: true,
+      },
+      {
+        name: "codiPostal",
+        title: props.intl.formatMessage({
+          id: "Clientes.fact.codigoPostal",
+          defaultMessage: "Código Postal",
+        }),
+        getCellValue: (row) => row.codiPostal && row.codiPostal?.description,
+        hidden: true,
+      },
+    ],
+    formComponents: [],
   };
 
   const tabs = [
@@ -632,11 +787,30 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
       className: "general-tab-subtab",
       label: (
         <FormattedMessage
+          id={"Clientes.Documuentos.reparaciones"}
+          defaultMessage={"Reparaciones"}
+        />
+      ),
+      key: 3,
+      component: (
+        <ExpandableGrid
+          id="avaries"
+          responseKey="avarias"
+          enabled={props.editMode}
+          configuration={reparacionesConfig}
+          readOnly={true}
+        />
+      ),
+    },
+    {
+      className: "general-tab-subtab",
+      label: (
+        <FormattedMessage
           id={"Clientes.Documentos.movimientoCaja"}
           defaultMessage={"Movimentos Caja"}
         />
       ),
-      key: 3,
+      key: 4,
       component: (
         <ExpandableGrid
           id="movimentsCaixa"
