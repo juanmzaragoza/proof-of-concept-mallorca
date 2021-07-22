@@ -67,6 +67,7 @@ import CustomerApp from "./CustomerApp";
 import TermStore from "./TermStore";
 import InitialSituation from "./InitialSituation";
 import ProductSector from "./ProductSector";
+import Application from "./Application";
 
 
 const component = [
@@ -134,7 +135,8 @@ const component = [
   CustomerApp,
   TermStore,
   InitialSituation,
-  ProductSector
+  ProductSector,
+  Application
 ];
   
 

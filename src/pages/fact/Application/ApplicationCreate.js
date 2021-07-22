@@ -55,15 +55,15 @@ const ApplicationCreate = (props) => {
         id: "Proyectos.referencia",
         defaultMessage: "Referencia",
       }),
-      type: "numeric",
+      type: "input",
       key: "referencia",
       required: true,
       breakpoints: {
         xs: 12,
         md: 2,
       },
-      noEditable: true,
-      validationType: "number",
+
+      validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(0, 3),
@@ -103,22 +103,8 @@ const ApplicationCreate = (props) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Aplicaciones.identificador",
-        defaultMessage: "Identificador",
-      }),
-      type: "input",
-      key: "idf",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(0, 10)],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
         id: "Aplicaciones.servidor",
-        defaultMessage: "Identificador",
+        defaultMessage: "Servidor",
       }),
       type: "input",
       key: "servidor",
@@ -152,12 +138,12 @@ const ApplicationCreate = (props) => {
         xs: 12,
         md: 4,
       },
-      variant: "outlined",
+      noEditable: true,
       selector: {
         key: "productes",
         labelKey: formatCodeAndName,
         sort: "nom",
-        creationComponents: codeAndName(),
+        cannotCreate: true,
         advancedSearchColumns: aSCodeAndName,
       },
     },
@@ -172,6 +158,7 @@ const ApplicationCreate = (props) => {
         xs: 12,
         md: 4,
       },
+      noEditable: true,
       selector: {
         key: "clients",
         labelKey: (data) => `${data.nomComercial} (${data.codi})`,
@@ -185,6 +172,29 @@ const ApplicationCreate = (props) => {
     },
     {
       placeHolder: props.intl.formatMessage({
+        id: "Aplicaciones.subcliente",
+        defaultMessage: "SubClientes",
+      }),
+      type: "LOV",
+      key: "subClient",
+      breakpoints: {
+        xs: 12,
+        md: 4,
+      },
+      noEditable: true,
+      selector: {
+        key: "subClients",
+        labelKey: (data) => `${data.nom} (${data.codi})`,
+        sort: "codi",
+        cannotCreate: true,
+        advancedSearchColumns: [
+          { title: CODE, name: "codi" },
+          { title: NOM, name: "nom" },
+        ],
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
         id: "Aplicaciones.usuarioPropietario",
         defaultMessage: "Usuario Propietario",
       }),
@@ -192,7 +202,7 @@ const ApplicationCreate = (props) => {
       key: "usuariPropietari",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 50)],
@@ -206,7 +216,7 @@ const ApplicationCreate = (props) => {
       key: "usuari2",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 50)],
@@ -220,7 +230,7 @@ const ApplicationCreate = (props) => {
       key: "versioBD",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 3)],
@@ -234,9 +244,38 @@ const ApplicationCreate = (props) => {
       key: "dataInstalacio",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
     },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Aplicaciones.pc",
+        defaultMessage: "PC aplicacion instalada",
+      }),
+      type: "input",
+      key: "pcOnHiHaInstaladaAplicacio",
+      breakpoints: {
+        xs: 12,
+        md: 6,
+      },
+      validationType: "string",
+    },
+   
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Aplicaciones.sqlPlus",
+        defaultMessage: "SQL Plus",
+      }),
+      type: "input",
+      key: "sqlPlus",
+      breakpoints: {
+        xs: 12,
+        md: 6,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 50)],
+    },
+    
   ];
   return (
     <CreateUpdateForm
