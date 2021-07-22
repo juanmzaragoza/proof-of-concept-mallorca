@@ -36,7 +36,7 @@ const CommercialRegisterList = ({ actions, ...props }) => {
         }),
       },
       {
-        name: "interessat",
+        name: "descripcioMitja",
         title: props.intl.formatMessage({
           id: "RegistroComercial.descripcion",
           defaultMessage: "Descripción del Medio",
