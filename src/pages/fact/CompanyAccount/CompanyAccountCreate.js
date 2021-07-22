@@ -178,7 +178,7 @@ const CompanyAccountCreate = (props) => {
       },
       validationType: "string",
       ...withRequiredValidation([
-        ...props.stringValidations.minMaxValidation(1, 12),
+        ...props.stringValidations.minMaxValidation(1, 10),
       ]),
     },
     {
