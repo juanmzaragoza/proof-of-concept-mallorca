@@ -453,7 +453,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
             ]),
           },
           {
-            type: "input",
+            type: "numeric",
             key: "percentatgeIva",
             placeHolder: props.intl.formatMessage({
               id: "Clientes.porcentaje.iva",
@@ -470,7 +470,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
             ]),
           },
           {
-            type: "input",
+            type: "numeric",
             key: "percentatgeRecarrecEquivalencia",
             placeHolder: props.intl.formatMessage({
               id: "Clientes.porcentaje.recargo",
@@ -487,7 +487,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
             ]),
           },
           {
-            type: "input",
+            type: "numeric",
             key: "codiComptabilitat",
             placeHolder: props.intl.formatMessage({
               id: "Clientes.codigo.contabilidad",
@@ -504,7 +504,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
             ]),
           },
           {
-            type: "input",
+            type: "numeric",
             key: "codiRecarrecComptabilitat",
             placeHolder: props.intl.formatMessage({
               id: "Clientes.codigo.recargo",
@@ -597,7 +597,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
             ]),
           },
           {
-            type: "input",
+            type: "numeric",
             key: "codiComptabilitat",
             placeHolder: props.intl.formatMessage({
               id: "Clientes.codigo.contabilidad",
@@ -632,7 +632,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
             ...withRequiredValidation(),
           },
           {
-            type: "input",
+            type: "numeric",
             key: "codiFacturaElectronica",
             placeHolder: props.intl.formatMessage({
               id: "Clientes.codigo.facturaElectronica",

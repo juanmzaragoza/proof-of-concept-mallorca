@@ -751,7 +751,17 @@ const withConstants = (PassedComponent) => {
         icon: <LocalMall />,
       },
       {
+        key: "FAC_PROD", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Productos.titulo",
+          defaultMessage: "Productos",
+        }),
+        path: "FAC_PROD", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
         key: "FAC_SEC", // not mandatory for routes with children
+
         title: props.intl.formatMessage({
           id: "Sectores.titulo",
           defaultMessage: "Sectores",
@@ -898,12 +908,49 @@ const withConstants = (PassedComponent) => {
         icon: <LocalMall />,
       },
       {
+
+        key: "FAC_SECEMP", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "SeccionEmpresa.titulo",
+          defaultMessage: "Secciones Empresa",
+        }),
+        path: "FAC_SECEMP", // or has path or has children but not both
+      },
+      {
+
         key: "FAC_APS", // not mandatory for routes with children
         title: props.intl.formatMessage({
           id: "ProductosSector.titulo",
           defaultMessage: "Sectores Producto",
         }),
         path: "FAC_APS", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_EMPCCR", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "CuentaCorrienteEmpresa.titulo",
+          defaultMessage: "Cuenta Corriente Empresa",
+        }),
+        path: "FAC_EMPCCR", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_APLICA", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Aplicaciones.titulo",
+          defaultMessage: "Aplicaciones",
+        }),
+        path: "FAC_APLICA", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_TIPRIS", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "TipoRiesgo.titulo",
+          defaultMessage: "Tipo Riesgo",
+        }),
+        path: "FAC_TIPRIS", // or has path or has children but not both
         icon: <LocalMall />,
       },
     ];
