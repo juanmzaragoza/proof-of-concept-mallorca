@@ -1429,7 +1429,9 @@
   "Clientes.Documentos.reparaciones" :"Reparaciones",
   "Organizacion.gerente":"Gerente",
   "Organizacion.contacte":"Contacto",
-  "Organizacion.email":"Email"
+  "Organizacion.email":"Email",
+  "Parametros.valor":"Valor",
+  "Parametros.titulo":"Parámetros"
 
 
 }

@@ -101,3 +101,4 @@ export const COMPANY_ACCOUNT_FACT_URL = '/fact/cuentas-corrientes-empresas';
 
 export const APP_FACT_URL = '/fact/aplicaciones';
 export const RISK_TYPE_FACT_URL = '/fact/tipo-riesgo';
+export const PARAMETERS_FACT_URL = '/fact/parametros';
