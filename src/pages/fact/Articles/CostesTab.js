@@ -67,7 +67,7 @@ const CostesTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       {
         placeHolder: IMPPORCENCOSTE,
-        type: 'input',
+        type: 'numeric',
         key: 'importPercentatgeCost',
         required: true,
         breakpoints: {

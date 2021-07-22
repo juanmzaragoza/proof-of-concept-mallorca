@@ -395,7 +395,7 @@ const GenericForm = ({loading, ...props}) => {
           }}>
           {formik => {
             return (
-              <form ref={formRef} onSubmit={(e) => {
+              <form noValidate ref={formRef} onSubmit={(e) => {
                 e.preventDefault();
                 handleIsValid(formik);
                 formik.handleSubmit(e);

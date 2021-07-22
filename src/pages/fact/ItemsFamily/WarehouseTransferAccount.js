@@ -162,7 +162,7 @@ const DocumentFooterTab = ({formData, setFormData, getFormData, ...props}) => {
         id: "PieDocumento.orden",
         defaultMessage: "Orden"
       }),
-      type: 'input',
+      type: 'numeric',
       key: 'ordre',
       breakpoints: {
         xs: 6,

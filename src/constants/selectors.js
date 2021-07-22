@@ -953,3 +953,17 @@ export const INCIDENCIA_PORCENTAJE_SELECTOR_VALUES = [
     label: "Sobre suma de importes",
   },
 ];
+
+
+export const TIPO_PRODUCTO_SELECTOR_VALUES = [
+  {
+    value: "PRODUCTE",
+    labelId: "Selector.producto",
+    label: "Producto",
+  },
+  {
+    value: "APLICACIO",
+    labelId: "Selector.aplicacion",
+    label: "Aplicación",
+  },
+];

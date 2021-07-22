@@ -63,7 +63,7 @@ const StockTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.stock.factorConversionEntrada",
         defaultMessage: "Factor de conversion entrada",
       }),
-      type: "input",
+      type: "numeric",
       key: "factorConversioEntrada",
       breakpoints: {
         xs: 12,
@@ -76,7 +76,7 @@ const StockTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.stock.factorConversionSalida",
         defaultMessage: "Factor de conversion salida",
       }),
-      type: "input",
+      type: "numeric",
       key: "factorConversioSortida",
       breakpoints: {
         xs: 12,
@@ -89,7 +89,7 @@ const StockTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.stock.stockMinimoGlobal",
         defaultMessage: "Stock mínimo global",
       }),
-      type: "input",
+      type: "numeric",
       key: "stockMinimGlobal",
       breakpoints: {
         xs: 12,
@@ -102,7 +102,7 @@ const StockTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.stock.stockMaximoGlobal",
         defaultMessage: "Stock máximo global",
       }),
-      type: "input",
+      type: "numeric",
       key: "stockMaximGlobal",
       breakpoints: {
         xs: 12,
