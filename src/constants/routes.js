@@ -95,4 +95,5 @@ export const INITIAL_SITUATION_FACT_URL ='/fact/situaciones-inicales';
 
 export const PRODUCT_SECTOR_FACT_URL = '/fact/productos-sectores';
 export const APP_FACT_URL = '/fact/aplicaciones';
+export const RISK_TYPE_FACT_URL = '/fact/tipo-riesgo';
 

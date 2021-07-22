@@ -1405,6 +1405,14 @@
   "Aplicaciones.usuario2":"Usuario 2",
   "Aplicaciones.subcliente":"Subcliente",
   "Aplicaciones.sqlPlus":"SQL Plus",
-  "Aplicaciones.pc":"PC aplicación instalada."
+  "Aplicaciones.pc":"PC aplicación instalada",
+  "TipoRiesgo.pendienteServir":"Pendiente Servir",
+  "TipoRiesgo.pendienteFacturar":"Pendiente Facturar",
+  "TipoRiesgo.titulo":"Tipo Riesgo",
+  "TipoRiesgo.vpNoVencidos":"Vencimientos Pendiente No Vencidos",
+  "TipoRiesgo.vpVencidos":"Vencimientos Pendiente Vencidos",
+  "TipoRiesgo.vEfectosNegociados":"Vencimientos Efectos Negociados",
+  "TipoRiesgo.nifCoincidentes":"NIF Coincidentes"
+
 
 }

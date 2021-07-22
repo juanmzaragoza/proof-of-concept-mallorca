@@ -71,6 +71,7 @@ import TermStore from "./TermStore";
 import InitialSituation from "./InitialSituation";
 import ProductSector from "./ProductSector";
 import Application from "./Application";
+import RiskType from "./RiskType";
 
 const component = [
   SuppliersFamily,
@@ -144,6 +145,7 @@ const component = [
 
   ProductSector,
   Application,
+  RiskType
 
 
 
