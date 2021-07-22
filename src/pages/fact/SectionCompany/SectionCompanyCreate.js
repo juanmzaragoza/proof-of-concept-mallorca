@@ -111,6 +111,7 @@ const SectionCompanyCreate = (props) => {
       }),
       type: "LOV",
       key: "seccio",
+      
       required: true,
       breakpoints: {
         xs: 12,

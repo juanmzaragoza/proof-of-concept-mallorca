@@ -45,6 +45,15 @@ const SectionCompanyList = ({ actions, ...props }) => {
         }),
       },
       {
+        name: "empresa",
+        title: props.intl.formatMessage({
+          id:  "PieDocumento.empresa",
+          defaultMessage: "Empresa",
+        }),
+        getCellValue: (row) =>
+          row.empresa?.description ? row.empresa.description : "",
+      },
+      {
         name: "seccio",
         title: props.intl.formatMessage({
           id: "SeccionesEmpresa.seccion",
@@ -62,7 +71,7 @@ const SectionCompanyList = ({ actions, ...props }) => {
       },
     ],
     URL: API.seccionsEmpresa,
-    listKey: "seccioEmpreses",
+    listKey: "seccioEmpresas",
   };
 
   return (
