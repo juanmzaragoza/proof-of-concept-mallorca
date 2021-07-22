@@ -235,7 +235,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         id: "FamiliaArticulos.secuencia",
         defaultMessage: "Secuencia Ordenación"
       }),
-      type: 'input',
+      type: 'numeric',
       key: 'sequenciaOrdenacio',
       breakpoints: {
         xs: 12,

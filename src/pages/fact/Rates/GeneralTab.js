@@ -137,7 +137,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         id: "Tarifa.porcentajeMaterial",
         defaultMessage: "Porcentaje material"
       }),
-      type: 'input',
+      type: 'numeric',
       key: 'percentatgeMaterial',
       required: true,
       breakpoints: {
@@ -151,7 +151,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         id: "Tarifa.porcentajeManoObra",
         defaultMessage: "Porcentaje mano de obra"
       }),
-      type: 'input',
+      type: 'numeric',
       key: 'percentatgeMaObra',
       required: true,
       breakpoints: {

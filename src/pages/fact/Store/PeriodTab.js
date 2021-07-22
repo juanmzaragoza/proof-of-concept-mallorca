@@ -64,7 +64,7 @@ const PeriodTab = ({ formData, setFormData, ...props }) => {
           id: "Almacen.periodo",
           defaultMessage: "Período",
         }),
-        type: "input",
+        type: "numeric",
         key: "codi",
         required: true,
         noEditable: true,

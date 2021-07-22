@@ -114,7 +114,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
               id: "Clientes.porcentaje.iva",
               defaultMessage: "Porcentaje IVA",
             }),
-            type: 'input',
+            type: 'numeric',
             key: 'percentatgeIva',
             required: true,
             breakpoints: {
@@ -199,7 +199,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.compra",
         defaultMessage: "Precio compra"
       }),
-      type: 'input',
+      type: 'numeric',
       key: 'preuCompra',
       breakpoints: {
         xs: 12,
@@ -212,7 +212,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.descuento1Compra",
         defaultMessage: "Descuento 1 compra"
       }),
-      type: 'input',
+      type: 'numeric',
       key: 'dte1Compra',
       breakpoints: {
         xs: 12,
@@ -225,7 +225,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.descuento2Compra",
         defaultMessage: "Descuento 2 compra"
       }),
-      type: 'input',
+      type: 'numeric',
       key: 'dte2Compra',
       breakpoints: {
         xs: 12,
@@ -238,7 +238,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.precioCompraTeorico",
         defaultMessage: "Precio compra teórico"
       }),
-      type: 'input',
+      type: 'numeric',
       disabled: true,
       key: 'preuCompraTeo',
       breakpoints: {
@@ -252,7 +252,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.precioCosteTeorico",
         defaultMessage: "Precio coste teórico"
       }),
-      type: 'input',
+      type: 'numeric',
       disabled: true,
       key: 'preuCostTeo',
       breakpoints: {
@@ -278,7 +278,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.margen",
         defaultMessage: "% Margen"
       }),
-      type: 'input',
+      type: 'numeric',
       key: 'marge',
       breakpoints: {
         xs: 12,
@@ -291,7 +291,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.decimalesPrecio",
         defaultMessage: "Decimales precio"
       }),
-      type: 'input',
+      type: 'numeric',
       key: 'decimalsPreu',
       breakpoints: {
         xs: 12,
@@ -304,7 +304,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.decimalesPrecioIva",
         defaultMessage: "Decimales precio con IVA"
       }),
-      type: 'input',
+      type: 'numeric',
       key: 'decimalsPreuIva',
       breakpoints: {
         xs: 12,
@@ -317,7 +317,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.precioSinIva",
         defaultMessage: "Precio sin IVA"
       }),
-      type: 'input',
+      type: 'numeric',
       key: 'pvpFact',
       breakpoints: {
         xs: 12,
@@ -331,7 +331,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.precioCosteIva",
         defaultMessage: "Precio con IVA"
       }),
-      type: 'input',
+      type: 'numeric',
       key: 'preuIva',
       breakpoints: {
         xs: 12,
@@ -344,7 +344,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.precioCosteExistencias",
         defaultMessage: "Precio coste existencias"
       }),
-      type: 'input',
+      type: 'numeric',
       key: 'preuCostExistencies',
       breakpoints: {
         xs: 12,
@@ -357,7 +357,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.precioMin",
         defaultMessage: "Precio mínimo"
       }),
-      type: 'input',
+      type: 'numeric',
       key: 'preuMin',
       breakpoints: {
         xs: 12,
@@ -370,7 +370,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.dtoMaxProFix",
         defaultMessage: "Descuento máximo proveedor ( fijo )"
       }),
-      type: 'input',
+      type: 'numeric',
       key: 'dteMaxProvFix',
       breakpoints: {
         xs: 12,
@@ -383,7 +383,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.dtoMaxProTemp",
         defaultMessage: "Descuento máximo proveedor ( temporal )"
       }),
-      type: 'input',
+      type: 'numeric',
       key: 'dteMaxProvTemp',
       breakpoints: {
         xs: 12,
@@ -396,7 +396,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.puntoVerde",
         defaultMessage: "Punto verde"
       }),
-      type: 'input',
+      type: 'numeric',
       key: 'puntVerd',
       breakpoints: {
         xs: 12,
@@ -424,7 +424,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.dte1",
         defaultMessage: "Descuento 1",
       }),
-      type: "input",
+      type: "numeric",
       key: "dte1",
       breakpoints: {
         xs: 12,
@@ -437,7 +437,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.dte2",
         defaultMessage: "Descuento 2",
       }),
-      type: "input",
+      type: "numeric",
       key: "dte2",
       breakpoints: {
         xs: 12,
@@ -450,7 +450,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.dte3",
         defaultMessage: "Descuento 3",
       }),
-      type: "input",
+      type: "numeric",
       key: "dte3",
       breakpoints: {
         xs: 12,
@@ -463,7 +463,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.dte4",
         defaultMessage: "Descuento 4",
       }),
-      type: "input",
+      type: "numeric",
       key: "dte4",
       breakpoints: {
         xs: 12,
@@ -476,7 +476,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.dte5",
         defaultMessage: "Descuento 5",
       }),
-      type: "input",
+      type: "numeric",
       key: "dte5",
       breakpoints: {
         xs: 12,
@@ -489,7 +489,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.pvpDescuento",
         defaultMessage: "P.V.P Dto",
       }),
-      type: "input",
+      type: "numeric",
       disabled: true,
       key: "pvpDte",
       breakpoints: {
@@ -503,7 +503,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.margen",
         defaultMessage: "% Margen",
       }),
-      type: "input",
+      type: "numeric",
       disabled: true,
       key: "margeDte",
       breakpoints: {
@@ -517,7 +517,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.dte1Fab",
         defaultMessage: "Dto 1 fabricante",
       }),
-      type: "input",
+      type: "numeric",
       key: "dte1Fab",
       breakpoints: {
         xs: 12,
@@ -530,7 +530,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.dte2Fab",
         defaultMessage: "Dto 2 fabricante",
       }),
-      type: "input",
+      type: "numeric",
       key: "dte2Fab",
       breakpoints: {
         xs: 12,
@@ -543,7 +543,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.dte3Fab",
         defaultMessage: "Dto 3 fabricante",
       }),
-      type: "input",
+      type: "numeric",
       key: "dte3Fab",
       breakpoints: {
         xs: 12,
@@ -556,7 +556,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.dte4Fab",
         defaultMessage: "Dto 4 fabricante",
       }),
-      type: "input",
+      type: "numeric",
       key: "dte4Fab",
       breakpoints: {
         xs: 12,
@@ -569,7 +569,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.dte5Fab",
         defaultMessage: "Dto 5 fabricante",
       }),
-      type: "input",
+      type: "numeric",
       key: "dte5Fab",
       breakpoints: {
         xs: 12,
@@ -582,7 +582,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.pvpDescuentoFab",
         defaultMessage: "P.V.P con dto fabricante",
       }),
-      type: "input",
+      type: "numeric",
       disabled: true,
       key: "pvpDteFab",
       breakpoints: {
@@ -596,7 +596,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.margen",
         defaultMessage: "% Margen",
       }),
-      type: "input",
+      type: "numeric",
       disabled: true,
       key: "margeDteFab",
       breakpoints: {
@@ -630,7 +630,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.valorRappel",
         defaultMessage: "Valor Rappel",
       }),
-      type: "input",
+      type: "numeric",
       key: "valorRappel",
       breakpoints: {
         xs: 12,
@@ -701,7 +701,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       code(3),
       {
         placeHolder: INFLIM,
-        type: 'input',
+        type: 'numeric',
         key: 'limitInferior',
         required: true,
         breakpoints: {
