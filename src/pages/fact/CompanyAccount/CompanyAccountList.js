@@ -73,27 +73,27 @@ const CompanyAccountList = ({ actions, ...props }) => {
           defaultMessage: "Cuenta Corriente",
         }),
       },
-      {
-        name: "paisIban",
-        title: props.intl.formatMessage({
-          id: "Clientes.paisIban",
-          defaultMessage: "País IBAN",
-        }),
-      },
-      {
-        name: "digitControlIban",
-        title: props.intl.formatMessage({
-          id: "Clientes.digitosIban",
-          defaultMessage: "Dígitos IBAN",
-        }),
-      },
-      {
-        name: "bic",
-        title: props.intl.formatMessage({
-          id: "Clientes.bicIban",
-          defaultMessage: "BIC IBAN",
-        }),
-      },
+      // {
+      //   name: "paisIban",
+      //   title: props.intl.formatMessage({
+      //     id: "Clientes.paisIban",
+      //     defaultMessage: "País IBAN",
+      //   }),
+      // },
+      // {
+      //   name: "digitControlIban",
+      //   title: props.intl.formatMessage({
+      //     id: "Clientes.digitosIban",
+      //     defaultMessage: "Dígitos IBAN",
+      //   }),
+      // },
+      // {
+      //   name: "bic",
+      //   title: props.intl.formatMessage({
+      //     id: "Clientes.bicIban",
+      //     defaultMessage: "BIC IBAN",
+      //   }),
+      // },
     ],
     URL: API.compteCorrentEmpresas,
     listKey: "compteCorrentEmpresas",

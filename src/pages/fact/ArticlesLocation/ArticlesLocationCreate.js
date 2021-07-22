@@ -331,7 +331,7 @@ const ArticlesLocationCreate = (props) => {
         id: "ArticulosUbicacion.unidad",
         defaultMessage: "Unidad",
       }),
-      type: "input",
+      type: "numeric",
       key: "unitat",
       required: true,
       breakpoints: {

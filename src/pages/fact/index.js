@@ -42,6 +42,9 @@ import Store from './Store';
 import SalesSeries from './SalesSeries';
 import DocumentoPagoCobro from './DocumentoPagoCobro';
 import MaturityType from './MaturityType';
+
+import Products from './Products';
+
 import BillingType from './BillingType';
 import DiscountRates from './DiscountRates';
 import FinalesFacturas from './FinalesFacturas';
@@ -67,8 +70,10 @@ import CustomerApp from "./CustomerApp";
 import TermStore from "./TermStore";
 import InitialSituation from "./InitialSituation";
 import ProductSector from "./ProductSector";
-import CompanyAccount from "./CompanyAccount";
 
+import CompanyAccount from "./CompanyAccount";
+import Application from "./Application";
+import RiskType from "./RiskType";
 
 const component = [
   SuppliersFamily,
@@ -114,6 +119,10 @@ const component = [
   SalesSeries,
   DocumentoPagoCobro,
   MaturityType,
+
+  Products,
+  
+
   Sector,
   Vehicle,
   Carrier,
@@ -135,8 +144,14 @@ const component = [
   CustomerApp,
   TermStore,
   InitialSituation,
+  CompanyAccount,
   ProductSector,
-  CompanyAccount
+  Application,
+  RiskType
+
+
+
+
 ];
   
 

@@ -32,7 +32,7 @@ const EscandallosTab = ({ formData, setFormData, getFormData, ...props }) => {
   const PVPTOTAL = props.intl.formatMessage({ id: "Articulos.escandallosTab.escandallo.pvpTotal", defaultMessage: "P.V.P total" });
   
   const code = (md = 6) => ({
-    type: 'input',
+    type: 'numeric',
     key: 'codi',
     placeHolder: CODE,
     required: true,
@@ -98,7 +98,7 @@ const EscandallosTab = ({ formData, setFormData, getFormData, ...props }) => {
       code(2),
       {
         placeHolder: UNIDADES,
-        type: 'input',
+        type: 'numeric',
         key: 'unitats',
         required: true,
         breakpoints: {
@@ -112,7 +112,7 @@ const EscandallosTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "Articulos.escandallosTab.escandallo.alto",
           defaultMessage: "Alto",
         }),
-        type: 'input',
+        type: 'numeric',
         key: 'alt',
         breakpoints: {
           xs: 12,
@@ -125,7 +125,7 @@ const EscandallosTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "Articulos.escandallosTab.escandallo.largo",
           defaultMessage: "Largo",
         }),
-        type: 'input',
+        type: 'numeric',
         key: 'llarg',
         breakpoints: {
           xs: 12,
@@ -138,7 +138,7 @@ const EscandallosTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "Articulos.escandallosTab.escandallo.ancho",
           defaultMessage: "Ancho",
         }),
-        type: 'input',
+        type: 'numeric',
         key: 'ample',
         breakpoints: {
           xs: 12,
@@ -151,7 +151,7 @@ const EscandallosTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "Articulos.escandallosTab.escandallo.unidades2",
           defaultMessage: "Unidades 2",
         }),
-        type: 'input',
+        type: 'numeric',
         key: 'unitats2',
         breakpoints: {
           xs: 12,
@@ -164,7 +164,7 @@ const EscandallosTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "Articulos.escandallosTab.escandallo.anchoLados",
           defaultMessage: "Ancho lados",
         }),
-        type: 'input',
+        type: 'numeric',
         key: 'ampleCostats',
         breakpoints: {
           xs: 12,
@@ -177,7 +177,7 @@ const EscandallosTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "Articulos.escandallosTab.escandallo.largoLados",
           defaultMessage: "Largo lados",
         }),
-        type: 'input',
+        type: 'numeric',
         key: 'unitats2',
         breakpoints: {
           xs: 12,
@@ -190,7 +190,7 @@ const EscandallosTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "Articulos.escandallosTab.escandallo.referenciaEscandallo2",
           defaultMessage: "Referencia escandallo 2",
         }),
-        type: 'input',
+        type: 'numeric',
         key: 'referenciaEscadall2',
         breakpoints: {
           xs: 12,
@@ -200,7 +200,7 @@ const EscandallosTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       {
         placeHolder: MARGENESCANDALLO,
-        type: 'input',
+        type: 'numeric',
         key: 'margeEscandall',
         breakpoints: {
           xs: 12,

@@ -113,7 +113,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndName,
       },
       validationType: "object",
-      ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -134,7 +133,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndName,
       },
       validationType: "object",
-      ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -234,7 +232,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndDescription,
       },
       validationType: "object",
-      ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -256,7 +253,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndDescription,
       },
       validationType: "object",
-      ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -278,7 +274,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndName,
       },
       validationType: "object",
-      ...withRequiredValidation(),
     },
   ];
 
