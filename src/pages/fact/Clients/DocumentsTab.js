@@ -787,7 +787,7 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
       className: "general-tab-subtab",
       label: (
         <FormattedMessage
-          id={"Clientes.Documuentos.reparaciones"}
+          id={"Clientes.Documentos.reparaciones"}
           defaultMessage={"Reparaciones"}
         />
       ),
