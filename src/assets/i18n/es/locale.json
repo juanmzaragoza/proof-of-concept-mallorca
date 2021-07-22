@@ -653,6 +653,7 @@
   "Articulos.precio.decimalesPrecio": "Decimales precio",
   "Articulos.precio.decimalesPrecioIva": "Decimales precio con IVA",
   "Articulos.precio.pvp": "P.V.P",
+  "Articulos.precio.precioSinIva": "Precio sin IVA",
   "Articulos.precio.precioCosteIva": "Precio coste con IVA",
   "Articulos.precio.precioCosteExistencias": "Precio coste existencias",
   "Articulos.precio.precioMin": "Precio mínimo",
@@ -1400,6 +1401,9 @@
 
   "ProductosSector.titulo":"Productos Sectores ",
   "ProductosSector.sector":"Sector",
+
+  "CuentaCorrienteEmpresa.titulo":"Cuentas corrientes Empresa",
+
   "Aplicaciones.titulo":"Aplicaciones",
   "Aplicaciones.identificador":"Identificador",
   "Aplicaciones.tipoMantenimiento":"Tipo Mantenimiento",
@@ -1411,7 +1415,16 @@
   "Aplicaciones.usuario2":"Usuario 2",
   "Aplicaciones.subcliente":"Subcliente",
   "Aplicaciones.sqlPlus":"SQL Plus",
-  "Aplicaciones.pc":"PC aplicación instalada"
+
+  "Aplicaciones.pc":"PC aplicación instalada",
+  "TipoRiesgo.pendienteServir":"Pendiente Servir",
+  "TipoRiesgo.pendienteFacturar":"Pendiente Facturar",
+  "TipoRiesgo.titulo":"Tipo Riesgo",
+  "TipoRiesgo.vpNoVencidos":"Vencimientos Pendiente No Vencidos",
+  "TipoRiesgo.vpVencidos":"Vencimientos Pendiente Vencidos",
+  "TipoRiesgo.vEfectosNegociados":"Vencimientos Efectos Negociados",
+  "TipoRiesgo.nifCoincidentes":"NIF Coincidentes"
+
 
 }
 

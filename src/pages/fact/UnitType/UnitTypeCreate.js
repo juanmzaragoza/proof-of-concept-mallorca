@@ -57,7 +57,7 @@ const UnitTypeCreate = (props) => {
         id: "TipoUnidad.factor",
         defaultMessage: "Factor de Conversión",
       }),
-      type: "input",
+      type: "numeric",
       key: "factorConversio",
       breakpoints: {
         xs: 12,

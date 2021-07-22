@@ -77,7 +77,6 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: md,
       },
       validationType: "object",
-      ...withRequiredValidation(),
       selector: {
         key: "categoriaToxicologicas",
         labelKey: (data) =>
@@ -175,7 +174,6 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: md,
       },
       validationType: "object",
-      ...withRequiredValidation(),
       selector: {
         key: "subvencios",
         labelKey: (data) => `${data.codi} ( ${data.nom} )`,
@@ -274,7 +272,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.presentacion.unidadEnvase",
         defaultMessage: "Unidades envase",
       }),
-      type: "input",
+      type: "numeric",
       key: "unitatsEnvas",
       breakpoints: {
         xs: 12,
@@ -303,7 +301,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.presentacion.nEtiquetas",
         defaultMessage: "Nº etiquetas",
       }),
-      type: "input",
+      type: "numeric",
       key: "nombreEtiquetes",
       breakpoints: {
         xs: 12,
@@ -316,7 +314,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.presentacion.pesoUnidad",
         defaultMessage: "Peso por unidad",
       }),
-      type: "input",
+      type: "numeric",
       key: "pesUnitat",
       breakpoints: {
         xs: 12,
@@ -329,7 +327,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.presentacion.unidadBasica",
         defaultMessage: "Unidades básicas",
       }),
-      type: "input",
+      type: "numeric",
       key: "unitatsBasiques",
       breakpoints: {
         xs: 12,
@@ -376,7 +374,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.presentacion.uniMetMinCompra",
         defaultMessage: "Unidades met. min. compra",
       }),
-      type: "input",
+      type: "numeric",
       key: "uniMetMinimesCompra",
       breakpoints: {
         xs: 12,
@@ -389,7 +387,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.presentacion.uniMetMinVenta",
         defaultMessage: "Unidades met. min. venta",
       }),
-      type: "input",
+      type: "numeric",
       key: "uniMetMinimesVenda",
       breakpoints: {
         xs: 12,
@@ -480,7 +478,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.presentacion.dimensiones.largo",
         defaultMessage: "Largo",
       }),
-      type: "input",
+      type: "numeric",
       key: "llarg",
       breakpoints: {
         xs: 12,
@@ -493,7 +491,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.presentacion.dimensiones.ancho",
         defaultMessage: "Ancho",
       }),
-      type: "input",
+      type: "numeric",
       key: "ample",
       breakpoints: {
         xs: 12,
@@ -506,7 +504,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.presentacion.dimensiones.alto",
         defaultMessage: "Alto",
       }),
-      type: "input",
+      type: "numeric",
       key: "alt",
       breakpoints: {
         xs: 12,
@@ -522,7 +520,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.presentacion.multiplos.multipleVentas",
         defaultMessage: "Múltiple ventas",
       }),
-      type: "input",
+      type: "numeric",
       key: "multipleVenda",
       breakpoints: {
         xs: 12,
@@ -535,7 +533,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.presentacion.multiplos.minimoVentas",
         defaultMessage: "Mínimo ventas",
       }),
-      type: "input",
+      type: "numeric",
       key: "minimVenda",
       breakpoints: {
         xs: 12,
@@ -548,7 +546,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.presentacion.multiplos.multipleCompras",
         defaultMessage: "Múltiple compras",
       }),
-      type: "input",
+      type: "numeric",
       key: "multipleCompra",
       breakpoints: {
         xs: 12,
@@ -561,7 +559,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.presentacion.multiplos.minimoCompras",
         defaultMessage: "Mínimo compras",
       }),
-      type: "input",
+      type: "numeric",
       key: "minimCompra",
       breakpoints: {
         xs: 12,

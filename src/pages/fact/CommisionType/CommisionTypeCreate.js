@@ -76,7 +76,7 @@ const CommisionTypeCreate = (props) => {
         id: "TipoComision.porcentaje",
         defaultMessage: "Porcentaje",
       }),
-      type: "input",
+      type: "numeric",
       key: "percentatge",
       breakpoints: {
         xs: 12,
@@ -89,7 +89,7 @@ const CommisionTypeCreate = (props) => {
         id: "TipoComision.minimo",
         defaultMessage: "Mínimo",
       }),
-      type: "input",
+      type: "numeric",
       key: "minim",
       breakpoints: {
         xs: 12,

@@ -118,7 +118,7 @@ const ProveedoresTab = ({formData, setFormData, getFormData, ...props}) => {
       },
       {
         placeHolder: DIASESPERA,
-        type: 'input',
+        type: 'numeric',
         key: 'diesEsperaEntrega',
         breakpoints: {
           xs: 12,
@@ -137,7 +137,7 @@ const ProveedoresTab = ({formData, setFormData, getFormData, ...props}) => {
       },
       {
         placeHolder: ULTIMOPRECIOCOMPRA,
-        type: 'input',
+        type: 'numeric',
         key: 'ultimPreuCompra',
         breakpoints: {
           xs: 12,
@@ -147,7 +147,7 @@ const ProveedoresTab = ({formData, setFormData, getFormData, ...props}) => {
       },
       {
         placeHolder: ULTIMOPRECOMP,
-        type: 'input',
+        type: 'numeric',
         key: 'ultimPreuComplements',
         breakpoints: {
           xs: 12,
@@ -157,7 +157,7 @@ const ProveedoresTab = ({formData, setFormData, getFormData, ...props}) => {
       },
       {
         placeHolder: ULTIMODTO,
-        type: 'input',
+        type: 'numeric',
         key: 'ultimDescompte',
         breakpoints: {
           xs: 12,
@@ -167,7 +167,7 @@ const ProveedoresTab = ({formData, setFormData, getFormData, ...props}) => {
       },
       {
         placeHolder: ULTIMODTO2,
-        type: 'input',
+        type: 'numeric',
         key: 'ultimDescomptePp',
         breakpoints: {
           xs: 12,
@@ -219,7 +219,7 @@ const ProveedoresTab = ({formData, setFormData, getFormData, ...props}) => {
       },
       {
         placeHolder: PRECIONETO,
-        type: 'input',
+        type: 'numeric',
         disabled: true,
         key: 'ultimDescompte',
         breakpoints: {

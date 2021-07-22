@@ -73,7 +73,10 @@ import InitialSituation from "./InitialSituation";
 import SectionCompany from "./SectionCompany";
 
 import ProductSector from "./ProductSector";
+
+import CompanyAccount from "./CompanyAccount";
 import Application from "./Application";
+import RiskType from "./RiskType";
 
 const component = [
   SuppliersFamily,
@@ -145,8 +148,12 @@ const component = [
   TermStore,
   InitialSituation,
   SectionCompany,
+
+  CompanyAccount,
+
   ProductSector,
   Application,
+  RiskType
 
 
 

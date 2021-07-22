@@ -88,7 +88,7 @@ const PersonalizacionTab = ({ formData, setFormData, getFormData, ...props }) =>
         id: "Articulos.personalizacion.parametrosNumericos.parametro1",
         defaultMessage: "Parámetro 1"
       }),
-      type: "input",
+      type: "numeric",
       key: "parametreNumeric1",
       breakpoints: {
         xs: 12,
@@ -101,7 +101,7 @@ const PersonalizacionTab = ({ formData, setFormData, getFormData, ...props }) =>
         id: "Articulos.personalizacion.parametrosNumericos.parametro2",
         defaultMessage: "Parámetro 2",
       }),
-      type: "input",
+      type: "numeric",
       key: "parametreNumeric2",
       breakpoints: {
         xs: 12,
@@ -114,7 +114,7 @@ const PersonalizacionTab = ({ formData, setFormData, getFormData, ...props }) =>
         id: "Articulos.personalizacion.parametrosNumericos.parametro3",
         defaultMessage: "Parámetro 3",
       }),
-      type: "input",
+      type: "numeric",
       key: "parametreNumeric3",
       breakpoints: {
         xs: 12,
@@ -127,7 +127,7 @@ const PersonalizacionTab = ({ formData, setFormData, getFormData, ...props }) =>
         id: "Articulos.personalizacion.parametrosNumericos.parametro4",
         defaultMessage: "Parámetro 4",
       }),
-      type: "input",
+      type: "numeric",
       key: "parametreNumeric4",
       breakpoints: {
         xs: 12,
@@ -140,7 +140,7 @@ const PersonalizacionTab = ({ formData, setFormData, getFormData, ...props }) =>
         id: "Articulos.personalizacion.parametrosNumericos.parametro5",
         defaultMessage: "Parámetro 5",
       }),
-      type: "input",
+      type: "numeric",
       key: "parametreNumeric5",
       breakpoints: {
         xs: 12,

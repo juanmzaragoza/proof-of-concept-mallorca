@@ -97,5 +97,7 @@ export const SECTION_COMPANY_FACT_URL = '/fact/secciones-empresa'
 
 
 export const PRODUCT_SECTOR_FACT_URL = '/fact/productos-sectores';
-export const APP_FACT_URL = '/fact/aplicaciones';
+export const COMPANY_ACCOUNT_FACT_URL = '/fact/cuentas-corrientes-empresas';
 
+export const APP_FACT_URL = '/fact/aplicaciones';
+export const RISK_TYPE_FACT_URL = '/fact/tipo-riesgo';

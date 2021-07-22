@@ -118,7 +118,7 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "Clientes.porcentaje",
           defaultMessage: "Porcentaje ",
         }),
-        type: "input",
+        type: "numeric",
         key: "percentatge",
         noEditable: true,
         breakpoints: {
