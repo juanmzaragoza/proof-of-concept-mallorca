@@ -98,7 +98,7 @@ const SalesSeriesAccountsTab = ({ formData, setFormData, getFormData, ...props }
           id: "SerieVenta.ultimoAlbaran",
           defaultMessage: "Último albarán",
         }),
-        type: "input",
+        type: "numeric",
         required: true,
         key: "darrerAlbara",
         breakpoints: {
@@ -112,7 +112,7 @@ const SalesSeriesAccountsTab = ({ formData, setFormData, getFormData, ...props }
           id: "SerieVenta.ultimaFactura",
           defaultMessage: "Última factura",
         }),
-        type: "input",
+        type: "numeric",
         required: true,
         key: "darreraFactura",
         breakpoints: {
@@ -126,7 +126,7 @@ const SalesSeriesAccountsTab = ({ formData, setFormData, getFormData, ...props }
           id: "SerieVenta.ultimoPresupuesto",
           defaultMessage: "Último presupuesto",
         }),
-        type: "input",
+        type: "numeric",
         required: true,
         key: "darrerPressupost",
         breakpoints: {
@@ -140,7 +140,7 @@ const SalesSeriesAccountsTab = ({ formData, setFormData, getFormData, ...props }
           id: "SerieVenta.ultimaFacturaProforma",
           defaultMessage: "Última factura proforma",
         }),
-        type: "input",
+        type: "numeric",
         required: true,
         key: "darreraFacturaProforma",
         breakpoints: {
@@ -154,7 +154,7 @@ const SalesSeriesAccountsTab = ({ formData, setFormData, getFormData, ...props }
           id: "SerieVenta.ultimoAlbaranProforma",
           defaultMessage: "Último albarán proforma",
         }),
-        type: "input",
+        type: "numeric",
         required: true,
         key: "darrerAlbaraProforma",
         breakpoints: {
@@ -168,7 +168,7 @@ const SalesSeriesAccountsTab = ({ formData, setFormData, getFormData, ...props }
           id: "SerieVenta.ultimaFacturaAñoAnterior",
           defaultMessage: "Última factura año anterior",
         }),
-        type: "input",
+        type: "numeric",
         required: true,
         key: "darreraFacturaAnyAnterior",
         breakpoints: {
