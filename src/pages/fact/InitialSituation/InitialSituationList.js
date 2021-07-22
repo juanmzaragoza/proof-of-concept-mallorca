@@ -42,7 +42,7 @@ const InitialSituationList = ({ actions, ...props }) => {
           defaultMessage: "Artículo",
         }),
         getCellValue: (row) =>
-          row.article.description ? row.article?.description : "",
+          row.article?.description ? row.article?.description : "",
       },
 
       {
@@ -68,7 +68,7 @@ const InitialSituationList = ({ actions, ...props }) => {
           defaultMessage: "Divisas",
         }),
         getCellValue: (row) =>
-          row.divisa.description ? row.divisa?.description : "",
+          row.divisa?.description ? row.divisa?.description : "",
       },
 
       {
@@ -78,7 +78,7 @@ const InitialSituationList = ({ actions, ...props }) => {
           defaultMessage: "Almacén Periodo",
         }),
         getCellValue: (row) =>
-          row.magatzemPeriode.description
+          row.magatzemPeriode?.description
             ? row.magatzemPeriode?.description
             : "",
 

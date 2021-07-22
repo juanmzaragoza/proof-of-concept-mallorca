@@ -6,8 +6,6 @@ import CreateUpdateForm from "../../../modules/ReactGrid/CreateUpdateForm";
 import { withValidations } from "modules/wrappers";
 import * as API from "redux/api";
 
-import { VALORACION_INVENTARIO_TRABAJO_SELECTOR_VALUES } from "../../../constants/selectors";
-
 const SectionCompanyCreate = (props) => {
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
@@ -77,22 +75,31 @@ const SectionCompanyCreate = (props) => {
   const createConfiguration = [
     {
       placeHolder: props.intl.formatMessage({
-        id: "SeccionEmpresa.familiaArticulo",
-        defaultMessage: "Familia Artículo",
+        id: "Clientes.empresas",
+        defaultMessage: "Empresas",
       }),
       type: "LOV",
-      key: "articleFamilia",
+      key: "empresa",
+      noEditable: true,
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 6,
       },
       selector: {
-        key: "articleFamilias",
-        labelKey: formatCodeAndDescription,
-        sort: "codi",
+        key: "empresas",
+        labelKey: (data) => `${data.nomFiscal} (${data.codi})`,
+        sort: "nomFiscal",
         cannotCreate: true,
-        advancedSearchColumns: aSCodeAndDescription,
+        advancedSearchColumns: [
+          { title: CODE, name: "codi" },
+          { title: NOM, name: "nomFiscal" },
+        ],
+        relatedWith: {
+          name: "seccio",
+          filterBy: "empresa.id",
+          keyValue: "id",
+        },
       },
       validationType: "object",
       ...withRequiredValidation(),
@@ -107,7 +114,7 @@ const SectionCompanyCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 6,
       },
       selector: {
         key: "seccios",
@@ -115,6 +122,28 @@ const SectionCompanyCreate = (props) => {
         sort: "codi",
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndName,
+      },
+      validationType: "object",
+      ...withRequiredValidation(),
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "SeccionEmpresa.familiaArticulo",
+        defaultMessage: "Familia Artículo",
+      }),
+      type: "LOV",
+      key: "articleFamilia",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 6,
+      },
+      selector: {
+        key: "articleFamilias",
+        labelKey: formatCodeAndDescription,
+        sort: "codi",
+        cannotCreate: true,
+        advancedSearchColumns: aSCodeAndDescription,
       },
       validationType: "object",
       ...withRequiredValidation(),
@@ -129,7 +158,7 @@ const SectionCompanyCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 6,
       },
       validationType: "string",
       validations: [...props.commonValidations.requiredValidation()],

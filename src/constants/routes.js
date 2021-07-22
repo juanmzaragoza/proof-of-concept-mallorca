@@ -79,6 +79,9 @@ export const TIPO_VENCIMIENTO_FACT_URL = '/fact/tipo-vencimiento';
 
 export const SALES_SERIES_FACT_URL = '/fact/series-ventas';
 export const DOCUMENTO_PAGO_COBRO_FACT_URL = '/fact/documentos-pago-cobro';
+
+export const PRODUCT_FACT_URL ='/fact/productos';
+
 export const SECTOR_FACT_URL = '/fact/sectores';
 export const VEHICLE_FACT_URL = '/fact/vehiculos';
 export const CARRIER_FACT_URL = '/fact/transportistas';
@@ -89,4 +92,10 @@ export const SUBCLIENTS_FACT_URL = '/fact/subclientes';
 export const DEPART_FACT_URL = '/fact/departamentos';
 export const PERIOD_STORE_FACT_URL = '/fact/periodos-almacen';
 export const INITIAL_SITUATION_FACT_URL ='/fact/situaciones-inicales';
+
 export const SECTION_COMPANY_FACT_URL = '/fact/secciones-empresa'
+
+
+export const PRODUCT_SECTOR_FACT_URL = '/fact/productos-sectores';
+export const APP_FACT_URL = '/fact/aplicaciones';
+
