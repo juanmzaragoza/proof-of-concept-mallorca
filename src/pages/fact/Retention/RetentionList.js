@@ -22,7 +22,7 @@ const RetentionList = ({ actions, ...props }) => {
           id: "Retenciones.titulo",
           defaultMessage: "Retenciones",
         }),
-        href: "/retenciones",
+        href: "/fact/retenciones",
       },
     ]);
   }, []);

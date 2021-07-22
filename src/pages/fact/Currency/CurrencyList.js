@@ -21,7 +21,7 @@ const CurrencyList = ({ actions, ...props }) => {
           id: "Divisa.titulo",
           defaultMessage: "Divisa",
         }),
-        href: "/divisa",
+        href: "/fact/divisa",
       },
     ]);
   }, []);

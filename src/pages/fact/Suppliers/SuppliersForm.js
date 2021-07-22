@@ -64,8 +64,8 @@ const SuppliersForm = React.memo(
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [GENERAL_TAB_INDEX]: false,
       [CONTACT_TAB_INDEX]: false,
-      [BILLING_TAB_INDEX]: false,
-      [ACCOUNTING_TAB_INDEX]: false,
+      [BILLING_TAB_INDEX]: true,
+      [ACCOUNTING_TAB_INDEX]: true,
       [PERSONAL_TAB_INDEX]: false,
       [DOCUMENTS_TAB_INDEX]: false,
       [PRICE_TAB_INDEX]: false,
@@ -166,6 +166,7 @@ const SuppliersForm = React.memo(
       {
         ...getTranslations("Proveedores.tabs.contabilidad", "Contabilidad"),
         key: ACCOUNTING_TAB_INDEX,
+        error: tabHasError(ACCOUNTING_TAB_INDEX),
         component: (
           <AccountingTab
             setIsValid={(value) =>
@@ -188,6 +189,7 @@ const SuppliersForm = React.memo(
       {
         ...getTranslations("Proveedores.tabs.facturacion", "Facturación"),
         key: BILLING_TAB_INDEX,
+        error: tabHasError(BILLING_TAB_INDEX),
         component: (
           <BillingTab
             setIsValid={(value) =>
@@ -213,6 +215,7 @@ const SuppliersForm = React.memo(
           "Personalización"
         ),
         key: PERSONAL_TAB_INDEX,
+        error: tabHasError(PERSONAL_TAB_INDEX),
         component: (
           <PersonalizationTab
             setIsValid={(value) =>
@@ -241,6 +244,7 @@ const SuppliersForm = React.memo(
           />
         ),
         key: DOCUMENTS_TAB_INDEX,
+        error: tabHasError(DOCUMENTS_TAB_INDEX),
         component: (
           <DocumentsTab
             setIsValid={(value) =>
@@ -263,6 +267,7 @@ const SuppliersForm = React.memo(
       {
         ...getTranslations("Proveedores.tabs.precios_coste", "Precios Coste"),
         key: PRICE_TAB_INDEX,
+        error: tabHasError(PRICE_TAB_INDEX),
         component: (
           <PricesTab
             setIsValid={(value) =>
@@ -285,6 +290,7 @@ const SuppliersForm = React.memo(
       {
         ...getTranslations("Proveedores.tabs.series", "Series"),
         key: SERIE_TAB_INDEX,
+        error: tabHasError(SERIE_TAB_INDEX),
         component: (
           <SerieTab
             setIsValid={(value) =>
@@ -327,7 +333,7 @@ const SuppliersForm = React.memo(
               id: "Proveedores.titulo",
               defaultMessage: "Proveedores",
             }),
-            href: "/proveedores",
+            href: "/fact/proveedores",
           },
           {
             title: props.intl.formatMessage({
@@ -362,9 +368,9 @@ const SuppliersForm = React.memo(
               id: "Proveedores.titulo",
               defaultMessage: "Proveedores",
             }),
-            href: "/proveedores",
+            href: "/fact/proveedores",
           },
-          { title: nom, href: "/proveedores" },
+          { title: nom, href: "/fact/proveedores" },
           { title: nameSelectedTab },
         ]);
       }

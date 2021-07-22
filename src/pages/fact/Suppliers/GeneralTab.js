@@ -585,28 +585,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndDescription,
       },
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.regiva",
-        defaultMessage: "Reg. IVA",
-      }),
-      type: "LOV",
-      key: "regimIva",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 4,
-      },
-      selector: {
-        key: "regimIvas",
-        labelKey: formatCodeAndDescription,
-        sort: "descripcio",
-        creationComponents: codeAndDescription(),
-        advancedSearchColumns: aSCodeAndDescription,
-      },
-      validationType: "object",
-      ...withRequiredValidation(),
-    },
+
     {
       placeHolder: OBS,
       type: "observations",
@@ -731,18 +710,35 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       proveidor: { id: supplierId },
     },
     columns: [
-      { name: 'codi', title: CODE },
-      { name: 'domicili', title: DOMICILI },
-      { name: 'telefon', title: TELEFON },
-      { name: 'fax', title: FAX },
-      { name: 'email', title: EMAIL },
-      { name: 'contacte', title: CONTACTE },
-      { name: 'defecte', title: DEFECTE,
-        getCellValue: row => (row.defecte && row.defecte === true)?
-          <Chip label={props.intl.formatMessage({id: "Comun.SI", defaultMessage: "SI"})} variant="outlined" />
-          :
-          <Chip label={props.intl.formatMessage({id: "Comun.NO", defaultMessage: "NO"})} variant="outlined" />},
-      { name: 'observacions', title: OBS, hidden: true },
+      { name: "codi", title: CODE },
+      { name: "domicili", title: DOMICILI },
+      { name: "telefon", title: TELEFON },
+      { name: "fax", title: FAX },
+      { name: "email", title: EMAIL },
+      { name: "contacte", title: CONTACTE },
+      {
+        name: "defecte",
+        title: DEFECTE,
+        getCellValue: (row) =>
+          row.defecte && row.defecte === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          ),
+      },
+      { name: "observacions", title: OBS, hidden: true },
     ],
     formComponents: [
       code(),

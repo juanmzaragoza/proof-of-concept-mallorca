@@ -22,7 +22,7 @@ const BillingTypeList = ({ actions, ...props }) => {
           id: "tiposFacturacion.titulo",
           defaultMessage: "Tipos de Facturación",
         }),
-        href: "/tipo-facturacion",
+        href: "/fact/tipo-facturacion",
       },
     ]);
   }, []);

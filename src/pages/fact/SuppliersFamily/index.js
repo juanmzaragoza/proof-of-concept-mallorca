@@ -7,22 +7,22 @@ import {People} from "@material-ui/icons";
 import SuppliersFamilyList from "./SuppliersFamilyList";
 import SuppliersFamilyCreate from "./SuppliersFamilyCreate";
 import withHeaders from "../../../modules/wrappers/withHeaders";
+import {SUPPLIERS_FAMILY_FACT_URL} from "constants/routes";
 
-const URL = '/fact/familia-proveedores';
 
 const SuppliersFamily = () => (
   <Paper style={{ position: 'relative' }}>
     <Switch>
-      <Route exact path={`${URL}`} component={SuppliersFamilyList}></Route>
-      <Route path={`${URL}/create`} component={SuppliersFamilyCreate}></Route>
-      <Route path={`${URL}/:id`} component={SuppliersFamilyCreate}></Route>
+      <Route exact path={`${SUPPLIERS_FAMILY_FACT_URL}`} component={SuppliersFamilyList}></Route>
+      <Route path={`${SUPPLIERS_FAMILY_FACT_URL}/create`} component={SuppliersFamilyCreate}></Route>
+      <Route path={`${SUPPLIERS_FAMILY_FACT_URL}/:id`} component={SuppliersFamilyCreate}></Route>
     </Switch>
   </Paper>
 );
 
 const component = {
   routeProps: {
-    path: `${URL}`,
+    path: `${SUPPLIERS_FAMILY_FACT_URL}`,
     component: withHeaders(SuppliersFamily)
   },
   name: 'FAC_FAMPRO',

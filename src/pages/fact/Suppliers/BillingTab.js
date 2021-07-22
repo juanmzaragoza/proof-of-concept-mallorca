@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 import { compose } from "redux";
 import OutlinedContainer from "../../../modules/shared/OutlinedContainer";
@@ -15,7 +15,7 @@ const BILLING_DATA_SECTION_INDEX = 0;
 const ORDERS_SECTION_TAB_INDEX = 1;
 const VARIOUS_SECTION_TAB_INDEX = 2;
 
-const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
+const BillingTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: { [BILLING_DATA_SECTION_INDEX]: false },
     setIsValid: props.setIsValid,
@@ -195,6 +195,8 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
         ],
         advancedSearchColumns: aSCodeAndDescription,
       },
+      validationType: "object",
+      ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -240,6 +242,8 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
         ],
         advancedSearchColumns: aSCodeAndDescription,
       },
+      validationType: "object",
+      ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -339,7 +343,6 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "rappel",
-      required: true,
       breakpoints: {
         xs: 12,
         md: 4,
@@ -425,7 +428,6 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "transportista",
-      required: true,
       breakpoints: {
         xs: 12,
         md: 4,
@@ -731,4 +733,4 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
   );
 };
 
-export default compose(injectIntl, withValidations)(ContactTab);
+export default compose(injectIntl, withValidations)(BillingTab);

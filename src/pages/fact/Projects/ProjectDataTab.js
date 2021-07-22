@@ -392,7 +392,7 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "magatzem",
-      required:true,
+      required: true,
       breakpoints: {
         xs: 12,
         md: 3,
@@ -405,7 +405,7 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         cannotCreate: true,
       },
       validationType: "object",
-      validations:[...props.commonValidations.requiredValidation()]
+      validations: [...props.commonValidations.requiredValidation()],
     },
     {
       placeHolder: DESCRIPCIO,
@@ -647,7 +647,7 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
     ...codiPostal(4),
   ];
 
-  console.log(getFormData('client'));
+  console.log(getFormData("client"));
   const customerData = [
     {
       placeHolder: props.intl.formatMessage({
@@ -669,19 +669,11 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
           { title: NOM, name: "nomComercial" },
         ],
         cannotCreate: true,
-        relatedWith: 
-          {
-            name: "clientAdresa",
-            filterBy: "client.id",
-            keyValue: "id",
-          },
-        relatedWith: 
-          {
-            name: "subClient",
-            filterBy: "client.id",
-            keyValue: "id",
-          },
-        
+        relatedWith: {
+          name: "subClient",
+          filterBy: "client.id",
+          keyValue: "id",
+        },
       },
     },
     {
@@ -701,6 +693,11 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         sort: "nom",
         advancedSearchColumns: aSCodeAndName,
         cannotCreate: true,
+        relatedWith: {
+          name: "clientAdresa",
+          filterBy: "client.id",
+          keyValue: "client.id",
+        },
       },
     },
     {
@@ -716,7 +713,7 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       selector: {
         key: "clientAdresas",
-        labelKey: (data) => `${data.descCliAdreComCodi} (${data.codi})`,
+        labelKey: (data) => `${data.descCliAdreComCodi}`,
         sort: "codi",
         advancedSearchColumns: [
           { title: CODE, name: "codi" },

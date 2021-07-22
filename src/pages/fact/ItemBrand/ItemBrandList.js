@@ -22,7 +22,7 @@ const ItemBrandList = ({ actions, ...props }) => {
           id: "ArticulosMarca.titulo",
           defaultMessage: "Marca",
         }),
-        href: "/articulos-marca",
+        href: "/fact/articulos-marca",
       },
     ]);
   }, []);

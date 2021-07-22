@@ -22,7 +22,7 @@ const DiscountRatesList = ({ actions, ...props }) => {
           id: "TarifaDescuento.titulo",
           defaultMessage: "Tarifas de Descuento",
         }),
-        href: "/tarifas-descuento",
+        href: "/fact/tarifas-descuento",
       },
     ]);
   }, []);

@@ -273,25 +273,25 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "object",
       validations: [...props.commonValidations.requiredValidation()],
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proyectos.subcliente",
-        defaultMessage: "Subcliente",
-      }),
-      type: "LOV",
-      key: "subClient",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      selector: {
-        key: "subClients",
-        labelKey: formatCodeAndName,
-        sort: "nom",
-        advancedSearchColumns: aSCodeAndName,
-        cannotCreate: true,
-      },
-    },
+    // {
+    //   placeHolder: props.intl.formatMessage({
+    //     id: "Proyectos.subcliente",
+    //     defaultMessage: "Subcliente",
+    //   }),
+    //   type: "LOV",
+    //   key: "subClient",
+    //   breakpoints: {
+    //     xs: 12,
+    //     md: 3,
+    //   },
+    //   selector: {
+    //     key: "subClients",
+    //     labelKey: formatCodeAndName,
+    //     sort: "nom",
+    //     advancedSearchColumns: aSCodeAndName,
+    //     cannotCreate: true,
+    //   },
+    // },
     
 
     {

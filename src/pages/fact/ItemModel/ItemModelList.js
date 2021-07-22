@@ -22,7 +22,7 @@ const ItemModelList = ({ actions, ...props }) => {
           id: "ArticulosModelo.titulo",
           defaultMessage: "Modelo",
         }),
-        href: "/articulos-modelo",
+        href: "/fact/articulos-modelo",
       },
     ]);
   }, []);

@@ -22,7 +22,7 @@ const SubvencionesList = ({ actions, ...props }) => {
           id: "Subvenciones.titulo",
           defaultMessage: "Subvenciones",
         }),
-        href: "/subvenciones",
+        href: "/fact/subvenciones",
       },
     ]);
   }, []);

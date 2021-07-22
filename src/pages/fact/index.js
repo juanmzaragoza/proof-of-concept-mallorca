@@ -58,6 +58,17 @@ import AddressType from "./AddressType";
 import CustomerAdress from "./CustomerAdress";
 import Subvenciones from "./Subvenciones";
 
+import SubClients from "./SubClients";
+
+import CustomerDepartments from "./CustomerDepartments";
+import Departaments from "./Departaments";
+
+import CustomerApp from "./CustomerApp";
+import TermStore from "./TermStore";
+import InitialSituation from "./InitialSituation";
+import ProductSector from "./ProductSector";
+
+
 const component = [
   SuppliersFamily,
   Suppliers,
@@ -115,8 +126,15 @@ const component = [
   AddressType,
   CustomerAdress,
   Subvenciones,
+  SubClients,
 
 
+  CustomerDepartments,
+  Departaments,
+  CustomerApp,
+  TermStore,
+  InitialSituation,
+  ProductSector
 ];
   
 

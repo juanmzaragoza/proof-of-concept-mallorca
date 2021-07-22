@@ -100,7 +100,7 @@ const DocumentFooterForm = React.memo(({ actions, allFormData, getFormData, subm
       services.getById(id);
     } else{
       actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "PieDocumento.titulo", defaultMessage: "Pies Documentos"}), href:"/pieDocumentos"},
+        {title: props.intl.formatMessage({id: "PieDocumento.titulo", defaultMessage: "Pies Documentos"}), href:"/fact/pies-documento"},
         {title: props.intl.formatMessage({id: "Comun.nuevo", defaultMessage: "Nuevo"})}
       ]);
     }
@@ -122,8 +122,8 @@ const DocumentFooterForm = React.memo(({ actions, allFormData, getFormData, subm
         :
         `${props.intl.formatMessage({id: "Comun.cargando", defaultMessage: "Cargando"})}...`;
       actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "PieDocumento.titulo", defaultMessage: "Pies Documentos"}), href:"/pieDocumentos"},
-        {title: desc, href:"/pieDocumentos"},
+        {title: props.intl.formatMessage({id: "PieDocumento.titulo", defaultMessage: "Pies Documentos"}), href:"/fact/pies-documento"},
+        {title: desc, href:"/fact/pies-documento"},
         {title: nameSelectedTab}
       ]);
     }

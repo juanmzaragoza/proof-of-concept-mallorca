@@ -841,6 +841,71 @@ const withConstants = (PassedComponent) => {
         path: "FAC_SUBVEN", // or has path or has children but not both
         icon: <LocalMall />,
       },
+      {
+        key: "FAC_SUBCLI", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Subclientes.titulo",
+          defaultMessage: "SubClientes",
+        }),
+        path: "FAC_SUBCLI", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_DEPCLI", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "DepartamentosCliente.titulo",
+          defaultMessage: "Departamentos Cliente",
+        }),
+        path: "FAC_DEPCLI", // or has path or has children but not both
+
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_DEPART", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "Departamentos.titulo",
+          defaultMessage: "Departamentos",
+        }),
+        path: "FAC_DEPART", // or has path or has children but not both
+
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_APLCLI", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "AplicacionesCliente.titulo",
+          defaultMessage: "Aplicaciones Cliente",
+        }),
+        path: "FAC_APLCLI", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_MAGPER", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "AlmacenPeriodo.titulo",
+          defaultMessage: "Periodo Almacén",
+        }),
+        path: "FAC_MAGPER", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_SITINI", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "SituacionesIniciales.titulo",
+          defaultMessage: "Situaciones Iniciales",
+        }),
+        path: "FAC_SITINI", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_APS", // not mandatory for routes with children
+        title: props.intl.formatMessage({
+          id: "ProductosSector.titulo",
+          defaultMessage: "Sectores Producto",
+        }),
+        path: "FAC_APS", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
     ];
 
     return (

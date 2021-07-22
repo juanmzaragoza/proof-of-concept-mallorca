@@ -20,7 +20,7 @@ const LanguageList = ({ actions, ...props }) => {
       {title: props.intl.formatMessage({
           id: "Idiomas.titol",
           defaultMessage: "Idiomes"
-        }), href:"/idiomes"}
+        }), href:"/fact/idiomes"}
     ]);
   },[]);
 

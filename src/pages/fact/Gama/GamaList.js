@@ -22,7 +22,7 @@ const GamaList = ({ actions, ...props }) => {
           id: "ArticulosGama.titulo",
           defaultMessage: "Gama",
         }),
-        href: "/articlesGama",
+        href: "/fact/articulos-gama",
       },
     ]);
   }, []);

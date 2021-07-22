@@ -21,7 +21,7 @@ const CountryNifList = ({ actions, ...props }) => {
           id: "PaisNif.titulo",
           defaultMessage: "País NIF",
         }),
-        href: "/paises-nif",
+        href: "/fact/paises-nif",
       },
     ]);
   }, []);
