@@ -77,7 +77,6 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: md,
       },
       validationType: "object",
-      ...withRequiredValidation(),
       selector: {
         key: "categoriaToxicologicas",
         labelKey: (data) =>
@@ -175,7 +174,6 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: md,
       },
       validationType: "object",
-      ...withRequiredValidation(),
       selector: {
         key: "subvencios",
         labelKey: (data) => `${data.codi} ( ${data.nom} )`,

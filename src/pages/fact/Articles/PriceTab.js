@@ -314,8 +314,8 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Articulos.precio.pvp",
-        defaultMessage: "P.V.P"
+        id: "Articulos.precio.precioSinIva",
+        defaultMessage: "Precio sin IVA"
       }),
       type: 'input',
       key: 'pvpFact',
