@@ -113,7 +113,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     type: "input",
     key: "codi",
     placeHolder: CODE,
-    // required: true,
+    required: true,
     noEditable: true,
     breakpoints: {
       xs: 12,
@@ -127,7 +127,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       type: "input",
       key: "nom",
       placeHolder: NOM,
-      // required: true,
+      required: true,
       breakpoints: {
         xs: 12,
         md: mdName,
@@ -141,7 +141,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       type: "input",
       key: "descripcio",
       placeHolder: DESCRIPCIO,
-      // required: true,
+      required: true,
       breakpoints: {
         xs: 12,
         md: mdDes,
@@ -157,7 +157,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "codiPostal",
-      // required: true,
+      required: true,
       breakpoints: {
         xs: 12,
         md: md,
@@ -225,7 +225,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
               id: "CodigoPostal.municipio",
               defaultMessage: "Municipio",
             }),
-            // required: true,
+            required: true,
             breakpoints: {
               xs: 12,
               md: 6,
@@ -238,7 +238,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
               id: "CodigoPostal.poblacion",
               defaultMessage: "Población",
             }),
-            // required: true,
+            required: true,
             breakpoints: {
               xs: 12,
               md: 6,
@@ -277,7 +277,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       placeHolder: CODE,
       type: "input",
       key: "codi",
-      // required: true,
+      required: true,
       noEditable: true,
       breakpoints: {
         xs: 12,
@@ -300,7 +300,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       key: "nomComercial",
-      // required: true,
+      required: true,
       breakpoints: {
         xs: 12,
         md: 4,
@@ -317,7 +317,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       key: "nomFiscal",
-      // required: true,
+      required: true,
       breakpoints: {
         xs: 12,
         md: 4,
@@ -429,7 +429,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       key: "nif",
-      // required: true,
+      required: true,
       breakpoints: {
         xs: 12,
         md: 2,
@@ -459,7 +459,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "familiaProveidor",
-      // required: true,
+      required: true,
       breakpoints: {
         xs: 12,
         md: 4,
@@ -498,7 +498,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
             }),
             type: "LOV",
             key: "horari",
-            // required: true,
+            required: true,
             breakpoints: {
               xs: 12,
               md: 4,
@@ -518,7 +518,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
               id: "Comercial.pin",
               defaultMessage: "Pin",
             }),
-            // required: true,
+            required: true,
             breakpoints: {
               xs: 12,
               md: 4,
@@ -531,7 +531,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
               id: "Comercial.ptenmn",
               defaultMessage: "Ptenmn",
             }),
-            // required: true,
+            required: true,
             breakpoints: {
               xs: 12,
               md: 4,
@@ -759,7 +759,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 6,
         },
-        // required: true,
+        required: true,
         validationType: "string",
         ...withRequiredValidation([
           ...props.stringValidations.minMaxValidation(1, 30),
@@ -782,7 +782,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 6,
         },
-        // required: true,
+        required: true,
         validationType: "string",
         ...withRequiredValidation(),
       },
@@ -868,7 +868,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         type: "LOV",
         key: "tipusProveidorClient",
-        // required: true,
+        required: true,
         noEditable: true,
         breakpoints: {
           xs: 12,
@@ -926,7 +926,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         type: "LOV",
         key: "empresa",
         noEditable: true,
-        // required: true,
+        required: true,
         breakpoints: {
           xs: 12,
           md: 4,
@@ -949,7 +949,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         type: "LOV",
         key: "caixa",
-        // required: true,
+        required: true,
         breakpoints: {
           xs: 12,
           md: 4,
