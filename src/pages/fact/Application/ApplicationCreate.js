@@ -20,19 +20,7 @@ const ApplicationCreate = (props) => {
   });
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
 
-  const codeAndName = (mdCode = 6, mdName = 6) => [
-    code(mdCode),
-    {
-      type: "input",
-      key: "nom",
-      placeHolder: NOM,
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdName,
-      },
-    },
-  ];
+
 
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
@@ -57,15 +45,13 @@ const ApplicationCreate = (props) => {
       }),
       type: "input",
       key: "referencia",
-      required: true,
       breakpoints: {
         xs: 12,
         md: 2,
       },
-
+      disabled:true,
       validationType: "string",
       validations: [
-        ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(0, 3),
       ],
     },
@@ -84,7 +70,7 @@ const ApplicationCreate = (props) => {
       validationType: "number",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(0, 9),
+        ...props.stringValidations.minMaxValidation(0, 3),
       ],
     },
     {

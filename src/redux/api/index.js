@@ -232,6 +232,7 @@ export const seccio = `api/rrhh/seccions`;
 
 
 export const aplicacions = `api/fact/aplicacions`;
+export const parametres = `api/fact/parameters`;
 
 
 

@@ -1423,7 +1423,16 @@
   "TipoRiesgo.vpNoVencidos":"Vencimientos Pendiente No Vencidos",
   "TipoRiesgo.vpVencidos":"Vencimientos Pendiente Vencidos",
   "TipoRiesgo.vEfectosNegociados":"Vencimientos Efectos Negociados",
-  "TipoRiesgo.nifCoincidentes":"NIF Coincidentes"
+  "TipoRiesgo.nifCoincidentes":"NIF Coincidentes",
+
+
+  "Clientes.Documentos.reparaciones" :"Reparaciones",
+  "Organizacion.gerente":"Gerente",
+  "Organizacion.contacte":"Contacto",
+  "Organizacion.email":"Email",
+  "Parametros.valor":"Valor",
+  "Parametros.titulo":"Parámetros",
+  "SeccionesEmpresa.seccion":"Sección"
 
 
 }
