@@ -192,13 +192,13 @@ export const TIPO_ENVIO_FACT_SELECTOR_VALUES = [
 export const TIPO_RECIBOS_SELECTOR_VALUES = [
   {
     value: "NO",
-    labelId: "Selector.no",
+    labelId: "Selector.sinRecibos",
     label: "No",
   },
   {
     value: "PAPER",
-    labelId: "Selector.paper",
-    label: "Papel",
+    labelId: "Selector.formatoPapel",
+    label: "Formato Papel",
   },
   {
     value: "DISQUET",
@@ -684,8 +684,8 @@ export const TIPO_TARIFA_SELECTOR_VALUES = [
     label: "Tarifa general sobre PVP",
   },
   {
-    value: "tarifaParticularSobreCoste",
-    labelId: "Selector.tarifaGeneralSobrePvp",
+    value: "TARIFA_PARTICULAR_SOBRE_COST",
+    labelId: "Selector.tarifaParticularSobreCoste",
     label: "Tarifa particular sobre coste",
   },
   {
@@ -737,7 +737,6 @@ export const VALORACION_INVENTARIO_TRABAJO_SELECTOR_VALUES = [
   }
 ];
 
-
 export const FORMA_PAGO_FACT_SELECTOR_VALUES =[
   {
     value: "PLAZO",
@@ -768,5 +767,236 @@ export const TIPO_RETENCION3_SELECTOR_VALUES = [
     value: "ANTES_BASE",
     labelId: "Selector.antesBaseImp",
     label: "Antes de base imponible",
+  },
+];
+
+export const RAPPEL_SELECTOR_VALUES = [
+  {
+    value: "NO",
+    labelId: "Articulos.precio.select.no",
+    label: "No",
+  },
+  {
+    value: "ALBARA_TIPUS_0",
+    labelId: "Articulos.precio.select.albaranTipo0",
+    label: "Albaran tipo 0",
+  },
+  {
+    value: "ALBARA_TIPUS_1",
+    labelId: "Articulos.precio.select.albaranTipo1",
+    label: "Albaran tipo 1",
+  },
+  {
+    value: "ALBARA_TIPUS_0_Y_1",
+    labelId: "Articulos.precio.select.albaranTipo0Y1",
+    label: "Albaran tipo 0 y 1",
+  },
+];
+
+export const TIPO_RAPPEL_SELECTOR_VALUES = [
+  {
+    value: "PER_UNITATS",
+    labelId: "Articulos.precio.select.porUnidades",
+    label: "Por unidades",
+  },
+  {
+    value: "PER_IMPORTS",
+    labelId: "Articulos.precio.select.porImportes",
+    label: "Por importes",
+  },
+  {
+    value: "PER_MARGE",
+    labelId: "Articulos.precio.select.porMargen",
+    label: "Por margen",
+  }
+];
+
+export const CLASIFICACION_SELECTOR_VALUES = [
+  {
+    value: "VIVAS",
+    labelId: "Articulos.stock.descuentos.select.vivas",
+    label: "Vivas",
+  },
+  {
+    value: "DORMIDAS",
+    labelId: "Articulos.stock.descuentos.select.dormidas",
+    label: "Dormidas",
+  },
+  {
+    value: "OBSOLETAS",
+    labelId: "Articulos.stock.descuentos.select.obsoletas",
+    label: "Obsoletas",
+  },
+  {
+    value: "MUERTAS",
+    labelId: "Articulos.stock.descuentos.select.muertas",
+    label: "Muertas",
+  }
+];
+
+export const DIMENSION_SELECTOR_VALUES = [
+  {
+    value: "NO_TE_DIMENSIONS",
+    labelId: "Articulos.presentacion.dimensiones.select.noDimensiones",
+    label: "No tiene dimensiones",
+  },
+  {
+    value: "LLARG",
+    labelId: "Articulos.presentacion.dimensiones.select.largo",
+    label: "Largo",
+  },
+  {
+    value: "LLARG_X_AMPLE",
+    labelId: "Articulos.presentacion.dimensiones.select.largoXAncho",
+    label: "Largo x ancho",
+  },
+  {
+    value: "LLARG_X_AMPLE_X_ALT",
+    labelId: "Articulos.presentacion.dimensiones.select.largoXAnchoXAlto",
+    label: "Largo x ancho x alto",
+  }
+];
+
+export const APP_PROYECTOS_SELECTOR_VALUES = [
+  {
+    value: "APL0",
+    labelId: "Selector.aplicacion1",
+    label: "Aplicación 1",
+  },
+  {
+    value: "APL1",
+    labelId: "Selector.aplicacion2",
+    label: "Aplicación 2",
+  },
+  {
+    value: "APL2",
+    labelId: "Selector.aplicacion3",
+    label: "Aplicación 3",
+  },
+  {
+    value: "APL3",
+    labelId: "Selector.aplicacion4",
+    label: "Aplicación Clientes",
+  },
+  {
+    value: "APL4",
+    labelId: "Selector.aplicacion5",
+    label: "Prueba",
+  },
+  {
+    value: "APL5",
+    labelId: "Selector.aplicacion6",
+    label: "Canteras Ibiza",
+  },
+
+];
+
+export const ROL_OPERARIO_SELECTOR_VALUES = [
+  {
+    value: "CAPGRUP",
+    labelId: "Selector.jefeGrupo",
+    label: "Jefe Grupo",
+  },
+  {
+    value: "RESPONSABLE",
+    labelId: "Selector.responsable",
+    label: "Responsable",
+  },
+  {
+    value: "ENCARREGAT",
+    labelId: "Selector.encargado",
+    label: "Encargado",
+  },
+  {
+    value: "ADMINISTRATIU",
+    labelId: "Selector.administrativo",
+    label: "Administrativo ",
+  },
+
+
+];
+
+export const TIPO_INVERSION_SELECTOR_VALUES =
+[
+  {
+    value: "NO_SUJETO_INVERSION",
+    labelId: "Selector.noSujeto",
+    label: "No sujeto a inversión",
+  },
+  {
+    value: "PROMOTOR",
+    labelId: "Selector.promotor",
+    label: "Promotor",
+  },
+  {
+    value: "CONTRATISTA",
+    labelId: "Selector.contratista",
+    label: "Contratista",
+  },
+  {
+    value: "SUBCONTRATISTA",
+    labelId: "Selector.subcontratista",
+    label: "Subcontratista",
+  },
+  {
+    value: "ESBORRAR_DE_AQUI",
+    labelId: "Selector.borrar",
+    label: "Borrar ",
+  },
+
+
+];
+
+export const TIPO_OBRA_SELECTOR_VALUES =
+[
+  {
+    value: "CONTRUCCION_EDIFICACIONES",
+    labelId: "Selector.construccion",
+    label: "Construccion Edificaciones",
+  },
+  {
+    value: "REHABILITACION_EDIFICACIONES",
+    labelId: "Selector.rehabilitacion",
+    label: "Rehabilitacion Edificacionesr",
+  },
+  {
+    value: "URBANIZACION_TERRENOS",
+    labelId: "Selector.urbanizacion",
+    label: "Urbanización Terrenos",
+  },
+  {
+    value: "OTROS",
+    labelId: "Selector.otros",
+    label: "Otros",
+  },
+
+
+
+];
+
+export const INCIDENCIA_PORCENTAJE_SELECTOR_VALUES = [
+  {
+    value: "SOBRE_TOTAL_CALCULADO",
+    labelId: "Articulos.costes.select.sobreTotalCalculado",
+    label: "Sobre total calculado",
+  },
+  {
+    value: "SOBRE_SUMA_DE_IMPORTES",
+    labelId: "Articulos.costes.select.sobreSumaImportes",
+    label: "Sobre suma de importes",
+  },
+];
+
+
+export const TIPO_PRODUCTO_SELECTOR_VALUES = [
+  {
+    value: "PRODUCTE",
+    labelId: "Selector.producto",
+    label: "Producto",
+  },
+  {
+    value: "APLICACIO",
+    labelId: "Selector.aplicacion",
+    label: "Aplicación",
   },
 ];

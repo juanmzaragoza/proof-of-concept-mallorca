@@ -360,7 +360,7 @@ const LocationCreate = (props) => {
         id: "Ubicacion.codigoExterno",
         defaultMessage: "Código externo",
       }),
-      type: "input",
+      type: "numeric",
       key: "codiExtern",
       required: true,
       breakpoints: {

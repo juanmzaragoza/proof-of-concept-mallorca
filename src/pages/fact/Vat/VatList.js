@@ -22,7 +22,7 @@ const VatList = ({ actions, ...props }) => {
           id: "Iva.titulo",
           defaultMessage: "Iva",
         }),
-        href: "/iva",
+        href: "/fact/iva",
       },
     ]);
   }, []);

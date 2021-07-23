@@ -20,7 +20,7 @@ const OrganizationList = ({ actions, ...props }) => {
           id: "Organizacion.titulo",
           defaultMessage: "Oganización",
         }),
-        href: "/organizacion",
+        href: "/fact/organizacion",
       },
     ]);
   }, []);

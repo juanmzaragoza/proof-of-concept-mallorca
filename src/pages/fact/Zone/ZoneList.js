@@ -21,7 +21,7 @@ const ZoneList = ({ actions, ...props }) => {
           id: "Zona.titulo",
           defaultMessage: "Zona",
         }),
-        href: "/zona",
+        href: "/fact/zona",
       },
     ]);
   }, []);

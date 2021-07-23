@@ -14,7 +14,7 @@ const ProjectsList = ({actions, ...props}) => {
       }),
     });
     actions.setBreadcrumbHeader([
-      {title: "Proyectos", href:"/proyectos"}
+      {title: "Proyectos", href:"/fact/proyectos"}
     ]);
   },[]);
 
@@ -45,6 +45,24 @@ const ProjectsList = ({actions, ...props}) => {
           defaultMessage: "Responsable"
         }),
       },
+      {
+        name: 'client',
+        title: props.intl.formatMessage({
+          id: "Proyectos.cliente",
+          defaultMessage: "Cliente"
+        }),
+        getCellValue: row => row.client? row.client?.description:""
+      },
+      {
+        name: 'dataAdjudicacio',
+        title: props.intl.formatMessage({
+          id: "Proyectos.fechaAdjudicacion",
+          defaultMessage: "Fecha Adjudicación"
+        }),
+        getCellValue: row => row.dataAdjudicacio ? new Date(row.dataAdjudicacio).toLocaleDateString() : ""
+     
+      },
+      
       {
         name: 'valorEstimat',
         title: props.intl.formatMessage({

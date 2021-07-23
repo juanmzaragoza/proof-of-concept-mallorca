@@ -24,6 +24,7 @@ import Selector from "./Selector";
 import createYupSchema from "./yupSchemaCreator";
 import Observations from "./Observations";
 import Numeric from "./Numeric";
+import WYSIWYGEditor from "./WYSIWYGEditor";
 
 const GenericForm = ({loading, ...props}) => {
   const formRef = useRef(null);
@@ -42,7 +43,7 @@ const GenericForm = ({loading, ...props}) => {
     'numeric': 0.0,
     'date': "",
     'switch': "",
-
+    'wysiwyg': ""
   }
 
   /** Init to avoid uncontrolled inputs */
@@ -105,7 +106,7 @@ const GenericForm = ({loading, ...props}) => {
     props.handleIsValid && props.handleIsValid(formik.isValid);
   }
 
-  const getField = ({id, type, variant, placeHolder, required, key, noEditable, selector, disabled, text, prefix, suffix}, formik) => {
+  const getField = ({id, type, variant, placeHolder, required, key, noEditable, selector, disabled, text, prefix, suffix, extraQuery}, formik) => {
     const noEnable = loading || (props.editMode && noEditable) || disabled;
     const identification = id? id:key;
 
@@ -224,7 +225,6 @@ const GenericForm = ({loading, ...props}) => {
             onChange={(e,v,r) => {
               e.stopPropagation();
               handleChange(e, v);
-              key === "client" && console.log(key, id, identification)
               formik.setFieldValue(key,v);
             }}
             value={props.getFormData && props.getFormData(key)? props.getFormData(key) : null}
@@ -234,13 +234,14 @@ const GenericForm = ({loading, ...props}) => {
             error={hasError(key,formik)}
             helperText={getMessageError(key,formik)}
             required={Boolean(required)}
-            disabled={(props.editMode && noEditable) || disabled}
+            disabled={noEnable}
             cannotCreate={selector.cannotCreate}
             creationComponents={selector.creationComponents}
             onBlur={handleBlur}
             relatedWith={selector.relatedWith}
             transform={selector.transform}
-            advancedSearchColumns={selector.advancedSearchColumns} />
+            advancedSearchColumns={selector.advancedSearchColumns}
+            extraQuery={extraQuery} />
         );
       case 'observations':
         return (
@@ -299,6 +300,23 @@ const GenericForm = ({loading, ...props}) => {
               }
               label={placeHolder}
             />
+          );
+        case "wysiwyg":
+          return (
+            <WYSIWYGEditor
+              id={identification}
+              disabled={noEnable}
+              value={props.getFormData && props.getFormData(key)? props.getFormData(key) : ""}
+              required={Boolean(required)}
+              placeHolder={placeHolder}
+              rows={text && text.multiline}
+              error={hasError(key,formik)}
+              helperText={getMessageError(key, formik)}
+              onChange={(e,v) => {
+                handleChange(e, v);
+                formik.setFieldValue(key,v);
+              }}
+              onBlur={handleBlur}/>
           );
       default:
         return;
@@ -396,7 +414,7 @@ GenericForm.propTypes = {
   containerSpacing: PropTypes.number,
   formComponents: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.any,
-    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV','observations','numeric','date','switch']),
+    type: PropTypes.oneOf(['input','select','checkbox','radio','LOV','observations','numeric','date','switch','wysiwyg']),
     variant: PropTypes.oneOf(['filled','outlined','standard']),
     placeHolder: PropTypes.string,
     required: PropTypes.bool,
@@ -425,7 +443,15 @@ GenericForm.propTypes = {
       type: PropTypes.string.isRequired,
       value: PropTypes.string,
       error_message: PropTypes.string,
-    }))
+    })),
+    prefix: PropTypes.string,
+    suffix: PropTypes.string,
+    // when you request filtering by extra fields in some request
+    extraQuery: PropTypes.arrayOf(PropTypes.shape({
+      columnName: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+      exact: PropTypes.bool
+    })),
   })),
   onSubmit: PropTypes.func,
   formDataLoaded: PropTypes.bool,
@@ -436,7 +462,5 @@ GenericForm.propTypes = {
   editMode: PropTypes.bool,
   emptyPaper: PropTypes.bool,
   fieldsContainerStyles: PropTypes.object,
-  prefix: PropTypes.string,
-  suffix: PropTypes.string
 };
 export default GenericForm;

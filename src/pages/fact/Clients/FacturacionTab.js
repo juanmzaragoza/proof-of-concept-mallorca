@@ -396,7 +396,7 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
         }
       },
-      validationType: "object",
+      validationType: "string",
       ...withRequiredValidation(),
     },
     {

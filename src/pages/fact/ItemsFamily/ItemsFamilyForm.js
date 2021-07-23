@@ -128,20 +128,25 @@ const ItemsFamilyForm = React.memo(({ actions, allFormData, getFormData, submitF
         loading={props.loading}
         formDataLoaded={props.formDataLoaded} />
     },
+    // {
+    //   ...getTranslations("FamiliaArticulos.tabs.cuentasTraspasos","Cuentas Traspasos Almacenes"),
+    //   key: WHAREHOUSE_TRANSFER_ACCOUNT_TAB_INDEX,
+    //   error: tabHasError(WHAREHOUSE_TRANSFER_ACCOUNT_TAB_INDEX),
+    //   component: <WarehouseTransferAccount
+    //     setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [WHAREHOUSE_TRANSFER_ACCOUNT_TAB_INDEX]: !value})}
+    //     editMode={editMode}
+    //     getFormData={getFormData}
+    //     setFormData={actions.setFormData}
+    //     submitFromOutside={submitFromOutside}
+    //     onSubmitTab={handleSubmitTab}
+    //     formErrors={props.formErrors}
+    //     loading={props.loading}
+    //     formDataLoaded={props.formDataLoaded} />
+    // },
     {
       ...getTranslations("FamiliaArticulos.tabs.cuentasTraspasos","Cuentas Traspasos Almacenes"),
-      key: WHAREHOUSE_TRANSFER_ACCOUNT_TAB_INDEX,
-      error: tabHasError(WHAREHOUSE_TRANSFER_ACCOUNT_TAB_INDEX),
-      component: <WarehouseTransferAccount
-        setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [WHAREHOUSE_TRANSFER_ACCOUNT_TAB_INDEX]: !value})}
-        editMode={editMode}
-        getFormData={getFormData}
-        setFormData={actions.setFormData}
-        submitFromOutside={submitFromOutside}
-        onSubmitTab={handleSubmitTab}
-        formErrors={props.formErrors}
-        loading={props.loading}
-        formDataLoaded={props.formDataLoaded} />
+      key: 3,
+      component: "Cuentas Traspasos Almacenes"
     },
     {
       ...getTranslations("FamiliaArticulos.tabs.cuentasClientes","Cuentas Clientes"),
@@ -206,7 +211,7 @@ const ItemsFamilyForm = React.memo(({ actions, allFormData, getFormData, submitF
       services.getById(id);
     } else{
       actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "FamiliaArticulos.titulo", defaultMessage: "Familia"}), href:"/article-familia"},
+        {title: props.intl.formatMessage({id: "FamiliaArticulos.titulo", defaultMessage: "Familia"}), href:"/fact/article-familia"},
         {title: props.intl.formatMessage({id: "Comun.nuevo", defaultMessage: "Nuevo"})}
       ]);
     }
@@ -228,8 +233,8 @@ const ItemsFamilyForm = React.memo(({ actions, allFormData, getFormData, submitF
         :
         `${props.intl.formatMessage({id: "Comun.cargando", defaultMessage: "Cargando"})}...`;
       actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "FamiliaArticulos.titulo", defaultMessage: "Familia"}), href:"/article-familia"},
-        {title: desc, href:"/article-familia"},
+        {title: props.intl.formatMessage({id: "FamiliaArticulos.titulo", defaultMessage: "Familia"}), href:"/fact/article-familia"},
+        {title: desc, href:"/fact/article-familia"},
         {title: nameSelectedTab}
       ]);
     }

@@ -115,7 +115,7 @@ const CompanyForm = React.memo(({ actions, allFormData, getFormData, submitFromO
       services.getById(id);
     } else{
       actions.setBreadcrumbHeader([
-        {title: props.intl.formatMessage({id: "Proveedores.titulo", defaultMessage: "Proveedores"}), href:"/proveedores"},
+        {title: props.intl.formatMessage({id: "Clientes.empresas", defaultMessage: "Empresas"}), href:"/fact/empresas"},
         {title: props.intl.formatMessage({id: "Comun.nuevo", defaultMessage: "Nuevo"})}
       ]);
     }

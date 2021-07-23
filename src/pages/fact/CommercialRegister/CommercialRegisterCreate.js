@@ -34,25 +34,7 @@ const CommercialRegisterCreate = (props) => {
   ];
 
   const createConfiguration = [
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.tipo",
-        defaultMessage: "Tipo"
-      }),
-      type: 'select',
-      key: 'tipus',
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 3
-      },
-      selector: {
-        options: TIPO_REGISTRO_COMERCIAL_SELECTOR_VALUES
-      },
-      validations: [
-        ...props.commonValidations.requiredValidation()
-      ],
-    },
+   
     {
       placeHolder: props.intl.formatMessage({
         id: "RegistroComercial.interesado",
@@ -110,6 +92,75 @@ const CommercialRegisterCreate = (props) => {
     },
     {
       placeHolder: props.intl.formatMessage({
+        id: "Clientes.tipo",
+        defaultMessage: "Tipo"
+      }),
+      type: 'select',
+      key: 'tipus',
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 3
+      },
+      selector: {
+        options: TIPO_REGISTRO_COMERCIAL_SELECTOR_VALUES
+      },
+      validations: [
+        ...props.commonValidations.requiredValidation()
+      ],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "RegistroComercial.fecha",
+        defaultMessage: "Fecha",
+      }),
+      type: "date",
+      key: "data",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.titulo",
+        defaultMessage: "Clientes"
+      }),
+      type: 'LOV',
+      key: 'client',
+      breakpoints: {
+        xs: 12,
+        md: 5
+      },
+      selector: {
+        key: "clients",
+        labelKey: (data) => `${data.nomComercial} (${data.codi})`,
+        sort: 'codi',
+        cannotCreate: true,
+        advancedSearchColumns: aSCodeAndNameComercial
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "RegistroComercial.productos",
+        defaultMessage: "Productos"
+      }),
+      type: 'LOV',
+      key: 'producte',
+      breakpoints: {
+        xs: 12,
+        md: 4
+      },
+      selector: {
+        key: "productes",
+        labelKey: (data) => `${data.nom} (${data.codi})`,
+        sort: 'codi',
+        cannotCreate: true,
+        advancedSearchColumns: aSCodeAndName
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
         id: "RegistroComercial.datosContacto",
         defaultMessage: "Datos de Contacto",
       }),
@@ -146,56 +197,7 @@ const CommercialRegisterCreate = (props) => {
         ...props.stringValidations.minMaxValidation(1, 1500),
       ],
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "RegistroComercial.fecha",
-        defaultMessage: "Fecha",
-      }),
-      type: "date",
-      key: "data",
-      breakpoints: {
-        xs: 12,
-        md: 4,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.titulo",
-        defaultMessage: "Clientes"
-      }),
-      type: 'LOV',
-      key: 'client',
-      breakpoints: {
-        xs: 12,
-        md: 4
-      },
-      selector: {
-        key: "clients",
-        labelKey: (data) => `${data.nomComercial} (${data.codi})`,
-        sort: 'codi',
-        cannotCreate: true,
-        advancedSearchColumns: aSCodeAndNameComercial
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "RegistroComercial.productos",
-        defaultMessage: "Productos"
-      }),
-      type: 'LOV',
-      key: 'producte',
-      breakpoints: {
-        xs: 12,
-        md: 4
-      },
-      selector: {
-        key: "productes",
-        labelKey: (data) => `${data.nom} (${data.codi})`,
-        sort: 'codi',
-        cannotCreate: true,
-        advancedSearchColumns: aSCodeAndName
-      },
-    },
+    
   ];
   return (
     <CreateUpdateForm

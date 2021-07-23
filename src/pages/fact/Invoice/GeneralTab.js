@@ -231,7 +231,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const invoiceConfig = [
     {
-      placeHolder: CODE,
+      placeHolder: props.intl.formatMessage({
+        id: "Facturas.numero",
+        defaultMessage: "Numero",
+      }),
       type: "input",
       key: "nombreFactura",
       required: true,

@@ -20,7 +20,7 @@ const RatesList = ({ actions, ...props }) => {
       {title: props.intl.formatMessage({
         id: "Tarifa.titulo",
         defaultMessage: "Tarifas"
-        }), href:"/tarifes"}
+        }), href:"/fact/tarifes"}
     ]);
   },[]);
 

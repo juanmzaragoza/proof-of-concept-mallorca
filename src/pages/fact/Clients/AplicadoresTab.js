@@ -9,8 +9,18 @@ import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
 
 const AplicadoresTab = ({ formData, setFormData, getFormData, ...props }) => {
-
   const { id: clientId } = useParams();
+
+  const withRequiredValidation = (extraValidations = []) => {
+    return {
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+        ...extraValidations,
+      ],
+    };
+  };
+
+
 
   const aplicadores = {
     title: props.intl.formatMessage({
@@ -26,7 +36,7 @@ const AplicadoresTab = ({ formData, setFormData, getFormData, ...props }) => {
     ],
 
     extraPostBody: {
-      client: { id: `${clientId}` }
+      client: { id: `${clientId}` },
     },
 
     columns: [
@@ -42,7 +52,6 @@ const AplicadoresTab = ({ formData, setFormData, getFormData, ...props }) => {
 
     formComponents: [
       {
-        
         placeHolder: props.intl.formatMessage({
           id: "Clientes.aplicadores",
           defaultMessage: "Aplicadores",
@@ -74,7 +83,6 @@ const AplicadoresTab = ({ formData, setFormData, getFormData, ...props }) => {
               defaultMessage={"Aplicadores"}
             />
           }
-        
         >
           <ExpandableGrid
             id="aplicadorClients"

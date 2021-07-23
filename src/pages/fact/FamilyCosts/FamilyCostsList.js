@@ -22,7 +22,7 @@ const FamilyCostsList = ({ actions, ...props }) => {
           id: "FamiliaCostes.titulo",
           defaultMessage: "Familia costes",
         }),
-        href: "/familia-costes",
+        href: "/fact/familia-costes",
       },
     ]);
   }, []);
