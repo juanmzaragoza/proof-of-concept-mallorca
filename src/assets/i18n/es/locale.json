@@ -1432,7 +1432,11 @@
   "Organizacion.email":"Email",
   "Parametros.valor":"Valor",
   "Parametros.titulo":"Parámetros",
-  "SeccionesEmpresa.seccion":"Sección"
+  "SeccionesEmpresa.seccion":"Sección",
+  "Clientes.otraAplicacionSubclientes":"Subclientes otras Aplicaciones",
+  "Clientes.codigoOtraAppSubcliente":"Código SubCliente otra App",
+  "Clientes.aplicacionCliente1":"Aplicación Cliente 1"
+
 
 
 }
