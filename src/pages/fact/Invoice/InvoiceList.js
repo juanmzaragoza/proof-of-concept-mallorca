@@ -9,12 +9,12 @@ const InvoiceList = ({actions, ...props}) => {
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
-        id: "Proveedores.titulo",
-        defaultMessage: "Proveedores"
+        id: "Facturas.titulo",
+        defaultMessage: "Facturas"
       }),
     });
     actions.setBreadcrumbHeader([
-      {title: "Proveedores", href:"/proveedores"}
+      {title: "Facturas", href:"/fact/facturas"}
     ]);
   },[]);
 
@@ -22,8 +22,8 @@ const InvoiceList = ({actions, ...props}) => {
 
   const listConfiguration = {
     title: props.intl.formatMessage({
-      id: "Proveedores.titulo",
-      defaultMessage: "Proveedores"
+      id: "Facturas.titulo",
+      defaultMessage: "Facturas"
     }),
     columns: [
       {

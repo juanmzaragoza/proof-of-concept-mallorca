@@ -236,4 +236,4 @@ export const parametres = `api/fact/parameters`;
 
 export const facturas = `api/fact/factures`;
 export const pressupostCodi = `api/fact/pressupostos`;
-
+export const certificacio = `api/fact/certificacions`;
