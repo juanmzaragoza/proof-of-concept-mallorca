@@ -1433,11 +1433,14 @@
   "Parametros.valor":"Valor",
   "Parametros.titulo":"Parámetros",
   "SeccionesEmpresa.seccion":"Sección",
+
   "Clientes.otraAplicacionSubclientes":"Subclientes otras Aplicaciones",
   "Clientes.codigoOtraAppSubcliente":"Código SubCliente otra App",
-  "Clientes.aplicacionCliente1":"Aplicación Cliente 1"
+  "Clientes.aplicacionCliente1":"Aplicación Cliente 1",
 
 
+  "TipoProveedoresCliente.titulo":"Tipo Proveedor/Cliente",
+  "NaturalezaPago.titulo":"Naturaleza Pago"
 
 }
 
