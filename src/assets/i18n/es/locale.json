@@ -1519,5 +1519,6 @@
   "Facturas.delegacion":"Deñegación",
   "Facturas.añoMes":"Año-Mes",
   "Facturas.obsAñoMes":"Observaciones Año-Mes",
-  "Facturas.importeMov":"Importe Movimiento"
+  "Facturas.importeMov":"Importe Movimiento",
+  "Facturas.concepto":"Concepto"
 }

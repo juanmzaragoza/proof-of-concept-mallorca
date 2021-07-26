@@ -64,6 +64,13 @@ const MovimientosCajaTab = ({ formData, setFormData, getFormData, ...props }) =>
           row.dia ? new Date(row.dia).toLocaleDateString() : "",
       },
       {
+        name: "cnc",
+        title: props.intl.formatMessage({
+          id: "Facturas.concepto",
+          defaultMessage: "Concepto ",
+        }),
+      },
+      {
         name: "importMoviment",
         title: props.intl.formatMessage({
           id: "Facturas.importeMov",
