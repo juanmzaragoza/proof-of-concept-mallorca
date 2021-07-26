@@ -28,11 +28,15 @@ import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
 import RegistroEntradaTab from "./RegistroEntradaTab";
 import MoreTab from "./MoreTab";
+import MovimientosCajaTab from "./MovimientosCajaTab";
+
+
 
 const GENERAL_TAB_INDEX = 0;
 const CONTAB_TAB_INDEX = 1;
-const REG_EN_TAB_INDEX = 2;
-const MORE_INFO_TAB_INDEX = 3;
+const MOVIMIENTOS_TAB_INDEX = 2;
+const REG_EN_TAB_INDEX = 3;
+const MORE_INFO_TAB_INDEX = 4;
 
 const InvoiceForm = React.memo(
   ({
@@ -52,6 +56,7 @@ const InvoiceForm = React.memo(
       [CONTAB_TAB_INDEX]: false,
       [REG_EN_TAB_INDEX]: false,
       [MORE_INFO_TAB_INDEX]: false,
+      [MOVIMIENTOS_TAB_INDEX]:false
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -131,6 +136,29 @@ const InvoiceForm = React.memo(
               setTabIndexWithError({
                 ...tabIndexWithError,
                 [CONTAB_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+          />
+        ),
+      },
+      {
+        ...getTranslations("Clientes.Documentos.movimientoCaja", "Movimientos Cajas"),
+        key: MOVIMIENTOS_TAB_INDEX,
+        error: tabHasError(MOVIMIENTOS_TAB_INDEX),
+        component: (
+          <MovimientosCajaTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [MOVIMIENTOS_TAB_INDEX]: !value,
               })
             }
             editMode={editMode}

@@ -1518,5 +1518,6 @@
   "Facturas.nombreCliente2": "Nombre Cliente 2",
   "Facturas.delegacion":"Deñegación",
   "Facturas.añoMes":"Año-Mes",
-  "Facturas.obsAñoMes":"Observaciones Año-Mes"
+  "Facturas.obsAñoMes":"Observaciones Año-Mes",
+  "Facturas.importeMov":"Importe Movimiento"
 }
