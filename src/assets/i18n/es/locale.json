@@ -1433,7 +1433,8 @@
   "Parametros.valor":"Valor",
   "Parametros.titulo":"Parámetros",
   "SeccionesEmpresa.seccion":"Sección",
-  "TipoProveedoresCliente.titulo":"Tipo Proveedor/Cliente"
+  "TipoProveedoresCliente.titulo":"Tipo Proveedor/Cliente",
+  "NaturalezaPago.titulo":"Naturaleza Pago"
 
 
 }

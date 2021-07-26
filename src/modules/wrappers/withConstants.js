@@ -971,6 +971,15 @@ const withConstants = (PassedComponent) => {
         path: "FAC_TIPP",
         icon: <LocalMall />,
       },
+      {
+        key: "FAC_NATP-C",
+        title: props.intl.formatMessage({
+          id: "NaturalezaPago.titulo",
+          defaultMessage: "Naturaleza Pago",
+        }),
+        path: "FAC_NATP-C",
+        icon: <LocalMall />,
+      },
     ];
 
     return (

@@ -79,6 +79,7 @@ import Application from "./Application";
 import RiskType from "./RiskType";
 import Parameters from "./Parameters";
 import SupplierClientType from "./SupplierClientType";
+import PaymentNature from "./PaymentNature";
 
 const component = [
   SuppliersFamily,
@@ -157,7 +158,8 @@ const component = [
   Application,
   RiskType,
   Parameters,
-  SupplierClientType
+  SupplierClientType,
+  PaymentNature
 
 
 
