@@ -66,8 +66,8 @@ const DiscountRatesCreate = (props) => {
   return (
     <CreateUpdateForm
       title={props.intl.formatMessage({
-        id: "tiposFacturacion.titulo",
-          defaultMessage: "Tipos de Facturación",
+        id: "TarifaDescuento.titulo",
+          defaultMessage: "Tarifas de Descuento",
       })}
       formConfiguration={createConfiguration}
       url={API.tarifaDescompte}
