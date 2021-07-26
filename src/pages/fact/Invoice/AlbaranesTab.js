@@ -155,7 +155,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
       {
         name: "observacions",
         title: props.intl.formatMessage({
-          id: "comun.observaciones",
+          id: "Comun.observaciones",
           defaultMessage: "Observaciones",
         }),
         hidden: true,

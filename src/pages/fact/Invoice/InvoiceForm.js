@@ -27,10 +27,12 @@ import {
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
 import RegistroEntradaTab from "./RegistroEntradaTab";
+import MoreTab from "./MoreTab";
 
 const GENERAL_TAB_INDEX = 0;
 const CONTAB_TAB_INDEX = 1;
 const REG_EN_TAB_INDEX = 2;
+const MORE_INFO_TAB_INDEX = 3;
 
 const InvoiceForm = React.memo(
   ({
@@ -49,6 +51,7 @@ const InvoiceForm = React.memo(
       [GENERAL_TAB_INDEX]: false,
       [CONTAB_TAB_INDEX]: false,
       [REG_EN_TAB_INDEX]: false,
+      [MORE_INFO_TAB_INDEX]: false,
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -151,6 +154,29 @@ const InvoiceForm = React.memo(
               setTabIndexWithError({
                 ...tabIndexWithError,
                 [REG_EN_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+          />
+        ),
+      },
+      {
+        ...getTranslations("Facturas.otrosDatos", "Otros Datos"),
+        key: MORE_INFO_TAB_INDEX,
+        error: tabHasError(MORE_INFO_TAB_INDEX),
+        component: (
+          <MoreTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [MORE_INFO_TAB_INDEX]: !value,
               })
             }
             editMode={editMode}

@@ -237,3 +237,6 @@ export const parametres = `api/fact/parameters`;
 export const facturas = `api/fact/factures`;
 export const pressupostCodi = `api/fact/pressupostos`;
 export const certificacio = `api/fact/certificacions`;
+export const liniaFactoring = `api/fact/liniesFactoring`;
+export const paisNif3 = `api/paisosNif`;
+export const paisNif2 = `api/paisosNif`;
