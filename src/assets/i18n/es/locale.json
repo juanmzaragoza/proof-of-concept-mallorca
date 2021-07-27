@@ -1434,7 +1434,8 @@
   "Parametros.titulo":"Parámetros",
   "SeccionesEmpresa.seccion":"Sección",
   "TipoProveedoresCliente.titulo":"Tipo Proveedor/Cliente",
-  "NaturalezaPago.titulo":"Naturaleza Pago"
+  "NaturalezaPago.titulo":"Naturaleza Pago",
+  "TiposFacturacion.obligarFacturar":"Obligar a Facturar los Albaranes"
 
 
 }

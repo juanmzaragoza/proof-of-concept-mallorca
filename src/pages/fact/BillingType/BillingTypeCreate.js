@@ -12,7 +12,7 @@ const BillingTypeCreate = (props) => {
   
   const DESCRIPTION = props.intl.formatMessage({ id: "Comun.descripcion", defaultMessage: "Descripción", });
 
-  const CONCEDER = props.intl.formatMessage({ id: "tiposFacturacion.conceder", defaultMessage: "Conceder Crédito", });
+  const CONCEDER = props.intl.formatMessage({ id: "TiposFacturacion.obligarFacturar", defaultMessage: "Obligar a Facturar los Albaranes", });
 
   const createConfiguration = [
     {
