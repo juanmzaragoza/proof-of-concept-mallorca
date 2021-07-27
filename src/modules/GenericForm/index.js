@@ -28,7 +28,6 @@ import WYSIWYGEditor from "./WYSIWYGEditor";
 
 const GenericForm = ({loading, ...props}) => {
   const formRef = useRef(null);
-  const [enableReinitialize, setEnableReinitialize] = useState(false);
   const [isManualValidated, setIsManualValidated] = useState(false);
   const [initVal, setInitVal] = useState({});
 
@@ -56,7 +55,6 @@ const GenericForm = ({loading, ...props}) => {
       data[component.key] = value;
     }
     setInitVal(data);
-    setEnableReinitialize(true);
     setIsManualValidated(false);
   }
 
@@ -64,11 +62,6 @@ const GenericForm = ({loading, ...props}) => {
   useEffect(() => {
     initValues();
   },[]);
-
-  /** Turn off the initialization to avoid initialize the values again */
-  useEffect(()=>{
-    enableReinitialize && setEnableReinitialize(false);
-  },[enableReinitialize]);
 
   /**
    * Effect to submit from outside
