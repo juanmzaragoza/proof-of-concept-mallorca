@@ -192,8 +192,8 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
           }
         >
           <ExpandableGrid
-            id="aplicacionsClients"
-            responseKey="aplicacioClients"
+            id="altresAplicacionsClient"
+            responseKey="altraAplicacioClients"
             enabled={props.editMode}
             configuration={otraAplicacion}
           />

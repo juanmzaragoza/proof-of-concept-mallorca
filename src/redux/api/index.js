@@ -182,7 +182,8 @@ export const partida = `api/fact/partides`;
 
 export const operariCodi = 'api/rrhh/operaris';
 export const factures = `api/fact/factures`;
-export const aplicacionsClients = `api/fact/aplicacionsClients`;
+// export const aplicacionsClients = `api/fact/aplicacionsClients`;
+export const altresAplicacionsClient = `api/fact/altresAplicacionsClient`;
 export const projectesAplicacio = `api/fact/projectesAplicacio`;
 export const proveidorsVenciment = `api/fact/proveidorsVenciment`;
 export const proveidor = `api/fact/proveidors`;
@@ -231,6 +232,7 @@ export const seccionsEmpresa = `api/fact/seccionsEmpresa`;
 export const seccio = `api/rrhh/seccions`;
 
 
-export const aplicacions = `api/fact/aplicacions`;
+// export const aplicacions = `api/fact/aplicacions`;
+export const aplicacionsClient = `api/fact/aplicacionsClient`;
 export const parametres = `api/fact/parameters`;
 export const tipusIncidenciesFactura = `api/fact/tipusIncidenciesFactura`;
