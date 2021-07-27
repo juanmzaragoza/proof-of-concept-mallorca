@@ -52,14 +52,14 @@ const BillingTypeCreate = (props) => {
 
     {
       placeHolder: props.intl.formatMessage({
-        id: "TiposFacturacion.concedemosCredito",
-        defaultMessage: "Concedemos crédito",
+        id: "TiposFacturacion.obligarFacturar",
+        defaultMessage: "Obligar a Facturar los Albaranes",
       }),
       type: 'checkbox',
       key: 'concedimCredit',
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
     },
    
