@@ -24,7 +24,7 @@ const FinalesFacturasCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
       noEditable: true,
       validationType: "string",
@@ -41,7 +41,7 @@ const FinalesFacturasCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 8,
       },
       validationType: "string",
       validations: [
@@ -55,7 +55,7 @@ const FinalesFacturasCreate = (props) => {
       key: "actiu",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 1,
       },
     },
     {
