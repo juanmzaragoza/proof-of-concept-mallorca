@@ -153,7 +153,8 @@ const AccountingDataTab = ({
       },
       required: true,
       validationType: "number",
-      validations: [...props.commonValidations.requiredValidation()],
+      validations: [...props.commonValidations.requiredValidation(),
+        ...props.numberValidations.minMaxValidation(0, 99)],
     },
 
     {
@@ -227,8 +228,6 @@ const AccountingDataTab = ({
         xs: 12,
         md: 2,
       },
-      validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(1, 99)],
     },
   ];
 

@@ -6,13 +6,21 @@ import CreateUpdateForm from "modules/ReactGrid/CreateUpdateForm";
 import { withValidations } from "modules/wrappers";
 import * as API from "redux/api";
 
-const BillingTypeCreate = (props) => {
+const PaymentNatureCreate = (props) => {
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
 
-  const CODE = props.intl.formatMessage({ id: "Comun.codigo", defaultMessage: "Código", });
-  
-  const DESCRIPTION = props.intl.formatMessage({ id: "Comun.descripcion", defaultMessage: "Descripción", });
+  const DESC = props.intl.formatMessage({
+    id: "Comun.descripcion",
+    defaultMessage: "Descripción",
+  });
 
-  const CONCEDER = props.intl.formatMessage({ id: "TiposFacturacion.obligarFacturar", defaultMessage: "Obligar a Facturar los Albaranes", });
+  const OBS = props.intl.formatMessage({
+    id: "FamiliaProveedores.observaciones",
+    defaultMessage: "Observaciones",
+  });
 
   const createConfiguration = [
     {
@@ -28,47 +36,53 @@ const BillingTypeCreate = (props) => {
       noEditable: true,
       validationType: "string",
       validations: [
+        ...props.stringValidations.fieldExistsValidation(
+          "naturalesaPagamentCobrament",
+          "codi",
+          props.intl.formatMessage({
+            id: "Comun.codigo",
+            defaultMessage: "Código",
+          })
+        ),
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 4),
-        ...props.stringValidations.fieldExistsValidation('tipusFacturacio', 'codi', CODE)
       ],
     },
     {
-      placeHolder: DESCRIPTION,
-
+      placeHolder: DESC,
       type: "input",
       key: "descripcio",
       required: true,
       breakpoints: {
         xs: 12,
-        md: 8,
+        md: 9,
       },
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 30),
+        ...props.stringValidations.minMaxValidation(1, 60),
       ],
     },
     {
-      placeHolder: CONCEDER,
-      type: "checkbox",
-      key: "concedimCredit",
+      placeHolder: OBS,
+      type: "observations",
+      key: "observacions",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
     },
   ];
   return (
     <CreateUpdateForm
       title={props.intl.formatMessage({
-        id: "tiposFacturacion.titulo",
-          defaultMessage: "Tipos de Facturación",
+        id: "NaturalezaPago.titulo",
+        defaultMessage: "Naturaleza Pago",
       })}
       formConfiguration={createConfiguration}
-      url={API.tipusFacturacio}
+      url={API.naturalesaPagamentCobrament}
     />
   );
 };
 
-export default compose(withValidations, injectIntl)(BillingTypeCreate);
+export default compose(withValidations, injectIntl)(PaymentNatureCreate);

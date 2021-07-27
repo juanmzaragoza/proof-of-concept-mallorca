@@ -434,7 +434,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
       selector: {
         key: "tipusVenciments",
@@ -571,19 +571,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 7)],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Facturas.obsAñoMes",
-        defaultMessage: "Observaciones Año-Mes",
-      }),
-      type: "observations",
-      key: "anyMesObservacions",
-      required: false,
-      breakpoints: {
-        xs: 12,
-        md: 1,
-      },
     },
 
     {
@@ -879,11 +866,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Régimen IVA",
       }),
       type: "LOV",
-      required: true,
       key: "regimIva",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
 
       selector: {
@@ -932,7 +918,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
               xs: 12,
               md: 3,
             },
-            validationType: "number",
+            validationType: "string",
             validations: [...props.stringValidations.minMaxValidation(1, 2)],
           },
 
@@ -967,12 +953,12 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
               xs: 12,
               md: 4,
             },
-            validationType: "number",
+            validationType: "string",
             validations: [...props.stringValidations.minMaxValidation(1, 4)],
           },
           {
             type: "input",
-            key: "text",
+            key: "sitCodClaExd",
             placeHolder: props.intl.formatMessage({
               id: "Clientes.re.expedida",
               defaultMessage: "Régimen especial fact expedida",
@@ -986,7 +972,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           },
           {
             type: "input",
-            key: "text",
+            key: "sitCodClaReb",
             placeHolder: props.intl.formatMessage({
               id: "Clientes.re.recibida",
               defaultMessage: "Régimen especial fact recibida",
@@ -1000,6 +986,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           },
         ],
       },
+  
       validationType: "object",
       ...withRequiredValidation(),
     },

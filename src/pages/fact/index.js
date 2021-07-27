@@ -81,6 +81,8 @@ import CompanyAccount from "./CompanyAccount";
 import Application from "./Application";
 import RiskType from "./RiskType";
 import Parameters from "./Parameters";
+import SupplierClientType from "./SupplierClientType";
+import PaymentNature from "./PaymentNature";
 
 const component = [
   SuppliersFamily,
@@ -162,7 +164,9 @@ const component = [
   ProductSector,
   Application,
   RiskType,
-  Parameters
+  Parameters,
+  SupplierClientType,
+  PaymentNature
 
 
 

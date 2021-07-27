@@ -378,7 +378,7 @@
   "Iva.porcentajeIva": "Porcentaje IVA",
   "Iva.titulo": "IVA",
   "Iva.texto": "Texto",
-  "Iva.porcentajeRecargo": "Rrecargo equivalencia",
+  "Iva.porcentajeRecargo": "Recargo equivalencia",
   "Iva.codigoCont": "Código contabilidad",
   "Iva.codigoRecCont": "Código recargo contabilidad",
   "RegimenIva.titulo": "Régimen IVA",
@@ -1421,6 +1421,7 @@
   "Rappel.porcentaje2": "Porcentaje 2",
   "DireccionesClientes.titulo": "Direcciones Clientes",
   "DireccionesClientes.dreccion_exclusiva": "Dir. Exclusiva",
+
   "Subclientes.titulo": "Subclientes",
   "Subclientes.preciosVolumen": "Precios por volumen",
   "Proveedores.Contacto.emailFactura": "Email Factura",
@@ -1520,5 +1521,12 @@
   "Facturas.añoMes":"Año-Mes",
   "Facturas.obsAñoMes":"Observaciones Año-Mes",
   "Facturas.importeMov":"Importe Movimiento",
-  "Facturas.concepto":"Concepto"
+  "Facturas.concepto":"Concepto",
+
+  "TipoProveedoresCliente.titulo":"Tipo Proveedor/Cliente",
+  "NaturalezaPago.titulo":"Naturaleza Pago",
+  "TiposFacturacion.obligarFacturar":"Obligar a Facturar los Albaranes"
+
+
+
 }

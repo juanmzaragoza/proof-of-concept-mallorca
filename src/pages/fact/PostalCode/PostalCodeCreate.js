@@ -205,7 +205,7 @@ const PostalCodeCreate = (props) => {
         id: "Comun.codigo",
         defaultMessage: "Código",
       }),
-      type: "numeric",
+      type: "input",
       key: "codi",
       required: true,
       breakpoints: {
@@ -213,10 +213,10 @@ const PostalCodeCreate = (props) => {
         md: 2,
       },
       noEditable: true,
-      validationType: "number",
+      validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 99999999),
+        ...props.stringValidations.minMaxValidation(0, 8),
         ...props.stringValidations.fieldExistsValidation('codiPostal', 'codi', CODE)
       ],
     },

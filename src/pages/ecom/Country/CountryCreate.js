@@ -81,7 +81,7 @@ const CountryCreate = (props) => {
         validationType: "number",
         validations: [
           ...props.commonValidations.requiredValidation(),
-          ...props.stringValidations.minMaxValidation(1, 900000000000),
+          ...props.numberValidations.minMaxValidation(1, 900000000000),
         ],
       },
       {
@@ -99,7 +99,8 @@ const CountryCreate = (props) => {
         validationType: "number",
         validations: [
           ...props.commonValidations.requiredValidation(),
-          ...props.stringValidations.minMaxValidation(1, 900000000000),
+          ...props.numberValidations.minMaxValidation(1, 900000000000),
+        
         ],
       },
       {
@@ -117,7 +118,8 @@ const CountryCreate = (props) => {
         validationType: "number",
         validations: [
           ...props.commonValidations.requiredValidation(),
-          ...props.stringValidations.minMaxValidation(1, 900000000000),
+          ...props.numberValidations.minMaxValidation(1, 900000000000),
+        
         ],
       },
     {

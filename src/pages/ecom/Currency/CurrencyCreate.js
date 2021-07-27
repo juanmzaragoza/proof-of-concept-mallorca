@@ -84,6 +84,7 @@ const CurrencyCreate = (props) => {
         validationType: "number",
         validations: [
         ...props.commonValidations.requiredValidation(),
+        ...props.numberValidations.minMaxValidation(0, 999999),
      
         ]
       },
@@ -103,7 +104,7 @@ const CurrencyCreate = (props) => {
         validationType: "number",
         validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1,2),
+        ...props.numberValidations.minMaxValidation(0, 2),
     
         ]
       },
@@ -123,7 +124,7 @@ const CurrencyCreate = (props) => {
         
         validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 2),
+        ...props.numberValidations.minMaxValidation(0, 5),
 
         ]
       },
