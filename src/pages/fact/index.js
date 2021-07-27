@@ -80,6 +80,7 @@ import RiskType from "./RiskType";
 import Parameters from "./Parameters";
 import SupplierClientType from "./SupplierClientType";
 import PaymentNature from "./PaymentNature";
+import IncidenceType from "./IncidenceType";
 
 const component = [
   SuppliersFamily,
@@ -159,7 +160,8 @@ const component = [
   RiskType,
   Parameters,
   SupplierClientType,
-  PaymentNature
+  PaymentNature,
+  IncidenceType
 
 
 

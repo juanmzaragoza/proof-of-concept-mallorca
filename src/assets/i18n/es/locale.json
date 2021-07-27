@@ -1435,7 +1435,8 @@
   "SeccionesEmpresa.seccion":"Sección",
   "TipoProveedoresCliente.titulo":"Tipo Proveedor/Cliente",
   "NaturalezaPago.titulo":"Naturaleza Pago",
-  "TiposFacturacion.obligarFacturar":"Obligar a Facturar los Albaranes"
+  "TiposFacturacion.obligarFacturar":"Obligar a Facturar los Albaranes",
+  "TipoIncidenciasFactura.titulo":"Tipo Incidencia Factura"
 
 
 }
