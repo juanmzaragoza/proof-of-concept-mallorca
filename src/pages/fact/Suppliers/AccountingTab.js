@@ -33,10 +33,6 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
     setIsValid: props.setIsValid,
   });
 
-  useEffect(()=>{
-    console.log("Entre a Accounting Tab");
-  },[]);
-
   const { id: supplierId } = useParams();
 
   const CODE = props.intl.formatMessage({
@@ -382,7 +378,6 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 2)],
     },
@@ -1074,4 +1069,8 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
     </Grid>
   );
 };
-export default compose(React.memo, withValidations, injectIntl)(AccountingTab);
+export default compose(
+  React.memo,
+  withValidations,
+  injectIntl
+)(AccountingTab);
