@@ -1,47 +1,57 @@
 import React from "react";
-import { compose } from "redux";
 import { injectIntl } from "react-intl";
+import { compose } from "redux";
 
 import CreateUpdateForm from "modules/ReactGrid/CreateUpdateForm";
 import { withValidations } from "modules/wrappers";
 import * as API from "redux/api";
 
-const BillingTypeCreate = (props) => {
+const SupplierClientsTypeCreate = (props) => {
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
+
+  const DESC = props.intl.formatMessage({
+    id: "Comun.descripcion",
+    defaultMessage: "Descripción",
+  });
+
+
   const createConfiguration = [
     {
-      placeHolder: props.intl.formatMessage({
-        id: "Comun.codigo",
-        defaultMessage: "Código",
-      }),
+      placeHolder: CODE,
+
       type: "input",
       key: "codi",
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 2,
       },
       noEditable: true,
       validationType: "string",
       validations: [
+        ...props.stringValidations.fieldExistsValidation(
+          "tipusProveidorClient",
+          "codi",
+          props.intl.formatMessage({
+            id: "Comun.codigo",
+            defaultMessage: "Código",
+          })
+        ),
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 4),
-        ...props.stringValidations.fieldExistsValidation('tipusFacturacions', 'codi', props.intl.formatMessage({
-          id: "Comun.codigo",
-          defaultMessage: "Código",
-        }),)
       ],
     },
     {
-      placeHolder: props.intl.formatMessage({
-        id: "Comun.descripcion",
-        defaultMessage: "Descripción",
-      }),
+      placeHolder: DESC,
       type: "input",
       key: "descripcio",
       required: true,
       breakpoints: {
         xs: 12,
-        md: 8,
+        md: 10,
       },
       validationType: "string",
       validations: [
@@ -49,31 +59,18 @@ const BillingTypeCreate = (props) => {
         ...props.stringValidations.minMaxValidation(1, 30),
       ],
     },
-
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "TiposFacturacion.obligarFacturar",
-        defaultMessage: "Obligar a Facturar los Albaranes",
-      }),
-      type: 'checkbox',
-      key: 'concedimCredit',
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-    },
    
   ];
   return (
     <CreateUpdateForm
       title={props.intl.formatMessage({
-        id: "TiposFacturacion.titulo",
-        defaultMessage: "Tipos Facturación",
+        id: "TipoProveedoresCliente.titulo",
+        defaultMessage: "Tipo Proveedor/Cliente",
       })}
       formConfiguration={createConfiguration}
-      url={API.tipusFacturacions}
+      url={API.tipusProveidorClient}
     />
   );
 };
 
-export default compose(withValidations, injectIntl)(BillingTypeCreate);
+export default compose(withValidations, injectIntl)(SupplierClientsTypeCreate);

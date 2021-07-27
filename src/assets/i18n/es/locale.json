@@ -378,7 +378,7 @@
   "Iva.porcentajeIva": "Porcentaje IVA",
   "Iva.titulo": "IVA",
   "Iva.texto": "Texto",
-  "Iva.porcentajeRecargo": "Rrecargo equivalencia",
+  "Iva.porcentajeRecargo": "Recargo equivalencia",
   "Iva.codigoCont": "Código contabilidad",
   "Iva.codigoRecCont": "Código recargo contabilidad",
   "RegimenIva.titulo": "Régimen IVA",
@@ -1432,7 +1432,11 @@
   "Organizacion.email":"Email",
   "Parametros.valor":"Valor",
   "Parametros.titulo":"Parámetros",
-  "SeccionesEmpresa.seccion":"Sección"
+  "SeccionesEmpresa.seccion":"Sección",
+  "TipoProveedoresCliente.titulo":"Tipo Proveedor/Cliente",
+  "NaturalezaPago.titulo":"Naturaleza Pago",
+  "TiposFacturacion.obligarFacturar":"Obligar a Facturar los Albaranes",
+  "TipoIncidenciasFactura.titulo":"Tipo Incidencia Factura"
 
 
 }

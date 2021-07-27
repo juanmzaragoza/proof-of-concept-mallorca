@@ -78,7 +78,7 @@ const ExpirationTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "select",
       key: "tipus",
-      required:true,
+      required: true,
       breakpoints: {
         xs: 12,
         md: 2,
@@ -87,9 +87,7 @@ const ExpirationTab = ({ formData, setFormData, getFormData, ...props }) => {
         options: TIPO_VENCIMIENTO_SELECTOR_VALUES,
       },
       validationType: "string",
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-      ],
+      validations: [...props.commonValidations.requiredValidation()],
     },
 
     {
@@ -189,7 +187,7 @@ const ExpirationTab = ({ formData, setFormData, getFormData, ...props }) => {
       suffix: "€",
       validationType: "number",
       validations: [
-        ...props.stringValidations.minMaxValidation(0, 999999999999),
+        ...props.numberValidations.minMaxValidation(0, 999999999999),
       ],
     },
     {
@@ -204,7 +202,7 @@ const ExpirationTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(0, 99)],
+      validations: [...props.numberValidations.minMaxValidation(0, 2147483647)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -218,7 +216,7 @@ const ExpirationTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(0, 99)],
+      validations: [...props.numberValidations.minMaxValidation(0, 2147483647)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -244,7 +242,7 @@ const ExpirationTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(0, 99)],
+      validations: [...props.numberValidations.minMaxValidation(0, 2147483647)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -258,7 +256,7 @@ const ExpirationTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(0, 999)],
+      validations: [...props.numberValidations.minMaxValidation(0, 2147483647)],
     },
   ];
 
@@ -276,7 +274,7 @@ const ExpirationTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       suffix: "%",
       validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(0, 99)],
+      validations: [...props.numberValidations.minMaxValidation(0, 99)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -290,7 +288,7 @@ const ExpirationTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(0, 999)],
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
 
     {
@@ -306,7 +304,7 @@ const ExpirationTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       suffix: "%",
       validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(0, 99)],
+      validations: [...props.numberValidations.minMaxValidation(0, 99)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -320,7 +318,7 @@ const ExpirationTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(0, 999)],
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
 
     {
@@ -336,7 +334,7 @@ const ExpirationTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       suffix: "%",
       validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(0, 99)],
+      validations: [...props.numberValidations.minMaxValidation(0, 99)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -350,7 +348,7 @@ const ExpirationTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(0, 999)],
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
 
     {
@@ -366,7 +364,7 @@ const ExpirationTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       suffix: "%",
       validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(0, 99)],
+      validations: [...props.numberValidations.minMaxValidation(0, 99)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -380,7 +378,7 @@ const ExpirationTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(0, 999)],
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -395,7 +393,7 @@ const ExpirationTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       suffix: "%",
       validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(0, 99)],
+      validations: [...props.numberValidations.minMaxValidation(0, 99)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -409,7 +407,7 @@ const ExpirationTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(0, 999)],
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
   ];
 
