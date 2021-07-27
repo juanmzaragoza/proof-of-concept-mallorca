@@ -27,7 +27,7 @@ const withValidations = (PassedComponent) => {
         {
           type: "max",
           params: [max, props.intl.formatMessage({
-            id: "Validaciones.numeros.max",
+            id: "Validaciones.string.max",
             defaultMessage: "Debe string como mucho {max} carácteres"
           },{max: max})]
         }

@@ -1,27 +1,28 @@
 import React, { useEffect } from "react";
-import ReactGrid from "../../../modules/ReactGrid";
-import { bindActionCreators, compose } from "redux";
-import { setBreadcrumbHeader, setListingConfig } from "../../../redux/pageHeader";
 import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
+import { bindActionCreators, compose } from "redux";
+
+import ReactGrid from "modules/ReactGrid";
+import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
-const CommercialRegisterList = ({ actions, ...props }) => {
+const IncidenceTypeList = ({ actions, ...props }) => {
 
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
-        id: "RegistroComercial.titulo",
-        defaultMessage: "Registros Comerciales",
+        id: "TipoIncidenciasFactura.titulo",
+        defaultMessage: "Tipo Incidencia Factura",
       }),
     });
     actions.setBreadcrumbHeader([
       {
         title: props.intl.formatMessage({
-          id: "RegistroComercial.titulo",
-        defaultMessage: "Registros Comerciales",
+          id: "TipoIncidenciasFactura.titulo",
+          defaultMessage: "Tipo Incidencia Factura",
         }),
-        href: "/fact/registros-comerciales",
+        href: "/fact/tipo-incidencia-factura",
       },
     ]);
   }, []);
@@ -29,24 +30,25 @@ const CommercialRegisterList = ({ actions, ...props }) => {
   const listConfiguration = {
     columns: [
       {
-        name: "interessat",
+        name: "codi",
         title: props.intl.formatMessage({
-          id: "RegistroComercial.interesado",
-          defaultMessage: "Interesado",
+          id: "Comun.codigo",
+          defaultMessage: "Código",
         }),
       },
       {
-        name: "descripcioMitja",
+        name: "nom",
         title: props.intl.formatMessage({
-          id: "RegistroComercial.descripcion",
-          defaultMessage: "Descripción del Medio",
+          id: "Comun.nombre",
+          defaultMessage: "Nombre",
         }),
       },
+
     ],
-    URL: API.registreComercial,
-    listKey: "registreComercials",
+    URL: API.tipusIncidenciesFactura,
+    listKey: "tipusIncidenciaFacturas",
   };
-  return <ReactGrid id="registreComercial" configuration={listConfiguration} />;
+  return <ReactGrid id="tipusIncidenciesFactura" configuration={listConfiguration} />;
 };
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -60,4 +62,4 @@ const mapDispatchToProps = (dispatch, props) => {
 export default compose(
   injectIntl,
   connect(null, mapDispatchToProps)
-)(CommercialRegisterList);
+)(IncidenceTypeList);

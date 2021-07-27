@@ -378,7 +378,7 @@
   "Iva.porcentajeIva": "Porcentaje IVA",
   "Iva.titulo": "IVA",
   "Iva.texto": "Texto",
-  "Iva.porcentajeRecargo": "Rrecargo equivalencia",
+  "Iva.porcentajeRecargo": "Recargo equivalencia",
   "Iva.codigoCont": "Código contabilidad",
   "Iva.codigoRecCont": "Código recargo contabilidad",
   "RegimenIva.titulo": "Régimen IVA",
@@ -1423,7 +1423,20 @@
   "TipoRiesgo.vpNoVencidos":"Vencimientos Pendiente No Vencidos",
   "TipoRiesgo.vpVencidos":"Vencimientos Pendiente Vencidos",
   "TipoRiesgo.vEfectosNegociados":"Vencimientos Efectos Negociados",
-  "TipoRiesgo.nifCoincidentes":"NIF Coincidentes"
+  "TipoRiesgo.nifCoincidentes":"NIF Coincidentes",
+
+
+  "Clientes.Documentos.reparaciones" :"Reparaciones",
+  "Organizacion.gerente":"Gerente",
+  "Organizacion.contacte":"Contacto",
+  "Organizacion.email":"Email",
+  "Parametros.valor":"Valor",
+  "Parametros.titulo":"Parámetros",
+  "SeccionesEmpresa.seccion":"Sección",
+  "TipoProveedoresCliente.titulo":"Tipo Proveedor/Cliente",
+  "NaturalezaPago.titulo":"Naturaleza Pago",
+  "TiposFacturacion.obligarFacturar":"Obligar a Facturar los Albaranes",
+  "TipoIncidenciasFactura.titulo":"Tipo Incidencia Factura"
 
 
 }

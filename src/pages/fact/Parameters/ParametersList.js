@@ -1,27 +1,28 @@
 import React, { useEffect } from "react";
-import ReactGrid from "../../../modules/ReactGrid";
-import { bindActionCreators, compose } from "redux";
-import { setBreadcrumbHeader, setListingConfig } from "../../../redux/pageHeader";
 import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
+import { bindActionCreators, compose } from "redux";
+
+import ReactGrid from "modules/ReactGrid";
+import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
-const CommercialRegisterList = ({ actions, ...props }) => {
+const ParameterList = ({ actions, ...props }) => {
 
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
-        id: "RegistroComercial.titulo",
-        defaultMessage: "Registros Comerciales",
+        id: "Parametros.titulo",
+        defaultMessage: "Parámetros",
       }),
     });
     actions.setBreadcrumbHeader([
       {
         title: props.intl.formatMessage({
-          id: "RegistroComercial.titulo",
-        defaultMessage: "Registros Comerciales",
+          id: "Parametros.titulo",
+          defaultMessage: "Parámetros",
         }),
-        href: "/fact/registros-comerciales",
+        href: "/fact/parametros",
       },
     ]);
   }, []);
@@ -29,24 +30,34 @@ const CommercialRegisterList = ({ actions, ...props }) => {
   const listConfiguration = {
     columns: [
       {
-        name: "interessat",
+        name: "codi",
         title: props.intl.formatMessage({
-          id: "RegistroComercial.interesado",
-          defaultMessage: "Interesado",
+          id: "Comun.codigo",
+          defaultMessage: "Código",
         }),
       },
       {
-        name: "descripcioMitja",
+        name: "description",
         title: props.intl.formatMessage({
-          id: "RegistroComercial.descripcion",
-          defaultMessage: "Descripción del Medio",
+          id: "Comun.descripcion",
+          defaultMessage: "Descripción",
         }),
       },
+     
+      {
+        name: "value",
+        title: props.intl.formatMessage({
+          id: "Parametros.valor",
+          defaultMessage: "Valor ",
+        }),
+      },
+
+
     ],
-    URL: API.registreComercial,
-    listKey: "registreComercials",
+    URL: API.parametres,
+    listKey: "parameters",
   };
-  return <ReactGrid id="registreComercial" configuration={listConfiguration} />;
+  return <ReactGrid id="parametres" configuration={listConfiguration} />;
 };
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -60,4 +71,4 @@ const mapDispatchToProps = (dispatch, props) => {
 export default compose(
   injectIntl,
   connect(null, mapDispatchToProps)
-)(CommercialRegisterList);
+)(ParameterList);

@@ -118,7 +118,7 @@ const PointSaleCreate = (props) => {
       validationType: "number",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(0, 100),
+        ...props.numberValidations.minMaxValidation(0, 100)
       ],
     },
     {

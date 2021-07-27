@@ -20,7 +20,7 @@ const RegimeVatCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       noEditable: true,
       validationType: "string",
@@ -39,7 +39,7 @@ const RegimeVatCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 6,
+        md: 7,
       },
       validationType: "string",
       validations: [
@@ -77,7 +77,7 @@ const RegimeVatCreate = (props) => {
   
         breakpoints: {
           xs: 12,
-          md: 3,
+          md: 4,
         },
         validationType: "string",
         validations: [
@@ -94,7 +94,7 @@ const RegimeVatCreate = (props) => {
   
         breakpoints: {
           xs: 12,
-          md: 3,
+          md: 4,
         },
         validationType: "string",
         validations: [

@@ -20,7 +20,7 @@ const BillingTab = ({ formData, setFormData, getFormData, ...props }) => {
     fields: {
       [BILLING_DATA_SECTION_INDEX]: false,
       [ORDERS_SECTION_TAB_INDEX]: false,
-      [VARIOUS_SECTION_TAB_INDEX]: false,
+      [VARIOUS_SECTION_TAB_INDEX]: true,
     },
     setIsValid: props.setIsValid,
   });
@@ -51,32 +51,6 @@ const BillingTab = ({ formData, setFormData, getFormData, ...props }) => {
       ],
     };
   };
-
-  const code = (md = 6) => ({
-    type: "input",
-    key: "codi",
-    placeHolder: CODE,
-    required: true,
-    noEditable: true,
-    breakpoints: {
-      xs: 12,
-      md: md,
-    },
-  });
-
-  const codeAndDescription = (mdCode = 6, mdDes = 6) => [
-    code(mdCode),
-    {
-      type: "input",
-      key: "descripcio",
-      placeHolder: DESCRIPCIO,
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdDes,
-      },
-    },
-  ];
 
   const aSCodeAndName = [
     { title: CODE, name: "codi" },

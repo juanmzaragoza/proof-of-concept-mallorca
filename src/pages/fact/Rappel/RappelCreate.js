@@ -38,7 +38,7 @@ const VatCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 7,
+        md: 8,
       },
       validationType: "string",
       validations: [
@@ -72,7 +72,7 @@ const VatCreate = (props) => {
         },
         validationType: "number",
         validations: [
-          ...props.stringValidations.minMaxValidation(0, 99),
+          ...props.numberValidations.minMaxValidation(0, 99)
         ],
       },
       {
@@ -89,7 +89,7 @@ const VatCreate = (props) => {
         },
         validationType: "number",
         validations: [
-          ...props.stringValidations.minMaxValidation(0, 99),
+          ...props.numberValidations.minMaxValidation(0, 99),
         ],
       },
       {
@@ -105,7 +105,7 @@ const VatCreate = (props) => {
         },
         validationType: "number",
         validations: [
-          ...props.stringValidations.minMaxValidation(0, 9999999999999999999999),
+          ...props.numberValidations.minMaxValidation(0, 999999999999),
         ],
       },
       {
@@ -121,7 +121,7 @@ const VatCreate = (props) => {
         },
         validationType: "number",
         validations: [
-          ...props.stringValidations.minMaxValidation(0, 9999999999999999999999),
+          ...props.numberValidations.minMaxValidation(0,999999999999),
         ],
       },
      
