@@ -121,7 +121,6 @@ const VatCreate = (props) => {
         },
         validationType: "number",
         validations: [
-          
           ...props.numberValidations.minMaxValidation(0,999999999999),
         ],
       },
