@@ -478,7 +478,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
             },
             validationType: "number",
             ...withRequiredValidation([
-              ...props.stringValidations.minMaxValidation(1, 21),
+              ...props.numberValidations.minMaxValidation(0, 99),
             ]),
           },
           {
@@ -495,11 +495,11 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
             },
             validationType: "number",
             ...withRequiredValidation([
-              ...props.stringValidations.minMaxValidation(1, 21),
+              ...props.numberValidations.minMaxValidation(0, 99),
             ]),
           },
           {
-            type: "numeric",
+            type: "input",
             key: "codiComptabilitat",
             placeHolder: props.intl.formatMessage({
               id: "Clientes.codigo.contabilidad",
@@ -510,13 +510,13 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
               xs: 12,
               md: 3,
             },
-            validationType: "number",
+            validationType: "string",
             ...withRequiredValidation([
               ...props.stringValidations.minMaxValidation(1, 4),
             ]),
           },
           {
-            type: "numeric",
+            type: "input",
             key: "codiRecarrecComptabilitat",
             placeHolder: props.intl.formatMessage({
               id: "Clientes.codigo.recargo",
@@ -527,7 +527,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
               xs: 12,
               md: 3,
             },
-            validationType: "number",
+            validationType: "string",
             ...withRequiredValidation([
               ...props.stringValidations.minMaxValidation(1, 4),
             ]),
@@ -609,7 +609,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
             ]),
           },
           {
-            type: "numeric",
+            type: "input",
             key: "codiComptabilitat",
             placeHolder: props.intl.formatMessage({
               id: "Clientes.codigo.contabilidad",
@@ -620,7 +620,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
               xs: 12,
               md: 3,
             },
-            validationType: "number",
+            validationType: "string",
             validations: [...props.stringValidations.minMaxValidation(1, 2)],
           },
 
@@ -644,7 +644,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
             ...withRequiredValidation(),
           },
           {
-            type: "numeric",
+            type: "input",
             key: "codiFacturaElectronica",
             placeHolder: props.intl.formatMessage({
               id: "Clientes.codigo.facturaElectronica",
@@ -655,12 +655,12 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
               xs: 12,
               md: 4,
             },
-            validationType: "number",
+            validationType: "string",
             validations: [...props.stringValidations.minMaxValidation(1, 4)],
           },
           {
             type: "input",
-            key: "text",
+            key: "sitCodClaExd",
             placeHolder: props.intl.formatMessage({
               id: "Clientes.re.expedida",
               defaultMessage: "Régimen especial fact expedida",
@@ -674,7 +674,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
           },
           {
             type: "input",
-            key: "text",
+            key: "sitCodClaReb",
             placeHolder: props.intl.formatMessage({
               id: "Clientes.re.recibida",
               defaultMessage: "Régimen especial fact recibida",

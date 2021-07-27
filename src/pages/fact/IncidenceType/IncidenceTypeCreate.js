@@ -1,12 +1,12 @@
+import { injectIntl } from "react-intl";
 import React from "react";
 import { compose } from "redux";
-import { injectIntl } from "react-intl";
 
-import CreateUpdateForm from "modules/ReactGrid/CreateUpdateForm";
+import CreateUpdateForm from "../../../modules/ReactGrid/CreateUpdateForm";
 import { withValidations } from "modules/wrappers";
 import * as API from "redux/api";
 
-const BillingTypeCreate = (props) => {
+const IncidenceTypeCreate = (props) => {
   const createConfiguration = [
     {
       placeHolder: props.intl.formatMessage({
@@ -18,26 +18,30 @@ const BillingTypeCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
       noEditable: true,
       validationType: "string",
       validations: [
+        ...props.stringValidations.fieldExistsValidation(
+          "tipusIncidenciesFactura",
+          "codi",
+          props.intl.formatMessage({
+            id: "Comun.codigo",
+            defaultMessage: "Código",
+          })
+        ),
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 4),
-        ...props.stringValidations.fieldExistsValidation('tipusFacturacions', 'codi', props.intl.formatMessage({
-          id: "Comun.codigo",
-          defaultMessage: "Código",
-        }),)
+        ...props.stringValidations.minMaxValidation(0, 4),
       ],
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Comun.descripcion",
-        defaultMessage: "Descripción",
+        id: "Comun.nombre",
+        defaultMessage: "Nombre",
       }),
       type: "input",
-      key: "descripcio",
+      key: "nom",
       required: true,
       breakpoints: {
         xs: 12,
@@ -49,31 +53,17 @@ const BillingTypeCreate = (props) => {
         ...props.stringValidations.minMaxValidation(1, 30),
       ],
     },
-
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "TiposFacturacion.obligarFacturar",
-        defaultMessage: "Obligar a Facturar los Albaranes",
-      }),
-      type: 'checkbox',
-      key: 'concedimCredit',
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-    },
-   
   ];
   return (
     <CreateUpdateForm
       title={props.intl.formatMessage({
-        id: "TiposFacturacion.titulo",
-        defaultMessage: "Tipos Facturación",
+        id: "TipoIncidenciasFatura.titulo",
+        defaultMessage: "Tipo Incidencias Fatura",
       })}
       formConfiguration={createConfiguration}
-      url={API.tipusFacturacions}
+      url={API.tipusIncidenciesFactura}
     />
   );
 };
 
-export default compose(withValidations, injectIntl)(BillingTypeCreate);
+export default compose(withValidations, injectIntl)(IncidenceTypeCreate);

@@ -61,29 +61,33 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
     {
       placeHolder: props.intl.formatMessage({
         id: "Comun.codigo",
-        defaultMessage: "Código"
+        defaultMessage: "Código",
       }),
-      type: 'input',
-      key: 'codi',
+      type: "input",
+      key: "codi",
       required: true,
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
       noEditable: true,
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.fieldExistsValidation('articles', 'codi', props.intl.formatMessage({
-          id: "Comun.codigo",
-          defaultMessage: "Código",
-        }),)
-      ]
+        ...props.stringValidations.fieldExistsValidation(
+          "articles",
+          "codi",
+          props.intl.formatMessage({
+            id: "Comun.codigo",
+            defaultMessage: "Código",
+          })
+        ),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "Articulos.descCorta",
-        defaultMessage: "Descripción corta"
+        defaultMessage: "Descripción corta",
       }),
       type: "input",
       key: "descripcioCurta",
@@ -140,9 +144,7 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndDescription,
       },
       validationType: "object",
-      validations:[
-        ...props.commonValidations.requiredValidation(),]
-      
+      validations: [...props.commonValidations.requiredValidation()],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -201,7 +203,7 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndDescription,
       },
     },
-   
+
     {
       placeHolder: props.intl.formatMessage({
         id: "Articulos.decimalesPrecio",
@@ -215,8 +217,10 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 1,
       },
       validationType: "number",
-      validations: [...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 9)],
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+        ...props.numberValidations.minMaxValidation(1, 9),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -231,7 +235,7 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
       validationType: "number",
-      validations:[...props.commonValidations.requiredValidation()]
+      validations: [...props.commonValidations.requiredValidation()],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -254,7 +258,7 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndDescription,
       },
       validationType: "object",
-      validations:[...props.commonValidations.requiredValidation()]
+      validations: [...props.commonValidations.requiredValidation()],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -268,7 +272,7 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 1,
       },
       validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(0, 9)],
+      validations: [...props.numberValidations.minMaxValidation(0, 9)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -282,7 +286,7 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
     },
-   
+
     {
       placeHolder: props.intl.formatMessage({
         id: "Articulos.tipoUnidad",
@@ -297,7 +301,7 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 4)],
     },
-    
+
     // {
     //   placeHolder: props.intl.formatMessage({
     //     id: "Articulos.urlImagen",
@@ -311,7 +315,7 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
     //     md: 3,
     //   },
     // },
-    
+
     {
       placeHolder: props.intl.formatMessage({
         id: "Comun.descripcion",
@@ -346,8 +350,6 @@ const ArticlesDataTab = ({ formData, setFormData, getFormData, ...props }) => {
             />
           }
         >
-
-
           <GenericForm
             formComponents={articlesDataConfig}
             emptyPaper={true}
