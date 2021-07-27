@@ -70,7 +70,7 @@ const ApplicationCreate = (props) => {
       validationType: "number",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(0, 3),
+        ...props.numberValidations.minMaxValidation(0, 3)
       ],
     },
     {

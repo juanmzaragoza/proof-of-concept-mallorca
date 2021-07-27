@@ -112,6 +112,8 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 3,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 2)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -125,6 +127,8 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 3,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 10)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -154,6 +158,8 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 3,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 2)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -167,19 +173,23 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 3,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 2)],
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "Empresas.valorFact",
         defaultMessage: "Valor Facturaión",
       }),
-      type: "input",
+      type: "numeric",
       key: "valorFacturacio",
 
       breakpoints: {
         xs: 12,
         md: 3,
       },
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 9999999999)],
     },
 
 

@@ -324,7 +324,8 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(1, 100000000)],
+     
+      validations: [ ...props.numberValidations.minMaxValidation(0, 100000000)],
     },
     {
       placeHolder: props.intl.formatMessage({

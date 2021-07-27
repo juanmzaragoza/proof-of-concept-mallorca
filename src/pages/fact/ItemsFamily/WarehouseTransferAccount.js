@@ -170,7 +170,7 @@ const DocumentFooterTab = ({formData, setFormData, getFormData, ...props}) => {
       },
       validationType: "number",
       validations: [
-        ...props.stringValidations.minMaxValidation(1, 99)
+        ...props.numberValidations.minMaxValidation(0, 99)
       ]
     },
     {

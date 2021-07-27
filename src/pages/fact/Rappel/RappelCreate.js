@@ -72,7 +72,7 @@ const VatCreate = (props) => {
         },
         validationType: "number",
         validations: [
-          ...props.stringValidations.minMaxValidation(0, 99),
+          ...props.numberValidations.minMaxValidation(0, 99)
         ],
       },
       {
@@ -89,7 +89,7 @@ const VatCreate = (props) => {
         },
         validationType: "number",
         validations: [
-          ...props.stringValidations.minMaxValidation(0, 99),
+          ...props.numberValidations.minMaxValidation(0, 99),
         ],
       },
       {
@@ -105,7 +105,7 @@ const VatCreate = (props) => {
         },
         validationType: "number",
         validations: [
-          ...props.stringValidations.minMaxValidation(0, 9999999999999999999999),
+          ...props.numberValidations.minMaxValidation(0, 9999999999999999999999),
         ],
       },
       {
@@ -121,7 +121,7 @@ const VatCreate = (props) => {
         },
         validationType: "number",
         validations: [
-          ...props.stringValidations.minMaxValidation(0, 9999999999999999999999),
+          ...props.numberValidations.minMaxValidation(0, 9999999999999999999999),
         ],
       },
      

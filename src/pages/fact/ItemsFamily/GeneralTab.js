@@ -243,7 +243,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       },
       validationType: "number",
       validations: [
-        ...props.stringValidations.minMaxValidation(1, 9999),
+        ...props.numberValidations.minMaxValidation(0, 9999)
       ],
     },
     {
