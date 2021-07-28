@@ -115,7 +115,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
             }),
             type: "LOV",
             key: "idioma",
-            noEditable: true,
             breakpoints: {
               xs: 12,
               md: 3,
