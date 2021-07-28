@@ -507,9 +507,9 @@
   "FamiliaArticulos.tabs.cuentasProveedores": "Cuentas Proveedores",
   "FamiliaArticulos.tabs.gama_Modelo": "Gamas-Modelos",
   "FamiliaArticulos.secuencia": "Secuencia Ordenación",
-  "FamiliaArticulos.margenSobreCoste": "Margen Sobre Coste %",
-  "FamiliaArticulos.minimo": "Margen Mínimo %",
-  "FamiliaArticulos.porcentajePenalizacionDevolucion": "Porcentaje de penalización devolución %",
+  "FamiliaArticulos.margenSobreCoste": "Margen Sobre Coste",
+  "FamiliaArticulos.minimo": "Margen Mínimo",
+  "FamiliaArticulos.porcentajePenalizacionDevolucion": "Penalización devolución",
   "FamiliaArticulos.excluirAlGenerarAlbaran": "Excluir al generar albarán",
   "FamiliaArticulos.grupoRecursos": "Grupo de Recursos",
   "FamiliaArticulos.numeroHoras": "Numero de horas",
@@ -1452,7 +1452,9 @@
   "Selector.porcentaje":"Porcentaje",
   "CategoriaTox.empresaCodigo":"Empresa Código",
   "CategoriaTox.titulo":"Categorías Toxicologícas",
-  "CategoriaTox.pieDocumento":"Pie de Documento"
+  "CategoriaTox.pieDocumento":"Pie de Documento",
+  "SerieVenta.descripcionOperario":"Desripción Operario",
+  "SerieVenta.situacionCodigoFacturacion":"Situación Código Facturación"
 
 
 }
