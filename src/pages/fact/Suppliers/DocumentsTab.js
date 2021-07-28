@@ -2,9 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 import { compose } from "redux";
 import { useParams } from "react-router-dom";
-import OutlinedContainer from "../../../modules/shared/OutlinedContainer";
 import { FormattedMessage, injectIntl } from "react-intl";
-import GenericForm from "../../../modules/GenericForm";
 import { withValidations } from "modules/wrappers";
 import { useTabForm } from "../../../hooks/tab-form";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
@@ -13,7 +11,7 @@ import { Chip } from "@material-ui/core";
 
 const DocumentsTab = ({ formData, setFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false },
+    fields: { 0: true },
     setIsValid: props.setIsValid,
   });
 
