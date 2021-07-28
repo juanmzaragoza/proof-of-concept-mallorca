@@ -1005,6 +1005,15 @@ const withConstants = (PassedComponent) => {
         path: "FAC_TCT",
         icon: <LocalMall />,
       },
+      {
+        key: "FAC_CAIXA",
+        title: props.intl.formatMessage({
+          id: "Cajas.titulo",
+          defaultMessage: "Cajas",
+        }),
+        path: "FAC_CAIXA",
+        icon: <LocalMall />,
+      },
     ];
 
     return (

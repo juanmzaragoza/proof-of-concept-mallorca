@@ -236,3 +236,4 @@ export const parametres = `api/fact/parameters`;
 export const tipusIncidenciesFactura = `api/fact/tipusIncidenciesFactura`;
 export const liniaFactoring = `api/fact/liniesFactoring`;
 export const bancNom = `api/fact/bancs`;
+export const limitsCredit = `api/fact/limitsCredit`;
