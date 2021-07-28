@@ -1454,7 +1454,9 @@
   "CategoriaTox.titulo":"Categorías Toxicologícas",
   "CategoriaTox.pieDocumento":"Pie de Documento",
   "SerieVenta.descripcionOperario":"Desripción Operario",
-  "SerieVenta.situacionCodigoFacturacion":"Situación Código Facturación"
+  "SerieVenta.situacionCodigoFacturacion":"Situación Código Facturación",
+  "TipoComision.tabs.articulos":"Artículos",
+  "TipoComision.tabs.familia":"Família Artículos"
 
 
 }
