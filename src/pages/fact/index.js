@@ -84,6 +84,7 @@ import IncidenceType from "./IncidenceType";
 import FactoringLine from "./FactoringLine";
 import CostsType from "./CostsType";
 import ToxicCategory from "./ToxicCategory";
+import Attributes from "./Attributes";
 
 const component = [
   SuppliersFamily,
@@ -166,6 +167,7 @@ const component = [
   FactoringLine,
   CostsType,
   ToxicCategory,
+  Attributes
 ];
 
 export default component;

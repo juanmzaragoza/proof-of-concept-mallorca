@@ -1456,7 +1456,8 @@
   "SerieVenta.descripcionOperario":"Desripción Operario",
   "SerieVenta.situacionCodigoFacturacion":"Situación Código Facturación",
   "TipoComision.tabs.articulos":"Artículos",
-  "TipoComision.tabs.familia":"Família Artículos"
+  "TipoComision.tabs.familia":"Família Artículos",
+  "Atributos.titulo":"Atributos"
 
 
 }
