@@ -107,3 +107,4 @@ export const NATURALEZA_PAGO_FACT_URL = '/fact/naturaleza-pago';
 export const INCIDENCE_TYPE_FACT_URL = '/fact/tipo-incidencia-factura';
 export const FACTORING_LINE_FACT_URL = '/fact/linias-factoring';
 export const COSTS_TYPE_FACT_URL = '/fact/tipo-costes';
+export const CATEG_TOXIC_FACT_URL = '/fact/categorias-toxicologicas';

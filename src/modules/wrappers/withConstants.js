@@ -1005,6 +1005,15 @@ const withConstants = (PassedComponent) => {
         path: "FAC_TCT",
         icon: <LocalMall />,
       },
+      {
+        key: "FAC_CATTOX",
+        title: props.intl.formatMessage({
+          id: "CategoriaTox.titulo",
+          defaultMessage: "Categorías Toxicológicas",
+        }),
+        path: "FAC_CATTOX",
+        icon: <LocalMall />,
+      },
     ];
 
     return (
