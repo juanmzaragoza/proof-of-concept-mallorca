@@ -1444,6 +1444,11 @@
   "LiniasFactoring.diaNumero":"Días",
   "LiniasFactoring.cuentaContable":"Cuentas Contables",
   "LiniasFactoring.bancNom":"Banco Nombre",
-  "LiniasFactoring.bancCodi":"Banco Código"
+  "LiniasFactoring.bancCodi":"Banco Código",
+  "TipoCostes.tipo":"Tipo",
+  "TipoCostes.titulo":"Tipo Costes",
+  "TipoCostes.secuenciaAutomatica":"Secuencia de Alta Automática",
+  "Selector.importe":"Importe",
+  "Selector.porcentaje":"Porcentaje"
 
 }

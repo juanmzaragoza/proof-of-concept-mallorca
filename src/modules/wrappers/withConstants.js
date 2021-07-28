@@ -908,7 +908,6 @@ const withConstants = (PassedComponent) => {
         icon: <LocalMall />,
       },
       {
-
         key: "FAC_SECEMP", // not mandatory for routes with children
         title: props.intl.formatMessage({
           id: "SeccionEmpresa.titulo",
@@ -917,7 +916,6 @@ const withConstants = (PassedComponent) => {
         path: "FAC_SECEMP", // or has path or has children but not both
       },
       {
-
         key: "FAC_APS", // not mandatory for routes with children
         title: props.intl.formatMessage({
           id: "ProductosSector.titulo",
@@ -996,6 +994,15 @@ const withConstants = (PassedComponent) => {
           defaultMessage: "Linias Factoring",
         }),
         path: "FAC_LINFAC",
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_TCT",
+        title: props.intl.formatMessage({
+          id: "TipoCostes.titulo",
+          defaultMessage: "Tipo Costes",
+        }),
+        path: "FAC_TCT",
         icon: <LocalMall />,
       },
     ];
