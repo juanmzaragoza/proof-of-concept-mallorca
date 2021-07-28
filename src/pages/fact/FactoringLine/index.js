@@ -8,14 +8,12 @@ import Paper from "@material-ui/core/Paper";
 import * as API from "redux/api";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import withHeaders from "modules/wrappers/withHeaders";
+import FactoringLineList from "./FactoringLineList";
+import FactoringLineForm from "./FactoringLineForm";
+import ListIcon from "@material-ui/icons/List";
+import { FACTORING_LINE_FACT_URL } from "constants/routes";
 
-import StoreIcon from "@material-ui/icons/Store";
-import ArticlesModelList from "./ItemModelList";
-import ArticlesModelForm from "./ItemModelForm";
-
-import { MODEL_FACT_URL } from "constants/routes";
-
-const URL = MODEL_FACT_URL;
+const URL = FACTORING_LINE_FACT_URL;
 
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
@@ -25,31 +23,30 @@ const mapDispatchToProps = (dispatch, props) => {
   return { actions };
 };
 
-const ArticlesModelListIntl = compose(
+const ClientsListIntl = compose(
   injectIntl,
   connect(null, mapDispatchToProps)
-)(ArticlesModelList);
+)(FactoringLineList);
 
-const ArticlesModelWithUrl = () => (
-  <ArticlesModelForm url={API.articlesModel} />
-);
+// suppliers form
+// TODO(): maybe we can create a state for the page and set the url there
+const ClientsFormWithUrl = () => <FactoringLineForm url={API.liniaFactoring} />;
 
-const ArticlesModel = () => (
+const FactoringLine = () => (
   <Paper style={{ position: "relative" }}>
     <Switch>
-      <Route exact path={`${URL}`} component={ArticlesModelListIntl}></Route>
-      <Route path={`${URL}/create`} component={ArticlesModelWithUrl}></Route>
-      <Route path={`${URL}/:id`} component={ArticlesModelWithUrl}></Route>
+      <Route exact path={`${URL}`} component={ClientsListIntl}></Route>
+      <Route path={`${URL}/create`} component={ClientsFormWithUrl}></Route>
+      <Route path={`${URL}/:id`} component={ClientsFormWithUrl}></Route>
     </Switch>
   </Paper>
 );
 
-const component = {
+export default {
   routeProps: {
     path: `${URL}`,
-    component: withHeaders(ArticlesModel),
+    component: withHeaders(FactoringLine),
   },
-  name: "FAC_MODART",
-  icon: <StoreIcon />,
+  name: "FAC_LINFAC",
+  icon: <ListIcon />,
 };
-export default component;

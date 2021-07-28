@@ -7,22 +7,21 @@ import ReactGrid from "modules/ReactGrid";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
-const GamaList = ({ actions, ...props }) => {
-
+const ToxicCategoryList = ({ actions, ...props }) => {
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
-        id: "ArticulosGama.titulo",
-        defaultMessage: "Gama",
+        id: "CategoriaTox.titulo",
+        defaultMessage: "Categorías Toxicológicas",
       }),
     });
     actions.setBreadcrumbHeader([
       {
         title: props.intl.formatMessage({
-          id: "ArticulosGama.titulo",
-          defaultMessage: "Gama",
+          id: "CategoriaTox.titulo",
+          defaultMessage: "Categorías Toxicológicas",
         }),
-        href: "/fact/articulos-gama",
+        href: "/fact/categorias-toxicologicas",
       },
     ]);
   }, []);
@@ -37,24 +36,34 @@ const GamaList = ({ actions, ...props }) => {
         }),
       },
       {
-        name: "descripcio",
+        name: "nom",
         title: props.intl.formatMessage({
-          id: "Comun.descripcion",
-          defaultMessage: "Descripción",
+          id: "Comun.nombre",
+          defaultMessage: "Nombre",
         }),
       },
-      // {
-      //   name: "prupes",
-      //   title: props.intl.formatMessage({
-      //     id: "Gama.prupes",
-      //     defaultMessage: "Prupes",
-      //   }),
-      // },
+      {
+        name: "empresaCodi",
+        title: props.intl.formatMessage({
+          id: "CategoriaTox.empresaCodigo",
+          defaultMessage: "Código Empresa",
+        }),
+      },
+      {
+        name: "peuDocument",
+        title: props.intl.formatMessage({
+          id: "CategoriaTox.pieDocumento",
+          defaultMessage: "Pie Documento",
+        }),
+        getCellValue: (row) => row.peuDocument?.description ?? "",
+      },
     ],
-    URL: API.articlesGama,
-    listKey: "articleGammas",
+    URL: API.categoriaToxicologica,
+    listKey: "categoriaToxicologicas",
   };
-  return <ReactGrid id="articlesGama" configuration={listConfiguration} />;
+  return (
+    <ReactGrid id="categoriaToxicologica" configuration={listConfiguration} />
+  );
 };
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -68,4 +77,4 @@ const mapDispatchToProps = (dispatch, props) => {
 export default compose(
   injectIntl,
   connect(null, mapDispatchToProps)
-)(GamaList);
+)(ToxicCategoryList);

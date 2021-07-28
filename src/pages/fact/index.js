@@ -33,25 +33,25 @@ import Company from "./Company";
 
 import BusinessArea from "./BusinessArea";
 
-import Rates from './Rates';
-import Location from './Location';
-import ArticlesLocation from './ArticlesLocation';
-import FamilyCosts from './FamilyCosts';
-import Articles from './Articles';
-import Store from './Store';
-import SalesSeries from './SalesSeries';
-import DocumentoPagoCobro from './DocumentoPagoCobro';
-import MaturityType from './MaturityType';
+import Rates from "./Rates";
+import Location from "./Location";
+import ArticlesLocation from "./ArticlesLocation";
+import FamilyCosts from "./FamilyCosts";
+import Articles from "./Articles";
+import Store from "./Store";
+import SalesSeries from "./SalesSeries";
+import DocumentoPagoCobro from "./DocumentoPagoCobro";
+import MaturityType from "./MaturityType";
 
-import Products from './Products';
+import Products from "./Products";
 
-import BillingType from './BillingType';
-import DiscountRates from './DiscountRates';
-import FinalesFacturas from './FinalesFacturas';
-import SeriesIntracomunitarias from './SeriesIntracomunitarias';
-import PurchaseSeries from './PurchaseSeries';
+import BillingType from "./BillingType";
+import DiscountRates from "./DiscountRates";
+import FinalesFacturas from "./FinalesFacturas";
+import SeriesIntracomunitarias from "./SeriesIntracomunitarias";
+import PurchaseSeries from "./PurchaseSeries";
 
-import Sector from './Sector';
+import Sector from "./Sector";
 import Vehicle from "./Vehicle";
 import Carrier from "./Carrier";
 import CommercialSituation from "./CommercialSituation";
@@ -81,6 +81,10 @@ import Parameters from "./Parameters";
 import SupplierClientType from "./SupplierClientType";
 import PaymentNature from "./PaymentNature";
 import IncidenceType from "./IncidenceType";
+import FactoringLine from "./FactoringLine";
+import CostsType from "./CostsType";
+import ToxicCategory from "./ToxicCategory";
+import Attributes from "./Attributes";
 
 const component = [
   SuppliersFamily,
@@ -128,7 +132,6 @@ const component = [
   MaturityType,
 
   Products,
-  
 
   Sector,
   Vehicle,
@@ -145,7 +148,6 @@ const component = [
   Subvenciones,
   SubClients,
 
-
   CustomerDepartments,
   Departaments,
   CustomerApp,
@@ -161,12 +163,11 @@ const component = [
   Parameters,
   SupplierClientType,
   PaymentNature,
-  IncidenceType
-
-
-
-
+  IncidenceType,
+  FactoringLine,
+  CostsType,
+  ToxicCategory,
+  Attributes
 ];
-  
 
 export default component;

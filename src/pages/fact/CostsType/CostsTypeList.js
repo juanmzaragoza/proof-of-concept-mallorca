@@ -7,22 +7,22 @@ import ReactGrid from "modules/ReactGrid";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
-const GamaList = ({ actions, ...props }) => {
+const CostsTypeList = ({ actions, ...props }) => {
 
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
-        id: "ArticulosGama.titulo",
-        defaultMessage: "Gama",
+        id: "TipoCostes.titulo",
+        defaultMessage: "Tipo Costes",
       }),
     });
     actions.setBreadcrumbHeader([
       {
         title: props.intl.formatMessage({
-          id: "ArticulosGama.titulo",
-          defaultMessage: "Gama",
+          id: "TipoCostes.titulo",
+          defaultMessage: "Tipo Costes",
         }),
-        href: "/fact/articulos-gama",
+        href: "/fact/tipo-costes",
       },
     ]);
   }, []);
@@ -43,18 +43,28 @@ const GamaList = ({ actions, ...props }) => {
           defaultMessage: "Descripción",
         }),
       },
-      // {
-      //   name: "prupes",
-      //   title: props.intl.formatMessage({
-      //     id: "Gama.prupes",
-      //     defaultMessage: "Prupes",
-      //   }),
-      // },
+      {
+        name: "tipus",
+        title: props.intl.formatMessage({
+          id: "TipoCostes.tipo",
+          defaultMessage: "Tipo",
+        }),
+      },
+      {
+        name: "sequenciaAltaAutomatica",
+        title: props.intl.formatMessage({
+          id: "TipoCostes.secuenciaAutomatica",
+          defaultMessage: "Secuència de Alta Automática",
+        }),
+      },
+      
+
+
     ],
-    URL: API.articlesGama,
-    listKey: "articleGammas",
+    URL: API.tipusCost,
+    listKey: "tipusCosts",
   };
-  return <ReactGrid id="articlesGama" configuration={listConfiguration} />;
+  return <ReactGrid id="tipusCost" configuration={listConfiguration} />;
 };
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -68,4 +78,4 @@ const mapDispatchToProps = (dispatch, props) => {
 export default compose(
   injectIntl,
   connect(null, mapDispatchToProps)
-)(GamaList);
+)(CostsTypeList);
