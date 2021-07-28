@@ -193,6 +193,7 @@ const GenericForm = ({loading, ...props}) => {
                 name={key}
                 disabled={noEnable}
                 color="primary"
+                required={required}
               />
             }
             label={placeHolder}

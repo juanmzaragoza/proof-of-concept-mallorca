@@ -81,6 +81,7 @@ import Parameters from "./Parameters";
 import SupplierClientType from "./SupplierClientType";
 import PaymentNature from "./PaymentNature";
 import IncidenceType from "./IncidenceType";
+import FactoringLine from "./FactoringLine";
 
 const component = [
   SuppliersFamily,
@@ -161,7 +162,8 @@ const component = [
   Parameters,
   SupplierClientType,
   PaymentNature,
-  IncidenceType
+  IncidenceType,
+  FactoringLine
 
 
 

@@ -989,6 +989,15 @@ const withConstants = (PassedComponent) => {
         path: "FAC_TIPINF",
         icon: <LocalMall />,
       },
+      {
+        key: "FAC_LINFAC",
+        title: props.intl.formatMessage({
+          id: "LiniasFactoring.titulo",
+          defaultMessage: "Linias Factoring",
+        }),
+        path: "FAC_LINFAC",
+        icon: <LocalMall />,
+      },
     ];
 
     return (
