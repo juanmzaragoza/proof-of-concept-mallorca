@@ -42,8 +42,8 @@ const VehicleTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const otraAplicacion = {
     title: props.intl.formatMessage({
-      id: "Clientes.otraAplicacion",
-      defaultMessage: "Clientes otras Aplicaciones",
+      id: "Vehiculos.titulo",
+      defaultMessage: "Vehículos",
     }),
     query: [
       {
