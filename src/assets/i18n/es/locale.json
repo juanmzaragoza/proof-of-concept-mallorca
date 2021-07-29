@@ -1457,7 +1457,12 @@
   "SerieVenta.situacionCodigoFacturacion":"Situación Código Facturación",
   "TipoComision.tabs.articulos":"Artículos",
   "TipoComision.tabs.familia":"Família Artículos",
-  "Atributos.titulo":"Atributos"
+  "Atributos.titulo":"Atributos",
+  "ComplementosFactura.titulo":"Complementos Factura",
+  "ComplementosFactura.incrementarFactura":"Incrementar Factura",
+  "ComplementosFactura.incrementarBase":"Incrementar Base",
+  "ComplementosFactura.aplicarDto":"Aplicar Descuento",
+  "ComplementosFactura.distribuirCostes":"Distribuir Costes entre Artículos"
 
 
 }

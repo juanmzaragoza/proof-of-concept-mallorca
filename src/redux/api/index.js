@@ -233,3 +233,4 @@ export const categoriesToxicologiques = `api/fact/categoriesToxicologiques`;
 export const peuDocument = `api/fact/peusDocument`;
 export const traduccions = `api/fact/traduccions`;
 export const atributs = `api/fact/atributs`;
+export const complementsFactura = `api/fact/complementsFactura`;
