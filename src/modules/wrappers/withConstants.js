@@ -1032,6 +1032,15 @@ const withConstants = (PassedComponent) => {
         path: "FAC_COMFAC",
         icon: <LocalMall />,
       },
+      {
+        key: "FAC_FTT",
+        title: props.intl.formatMessage({
+          id: "FamTransp.titulo",
+          defaultMessage: "Familias y Transportistas",
+        }),
+        path: "FAC_FTT",
+        icon: <LocalMall />,
+      },
     ];
 
     return (

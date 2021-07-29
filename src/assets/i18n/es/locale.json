@@ -1462,7 +1462,10 @@
   "ComplementosFactura.incrementarFactura":"Incrementar Factura",
   "ComplementosFactura.incrementarBase":"Incrementar Base",
   "ComplementosFactura.aplicarDto":"Aplicar Descuento",
-  "ComplementosFactura.distribuirCostes":"Distribuir Costes entre Artículos"
-
+  "ComplementosFactura.distribuirCostes":"Distribuir Costes entre Artículos",
+  "FamTransp.titulo":"Familias y Transportistas",
+  "FamTransp.num":"Num.",
+  "FamTransp.nombreTransp":"Nombre Transportista",
+  "FamTransp.nifTransp":"NIF Transportista"
 
 }

@@ -86,6 +86,7 @@ import CostsType from "./CostsType";
 import ToxicCategory from "./ToxicCategory";
 import Attributes from "./Attributes";
 import InvoiceComplement from "./InvoiceComplement";
+import ArticleFamilyTrans from "./ArticleFamilyTrans";
 
 const component = [
   SuppliersFamily,
@@ -170,6 +171,7 @@ const component = [
   ToxicCategory,
   Attributes,
   InvoiceComplement,
+  ArticleFamilyTrans,
 ];
 
 export default component;
