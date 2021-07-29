@@ -238,3 +238,5 @@ export const articlesFamiliaTransportista = `api/fact/articlesFamiliaTransportis
 export const tipusFullesObra = `api/fact/tipusFullesObra`;
 export const tallers = `api/fact/tallers`;
 export const valorsTarifaDescompte = `api/fact/valorsTarifaDescompte`;
+export const empresesGrup = `api/fact/businessGroups`;
+export const empresesGrupEmpreses = `api/fact/empresesGrupEmpreses`;

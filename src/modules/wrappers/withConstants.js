@@ -1059,6 +1059,15 @@ const withConstants = (PassedComponent) => {
         path: "FAC_TAL",
         icon: <LocalMall />,
       },
+      {
+        key: "FAC_BUSGRO",
+        title: props.intl.formatMessage({
+          id: "GruposEmpresas.titulo",
+          defaultMessage: "Grupos Empresas",
+        }),
+        path: "FAC_BUSGRO",
+        icon: <LocalMall />,
+      },
     ];
 
     return (

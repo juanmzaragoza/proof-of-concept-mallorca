@@ -1481,7 +1481,9 @@
   "Talleres.ctaExistencias":"Cuentas Existencias",
   "TarifaDescuentos.tabs.valores":"Valores Tarifa",
   "TarifasDescuento.desc1":"Descuento 1",
-  "TarifasDescuento.desc2":"Descuento 2"
+  "TarifasDescuento.desc2":"Descuento 2",
+  "GruposEmpresas.titulo":"Grupos De Empresas",
+  "GruposEmpresas.tabs.empresasGrupo":"Empresas del Grupo"
 
 
 }
