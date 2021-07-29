@@ -89,6 +89,7 @@ import InvoiceComplement from "./InvoiceComplement";
 import ArticleFamilyTrans from "./ArticleFamilyTrans";
 import WorkType from "./WorkType";
 import WorkShop from "./WorkShop";
+import OfferSupplierType from "./OfferSupplierType";
 
 const component = [
   SuppliersFamily,
@@ -176,6 +177,7 @@ const component = [
   ArticleFamilyTrans,
   WorkType,
   WorkShop,
+  OfferSupplierType
 ];
 
 export default component;

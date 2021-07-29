@@ -1059,6 +1059,15 @@ const withConstants = (PassedComponent) => {
         path: "FAC_TAL",
         icon: <LocalMall />,
       },
+      {
+        key: "FAC_TIPOFEPRO",
+        title: props.intl.formatMessage({
+          id: "TipoOfertaProv.titulo",
+          defaultMessage: "Tipo Oferta Proveedor",
+        }),
+        path: "FAC_TIPOFEPRO",
+        icon: <LocalMall />,
+      },
     ];
 
     return (
