@@ -6,18 +6,13 @@ import CreateUpdateForm from "modules/ReactGrid/CreateUpdateForm";
 import { withValidations } from "modules/wrappers";
 import * as API from "redux/api";
 
-const ProjectTypeCreate = (props) => {
+const WorkTypeCreate = (props) => {
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
     defaultMessage: "Código",
   });
-  
-  const NOM = props.intl.formatMessage({
-    id: "Comun.nombre",
-    defaultMessage: "Nombre",
-  });
 
-  const DESCRIPCIO = props.intl.formatMessage({
+  const DESCRIPTION = props.intl.formatMessage({
     id: "Comun.descripcion",
     defaultMessage: "Descripción",
   });
@@ -25,7 +20,6 @@ const ProjectTypeCreate = (props) => {
   const createConfiguration = [
     {
       placeHolder: CODE,
-
       type: "input",
       key: "codi",
       required: true,
@@ -37,15 +31,18 @@ const ProjectTypeCreate = (props) => {
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 6),
-        ...props.stringValidations.fieldExistsValidation('projectesTipo', 'codi', CODE)
+        ...props.stringValidations.minMaxValidation(1, 4),
+        ...props.stringValidations.fieldExistsValidation(
+          "tipusFullesObra",
+          "codi",
+          CODE
+        ),
       ],
     },
     {
-      placeHolder: NOM,
-
+      placeHolder: DESCRIPTION,
       type: "input",
-      key: "nom",
+      key: "descripcio",
       required: true,
       breakpoints: {
         xs: 12,
@@ -54,34 +51,20 @@ const ProjectTypeCreate = (props) => {
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(0, 30),
-      ],
-    },
-    {
-      placeHolder: DESCRIPCIO,
-
-      type: "input",
-      key: "descripcio",
-      breakpoints: {
-        xs: 12,
-        md: 12,
-      },
-      validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(0, 30),
+        ...props.stringValidations.minMaxValidation(1, 30),
       ],
     },
   ];
   return (
     <CreateUpdateForm
       title={props.intl.formatMessage({
-        id: "TipoProyecto.titulo",
-        defaultMessage: "Tipo de Proyecto",
+        id: "TiposTrabajo.titulo",
+        defaultMessage: "Tipos de Trabajo",
       })}
       formConfiguration={createConfiguration}
-      url={API.projectesTipo}
+      url={API.tipusFullesObra}
     />
   );
 };
 
-export default compose(withValidations, injectIntl)(ProjectTypeCreate);
+export default compose(withValidations, injectIntl)(WorkTypeCreate);

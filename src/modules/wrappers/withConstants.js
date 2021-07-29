@@ -1023,6 +1023,42 @@ const withConstants = (PassedComponent) => {
         path: "FAC_ATR",
         icon: <LocalMall />,
       },
+      {
+        key: "FAC_COMFAC",
+        title: props.intl.formatMessage({
+          id: "ComplementosFactura.titulo",
+          defaultMessage: "ComplementosFactura",
+        }),
+        path: "FAC_COMFAC",
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_FTT",
+        title: props.intl.formatMessage({
+          id: "FamTransp.titulo",
+          defaultMessage: "Familias y Transportistas",
+        }),
+        path: "FAC_FTT",
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_TFO",
+        title: props.intl.formatMessage({
+          id: "TiposTrabajo.titulo",
+          defaultMessage: "Tipos de Trabajo",
+        }),
+        path: "FAC_TFO",
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_TAL",
+        title: props.intl.formatMessage({
+          id: "Talleres.titulo",
+          defaultMessage: "Talleres",
+        }),
+        path: "FAC_TAL",
+        icon: <LocalMall />,
+      },
     ];
 
     return (

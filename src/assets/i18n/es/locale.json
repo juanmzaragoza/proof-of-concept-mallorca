@@ -1457,7 +1457,31 @@
   "SerieVenta.situacionCodigoFacturacion":"Situación Código Facturación",
   "TipoComision.tabs.articulos":"Artículos",
   "TipoComision.tabs.familia":"Família Artículos",
-  "Atributos.titulo":"Atributos"
+  "Atributos.titulo":"Atributos",
+  "ComplementosFactura.titulo":"Complementos Factura",
+  "ComplementosFactura.incrementarFactura":"Incrementar Factura",
+  "ComplementosFactura.incrementarBase":"Incrementar Base",
+  "ComplementosFactura.aplicarDto":"Aplicar Descuento",
+  "ComplementosFactura.distribuirCostes":"Distribuir Costes entre Artículos",
+  "FamTransp.titulo":"Familias y Transportistas",
+  "FamTransp.num":"Num.",
+  "FamTransp.nombreTransp":"Nombre Transportista",
+  "FamTransp.nifTransp":"NIF Transportista",
+  "TiposTrabajo.titulo":"Tipos de Trabajo",
+  "Talleres.titulo":"Talleres",
+  "Talleres.color":"Color",
+  "Talleres.diaAvisoAbierto":"Días Aviso Abierto",
+  "Talleres.diaAvisoSinTrabajar":"Días Aviso Sin Trabajar",
+  "Talleres.porcentajeControl":"Porcentaje Control",
+  "Talleres.ContabAnalitica":"Contabilidad - Analítica",
+  "Talleres.analiticaContable":"Analítica Contable",
+  "Talleres.proyectoTaller":"Proyecto Taller",
+  "Talleres.ctaGastos":"Cuentas Gastos",
+  "Talleres.ctaFacturas":"Cuentas Facturas a Contabilizar",
+  "Talleres.ctaExistencias":"Cuentas Existencias",
+  "TarifaDescuentos.tabs.valores":"Valores Tarifa",
+  "TarifasDescuento.desc1":"Descuento 1",
+  "TarifasDescuento.desc2":"Descuento 2"
 
 
 }

@@ -153,6 +153,7 @@ export const ubicacios = "api/fact/ubicacions";
 export const ubicacioArticles = "api/fact/ubicacionsArticle";
 
 export const articlesFact = "api/fact/articles";
+export const articlesFactByTarifa = "api/fact/articles/byTarifaProperties";
 
 export const tipusProveidors = `api/fact/tipusProveidors`;
 export const departamentProveidor = `api/fact/departamentsProveidor`;
@@ -233,3 +234,8 @@ export const categoriesToxicologiques = `api/fact/categoriesToxicologiques`;
 export const peuDocument = `api/fact/peusDocument`;
 export const traduccions = `api/fact/traduccions`;
 export const atributs = `api/fact/atributs`;
+export const complementsFactura = `api/fact/complementsFactura`;
+export const articlesFamiliaTransportista = `api/fact/articlesFamiliaTransportista`;
+export const tipusFullesObra = `api/fact/tipusFullesObra`;
+export const tallers = `api/fact/tallers`;
+export const valorsTarifaDescompte = `api/fact/valorsTarifaDescompte`;

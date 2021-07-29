@@ -10,15 +10,21 @@ const REMOVE = "REMOVE_TO_REACT_GRID";
 const RESET = "RESET_REACT_GRID";
 
 //Functions
-export const searchData = ({ apiId, key, page, query = [], sorting = [] }) => {
+export const searchData = ({ apiId, method, body, key, page, query = [], sorting = [] }) => {
   return async dispatch => {
     const formedURL = () => {
       return getFormedURL({id: apiId, size: REACT_GRID_LIMIT_PER_PAGE, page, sorting, query});
     }
+    const apiCall = () => {
+      if(method && body){
+        return Axios[method](formedURL(),body);
+      } else{
+        return Axios.get(formedURL());
+      }
+    }
     try {
       dispatch(add({ loading: true }));
-      Axios
-        .get(formedURL())
+      apiCall()
         .then(({data}) => data)
         .then(({_embedded, page}) => {
           dispatch(add({ data: _embedded? _embedded[key]:[] }));

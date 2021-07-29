@@ -1,5 +1,4 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import { compose } from "redux";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -10,7 +9,7 @@ import OutlinedContainer from "modules/shared/OutlinedContainer";
 import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
 
-const PurchasingSeriesAccountsTab = ({ formData, setFormData, getFormData, ...props }) => {
+const CopyTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const CODE = props.intl.formatMessage({id: "SerieVenta.Serie", defaultMessage: "Série"});
   const DESCRIPCIO = props.intl.formatMessage({id: "Comun.descripcion", defaultMessage: "Descripción"});
@@ -353,4 +352,4 @@ const PurchasingSeriesAccountsTab = ({ formData, setFormData, getFormData, ...pr
     </Grid>
   );
 };
-export default compose(React.memo, withValidations, injectIntl)(PurchasingSeriesAccountsTab);
+export default compose(React.memo, withValidations, injectIntl)(CopyTab);

@@ -7,21 +7,21 @@ import ReactGrid from "modules/ReactGrid";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
-const SubvencionesList = ({ actions, ...props }) => {
+const WorkTypeList = ({ actions, ...props }) => {
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
-        id: "Subvenciones.titulo",
-        defaultMessage: "Subvenciones",
+        id: "TiposTrabajo.titulo",
+        defaultMessage: "Tipos Trabajo",
       }),
     });
     actions.setBreadcrumbHeader([
       {
         title: props.intl.formatMessage({
-          id: "Subvenciones.titulo",
-          defaultMessage: "Subvenciones",
+          id: "TiposTrabajo.titulo",
+          defaultMessage: "Tipos Trabajo",
         }),
-        href: "/fact/subvenciones",
+        href: "/fact/tipo-trabajo",
       },
     ]);
   }, []);
@@ -36,31 +36,17 @@ const SubvencionesList = ({ actions, ...props }) => {
         }),
       },
       {
-        name: "nom",
+        name: "descripcio",
         title: props.intl.formatMessage({
-          id: "Comun.nombre",
-          defaultMessage: "Nombre",
-        }),
-      },
-      {
-        name: "origen",
-        title: props.intl.formatMessage({
-          id: "Subvencion.origen",
-          defaultMessage: "Origen",
-        }),
-      },
-      {
-        name: "preuPerKilo",
-        title: props.intl.formatMessage({
-          id: "Subvencion.precioPorKilo",
-          defaultMessage: "Precio Por Kilo",
+          id: "Comun.descripcion",
+          defaultMessage: "Descripción",
         }),
       },
     ],
-    URL: API.subvencions,
-    listKey: "subvencios",
+    URL: API.tipusFullesObra,
+    listKey: "tipusFullObras",
   };
-  return <ReactGrid id="subvencions" configuration={listConfiguration} />;
+  return <ReactGrid id="tipusFullesObra" configuration={listConfiguration} />;
 };
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -74,4 +60,4 @@ const mapDispatchToProps = (dispatch, props) => {
 export default compose(
   injectIntl,
   connect(null, mapDispatchToProps)
-)(SubvencionesList);
+)(WorkTypeList);

@@ -5,9 +5,6 @@ import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { some, min, pickBy, cloneDeep } from "lodash";
 
-import GeneralTab from "./GeneralTab";
-import ContactTab from "./ContactTab";
-import VehiclesTab from "./VehiclesTab";
 
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
@@ -27,12 +24,11 @@ import {
 
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
+import GeneralTab from "./GeneralTab";
 
-const GENERAL_TAB_INDEX = 0;
-const CONTACT_TAB_INDEX = 1;
-const VEHICLES_TAB_INDEX = 2;
+const DISCOUNT_RATE_TAB_INDEX = 0;
 
-const CarrierForm = React.memo(
+const DiscountRateForm = React.memo(
   ({
     actions,
     allFormData,
@@ -42,14 +38,12 @@ const CarrierForm = React.memo(
     ...props
   }) => {
     const [editMode, setEditMode] = useState(false);
-    const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
+    const [tabIndex, setTabIndex] = useState(DISCOUNT_RATE_TAB_INDEX);
     const [nameSelectedTab, setNameSelectedTab] = useState("");
 
     /** step 2 */
     const [tabIndexWithError, setTabIndexWithError] = useState({
-      [GENERAL_TAB_INDEX]: false,
-      [CONTACT_TAB_INDEX]: false,
-      [VEHICLES_TAB_INDEX]:false,
+      [DISCOUNT_RATE_TAB_INDEX]: false,
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -80,7 +74,7 @@ const CarrierForm = React.memo(
         isEditable()
           ? update(id, allFormData)
           : create(allFormData, () => {
-              goToTab(GENERAL_TAB_INDEX);
+              goToTab(DISCOUNT_RATE_TAB_INDEX);
             });
       }
     };
@@ -95,64 +89,17 @@ const CarrierForm = React.memo(
       };
     };
 
-    /** step 3 */
     const tabs = [
       {
-        ...getTranslations("Clientes.tabs.general", "General"),
-        key: GENERAL_TAB_INDEX,
-        error: tabHasError(GENERAL_TAB_INDEX),
+        ...getTranslations("Proveedores.tabs.general"),
+        key: DISCOUNT_RATE_TAB_INDEX,
+        error: tabHasError(DISCOUNT_RATE_TAB_INDEX),
         component: (
           <GeneralTab
             setIsValid={(value) =>
               setTabIndexWithError({
                 ...tabIndexWithError,
-                [GENERAL_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-          />
-        ),
-      },
-      {
-        ...getTranslations("Clientes.tabs.contactos", "Contactos"),
-        key: CONTACT_TAB_INDEX,
-        error: tabHasError(CONTACT_TAB_INDEX),
-        component: (
-          <ContactTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [CONTACT_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-          />
-        ),
-      },
-      {
-        ...getTranslations("Vehiculos.titulo", "Vehiculos"),
-        key: VEHICLES_TAB_INDEX,
-        error: tabHasError(VEHICLES_TAB_INDEX),
-        component: (
-          <VehiclesTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [VEHICLES_TAB_INDEX]: !value,
+                [DISCOUNT_RATE_TAB_INDEX]: !value,
               })
             }
             editMode={editMode}
@@ -186,10 +133,10 @@ const CarrierForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "Transportistas.titulo",
-              defaultMessage: "Transportistas",
+              id: "TarifaDescuento.titulo",
+              defaultMessage: "Tarifa Descuento ",
             }),
-            href: "/fact/transportistas",
+            href: "/fact/tarifas-descuento",
           },
           {
             title: props.intl.formatMessage({
@@ -211,9 +158,9 @@ const CarrierForm = React.memo(
     /** Update HEADER */
     useEffect(() => {
       if (isEditable()) {
-        const nomComercial = getFormData("nom");
-        const nom = nomComercial
-          ? nomComercial
+        const descripcio = getFormData("descripcio");
+        const desc = descripcio
+          ? descripcio
           : `${props.intl.formatMessage({
               id: "Comun.cargando",
               defaultMessage: "Cargando",
@@ -221,16 +168,16 @@ const CarrierForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "Transportistas.titulo",
-              defaultMessage: "Transportistas",
+              id: "TarifaDescuento.titulo",
+              defaultMessage: "Tarifa Descuento",
             }),
-            href: "/fact/transportistas",
+            href: "/fact/tarifas-descuento",
           },
-          { title: nom, href: "/fact/transportistas" },
+          { title: desc, href: "/fact/tarifas-descuento" },
           { title: nameSelectedTab },
         ]);
       }
-    }, [getFormData("nom"), nameSelectedTab]);
+    }, [getFormData("descripcio"), nameSelectedTab]);
 
     useEffect(() => {
       if (submitFromOutside) {
@@ -291,5 +238,5 @@ const component = compose(
   injectIntl,
   connect(mapStateToProps, mapDispatchToProps),
   withAbmServices
-)(CarrierForm);
+)(DiscountRateForm);
 export default component;
