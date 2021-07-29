@@ -237,3 +237,4 @@ export const complementsFactura = `api/fact/complementsFactura`;
 export const articlesFamiliaTransportista = `api/fact/articlesFamiliaTransportista`;
 export const tipusFullesObra = `api/fact/tipusFullesObra`;
 export const tallers = `api/fact/tallers`;
+export const valorsTarifaDescompte = `api/fact/valorsTarifaDescompte`;

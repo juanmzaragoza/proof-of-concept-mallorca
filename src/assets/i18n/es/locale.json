@@ -1478,7 +1478,10 @@
   "Talleres.proyectoTaller":"Proyecto Taller",
   "Talleres.ctaGastos":"Cuentas Gastos",
   "Talleres.ctaFacturas":"Cuentas Facturas a Contabilizar",
-  "Talleres.ctaExistencias":"Cuentas Existencias"
+  "Talleres.ctaExistencias":"Cuentas Existencias",
+  "TarifaDescuentos.tabs.valores":"Valores Tarifa",
+  "TarifasDescuento.desc1":"Descuento 1",
+  "TarifasDescuento.desc2":"Descuento 2"
 
 
 }
