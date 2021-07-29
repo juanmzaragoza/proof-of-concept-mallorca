@@ -240,3 +240,4 @@ export const tipusFullesObra = `api/fact/tipusFullesObra`;
 export const tallers = `api/fact/tallers`;
 export const valorsTarifaDescompte = `api/fact/valorsTarifaDescompte`;
 export const tipusOfertesProveidor = `api/fact/tipusOfertesProveidor`;
+export const envasos = `api/fact/envasos`;

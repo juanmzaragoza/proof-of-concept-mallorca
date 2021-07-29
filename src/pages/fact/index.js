@@ -90,6 +90,7 @@ import ArticleFamilyTrans from "./ArticleFamilyTrans";
 import WorkType from "./WorkType";
 import WorkShop from "./WorkShop";
 import OfferSupplierType from "./OfferSupplierType";
+import Packaging from "./Packaging";
 
 const component = [
   SuppliersFamily,
@@ -177,7 +178,8 @@ const component = [
   ArticleFamilyTrans,
   WorkType,
   WorkShop,
-  OfferSupplierType
+  OfferSupplierType,
+  Packaging
 ];
 
 export default component;
