@@ -32,7 +32,7 @@ const ArticleFamilyTransCreate = (props) => {
       key: "numero",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
       disabled: true,
     },
@@ -42,11 +42,10 @@ const ArticleFamilyTransCreate = (props) => {
         defaultMessage: "Familia",
       }),
       type: "LOV",
-      key: "familia",
-      id: "articleFamilia",
+      key: "articleFamilia",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
       selector: {
         key: "articleFamilias",
@@ -63,12 +62,16 @@ const ArticleFamilyTransCreate = (props) => {
       }),
       type: "input",
       key: "nomTransportista",
+      required: true,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 5,
       },
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(0, 20)],
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+        ...props.stringValidations.minMaxValidation(0, 60),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -82,7 +85,7 @@ const ArticleFamilyTransCreate = (props) => {
         md: 3,
       },
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(0, 10)],
+      validations: [...props.stringValidations.minMaxValidation(0, 15)],
     },
   ];
   return (
