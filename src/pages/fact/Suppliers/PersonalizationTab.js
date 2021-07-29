@@ -16,7 +16,7 @@ const PersonalizationTab = ({
   ...props
 }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false, 1: false },
+    fields: { 0: true, 1: true },
     setIsValid: props.setIsValid,
   });
 

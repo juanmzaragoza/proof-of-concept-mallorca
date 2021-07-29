@@ -3,6 +3,7 @@ import Axios from "../../Axios";
 import * as API from "redux/api";
 import {LOV_LIMIT_PER_PAGE} from "constants/config";
 import {getFormedURL} from "../common";
+import {SET_FIRE_SAVE_FROM_HEADER} from "../pageHeader";
 
 //Action types
 const SET_ERROR_TO_GENERIC_FORM = "SET_ERROR_TO_GENERIC_FORM";
@@ -22,6 +23,7 @@ const REFRESH_A_FORM_SELECTOR = "REFRESH_A_FORM_SELECTOR";
 const SET_QUERY_FORM_SELECTOR = "SET_QUERY_FORM_SELECTOR";
 const DISABLE_RELATED_FIELD = "DISABLE_RELATED_FIELD";
 const CHANGE_RESET_VALUE = "CHANGE_RESET_VALUE";
+const CHANGE_IS_SUBMITTED = "CHANGE_IS_SUBMITTED";
 
 //Functions
 export const getFormSelectorData = ({id, key, page, sorting, search, query = []}) => {
@@ -173,12 +175,20 @@ export function changeResetValue(payload) {
   }
 }
 
+export function changeIsSubmitted(payload) {
+  return {
+    type: CHANGE_IS_SUBMITTED,
+    payload
+  }
+}
+
 //Reducers
 const initialState = {
   formErrors: {},
   formData: {},
   formSelectors: {},
   loaded: false,
+  submitted: false
 };
 
 export default (state = initialState, action) => {
@@ -261,6 +271,13 @@ export default (state = initialState, action) => {
           ...state.formSelectors,
           [name]: {...state.formSelectors[name], reset}
         }};
+    }
+    case CHANGE_IS_SUBMITTED: {
+      return { ...state, submitted: action.payload};
+    }
+    // this constant comes from another redux
+    case SET_FIRE_SAVE_FROM_HEADER: {
+      return { ...state, submitted: true};
     }
     case RESET_ALL_GENERIC_FORM:
     case "RESET":

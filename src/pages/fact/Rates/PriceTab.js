@@ -10,21 +10,6 @@ import { connect } from "react-redux";
 
 const PriceTab = ({ actions, ...props }) => {
 
-  useEffect(() => {
-    actions.setListingConfig({
-      title: props.intl.formatMessage({
-        id: "Articulos.titulo",
-        defaultMessage: "Artículos"
-      }),
-    });
-    actions.setBreadcrumbHeader([
-      {title: props.intl.formatMessage({
-        id: "Articulos.titulo",
-        defaultMessage: "Artículos"
-        }), href:"/tarifes"}
-    ]);
-  },[]);
-
   const listConfiguration = {
     disabledFiltering: true,
     disabledActions: true,
