@@ -13,7 +13,7 @@ const PriceTab = ({ actions, getFormData, ...props }) => {
     disabledActions: true,
     columns: [
       {
-         name: 'codi',
+        name: 'codi',
         title: props.intl.formatMessage({
           id: "Comun.codigo",
           defaultMessage: "Código",
@@ -43,8 +43,8 @@ const PriceTab = ({ actions, getFormData, ...props }) => {
     ],
     method: 'post',
     body: {
-      "tipusTarifa": getFormData('tarifaTipus'),
-      "tipusCalcul": getFormData('formaCalcul'),
+      "tarifaTipus": getFormData('tarifaTipus'),
+      "formaCalcul": getFormData('formaCalcul'),
       "percentatgeMaterial": getFormData('percentatgeMaterial'),
       "percentatgeMaObra": getFormData('percentatgeMaObra')
     },
