@@ -97,16 +97,7 @@ const RatesForm = React.memo(({ actions, allFormData, getFormData, submitFromOut
         ...getTranslations("Tarifa.precios","Precios"),
         key: PRICE_TAB_INDEX,
         error: tabHasError(PRICE_TAB_INDEX),
-        component: <PriceTab
-          setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [PRICE_TAB_INDEX]: !value})}
-          editMode={editMode}
-          getFormData={getFormData}
-          setFormData={actions.setFormData}
-          submitFromOutside={submitFromOutside}
-          onSubmitTab={handleSubmitTab}
-          formErrors={props.formErrors}
-          loading={props.loading}
-          formDataLoaded={props.formDataLoaded} />
+        component: <PriceTab getFormData={getFormData} />
     },
     {
       ...getTranslations("Tarifa.precios2","Precios 2"),

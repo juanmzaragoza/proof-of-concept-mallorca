@@ -5,10 +5,8 @@ import ReactGrid from "../../../modules/ReactGrid";
 import { bindActionCreators, compose } from "redux";
 import { setBreadcrumbHeader, setListingConfig } from "../../../redux/pageHeader";
 import { connect } from "react-redux";
-import {articlesFactByTarifa} from "../../../redux/api";
 
-
-const PriceTab = ({ actions, ...props }) => {
+const PriceTab = ({ actions, getFormData, ...props }) => {
 
   const listConfiguration = {
     disabledFiltering: true,
@@ -45,10 +43,10 @@ const PriceTab = ({ actions, ...props }) => {
     ],
     method: 'post',
     body: {
-      "tipusTarifa":"C",
-      "tipusCalcul": 1,
-      "percentatgeMaterial": 25,
-      "percentatgeMaObra": 30
+      "tipusTarifa": getFormData('tarifaTipus'),
+      "tipusCalcul": getFormData('formaCalcul'),
+      "percentatgeMaterial": getFormData('percentatgeMaterial'),
+      "percentatgeMaObra": getFormData('percentatgeMaObra')
     },
     listKey: 'articles'
   };
