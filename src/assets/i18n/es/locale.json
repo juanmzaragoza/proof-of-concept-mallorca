@@ -1467,6 +1467,18 @@
   "FamTransp.num":"Num.",
   "FamTransp.nombreTransp":"Nombre Transportista",
   "FamTransp.nifTransp":"NIF Transportista",
-  "TiposTrabajo.titulo":"Tipos de Trabajo"
+  "TiposTrabajo.titulo":"Tipos de Trabajo",
+  "Talleres.titulo":"Talleres",
+  "Talleres.color":"Color",
+  "Talleres.diaAvisoAbierto":"Días Aviso Abierto",
+  "Talleres.diaAvisoSinTrabajar":"Días Aviso Sin Trabajar",
+  "Talleres.porcentajeControl":"Porcentaje Control",
+  "Talleres.ContabAnalitica":"Contabilidad - Analítica",
+  "Talleres.analiticaContable":"Analítica Contable",
+  "Talleres.proyectoTaller":"Proyecto Taller",
+  "Talleres.ctaGastos":"Cuentas Gastos",
+  "Talleres.ctaFacturas":"Cuentas Facturas a Contabilizar",
+  "Talleres.ctaExistencias":"Cuentas Existencias"
+
 
 }
