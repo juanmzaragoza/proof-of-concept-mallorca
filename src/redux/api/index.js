@@ -235,3 +235,4 @@ export const traduccions = `api/fact/traduccions`;
 export const atributs = `api/fact/atributs`;
 export const complementsFactura = `api/fact/complementsFactura`;
 export const articlesFamiliaTransportista = `api/fact/articlesFamiliaTransportista`;
+export const tipusFullesObra = `api/fact/tipusFullesObra`;

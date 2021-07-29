@@ -1466,6 +1466,7 @@
   "FamTransp.titulo":"Familias y Transportistas",
   "FamTransp.num":"Num.",
   "FamTransp.nombreTransp":"Nombre Transportista",
-  "FamTransp.nifTransp":"NIF Transportista"
+  "FamTransp.nifTransp":"NIF Transportista",
+  "TiposTrabajo.titulo":"Tipos de Trabajo"
 
 }

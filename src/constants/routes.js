@@ -111,3 +111,4 @@ export const CATEG_TOXIC_FACT_URL = '/fact/categorias-toxicologicas';
 export const ATR_TYPE_FACT_URL = '/fact/atributos';
 export const INVOICE_COMPL_FACT_URL = '/fact/complementos-factura';
 export const ART_FAM_TRANSP_FACT_URL ='/fact/familia-transportista';
+export const WORK_TYPE_FACT_URL ='/fact/tipo-trabajo';
