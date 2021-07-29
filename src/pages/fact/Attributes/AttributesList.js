@@ -7,22 +7,21 @@ import ReactGrid from "modules/ReactGrid";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
-const GamaList = ({ actions, ...props }) => {
-
+const AttributeList = ({ actions, ...props }) => {
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
-        id: "ArticulosGama.titulo",
-        defaultMessage: "Gama",
+        id: "Atributos.titulo",
+        defaultMessage: "Atributos",
       }),
     });
     actions.setBreadcrumbHeader([
       {
         title: props.intl.formatMessage({
-          id: "ArticulosGama.titulo",
-          defaultMessage: "Gama",
+          id: "Atributos.titulo",
+          defaultMessage: "Atributos",
         }),
-        href: "/fact/articulos-gama",
+        href: "/fact/atributos",
       },
     ]);
   }, []);
@@ -43,18 +42,11 @@ const GamaList = ({ actions, ...props }) => {
           defaultMessage: "Descripción",
         }),
       },
-      // {
-      //   name: "prupes",
-      //   title: props.intl.formatMessage({
-      //     id: "Gama.prupes",
-      //     defaultMessage: "Prupes",
-      //   }),
-      // },
     ],
-    URL: API.articlesGama,
-    listKey: "articleGammas",
+    URL: API.atributs,
+    listKey: "atributs",
   };
-  return <ReactGrid id="articlesGama" configuration={listConfiguration} />;
+  return <ReactGrid id="atributs" configuration={listConfiguration} />;
 };
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -68,4 +60,4 @@ const mapDispatchToProps = (dispatch, props) => {
 export default compose(
   injectIntl,
   connect(null, mapDispatchToProps)
-)(GamaList);
+)(AttributeList);

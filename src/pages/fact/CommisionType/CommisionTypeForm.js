@@ -6,11 +6,8 @@ import { useParams } from "react-router-dom";
 import { some, min, pickBy, cloneDeep } from "lodash";
 
 import GeneralTab from "./GeneralTab";
-import ContactTab from "./ContactTab";
-import VehiclesTab from "./VehiclesTab";
 
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
-
 import {
   setBreadcrumbHeader,
   setFireSaveFromHeader,
@@ -28,11 +25,12 @@ import {
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
 
-const GENERAL_TAB_INDEX = 0;
-const CONTACT_TAB_INDEX = 1;
-const VEHICLES_TAB_INDEX = 2;
 
-const CarrierForm = React.memo(
+const GENERAL_TAB_INDEX = 0;
+const FAM_TAB_INDEX = 1;
+const ART_TAB_INDEX = 2;
+
+const ComisionTypeForm = React.memo(
   ({
     actions,
     allFormData,
@@ -43,13 +41,11 @@ const CarrierForm = React.memo(
   }) => {
     const [editMode, setEditMode] = useState(false);
     const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
-    const [nameSelectedTab, setNameSelectedTab] = useState("");
-
-    /** step 2 */
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [GENERAL_TAB_INDEX]: false,
-      [CONTACT_TAB_INDEX]: false,
-      [VEHICLES_TAB_INDEX]:false,
+      [FAM_TAB_INDEX]: false,
+      [ART_TAB_INDEX]: false,
+
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -85,20 +81,14 @@ const CarrierForm = React.memo(
       }
     };
 
-    const getTranslations = (id, defaultMessage) => {
-      return {
-        label: <FormattedMessage id={id} defaultMessage={defaultMessage} />,
-        labelStr: props.intl.formatMessage({
-          id: id,
-          defaultMessage: defaultMessage,
-        }),
-      };
-    };
-
-    /** step 3 */
     const tabs = [
       {
-        ...getTranslations("Clientes.tabs.general", "General"),
+        label: (
+          <FormattedMessage
+            id={"Proveedores.tabs.general"}
+            defaultMessage={"General"}
+          />
+        ),
         key: GENERAL_TAB_INDEX,
         error: tabHasError(GENERAL_TAB_INDEX),
         component: (
@@ -121,50 +111,26 @@ const CarrierForm = React.memo(
         ),
       },
       {
-        ...getTranslations("Clientes.tabs.contactos", "Contactos"),
-        key: CONTACT_TAB_INDEX,
-        error: tabHasError(CONTACT_TAB_INDEX),
-        component: (
-          <ContactTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [CONTACT_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
+        label: (
+          <FormattedMessage
+            id={"TipoComision.tabs.familia"}
+            defaultMessage={"Familía Artículos"}
           />
         ),
+        key: FAM_TAB_INDEX,
+        error: tabHasError(FAM_TAB_INDEX),
+        component: "Familía Artículos",
       },
       {
-        ...getTranslations("Vehiculos.titulo", "Vehiculos"),
-        key: VEHICLES_TAB_INDEX,
-        error: tabHasError(VEHICLES_TAB_INDEX),
-        component: (
-          <VehiclesTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [VEHICLES_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
+        label: (
+          <FormattedMessage
+            id={"TipoComision.tabs.articulos"}
+            defaultMessage={"Artículos"}
           />
         ),
+        key: ART_TAB_INDEX,
+        error: tabHasError(ART_TAB_INDEX),
+        component: "Artículos",
       },
     ];
 
@@ -186,10 +152,10 @@ const CarrierForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "Transportistas.titulo",
-              defaultMessage: "Transportistas",
+              id: "TipoComision.titulo",
+              defaultMessage: "Tipo Comision",
             }),
-            href: "/fact/transportistas",
+            href: "/fact/tipo-comision",
           },
           {
             title: props.intl.formatMessage({
@@ -204,10 +170,6 @@ const CarrierForm = React.memo(
       };
     }, [id]);
 
-    useEffect(() => {
-      setNameSelectedTab(getTabName(tabIndex));
-    }, [tabIndex]);
-
     /** Update HEADER */
     useEffect(() => {
       if (isEditable()) {
@@ -221,16 +183,16 @@ const CarrierForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "Transportistas.titulo",
-              defaultMessage: "Transportistas",
+              id: "TipoComision.titulo",
+              defaultMessage: "Tipo Comision",
             }),
-            href: "/fact/transportistas",
+            href: "/fact/tipo-comision",
           },
-          { title: nom, href: "/fact/transportistas" },
-          { title: nameSelectedTab },
+          { title: nom, href: "/fact/tipo-comision" },
+          { title: "Modificar" },
         ]);
       }
-    }, [getFormData("nom"), nameSelectedTab]);
+    }, [getFormData("nom")]);
 
     useEffect(() => {
       if (submitFromOutside) {
@@ -248,18 +210,12 @@ const CarrierForm = React.memo(
       }
     }, [editMode]);
 
-    const getTabName = (value) => {
-      const tab = tabs.find((tab) => tab.key === value);
-      return tab?.labelStr;
-    };
-
     return (
       <div style={{ padding: "10px" }}>
         <ConfigurableTabs
           tabs={tabs}
           tabIndex={tabIndex}
           forceChange={forceTabChange}
-          onChange={(value) => setNameSelectedTab(getTabName(value))}
         />
       </div>
     );
@@ -291,5 +247,5 @@ const component = compose(
   injectIntl,
   connect(mapStateToProps, mapDispatchToProps),
   withAbmServices
-)(CarrierForm);
+)(ComisionTypeForm);
 export default component;

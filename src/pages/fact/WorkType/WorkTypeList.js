@@ -7,22 +7,21 @@ import ReactGrid from "modules/ReactGrid";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
-const GamaList = ({ actions, ...props }) => {
-
+const WorkTypeList = ({ actions, ...props }) => {
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
-        id: "ArticulosGama.titulo",
-        defaultMessage: "Gama",
+        id: "TiposTrabajo.titulo",
+        defaultMessage: "Tipos Trabajo",
       }),
     });
     actions.setBreadcrumbHeader([
       {
         title: props.intl.formatMessage({
-          id: "ArticulosGama.titulo",
-          defaultMessage: "Gama",
+          id: "TiposTrabajo.titulo",
+          defaultMessage: "Tipos Trabajo",
         }),
-        href: "/fact/articulos-gama",
+        href: "/fact/tipo-trabajo",
       },
     ]);
   }, []);
@@ -43,18 +42,11 @@ const GamaList = ({ actions, ...props }) => {
           defaultMessage: "Descripción",
         }),
       },
-      // {
-      //   name: "prupes",
-      //   title: props.intl.formatMessage({
-      //     id: "Gama.prupes",
-      //     defaultMessage: "Prupes",
-      //   }),
-      // },
     ],
-    URL: API.articlesGama,
-    listKey: "articleGammas",
+    URL: API.tipusFullesObra,
+    listKey: "tipusFullObras",
   };
-  return <ReactGrid id="articlesGama" configuration={listConfiguration} />;
+  return <ReactGrid id="tipusFullesObra" configuration={listConfiguration} />;
 };
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -68,4 +60,4 @@ const mapDispatchToProps = (dispatch, props) => {
 export default compose(
   injectIntl,
   connect(null, mapDispatchToProps)
-)(GamaList);
+)(WorkTypeList);

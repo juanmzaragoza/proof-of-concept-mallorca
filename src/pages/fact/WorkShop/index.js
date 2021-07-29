@@ -1,21 +1,19 @@
 import React from "react";
+
 import { injectIntl } from "react-intl";
 import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators, compose } from "redux";
 import Paper from "@material-ui/core/Paper";
-
+import SettingsApplicationsIcon from "@material-ui/icons/SettingsApplications";
 import * as API from "redux/api";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import withHeaders from "modules/wrappers/withHeaders";
+import WorkShopList from "./WorkShopList";
+import WorkShopForm from "./WorkShopForm";
+import { WORKSHOP_FACT_URL } from "constants/routes";
 
-import StoreIcon from "@material-ui/icons/Store";
-import ArticlesModelList from "./ItemModelList";
-import ArticlesModelForm from "./ItemModelForm";
-
-import { MODEL_FACT_URL } from "constants/routes";
-
-const URL = MODEL_FACT_URL;
+const URL = WORKSHOP_FACT_URL;
 
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
@@ -25,31 +23,28 @@ const mapDispatchToProps = (dispatch, props) => {
   return { actions };
 };
 
-const ArticlesModelListIntl = compose(
+const WorkShopListIntl = compose(
   injectIntl,
   connect(null, mapDispatchToProps)
-)(ArticlesModelList);
+)(WorkShopList);
 
-const ArticlesModelWithUrl = () => (
-  <ArticlesModelForm url={API.articlesModel} />
-);
+const WorkShopFormWithUrl = () => <WorkShopForm url={API.tallers} />;
 
-const ArticlesModel = () => (
+const WorkShop = () => (
   <Paper style={{ position: "relative" }}>
     <Switch>
-      <Route exact path={`${URL}`} component={ArticlesModelListIntl}></Route>
-      <Route path={`${URL}/create`} component={ArticlesModelWithUrl}></Route>
-      <Route path={`${URL}/:id`} component={ArticlesModelWithUrl}></Route>
+      <Route exact path={`${URL}`} component={WorkShopListIntl}></Route>
+      <Route path={`${URL}/create`} component={WorkShopFormWithUrl}></Route>
+      <Route path={`${URL}/:id`} component={WorkShopFormWithUrl}></Route>
     </Switch>
   </Paper>
 );
 
-const component = {
+export default {
   routeProps: {
     path: `${URL}`,
-    component: withHeaders(ArticlesModel),
+    component: withHeaders(WorkShop),
   },
-  name: "FAC_MODART",
-  icon: <StoreIcon />,
+  name: "FAC_TAL",
+  icon: <SettingsApplicationsIcon />,
 };
-export default component;
