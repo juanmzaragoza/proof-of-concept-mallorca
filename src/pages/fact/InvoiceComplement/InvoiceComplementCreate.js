@@ -110,7 +110,6 @@ const InvoiceComplementCreate = (props) => {
       }),
       type: "LOV",
       key: "articleFamilia",
-      id: "articleFamilia",
       breakpoints: {
         xs: 12,
         md: 3,
@@ -297,18 +296,18 @@ const InvoiceComplementCreate = (props) => {
       },
     },
     {
-        placeHolder: props.intl.formatMessage({
-          id: "ComplementosFactura.aplicarDto",
-          defaultMessage: "Aplicar Descuento",
-        }),
-        type: "checkbox",
-        key: "aplicarDescompte",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
+      placeHolder: props.intl.formatMessage({
+        id: "ComplementosFactura.aplicarDto",
+        defaultMessage: "Aplicar Descuento",
+      }),
+      type: "checkbox",
+      key: "aplicarDescompte",
+      breakpoints: {
+        xs: 12,
+        md: 2,
       },
-   
+    },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.cuenta.contable",
@@ -323,8 +322,6 @@ const InvoiceComplementCreate = (props) => {
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 10)],
     },
-    
-   
   ];
   return (
     <CreateUpdateForm
