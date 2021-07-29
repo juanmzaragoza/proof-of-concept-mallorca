@@ -1023,6 +1023,15 @@ const withConstants = (PassedComponent) => {
         path: "FAC_ATR",
         icon: <LocalMall />,
       },
+      {
+        key: "FAC_COMFAC",
+        title: props.intl.formatMessage({
+          id: "ComplementosFactura.titulo",
+          defaultMessage: "ComplementosFactura",
+        }),
+        path: "FAC_COMFAC",
+        icon: <LocalMall />,
+      },
     ];
 
     return (

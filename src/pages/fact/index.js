@@ -85,6 +85,7 @@ import FactoringLine from "./FactoringLine";
 import CostsType from "./CostsType";
 import ToxicCategory from "./ToxicCategory";
 import Attributes from "./Attributes";
+import InvoiceComplement from "./InvoiceComplement";
 
 const component = [
   SuppliersFamily,
@@ -167,7 +168,8 @@ const component = [
   FactoringLine,
   CostsType,
   ToxicCategory,
-  Attributes
+  Attributes,
+  InvoiceComplement,
 ];
 
 export default component;

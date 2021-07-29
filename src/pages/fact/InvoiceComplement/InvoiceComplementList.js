@@ -79,7 +79,7 @@ const InvoiceComplementList = ({ actions, ...props }) => {
           defaultMessage: "Incrementar Base",
         }),
         getCellValue: (row) =>
-          row.incrementarFactura && row.incrementarFactura === true ? (
+          row.incrementarBaseImposable && row.incrementarBaseImposable === true ? (
             <Chip
               label={props.intl.formatMessage({
                 id: "Comun.SI",
@@ -102,7 +102,7 @@ const InvoiceComplementList = ({ actions, ...props }) => {
           defaultMessage: "Aplicar Descuento",
         }),
         getCellValue: (row) =>
-          row.incrementarFactura && row.incrementarFactura === true ? (
+          row.aplicarDescompte && row.aplicarDescompte === true ? (
             <Chip
               label={props.intl.formatMessage({
                 id: "Comun.SI",
