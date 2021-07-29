@@ -153,6 +153,7 @@ export const ubicacios = "api/fact/ubicacions";
 export const ubicacioArticles = "api/fact/ubicacionsArticle";
 
 export const articlesFact = "api/fact/articles";
+export const articlesFactByTarifa = "api/fact/articles/byTarifaProperties";
 
 export const tipusProveidors = `api/fact/tipusProveidors`;
 export const departamentProveidor = `api/fact/departamentsProveidor`;

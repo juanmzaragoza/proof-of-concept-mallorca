@@ -1,11 +1,11 @@
-import React, { useEffect,useState} from "react";
-import { FormattedMessage, injectIntl } from "react-intl";
+import React from "react";
+import { injectIntl } from "react-intl";
 import ReactGrid from "../../../modules/ReactGrid";
-import * as API from "../../../redux/api";
 
 import { bindActionCreators, compose } from "redux";
 import { setBreadcrumbHeader, setListingConfig } from "../../../redux/pageHeader";
 import { connect } from "react-redux";
+import {articlesFactByTarifa} from "../../../redux/api";
 
 
 const PriceTab = ({ actions, ...props }) => {
@@ -13,7 +13,6 @@ const PriceTab = ({ actions, ...props }) => {
   const listConfiguration = {
     disabledFiltering: true,
     disabledActions: true,
-    
     columns: [
       {
          name: 'codi',
@@ -44,10 +43,16 @@ const PriceTab = ({ actions, ...props }) => {
         }),
       },
     ],
-    URL: API.articlesFact,
+    method: 'post',
+    body: {
+      "tipusTarifa":"C",
+      "tipusCalcul": 1,
+      "percentatgeMaterial": 25,
+      "percentatgeMaObra": 30
+    },
     listKey: 'articles'
   };
-  return <ReactGrid id="articlesFact" configuration={listConfiguration} />;
+  return <ReactGrid id="articlesFactByTarifa" configuration={listConfiguration} />;
 };
 
 const mapDispatchToProps = (dispatch, props) => {
