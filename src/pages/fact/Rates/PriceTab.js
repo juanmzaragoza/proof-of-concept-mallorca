@@ -1,37 +1,19 @@
-import React, { useEffect,useState} from "react";
-import { FormattedMessage, injectIntl } from "react-intl";
+import React from "react";
+import { injectIntl } from "react-intl";
 import ReactGrid from "../../../modules/ReactGrid";
-import * as API from "../../../redux/api";
 
 import { bindActionCreators, compose } from "redux";
 import { setBreadcrumbHeader, setListingConfig } from "../../../redux/pageHeader";
 import { connect } from "react-redux";
 
-
-const PriceTab = ({ actions, ...props }) => {
-
-  useEffect(() => {
-    actions.setListingConfig({
-      title: props.intl.formatMessage({
-        id: "Articulos.titulo",
-        defaultMessage: "Artículos"
-      }),
-    });
-    actions.setBreadcrumbHeader([
-      {title: props.intl.formatMessage({
-        id: "Articulos.titulo",
-        defaultMessage: "Artículos"
-        }), href:"/tarifes"}
-    ]);
-  },[]);
+const PriceTab = ({ actions, getFormData, ...props }) => {
 
   const listConfiguration = {
     disabledFiltering: true,
     disabledActions: true,
-    
     columns: [
       {
-         name: 'codi',
+        name: 'codi',
         title: props.intl.formatMessage({
           id: "Comun.codigo",
           defaultMessage: "Código",
@@ -59,10 +41,16 @@ const PriceTab = ({ actions, ...props }) => {
         }),
       },
     ],
-    URL: API.articlesFact,
+    method: 'post',
+    body: {
+      "tarifaTipus": getFormData('tarifaTipus'),
+      "formaCalcul": getFormData('formaCalcul'),
+      "percentatgeMaterial": getFormData('percentatgeMaterial'),
+      "percentatgeMaObra": getFormData('percentatgeMaObra')
+    },
     listKey: 'articles'
   };
-  return <ReactGrid id="articlesFact" configuration={listConfiguration} />;
+  return <ReactGrid id="articlesFactByTarifa" configuration={listConfiguration} />;
 };
 
 const mapDispatchToProps = (dispatch, props) => {

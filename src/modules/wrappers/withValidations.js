@@ -1,15 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 import {compose} from "redux";
 import {injectIntl} from "react-intl";
 import {useParams} from "react-router-dom";
 import {getFormedURL} from "../../redux/common";
-import {EXPANDABLE_GRID_LIMIT_PER_PAGE} from "../../constants/config";
 import Axios from "../../Axios";
 
 const withValidations = (PassedComponent) => {
 
   const WrappedComponent = (props) => {
 
+    const [previousValue, setPreviousValue] = useState(null);
     const { id } = useParams();
     const isEditing = () => {
       return !!id;
@@ -118,9 +118,10 @@ const withValidations = (PassedComponent) => {
               defaultMessage: "{name} ya existe en el sistema"
             },{name: name}),
             async (value) => {
-              if(value !== ''){
+              if(previousValue !== value && value !== ''){
+                setPreviousValue(value);
                 const formedURL = () => {
-                  return getFormedURL({id: key, size: EXPANDABLE_GRID_LIMIT_PER_PAGE, query: [{columnName: field, value, exact: true }]});
+                  return getFormedURL({id: key, size: 1, query: [{columnName: field, value, exact: true }]});
                 }
                 return Axios.get(formedURL())
                   .then(({data}) => data)
@@ -131,6 +132,7 @@ const withValidations = (PassedComponent) => {
                     return false
                   });
               } else{
+                setPreviousValue(value);
                 return true;
               }
             }

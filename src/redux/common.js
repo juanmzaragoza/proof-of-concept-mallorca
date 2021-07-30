@@ -10,7 +10,7 @@ export const buildQuery = ({ query = [] }) => {
 }
 
 export const getFormedURL = ({id, size, page, sorting = [], search, query = []}) => {
-  const pagination = `&page=${page !== null ? page : 0}`;
+  const pagination = `&page=${!page ? 0 : page}`;
   const sort = `&sort=${sorting.length > 0? sorting.map(({ columnName, direction }) => `${columnName}${!direction? "":`,${direction}`}`).join(';'):"codi"}`;
   const quickFilter = search && search !== "" ? `&quickFilter=${search}` : "";
   const searchQuery = buildQuery({ query });

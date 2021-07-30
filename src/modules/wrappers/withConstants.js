@@ -908,7 +908,6 @@ const withConstants = (PassedComponent) => {
         icon: <LocalMall />,
       },
       {
-
         key: "FAC_SECEMP", // not mandatory for routes with children
         title: props.intl.formatMessage({
           id: "SeccionEmpresa.titulo",
@@ -917,7 +916,6 @@ const withConstants = (PassedComponent) => {
         path: "FAC_SECEMP", // or has path or has children but not both
       },
       {
-
         key: "FAC_APS", // not mandatory for routes with children
         title: props.intl.formatMessage({
           id: "ProductosSector.titulo",
@@ -989,6 +987,99 @@ const withConstants = (PassedComponent) => {
         path: "FAC_TIPINF",
         icon: <LocalMall />,
       },
+      {
+        key: "FAC_LINFAC",
+        title: props.intl.formatMessage({
+          id: "LiniasFactoring.titulo",
+          defaultMessage: "Linias Factoring",
+        }),
+        path: "FAC_LINFAC",
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_TCT",
+        title: props.intl.formatMessage({
+          id: "TipoCostes.titulo",
+          defaultMessage: "Tipo Costes",
+        }),
+        path: "FAC_TCT",
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_CATTOX",
+        title: props.intl.formatMessage({
+          id: "CategoriaTox.titulo",
+          defaultMessage: "Categorías Toxicológicas",
+        }),
+        path: "FAC_CATTOX",
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_ATR",
+        title: props.intl.formatMessage({
+          id: "Atributos.titulo",
+          defaultMessage: "Atributos",
+        }),
+        path: "FAC_ATR",
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_COMFAC",
+        title: props.intl.formatMessage({
+          id: "ComplementosFactura.titulo",
+          defaultMessage: "ComplementosFactura",
+        }),
+        path: "FAC_COMFAC",
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_FTT",
+        title: props.intl.formatMessage({
+          id: "FamTransp.titulo",
+          defaultMessage: "Familias y Transportistas",
+        }),
+        path: "FAC_FTT",
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_TFO",
+        title: props.intl.formatMessage({
+          id: "TiposTrabajo.titulo",
+          defaultMessage: "Tipos de Trabajo",
+        }),
+        path: "FAC_TFO",
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_TAL",
+        title: props.intl.formatMessage({
+          id: "Talleres.titulo",
+          defaultMessage: "Talleres",
+        }),
+        path: "FAC_TAL",
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_TIPOFEPRO",
+        title: props.intl.formatMessage({
+          id: "TipoOfertaProv.titulo",
+          defaultMessage: "Tipo Oferta Proveedor",
+        }),
+        path: "FAC_TIPOFEPRO",
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_ENVAS",
+        title: props.intl.formatMessage({
+          id: "Envases.titulo",
+          defaultMessage: "Envases",
+        }),
+        path: "FAC_ENVAS",
+        icon: <LocalMall />,
+      },
+
+
+      
     ];
 
     return (

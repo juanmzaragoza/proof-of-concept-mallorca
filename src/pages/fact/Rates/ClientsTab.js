@@ -16,8 +16,12 @@ const CREATE_SECTION_INDEX = 0;
 const SUPPLIER_ACCOUNT_SECTION_TAB_INDEX = 1;
 
 const SupplierAccountTab = ({ formData, setFormData, getFormData, ...props }) => {
-  const [ touched, handleTouched, addValidity, formIsValid ] 
-  = useTabForm({fields: {[CREATE_SECTION_INDEX]: false, [SUPPLIER_ACCOUNT_SECTION_TAB_INDEX]: false}, setIsValid: props.setIsValid});
+  const [ touched, handleTouched, addValidity, formIsValid ] = useTabForm({
+    fields: {
+      [CREATE_SECTION_INDEX]: false,
+      [SUPPLIER_ACCOUNT_SECTION_TAB_INDEX]: false},
+    setIsValid: props.setIsValid
+  });
 
   const formatCodeAndComercialName = (data) => `${data.nomComercial} (${data.codi})`;
 
