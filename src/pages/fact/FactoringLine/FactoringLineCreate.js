@@ -5,6 +5,7 @@ import CreateUpdateForm from "../../../modules/ReactGrid/CreateUpdateForm";
 import { withValidations } from "modules/wrappers";
 import * as API from "redux/api";
 
+import { TIPO_DIR_COMERCIALES_SELECTOR_VALUES } from "constants/selectors";
 const FactoringLineCreate = (props) => {
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
@@ -188,7 +189,7 @@ const FactoringLineCreate = (props) => {
         id: "LiniasFactoring.numContrato",
         defaultMessage: "Num. Contrato",
       }),
-      type: "numeric",
+      type: "input",
       key: "contracteNumero",
       required: true,
       breakpoints: {
@@ -196,7 +197,7 @@ const FactoringLineCreate = (props) => {
         md: 2,
       },
       noEditable: true,
-      validationType: "number",
+      validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.fieldExistsValidation(
@@ -207,12 +208,12 @@ const FactoringLineCreate = (props) => {
             defaultMessage: "Num. Contrato",
           })
         ),
-        ...props.commonValidations.requiredValidation(),
+        ...props.stringValidations.minMaxValidation(0, 20),
       ],
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.banco",
+        id: "LiniasFactoring.bancCodi",
         defaultMessage: "Banco",
       }),
       type: "LOV",
@@ -221,30 +222,36 @@ const FactoringLineCreate = (props) => {
         xs: 12,
         md: 5,
       },
+      required: true,
       selector: {
         key: "bancs",
         labelKey: (data) => `${data.nom} (${data.codi})`,
         sort: "codi",
-        cannotCreate: true,
         transform: {
           apply: (bancs) => bancs && bancs.codi,
-          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+          reverse: (rows, codi) => rows.find((row) => row.codi == codi),
         },
+        cannotCreate: true,
+
+        advancedSearchColumns: aSCodeAndName,
       },
+      validationType: "string",
+      validations: [...props.commonValidations.requiredValidation()],
     },
+
     {
       placeHolder: props.intl.formatMessage({
-        id: "LiniasFactoring.cif",
-        defaultMessage: "CIF",
+        id: "LiniasFactoring.bancNom",
+        defaultMessage: "Banco Nombre",
       }),
       type: "input",
       key: "bancNom",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 5,
       },
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 30)],
+      validations: [...props.commonValidations.requiredValidation()],
     },
 
     {
@@ -256,23 +263,26 @@ const FactoringLineCreate = (props) => {
       key: "bancNif",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 12)],
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "LiniasFactoring.recurso",
-        defaultMessage: "Recurso",
+        id: "LiniasFactoring.cuentaContable",
+        defaultMessage: "Cuenta Contable",
       }),
-      type: "checkbox",
-      key: "recursSiONo",
+      type: "input",
+      key: "compteComptable",
       breakpoints: {
         xs: 12,
-        md: 1,
+        md: 3,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 10)],
     },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "LiniasFactoring.importeLimite",
@@ -303,19 +313,24 @@ const FactoringLineCreate = (props) => {
       validationType: "number",
       validations: [...props.numberValidations.minMaxValidation(0, 9999)],
     },
+
     {
       placeHolder: props.intl.formatMessage({
-        id: "LiniasFactoring.cuentaContable",
-        defaultMessage: "Cuenta Contable",
+        id: "LiniasFactoring.recurso",
+        defaultMessage: "Recurso",
       }),
-      type: "input",
-      key: "compteComptable",
+      type: "select",
+      key: "recursSiONo",
+      required: true,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
+      },
+      selector: {
+        options: TIPO_DIR_COMERCIALES_SELECTOR_VALUES,
       },
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(0, 10)],
+      validations: [...props.commonValidations.requiredValidation()],
     },
 
     {
@@ -337,6 +352,7 @@ const FactoringLineCreate = (props) => {
         advancedSearchColumns: aSCodeAndName,
       },
     },
+    ...codiPostal(4),
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.observaciones",
@@ -349,7 +365,6 @@ const FactoringLineCreate = (props) => {
         md: 1,
       },
     },
-    ...codiPostal(4),
   ];
   return (
     <CreateUpdateForm

@@ -7,22 +7,21 @@ import ReactGrid from "modules/ReactGrid";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
-const CustomerAppList = ({ actions, ...props }) => {
-
+const PackagingList = ({ actions, ...props }) => {
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
-        id: "AplicacionesCliente.titulo",
-        defaultMessage: "Aplicaciones Cliente",
+        id: "Envases.titulo",
+        defaultMessage: "Envases",
       }),
     });
     actions.setBreadcrumbHeader([
       {
         title: props.intl.formatMessage({
-          id: "AplicacionesCliente.titulo",
-          defaultMessage: "Aplicaciones Cliente",
+          id: "Envases.titulo",
+          defaultMessage: "Envases",
         }),
-        href: "/fact/aplicaciones-cliente",
+        href: "/fact/envases",
       },
     ]);
   }, []);
@@ -30,33 +29,26 @@ const CustomerAppList = ({ actions, ...props }) => {
   const listConfiguration = {
     columns: [
       {
-        name: "aplicacioCodi",
+        name: "codi",
         title: props.intl.formatMessage({
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
       },
       {
-        name: "client",
+        name: "descripcio",
         title: props.intl.formatMessage({
-          id: "Presupuestos.cliente",
-          defaultMessage: "Cliente",
+          id: "Comun.descripcion",
+          defaultMessage: "Descripción",
         }),
-        getCellValue: row => row.client?.description ?? ""
-      },
-      {
-        name: "empresa",
-        title: props.intl.formatMessage({
-          id: "PieDocumento.empresa",
-          defaultMessage: "Empresa",
-        }),
-        getCellValue: row => row.empresa?.description ?? ""
       },
     ],
-    URL: API.altresAplicacionsClient,
-    listKey: "altraAplicacioClients",
+    URL: API.envasos,
+    listKey: "envases",
   };
-  return <ReactGrid id="altresAplicacionsClient" configuration={listConfiguration} />;
+  return (
+    <ReactGrid id="envasos" configuration={listConfiguration} />
+  );
 };
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -70,4 +62,4 @@ const mapDispatchToProps = (dispatch, props) => {
 export default compose(
   injectIntl,
   connect(null, mapDispatchToProps)
-)(CustomerAppList);
+)(PackagingList);
