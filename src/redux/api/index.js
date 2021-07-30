@@ -243,3 +243,6 @@ export const tallers = `api/fact/tallers`;
 export const valorsTarifaDescompte = `api/fact/valorsTarifaDescompte`;
 export const tipusOfertesProveidor = `api/fact/tipusOfertesProveidor`;
 export const envasos = `api/fact/envasos`;
+export const empresa2 = `api/fact/empreses`;
+export const peusDocumentFamilia = `api/fact/peusDocumentFamilia`;
+export const serieCompraCodi = `api/fact/seriesCompra`;

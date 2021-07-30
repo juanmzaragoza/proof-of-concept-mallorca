@@ -1484,7 +1484,8 @@
   "TarifasDescuento.desc2":"Descuento 2",
   "TipoOfertaProv.titulo":"Tipo Oferta Proveedor",
   "Envases.titulo":"Envases",
-  "TipoIncidenciasFatura.titulo":"TIpo Incidencias Factura"
+  "TipoIncidenciasFatura.titulo":"Tipo Incidencias Factura",
+  "PieDocumento.familiaClienteProv":"Familia Cliente/Proveedor"
 
 
 }
