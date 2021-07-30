@@ -145,6 +145,9 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         md: 6
       },
       validationType: "number",
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+      ]
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -159,6 +162,9 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         md: 6
       },
       validationType: "number",
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+      ]
     },
   ];
 

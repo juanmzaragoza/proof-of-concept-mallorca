@@ -5,11 +5,13 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 
 const NumberFormatCustom = (props) => {
   const [enableChanges, setEnableChanges] = useState(false);
-  const { inputRef, onChange, ...other } = props;
+  const { inputRef, onChange, value, ...other } = props;
 
   return (
     <NumberFormat
       {...other}
+      // Fix to allow put zero value on it
+      value={value === ""? null:value}
       style={{ textAlign: 'right' }}
       getInputRef={inputRef}
       onFocus={e => {
@@ -20,7 +22,7 @@ const NumberFormatCustom = (props) => {
         enableChanges && onChange({
           target: {
             name: props.name,
-            value: values.value
+            value: values.floatValue
           }
         });
       }}
@@ -39,7 +41,7 @@ const Numeric = ({ id,
                    onChange, onBlur }) => {
 
   const handleChange = (event) => {
-    onChange(event, !event.target.value? 0:parseFloat(event.target.value));
+    onChange(event, event.target.value);
   }
 
   return <TextField
