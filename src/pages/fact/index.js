@@ -91,6 +91,7 @@ import WorkType from "./WorkType";
 import WorkShop from "./WorkShop";
 import OfferSupplierType from "./OfferSupplierType";
 import Packaging from "./Packaging";
+import PointSale from "./PointSale";
 
 const component = [
   SuppliersFamily,
@@ -179,7 +180,8 @@ const component = [
   WorkType,
   WorkShop,
   OfferSupplierType,
-  Packaging
+  Packaging,
+  PointSale
 ];
 
 export default component;

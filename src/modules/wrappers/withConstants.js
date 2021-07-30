@@ -1077,6 +1077,17 @@ const withConstants = (PassedComponent) => {
         path: "FAC_ENVAS",
         icon: <LocalMall />,
       },
+      {
+        key: "FAC_PUNVEN",
+        title: props.intl.formatMessage({
+          id: "PuntoVenta.titulo",
+          defaultMessage: "Punto Venta",
+        }),
+        path: "FAC_PUNVEN",
+        icon: <LocalMall />,
+      },
+
+
 
 
       

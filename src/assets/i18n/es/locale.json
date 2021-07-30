@@ -1484,7 +1484,15 @@
   "TarifasDescuento.desc2":"Descuento 2",
   "TipoOfertaProv.titulo":"Tipo Oferta Proveedor",
   "Envases.titulo":"Envases",
-  "TipoIncidenciasFatura.titulo":"TIpo Incidencias Factura"
+  "TipoIncidenciasFatura.titulo":"TIpo Incidencias Factura",
+  "PuntoVenta.NumTpv":"Numeraciones TPV",
+  "Presupuestos.divisaSecundaria":"Divisa Secundaria",
+  "PuntoVenta.enumeracion":"Enumeración",
+  "PuntoVenta.codigoAperturaCajon":"Código Apertura Cajón",
+  "PuntoVenta.liniasSaltoFinal":"Línias Salto Final Ticket",
+  "PuntoVenta.horaInicio":"Hora Inicio Día",
+  "PuntoVenta.nombreBdTpv":"Nombre BD TPV",
+  "PuntoVenta.ticketPie":"Cabezera/Pie Ticket"
 
 
 }
