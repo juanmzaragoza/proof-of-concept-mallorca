@@ -1483,7 +1483,12 @@
   "TarifasDescuento.desc1":"Descuento 1",
   "TarifasDescuento.desc2":"Descuento 2",
   "TipoOfertaProv.titulo":"Tipo Oferta Proveedor",
-  "Envases.titulo":"Envases"
+  "Envases.titulo":"Envases",
+  "FormasCoste.titulo":"Formas de Coste",
+  "FormasCoste.actualizar":"Actualizar Precio",
+  "FormasCoste.precioCoste":"Precio Coste",
+  "FormasCoste.pesoMaximo":"Peso máximo kg",
+  "FormasCoste.volumenMaximo":"Volumen máximo m3"
 
 
 }

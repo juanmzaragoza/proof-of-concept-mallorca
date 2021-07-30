@@ -115,3 +115,4 @@ export const WORK_TYPE_FACT_URL ='/fact/tipo-trabajo';
 export const WORKSHOP_FACT_URL = '/fact/taller';
 export const OFFER_SUPP_TYPE_FACT_URL = '/fact/tipo-oferta-proveedor';
 export const PACKAGING_TYPE_FACT_URL = '/fact/envases';
+export const FORMA_COST_FACT_URL = '/fact/forma-coste';
