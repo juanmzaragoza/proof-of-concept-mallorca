@@ -24,7 +24,8 @@ import {
 
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
-
+import FamiliyArticleTab from "./FamiliyArticleTab";
+import ArticleTab from "./ArticleTab";
 
 const GENERAL_TAB_INDEX = 0;
 const FAM_TAB_INDEX = 1;
@@ -45,7 +46,6 @@ const ComisionTypeForm = React.memo(
       [GENERAL_TAB_INDEX]: false,
       [FAM_TAB_INDEX]: false,
       [ART_TAB_INDEX]: false,
-
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -119,7 +119,24 @@ const ComisionTypeForm = React.memo(
         ),
         key: FAM_TAB_INDEX,
         error: tabHasError(FAM_TAB_INDEX),
-        component: "Familía Artículos",
+        component: (
+          <FamiliyArticleTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [FAM_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+          />
+        ),
       },
       {
         label: (
@@ -130,7 +147,24 @@ const ComisionTypeForm = React.memo(
         ),
         key: ART_TAB_INDEX,
         error: tabHasError(ART_TAB_INDEX),
-        component: "Artículos",
+        component: (
+          <ArticleTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [ART_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+          />
+        ),
       },
     ];
 
