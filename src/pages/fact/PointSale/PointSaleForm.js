@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { some, min, pickBy, cloneDeep } from "lodash";
 
 import GeneralTab from "./GeneralTab";
-
+import NumeracionesTab from "./NumeracionesTab";
 
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
@@ -123,25 +123,25 @@ const PointSaleForm = React.memo(
         ...getTranslations("PuntoVenta.NumTpv", "Numeraciones TPV"),
         key: NUM_TPV_TAB_INDEX,
         error: tabHasError(NUM_TPV_TAB_INDEX),
-        component:
-          "Numeraciones TPV",
-          //   <ContactTab
-          //     setIsValid={(value) =>
-          //       setTabIndexWithError({
-          //         ...tabIndexWithError,
-          //         [NUM_TPV_TAB_INDEX]: !value,
-          //       })
-          //     }
-          //     editMode={editMode}
-          //     getFormData={getFormData}
-          //     setFormData={actions.setFormData}
-          //     submitFromOutside={submitFromOutside}
-          //     onSubmitTab={handleSubmitTab}
-          //     formErrors={props.formErrors}
-          //     loading={props.loading}
-          //     formDataLoaded={props.formDataLoaded}
-          //     isSubmitted={props.isSubmitted}
-          //   />
+        component: (
+          <NumeracionesTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [NUM_TPV_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
+          />
+        ),
       },
     ];
 
