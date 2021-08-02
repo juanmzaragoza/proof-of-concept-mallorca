@@ -17,11 +17,19 @@ import {
 
 import { useTabForm } from "hooks/tab-form";
 
-const ACCOUNTS_SECTION_INDEX = 0;
+const ACCOUNT_NUMBER_INDEX = 0;
+const IBAN_INDEX = 1;
+const ACCOUNTING_DATA_INDEX = 2;
+const ACCOUNTING_ACCOUNTS_INDEX = 3;
 
 const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false, 1: false },
+    fields: {
+      [ACCOUNT_NUMBER_INDEX]: false,
+      [IBAN_INDEX]: false,
+      [ACCOUNTING_DATA_INDEX]: false,
+      [ACCOUNTING_ACCOUNTS_INDEX]: false,
+    },
     setIsValid: props.setIsValid,
   });
 
@@ -370,7 +378,6 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 2)],
     },
@@ -957,9 +964,9 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
                   submitFromOutside={props.submitFromOutside}
                   onSubmit={() => props.onSubmitTab(formData)}
                   handleIsValid={(value) =>
-                    addValidity(ACCOUNTS_SECTION_INDEX, value)
+                    addValidity(ACCOUNT_NUMBER_INDEX, value)
                   }
-                  onBlur={(e) => handleTouched(ACCOUNTS_SECTION_INDEX)}
+                  onBlur={(e) => handleTouched(ACCOUNT_NUMBER_INDEX)}
                   {...props}
                 />
               </OutlinedContainer>
@@ -985,9 +992,9 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
                   submitFromOutside={props.submitFromOutside}
                   onSubmit={() => props.onSubmitTab(formData)}
                   handleIsValid={(value) =>
-                    addValidity(ACCOUNTS_SECTION_INDEX, value)
+                    addValidity(IBAN_INDEX, value)
                   }
-                  onBlur={(e) => handleTouched(ACCOUNTS_SECTION_INDEX)}
+                  onBlur={(e) => handleTouched(IBAN_INDEX)}
                   {...props}
                 />
               </OutlinedContainer>
@@ -1017,9 +1024,9 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
                 submitFromOutside={props.submitFromOutside}
                 onSubmit={() => props.onSubmitTab(formData)}
                 handleIsValid={(value) =>
-                  addValidity(ACCOUNTS_SECTION_INDEX, value)
+                  addValidity(ACCOUNTING_DATA_INDEX, value)
                 }
-                onBlur={(e) => handleTouched(ACCOUNTS_SECTION_INDEX)}
+                onBlur={(e) => handleTouched(ACCOUNTING_DATA_INDEX)}
                 {...props}
               />
             </OutlinedContainer>
@@ -1045,9 +1052,9 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
                 submitFromOutside={props.submitFromOutside}
                 onSubmit={() => props.onSubmitTab(formData)}
                 handleIsValid={(value) =>
-                  addValidity(ACCOUNTS_SECTION_INDEX, value)
+                  addValidity(ACCOUNTING_ACCOUNTS_INDEX, value)
                 }
-                onBlur={(e) => handleTouched(ACCOUNTS_SECTION_INDEX)}
+                onBlur={(e) => handleTouched(ACCOUNTING_ACCOUNTS_INDEX)}
                 {...props}
               />
             </OutlinedContainer>
@@ -1062,4 +1069,8 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
     </Grid>
   );
 };
-export default compose(React.memo, withValidations, injectIntl)(AccountingTab);
+export default compose(
+  React.memo,
+  withValidations,
+  injectIntl
+)(AccountingTab);

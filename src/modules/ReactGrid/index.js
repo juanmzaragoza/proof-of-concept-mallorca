@@ -76,7 +76,9 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
 
   const loadData = () => {
     const query = unionBy(extraQuery || [],filters,(filter) => filter.columnName) || [];
-    actions.loadData({ apiId: props.id, key: configuration.listKey, page: currentPage, query, sorting});
+    const method = configuration.method;
+    const body = configuration.body;
+    actions.loadData({ apiId: props.id, method, body, key: configuration.listKey, page: currentPage, query, sorting});
   };
 
   // executed when mounts component and when vars change
@@ -194,7 +196,9 @@ ReactGrid.propTypes = {
     listKey: PropTypes.string.isRequired,
     enableInlineEdition: PropTypes.bool,
     disabledActions: PropTypes.bool,
-    disabledFiltering: PropTypes.bool
+    disabledFiltering: PropTypes.bool,
+    method: PropTypes.oneOf(['post','put','patch']),
+    body: PropTypes.object
   }),
   extraQuery: PropTypes.arrayOf(PropTypes.shape({
     columnName: PropTypes.string.isRequired,
