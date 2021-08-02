@@ -19,6 +19,7 @@ import {
   getFormErrors,
   getFormDataByKey,
   getIsDataLoaded,
+  getIsSubmitted,
 } from "../../../redux/genericForm/selectors";
 
 import { setFormDataByKey } from "../../../redux/genericForm";
@@ -26,6 +27,7 @@ import { getLoading } from "../../../redux/app/selectors";
 import GeneralTab from "./GeneralTab";
 
 const COMPANY_GROUP_TAB_INDEX = 0;
+
 
 const CompanyGroupForm = React.memo(
   ({
@@ -108,7 +110,9 @@ const CompanyGroupForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
+
         ),
       },
     ];
@@ -219,6 +223,7 @@ const mapStateToProps = (state, props) => {
     allFormData: getFormData(state),
     getFormData: getFormDataByKey(state),
     formDataLoaded: getIsDataLoaded(state),
+    isSubmitted: getIsSubmitted(state),
   };
 };
 
