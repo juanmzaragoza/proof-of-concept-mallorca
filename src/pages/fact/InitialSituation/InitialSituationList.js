@@ -38,7 +38,7 @@ const InitialSituationList = ({ actions, ...props }) => {
       {
         name: "article",
         title: props.intl.formatMessage({
-          id: "Alamcen.articulo",
+          id: "Almacen.articulo",
           defaultMessage: "Artículo",
         }),
         getCellValue: (row) =>

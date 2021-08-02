@@ -129,22 +129,6 @@ const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromO
         loading={props.loading}
         formDataLoaded={props.formDataLoaded} />
     },
-    // {
-    //   label: <FormattedMessage id={"Clientes.tabs.facturacionElect"} defaultMessage={"Facturación Electrónica"} />,
-    //   key: FACT_ELECT_TAB_INDEX,
-    //   error: tabHasError(FACT_ELECT_TAB_INDEX),
-    //   component: <FacturacionElectronicaTab
-    //     setIsValid={(value) => setTabIndexWithError({ ...tabIndexWithError, [FACT_ELECT_TAB_INDEX]: !value })}
-    //     editMode={editMode}
-    //     getFormData={getFormData}
-    //     setFormData={actions.setFormData}
-    //     submitFromOutside={submitFromOutside}
-    //     onSubmitTab={handleSubmitTab}
-    //     formErrors={props.formErrors}
-    //     loading={props.loading}
-    //     formDataLoaded={props.formDataLoaded} />
-    // },
-
     {
       label: <FormattedMessage id={"Clientes.SubClientes"} defaultMessage={"SubClientes"} />,
       key: CLIENTE_TAB_INDEX,
