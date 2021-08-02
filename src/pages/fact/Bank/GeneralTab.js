@@ -14,13 +14,13 @@ import ExpandableGrid from "modules/ExpandableGrid";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { useParams } from "react-router-dom";
 
-const CUSTOMER_SECTION_INDEX = 0;
+const BANK_SECTION_INDEX = 0;
 const BANK_OFFICE_SECTION_TAB_INDEX = 1;
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
-      [CUSTOMER_SECTION_INDEX]: false,
+      [BANK_SECTION_INDEX]: false,
       [BANK_OFFICE_SECTION_TAB_INDEX]: false,
     },
     setIsValid: props.setIsValid,
@@ -304,7 +304,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "Clientes.codigo",
           defaultMessage: "Código",
         }),
-        type: "input",
+        type: "numeric",
         key: "codi",
         required: true,
         breakpoints: {
@@ -315,10 +315,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
-          ...props.stringValidations.minMaxValidation(0, 9999),
+          ...props.stringValidations.minMaxValidation(0, 99999),
           ...props.stringValidations.fieldExistsValidation(
-            "oficinaBamcaria",
-            "codi",
+            "oficinaBancaria",
+            "number",
             CODE
           ),
         ],
@@ -430,9 +430,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           formErrors={props.formErrors}
           submitFromOutside={props.submitFromOutside}
           onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) => addValidity(CUSTOMER_SECTION_INDEX, value)}
-          onBlur={(e) => handleTouched(CUSTOMER_SECTION_INDEX)}
+          handleIsValid={(value) => addValidity(BANK_SECTION_INDEX, value)}
+          onBlur={(e) => handleTouched(BANK_SECTION_INDEX)}
           {...props}
+
         />
       </Grid>
       <Grid xs={12} item>

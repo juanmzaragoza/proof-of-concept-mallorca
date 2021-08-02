@@ -7,6 +7,7 @@ import { some, min, pickBy, cloneDeep } from "lodash";
 
 import GeneralTab from "./GeneralTab";
 
+
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
 import {
@@ -21,12 +22,16 @@ import {
   getFormErrors,
   getFormDataByKey,
   getIsDataLoaded,
+  getIsSubmitted,
 } from "../../../redux/genericForm/selectors";
 
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
 
+
+
 const GENERAL_TAB_INDEX = 0;
+
 
 const BankForm = React.memo(
   ({
@@ -44,6 +49,7 @@ const BankForm = React.memo(
     /** step 2 */
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [GENERAL_TAB_INDEX]: false,
+
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -92,7 +98,7 @@ const BankForm = React.memo(
     /** step 3 */
     const tabs = [
       {
-        ...getTranslations("Clientes.tabs.general", "General"),
+        ...getTranslations("Proveedores.tabs.general", "General"),
         key: GENERAL_TAB_INDEX,
         error: tabHasError(GENERAL_TAB_INDEX),
         component: (
@@ -111,6 +117,7 @@ const BankForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
         ),
       },
@@ -223,6 +230,7 @@ const mapStateToProps = (state, props) => {
     allFormData: getFormData(state),
     getFormData: getFormDataByKey(state),
     formDataLoaded: getIsDataLoaded(state),
+    isSubmitted: getIsSubmitted(state)
   };
 };
 
