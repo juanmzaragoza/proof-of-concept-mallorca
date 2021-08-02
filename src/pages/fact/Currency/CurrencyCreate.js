@@ -79,6 +79,7 @@ const CurrencyCreate = (props) => {
         validationType: "number",
         validations: [
         ...props.commonValidations.requiredValidation(),
+        ...props.numberValidations.minMaxValidation(0, 9999999)
      
         ]
       },
@@ -98,7 +99,7 @@ const CurrencyCreate = (props) => {
         validationType: "number",
         validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1,2),
+        ...props.numberValidations.minMaxValidation(0, 2),
     
         ]
       },
@@ -118,7 +119,7 @@ const CurrencyCreate = (props) => {
         
         validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 2),
+        ...props.numberValidations.minMaxValidation(0, 5),
 
         ]
       },
@@ -134,19 +135,7 @@ const CurrencyCreate = (props) => {
           md: 2,
         },
       },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Divisa.myField",
-          defaultMessage: "My field",
-        }),
-        type: "input",
-        key: "myField",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-      },
-      
+
   ];
   return (
     <CreateUpdateForm

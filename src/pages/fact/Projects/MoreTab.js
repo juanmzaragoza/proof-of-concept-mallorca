@@ -9,14 +9,6 @@ import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 import { useTabForm } from "hooks/tab-form";
-import {
-  PRECIO_ALBARAN_SELECTOR_VALUES,
-  TIPO_PROYECTO_ALBARAN_SELECTOR_VALUES,
-  TIPO_RETENCION2_SELECTOR_VALUES,
-  TIPO_CONTABILIZACION_SELECTOR_VALUES,
-  TIPO_ESTADO_PROYECTO_SELECTOR_VALUES,
-  TIPO_EJECUCION_PROYECTO_SELECTOR_VALUES,
-} from "constants/selectors";
 
 const PROJECT_SECTION_INDEX = 0;
 
@@ -113,6 +105,10 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 4,
       },
+      validationType: "number",
+      validations: [
+        ...props.numberValidations.minMaxValidation(0, 99),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -126,6 +122,8 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 4,
       },
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 9999999)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -139,6 +137,8 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 4,
       },
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -168,7 +168,10 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
       validationType: "number",
-      validation: [...props.commonValidations.requiredValidation()],
+      validation: [
+        ...props.commonValidations.requiredValidation(),
+        ...props.numberValidations.minMaxValidation(0, 99999),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -181,6 +184,8 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 4,
       },
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 99999)],
     },
 
     {
@@ -194,6 +199,8 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 4,
       },
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 99999)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -203,6 +210,7 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
       type: "numeric",
       key: "percentExecucioLliure",
       suffix: "%",
+      disabled: true,
       breakpoints: {
         xs: 12,
         md: 4,
@@ -220,6 +228,8 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 4,
       },
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 99999)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -233,6 +243,8 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 4,
       },
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 99999)],
     },
   ];
 
@@ -276,6 +288,8 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 6,
       },
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 99999)],
     },
 
     {
@@ -290,6 +304,10 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 6,
       },
+      validationType: "number",
+      validations: [
+        ...props.numberValidations.minMaxValidation(0, 99999999999999),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -303,6 +321,8 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 6,
       },
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 99999)],
     },
 
     {
@@ -317,8 +337,11 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 6,
       },
+      validationType: "number",
+      validations: [
+        ...props.numberValidations.minMaxValidation(0, 99999999999999),
+      ],
     },
-
   ];
 
   const MoreCofig = [
@@ -374,6 +397,8 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 3,
       },
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
   ];
 
@@ -458,20 +483,20 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
         </OutlinedContainer>
       </Grid>
       <Grid xs={6} item>
-      <GenericForm
-            formComponents={MoreCofig}
-            emptyPaper={true}
-            editMode={props.editMode}
-            getFormData={getFormData}
-            setFormData={setFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(PROJECT_SECTION_INDEX, value)}
-            onBlur={(e) => handleTouched(PROJECT_SECTION_INDEX)}
-            {...props}
-          />
+        <GenericForm
+          formComponents={MoreCofig}
+          emptyPaper={true}
+          editMode={props.editMode}
+          getFormData={getFormData}
+          setFormData={setFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) => addValidity(PROJECT_SECTION_INDEX, value)}
+          onBlur={(e) => handleTouched(PROJECT_SECTION_INDEX)}
+          {...props}
+        />
       </Grid>
     </Grid>
   );

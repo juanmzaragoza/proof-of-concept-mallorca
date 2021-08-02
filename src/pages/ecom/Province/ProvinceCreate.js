@@ -121,7 +121,7 @@ const ProvinceCreate = (props) => {
         },
         validationType: "number",
         validations: [
-          ...props.stringValidations.minMaxValidation(0, 900000000000),
+          ...props.numberValidations.minMaxValidation(0, 900000000000)
         ],
       },
       {
@@ -137,7 +137,7 @@ const ProvinceCreate = (props) => {
         },
         validationType: "number",
         validations: [
-          ...props.stringValidations.minMaxValidation(0, 900000000000),
+          ...props.numberValidations.minMaxValidation(0, 900000000000)
         ],
       },
       {
@@ -153,7 +153,7 @@ const ProvinceCreate = (props) => {
         },
         validationType: "number",
         validations: [
-          ...props.stringValidations.minMaxValidation(0, 900000000000),
+          ...props.numberValidations.minMaxValidation(0, 900000000000)
         ],
       },
 

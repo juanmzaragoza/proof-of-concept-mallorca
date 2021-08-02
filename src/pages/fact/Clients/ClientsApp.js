@@ -129,7 +129,7 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
         },
         suffix: "%",
         validationType: "number",
-        validations: props.stringValidations.minMaxValidation(0, 99999),
+        validations: [...props.numberValidations.minMaxValidation(0, 9999)],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -178,6 +178,7 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
           md: 12,
         },
       },
+
     ],
   };
 
@@ -432,6 +433,7 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
           md: 12,
         },
       },
+    
     ],
   };
 
@@ -448,8 +450,8 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
           }
         >
           <ExpandableGrid
-            id="aplicacionsClients"
-            responseKey="aplicacioClients"
+            id="altresAplicacionsClient"
+            responseKey="altraAplicacioClients"
             enabled={props.editMode}
             configuration={otraAplicacion}
           />
