@@ -245,3 +245,4 @@ export const tipusOfertesProveidor = `api/fact/tipusOfertesProveidor`;
 export const envasos = `api/fact/envasos`;
 export const articlesFamiliaComissio = `api/fact/articlesFamiliaComissio`;
 export const formesCost = `api/fact/formesCost`;
+export const costos = `api/fact/costos`;

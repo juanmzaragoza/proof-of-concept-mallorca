@@ -1488,7 +1488,12 @@
   "FormasCoste.actualizar":"Actualizar Precio",
   "FormasCoste.precioCoste":"Precio Coste",
   "FormasCoste.pesoMaximo":"Peso máximo kg",
-  "FormasCoste.volumenMaximo":"Volumen máximo m3"
+  "FormasCoste.volumenMaximo":"Volumen máximo m3",
+  "FormasCoste.costeTeorico":"Costes Teóricos",
+  "FormasCoste.unidades":"Unidades",
+  "FormasCoste.costeUnitario":"Coste Unitario (FF)",
+  "FormasCoste.actualizarCoste":"Actualizar Coste Artículo",
+  "FormasCoste.tipoCosteCodigo":"Código Tipo coste"
 
 
 }
