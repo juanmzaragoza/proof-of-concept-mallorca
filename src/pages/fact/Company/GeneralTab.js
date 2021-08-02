@@ -15,11 +15,10 @@ import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
-import ExpandableGrid from "modules/ExpandableGrid";
 
 import { useTabForm } from "hooks/tab-form";
-import ContactTab from "../Suppliers/ContactTab";
-import { magatzems } from "redux/api";
+
+
 
 const COMPANY_SECTION_INDEX = 0;
 const ADDRESS_SECTION_TAB_INDEX = 1;
@@ -175,7 +174,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     //     md: 2,
     //   },
     // },
-    // {
+
 
     {
       placeHolder: props.intl.formatMessage({
@@ -214,29 +213,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "object",
       ...withRequiredValidation(),
     },
-    // {
-    //   placeHolder: props.intl.formatMessage({
-    //     id: "Empresas.almacen",
-    //     defaultMessage: "Almacén",
-    //   }),
-    //   type: "LOV",
-    //   key: "magatzemCodi",
-    //   breakpoints: {
-    //     xs: 12,
-    //     md: 3,
-    //   },
-    //   selector: {
-    //     key: "magatzems",
-    //     labelKey: formatCodeAndName,
-    //     sort: "nom",
-    //     advancedSearchColumns: aSCodeAndName,
-    //     cannotCreate: true,
-    //     transform: {
-    //       apply: (magatzems) => magatzems && magatzems.codi,
-    //       reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-    //     },
-    //   },
-    // },
+   
 
     // {
     //   placeHolder: props.intl.formatMessage({
@@ -265,32 +242,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     //   },
 
     // },
-    // {
-    //   placeHolder: props.intl.formatMessage({
-    //     id: "Empresas.registroMercantil",
-    //     defaultMessage: "Registro Mercantil",
-    //   }),
-    //   type: "input",
-    //   key: "registreMercantil",
 
-    //   breakpoints: {
-    //     xs: 12,
-    //     md: 6,
-    //   },
-    // },
-    // {
-    //   placeHolder: props.intl.formatMessage({
-    //     id: "Empresas.registroMercantil2",
-    //     defaultMessage: "Registro Mercantil 2",
-    //   }),
-    //   type: "input",
-    //   key: "registreMercantil2",
-
-    //   breakpoints: {
-    //     xs: 12,
-    //     md: 6,
-    //   },
-    // },
   ];
 
   const datosComerciales = [

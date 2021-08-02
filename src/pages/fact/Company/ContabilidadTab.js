@@ -19,7 +19,7 @@ const CONTAB_SECTION_INDEX = 0;
 
 const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false, 1: false },
+    fields: { 0: false },
     setIsValid: props.setIsValid,
   });
 
@@ -34,17 +34,6 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
   const NOM = props.intl.formatMessage({
     id: "Comun.nombre",
     defaultMessage: "Nombre",
-  });
-
-  const code = (md = 6) => ({
-    type: "input",
-    key: "codi",
-    placeHolder: CODE,
-    required: true,
-    breakpoints: {
-      xs: 12,
-      md: md,
-    },
   });
 
   const formatCodeAndDescription = (data) =>
@@ -136,7 +125,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
 
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 10)],
@@ -171,6 +160,30 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         options: CONTABILIDAD_SELECTOR_VALUES,
       },
     },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Empresas.regimenCriterio",
+        defaultMessage: "Régimen Criterio Caja",
+      }),
+      type: "checkbox",
+      key: "regimCriteriCaixa",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Empresas.recargoEquivalencia",
+        defaultMessage: "Recargo equivalencia",
+      }),
+      type: "checkbox",
+      key: "recarrecEquivalencia",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+    },
 
     {
       placeHolder: props.intl.formatMessage({
@@ -182,7 +195,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
 
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 2)],
@@ -198,7 +211,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
 
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 2)],
@@ -213,11 +226,12 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
 
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 2)],
     },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.fact.tipoFact",
@@ -232,6 +246,21 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       selector: {
         options: FACT_TIPO_SELECTOR_VALUES,
+      },
+      validationType: "string",
+      validations: [...props.commonValidations.requiredValidation()],
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Empresas.suministroInmediato",
+        defaultMessage: "Suministro Inmediato de Inforamción",
+      }),
+      type: "checkbox",
+      key: "sii",
+      breakpoints: {
+        xs: 12,
+        md: 3,
       },
     },
   ];
