@@ -33,25 +33,25 @@ import Company from "./Company";
 
 import BusinessArea from "./BusinessArea";
 
-import Rates from './Rates';
-import Location from './Location';
-import ArticlesLocation from './ArticlesLocation';
-import FamilyCosts from './FamilyCosts';
-import Articles from './Articles';
-import Store from './Store';
-import SalesSeries from './SalesSeries';
-import DocumentoPagoCobro from './DocumentoPagoCobro';
-import MaturityType from './MaturityType';
+import Rates from "./Rates";
+import Location from "./Location";
+import ArticlesLocation from "./ArticlesLocation";
+import FamilyCosts from "./FamilyCosts";
+import Articles from "./Articles";
+import Store from "./Store";
+import SalesSeries from "./SalesSeries";
+import DocumentoPagoCobro from "./DocumentoPagoCobro";
+import MaturityType from "./MaturityType";
 
-import Products from './Products';
+import Products from "./Products";
 
-import BillingType from './BillingType';
-import DiscountRates from './DiscountRates';
-import FinalesFacturas from './FinalesFacturas';
-import SeriesIntracomunitarias from './SeriesIntracomunitarias';
-import PurchaseSeries from './PurchaseSeries';
+import BillingType from "./BillingType";
+import DiscountRates from "./DiscountRates";
+import FinalesFacturas from "./FinalesFacturas";
+import SeriesIntracomunitarias from "./SeriesIntracomunitarias";
+import PurchaseSeries from "./PurchaseSeries";
 
-import Sector from './Sector';
+import Sector from "./Sector";
 import Vehicle from "./Vehicle";
 import Carrier from "./Carrier";
 import CommercialSituation from "./CommercialSituation";
@@ -80,6 +80,17 @@ import RiskType from "./RiskType";
 import Parameters from "./Parameters";
 import SupplierClientType from "./SupplierClientType";
 import PaymentNature from "./PaymentNature";
+import IncidenceType from "./IncidenceType";
+import FactoringLine from "./FactoringLine";
+import CostsType from "./CostsType";
+import ToxicCategory from "./ToxicCategory";
+import Attributes from "./Attributes";
+import InvoiceComplement from "./InvoiceComplement";
+import ArticleFamilyTrans from "./ArticleFamilyTrans";
+import WorkType from "./WorkType";
+import WorkShop from "./WorkShop";
+import OfferSupplierType from "./OfferSupplierType";
+import Packaging from "./Packaging";
 
 const component = [
   SuppliersFamily,
@@ -127,7 +138,6 @@ const component = [
   MaturityType,
 
   Products,
-  
 
   Sector,
   Vehicle,
@@ -144,7 +154,6 @@ const component = [
   Subvenciones,
   SubClients,
 
-
   CustomerDepartments,
   Departaments,
   CustomerApp,
@@ -159,12 +168,18 @@ const component = [
   RiskType,
   Parameters,
   SupplierClientType,
-  PaymentNature
-
-
-
-
+  PaymentNature,
+  IncidenceType,
+  FactoringLine,
+  CostsType,
+  ToxicCategory,
+  Attributes,
+  InvoiceComplement,
+  ArticleFamilyTrans,
+  WorkType,
+  WorkShop,
+  OfferSupplierType,
+  Packaging
 ];
-  
 
 export default component;

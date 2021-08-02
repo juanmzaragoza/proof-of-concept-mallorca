@@ -8,7 +8,6 @@ import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
 const SubvencionesList = ({ actions, ...props }) => {
-
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
@@ -41,6 +40,20 @@ const SubvencionesList = ({ actions, ...props }) => {
         title: props.intl.formatMessage({
           id: "Comun.nombre",
           defaultMessage: "Nombre",
+        }),
+      },
+      {
+        name: "origen",
+        title: props.intl.formatMessage({
+          id: "Subvencion.origen",
+          defaultMessage: "Origen",
+        }),
+      },
+      {
+        name: "preuPerKilo",
+        title: props.intl.formatMessage({
+          id: "Subvencion.precioPorKilo",
+          defaultMessage: "Precio Por Kilo",
         }),
       },
     ],

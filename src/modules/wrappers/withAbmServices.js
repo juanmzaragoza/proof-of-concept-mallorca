@@ -6,7 +6,14 @@ import {connect} from "react-redux";
 import {bindActionCreators, compose} from "redux";
 
 import Axios from "Axios";
-import {addError, resetAllGenericForm, resetError, setDataLoaded, setFormData} from "redux/genericForm";
+import {
+  addError,
+  changeIsSubmitted,
+  resetAllGenericForm,
+  resetError,
+  setDataLoaded,
+  setFormData
+} from "redux/genericForm";
 import {finishLoading, startLoading} from "redux/app";
 import {getLoading} from "redux/app/selectors";
 
@@ -35,6 +42,7 @@ const withAbmServices = (PassedComponent) => {
             id: "CreateUpdateForm.creacion_correcta",
             defaultMessage: "Registro creado correctamente"
           }), {variant: 'success'});
+          props.changeIsSubmitted(false);
           history.push(editUrl);
         })
         .catch(error => {
@@ -58,6 +66,7 @@ const withAbmServices = (PassedComponent) => {
       })
         .then(({status, data, ...rest}) => {
           props.finishLoading();
+          props.changeIsSubmitted(false);
           props.enqueueSnackbar(props.intl.formatMessage({
             id: "CreateUpdateForm.actualizacion_correcta",
             defaultMessage: "Registro actualizado correctamente"
@@ -130,6 +139,7 @@ const withAbmServices = (PassedComponent) => {
       finishLoading: bindActionCreators(finishLoading, dispatch),
       resetForm: bindActionCreators(resetAllGenericForm, dispatch),
       setDataIsLoaded: bindActionCreators(setDataLoaded, dispatch),
+      changeIsSubmitted: bindActionCreators(changeIsSubmitted, dispatch),
     };
     return actions;
   };

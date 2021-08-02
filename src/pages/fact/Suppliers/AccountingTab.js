@@ -17,11 +17,19 @@ import {
 
 import { useTabForm } from "hooks/tab-form";
 
-const ACCOUNTS_SECTION_INDEX = 0;
+const ACCOUNT_NUMBER_INDEX = 0;
+const IBAN_INDEX = 1;
+const ACCOUNTING_DATA_INDEX = 2;
+const ACCOUNTING_ACCOUNTS_INDEX = 3;
 
 const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false, 1: false },
+    fields: {
+      [ACCOUNT_NUMBER_INDEX]: false,
+      [IBAN_INDEX]: false,
+      [ACCOUNTING_DATA_INDEX]: false,
+      [ACCOUNTING_ACCOUNTS_INDEX]: false,
+    },
     setIsValid: props.setIsValid,
   });
 
@@ -370,7 +378,6 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 2)],
     },
@@ -466,7 +473,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
             },
             validationType: "number",
             ...withRequiredValidation([
-              ...props.stringValidations.minMaxValidation(1, 21),
+              ...props.numberValidations.minMaxValidation(0, 99),
             ]),
           },
           {
@@ -483,11 +490,11 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
             },
             validationType: "number",
             ...withRequiredValidation([
-              ...props.stringValidations.minMaxValidation(1, 21),
+              ...props.numberValidations.minMaxValidation(0, 99),
             ]),
           },
           {
-            type: "numeric",
+            type: "input",
             key: "codiComptabilitat",
             placeHolder: props.intl.formatMessage({
               id: "Clientes.codigo.contabilidad",
@@ -498,13 +505,13 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
               xs: 12,
               md: 3,
             },
-            validationType: "number",
+            validationType: "string",
             ...withRequiredValidation([
               ...props.stringValidations.minMaxValidation(1, 4),
             ]),
           },
           {
-            type: "numeric",
+            type: "input",
             key: "codiRecarrecComptabilitat",
             placeHolder: props.intl.formatMessage({
               id: "Clientes.codigo.recargo",
@@ -515,7 +522,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
               xs: 12,
               md: 3,
             },
-            validationType: "number",
+            validationType: "string",
             ...withRequiredValidation([
               ...props.stringValidations.minMaxValidation(1, 4),
             ]),
@@ -597,7 +604,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
             ]),
           },
           {
-            type: "numeric",
+            type: "input",
             key: "codiComptabilitat",
             placeHolder: props.intl.formatMessage({
               id: "Clientes.codigo.contabilidad",
@@ -608,7 +615,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
               xs: 12,
               md: 3,
             },
-            validationType: "number",
+            validationType: "string",
             validations: [...props.stringValidations.minMaxValidation(1, 2)],
           },
 
@@ -632,7 +639,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
             ...withRequiredValidation(),
           },
           {
-            type: "numeric",
+            type: "input",
             key: "codiFacturaElectronica",
             placeHolder: props.intl.formatMessage({
               id: "Clientes.codigo.facturaElectronica",
@@ -643,12 +650,12 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
               xs: 12,
               md: 4,
             },
-            validationType: "number",
+            validationType: "string",
             validations: [...props.stringValidations.minMaxValidation(1, 4)],
           },
           {
             type: "input",
-            key: "text",
+            key: "sitCodClaExd",
             placeHolder: props.intl.formatMessage({
               id: "Clientes.re.expedida",
               defaultMessage: "Régimen especial fact expedida",
@@ -662,7 +669,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
           },
           {
             type: "input",
-            key: "text",
+            key: "sitCodClaReb",
             placeHolder: props.intl.formatMessage({
               id: "Clientes.re.recibida",
               defaultMessage: "Régimen especial fact recibida",
@@ -957,9 +964,9 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
                   submitFromOutside={props.submitFromOutside}
                   onSubmit={() => props.onSubmitTab(formData)}
                   handleIsValid={(value) =>
-                    addValidity(ACCOUNTS_SECTION_INDEX, value)
+                    addValidity(ACCOUNT_NUMBER_INDEX, value)
                   }
-                  onBlur={(e) => handleTouched(ACCOUNTS_SECTION_INDEX)}
+                  onBlur={(e) => handleTouched(ACCOUNT_NUMBER_INDEX)}
                   {...props}
                 />
               </OutlinedContainer>
@@ -985,9 +992,9 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
                   submitFromOutside={props.submitFromOutside}
                   onSubmit={() => props.onSubmitTab(formData)}
                   handleIsValid={(value) =>
-                    addValidity(ACCOUNTS_SECTION_INDEX, value)
+                    addValidity(IBAN_INDEX, value)
                   }
-                  onBlur={(e) => handleTouched(ACCOUNTS_SECTION_INDEX)}
+                  onBlur={(e) => handleTouched(IBAN_INDEX)}
                   {...props}
                 />
               </OutlinedContainer>
@@ -1017,9 +1024,9 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
                 submitFromOutside={props.submitFromOutside}
                 onSubmit={() => props.onSubmitTab(formData)}
                 handleIsValid={(value) =>
-                  addValidity(ACCOUNTS_SECTION_INDEX, value)
+                  addValidity(ACCOUNTING_DATA_INDEX, value)
                 }
-                onBlur={(e) => handleTouched(ACCOUNTS_SECTION_INDEX)}
+                onBlur={(e) => handleTouched(ACCOUNTING_DATA_INDEX)}
                 {...props}
               />
             </OutlinedContainer>
@@ -1045,9 +1052,9 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
                 submitFromOutside={props.submitFromOutside}
                 onSubmit={() => props.onSubmitTab(formData)}
                 handleIsValid={(value) =>
-                  addValidity(ACCOUNTS_SECTION_INDEX, value)
+                  addValidity(ACCOUNTING_ACCOUNTS_INDEX, value)
                 }
-                onBlur={(e) => handleTouched(ACCOUNTS_SECTION_INDEX)}
+                onBlur={(e) => handleTouched(ACCOUNTING_ACCOUNTS_INDEX)}
                 {...props}
               />
             </OutlinedContainer>
@@ -1062,4 +1069,8 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
     </Grid>
   );
 };
-export default compose(React.memo, withValidations, injectIntl)(AccountingTab);
+export default compose(
+  React.memo,
+  withValidations,
+  injectIntl
+)(AccountingTab);

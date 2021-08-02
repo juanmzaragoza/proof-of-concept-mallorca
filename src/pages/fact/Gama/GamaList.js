@@ -43,13 +43,13 @@ const GamaList = ({ actions, ...props }) => {
           defaultMessage: "Descripción",
         }),
       },
-      {
-        name: "prupes",
-        title: props.intl.formatMessage({
-          id: "Gama.prupes",
-          defaultMessage: "Prupes",
-        }),
-      },
+      // {
+      //   name: "prupes",
+      //   title: props.intl.formatMessage({
+      //     id: "Gama.prupes",
+      //     defaultMessage: "Prupes",
+      //   }),
+      // },
     ],
     URL: API.articlesGama,
     listKey: "articleGammas",

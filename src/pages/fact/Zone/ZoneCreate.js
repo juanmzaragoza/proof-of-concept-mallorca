@@ -56,39 +56,48 @@ const ZoneCreate = (props) => {
       ],
     },
     {
-      placeHolder: DESCRIPCIO,
-      type: "input",
-      key: "descripcio",
-      breakpoints: {
-        xs: 12,
-        md: 5,
-      },
-    },
-
-    {
       placeHolder: props.intl.formatMessage({
         id: "Zona.radioKm",
         defaultMessage: "radio km",
       }),
-      type: "input",
+      type: "numeric",
       key: "radioKm",
       breakpoints: {
         xs: 12,
         md: 2,
       },
+      validationType: "number",
+      validations: [
+        ...props.numberValidations.minMaxValidation(0, 9999),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "Zona.precio",
         defaultMessage: "Precio",
       }),
-      type: "input",
+      type: "numeric",
       key: "preu",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
+      },
+      validationType: "number",
+      validations: [
+        ...props.numberValidations.minMaxValidation(0, 999999999999),
+      ],
+    },
+    {
+      placeHolder: DESCRIPCIO,
+      type: "input",
+      key: "descripcio",
+      breakpoints: {
+        xs: 12,
+        md: 12,
       },
     },
+
+   
   ];
   return (
     <CreateUpdateForm

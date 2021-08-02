@@ -7,6 +7,7 @@ import { some, min, pickBy, cloneDeep } from "lodash";
 
 import GeneralTab from "./GeneralTab";
 import ContactTab from "./ContactTab";
+import VehiclesTab from "./VehiclesTab";
 
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
@@ -29,6 +30,7 @@ import { getLoading } from "../../../redux/app/selectors";
 
 const GENERAL_TAB_INDEX = 0;
 const CONTACT_TAB_INDEX = 1;
+const VEHICLES_TAB_INDEX = 2;
 
 const CarrierForm = React.memo(
   ({
@@ -47,6 +49,7 @@ const CarrierForm = React.memo(
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [GENERAL_TAB_INDEX]: false,
       [CONTACT_TAB_INDEX]: false,
+      [VEHICLES_TAB_INDEX]:false,
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -127,6 +130,29 @@ const CarrierForm = React.memo(
               setTabIndexWithError({
                 ...tabIndexWithError,
                 [CONTACT_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+          />
+        ),
+      },
+      {
+        ...getTranslations("Vehiculos.titulo", "Vehiculos"),
+        key: VEHICLES_TAB_INDEX,
+        error: tabHasError(VEHICLES_TAB_INDEX),
+        component: (
+          <VehiclesTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [VEHICLES_TAB_INDEX]: !value,
               })
             }
             editMode={editMode}

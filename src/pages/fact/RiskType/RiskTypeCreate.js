@@ -58,7 +58,7 @@ const RiskTypeCreate = (props) => {
         md: 2,
       },
       validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(0, 999)],
+      validations: [ ...props.numberValidations.minMaxValidation(0, 999),],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -72,7 +72,7 @@ const RiskTypeCreate = (props) => {
         md: 2,
       },
       validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(0, 999)],
+      validations: [ ...props.numberValidations.minMaxValidation(0, 999)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -86,7 +86,7 @@ const RiskTypeCreate = (props) => {
         md: 3,
       },
       validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(0, 999)],
+      validations: [ ...props.numberValidations.minMaxValidation(0, 999)],
     },
 
     {
@@ -101,7 +101,7 @@ const RiskTypeCreate = (props) => {
         md: 3,
       },
       validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(0, 999)],
+      validations: [ ...props.numberValidations.minMaxValidation(0, 999)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -115,7 +115,7 @@ const RiskTypeCreate = (props) => {
         md: 3,
       },
       validationType: "number",
-      validations: [...props.stringValidations.minMaxValidation(0, 999)],
+      validations: [ ...props.numberValidations.minMaxValidation(0, 999)],
     },
     {
       placeHolder: props.intl.formatMessage({

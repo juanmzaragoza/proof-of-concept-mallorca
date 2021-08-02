@@ -28,7 +28,6 @@ import WYSIWYGEditor from "./WYSIWYGEditor";
 
 const GenericForm = ({loading, ...props}) => {
   const formRef = useRef(null);
-  const [enableReinitialize, setEnableReinitialize] = useState(false);
   const [isManualValidated, setIsManualValidated] = useState(false);
   const [initVal, setInitVal] = useState({});
 
@@ -36,7 +35,7 @@ const GenericForm = ({loading, ...props}) => {
   const initialValues = {
     'input': "",
     'select': "",
-    'checkbox': "",
+    'checkbox': false,
     'radio': "",
     'LOV': null,
     'observations': "",
@@ -56,7 +55,13 @@ const GenericForm = ({loading, ...props}) => {
       data[component.key] = value;
     }
     setInitVal(data);
+    setIsManualValidated(false);
   }
+
+  /** First effect: initialize the formik */
+  useEffect(() => {
+    initValues();
+  },[]);
 
   /**
    * Effect to submit from outside
@@ -80,15 +85,14 @@ const GenericForm = ({loading, ...props}) => {
   useEffect(() => {
     if(props.formDataLoaded) {
       initValues();
-      setEnableReinitialize(true);
     } else{
       setIsManualValidated(false);
-      setEnableReinitialize(false);
     }
   },[props.formDataLoaded]);
 
   const hasError = (key, formik) => {
-    return formik.touched && formik.touched[key] && (Boolean(formik.errors[key])) ||
+    /** We added isSubmitted flag to show all the fields errors when the form is submitted */
+    return ((formik.touched && formik.touched[key]) || props.isSubmitted) && (Boolean(formik.errors[key])) ||
       (props.formErrors && Boolean(props.formErrors[key]));
   }
 
@@ -98,7 +102,8 @@ const GenericForm = ({loading, ...props}) => {
   }
 
   const getMessageError = (key, formik) => {
-    return formik.touched && formik.touched[key] && (Boolean(formik.errors[key]) && formik.errors[key]) ||
+    /** We added isSubmitted flag to show all the fields errors when the form is submitted */
+    return ((formik.touched && formik.touched[key]) || props.isSubmitted) && (Boolean(formik.errors[key]) && formik.errors[key]) ||
       (props.formErrors && Boolean(props.formErrors[key])? capitalize(props.formErrors[key].message) : '');
   }
 
@@ -106,7 +111,7 @@ const GenericForm = ({loading, ...props}) => {
     props.handleIsValid && props.handleIsValid(formik.isValid);
   }
 
-  const getField = ({id, type, variant, placeHolder, required, key, noEditable, selector, disabled, text, prefix, suffix, extraQuery}, formik) => {
+  const getField = ({id, type, variant, placeHolder, required, key, noEditable, selector, disabled, text, prefix, suffix, extraQuery, format}, formik) => {
     const noEnable = loading || (props.editMode && noEditable) || disabled;
     const identification = id? id:key;
 
@@ -153,16 +158,16 @@ const GenericForm = ({loading, ...props}) => {
               handleChange(e, v);
               formik.setFieldValue(key,v);
             }}
-            value={props.getFormData && props.getFormData(key)? props.getFormData(key) : ""}
+            value={props.getFormData && props.getFormData(key)? props.getFormData(key) : 0}
             label={placeHolder}
             required={Boolean(required)}
             error={hasError(key,formik)}
             helperText={getMessageError(key, formik)}
             onBlur={handleBlur}
-            type={"text"}
             disabled={noEnable}
             prefix={prefix}
-            suffix={suffix} />
+            suffix={suffix}
+            format={format} />
         );
       case 'select':
         return (
@@ -193,6 +198,7 @@ const GenericForm = ({loading, ...props}) => {
                 name={key}
                 disabled={noEnable}
                 color="primary"
+                required={required}
               />
             }
             label={placeHolder}
@@ -362,7 +368,7 @@ const GenericForm = ({loading, ...props}) => {
     useEffect(()=>{
       if(!isManualValidated && !formik.isValidating){
         formik.validateForm().then(data => {
-          props.handleIsValid && props.handleIsValid({isValid: isEmpty(data)});
+          props.handleIsValid && props.handleIsValid(isEmpty(data));
         });
         setIsManualValidated(true);
       }
@@ -379,14 +385,14 @@ const GenericForm = ({loading, ...props}) => {
           validateOnMount={false}
           validateOnChange
           validateOnBlur
-          enableReinitialize={enableReinitialize}
+          enableReinitialize={true}
           onSubmit={(values, actions) => {
             props.onSubmit(values);
             actions.setSubmitting(false);
           }}>
           {formik => {
             return (
-              <form ref={formRef} onSubmit={(e) => {
+              <form noValidate ref={formRef} onSubmit={(e) => {
                 e.preventDefault();
                 handleIsValid(formik);
                 formik.handleSubmit(e);
@@ -446,6 +452,8 @@ GenericForm.propTypes = {
     })),
     prefix: PropTypes.string,
     suffix: PropTypes.string,
+    // it only used in the numeric component (react-number-format)
+    format: PropTypes.any,
     // when you request filtering by extra fields in some request
     extraQuery: PropTypes.arrayOf(PropTypes.shape({
       columnName: PropTypes.string.isRequired,

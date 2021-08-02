@@ -967,3 +967,17 @@ export const TIPO_PRODUCTO_SELECTOR_VALUES = [
     label: "Aplicación",
   },
 ];
+
+
+export const TIPO_COSTES_SELECTOR_VALUES = [
+  {
+    value: "IMPORTE",
+    labelId: "Selector.importe",
+    label: "Importe",
+  },
+  {
+    value: "PORCENTAJE",
+    labelId: "Selector.porcentaje",
+    label: "Porcentaje",
+  },
+];

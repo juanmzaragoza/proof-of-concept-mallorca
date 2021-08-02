@@ -127,7 +127,7 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
         },
         suffix: "%",
         validationType: "number",
-        validations: props.stringValidations.minMaxValidation(0, 99999),
+        validations: [...props.numberValidations.minMaxValidation(0, 9999)],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -147,14 +147,20 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
           sort: "nomFiscal",
           cannotCreate: true,
           advancedSearchColumns: [
-            { title: props.intl.formatMessage({
-              id: "Comun.codigo",
-              defaultMessage: "Código",
-            }), name: "codi" },
-            { title: props.intl.formatMessage({
-              id: "Comun.nombre",
-              defaultMessage: "Nombre",
-            }), name: "nomFiscal" },
+            {
+              title: props.intl.formatMessage({
+                id: "Comun.codigo",
+                defaultMessage: "Código",
+              }),
+              name: "codi",
+            },
+            {
+              title: props.intl.formatMessage({
+                id: "Comun.nombre",
+                defaultMessage: "Nombre",
+              }),
+              name: "nomFiscal",
+            },
           ],
         },
       },
@@ -170,12 +176,9 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
           md: 12,
         },
       },
-
-      
     ],
   };
 
-  
   return (
     <Grid container>
       <Grid xs={12} item>
@@ -189,8 +192,8 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
           }
         >
           <ExpandableGrid
-            id="aplicacionsClients"
-            responseKey="aplicacioClients"
+            id="altresAplicacionsClient"
+            responseKey="altraAplicacioClients"
             enabled={props.editMode}
             configuration={otraAplicacion}
           />

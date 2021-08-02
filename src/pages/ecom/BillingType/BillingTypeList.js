@@ -40,8 +40,8 @@ const BillingTypeList = ({ actions, ...props }) => {
       },
       { name: 'concedimCredit',
         title: props.intl.formatMessage({
-          id: "TiposFacturacion.concedemosCredito",
-          defaultMessage: "Concedemos Crédito"
+          id:  "TiposFacturacion.obligarFacturar",
+          defaultMessage: "Obligar a Facturar los Albranes"
         }),
         getCellValue: row => row.concedimCredit ? (
           <FormattedMessage id={"Comun.si"} defaultMessage={"Si"} />
