@@ -191,8 +191,6 @@ const CompanyForm = React.memo(
           />
         ),
       },
-
-      LOGO_TAB_INDEX,
     ];
 
     const { id } = useParams();

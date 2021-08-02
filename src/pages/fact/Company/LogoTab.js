@@ -2,14 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
-import { Chip } from "@material-ui/core";
 
-import {
-  FACT_TIPO_SELECTOR_VALUES,
-  CONTABILIDAD_SELECTOR_VALUES,
-  TIPO_EXTRANJ_SELECTOR_VALUES,
-  TIPO_CLIENTE_SELECTOR_VALUES,
-} from "constants/selectors";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
@@ -43,8 +36,10 @@ const LogoTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "logoPath",
       breakpoints: {
         xs: 12,
-        md: 6,
+        md: 10,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 300)],
     },
     {
       placeHolder: props.intl.formatMessage({
