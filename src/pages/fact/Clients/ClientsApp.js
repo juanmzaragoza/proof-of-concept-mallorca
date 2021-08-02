@@ -327,7 +327,7 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Aplicacion",
         }),
         type: "LOV",
-        key: "aplicacioClient",
+        key: "altraAplicacioClient",
         required: true,
         noEditable: true,
         breakpoints: {
@@ -335,7 +335,7 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
           md: 4,
         },
         selector: {
-          key: "aplicacioClients",
+          key: "altraAplicacioClients",
           labelKey: (data) => `${data.aplicacioCodi} `,
           sort: "aplicacioCodi",
           cannotCreate: true,
@@ -366,24 +366,24 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
         validationType: "object",
         ...withRequiredValidation([]),
       },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.aplicacionCliente1",
-          defaultMessage: "Aplicación Cliente 1",
-        }),
-        type: "input",
-        key: "aplicacioClient1",
-        required: true,
-        noEditable: true,
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        validationType: "string",
-        ...withRequiredValidation([
-          ...props.stringValidations.minMaxValidation(0, 3),
-        ]),
-      },
+      // {
+      //   placeHolder: props.intl.formatMessage({
+      //     id: "Clientes.aplicacionCliente1",
+      //     defaultMessage: "Aplicación Cliente 1",
+      //   }),
+      //   type: "input",
+      //   key: "aplicacioClient1",
+      //   required: true,
+      //   noEditable: true,
+      //   breakpoints: {
+      //     xs: 12,
+      //     md: 3,
+      //   },
+      //   validationType: "string",
+      //   ...withRequiredValidation([
+      //     ...props.stringValidations.minMaxValidation(0, 3),
+      //   ]),
+      // },
 
       {
         placeHolder: props.intl.formatMessage({
@@ -467,7 +467,7 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
         >
           <ExpandableGrid
             id="altresAplicacionsSubclient"
-            responseKey="altreAplicacioSubclients"
+            responseKey="altraAplicacioSubclients"
             enabled={props.editMode}
             configuration={subClientesOtrasAplicacion}
           />

@@ -235,5 +235,7 @@ export const aplicacions = `api/fact/aplicacions`;
 export const parametres = `api/fact/parameters`;
 export const altresAplicacionsSubclient = `api/fact/altresAplicacionsSubclient`;
 export const aplicacioClient = `api/fact/aplicacionsClients`;
+export const altresAplicacionsClient = `api/fact/altresAplicacionsClient`;
+export const altraAplicacioClient = `api/fact/altresAplicacionsClient`;
 
 
