@@ -9,6 +9,12 @@ import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
 
 const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
+
+  // warning!!! It's always valid because we haven't validations
+  useEffect(() => {
+    props.setIsValid(true);
+  },[]);
+
   const { id: clientId } = useParams();
 
   const clientCodi = getFormData("codi");
@@ -362,25 +368,6 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
         validationType: "object",
         ...withRequiredValidation([]),
       },
-      // {
-      //   placeHolder: props.intl.formatMessage({
-      //     id: "Clientes.aplicacionCliente1",
-      //     defaultMessage: "Aplicación Cliente 1",
-      //   }),
-      //   type: "input",
-      //   key: "aplicacioClient1",
-      //   required: true,
-      //   noEditable: true,
-      //   breakpoints: {
-      //     xs: 12,
-      //     md: 3,
-      //   },
-      //   validationType: "string",
-      //   ...withRequiredValidation([
-      //     ...props.stringValidations.minMaxValidation(0, 3),
-      //   ]),
-      // },
-
       {
         placeHolder: props.intl.formatMessage({
           id: "Clientes.codigoOtraAppSubcliente",

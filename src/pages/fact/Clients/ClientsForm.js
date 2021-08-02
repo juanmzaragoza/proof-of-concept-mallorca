@@ -42,7 +42,17 @@ const APLICADORES_TAB_INDEX = 9;
 const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromOutside, services, ...props }) => {
   const [editMode, setEditMode] = useState(false);
   const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
-  const [tabIndexWithError, setTabIndexWithError] = useState({ [GENERAL_TAB_INDEX]: false, [CONTACT_TAB_INDEX]: false, [CONTAB_TAB_INDEX]: false, [FACT_TAB_INDEX]: false,[CLIENTE_TAB_INDEX]: false,[APLICADORES_TAB_INDEX]: false, [PERSONAL_TAB_INDEX]: false,[DOC_TAB_INDEX]: false ,[CLIENTS_APP_TAB_INDEX]:false });
+  const [tabIndexWithError, setTabIndexWithError] = useState({
+    [GENERAL_TAB_INDEX]: false,
+    [CONTACT_TAB_INDEX]: false,
+    [CONTAB_TAB_INDEX]: false,
+    [FACT_TAB_INDEX]: false,
+    [CLIENTE_TAB_INDEX]: false,
+    [APLICADORES_TAB_INDEX]: false,
+    [PERSONAL_TAB_INDEX]: false,
+    [DOC_TAB_INDEX]: false ,
+    [CLIENTS_APP_TAB_INDEX]:false
+  });
   const [forceTabChange, setForceTabChange] = useState(false);
 
   const tabHasError = (index) => {
