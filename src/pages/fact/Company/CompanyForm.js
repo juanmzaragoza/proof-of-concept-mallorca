@@ -6,6 +6,7 @@ import {useParams} from "react-router-dom";
 import { some, min, pickBy, cloneDeep } from "lodash";
 
 import GeneralTab from "./GeneralTab";
+import ContactTab from "./ContactTab";
 import ContabilidadTab from "./ContabilidadTab";
 
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
@@ -21,6 +22,7 @@ import {getLoading} from "../../../redux/app/selectors";
 
 const GENERAL_TAB_INDEX = 0;
 const CONTACT_TAB_INDEX = 1;
+const CONTAB_TAB_INDEX=2;
 
 
 const CompanyForm = React.memo(({ actions, allFormData, getFormData, submitFromOutside, services, ...props }) => {
@@ -29,7 +31,7 @@ const CompanyForm = React.memo(({ actions, allFormData, getFormData, submitFromO
   const [nameSelectedTab, setNameSelectedTab] = useState('');
 
 
-  const [tabIndexWithError, setTabIndexWithError] = useState({[GENERAL_TAB_INDEX]: false, [CONTACT_TAB_INDEX]: false,});
+  const [tabIndexWithError, setTabIndexWithError] = useState({[GENERAL_TAB_INDEX]: false, [CONTACT_TAB_INDEX]: false,[CONTAB_TAB_INDEX]:false});
   const [forceTabChange, setForceTabChange] = useState(false);
 
   const tabHasError = (index) => {
@@ -82,11 +84,26 @@ const CompanyForm = React.memo(({ actions, allFormData, getFormData, submitFromO
         formDataLoaded={props.formDataLoaded} />
     },
     {
-      ...getTranslations("Empresas.tabs.contabilidadFact","Contabilidad y facturación"),
+      ...getTranslations("Proveedores.tabs.contactos","Contactos"),
       key: CONTACT_TAB_INDEX,
       error: tabHasError(CONTACT_TAB_INDEX),
-      component: <ContabilidadTab
+      component: <ContactTab
         setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [CONTACT_TAB_INDEX]: !value})}
+        editMode={editMode}
+        getFormData={getFormData}
+        setFormData={actions.setFormData}
+        submitFromOutside={submitFromOutside}
+        onSubmitTab={handleSubmitTab}
+        formErrors={props.formErrors}
+        loading={props.loading}
+        formDataLoaded={props.formDataLoaded} />
+    },
+    {
+      ...getTranslations("Empresas.tabs.varios","Varios"),
+      key: CONTAB_TAB_INDEX,
+      error: tabHasError(CONTAB_TAB_INDEX),
+      component: <ContabilidadTab
+        setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [CONTAB_TAB_INDEX]: !value})}
         editMode={editMode}
         getFormData={getFormData}
         setFormData={actions.setFormData}

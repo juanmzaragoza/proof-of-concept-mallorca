@@ -1133,7 +1133,7 @@
   "Empresas.tabs.contabilidadFact": "Contabilidad y facturación",
   "Empresas.valorFact": "Valor Facturación",
   "Empresas.diarioFact": "Diario Facturación Prov.",
-  "Empresas.diarioProf": "Diario Prof. Prov.",
+  "Empresas.diarioProf": "Diario Proformas Prov.",
   "Empresas.fechaCierre": "Fecha Cierre",
   "Empresas.contabCodigo": "Código Contabilidad",
   "Empresas.contabAsiento": "Contabilidad Asiento Tipo",
@@ -1493,7 +1493,19 @@
   "FormasCoste.unidades":"Unidades",
   "FormasCoste.costeUnitario":"Coste Unitario (FF)",
   "FormasCoste.actualizarCoste":"Actualizar Coste Artículo",
-  "FormasCoste.tipoCosteCodigo":"Código Tipo coste"
+  "FormasCoste.tipoCosteCodigo":"Código Tipo coste",
+  "Empresas.datosComerciales":"Datos Comerciales",
+  "Empresas.datosFiscales":"Datos Fiscales",
+  "Empresas.masDatos":"Más Datos",
+  "Empresas.enviarNotificaciones":"Enviar notificaciones de facturas pendientes de cobro",
+  "Empresas.tomo":"Tomo",
+  "Empresas.libro":"Libro",
+  "Empresas.hoja":"Hoja",
+  "Empresas.seccion":"Sección",
+  "Empresas.folio":"Folio",
+  "Empresas.tabs.varios":"Varios",
+  "Empresas.almacenEmpresa":"Almacén de la Empresa",
+  "Empresas.tipoFacturacion":"Tipo Facturacion"
 
 
 }

@@ -30,7 +30,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     fields: {
       [COMPANY_SECTION_INDEX]: false,
       [ADDRESS_SECTION_TAB_INDEX]: false,
-      [CONTACT_SECTION_TAB_INDEX]: false,
+     
     },
     setIsValid: props.setIsValid,
   });
@@ -176,22 +176,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     //   },
     // },
     // {
-    //   placeHolder: props.intl.formatMessage({
-    //     id: "Proveedores.nif",
-    //     defaultMessage: "NIF",
-    //   }),
-    //   type: "input",
-    //   key: "nif",
-    //   required: true,
-    //   breakpoints: {
-    //     xs: 12,
-    //     md: 2,
-    //   },
-    //   validationType: "string",
-    //   ...withRequiredValidation([
-    //     ...props.stringValidations.minMaxValidation(8, 11),
-    //   ]),
-    // },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "Proveedores.divisa",
@@ -255,21 +240,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
 
     // {
     //   placeHolder: props.intl.formatMessage({
-    //     id: "Clientes.tipo_persona",
-    //     defaultMessage: "Tipo Persona",
-    //   }),
-    //   type: "select",
-    //   key: "personaTipus",
-    //   breakpoints: {
-    //     xs: 12,
-    //     md: 2,
-    //   },
-    //   selector: {
-    //     options: TIPO_CLIENTE_SELECTOR_VALUES,
-    //   },
-    // },
-    // {
-    //   placeHolder: props.intl.formatMessage({
     //     id: "Empresas.partida",
     //     defaultMessage: "Partida",
     //   }),
@@ -280,67 +250,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     //     md: 2,
     //   },
     // },
-    // {
-    //   placeHolder: props.intl.formatMessage({
-    //     id: "Clientes.tipoExtranj",
-    //     defaultMessage: "Tipo Residencia",
-    //   }),
-    //   type: "select",
-    //   key: "tipoResidencia",
-    //   breakpoints: {
-    //     xs: 12,
-    //     md: 2,
-    //   },
-    //   selector: {
-    //     options: TIPO_EXTRANJ_SELECTOR_VALUES,
-    //   },
-    // },
 
-    // {
-    //   placeHolder: props.intl.formatMessage({
-    //     id: "Clientes.nombre",
-    //     defaultMessage: "Nombre",
-    //   }),
-    //   type: "input",
-    //   key: "nomFiscal1",
-
-    //   breakpoints: {
-    //     xs: 12,
-    //     md: 3,
-    //   },
-    //   validationType: "string",
-    //   validations: [...props.stringValidations.minMaxValidation(1, 40)],
-    // },
-    // {
-    //   placeHolder: props.intl.formatMessage({
-    //     id: "Clientes.apellido1",
-    //     defaultMessage: "Apellido",
-    //   }),
-    //   type: "input",
-    //   key: "llinatgeFiscal1",
-
-    //   breakpoints: {
-    //     xs: 12,
-    //     md: 3,
-    //   },
-    //   validationType: "string",
-    //   validations: [...props.stringValidations.minMaxValidation(1, 40)],
-    // },
-    // {
-    //   placeHolder: props.intl.formatMessage({
-    //     id: "Clientes.apellido2",
-    //     defaultMessage: "Apellido 2",
-    //   }),
-    //   type: "input",
-    //   key: "llinatgeFiscal2",
-
-    //   breakpoints: {
-    //     xs: 12,
-    //     md: 2,
-    //   },
-    //   validationType: "string",
-    //   validations: [...props.stringValidations.minMaxValidation(1, 40)],
-    // },
     // {
     //   placeHolder: props.intl.formatMessage({
     //     id: "Empresas.fechaCierre",
@@ -463,62 +373,29 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 7,
       },
       validationType: "string",
       ...withRequiredValidation([
         ...props.stringValidations.minMaxValidation(1, 40),
       ]),
     },
-  ];
-  const addressConfig = [
     {
       placeHolder: props.intl.formatMessage({
-        id: "Empresas.domicilioComercial",
-        defaultMessage: "Domicilio comercial",
+        id: "Proveedores.nif",
+        defaultMessage: "NIF",
       }),
       type: "input",
-      required: true,
-      key: "domiciliComercial",
-      breakpoints: {
-        xs: 12,
-        md: 8,
-      },
-      validationType: "string",
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 60),
-      ],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Empresas.codPostalComercial",
-        defaultMessage: "Código Postal",
-      }),
-      type: "LOV",
-      key: "codiPostalComercialCodi",
+      key: "nif",
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4,
-      },
-
-      selector: {
-        key: "codiPostals",
-        labelKey: (data) =>
-          `${data.poblacio} ${data.municipi ? ` - ${data.municipi}` : ""} (${
-            data.codi
-          })`,
-        sort: "codi",
-        transform: {
-          apply: (codiPostals) => codiPostals && codiPostals.codi,
-          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-        },
-        advancedSearchColumns: aSCodeAndDescription,
-        cannotCreate: true,
+        md: 5,
       },
       validationType: "string",
-      ...withRequiredValidation(),
+      ...withRequiredValidation([
+        ...props.stringValidations.minMaxValidation(8, 11),
+      ]),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -530,7 +407,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "domiciliFiscal",
       breakpoints: {
         xs: 12,
-        md: 8,
+        md: 12,
       },
       validationType: "string",
       validations: [
@@ -538,7 +415,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         ...props.stringValidations.minMaxValidation(1, 60),
       ],
     },
-
     {
       placeHolder: props.intl.formatMessage({
         id: "Empresas.codPostalFiscal",
@@ -549,7 +425,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 12,
       },
 
       selector: {
@@ -570,6 +446,96 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       ...withRequiredValidation(),
     },
   ];
+  const masDatosConfig = [
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.tipo_persona",
+        defaultMessage: "Tipo Persona",
+      }),
+      type: "select",
+      key: "personaTipus",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      selector: {
+        options: TIPO_CLIENTE_SELECTOR_VALUES,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.tipoExtranj",
+        defaultMessage: "Tipo Residencia",
+      }),
+      type: "select",
+      key: "tipoResidencia",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      selector: {
+        options: TIPO_EXTRANJ_SELECTOR_VALUES,
+      },
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.nombre",
+        defaultMessage: "Nombre",
+      }),
+      type: "input",
+      key: "nomFiscal1",
+
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 40)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.apellido1",
+        defaultMessage: "Apellido",
+      }),
+      type: "input",
+      key: "llinatgeFiscal1",
+
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 40)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.apellido2",
+        defaultMessage: "Apellido 2",
+      }),
+      type: "input",
+      key: "llinatgeFiscal2",
+
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 40)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Empresas.enviarNotificaciones",
+        defaultMessage: "Enviar Notificaciones",
+      }),
+      type: "checkbox",
+      key: "envntf",
+      breakpoints: {
+        xs: 12,
+        md: 5,
+      },
+    },
+  ];
 
   const contactConfig = [
     {
@@ -578,7 +544,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "telefon",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       validationType: "string",
       validations: props.stringValidations.minMaxValidation(1, 60),
@@ -589,7 +555,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "fax",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       validationType: "string",
       validations: props.stringValidations.minMaxValidation(1, 60),
@@ -600,7 +566,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "email",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       validationType: "string",
       validations: [
@@ -615,48 +581,48 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "web",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       validationType: "string",
       validations: props.stringValidations.minMaxValidation(1, 60),
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Empresas.ApiUrl",
-        defaultMessage: "URL Api",
-      }),
-      type: "input",
-      key: "apiUrl",
+    // {
+    //   placeHolder: props.intl.formatMessage({
+    //     id: "Empresas.ApiUrl",
+    //     defaultMessage: "URL Api",
+    //   }),
+    //   type: "input",
+    //   key: "apiUrl",
 
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Empresas.logo",
-        defaultMessage: "Ruta logo",
-      }),
-      type: "input",
-      key: "logoPath",
-      breakpoints: {
-        xs: 12,
-        md: 6,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Empresas.imprimirLogo",
-        defaultMessage: "Imprimir Logo",
-      }),
-      type: "checkbox",
-      key: "logoImprimir",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-    },
+    //   breakpoints: {
+    //     xs: 12,
+    //     md: 3,
+    //   },
+    // },
+    // {
+    //   placeHolder: props.intl.formatMessage({
+    //     id: "Empresas.logo",
+    //     defaultMessage: "Ruta logo",
+    //   }),
+    //   type: "input",
+    //   key: "logoPath",
+    //   breakpoints: {
+    //     xs: 12,
+    //     md: 6,
+    //   },
+    // },
+    // {
+    //   placeHolder: props.intl.formatMessage({
+    //     id: "Empresas.imprimirLogo",
+    //     defaultMessage: "Imprimir Logo",
+    //   }),
+    //   type: "checkbox",
+    //   key: "logoImprimir",
+    //   breakpoints: {
+    //     xs: 12,
+    //     md: 2,
+    //   },
+    // },
   ];
 
   const tabs = [
@@ -664,14 +630,14 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       className: "general-tab-subtab",
       label: (
         <FormattedMessage
-          id={"Proveedores.direccion"}
-          defaultMessage={"Dirección"}
+          id={"Empresas.masDatos"}
+          defaultMessage={"Más Datos"}
         />
       ),
       key: 0,
       component: (
         <GenericForm
-          formComponents={addressConfig}
+          formComponents={masDatosConfig}
           emptyPaper={true}
           setFormData={setFormData}
           getFormData={getFormData}
@@ -687,109 +653,111 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         />
       ),
     },
-    {
-      className: "general-tab-subtab",
-      label: (
-        <FormattedMessage
-          id={"Proveedores.tabs.contactos"}
-          defaultMessage={"Contacto"}
-        />
-      ),
-      key: 1,
-      component: (
-        <GenericForm
-          formComponents={contactConfig}
-          emptyPaper={true}
-          setFormData={setFormData}
-          getFormData={getFormData}
-          loading={props.loading}
-          formErrors={props.formErrors}
-          submitFromOutside={props.submitFromOutside}
-          onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) =>
-            addValidity(CONTACT_SECTION_TAB_INDEX, value)
-          }
-          onBlur={(e) => handleTouched(CONTACT_SECTION_TAB_INDEX)}
-          {...props}
-        />
-      ),
-    },
+
     // {
+    //   className: "general-tab-subtab",
     //   label: (
     //     <FormattedMessage
-    //       id={"Proveedores.tipos_proveedor"}
-    //       defaultMessage={"Tipos de Proveedor"}
+    //       id={"Proveedores.tabs.contactos"}
+    //       defaultMessage={"Contacto"}
     //     />
     //   ),
-    //   key: 2,
-    //   component: "Tipos de Proveedor",
-    // },
-    // {
-    //   label: (
-    //     <FormattedMessage id={"Proveedores.cajas"} defaultMessage={"Cajas"} />
-    //   ),
-    //   key: 3,
-    //   component: "Cajas",
+    //   key: 1,
+    //   component:
+    //     <GenericForm
+    //       formComponents={contactConfig}
+    //       emptyPaper={true}
+    //       setFormData={setFormData}
+    //       getFormData={getFormData}
+    //       loading={props.loading}
+    //       formErrors={props.formErrors}
+    //       submitFromOutside={props.submitFromOutside}
+    //       onSubmit={() => props.onSubmitTab(formData)}
+    //       handleIsValid={(value) =>
+    //         addValidity(CONTACT_SECTION_TAB_INDEX, value)
+    //       }
+    //       onBlur={(e) => handleTouched(CONTACT_SECTION_TAB_INDEX)}
+    //       {...props}
+    //     />
+
     // },
   ];
 
   return (
     <Grid container>
       <Grid xs={12} item>
-        <OutlinedContainer
-          className="general-tab-container"
-          title={
-            <FormattedMessage
-              id={"Clientes.empresas"}
-              defaultMessage={"Empresas"}
-            />
-          }
-        >
-          <GenericForm
-            formComponents={companyConfig}
-            emptyPaper={true}
-            editMode={props.editMode}
-            getFormData={getFormData}
-            setFormData={setFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(COMPANY_SECTION_INDEX, value)}
-            onBlur={(e) => handleTouched(COMPANY_SECTION_INDEX)}
-            {...props}
-          />
-          <Grid container>
-            <Grid xs={6} item>
-              <OutlinedContainer
-                className="general-tab-container"
-                title={
-                  <FormattedMessage
-                    id={"Empresas.datosComerciales"}
-                    defaultMessage={"Datos Comerciales"}
-                  />
-                }
-              >
-                <GenericForm
-                  formComponents={datosComerciales}
-                  emptyPaper={true}
-                  editMode={props.editMode}
-                  getFormData={getFormData}
-                  setFormData={setFormData}
-                  loading={props.loading}
-                  formErrors={props.formErrors}
-                  submitFromOutside={props.submitFromOutside}
-                  onSubmit={() => props.onSubmitTab(formData)}
-                  handleIsValid={(value) =>
-                    addValidity(COMPANY_SECTION_INDEX, value)
-                  }
-                  onBlur={(e) => handleTouched(COMPANY_SECTION_INDEX)}
-                  {...props}
+        <GenericForm
+          formComponents={companyConfig}
+          emptyPaper={true}
+          editMode={props.editMode}
+          getFormData={getFormData}
+          setFormData={setFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) => addValidity(COMPANY_SECTION_INDEX, value)}
+          onBlur={(e) => handleTouched(COMPANY_SECTION_INDEX)}
+          {...props}
+        />
+        <Grid container spacing={2}>
+          <Grid xs={6} item>
+            <OutlinedContainer
+              className="general-tab-container"
+              title={
+                <FormattedMessage
+                  id={"Empresas.datosComerciales"}
+                  defaultMessage={"Datos Comerciales"}
                 />
-              </OutlinedContainer>
-            </Grid>
+              }
+            >
+              <GenericForm
+                formComponents={datosComerciales}
+                emptyPaper={true}
+                editMode={props.editMode}
+                getFormData={getFormData}
+                setFormData={setFormData}
+                loading={props.loading}
+                formErrors={props.formErrors}
+                submitFromOutside={props.submitFromOutside}
+                onSubmit={() => props.onSubmitTab(formData)}
+                handleIsValid={(value) =>
+                  addValidity(COMPANY_SECTION_INDEX, value)
+                }
+                onBlur={(e) => handleTouched(COMPANY_SECTION_INDEX)}
+                {...props}
+              />
+            </OutlinedContainer>
           </Grid>
-        </OutlinedContainer>
+          <Grid xs={6} item>
+            <OutlinedContainer
+              className="general-tab-container"
+              title={
+                <FormattedMessage
+                  id={"Empresas.datosFiscales"}
+                  defaultMessage={"Datos Fiscales"}
+                />
+              }
+            >
+              <GenericForm
+                formComponents={datosFiscales}
+                emptyPaper={true}
+                editMode={props.editMode}
+                getFormData={getFormData}
+                setFormData={setFormData}
+                loading={props.loading}
+                formErrors={props.formErrors}
+                submitFromOutside={props.submitFromOutside}
+                onSubmit={() => props.onSubmitTab(formData)}
+                handleIsValid={(value) =>
+                  addValidity(COMPANY_SECTION_INDEX, value)
+                }
+                onBlur={(e) => handleTouched(COMPANY_SECTION_INDEX)}
+                {...props}
+              />
+            </OutlinedContainer>
+          </Grid>
+        </Grid>
       </Grid>
       <Grid xs={12} item>
         <OutlinedContainer>
