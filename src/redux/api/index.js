@@ -252,3 +252,4 @@ export const articlesFamiliaComissio = `api/fact/articlesFamiliaComissio`;
 
 export const formesCost = `api/fact/formesCost`;
 export const costos = `api/fact/costos`;
+export const comptesCorrents = `api/fact/comptesCorrents`;
