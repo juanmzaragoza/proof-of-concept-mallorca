@@ -162,18 +162,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "string",
     },
 
-    // {
-    //   placeHolder: props.intl.formatMessage({
-    //     id: "Empresas.recargoEquivalencia",
-    //     defaultMessage: "Recargo equivalencia",
-    //   }),
-    //   type: "checkbox",
-    //   key: "recarrecEquivalencia",
-    //   breakpoints: {
-    //     xs: 12,
-    //     md: 2,
-    //   },
-    // },
+
 
 
     {
