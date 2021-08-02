@@ -34,11 +34,9 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
         exact: true,
       },
     ],
-
     extraPostBody: {
       client: { id: `${clientId}` },
     },
-
     columns: [
       {
         name: "aplicacio",
@@ -77,7 +75,6 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
       },
     ],
-
     formComponents: [
       {
         placeHolder: props.intl.formatMessage({
@@ -104,7 +101,6 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         type: "input",
         key: "aplicacioCodi",
-        noEditable: true,
         required: true,
         breakpoints: {
           xs: 12,
@@ -122,7 +118,6 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         type: "numeric",
         key: "percentatge",
-        noEditable: true,
         breakpoints: {
           xs: 12,
           md: 2,
