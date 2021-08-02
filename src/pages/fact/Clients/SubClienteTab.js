@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useParams } from "react-router-dom";
 import { compose } from "redux";
 import { FormattedMessage, injectIntl } from "react-intl";
@@ -11,6 +11,12 @@ import ExpandableGrid from "modules/ExpandableGrid";
 import { TIPO_DESCUENTO_SELECTOR_VALUES } from "constants/selectors";
 
 const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
+
+  // warning!!! It's always valid because we haven't validations
+  useEffect(() => {
+    props.setIsValid(true);
+  },[]);
+
   const withRequiredValidation = (extraValidations = []) => {
     return {
       validations: [
