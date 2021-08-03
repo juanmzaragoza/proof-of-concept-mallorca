@@ -7,7 +7,7 @@ import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
-import {FACTURA_RECTIFICATIVA_SELECTOR_VALUES} from "../../../constants/selectors";
+import { FACTURA_RECTIFICATIVA_SELECTOR_VALUES } from "../../../constants/selectors";
 import { useTabForm } from "hooks/tab-form";
 
 const CREATE_SECTION_INDEX = 0;
@@ -17,17 +17,42 @@ const OPTIONS_SECTION_TAB_INDEX = 2;
 const SII_SECTION_TAB_INDEX = 2;
 
 const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
-  const [touched, handleTouched, addValidity, formIsValid]
-    = useTabForm({ fields: { [CREATE_SECTION_INDEX]: false, [LAST_NUMBERS_SECTION_TAB_INDEX]: false, [DATOS_CONTABLES_SECTION_TAB_INDEX]: false,
-      [OPTIONS_SECTION_TAB_INDEX]: false, [SII_SECTION_TAB_INDEX]: false}, setIsValid: props.setIsValid });
+  const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
+    fields: {
+      [CREATE_SECTION_INDEX]: false,
+      [LAST_NUMBERS_SECTION_TAB_INDEX]: false,
+      [DATOS_CONTABLES_SECTION_TAB_INDEX]: false,
+      [OPTIONS_SECTION_TAB_INDEX]: false,
+      [SII_SECTION_TAB_INDEX]: true,
+    },
+    setIsValid: props.setIsValid,
+  });
 
-  const DESCRIPCIO = props.intl.formatMessage({id: "Comun.descripcion", defaultMessage: "Descripción"});
-  const CODE = props.intl.formatMessage({ id: "Comun.codigo", defaultMessage: "Código", });
-  const NOM = props.intl.formatMessage({id: "Comun.descripcion", defaultMessage: "Descripción"});
+  const DESCRIPCIO = props.intl.formatMessage({
+    id: "Comun.descripcion",
+    defaultMessage: "Descripción",
+  });
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
+  const NOM = props.intl.formatMessage({
+    id: "Comun.descripcion",
+    defaultMessage: "Descripción",
+  });
 
-  const aSCodeAndName = [{title: CODE, name: 'codi'},{title: NOM, name: 'nom'}];
-  const aSCodeAndDescription = [{title: CODE, name: 'codi'},{title: DESCRIPCIO, name: 'descripcio'}];
-  const aSCodeAndComercialName = [{title: CODE, name: 'codi'},{title: NOM, name: 'nomComercial'}];
+  const aSCodeAndName = [
+    { title: CODE, name: "codi" },
+    { title: NOM, name: "nom" },
+  ];
+  const aSCodeAndDescription = [
+    { title: CODE, name: "codi" },
+    { title: DESCRIPCIO, name: "descripcio" },
+  ];
+  const aSCodeAndComercialName = [
+    { title: CODE, name: "codi" },
+    { title: NOM, name: "nomComercial" },
+  ];
 
   const createConfiguration = [
     {
@@ -42,8 +67,8 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 2)
-      ]
+        ...props.stringValidations.minMaxValidation(1, 2),
+      ],
     },
     {
       placeHolder: DESCRIPCIO,
@@ -57,8 +82,8 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 30)
-      ]
+        ...props.stringValidations.minMaxValidation(1, 30),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -101,13 +126,13 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.cosIdr",
-        defaultMessage: "Costes indirectos"
+        defaultMessage: "Costes indirectos",
       }),
-      type: 'checkbox',
-      key: 'cosIdr',
+      type: "checkbox",
+      key: "cosIdr",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
     },
   ];
@@ -126,6 +151,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
       validationType: "number",
+      validations: [...props.commonValidations.requiredValidation()],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -140,6 +166,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
       validationType: "number",
+      validations: [...props.commonValidations.requiredValidation()],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -154,6 +181,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
       validationType: "number",
+      validations: [...props.commonValidations.requiredValidation()],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -168,6 +196,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
       validationType: "number",
+      validations: [...props.commonValidations.requiredValidation()],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -182,6 +211,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
       validationType: "number",
+      validations: [...props.commonValidations.requiredValidation()],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -195,9 +225,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 10)
-      ]
+      validations: [...props.stringValidations.minMaxValidation(1, 10)],
     },
   ];
 
@@ -214,9 +242,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 2)
-      ]
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -230,9 +256,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 2)
-      ]
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -246,9 +270,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 2)
-      ]
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -265,8 +287,8 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 10)
-      ]
+        ...props.stringValidations.minMaxValidation(1, 10),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -280,9 +302,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 10)
-      ]
+      validations: [...props.stringValidations.minMaxValidation(1, 10)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -296,9 +316,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 10)
-      ]
+      validations: [...props.stringValidations.minMaxValidation(1, 10)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -312,9 +330,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 10)
-      ]
+      validations: [...props.stringValidations.minMaxValidation(1, 10)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -328,9 +344,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 10)
-      ]
+      validations: [...props.stringValidations.minMaxValidation(1, 10)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -344,9 +358,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 10)
-      ]
+      validations: [...props.stringValidations.minMaxValidation(1, 10)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -360,44 +372,42 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 10)
-      ]
+      validations: [...props.stringValidations.minMaxValidation(1, 10)],
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.traspasarAContabilidad",
-        defaultMessage: "Traspasar a contabilidad"
+        defaultMessage: "Traspasar a contabilidad",
       }),
-      type: 'checkbox',
-      key: 'traspassarAComptabilitat',
+      type: "checkbox",
+      key: "traspassarAComptabilitat",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.combinarCuentaVentaConCliente",
-        defaultMessage: "Combinar cuenta venta con cliente"
+        defaultMessage: "Combinar cuenta venta con cliente",
       }),
-      type: 'checkbox',
-      key: 'combinarCompteVendaAmbClient',
+      type: "checkbox",
+      key: "combinarCompteVendaAmbClient",
       breakpoints: {
         xs: 12,
-        md: 3
+        md: 3,
       },
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.facturaAñoAnterior",
-        defaultMessage: "Factura año anterior"
+        defaultMessage: "Factura año anterior",
       }),
-      type: 'checkbox',
-      key: 'facturaAnyAnterior',
+      type: "checkbox",
+      key: "facturaAnyAnterior",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
     },
     {
@@ -413,6 +423,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
       validationType: "number",
+      validations: [...props.commonValidations.requiredValidation()],
     },
   ];
 
@@ -429,12 +440,10 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 12,
       },
       text: {
-        multiline: 2
+        multiline: 2,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 500)
-      ]
+      validations: [...props.stringValidations.minMaxValidation(1, 500)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -448,9 +457,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 1,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 20)
-      ]
+      validations: [...props.stringValidations.minMaxValidation(1, 20)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -464,6 +471,8 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
+      validationType: "string",
+      validations: [...props.commonValidations.requiredValidation()],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -477,56 +486,58 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
+      validationType: "string",
+      validations: [...props.commonValidations.requiredValidation()],
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.facturaRectificativa",
-        defaultMessage: "Factura rectificativa"
+        defaultMessage: "Factura rectificativa",
       }),
       type: "select",
-      key: 'facturaRectificativa',
+      key: "facturaRectificativa",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
       selector: {
-        options: FACTURA_RECTIFICATIVA_SELECTOR_VALUES
+        options: FACTURA_RECTIFICATIVA_SELECTOR_VALUES,
       },
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.desglosarIva",
-        defaultMessage: "Desglorar IVA"
+        defaultMessage: "Desglorar IVA",
       }),
-      type: 'checkbox',
-      key: 'desglossarIva',
+      type: "checkbox",
+      key: "desglossarIva",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.adjudicacionAlbaranFactura",
-        defaultMessage: "Adjudicación Albaran/Factura"
+        defaultMessage: "Adjudicación Albaran/Factura",
       }),
-      type: 'checkbox',
-      key: 'adjalbfac',
+      type: "checkbox",
+      key: "adjalbfac",
       breakpoints: {
         xs: 12,
-        md: 3
+        md: 3,
       },
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.numeracionManual",
-        defaultMessage: "Numeración manual"
+        defaultMessage: "Numeración manual",
       }),
-      type: 'checkbox',
-      key: 'numeracioManual',
+      type: "checkbox",
+      key: "numeracioManual",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
     },
     {
@@ -642,9 +653,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 2)
-      ]
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -658,9 +667,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 2)
-      ]
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -674,9 +681,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 2)
-      ]
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -690,9 +695,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 2)
-      ]
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -706,140 +709,138 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 2)
-      ]
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.siiPrsSrv",
-        defaultMessage: "Prestación de servicios"
+        defaultMessage: "Prestación de servicios",
       }),
-      type: 'checkbox',
-      key: 'siiPrsSrv',
+      type: "checkbox",
+      key: "siiPrsSrv",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.siiEntBin",
-        defaultMessage: "Entrega de bienes"
+        defaultMessage: "Entrega de bienes",
       }),
-      type: 'checkbox',
-      key: 'siiEntBin',
+      type: "checkbox",
+      key: "siiEntBin",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.siiSujNotExe",
-        defaultMessage: "Sujeta / No exenta"
+        defaultMessage: "Sujeta / No exenta",
       }),
-      type: 'checkbox',
-      key: 'siiSujNotExe',
+      type: "checkbox",
+      key: "siiSujNotExe",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.siiSujExe",
-        defaultMessage: "Sujeta / Exenta"
+        defaultMessage: "Sujeta / Exenta",
       }),
-      type: 'checkbox',
-      key: 'siiSujExe',
+      type: "checkbox",
+      key: "siiSujExe",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.siiNotSuj",
-        defaultMessage: "No sujeta"
+        defaultMessage: "No sujeta",
       }),
-      type: 'checkbox',
-      key: 'siiNotSuj',
+      type: "checkbox",
+      key: "siiNotSuj",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.imm",
-        defaultMessage: "Venta de inmuebles"
+        defaultMessage: "Venta de inmuebles",
       }),
-      type: 'checkbox',
-      key: 'imm',
+      type: "checkbox",
+      key: "imm",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.tipSbt",
-        defaultMessage: "Tipo sustitutiva"
+        defaultMessage: "Tipo sustitutiva",
       }),
-      type: 'checkbox',
-      key: 'tipSbt',
+      type: "checkbox",
+      key: "tipSbt",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.siiTip",
-        defaultMessage: "Sii tipo"
+        defaultMessage: "Sii tipo",
       }),
-      type: 'checkbox',
-      key: 'siiTip',
+      type: "checkbox",
+      key: "siiTip",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.siiImpSuj",
-        defaultMessage: "SiiImpSuj"
+        defaultMessage: "SiiImpSuj",
       }),
-      type: 'checkbox',
-      key: 'siiImpSuj',
+      type: "checkbox",
+      key: "siiImpSuj",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.cmpDebNeg",
-        defaultMessage: "CmpDebNeg"
+        defaultMessage: "CmpDebNeg",
       }),
-      type: 'checkbox',
-      key: 'cmpDebNeg',
+      type: "checkbox",
+      key: "cmpDebNeg",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.aplicarDescuento",
-        defaultMessage: "Aplicar descuento"
+        defaultMessage: "Aplicar descuento",
       }),
-      type: 'checkbox',
-      key: 'aplicarDescompte',
+      type: "checkbox",
+      key: "aplicarDescompte",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
     },
     {
@@ -854,87 +855,131 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 12,
       },
       text: {
-        multiline: 2
+        multiline: 2,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 500)
-      ]
+      validations: [...props.stringValidations.minMaxValidation(1, 500)],
     },
   ];
 
   const tabs = [
     {
       className: "general-tab-subtab",
-      label: <FormattedMessage id={"SerieVenta.ultimosNumeros"} defaultMessage={"Últimos numeros"} />,
+      label: (
+        <FormattedMessage
+          id={"SerieVenta.ultimosNumeros"}
+          defaultMessage={"Últimos numeros"}
+        />
+      ),
       key: 0,
-      component: <GenericForm formComponents={ultimosNumeros}
-        emptyPaper={true}
-        setFormData={setFormData}
-        getFormData={getFormData}
-        loading={props.loading}
-        formErrors={props.formErrors}
-        submitFromOutside={props.submitFromOutside}
-        onSubmit={() => props.onSubmitTab(formData)}
-        handleIsValid={value => addValidity(LAST_NUMBERS_SECTION_TAB_INDEX, value)}
-        onBlur={(e) => handleTouched(LAST_NUMBERS_SECTION_TAB_INDEX)}
-        {...props} />
+      component: (
+        <GenericForm
+          formComponents={ultimosNumeros}
+          emptyPaper={true}
+          setFormData={setFormData}
+          getFormData={getFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) =>
+            addValidity(LAST_NUMBERS_SECTION_TAB_INDEX, value)
+          }
+          onBlur={(e) => handleTouched(LAST_NUMBERS_SECTION_TAB_INDEX)}
+          {...props}
+        />
+      ),
     },
     {
       className: "general-tab-subtab",
-      label: <FormattedMessage id={"SerieVenta.datosContables"} defaultMessage={"Datos contables"} />,
+      label: (
+        <FormattedMessage
+          id={"SerieVenta.datosContables"}
+          defaultMessage={"Datos contables"}
+        />
+      ),
       key: 1,
-      component: <GenericForm formComponents={datosContables}
-        emptyPaper={true}
-        setFormData={setFormData}
-        getFormData={getFormData}
-        loading={props.loading}
-        formErrors={props.formErrors}
-        submitFromOutside={props.submitFromOutside}
-        onSubmit={() => props.onSubmitTab(formData)}
-        handleIsValid={value => addValidity(DATOS_CONTABLES_SECTION_TAB_INDEX, value)}
-        onBlur={(e) => handleTouched(DATOS_CONTABLES_SECTION_TAB_INDEX)}
-        {...props} />
+      component: (
+        <GenericForm
+          formComponents={datosContables}
+          emptyPaper={true}
+          setFormData={setFormData}
+          getFormData={getFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) =>
+            addValidity(DATOS_CONTABLES_SECTION_TAB_INDEX, value)
+          }
+          onBlur={(e) => handleTouched(DATOS_CONTABLES_SECTION_TAB_INDEX)}
+          {...props}
+        />
+      ),
     },
     {
       className: "general-tab-subtab",
-      label: <FormattedMessage id={"SerieVenta.opciones"} defaultMessage={"Opciones"} />,
+      label: (
+        <FormattedMessage
+          id={"SerieVenta.opciones"}
+          defaultMessage={"Opciones"}
+        />
+      ),
       key: 2,
-      component: <GenericForm formComponents={opciones}
-        emptyPaper={true}
-        setFormData={setFormData}
-        getFormData={getFormData}
-        loading={props.loading}
-        formErrors={props.formErrors}
-        submitFromOutside={props.submitFromOutside}
-        onSubmit={() => props.onSubmitTab(formData)}
-        handleIsValid={value => addValidity(OPTIONS_SECTION_TAB_INDEX, value)}
-        onBlur={(e) => handleTouched(OPTIONS_SECTION_TAB_INDEX)}
-        {...props} />
+      component: (
+        <GenericForm
+          formComponents={opciones}
+          emptyPaper={true}
+          setFormData={setFormData}
+          getFormData={getFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) =>
+            addValidity(OPTIONS_SECTION_TAB_INDEX, value)
+          }
+          onBlur={(e) => handleTouched(OPTIONS_SECTION_TAB_INDEX)}
+          {...props}
+        />
+      ),
     },
     {
       className: "general-tab-subtab",
       label: <FormattedMessage id={"SerieVenta.sii"} defaultMessage={"SII"} />,
       key: 3,
-      component: <GenericForm formComponents={sii}
-        emptyPaper={true}
-        setFormData={setFormData}
-        getFormData={getFormData}
-        loading={props.loading}
-        formErrors={props.formErrors}
-        submitFromOutside={props.submitFromOutside}
-        onSubmit={() => props.onSubmitTab(formData)}
-        handleIsValid={value => addValidity(SII_SECTION_TAB_INDEX, value)}
-        onBlur={(e) => handleTouched(SII_SECTION_TAB_INDEX)}
-        {...props} />
+      component: (
+        <GenericForm
+          formComponents={sii}
+          emptyPaper={true}
+          setFormData={setFormData}
+          getFormData={getFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) => addValidity(SII_SECTION_TAB_INDEX, value)}
+          onBlur={(e) => handleTouched(SII_SECTION_TAB_INDEX)}
+          {...props}
+        />
+      ),
     },
   ];
 
   return (
-    <Grid container >
+    <Grid container>
       <Grid xs={12} item>
-        <OutlinedContainer className="general-tab-container" title={<FormattedMessage id={"SerieVenta.titulo"} defaultMessage={"Serie ventas"} />}>
-          <GenericForm formComponents={createConfiguration}
+        <OutlinedContainer
+          className="general-tab-container"
+          title={
+            <FormattedMessage
+              id={"SerieVenta.titulo"}
+              defaultMessage={"Serie ventas"}
+            />
+          }
+        >
+          <GenericForm
+            formComponents={createConfiguration}
             emptyPaper={true}
             editMode={props.editMode}
             getFormData={getFormData}
@@ -943,9 +988,10 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
             formErrors={props.formErrors}
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={value => addValidity(CREATE_SECTION_INDEX, value)}
+            handleIsValid={(value) => addValidity(CREATE_SECTION_INDEX, value)}
             onBlur={(e) => handleTouched(CREATE_SECTION_INDEX)}
-            {...props} />
+            {...props}
+          />
         </OutlinedContainer>
       </Grid>
       <Grid xs={12} item>
@@ -956,8 +1002,4 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
     </Grid>
   );
 };
-export default compose(
-  React.memo,
-  withValidations,
-  injectIntl
-)(SalesSeriesTab);
+export default compose(React.memo, withValidations, injectIntl)(SalesSeriesTab);
