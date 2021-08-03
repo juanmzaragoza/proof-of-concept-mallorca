@@ -143,6 +143,7 @@
   "Proveedores.tabs.documentos": "Documentos",
   "Proveedores.tabs.precios_coste": "Precios Coste",
   "Proveedores.tabs.series": "Series",
+  "ReactGrid.filtros.buscar_por": "Buscar por {name}",
   "ReactGrid.error.algo_salio_mal": "Ups! Algo ha salido mal :(",
   "Selector.nif": "NIF",
   "Selector.nif_op_intra": "NIF operador intracomunitario",
