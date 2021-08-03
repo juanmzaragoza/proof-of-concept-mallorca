@@ -11,6 +11,7 @@ import OutlinedContainer from "modules/shared/OutlinedContainer";
 
 const GENERAL_SECTION_INDEX = 0;
 
+
 const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
   const [
     touched,
@@ -79,7 +80,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 5
+        md: 6
       },
       validationType: "string",
       validations: [
@@ -108,7 +109,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       key: 'agruparVencimentsRemeses',
       breakpoints: {
         xs: 12,
-        md: 3
+        md: 2
       },
     },
     {
@@ -121,7 +122,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       id: "naturalesaPagoCobro",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 4,
       },
       selector: {
         key: "naturalesaPagamentCobraments",
@@ -140,7 +141,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       key: 'numeroDias',
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 3
       },
       validationType: "number",
     },
@@ -153,7 +154,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       key: 'diaEfectosNegociados',
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 3
       },
       validationType: "number",
     },
@@ -210,7 +211,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       key: 'ccr',
       breakpoints: {
         xs: 12,
-        md: 4
+        md: 3
       },
       validationType: "number",
     },
@@ -223,7 +224,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       key: 'dcc',
       breakpoints: {
         xs: 12,
-        md: 4
+        md: 2
       },
       validationType: "string",
       validations: [
@@ -239,7 +240,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       key: 'ccr',
       breakpoints: {
         xs: 12,
-        md: 4
+        md: 3
       },
       validationType: "number",
     },
