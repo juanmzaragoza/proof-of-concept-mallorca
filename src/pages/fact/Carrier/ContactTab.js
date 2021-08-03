@@ -12,7 +12,7 @@ const CONTACT_SECTION_INDEX = 0;
 
 const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false, 1: false },
+    fields: { CONTACT_SECTION_INDEX: true },
     setIsValid: props.setIsValid,
   });
 

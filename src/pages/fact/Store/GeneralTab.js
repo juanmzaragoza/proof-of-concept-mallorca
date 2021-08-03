@@ -14,14 +14,14 @@ import { useTabForm } from "../../../hooks/tab-form";
 
 const STORE_SECTION_INDEX = 0;
 const CONTACT_SECTION_TAB_INDEX = 1;
-const CONTAB_SECTION_TAB_INDEX =2;
+const CONTAB_SECTION_TAB_INDEX = 2;
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [STORE_SECTION_INDEX]: false,
       [CONTACT_SECTION_TAB_INDEX]: true,
-      [CONTAB_SECTION_TAB_INDEX]:true
+      [CONTAB_SECTION_TAB_INDEX]: true,
     },
     setIsValid: props.setIsValid,
   });
@@ -187,7 +187,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "object",
       validations: [...props.commonValidations.requiredValidation()],
     },
-    
   ];
 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
@@ -308,8 +307,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       type: "select",
       key: "valoracioInventariTraspas",
-      selector:{
-          options:VALORACION_INVENTARIO_TRABAJO_SELECTOR_VALUES
+      selector: {
+        options: VALORACION_INVENTARIO_TRABAJO_SELECTOR_VALUES,
       },
       breakpoints: {
         xs: 12,
@@ -455,32 +454,32 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       ),
     },
     {
-        className: "general-tab-subtab",
-        label: (
-          <FormattedMessage
-            id={"Almacen.datosContables"}
-            defaultMessage={"Datos Contables"}
-          />
-        ),
-        key: 1,
-        component: (
-          <GenericForm
-            formComponents={contabConfig}
-            emptyPaper={true}
-            setFormData={setFormData}
-            getFormData={getFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) =>
-              addValidity(CONTAB_SECTION_TAB_INDEX, value)
-            }
-            onBlur={(e) => handleTouched(CONTAB_SECTION_TAB_INDEX)}
-            {...props}
-          />
-        ),
-      },
+      className: "general-tab-subtab",
+      label: (
+        <FormattedMessage
+          id={"Almacen.datosContables"}
+          defaultMessage={"Datos Contables"}
+        />
+      ),
+      key: 1,
+      component: (
+        <GenericForm
+          formComponents={contabConfig}
+          emptyPaper={true}
+          setFormData={setFormData}
+          getFormData={getFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) =>
+            addValidity(CONTAB_SECTION_TAB_INDEX, value)
+          }
+          onBlur={(e) => handleTouched(CONTAB_SECTION_TAB_INDEX)}
+          {...props}
+        />
+      ),
+    },
   ];
 
   return (
