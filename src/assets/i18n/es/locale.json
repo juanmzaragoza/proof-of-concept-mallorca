@@ -1492,7 +1492,17 @@
   "PuntoVenta.liniasSaltoFinal":"Línias Salto Final Ticket",
   "PuntoVenta.horaInicio":"Hora Inicio Día",
   "PuntoVenta.nombreBdTpv":"Nombre BD TPV",
-  "PuntoVenta.ticketPie":"Cabezera/Pie Ticket"
+  "PuntoVenta.ticketPie":"Cabezera/Pie Ticket",
+  "PuntoVenta.fecha":"Fecha",
+  "PuntoVenta.ejercicio":"Ejercicio",
+  "PuntoVenta.importe":"Importe",
+  "PuntoVenta.numeroAZ":"Número AZ",
+  "PuntoVenta.ultimoTicket":"Último Ticket",
+  "PuntoVenta.diario":"Diario",
+  "PuntoVenta.asiento":"Asiento",
+  "PuntoVenta.valorNumeroAZ2":"Valor Numero AZ 2",
+  "PuntoVenta.valorDivisa":"Valor divisa"
+
 
 
 }
