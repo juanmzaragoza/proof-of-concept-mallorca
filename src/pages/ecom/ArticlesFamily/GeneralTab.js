@@ -18,7 +18,7 @@ const ARTICLE_FAMILY_SECTION_INDEX = 0;
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false, 1: false },
+    fields: { [ARTICLE_FAMILY_SECTION_INDEX]: false, 1: true },
     setIsValid: props.setIsValid,
   });
 
