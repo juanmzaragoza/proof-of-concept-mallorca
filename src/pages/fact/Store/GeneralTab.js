@@ -20,8 +20,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [STORE_SECTION_INDEX]: false,
-      [CONTACT_SECTION_TAB_INDEX]: false,
-      [CONTAB_SECTION_TAB_INDEX]:false
+      [CONTACT_SECTION_TAB_INDEX]: true,
+      [CONTAB_SECTION_TAB_INDEX]:true
     },
     setIsValid: props.setIsValid,
   });
@@ -184,7 +184,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         ],
         advancedSearchColumns: aSCodeAndDescription,
       },
+      validationType: "object",
+      validations: [...props.commonValidations.requiredValidation()],
     },
+    
   ];
 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
