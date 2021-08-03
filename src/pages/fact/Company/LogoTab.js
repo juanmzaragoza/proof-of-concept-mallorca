@@ -16,7 +16,7 @@ const COMPANY_SECTION_INDEX = 0;
 const LogoTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
-      [COMPANY_SECTION_INDEX]: false,
+      [COMPANY_SECTION_INDEX]: true,
     },
     setIsValid: props.setIsValid,
   });
