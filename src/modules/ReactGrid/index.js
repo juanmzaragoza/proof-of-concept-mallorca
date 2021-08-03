@@ -48,6 +48,24 @@ const TableComponent = ({ ...restProps }) => (
   <Table.Table {...restProps} className="table-striped with-padding" />
 );
 
+/** Avoid declaring statement inside render methods
+ * https://devexpress.github.io/devextreme-reactive/react/common/docs/guides/performance-optimization/#avoid-declaring-statements-inside-render-methods
+ */
+const FilterCellBase = ({ filter, onFilter, column }) => {
+  return (
+    <TableCell>
+      <TextField
+        value={filter ? filter.value : ''}
+        onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
+        placeholder={`Buscar por ${column.title}`} />
+    </TableCell>
+  )
+};
+
+const FilterCell = (props) => {
+  return <FilterCellBase {...props} />;
+};
+
 const ReactGrid = ({ configuration, enqueueSnackbar,
                      rows, loading, pageSize, totalCount, errors,
                      extraQuery, onClickRow,
@@ -112,20 +130,6 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
       }}
     />
   );
-
-  const FilterCellBase = ({ filter, onFilter }) => {
-    return (
-    <TableCell>
-      <TextField
-        value={filter ? filter.value : ''}
-        onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
-        placeholder="Filter..." />
-    </TableCell>
-  )};
-
-  const FilterCell = (props) => {
-    return <FilterCellBase {...props} />;
-  };
 
   const commitChanges = ({ added, changed, deleted }) => {
     if (added) {}
