@@ -1537,5 +1537,6 @@
   "Empresas.logotipo":"Logotipo",
   "CuentasCorrientes.titulo":"Cuentas Corrientes",
   "CuentasCorrientes.dcc":"DCC",
-  "CuentasCorrientes.sufijo":"Sufijo"
+  "CuentasCorrientes.sufijo":"Sufijo",
+  "CuentaCorriente.emisor":"Emisor"
 }
