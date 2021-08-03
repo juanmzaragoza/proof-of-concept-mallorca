@@ -57,9 +57,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     defaultMessage: "Bloqueado",
   });
 
-
-
-
   const getString = (key) => (getFormData(key) ? getFormData(key) : "");
 
   useEffect(() => {
@@ -185,8 +182,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
-  const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
-
   const aSCodeAndDescription = [
     { title: CODE, name: "codi" },
     { title: DESCRIPCIO, name: "descripcio" },
@@ -235,12 +230,16 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       placeHolder: DOMICILI,
       type: "input",
       key: "domicili",
+      required: true,
       breakpoints: {
         xs: 12,
         md: 8,
       },
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 60)],
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+        ...props.stringValidations.minMaxValidation(1, 60),
+      ],
     },
     ...codiPostal(3),
     {
@@ -292,7 +291,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     //     cannotCreate: true,
     //   },
     // },
-    
 
     {
       placeHolder: DIR_EXCLUSIVA,
