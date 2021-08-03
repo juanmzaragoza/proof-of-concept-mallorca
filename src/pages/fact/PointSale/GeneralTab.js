@@ -23,7 +23,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     fields: {
       [POINT_SALE_SECTION_INDEX]: false,
       [ENUM_SECTION_TAB_INDEX]: false,
-      [TICKET_SECTION_TAB_INDEX]: false,
+      [TICKET_SECTION_TAB_INDEX]: true,
     },
     setIsValid: props.setIsValid,
   });

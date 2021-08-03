@@ -46,7 +46,7 @@ const PointSaleForm = React.memo(
 
     /** step 2 */
     const [tabIndexWithError, setTabIndexWithError] = useState({
-      [GENERAL_TAB_INDEX]: false,
+      [GENERAL_TAB_INDEX]: true,
       [NUM_TPV_TAB_INDEX]: false,
     });
     const [forceTabChange, setForceTabChange] = useState(false);

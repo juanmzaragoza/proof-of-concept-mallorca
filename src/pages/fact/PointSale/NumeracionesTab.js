@@ -2,13 +2,6 @@ import React, { useEffect, useState } from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
 import { useParams } from "react-router-dom";
-import {
-  TIPO_IMPRESION_PUNT_VENTA_VALUES,
-  TIPO_ENUM_PUNT_VENTA_VALUES,
-} from "constants/selectors";
-import OutlinedContainer from "modules/shared/OutlinedContainer";
-import GenericForm from "modules/GenericForm";
-import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
