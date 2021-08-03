@@ -341,7 +341,7 @@ const GenericForm = ({loading, ...props}) => {
             sm={breakpoints? breakpoints.sm:false}
             md={breakpoints? breakpoints.md:false}
             lg={breakpoints? breakpoints.lg:false} >
-        <FormControl className="form-control-filled-input" variant="filled" error={hasError(key,formik)}>
+        <FormControl className="form-control-filled-input" variant="filled" error={hasError(key,formik)} required={params.required}>
           {getField(params, formik)}
         </FormControl>
       </Grid>)
