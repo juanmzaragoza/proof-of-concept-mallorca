@@ -24,7 +24,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
     handleTouched,
     addValidity,
     formIsValid
-  ] = useTabForm({fields: {[BUDGET_SECTION_INDEX]: false, [BUDGET_LINE_SECTION_TAB_INDEX]:false}, setIsValid: props.setIsValid});
+  ] = useTabForm({fields: {[BUDGET_SECTION_INDEX]: false, [BUDGET_LINE_SECTION_TAB_INDEX]:true}, setIsValid: props.setIsValid});
 
   const { id: budgetId } = useParams();
 
@@ -180,62 +180,12 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
           key: "operaris",
           labelKey: formatCodeAndName,
           sort: "nom",
-        //   creationComponents: [
-        //     ...codeAndName(),
-        //     {
-        //       placeHolder: props.intl.formatMessage({
-        //         id: "Comercial.horario",
-        //         defaultMessage: "Horario",
-        //       }),
-        //       type: "LOV",
-        //       key: "horari",
-        //       required: true,
-        //       breakpoints: {
-        //         xs: 12,
-        //         md: 4,
-        //       },
-        //       selector: {
-        //         key: "horaris",
-        //         labelKey: (data) => `${data.nom} (${data.codi})`,
-        //         sort: "codi",
-        //         cannotCreate: true,
-        //         advancedSearchColumns: aSCodeAndName,
-        //       },
-        //       validationType: "object",
-        //       validation: [...props.commonValidations.requiredValidation()],
-        //     },
-        //     {
-        //       type: "input",
-        //       key: "pin",
-        //       placeHolder: props.intl.formatMessage({
-        //         id: "Comercial.pin",
-        //         defaultMessage: "Pin",
-        //       }),
-        //       required: true,
-        //       breakpoints: {
-        //         xs: 12,
-        //         md: 4,
-        //       },
-        //     },
-        //     {
-        //       type: "input",
-        //       key: "ptenmn",
-        //       placeHolder: props.intl.formatMessage({
-        //         id: "Comercial.ptenmn",
-        //         defaultMessage: "Ptenmn",
-        //       }),
-        //       required: true,
-        //       breakpoints: {
-        //         xs: 12,
-        //         md: 4,
-        //       },
-        //     },
-        //   ],
           cannotCreate:true,
           advancedSearchColumns: aSCodeAndName,
-          validationType: "object",
-          validations: [...props.commonValidations.requiredValidation()],
+       
         },
+        validationType: "object",
+        validations: [...props.commonValidations.requiredValidation()],
       },
   
       {
@@ -254,7 +204,6 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
           key: "idiomas",
           labelKey: formatCodeAndDescription,
           sort: "descripcio",
-        //   creationComponents: codeAndDescription(),
           cannotCreate:true,
           advancedSearchColumns: aSCodeAndDescription,
         },
