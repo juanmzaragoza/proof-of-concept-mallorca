@@ -11,6 +11,10 @@ import ExpandableGrid from "modules/ExpandableGrid";
 const ProjectAppTab = ({ formData, setFormData, getFormData, ...props }) => {
   const { id: projectId } = useParams();
 
+  useEffect(() => {
+    props.setIsValid(true);
+  },[]);
+
   const withRequiredValidation = (extraValidations = []) => {
     return {
       validations: [

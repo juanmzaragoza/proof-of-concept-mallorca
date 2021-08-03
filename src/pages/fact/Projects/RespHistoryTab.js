@@ -12,7 +12,11 @@ import { ROL_OPERARIO_SELECTOR_VALUES } from "constants/selectors";
 const RespHistoryTab = ({ formData, setFormData, getFormData, ...props }) => {
   const { id: projectId } = useParams();
 
-  const budget = {
+  useEffect(() => {
+    props.setIsValid(true);
+  }, []);
+
+  const history = {
     title: props.intl.formatMessage({
       id: "Proyectos.historialResp",
       defaultMessage: "Historial Responsables",
@@ -171,7 +175,7 @@ const RespHistoryTab = ({ formData, setFormData, getFormData, ...props }) => {
             id="historicsResponsables"
             responseKey="historicResponsables"
             enabled={props.editMode}
-            configuration={budget}
+            configuration={history}
           />
         </OutlinedContainer>
       </Grid>

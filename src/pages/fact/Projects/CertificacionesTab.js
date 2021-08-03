@@ -14,23 +14,20 @@ const CertificacionesTab = ({
   getFormData,
   ...props
 }) => {
+
+  useEffect(() => {
+    props.setIsValid(true);
+  },[]);
   const { id: projectId } = useParams();
 
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
     defaultMessage: "Código",
   });
-  const DESCRIPCIO = props.intl.formatMessage({
-    id: "Comun.descripcion",
-    defaultMessage: "Descripción",
-  });
+
   const NOM = props.intl.formatMessage({
     id: "Comun.nombre",
     defaultMessage: "Nombre",
-  });
-  const OBS = props.intl.formatMessage({
-    id: "FamiliaProveedores.observaciones",
-    defaultMessage: "Observaciones",
   });
 
   const code = (md = 6) => ({

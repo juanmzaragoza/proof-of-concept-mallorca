@@ -11,6 +11,10 @@ import ExpandableGrid from "modules/ExpandableGrid";
 const BudgetTab = ({ formData, setFormData, getFormData, ...props }) => {
   const { id: projectId } = useParams();
 
+  useEffect(() => {
+    props.setIsValid(true);
+  },[]);
+
   const budget = {
     title: props.intl.formatMessage({
       id: "Proyectos.presupuestos",
