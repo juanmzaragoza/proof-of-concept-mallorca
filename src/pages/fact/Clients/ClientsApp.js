@@ -130,7 +130,7 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
         },
         suffix: "%",
         validationType: "number",
-        validations: [...props.numberValidations.minMaxValidation(0, 9999)],
+        validations: props.numberValidations.minMaxValidation(0, 9999),
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -400,9 +400,8 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
         },
         suffix: "%",
         validationType: "number",
-        validations: props.stringValidations.minMaxValidation(0, 99999),
+        validations: props.numberValidations.minMaxValidation(0, 99999),
       },
-
       {
         placeHolder: props.intl.formatMessage({
           id: "Comun.observaciones",

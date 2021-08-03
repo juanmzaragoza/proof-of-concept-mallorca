@@ -36,27 +36,14 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
     defaultMessage: "Nombre",
   });
 
-  const formatCodeAndDescription = (data) =>
-    `${data.descripcio} (${data.codi})`;
 
-  const aSCodeAndDescription = [
-    { title: CODE, name: "codi" },
-    { title: DESCRIPCIO, name: "descripcio" },
-  ];
   const aSCodeAndName = [
     { title: CODE, name: "codi" },
     { title: NOM, name: "nom" },
   ];
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
 
-  const withRequiredValidation = (extraValidations = []) => {
-    return {
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...extraValidations,
-      ],
-    };
-  };
+
 
   const almacen = [
     {

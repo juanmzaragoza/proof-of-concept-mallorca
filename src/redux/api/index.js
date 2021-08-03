@@ -248,6 +248,10 @@ export const tallers = `api/fact/tallers`;
 export const valorsTarifaDescompte = `api/fact/valorsTarifaDescompte`;
 export const tipusOfertesProveidor = `api/fact/tipusOfertesProveidor`;
 export const envasos = `api/fact/envasos`;
+
+export const puntsVenda = `api/fact/puntsVenda`;
+export const numeracionsTpv = `api/fact/numeracionsTpv`;
+
 export const articlesFamiliaComissio = `api/fact/articlesFamiliaComissio`;
 
 export const formesCost = `api/fact/formesCost`;

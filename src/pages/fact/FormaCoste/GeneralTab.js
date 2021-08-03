@@ -73,23 +73,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
-  const codeAndDescription = (mdCode = 6, mdDes = 6) => [
-    code(mdCode),
-    {
-      type: "input",
-      key: "descripcio",
-      placeHolder: DESCRIPCIO,
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdDes,
-      },
-    },
-  ];
 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
-  const formatCodeAndDescription = (data) =>
-    `${data.descripcio} (${data.codi})`;
+
 
   const aSCodeAndDescription = [
     { title: CODE, name: "codi" },

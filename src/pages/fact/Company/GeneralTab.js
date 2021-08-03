@@ -22,13 +22,13 @@ import { useTabForm } from "hooks/tab-form";
 
 const COMPANY_SECTION_INDEX = 0;
 const ADDRESS_SECTION_TAB_INDEX = 1;
-const CONTACT_SECTION_TAB_INDEX = 2;
+
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [COMPANY_SECTION_INDEX]: false,
-      [ADDRESS_SECTION_TAB_INDEX]: false,
+      [ADDRESS_SECTION_TAB_INDEX]: true,
      
     },
     setIsValid: props.setIsValid,
@@ -90,23 +90,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
-  const codeAndDescription = (mdCode = 6, mdDes = 6) => [
-    code(mdCode),
-    {
-      type: "input",
-      key: "descripcio",
-      placeHolder: DESCRIPCIO,
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdDes,
-      },
-    },
-  ];
+
 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
-  const formatCodeAndDescription = (data) =>
-    `${data.descripcio} (${data.codi})`;
 
   const aSCodeAndDescription = [
     { title: CODE, name: "codi" },

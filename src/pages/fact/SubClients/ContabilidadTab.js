@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
 
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
-import ConfigurableTabs from "modules/shared/ConfigurableTabs";
+
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
-import ExpandableGrid from "modules/ExpandableGrid";
+
 import {
   TIPO_REG_IVA_SELECTOR_VALUES,
   TIPO_RETENCION_SELECTOR_VALUES,
@@ -19,11 +18,11 @@ import {
 
 import { useTabForm } from "hooks/tab-form";
 
-const EMPRESA_SECTION_INDEX = 0;
+const CONTAB_SECTION_INDEX = 0;
 
 const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false, 1: false },
+    fields: { [CONTAB_SECTION_INDEX]: true },
     setIsValid: props.setIsValid,
   });
 
@@ -678,8 +677,8 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
             formErrors={props.formErrors}
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(EMPRESA_SECTION_INDEX, value)}
-            onBlur={(e) => handleTouched(EMPRESA_SECTION_INDEX)}
+            handleIsValid={(value) => addValidity(CONTAB_SECTION_INDEX, value)}
+            onBlur={(e) => handleTouched(CONTAB_SECTION_INDEX)}
             {...props}
           />
         </OutlinedContainer>
@@ -702,8 +701,8 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
             formErrors={props.formErrors}
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(EMPRESA_SECTION_INDEX, value)}
-            onBlur={(e) => handleTouched(EMPRESA_SECTION_INDEX)}
+            handleIsValid={(value) => addValidity(CONTAB_SECTION_INDEX, value)}
+            onBlur={(e) => handleTouched(CONTAB_SECTION_INDEX)}
             {...props}
           />
         </OutlinedContainer>

@@ -15,7 +15,7 @@ import {withAbmServices} from "modules/wrappers";
 
 import {setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig} from "redux/pageHeader";
 import {getFireSave} from "redux/pageHeader/selectors";
-import {getFormData, getFormErrors, getFormDataByKey, getIsDataLoaded} from "redux/genericForm/selectors";
+import {getFormData, getFormErrors, getFormDataByKey, getIsDataLoaded, getIsSubmitted} from "redux/genericForm/selectors";
 
 import {setFormDataByKey} from "redux/genericForm";
 import {getLoading} from "redux/app/selectors";
@@ -38,7 +38,7 @@ const ProductsForm = React.memo(({ actions, allFormData, getFormData, submitFrom
   const [nameSelectedTab, setNameSelectedTab] = useState('');
 
   /** step 2 */
-  const [tabIndexWithError, setTabIndexWithError] = useState({[PRODUCT_TAB_INDEX]: false},{[IMG_TAB_INDEX]:false},{[TRADUC_TAB_INDEX]: false,[SECTOR_TAB_INDEX]:false});
+  const [tabIndexWithError, setTabIndexWithError] = useState({[PRODUCT_TAB_INDEX]: false},{[IMG_TAB_INDEX]:true},{[TRADUC_TAB_INDEX]: true,[SECTOR_TAB_INDEX]:true});
   const [forceTabChange, setForceTabChange] = useState(false);
 
   const tabHasError = (index) => {
@@ -89,7 +89,8 @@ const ProductsForm = React.memo(({ actions, allFormData, getFormData, submitFrom
         onSubmitTab={handleSubmitTab}
         formErrors={props.formErrors}
         loading={props.loading}
-        formDataLoaded={props.formDataLoaded} />
+        formDataLoaded={props.formDataLoaded}
+        isSubmitted={props.isSubmitted} />
     },
     {
       ...getTranslations("Articulos.tabs.imagenes","Imágenes"),
@@ -119,7 +120,8 @@ const ProductsForm = React.memo(({ actions, allFormData, getFormData, submitFrom
         onSubmitTab={handleSubmitTab}
         formErrors={props.formErrors}
         loading={props.loading}
-        formDataLoaded={props.formDataLoaded} />
+        formDataLoaded={props.formDataLoaded}
+        isSubmitted={props.isSubmitted} />
       },
       {
         ...getTranslations("Productos.tabs.sector","sector"),
@@ -133,7 +135,8 @@ const ProductsForm = React.memo(({ actions, allFormData, getFormData, submitFrom
           onSubmitTab={handleSubmitTab}
           formErrors={props.formErrors}
           loading={props.loading}
-          formDataLoaded={props.formDataLoaded} />
+          formDataLoaded={props.formDataLoaded}
+          isSubmitted={props.isSubmitted} />
         },
       
   ];
@@ -220,7 +223,8 @@ const mapStateToProps = (state, props) => {
     loading: getLoading(state),
     allFormData: getFormData(state),
     getFormData: getFormDataByKey(state),
-    formDataLoaded: getIsDataLoaded(state)
+    formDataLoaded: getIsDataLoaded(state),
+    isSubmitted: getIsSubmitted(state),
   };
 };
 

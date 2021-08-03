@@ -21,7 +21,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [BANK_SECTION_INDEX]: false,
-      [BANK_OFFICE_SECTION_TAB_INDEX]: false,
+      [BANK_OFFICE_SECTION_TAB_INDEX]: true,
     },
     setIsValid: props.setIsValid,
   });
@@ -50,22 +50,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   });
 
-  const codeAndName = (mdCode = 6, mdDes = 6) => [
-    code(mdCode),
-    {
-      type: "input",
-      key: "nom",
-      placeHolder: props.intl.formatMessage({
-        id: "Comun.nombre",
-        defaultMessage: "Nombre",
-      }),
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdDes,
-      },
-    },
-  ];
+
 
   const codiPostal = (md = 6) => [
     {
@@ -177,7 +162,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     };
   };
 
-  const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
 
   const aSCodeAndName = [
     { title: CODE, name: "codi" },
@@ -193,7 +177,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     {
       placeHolder: CODE,
 
-      type: "input",
+      type: "numeric",
       key: "codi",
       required: true,
       breakpoints: {
@@ -201,10 +185,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
       noEditable: true,
-      validationType: "string",
+      validationType: "number",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 4),
+        ...props.stringValidations.minMaxValidation(1, 9999),
       ],
     },
     {

@@ -6,6 +6,8 @@ import { useParams } from "react-router-dom";
 import { some, min, pickBy, cloneDeep } from "lodash";
 
 import GeneralTab from "./GeneralTab";
+import NumeracionesTab from "./NumeracionesTab";
+
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
 import {
@@ -20,16 +22,16 @@ import {
   getFormErrors,
   getFormDataByKey,
   getIsDataLoaded,
-  getIsSubmitted
+  getIsSubmitted,
 } from "../../../redux/genericForm/selectors";
 
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
 
-
 const GENERAL_TAB_INDEX = 0;
+const NUM_TPV_TAB_INDEX = 1;
 
-const WorkShopForm = React.memo(
+const PointSaleForm = React.memo(
   ({
     actions,
     allFormData,
@@ -45,6 +47,7 @@ const WorkShopForm = React.memo(
     /** step 2 */
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [GENERAL_TAB_INDEX]: true,
+      [NUM_TPV_TAB_INDEX]: false,
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -116,6 +119,30 @@ const WorkShopForm = React.memo(
           />
         ),
       },
+      {
+        ...getTranslations("PuntoVenta.NumTpv", "Numeraciones TPV"),
+        key: NUM_TPV_TAB_INDEX,
+        error: tabHasError(NUM_TPV_TAB_INDEX),
+        component: (
+          <NumeracionesTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [NUM_TPV_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
+          />
+        ),
+      },
     ];
 
     const { id } = useParams();
@@ -136,10 +163,10 @@ const WorkShopForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "Talleres.titulo",
-              defaultMessage: "Talleres",
+              id: "PuntoVenta.titulo",
+              defaultMessage: "Puntos Venta",
             }),
-            href: "/fact/taller",
+            href: "/fact/punto-ventas",
           },
           {
             title: props.intl.formatMessage({
@@ -171,12 +198,12 @@ const WorkShopForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "Talleres.titulo",
-              defaultMessage: "Talleres",
+              id: "PuntoVenta.titulo",
+              defaultMessage: "Punto Venta",
             }),
-            href: "/fact/taller",
+            href: "/fact/punto-ventas",
           },
-          { title: nom, href: "/fact/taller" },
+          { title: nom, href: "/fact/punto-ventas" },
           { title: nameSelectedTab },
         ]);
       }
@@ -242,5 +269,5 @@ const component = compose(
   injectIntl,
   connect(mapStateToProps, mapDispatchToProps),
   withAbmServices
-)(WorkShopForm);
+)(PointSaleForm);
 export default component;

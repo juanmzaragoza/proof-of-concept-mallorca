@@ -5,7 +5,7 @@ import { compose } from "redux";
 import CreateUpdateForm from "modules/ReactGrid/CreateUpdateForm";
 import { withValidations } from "modules/wrappers";
 import * as API from "redux/api";
-import { getObjectFrom, setObjectOn } from "helper/storage";
+import { getObjectFrom } from "helper/storage";
 import { ENTERPRISE_GROUP_VALUE_LOCALSTORAGE_KEY } from "../../../constants";
 
 const CurrentAccountsCreate = (props) => {
@@ -17,18 +17,7 @@ const CurrentAccountsCreate = (props) => {
     id: "Comun.nombre",
     defaultMessage: "Nombre",
   });
-  const APP = props.intl.formatMessage({
-    id: "AplicacionesCliente.aplicacion",
-    defaultMessage: "Aplicación",
-  });
-  const PERCEN = props.intl.formatMessage({
-    id: "AplicacionesCliente.porcentaje",
-    defaultMessage: "Porcentaje",
-  });
-  const EMPRESA = props.intl.formatMessage({
-    id: "PieDocumento.empresa",
-    defaultMessage: "Empresa",
-  });
+
   const OBS = props.intl.formatMessage({
     id: "DepartamentosCliente.observaciones",
     defaultMessage: "Observaciones",
@@ -41,8 +30,6 @@ const CurrentAccountsCreate = (props) => {
     id: "Proveedores.Direccion.domicilio",
     defaultMessage: "Domicilio",
   });
-
-  //   const aSCodeAndComercialName = [ { title: CODE, name: "codi" }, { title: COMERCIALNAME, name: "nomComercial" }];
 
   const enterpriseGroup = getObjectFrom(
     ENTERPRISE_GROUP_VALUE_LOCALSTORAGE_KEY
@@ -61,20 +48,6 @@ const CurrentAccountsCreate = (props) => {
     },
   });
 
-  const codeAndName = (mdCode = 6, mdName = 6) => [
-    code(mdCode),
-    {
-      type: "input",
-      key: "nom",
-      placeHolder: NOM,
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdName,
-      },
-    },
-  ];
-
   const codeAndDescription = (mdCode = 6, mdDes = 6) => [
     code(mdCode),
     {
@@ -89,17 +62,12 @@ const CurrentAccountsCreate = (props) => {
     },
   ];
 
-  const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
   const formatCodeAndDescription = (data) =>
     `${data.descripcio} (${data.codi})`;
 
   const aSCodeAndDescription = [
     { title: CODE, name: "codi" },
     { title: DESCRIPCIO, name: "descripcio" },
-  ];
-  const aSCodeAndName = [
-    { title: CODE, name: "codi" },
-    { title: NOM, name: "nom" },
   ];
 
   const withRequiredValidation = (extraValidations = []) => {
@@ -147,6 +115,7 @@ const CurrentAccountsCreate = (props) => {
       }),
       type: "LOV",
       key: "bancCodi",
+      required:true,
       breakpoints: {
         xs: 12,
         md: 3,
@@ -166,6 +135,10 @@ const CurrentAccountsCreate = (props) => {
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
         },
       },
+      validationType: "string",
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -174,7 +147,8 @@ const CurrentAccountsCreate = (props) => {
       }),
       type: "LOV",
       key: "oficinaBancariaCodi",
-     breakpoints: {
+      required:true,
+      breakpoints: {
         xs: 12,
         md: 3,
       },
@@ -193,6 +167,10 @@ const CurrentAccountsCreate = (props) => {
         },
         cannotCreate: true,
       },
+      validationType: "string",
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -304,6 +282,21 @@ const CurrentAccountsCreate = (props) => {
       }),
       type: "input",
       key: "codiIdentificadorBanc",
+
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 11)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "CuentaCorriente.emisor",
+        defaultMessage: "Emisor",
+      }),
+      type: "input",
+      key: "bancEmpresaCodi",
 
       breakpoints: {
         xs: 12,

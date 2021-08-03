@@ -12,7 +12,7 @@ import ExpandableGrid from "modules/ExpandableGrid";
 
 const ContactTab = ({ formData, setFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false },
+    fields: { 0: true },
     setIsValid: props.setIsValid,
   });
 

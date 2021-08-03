@@ -24,6 +24,7 @@ import {
   getFormErrors,
   getFormDataByKey,
   getIsDataLoaded,
+  getIsSubmitted
 } from "../../../redux/genericForm/selectors";
 
 import { setFormDataByKey } from "../../../redux/genericForm";
@@ -48,9 +49,9 @@ const CompanyForm = React.memo(
     const [nameSelectedTab, setNameSelectedTab] = useState("");
 
     const [tabIndexWithError, setTabIndexWithError] = useState({
-      [GENERAL_TAB_INDEX]: false,
+      [GENERAL_TAB_INDEX]: true,
       [CONTACT_TAB_INDEX]: false,
-      [CONTAB_TAB_INDEX]: false,
+      [CONTAB_TAB_INDEX]: true,
       [LOGO_TAB_INDEX]: false,
     });
     const [forceTabChange, setForceTabChange] = useState(false);
@@ -119,6 +120,7 @@ const CompanyForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
         ),
       },
@@ -142,6 +144,7 @@ const CompanyForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
         ),
       },
@@ -165,6 +168,7 @@ const CompanyForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
         ),
       },
@@ -188,6 +192,7 @@ const CompanyForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
         ),
       },
@@ -299,6 +304,7 @@ const mapStateToProps = (state, props) => {
     allFormData: getFormData(state),
     getFormData: getFormDataByKey(state),
     formDataLoaded: getIsDataLoaded(state),
+    isSubmitted: getIsSubmitted(state)
   };
 };
 
