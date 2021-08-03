@@ -11,7 +11,8 @@ import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
-
+import { getObjectFrom } from "helper/storage";
+import { ENTERPRISE_GROUP_VALUE_LOCALSTORAGE_KEY } from "../../../constants";
 import { useTabForm } from "hooks/tab-form";
 
 const POINT_SALE_SECTION_INDEX = 0;
@@ -27,6 +28,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     setIsValid: props.setIsValid,
   });
+
+  const enterpriseGroup = getObjectFrom(
+    ENTERPRISE_GROUP_VALUE_LOCALSTORAGE_KEY
+  );
 
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
@@ -180,6 +185,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndDescription,
       },
+      extraQuery: [
+        {
+          columnName: "empresa.codi",
+          value: `"${enterpriseGroup.value.codi}"`,
+          exact: true,
+        },
+      ],
       validationType: "object",
       validations: [...props.commonValidations.requiredValidation()],
     },
@@ -272,6 +284,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "operari",
+      required: true,
       breakpoints: {
         xs: 12,
         md: 3,
@@ -283,6 +296,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndName,
       },
+      validationType: "object",
+      validations: [...props.commonValidations.requiredValidation()],
     },
     {
       placeHolder: props.intl.formatMessage({
