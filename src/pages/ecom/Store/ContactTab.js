@@ -8,11 +8,11 @@ import { withValidations } from "modules/wrappers";
 import { useTabForm } from "../../../hooks/tab-form";
 import { useParams } from "react-router-dom";
 
-const CLIENTE_SECTION_INDEX = 0;
+const CONTACT_SECTION_INDEX = 0;
 
 const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false, 1: false },
+    fields: { [CONTACT_SECTION_INDEX]: true },
     setIsValid: props.setIsValid,
   });
 
@@ -70,15 +70,14 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
       ],
     },
     {
-        placeHolder: RESPONSABLE,
-        type: "input",
-        key: "responsable",
-        breakpoints: {
-          xs: 12,
-          md: 5,
-        },
-     
+      placeHolder: RESPONSABLE,
+      type: "input",
+      key: "responsable",
+      breakpoints: {
+        xs: 12,
+        md: 5,
       },
+    },
   ];
 
   return (
@@ -103,8 +102,8 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
             formErrors={props.formErrors}
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(CLIENTE_SECTION_INDEX, value)}
-            onBlur={(e) => handleTouched(CLIENTE_SECTION_INDEX)}
+            handleIsValid={(value) => addValidity(CONTACT_SECTION_INDEX, value)}
+            onBlur={(e) => handleTouched(CONTACT_SECTION_INDEX)}
             {...props}
           />
         </OutlinedContainer>
