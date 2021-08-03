@@ -6,9 +6,7 @@ import { useParams } from "react-router-dom";
 import { some, min, pickBy, cloneDeep } from "lodash";
 
 import GeneralTab from "./GeneralTab";
-import ContactTab from "./ContactTab";
-import ContabilidadTab from "./ContabilidadTab";
-import LogoTab from "./LogoTab";
+
 
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
@@ -24,17 +22,17 @@ import {
   getFormErrors,
   getFormDataByKey,
   getIsDataLoaded,
+  getIsSubmitted,
 } from "../../../redux/genericForm/selectors";
 
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
 
+
 const GENERAL_TAB_INDEX = 0;
 const CONTACT_TAB_INDEX = 1;
-const CONTAB_TAB_INDEX = 2;
-const LOGO_TAB_INDEX = 3;
 
-const CompanyForm = React.memo(
+const FormaCosteForm = React.memo(
   ({
     actions,
     allFormData,
@@ -50,8 +48,6 @@ const CompanyForm = React.memo(
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [GENERAL_TAB_INDEX]: false,
       [CONTACT_TAB_INDEX]: false,
-      [CONTAB_TAB_INDEX]: false,
-      [LOGO_TAB_INDEX]: false,
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -97,7 +93,6 @@ const CompanyForm = React.memo(
       };
     };
 
-    /** step 3 */
     const tabs = [
       {
         ...getTranslations("Proveedores.tabs.general", "General"),
@@ -119,78 +114,34 @@ const CompanyForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
         ),
       },
-      {
-        ...getTranslations("Proveedores.tabs.contactos", "Contactos"),
-        key: CONTACT_TAB_INDEX,
-        error: tabHasError(CONTACT_TAB_INDEX),
-        component: (
-          <ContactTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [CONTACT_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-          />
-        ),
-      },
-      {
-        ...getTranslations("Empresas.tabs.varios", "Varios"),
-        key: CONTAB_TAB_INDEX,
-        error: tabHasError(CONTAB_TAB_INDEX),
-        component: (
-          <ContabilidadTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [CONTAB_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-          />
-        ),
-      },
-      {
-        ...getTranslations("Empresas.logotipo", "Logotipo"),
-        key: LOGO_TAB_INDEX,
-        error: tabHasError(LOGO_TAB_INDEX),
-        component: (
-          <LogoTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [LOGO_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-          />
-        ),
-      },
+      //   {
+      //     ...getTranslations("Proveedores.tabs.contactos", "Contactos"),
+      //     key: CONTACT_TAB_INDEX,
+      //     error: tabHasError(CONTACT_TAB_INDEX),
+      //     component: (
+      //       <ContactTab
+      //         setIsValid={(value) =>
+      //           setTabIndexWithError({
+      //             ...tabIndexWithError,
+      //             [CONTACT_TAB_INDEX]: !value,
+      //           })
+      //         }
+      //         editMode={editMode}
+      //         getFormData={getFormData}
+      //         setFormData={actions.setFormData}
+      //         submitFromOutside={submitFromOutside}
+      //         onSubmitTab={handleSubmitTab}
+      //         formErrors={props.formErrors}
+      //         loading={props.loading}
+      //         formDataLoaded={props.formDataLoaded}
+      //         isSubmitted={props.isSubmitted}
+      //       />
+      //     ),
+      //   },
     ];
 
     const { id } = useParams();
@@ -211,10 +162,10 @@ const CompanyForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "Clientes.empresas",
-              defaultMessage: "Empresas",
+              id: "FormasCoste.titulo",
+              defaultMessage: "Formas Coste",
             }),
-            href: "/fact/empresas",
+            href: "/fact/forma-coste",
           },
           {
             title: props.intl.formatMessage({
@@ -236,9 +187,9 @@ const CompanyForm = React.memo(
     /** Update HEADER */
     useEffect(() => {
       if (isEditable()) {
-        const nomComercial = getFormData("nomComercial");
-        const nom = nomComercial
-          ? nomComercial
+        const descripcion = getFormData("descripcio");
+        const nom = descripcion
+          ? descripcion
           : `${props.intl.formatMessage({
               id: "Comun.cargando",
               defaultMessage: "Cargando",
@@ -246,16 +197,16 @@ const CompanyForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "Empresas.titulo",
-              defaultMessage: "Empresas",
+              id: "FormasCoste.titulo",
+              defaultMessage: "Formas Coste",
             }),
-            href: "/fact/empresas",
+            href: "/fact/forma-coste",
           },
-          { title: nom, href: "/fact/empresas" },
+          { title: nom, href: "/fact/forma-coste" },
           { title: nameSelectedTab },
         ]);
       }
-    }, [getFormData("nomComercial"), nameSelectedTab]);
+    }, [getFormData("descripcio"), nameSelectedTab]);
 
     useEffect(() => {
       if (submitFromOutside) {
@@ -299,6 +250,7 @@ const mapStateToProps = (state, props) => {
     allFormData: getFormData(state),
     getFormData: getFormDataByKey(state),
     formDataLoaded: getIsDataLoaded(state),
+    isSubmitted: getIsSubmitted(state),
   };
 };
 
@@ -316,5 +268,5 @@ const component = compose(
   injectIntl,
   connect(mapStateToProps, mapDispatchToProps),
   withAbmServices
-)(CompanyForm);
+)(FormaCosteForm);
 export default component;

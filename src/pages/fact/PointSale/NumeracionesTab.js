@@ -12,25 +12,15 @@ import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
-import { useTabForm } from "hooks/tab-form";
-
-const NUMERATION_SECTION_INDEX = 0;
 
 const NumeracionesTab = ({ formData, setFormData, getFormData, ...props }) => {
-  const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: {
-      [NUMERATION_SECTION_INDEX]: false,
-    },
-    setIsValid: props.setIsValid,
-  });
+  useEffect(() => {
+    props.setIsValid(true);
+  }, []);
 
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
     defaultMessage: "Código",
-  });
-  const DESCRIPCIO = props.intl.formatMessage({
-    id: "Comun.descripcion",
-    defaultMessage: "Descripción",
   });
 
   const NOM = props.intl.formatMessage({
@@ -39,13 +29,7 @@ const NumeracionesTab = ({ formData, setFormData, getFormData, ...props }) => {
   });
 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
-  const formatCodeAndDescription = (data) =>
-    `${data.descripcio} (${data.codi})`;
 
-  const aSCodeAndDescription = [
-    { title: CODE, name: "codi" },
-    { title: DESCRIPCIO, name: "descripcio" },
-  ];
   const aSCodeAndName = [
     { title: CODE, name: "codi" },
     { title: NOM, name: "nom" },
@@ -53,19 +37,10 @@ const NumeracionesTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const { id: PointSaleId } = useParams();
 
-  const withRequiredValidation = (extraValidations = []) => {
-    return {
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...extraValidations,
-      ],
-    };
-  };
-
   const otraAplicacion = {
     title: props.intl.formatMessage({
-      id: "Clientes.otraAplicacion",
-      defaultMessage: "Clientes otras Aplicaciones",
+      id: "PuntoVenta.NumTpv",
+      defaultMessage: "Numeraciones TPV",
     }),
     query: [
       {
@@ -83,7 +58,7 @@ const NumeracionesTab = ({ formData, setFormData, getFormData, ...props }) => {
       {
         name: "dia",
         title: props.intl.formatMessage({
-          id: "PuntoVenta.Fecha",
+          id: "PuntoVenta.fecha",
           defaultMessage: "Fecha",
         }),
       },
@@ -139,13 +114,13 @@ const NumeracionesTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         type: "date",
         key: "dia",
-        required:true,
+        required: true,
         breakpoints: {
           xs: 12,
           md: 3,
         },
-        validationType:"string",
-        validations: [...props.commonValidations.requiredValidation() ]
+        validationType: "string",
+        validations: [...props.commonValidations.requiredValidation()],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -159,8 +134,10 @@ const NumeracionesTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 3,
         },
-        validationType:"number",
-        validations: [...props.numberValidations.minMaxValidation(0,9999999999) ]
+        validationType: "number",
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 9999999999),
+        ],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -174,15 +151,17 @@ const NumeracionesTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 3,
         },
-        validationType:"number",
-        validations: [...props.numberValidations.minMaxValidation(0,9999999999) ]
+        validationType: "number",
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 9999999999),
+        ],
       },
       {
         placeHolder: props.intl.formatMessage({
           id: "PuntoVenta.importe",
           defaultMessage: "Importe",
         }),
-        required:true,
+        required: true,
         type: "numeric",
         key: "valorNumeroAZ",
 
@@ -190,16 +169,18 @@ const NumeracionesTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 3,
         },
-        validationType:"number",
-        validations: [...props.commonValidations.requiredValidation(),
-          ...props.numberValidations.minMaxValidation(0,999999999999) ]
+        validationType: "number",
+        validations: [
+          ...props.commonValidations.requiredValidation(),
+          ...props.numberValidations.minMaxValidation(0, 999999999999),
+        ],
       },
       {
         placeHolder: props.intl.formatMessage({
           id: "PuntoVenta.valorNumeroAZ2",
           defaultMessage: "Valor Numero AZ 2",
         }),
-        required:true,
+        required: true,
         type: "numeric",
         key: "valorNumeroAZ002",
 
@@ -207,9 +188,11 @@ const NumeracionesTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 3,
         },
-        validationType:"number",
-        validations: [...props.commonValidations.requiredValidation(),
-          ...props.numberValidations.minMaxValidation(0,999999999999) ]
+        validationType: "number",
+        validations: [
+          ...props.commonValidations.requiredValidation(),
+          ...props.numberValidations.minMaxValidation(0, 999999999999),
+        ],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -223,12 +206,12 @@ const NumeracionesTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 3,
         },
-        validationType:"string",
-        validations: [...props.stringValidations.minMaxValidation(0,4) ]
+        validationType: "string",
+        validations: [...props.stringValidations.minMaxValidation(0, 4)],
       },
       {
         placeHolder: props.intl.formatMessage({
-          id: "PuntoVenta.diairo",
+          id: "PuntoVenta.diario",
           defaultMessage: "Diario",
         }),
         type: "input",
@@ -238,8 +221,8 @@ const NumeracionesTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 3,
         },
-        validationType:"string",
-        validations: [...props.stringValidations.minMaxValidation(0,2) ]
+        validationType: "string",
+        validations: [...props.stringValidations.minMaxValidation(0, 2)],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -253,8 +236,10 @@ const NumeracionesTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 3,
         },
-        validationType:"number",
-        validations: [...props.numberValidations.minMaxValidation(0,9999999999) ]
+        validationType: "number",
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 9999999999),
+        ],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -263,6 +248,7 @@ const NumeracionesTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         type: "LOV",
         key: "divisa",
+        required: true,
         breakpoints: {
           xs: 12,
           md: 3,
@@ -272,29 +258,32 @@ const NumeracionesTab = ({ formData, setFormData, getFormData, ...props }) => {
           labelKey: formatCodeAndName,
           sort: "nom",
           advancedSearchColumns: aSCodeAndName,
-          cannotCreate:true,
+          cannotCreate: true,
         },
-
+        validationType: "object",
+        validations: [...props.commonValidations.requiredValidation()],
       },
       {
         placeHolder: props.intl.formatMessage({
           id: "PuntoVenta.valorDivisa",
           defaultMessage: "Valor Divisa",
         }),
-        type: "numeric",
+        type: "input",
+        required: true,
         key: "valorDivisaEuros",
-        suffix:"€",
+        suffix: "€",
         breakpoints: {
           xs: 12,
           md: 3,
         },
-        validationType:"number",
-        validations: [...props.numberValidations.minMaxValidation(0,9999999999) ]
+        validationType: "string",
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 9999999999),
+          ...props.commonValidations.requiredValidation(),
+        ],
       },
-     
     ],
   };
-
 
   return (
     <Grid container>

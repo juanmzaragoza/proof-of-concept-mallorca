@@ -1133,7 +1133,7 @@
   "Empresas.tabs.contabilidadFact": "Contabilidad y facturación",
   "Empresas.valorFact": "Valor Facturación",
   "Empresas.diarioFact": "Diario Facturación Prov.",
-  "Empresas.diarioProf": "Diario Prof. Prov.",
+  "Empresas.diarioProf": "Diario Proformas Prov.",
   "Empresas.fechaCierre": "Fecha Cierre",
   "Empresas.contabCodigo": "Código Contabilidad",
   "Empresas.contabAsiento": "Contabilidad Asiento Tipo",
@@ -1373,7 +1373,7 @@
   "Rappel.porcentaje2": "Porcentaje 2",
   "DireccionesClientes.titulo": "Direcciones Clientes",
   "DireccionesClientes.dreccion_exclusiva": "Dir. Exclusiva",
-  "Subclientes.titulo": "Subclientes",
+
   "Subclientes.preciosVolumen": "Precios por volumen",
   "Proveedores.Contacto.emailFactura": "Email Factura",
   "Proveedores.Contacto.telefonoFactura": "Telefono Factura",
@@ -1391,6 +1391,12 @@
   "AlmacenPeriodo.titulo": "Periodo Almacén",
   "SituacionesIniciales.titulo": "Situaciones Iniciales",
   "SituacionesIniciales.codigoAlmacen": "Código Almacén",
+
+  "Clientes.otraAplicacionSubclientes": "Subclientes otras Aplicaciones",
+  "Clientes.codigoOtraAppSubcliente": "Código SubCliente otra App",
+  "Clientes.aplicacionCliente1": "Aplicación Cliente 1",
+
+  "Subclientes.titulo": "Subclientes",
 
   "SeccionEmpresa.titulo": "Sección Empresa",
   "SeccionEmpresa.seccion": "Sección",
@@ -1501,8 +1507,35 @@
   "PuntoVenta.diario":"Diario",
   "PuntoVenta.asiento":"Asiento",
   "PuntoVenta.valorNumeroAZ2":"Valor Numero AZ 2",
-  "PuntoVenta.valorDivisa":"Valor divisa"
-
-
-
+  "PuntoVenta.valorDivisa":"Valor divisa",
+  "FormasCoste.titulo": "Formas de Coste",
+  "FormasCoste.actualizar": "Actualizar Precio",
+  "FormasCoste.precioCoste": "Precio Coste",
+  "FormasCoste.pesoMaximo": "Peso máximo kg",
+  "FormasCoste.volumenMaximo": "Volumen máximo m3",
+  "FormasCoste.costeTeorico": "Costes Teóricos",
+  "FormasCoste.unidades": "Unidades",
+  "FormasCoste.costeUnitario": "Coste Unitario (FF)",
+  "FormasCoste.actualizarCoste": "Actualizar Coste Artículo",
+  "FormasCoste.tipoCosteCodigo": "Código Tipo coste",
+  "Empresas.datosComerciales": "Datos Comerciales",
+  "Empresas.datosFiscales": "Datos Fiscales",
+  "Empresas.masDatos": "Más Datos",
+  "Empresas.enviarNotificaciones": "Enviar notificaciones de facturas pendientes de cobro",
+  "Empresas.tomo": "Tomo",
+  "Empresas.libro": "Libro",
+  "Empresas.hoja": "Hoja",
+  "Empresas.seccion": "Sección",
+  "Empresas.folio": "Folio",
+  "Empresas.tabs.varios": "Varios",
+  "Empresas.almacenEmpresa": "Almacén de la Empresa",
+  "Empresas.tipoFacturacion": "Tipo Facturacion",
+  "Empresas.almacenFijo": "Almacén Fijo",
+  "Empresas.regimenCriterio": "Régimen Criterio Caja",
+  "Empresas.datosContables": "Datos Contables",
+  "Empresas.suministroInmediato":"Suministro Inmediato de Información",
+  "Empresas.logotipo":"Logotipo",
+  "CuentasCorrientes.titulo":"Cuentas Corrientes",
+  "CuentasCorrientes.dcc":"DCC",
+  "CuentasCorrientes.sufijo":"Sufijo"
 }

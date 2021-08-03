@@ -8,12 +8,14 @@ import Paper from "@material-ui/core/Paper";
 import * as API from "redux/api";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import withHeaders from "modules/wrappers/withHeaders";
-import BankList from "./BankList";
-import BankForm from "./BankForm";
-import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
-import { BANK_FACT_URL } from "constants/routes";
 
-const URL = BANK_FACT_URL;
+import LocalAtmIcon from '@material-ui/icons/LocalAtm';
+import FormaCosteList from "./FormaCosteList";
+import FormaCosteForm from "./FormaCosteForm";
+
+import { FORMA_COST_FACT_URL } from "constants/routes";
+
+const URL = FORMA_COST_FACT_URL;
 
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
@@ -23,30 +25,29 @@ const mapDispatchToProps = (dispatch, props) => {
   return { actions };
 };
 
-const BankListIntl = compose(
+const FormaCosteListIntl = compose(
   injectIntl,
   connect(null, mapDispatchToProps)
-)(BankList);
+)(FormaCosteList);
 
-// suppliers form
-// TODO(): maybe we can create a state for the page and set the url there
-const BankFormWithUrl = () => <BankForm url={API.banc} />;
+const FormaCosteWithUrl = () => <FormaCosteForm url={API.formesCost} />;
 
-const Bank = () => (
+const FormaCoste = () => (
   <Paper style={{ position: "relative" }}>
     <Switch>
-      <Route exact path={`${URL}`} component={BankListIntl}></Route>
-      <Route path={`${URL}/create`} component={BankFormWithUrl}></Route>
-      <Route path={`${URL}/:id`} component={BankFormWithUrl}></Route>
+      <Route exact path={`${URL}`} component={FormaCosteListIntl}></Route>
+      <Route path={`${URL}/create`} component={FormaCosteWithUrl}></Route>
+      <Route path={`${URL}/:id`} component={FormaCosteWithUrl}></Route>
     </Switch>
   </Paper>
 );
 
-export default {
+const component = {
   routeProps: {
     path: `${URL}`,
-    component: withHeaders(Bank),
+    component: withHeaders(FormaCoste),
   },
-  name: "FAC_BANCS",
-  icon: <AccountBalanceIcon />,
+  name: "FAC_FORCOS",
+  icon: <LocalAtmIcon />,
 };
+export default component;

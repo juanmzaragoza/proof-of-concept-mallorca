@@ -44,6 +44,7 @@ const InitialSituationCreate = (props) => {
         xs: 12,
         md: 3,
       },
+      noEditable:true,
       selector: {
         key: "magatzems",
         labelKey: (data) => `${data.nom} (${data.codi})`,

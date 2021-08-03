@@ -1,5 +1,5 @@
 import React from 'react';
-import BusinessIcon from '@material-ui/icons/Business';
+import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import {injectIntl} from "react-intl";
 import {Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
@@ -48,5 +48,5 @@ export default {
     component: withHeaders(Company)
   },
   name: 'FAC_EMPRES',
-  icon: <BusinessIcon />
+  icon: <BusinessCenterIcon />
 }

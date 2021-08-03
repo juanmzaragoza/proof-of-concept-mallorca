@@ -1,7 +1,6 @@
 import React from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
-import { useParams } from "react-router-dom";
 
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
@@ -18,14 +17,23 @@ import {
 
 import { useTabForm } from "../../../hooks/tab-form";
 
-const EMPRESA_SECTION_INDEX = 0;
-const ADDRESS_SECTION_TAB_INDEX = 1;
+const FACTURACION_SECTION_INDEX = 0;
+const EMAILS_SECTION_TAB_INDEX = 1;
 const DESCUENTOS_SECTION_TAB_INDEX = 2;
-const FACT2_SECTION_TAB_INDEX = 3;
+const PEDIDOS_SECTION_TAB_INDEX = 3;
+const NORMA19_SECTION_TAB_INDEX = 4;
+const CHECKBOXES_SECTION_TAB_INDEX = 5;
 
 const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false, 1: false },
+    fields: {
+      [FACTURACION_SECTION_INDEX]: false,
+      [EMAILS_SECTION_TAB_INDEX]: true,
+      [DESCUENTOS_SECTION_TAB_INDEX]: true,
+      [PEDIDOS_SECTION_TAB_INDEX]: true,
+      [NORMA19_SECTION_TAB_INDEX]: true,
+      [CHECKBOXES_SECTION_TAB_INDEX]: true,
+    },
     setIsValid: props.setIsValid,
   });
 
@@ -54,8 +62,6 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
     { title: CODE, name: "codi" },
     { title: NOM, name: "nom" },
   ];
-
-
 
   const code = (md = 6) => ({
     type: "input",
@@ -112,22 +118,8 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
       ],
     };
   };
-  const { id: clientId } = useParams();
+
   const facturacionConfig = [
-    // {
-    //   placeHolder: props.intl.formatMessage({
-    //     id: "Clientes.fact.empresaCodigo",
-    //     defaultMessage: "código empresa",
-    //   }),
-    //   type: "input",
-    //   key: "empresaCodi",
-    //   breakpoints: {
-    //     xs: 12,
-    //     md: 2,
-    //   },
-    //   validationType: "string",
-    //   validations: [...props.stringValidations.minMaxValidation(1, 4)],
-    // },
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.fact.tarifa1",
@@ -223,20 +215,6 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "object",
       ...withRequiredValidation(),
     },
-    // {
-    //   placeHolder: props.intl.formatMessage({
-    //     id: "Clientes.fact.numCopias",
-    //     defaultMessage: "Num copias a imprimir",
-    //   }),
-    //   type: "input",
-    //   key: "copiesFactura",
-    //   breakpoints: {
-    //     xs: 12,
-    //     md: 1,
-    //   },
-    //   validationType: "string",
-    //   validations: [...props.stringValidations.minMaxValidation(1, 4)],
-    // },
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.fact.facturas_sinDescuento",
@@ -468,20 +446,6 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
     },
-
-    // {
-    //   placeHolder: props.intl.formatMessage({
-    //     id: "Clientes.fact.tipoVencimiento1",
-    //     defaultMessage: "Código tipo vencimiento 1",
-    //   }),
-    //   type: "input",
-    //   key: "tipusVenciment1Codi",
-    //   breakpoints: {
-    //     xs: 12,
-    //     md: 2,
-    //   },
-    // },
-
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.fact.numCopias",
@@ -1004,14 +968,13 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
           submitFromOutside={props.submitFromOutside}
           onSubmit={() => props.onSubmitTab(formData)}
           handleIsValid={(value) =>
-            addValidity(ADDRESS_SECTION_TAB_INDEX, value)
+            addValidity(EMAILS_SECTION_TAB_INDEX, value)
           }
-          onBlur={(e) => handleTouched(ADDRESS_SECTION_TAB_INDEX)}
+          onBlur={(e) => handleTouched(EMAILS_SECTION_TAB_INDEX)}
           {...props}
         />
       ),
     },
-    
     {
       className: "general-tab-subtab",
       label: (
@@ -1044,9 +1007,9 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
                   submitFromOutside={props.submitFromOutside}
                   onSubmit={() => props.onSubmitTab(formData)}
                   handleIsValid={(value) =>
-                    addValidity(FACT2_SECTION_TAB_INDEX, value)
+                    addValidity(PEDIDOS_SECTION_TAB_INDEX, value)
                   }
-                  onBlur={(e) => handleTouched(FACT2_SECTION_TAB_INDEX)}
+                  onBlur={(e) => handleTouched(PEDIDOS_SECTION_TAB_INDEX)}
                   {...props}
                 />
               </OutlinedContainer>
@@ -1071,9 +1034,9 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
                   submitFromOutside={props.submitFromOutside}
                   onSubmit={() => props.onSubmitTab(formData)}
                   handleIsValid={(value) =>
-                    addValidity(FACT2_SECTION_TAB_INDEX, value)
+                    addValidity(NORMA19_SECTION_TAB_INDEX, value)
                   }
-                  onBlur={(e) => handleTouched(FACT2_SECTION_TAB_INDEX)}
+                  onBlur={(e) => handleTouched(NORMA19_SECTION_TAB_INDEX)}
                   {...props}
                 />
               </OutlinedContainer>
@@ -1089,9 +1052,9 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
             handleIsValid={(value) =>
-              addValidity(FACT2_SECTION_TAB_INDEX, value)
+              addValidity(CHECKBOXES_SECTION_TAB_INDEX, value)
             }
-            onBlur={(e) => handleTouched(FACT2_SECTION_TAB_INDEX)}
+            onBlur={(e) => handleTouched(CHECKBOXES_SECTION_TAB_INDEX)}
             {...props}
           />
         </>
@@ -1121,8 +1084,8 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
             formErrors={props.formErrors}
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(EMPRESA_SECTION_INDEX, value)}
-            onBlur={(e) => handleTouched(EMPRESA_SECTION_INDEX)}
+            handleIsValid={(value) => addValidity(FACTURACION_SECTION_INDEX, value)}
+            onBlur={(e) => handleTouched(FACTURACION_SECTION_INDEX)}
             {...props}
           />
         </OutlinedContainer>
