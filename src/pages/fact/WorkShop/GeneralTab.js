@@ -22,7 +22,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [WORKSHOP_SECTION_INDEX]: false,
-      [CONTAB_SECTION_INDEX]:false,
+      [CONTAB_SECTION_INDEX]: true,
     },
     setIsValid: props.setIsValid,
   });
@@ -492,7 +492,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   ];
 
   const contabAnaliticaConfig = [
-
     {
       placeHolder: props.intl.formatMessage({
         id: "Talleres.ctaExistencias",
@@ -516,7 +515,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "ctecmpfacpdt",
       breakpoints: {
         xs: 12,
-        md:3,
+        md: 3,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 10)],
@@ -535,7 +534,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 10)],
     },
-  
+
     {
       placeHolder: props.intl.formatMessage({
         id: "Talleres.proyectoTaller",
@@ -562,66 +561,59 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
     },
-   
   ];
 
-    const tabs = [
-      {
-        className: "general-tab-subtab",
-        label: (
-          <FormattedMessage
-            id={"Talleres.ContabAnalitica"}
-            defaultMessage={"Contabilidad - Analítica"}
-          />
-        ),
-        key: 0,
-        component: (
-          <GenericForm
-            formComponents={contabAnaliticaConfig}
-            emptyPaper={true}
-            setFormData={setFormData}
-            getFormData={getFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) =>
-              addValidity(CONTAB_SECTION_INDEX, value)
-            }
-            onBlur={(e) => handleTouched(CONTAB_SECTION_INDEX)}
-            {...props}
-          />
-        ),
-      },
-      {
-        className: "general-tab-subtab",
-        label: "OPERARIOS TALLER",
-        key: 1,
-        component: "Operarios Taller (Pendiente Backend)"
-      },
-    ];
+  const tabs = [
+    {
+      className: "general-tab-subtab",
+      label: (
+        <FormattedMessage
+          id={"Talleres.ContabAnalitica"}
+          defaultMessage={"Contabilidad - Analítica"}
+        />
+      ),
+      key: 0,
+      component: (
+        <GenericForm
+          formComponents={contabAnaliticaConfig}
+          emptyPaper={true}
+          setFormData={setFormData}
+          getFormData={getFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) => addValidity(CONTAB_SECTION_INDEX, value)}
+          onBlur={(e) => handleTouched(CONTAB_SECTION_INDEX)}
+          {...props}
+        />
+      ),
+    },
+    {
+      className: "general-tab-subtab",
+      label: "OPERARIOS TALLER",
+      key: 1,
+      component: "Operarios Taller (Pendiente Backend)",
+    },
+  ];
 
   return (
     <Grid container>
       <Grid xs={12} item>
-
-          <GenericForm
-            formComponents={workShopConfig}
-            emptyPaper={true}
-            editMode={props.editMode}
-            getFormData={getFormData}
-            setFormData={setFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) =>
-              addValidity(WORKSHOP_SECTION_INDEX, value)
-            }
-            onBlur={(e) => handleTouched(WORKSHOP_SECTION_INDEX)}
-            {...props}
-          />
-
+        <GenericForm
+          formComponents={workShopConfig}
+          emptyPaper={true}
+          editMode={props.editMode}
+          getFormData={getFormData}
+          setFormData={setFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) => addValidity(WORKSHOP_SECTION_INDEX, value)}
+          onBlur={(e) => handleTouched(WORKSHOP_SECTION_INDEX)}
+          {...props}
+        />
       </Grid>
       <Grid xs={12} item>
         <OutlinedContainer>
