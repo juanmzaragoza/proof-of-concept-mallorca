@@ -33,10 +33,7 @@ import InvSujetoPasivoTab from "./InvSujetoPasivoTab";
 import CertificacionesTab from "./CertificacionesTab";
 import DocumentsTab from "./DocumentsTab";
 
-/**
- * Suppliers form module
- * If you want add a new tab, follow the next steps
- **/
+
 /** step 1 */
 const GENERAL_TAB_INDEX = 0;
 const MORE_TAB_INDEX = 1;
@@ -63,8 +60,8 @@ const ProjectsForm = React.memo(
 
     /** step 2 */
     const [tabIndexWithError, setTabIndexWithError] = useState({
-      [GENERAL_TAB_INDEX]: false,
-      [MORE_TAB_INDEX]: false,
+      [GENERAL_TAB_INDEX]: true,
+      [MORE_TAB_INDEX]: true,
       [BUDGET_TAB_INDEX]:false,
       [PROJECT_APP_TAB_INDEX]:false,
       [EXPIRATION_TAB_INDEX]:false,
