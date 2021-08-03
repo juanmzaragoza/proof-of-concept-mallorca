@@ -115,6 +115,7 @@ const CurrentAccountsCreate = (props) => {
       }),
       type: "LOV",
       key: "bancCodi",
+      required:true,
       breakpoints: {
         xs: 12,
         md: 3,
@@ -134,6 +135,10 @@ const CurrentAccountsCreate = (props) => {
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
         },
       },
+      validationType: "string",
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -142,6 +147,7 @@ const CurrentAccountsCreate = (props) => {
       }),
       type: "LOV",
       key: "oficinaBancariaCodi",
+      required:true,
       breakpoints: {
         xs: 12,
         md: 3,
@@ -161,6 +167,10 @@ const CurrentAccountsCreate = (props) => {
         },
         cannotCreate: true,
       },
+      validationType: "string",
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
