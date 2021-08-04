@@ -1538,5 +1538,6 @@
   "CuentasCorrientes.titulo":"Cuentas Corrientes",
   "CuentasCorrientes.dcc":"DCC",
   "CuentasCorrientes.sufijo":"Sufijo",
-  "CuentaCorriente.emisor":"Emisor"
+  "CuentaCorriente.emisor":"Emisor",
+  "Comun.texto":"Texto HTML"
 }
