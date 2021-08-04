@@ -31,7 +31,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import {ActionsColumn} from "./ActionsColumn";
 import { Loading } from '../shared/Loading';
 import {useHistory} from "react-router-dom";
-import {injectIntl} from "react-intl";
+import {FormattedMessage, injectIntl} from "react-intl";
 import {
   getErrors,
   getLoading,
@@ -40,7 +40,7 @@ import {
   getTotalCount
 } from "../../redux/reactGrid/selectors";
 import {deleteData, searchData, reset} from "../../redux/reactGrid";
-import {Input, TableCell, TextField} from "@material-ui/core";
+import {TableCell, TextField} from "@material-ui/core";
 
 const getRowId = row => row.id;
 
@@ -57,7 +57,7 @@ const FilterCellBase = ({ filter, onFilter, column }) => {
       <TextField
         value={filter ? filter.value : ''}
         onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
-        placeholder={`Buscar por ${column.title}`} />
+        label={<FormattedMessage id={"ReactGrid.filtros.buscar_por"} defaultMessage={"Buscar por {name}"} values={{name: column.title? column.title:""}}/>} />
     </TableCell>
   )
 };
