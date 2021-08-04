@@ -310,7 +310,7 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
     {
       placeHolder: WWW,
       type: "input",
-      key: "web",
+      key: "adresaWeb",
       breakpoints: {
         xs: 12,
         md: 3,

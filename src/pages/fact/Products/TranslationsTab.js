@@ -60,6 +60,14 @@ const TranslationTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Descripción",
         }),
       },
+      {
+        name: "text",
+        title: props.intl.formatMessage({
+          id: "Comun.texto",
+          defaultMessage: "Texto HTML",
+        }),
+        hidden:true,
+      },
     ],
     formComponents: [
       {
@@ -109,6 +117,18 @@ const TranslationTab = ({ formData, setFormData, getFormData, ...props }) => {
         },
         text: {
           multiline: 8,
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Productos.editorHtml",
+          defaultMessage: "Editor HTML",
+        }),
+        type: "wysiwyg",
+        key: "text",
+        breakpoints: {
+          xs: 12,
+          md: 12,
         },
       },
     ],
