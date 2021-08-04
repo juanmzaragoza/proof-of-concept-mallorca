@@ -130,7 +130,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       getString("pis") +
       " " +
       getString("porta");
-    setFormData({ key: "domicili", value: dir });
+    setFormData({ key: "domiciliFiscal", value: dir });
   }, [
     getFormData("sg"),
     getFormData("nomDomicili"),
@@ -765,7 +765,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Dirección Completa",
       }),
       type: "input",
-      key: "domicili",
+      key: "domiciliFiscal",
       breakpoints: {
         xs: 12,
         md: 9,
