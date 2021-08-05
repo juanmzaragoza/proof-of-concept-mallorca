@@ -258,3 +258,7 @@ export const formesCost = `api/fact/formesCost`;
 export const costos = `api/fact/costos`;
 export const comptesCorrents = `api/fact/comptesCorrents`;
 export const classificacions = `api/fact/classificacions`;
+
+export const comptesFamiliaSerieVenda = 'api/fact/comptesFamiliaSerieVenda';
+export const comptesFamiliaSerieCompra = 'api/fact/comptesFamiliaSerieCompra';
+export const comptesTraspasMagatzem = 'api/fact/comptesTraspasMagatzem';

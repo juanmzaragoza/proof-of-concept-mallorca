@@ -1547,5 +1547,15 @@
   "Selector.obras":"Obras",
   "Selector.servicios":"Servicios",
   "Clasificaciones.codigoClas":"Código clasificación",
-  "Clasificaciones.sequencia":"Sequencia"
+  "Clasificaciones.sequencia":"Sequencia",
+
+  "Familia.cuentaContableCompras" : "Cuenta contable compras",
+  "Familia.cuentaFamiliaSerieCompra" : "Cuenta Familia Series de Compras",
+
+  "Familia.cuentaTraspaso" : "Cuenta traspaso",
+  "Familia.cuentaTraspasosAlmacenes" : "Cuenta Traspaso Almacén",
+
+  "Familia.articuloFamilia" : "Artículo Família",
+  "Familia.cuentaContableVentas" : "Cuenta contable ventas",
+  "Familia.cuentaFamiliaSerieVenta" : "Cuenta Familia Series de Ventas"
 }
