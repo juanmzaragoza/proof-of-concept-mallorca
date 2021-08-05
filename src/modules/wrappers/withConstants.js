@@ -1105,6 +1105,15 @@ const withConstants = (PassedComponent) => {
         path: "FAC_CCR",
         icon: <LocalMall />,
       },
+      {
+        key: "FAC_CLS",
+        title: props.intl.formatMessage({
+          id: "Clasificaciones.titulo",
+          defaultMessage: "Clasificaciones",
+        }),
+        path: "FAC_CLS",
+        icon: <LocalMall />,
+      },
     ];
 
     return (

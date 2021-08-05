@@ -96,6 +96,7 @@ import PointSale from "./PointSale";
 
 import FormaCoste from "./FormaCoste";
 import CurrentAccounts from "./CurrentAccounts";
+import Clasification from "./Clasification";
 
 const component = [
   SuppliersFamily,
@@ -187,7 +188,8 @@ const component = [
   Packaging,
   PointSale,
   FormaCoste,
-  CurrentAccounts
+  CurrentAccounts,
+  Clasification
 
 ];
 

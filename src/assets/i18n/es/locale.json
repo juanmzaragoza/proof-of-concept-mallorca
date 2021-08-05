@@ -1540,5 +1540,12 @@
   "CuentasCorrientes.dcc":"DCC",
   "CuentasCorrientes.sufijo":"Sufijo",
   "CuentaCorriente.emisor":"Emisor",
-  "Comun.texto":"Texto HTML"
+  "Comun.texto":"Texto HTML",
+  "Clasificaciones.titulo":"Clasificaciones",
+  "Clasificaciones.clasificacion":"Clasificación",
+  "Clasificaciones.categoria":"Categoria",
+  "Selector.obras":"Obras",
+  "Selector.servicios":"Servicios",
+  "Selector.codigoClas":"Código clasificación",
+  "Clasificaciones.sequencia":"Sequencia"
 }
