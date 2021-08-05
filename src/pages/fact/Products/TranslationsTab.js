@@ -9,13 +9,11 @@ import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
 
-import { useTabForm } from "hooks/tab-form";
 
 const TranslationTab = ({ formData, setFormData, getFormData, ...props }) => {
-  const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false, 1: false },
-    setIsValid: props.setIsValid,
-  });
+  useEffect(() => {
+    props.setIsValid(true);
+  }, []);
 
   const formatCodeAndDescription = (data) =>
     `${data.descripcio} (${data.codi})`;
@@ -35,7 +33,7 @@ const TranslationTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     ],
     extraPostBody: {
-        producte: { id: productId },
+      producte: { id: productId },
     },
 
     columns: [
@@ -62,6 +60,14 @@ const TranslationTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Descripción",
         }),
       },
+      {
+        name: "text",
+        title: props.intl.formatMessage({
+          id: "Comun.texto",
+          defaultMessage: "Texto HTML",
+        }),
+        hidden:true,
+      },
     ],
     formComponents: [
       {
@@ -86,9 +92,9 @@ const TranslationTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       {
         placeHolder: props.intl.formatMessage({
-            id: "Comun.nombre",
-            defaultMessage: "Nombre",
-          }),
+          id: "Comun.nombre",
+          defaultMessage: "Nombre",
+        }),
         type: "input",
         key: "nom",
 
@@ -111,6 +117,18 @@ const TranslationTab = ({ formData, setFormData, getFormData, ...props }) => {
         },
         text: {
           multiline: 8,
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Productos.editorHtml",
+          defaultMessage: "Editor HTML",
+        }),
+        type: "wysiwyg",
+        key: "text",
+        breakpoints: {
+          xs: 12,
+          md: 12,
         },
       },
     ],

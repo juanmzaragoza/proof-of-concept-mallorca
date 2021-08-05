@@ -13,10 +13,11 @@ import ExpandableGrid from "modules/ExpandableGrid";
 import { useTabForm } from "hooks/tab-form";
 
 const COMPANY_SECTION_INDEX = 0;
+const COMPANY_GROUP_INDEX = 1;
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { COMPANY_SECTION_INDEX: false, 1: false },
+    fields: { [COMPANY_SECTION_INDEX]: false, [COMPANY_GROUP_INDEX]: true },
     setIsValid: props.setIsValid,
   });
 
@@ -31,8 +32,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     id: "Comun.nombre",
     defaultMessage: "Nombre",
   });
-
-
 
   const createConfiguration = [
     {
@@ -83,13 +82,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
 
     query: [
       {
-        columnName: "grupEmpreses.id",
+        columnName: "businessGroup.id",
         value: `'${groupCompanyId}'`,
         exact: true,
       },
     ],
     extraPostBody: {
-      grupEmpreses: { id: groupCompanyId },
+      businessGroup: { id: groupCompanyId },
     },
 
     columns: [
@@ -152,8 +151,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: 0,
       component: (
         <ExpandableGrid
-          id="empresesGrupEmpreses"
-          responseKey="empresaGrupEmpreseses"
+          id="empresesBusinessGroup"
+          responseKey="empresaBusinessGroups"
           enabled={props.editMode}
           configuration={companyConfig}
         />

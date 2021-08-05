@@ -117,3 +117,8 @@ export const COMPANY_GROUP_FACT_URL = "/fact/grupos-empresas";
 
 export const OFFER_SUPP_TYPE_FACT_URL = '/fact/tipo-oferta-proveedor';
 export const PACKAGING_TYPE_FACT_URL = '/fact/envases';
+export const POINT_SALE_FACT_URL = '/fact/punto-ventas';
+
+export const FORMA_COST_FACT_URL = '/fact/forma-coste';
+export const CURRENT_ACCOUNT_FACT_URL = '/fact/cuentas-corrientes';
+export const CLASSIFACTION_FACT_URL = '/fact/clasificaciones';

@@ -42,7 +42,17 @@ const APLICADORES_TAB_INDEX = 9;
 const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromOutside, services, ...props }) => {
   const [editMode, setEditMode] = useState(false);
   const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
-  const [tabIndexWithError, setTabIndexWithError] = useState({ [GENERAL_TAB_INDEX]: false, [CONTACT_TAB_INDEX]: false, [CONTAB_TAB_INDEX]: false, [FACT_TAB_INDEX]: false,[CLIENTE_TAB_INDEX]: false,[APLICADORES_TAB_INDEX]: false, [PERSONAL_TAB_INDEX]: false,[DOC_TAB_INDEX]: false ,[CLIENTS_APP_TAB_INDEX]:false });
+  const [tabIndexWithError, setTabIndexWithError] = useState({
+    [GENERAL_TAB_INDEX]: false,
+    [CONTACT_TAB_INDEX]: false,
+    [CONTAB_TAB_INDEX]: false,
+    [FACT_TAB_INDEX]: false,
+    [CLIENTE_TAB_INDEX]: false,
+    [APLICADORES_TAB_INDEX]: false,
+    [PERSONAL_TAB_INDEX]: false,
+    [DOC_TAB_INDEX]: false ,
+    [CLIENTS_APP_TAB_INDEX]:false
+  });
   const [forceTabChange, setForceTabChange] = useState(false);
 
   const tabHasError = (index) => {
@@ -129,22 +139,6 @@ const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromO
         loading={props.loading}
         formDataLoaded={props.formDataLoaded} />
     },
-    // {
-    //   label: <FormattedMessage id={"Clientes.tabs.facturacionElect"} defaultMessage={"Facturación Electrónica"} />,
-    //   key: FACT_ELECT_TAB_INDEX,
-    //   error: tabHasError(FACT_ELECT_TAB_INDEX),
-    //   component: <FacturacionElectronicaTab
-    //     setIsValid={(value) => setTabIndexWithError({ ...tabIndexWithError, [FACT_ELECT_TAB_INDEX]: !value })}
-    //     editMode={editMode}
-    //     getFormData={getFormData}
-    //     setFormData={actions.setFormData}
-    //     submitFromOutside={submitFromOutside}
-    //     onSubmitTab={handleSubmitTab}
-    //     formErrors={props.formErrors}
-    //     loading={props.loading}
-    //     formDataLoaded={props.formDataLoaded} />
-    // },
-
     {
       label: <FormattedMessage id={"Clientes.SubClientes"} defaultMessage={"SubClientes"} />,
       key: CLIENTE_TAB_INDEX,

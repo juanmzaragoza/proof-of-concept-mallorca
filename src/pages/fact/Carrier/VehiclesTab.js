@@ -1,20 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 import { compose } from "redux";
 import { FormattedMessage, injectIntl } from "react-intl";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
-import GenericForm from "modules/GenericForm";
+
 import { withValidations } from "modules/wrappers";
-import { useTabForm } from "../../../hooks/tab-form";
+
 import { useParams } from "react-router-dom";
 import ExpandableGrid from "modules/ExpandableGrid";
 import { Chip } from "@material-ui/core";
 
 const VehicleTab = ({ formData, setFormData, getFormData, ...props }) => {
-  const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false, 1: false },
-    setIsValid: props.setIsValid,
-  });
+  useEffect(() => {
+    props.setIsValid(true);
+  }, []);
 
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
@@ -31,16 +30,8 @@ const VehicleTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const { id: transpId } = useParams();
 
-  const withRequiredValidation = (extraValidations = []) => {
-    return {
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...extraValidations,
-      ],
-    };
-  };
 
-  const otraAplicacion = {
+  const vehicleConfig = {
     title: props.intl.formatMessage({
       id: "Vehiculos.titulo",
       defaultMessage: "Vehículos",
@@ -335,7 +326,7 @@ const VehicleTab = ({ formData, setFormData, getFormData, ...props }) => {
           ...props.numberValidations.minMaxValidation(0, 9999999999),
         ],
       },
-     
+
       {
         placeHolder: props.intl.formatMessage({
           id: "Vehiculos.codigoMaquina",
@@ -510,7 +501,7 @@ const VehicleTab = ({ formData, setFormData, getFormData, ...props }) => {
             id="vehicles"
             responseKey="vehicles"
             enabled={props.editMode}
-            configuration={otraAplicacion}
+            configuration={vehicleConfig}
           />
         </OutlinedContainer>
       </Grid>

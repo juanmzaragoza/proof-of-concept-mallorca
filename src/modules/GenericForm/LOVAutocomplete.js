@@ -49,6 +49,7 @@ const LOVAutocomplete = (props) => {
   const [openSearchModal, setOpenSearchModal] = useState(false);
   const [opts, setOpts] = useState([]);
   const [value, setValue] = useState();
+  const [queryAdvancedSearch, setQueryAdvancedSearch] = useState([]);
 
   // initialization
   useEffect(() => {
@@ -130,6 +131,8 @@ const LOVAutocomplete = (props) => {
       search: props.querySearch,
       query
     });
+    // we save this query to use it in the future on open the advanced searching
+    setQueryAdvancedSearch(query);
   }
 
   const buttonInsideSelector = (icon, disabled = false, onClick) => {
@@ -309,6 +312,7 @@ const LOVAutocomplete = (props) => {
       open={openSearchModal}
       listKey={props.responseKey}
       columns={props.advancedSearchColumns}
+      extraQuery={queryAdvancedSearch}
       close={(data) => {
         if(data) {
           const list = opts;

@@ -95,6 +95,12 @@ import CompanyGroup from "./CompanyGroup";
 import OfferSupplierType from "./OfferSupplierType";
 import Packaging from "./Packaging";
 
+import PointSale from "./PointSale";
+
+import FormaCoste from "./FormaCoste";
+import CurrentAccounts from "./CurrentAccounts";
+import Clasification from "./Clasification";
+
 const component = [
   SuppliersFamily,
   Suppliers,
@@ -183,7 +189,13 @@ const component = [
   WorkShop,
   CompanyGroup,
   OfferSupplierType,
-  Packaging
+
+  Packaging,
+
+  PointSale,
+  FormaCoste,
+  CurrentAccounts,
+  Clasification
 
 ];
 

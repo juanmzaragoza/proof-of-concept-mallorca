@@ -1086,6 +1086,45 @@ const withConstants = (PassedComponent) => {
         path: "FAC_ENVAS",
         icon: <LocalMall />,
       },
+
+      {
+        key: "FAC_PUNVEN",
+        title: props.intl.formatMessage({
+          id: "PuntoVenta.titulo",
+          defaultMessage: "Punto Venta",
+        }),
+        path: "FAC_PUNVEN",
+        icon: <LocalMall />,
+      },
+
+      {
+        key: "FAC_FORCOS",
+        title: props.intl.formatMessage({
+          id: "FormasCoste.titulo",
+          defaultMessage: "Formas de Coste",
+        }),
+        path: "FAC_FORCOS",
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_CCR",
+        title: props.intl.formatMessage({
+          id: "CuentasCorrientes.titulo",
+          defaultMessage: "Cuentas Corrientes",
+        }),
+        path: "FAC_CCR",
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_CLS",
+        title: props.intl.formatMessage({
+          id: "Clasificaciones.titulo",
+          defaultMessage: "Clasificaciones",
+        }),
+        path: "FAC_CLS",
+        icon: <LocalMall />,
+      },
+
     ];
 
     return (
