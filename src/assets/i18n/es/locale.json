@@ -1547,5 +1547,13 @@
   "Selector.obras":"Obras",
   "Selector.servicios":"Servicios",
   "Clasificaciones.codigoClas":"Código clasificación",
-  "Clasificaciones.sequencia":"Sequencia"
+  "Clasificaciones.sequencia":"Sequencia",
+  "FinalFacturas.posicion":"Posición",
+  "FinalFacturas.titulos":"Título",
+  "FinalFacturas.formula":"Fórmula",
+  "FinalFacturas.lineas":"Líneas",
+  "FinalFacturas.importeFacturado":"Importe Facturado",
+  "FinalFacturas.aplicarTotal":"Aplicar Total",
+  "FinalFacturas.imprimir":"Imprimir",
+  "FinalFacturas.cncFactura":"Campo de la Factura"
 }
