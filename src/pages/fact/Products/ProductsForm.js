@@ -38,7 +38,7 @@ const ProductsForm = React.memo(({ actions, allFormData, getFormData, submitFrom
   const [nameSelectedTab, setNameSelectedTab] = useState('');
 
   /** step 2 */
-  const [tabIndexWithError, setTabIndexWithError] = useState({[PRODUCT_TAB_INDEX]: false},{[IMG_TAB_INDEX]:true},{[TRADUC_TAB_INDEX]: true,[SECTOR_TAB_INDEX]:true});
+  const [tabIndexWithError, setTabIndexWithError] = useState({[PRODUCT_TAB_INDEX]: false,[IMG_TAB_INDEX]:true,[TRADUC_TAB_INDEX]: true,[SECTOR_TAB_INDEX]:true});
   const [forceTabChange, setForceTabChange] = useState(false);
 
   const tabHasError = (index) => {
