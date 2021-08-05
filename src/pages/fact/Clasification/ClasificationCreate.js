@@ -20,10 +20,12 @@ const ClasificationCreate = (props) => {
 
   const createConfiguration = [
     {
-      placeHolder: CODE,
-
+      placeHolder: props.intl.formatMessage({
+        id: "Clasificaciones.sequencia",
+        defaultMessage: "Sequencia",
+      }),
       type: "input",
-      key: "codiClassificacio",
+      key: "sequencia",
       required: true,
       breakpoints: {
         xs: 12,
@@ -33,27 +35,28 @@ const ClasificationCreate = (props) => {
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 4),
         ...props.stringValidations.fieldExistsValidation(
           "classificacions",
-          "codi",
+          "sequencia",
           CODE
         ),
       ],
     },
     {
-      placeHolder: DESCRIPTION,
+      placeHolder:  props.intl.formatMessage({
+        id: "Clasificaciones.codigoClas",
+        defaultMessage: "Código Clasificación",
+      }),
       type: "input",
-      key: "descripcio",
-      required: true,
+      noEditable:true,
+      key: "codiClassificacio",
       breakpoints: {
         xs: 12,
-        md: 9,
+        md: 3,
       },
       validationType: "string",
       validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(0, 100),
+        ...props.stringValidations.minMaxValidation(0, 2),
       ],
     },
     {
@@ -80,14 +83,27 @@ const ClasificationCreate = (props) => {
       key: "categoria",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
       validationType: "string",
       validations: [
-        ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(0, 2),
       ],
     },
+    {
+      placeHolder: DESCRIPTION,
+      type: "input",
+      key: "descripcio",
+      breakpoints: {
+        xs: 12,
+        md: 12,
+      },
+      validationType: "string",
+      validations: [
+        ...props.stringValidations.minMaxValidation(0, 100),
+      ],
+    },
+   
   ];
   return (
     <CreateUpdateForm
