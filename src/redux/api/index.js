@@ -274,3 +274,6 @@ export const comptesClient = 'api/fact/comptesClient';
 export const comptesProveidor = 'api/fact/comptesProveidor';
 export const familiesGamma = 'api/fact/familiesGamma';
 export const familiesModel = 'api/fact/familiesModel';
+
+export const areaNegocis = `api/fact/areaNegocis`;
+export const seriesAreaNegoci = `api/fact/seriesAreaNegoci`;

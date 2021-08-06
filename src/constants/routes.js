@@ -122,3 +122,4 @@ export const POINT_SALE_FACT_URL = '/fact/punto-ventas';
 export const FORMA_COST_FACT_URL = '/fact/forma-coste';
 export const CURRENT_ACCOUNT_FACT_URL = '/fact/cuentas-corrientes';
 export const CLASSIFACTION_FACT_URL = '/fact/clasificaciones';
+export const AREA_NEGOCIO_FACT_URL = '/fact/areas-negocio'

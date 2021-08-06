@@ -1581,5 +1581,15 @@
   "Articulos.descuento2":"Descuento 2",
   "Articulos.tipoParticular":"Precios para tarifas tipo particular",
   "Articulos.tipoGeneral":"Precios para tarifas tipo general",
-  "Articulos.margen":"Margen"
+  "Articulos.margen":"Margen",
+  "AreasNegocio.titulo":"Áreas Negocio",
+  "AreasNegocio.cuentaExistencias":"Cuenta Existencias",
+  "AreasNegocio.cuentaAlmacen":"Cuenta Almacén",
+  "AreasNegocio.cuentaObraEjecutada":"Cuenta Obra Ejecutada Pendiente Certificar",
+  "AreasNegocio.cuentaCostes":"Cuenta Costes",
+  "AreasNegocio.cuentaCliente":"Cuenta Clientes",
+  "AreasNegocio.cuentaProveedor":"Cuenta Proveedor",
+  "AreasNegocio.codigoContable":"Código Contable",
+  "AreasNegocio.tabs.series":"Series del área"
+  
   }
