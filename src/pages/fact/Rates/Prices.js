@@ -15,6 +15,21 @@ const Prices = ({ formData, setFormData, getFormData, ...props }) => {
     props.setIsValid(true);
   }, []);
 
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
+
+  const DESCRIPTION = props.intl.formatMessage({
+    id: "Comun.descripcion",
+    defaultMessage: "Descripción",
+  });
+
+  const aSCodeAndDescription = [
+    { title: CODE, name: "codi" },
+    { title: DESCRIPTION, name: "descripcio" },
+  ];
+
   const priceParticulars = {
     title: props.intl.formatMessage({
       id: "Articulos.titulo",
@@ -59,6 +74,95 @@ const Prices = ({ formData, setFormData, getFormData, ...props }) => {
           id: "Articulos.descuento2",
           defaultMessage: "Descuento 2",
         }),
+      },
+      {
+        name: "marge",
+        title: props.intl.formatMessage({
+          id: "Articulos.margen",
+          defaultMessage: "Margen",
+        }),
+      },
+    ],
+    formComponents: [
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "ArticulosUbicacion.articulo.titulo",
+          defaultMessage: "Articulo",
+        }),
+        type: "LOV",
+        key: "article",
+        id: "articlesFact",
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 6,
+        },
+        selector: {
+          key: "articles",
+          labelKey: (data) => `${data.descripcioCurta} (${data.codi})`,
+          sort: "codi",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndDescription,
+        },
+        validationType: "object",
+        validations: [...props.commonValidations.requiredValidation()],
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Articulos.precioArticulo",
+          defaultMessage: "Precio Artículo",
+        }),
+        type: "numeric",
+        key: "preuArticleTarifa",
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 4,
+        },
+        validationType: "number",
+        validations: [...props.commonValidations.requiredValidation()],
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Articulos.descuento1",
+          defaultMessage: "Descuento 1",
+        }),
+        type: "numeric",
+        key: "descompte",
+        suffix: "%",
+        breakpoints: {
+          xs: 12,
+          md: 2,
+        },
+        validationType: "number",
+        validations: [...props.numberValidations.minMaxValidation(0, 99)],
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Articulos.descuento2",
+          defaultMessage: "Descuento 2",
+        }),
+        type: "numeric",
+        key: "descompte002",
+        suffix: "%",
+        breakpoints: {
+          xs: 12,
+          md: 2,
+        },
+        validationType: "number",
+        validations: [...props.numberValidations.minMaxValidation(0, 99)],
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Articulos.margen",
+          defaultMessage: "Margen",
+        }),
+        type: "numeric",
+        key: "marge",
+        breakpoints: {
+          xs: 12,
+          md: 2,
+        },
       },
     ],
   };

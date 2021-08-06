@@ -21,9 +21,7 @@ const VALIDITY_DATES_SECTION_TAB_INDEX = 2;
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
-      [CREATE_SECTION_INDEX]: true,
-      [PERCENTAGES_SECTION_TAB_INDEX]: true,
-      [VALIDITY_DATES_SECTION_TAB_INDEX]: true,
+      [CREATE_SECTION_INDEX]: false,
     },
     setIsValid: props.setIsValid,
   });
@@ -195,7 +193,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "date",
       key: "dataInici",
-      required: true,
       breakpoints: {
         xs: 12,
         md: 6,
@@ -208,7 +205,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "date",
       key: "dataFi",
-      required: true,
       breakpoints: {
         xs: 12,
         md: 6,
