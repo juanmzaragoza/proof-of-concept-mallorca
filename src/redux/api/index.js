@@ -264,3 +264,5 @@ export const comptesCorrents = `api/fact/comptesCorrents`;
 export const classificacions = `api/fact/classificacions`;
 export const liniesFinalFactura = `api/fact/liniesFinalFactura`;
 export const preusArticle = `api/fact/preusArticle`;
+export const areaNegocis = `api/fact/areaNegocis`;
+export const seriesAreaNegoci = `api/fact/seriesAreaNegoci`;

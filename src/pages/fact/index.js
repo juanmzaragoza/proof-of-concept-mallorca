@@ -100,6 +100,7 @@ import PointSale from "./PointSale";
 import FormaCoste from "./FormaCoste";
 import CurrentAccounts from "./CurrentAccounts";
 import Clasification from "./Clasification";
+import AreasNegocio from "./AreasNegocio";
 
 const component = [
   SuppliersFamily,
@@ -195,7 +196,8 @@ const component = [
   PointSale,
   FormaCoste,
   CurrentAccounts,
-  Clasification
+  Clasification,
+  AreasNegocio
 
 ];
 
