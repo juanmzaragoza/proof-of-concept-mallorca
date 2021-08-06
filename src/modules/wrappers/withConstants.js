@@ -1060,6 +1060,15 @@ const withConstants = (PassedComponent) => {
         icon: <LocalMall />,
       },
       {
+        key: "FAC_BUSGRO",
+        title: props.intl.formatMessage({
+          id: "GruposEmpresas.titulo",
+          defaultMessage: "Grupos Empresas",
+        }),
+        path: "FAC_BUSGRO",
+        icon: <LocalMall />,
+      },
+      {
         key: "FAC_TIPOFEPRO",
         title: props.intl.formatMessage({
           id: "TipoOfertaProv.titulo",
@@ -1077,6 +1086,7 @@ const withConstants = (PassedComponent) => {
         path: "FAC_ENVAS",
         icon: <LocalMall />,
       },
+
       {
         key: "FAC_PUNVEN",
         title: props.intl.formatMessage({
@@ -1114,6 +1124,7 @@ const withConstants = (PassedComponent) => {
         path: "FAC_CLS",
         icon: <LocalMall />,
       },
+
     ];
 
     return (

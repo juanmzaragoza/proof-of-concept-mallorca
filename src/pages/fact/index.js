@@ -89,6 +89,9 @@ import InvoiceComplement from "./InvoiceComplement";
 import ArticleFamilyTrans from "./ArticleFamilyTrans";
 import WorkType from "./WorkType";
 import WorkShop from "./WorkShop";
+
+import CompanyGroup from "./CompanyGroup";
+
 import OfferSupplierType from "./OfferSupplierType";
 import Packaging from "./Packaging";
 
@@ -184,8 +187,11 @@ const component = [
   ArticleFamilyTrans,
   WorkType,
   WorkShop,
+  CompanyGroup,
   OfferSupplierType,
+
   Packaging,
+
   PointSale,
   FormaCoste,
   CurrentAccounts,

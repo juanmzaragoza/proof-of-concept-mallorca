@@ -5,9 +5,6 @@ import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { some, min, pickBy, cloneDeep } from "lodash";
 
-import GeneralTab from "./GeneralTab";
-import Prices from "./Prices";
-import Prices2 from "./Prices2";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
 import {
@@ -27,16 +24,12 @@ import {
 
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
+import GeneralTab from "./GeneralTab";
 
-/**
- * Rates form module
- * If you want add a new tab, follow the next steps
- **/
-/** step 1 */
-const GENERAL_TAB_INDEX = 0;
-const PRICE_TAB_INDEX = 1;
+const COMPANY_GROUP_TAB_INDEX = 0;
 
-const RatesForm = React.memo(
+
+const CompanyGroupForm = React.memo(
   ({
     actions,
     allFormData,
@@ -46,14 +39,11 @@ const RatesForm = React.memo(
     ...props
   }) => {
     const [editMode, setEditMode] = useState(false);
-    const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
+    const [tabIndex, setTabIndex] = useState(COMPANY_GROUP_TAB_INDEX);
     const [nameSelectedTab, setNameSelectedTab] = useState("");
-    const [mostrarGeneral, setMostrarGeneral] = useState("");
 
-    /** step 2 */
     const [tabIndexWithError, setTabIndexWithError] = useState({
-      [GENERAL_TAB_INDEX]: false,
-      [PRICE_TAB_INDEX]: false,
+      [COMPANY_GROUP_TAB_INDEX]: false,
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -84,7 +74,7 @@ const RatesForm = React.memo(
         isEditable()
           ? update(id, allFormData)
           : create(allFormData, () => {
-              goToTab(GENERAL_TAB_INDEX);
+              goToTab(COMPANY_GROUP_TAB_INDEX);
             });
       }
     };
@@ -99,18 +89,17 @@ const RatesForm = React.memo(
       };
     };
 
-    /** step 3 */
     const tabs = [
       {
-        ...getTranslations("Proveedores.tabs.general", "General"),
-        key: GENERAL_TAB_INDEX,
-        error: tabHasError(GENERAL_TAB_INDEX),
+        ...getTranslations("Proveedores.tabs.general"),
+        key: COMPANY_GROUP_TAB_INDEX,
+        error: tabHasError(COMPANY_GROUP_TAB_INDEX),
         component: (
           <GeneralTab
             setIsValid={(value) =>
               setTabIndexWithError({
                 ...tabIndexWithError,
-                [GENERAL_TAB_INDEX]: !value,
+                [COMPANY_GROUP_TAB_INDEX]: !value,
               })
             }
             editMode={editMode}
@@ -123,48 +112,7 @@ const RatesForm = React.memo(
             formDataLoaded={props.formDataLoaded}
             isSubmitted={props.isSubmitted}
           />
-        ),
-      },
-      {
-        ...getTranslations("Tarifa.precios", "Precios"),
-        key: PRICE_TAB_INDEX,
-        error: tabHasError(PRICE_TAB_INDEX),
-        component: mostrarGeneral ? (
-          <Prices2
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [PRICE_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-            isSubmitted={props.isSubmitted}
-          />
-        ) : (
-          <Prices
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [PRICE_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-            isSubmitted={props.isSubmitted}
-          />
+
         ),
       },
     ];
@@ -187,10 +135,10 @@ const RatesForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "Tarifa.titulo",
-              defaultMessage: "Tarifas",
+              id: "GruposEmpresas.titulo",
+              defaultMessage: "Grupos Empresas ",
             }),
-            href: "/fact/tarifes",
+            href: "/fact/grupos-empresas",
           },
           {
             title: props.intl.formatMessage({
@@ -206,26 +154,13 @@ const RatesForm = React.memo(
     }, [id]);
 
     useEffect(() => {
-      const tipus = getFormData("tarifaTipus");
-
-      if (
-        tipus === "TARIFA_GENERAL_SOBRE_COST" ||
-        tipus === "TARIFA_GENERAL_SOBRE_PVP"
-      ) {
-        setMostrarGeneral(true);
-      } else {
-        setMostrarGeneral(false);
-      }
-    }, [getFormData("tarifaTipus")]);
-
-    useEffect(() => {
       setNameSelectedTab(getTabName(tabIndex));
     }, [tabIndex]);
 
     /** Update HEADER */
     useEffect(() => {
       if (isEditable()) {
-        const descripcio = getFormData("descripcio");
+        const descripcio = getFormData("nom");
         const desc = descripcio
           ? descripcio
           : `${props.intl.formatMessage({
@@ -235,16 +170,16 @@ const RatesForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "Tarifa.titulo",
-              defaultMessage: "Tarifas",
+              id: "GruposEmpresas.titulo",
+              defaultMessage: "Grupos Empresas",
             }),
-            href: "/fact/tarifes",
+            href: "/fact/grupos-empresas",
           },
-          { title: desc, href: "/fact/tarifes" },
+          { title: desc, href: "/fact/grupos-empresas" },
           { title: nameSelectedTab },
         ]);
       }
-    }, [getFormData("descripcio"), nameSelectedTab]);
+    }, [getFormData("nom"), nameSelectedTab]);
 
     useEffect(() => {
       if (submitFromOutside) {
@@ -306,5 +241,5 @@ const component = compose(
   injectIntl,
   connect(mapStateToProps, mapDispatchToProps),
   withAbmServices
-)(RatesForm);
+)(CompanyGroupForm);
 export default component;

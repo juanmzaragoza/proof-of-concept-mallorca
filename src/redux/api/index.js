@@ -246,13 +246,17 @@ export const articlesFamiliaTransportista = `api/fact/articlesFamiliaTransportis
 export const tipusFullesObra = `api/fact/tipusFullesObra`;
 export const tallers = `api/fact/tallers`;
 export const valorsTarifaDescompte = `api/fact/valorsTarifaDescompte`;
+
+export const empresesGrup = `api/fact/businessGroups`;
+export const empresesBusinessGroup = `api/fact/empresesBusinessGroup`;
+
 export const tipusOfertesProveidor = `api/fact/tipusOfertesProveidor`;
 export const envasos = `api/fact/envasos`;
 
+export const articlesFamiliaComissio = `api/fact/articlesFamiliaComissio`;
+
 export const puntsVenda = `api/fact/puntsVenda`;
 export const numeracionsTpv = `api/fact/numeracionsTpv`;
-
-export const articlesFamiliaComissio = `api/fact/articlesFamiliaComissio`;
 
 export const formesCost = `api/fact/formesCost`;
 export const costos = `api/fact/costos`;
@@ -262,3 +266,6 @@ export const classificacions = `api/fact/classificacions`;
 export const comptesFamiliaSerieVenda = 'api/fact/comptesFamiliaSerieVenda';
 export const comptesFamiliaSerieCompra = 'api/fact/comptesFamiliaSerieCompra';
 export const comptesTraspasMagatzem = 'api/fact/comptesTraspasMagatzem';
+
+export const liniesFinalFactura = `api/fact/liniesFinalFactura`;
+export const preusArticle = `api/fact/preusArticle`;
