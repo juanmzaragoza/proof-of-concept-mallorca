@@ -80,7 +80,6 @@
   "Proveedores.direcciones_comerciales": "Direcciones Comerciales",
   "Proveedores.tipos_proveedor": "Tipos de Proveedor",
   "Proveedores.cajas": "Cajas",
-  "Proveedores.titulo": "Proveedores",
   "Proveedores.codigo": "Código",
   "Proveedores.nombre_comercial": "Nombre Comercial",
   "Proveedores.nombre_fiscal": "Nombre Fiscal",
@@ -1565,6 +1564,9 @@
   "Familia.articuloFamilia" : "Artículo Família",
   "Familia.cuentaContableVentas" : "Cuenta contable ventas",
   "Familia.cuentaFamiliaSerieVenta" : "Cuenta Familia Series de Ventas",
+
+  "Familia.familiaGama" : "Familia Gama",
+  "Familia.familiaModelo" : "Familia Modelo",
 
   "FinalFacturas.posicion":"Posición",
   "FinalFacturas.titulos":"Título",

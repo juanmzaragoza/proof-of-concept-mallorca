@@ -4,8 +4,6 @@ import { compose } from "redux";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
 
-
-
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
@@ -15,12 +13,12 @@ const CustomerAccountTab = ({ formData, setFormData, getFormData, ...props }) =>
   const { id: itemFamilyId } = useParams();
 
   const CODE = props.intl.formatMessage({id: "Comun.codigo", defaultMessage: "Código"});
-  const DESCRIPCIO = props.intl.formatMessage({id: "Comun.descripcion", defaultMessage: "Descripción"});
+  const COMERCIALNAME = props.intl.formatMessage({id: "Presupuestos.nombreComercialCliente", defaultMessage: "Nombre Comercial"});
 
-  const formatCodeAndDescription = (data) => `${data.descripcio} (${data.codi})`;
-  const aSCodeAndDescription = [{title: CODE, name: 'codi'},{title: DESCRIPCIO, name: 'descripcio'}];
+  const formatCodeAndComercialName = (data) => `${data.nomComercial} (${data.codi})`;
+  const aSCodeAndComercialName = [{title: CODE, name: 'codi'},{title: COMERCIALNAME, name: 'nomComercial'}];
 
-  const ComptesFamiliaSeriesVenta = {
+  const ComptesClients = {
     title: props.intl.formatMessage({
       id: "FamiliaArticulos.tabs.cuentasClientes",
       defaultMessage: "Cuentas Clientes",
@@ -70,29 +68,28 @@ const CustomerAccountTab = ({ formData, setFormData, getFormData, ...props }) =>
         }),
         type: "LOV",
         key: "client",
-        id: "clientes",
         required: true,
         breakpoints: {
           xs: 12,
-          md: 3,
+          md: 6,
         },
         selector: {
-          key: "clientes",
-          labelKey: formatCodeAndDescription,
+          key: "clients",
+          labelKey: formatCodeAndComercialName,
           sort: "descripcio",
           cannotCreate: true,
-          advancedSearchColumns: aSCodeAndDescription,
+          advancedSearchColumns: aSCodeAndComercialName,
         },
         validationType: "object",
         validations: [...props.commonValidations.requiredValidation()],
       },
       {
         placeHolder: props.intl.formatMessage({
-          id: "Familia.cuentaContableVentas",
-          defaultMessage: "Cuenta contable ventas",
+          id: "Clientes.cuenta.contable",
+          defaultMessage: "Cuenta contable",
         }),
         type: "input",
-        key: "compteContableVentes",
+        key: "compteContable",
         required: true,
         breakpoints: {
           xs: 12,
@@ -133,16 +130,16 @@ const CustomerAccountTab = ({ formData, setFormData, getFormData, ...props }) =>
           className="general-tab-container"
           title={
             <FormattedMessage
-              id={"Familia.cuentaFamiliaSerieVenta"}
-              defaultMessage={"Cuenta Familia Series de Ventas"}
+              id={"FamiliaArticulos.tabs.cuentasClientes"}
+              defaultMessage={"Cuentas Clientes"}
             />
           }
         >
          <ExpandableGrid
-          id="comptesFamiliaSerieVenda"
-          responseKey="compteFamiliaSerieVendas"
+          id="comptesClient"
+          responseKey="compteClients"
           enabled={props.editMode}
-          configuration={ComptesFamiliaSeriesVenta}
+          configuration={ComptesClients}
         />
         </OutlinedContainer>
       </Grid>

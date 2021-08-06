@@ -72,7 +72,7 @@ const PurchasingSeriesAccountsTab = ({ formData, setFormData, getFormData, ...pr
         required: true,
         breakpoints: {
           xs: 12,
-          md: 3,
+          md: 6,
         },
         selector: {
           key: "serieCompras",

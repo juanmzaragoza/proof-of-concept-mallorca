@@ -269,3 +269,8 @@ export const comptesTraspasMagatzem = 'api/fact/comptesTraspasMagatzem';
 
 export const liniesFinalFactura = `api/fact/liniesFinalFactura`;
 export const preusArticle = `api/fact/preusArticle`;
+
+export const comptesClient = 'api/fact/comptesClient';
+export const comptesProveidor = 'api/fact/comptesProveidor';
+export const familiesGamma = 'api/fact/familiesGamma';
+export const familiesModel = 'api/fact/familiesModel';

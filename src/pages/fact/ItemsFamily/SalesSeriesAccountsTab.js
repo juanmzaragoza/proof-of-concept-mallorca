@@ -72,7 +72,7 @@ const SalesSeriesAccountsTab = ({ formData, setFormData, getFormData, ...props }
         required: true,
         breakpoints: {
           xs: 12,
-          md: 3,
+          md: 6,
         },
         selector: {
           key: "serieVendas",
