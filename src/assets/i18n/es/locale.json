@@ -1561,5 +1561,10 @@
   "FinalFacturas.importeFacturado":"Importe Facturado",
   "FinalFacturas.aplicarTotal":"Aplicar Total",
   "FinalFacturas.imprimir":"Imprimir",
-  "FinalFacturas.cncFactura":"Campo de la Factura"
+  "FinalFacturas.cncFactura":"Campo de la Factura",
+  "Articulos.precioArticulo":"Precio Artículo",
+  "Articulos.descuento1":"Descuento 1",
+  "Articulos.descuento2":"Descuento 2",
+  "Articulos.tipoParticular":"Precios para tarifas tipo particular",
+  "Articulos.tipoGeneral":"Precios para tarifas tipo general"
   }
