@@ -80,6 +80,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Tipo",
       }),
       type: "select",
+      required:true,
       key: "tipus",
       breakpoints: {
         xs: 12,
@@ -88,6 +89,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       selector: {
         options: TIPO_VENCIMIENTO_SELECTOR_VALUES,
       },
+      validationType: "string",
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
