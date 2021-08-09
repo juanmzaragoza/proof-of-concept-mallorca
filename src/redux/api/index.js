@@ -277,3 +277,5 @@ export const familiesModel = 'api/fact/familiesModel';
 
 export const areaNegocis = `api/fact/areaNegocis`;
 export const seriesAreaNegoci = `api/fact/seriesAreaNegoci`;
+
+export const articlesCalcPrice = `api/fact/articles/calcularPreus`;

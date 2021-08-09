@@ -67,7 +67,28 @@ export const getFormSelectorDataById = ({id, identifier}) => {
           dispatch(addToFormSelector({ name: id, loading: false }));
         });
     } catch (error) {
-      dispatch(addToFormSelector({ loading: false }));
+      dispatch(addToFormSelector({ name: id, loading: false }));
+    }
+  }
+}
+
+export const getCalculationForDependentFields = ({ id, body }) => {
+  return async dispatch => {
+    try {
+      const URL = `${API[id]}`;
+      //dispatch(addToFormSelector({ name: id, loading: true }));
+      Axios.post(URL, body)
+        .then(({data}) => data)
+        .then((data) => {
+          Object.keys(data).map(key => {
+            dispatch(setFormDataByKey({ key, value: data[key]}));
+          })
+        })
+        .catch(() => {
+          //dispatch(addToFormSelector({ name: id, loading: false }));
+        });
+    } catch (error) {
+      //dispatch(addToFormSelector({ name: id, loading: false }));
     }
   }
 }
