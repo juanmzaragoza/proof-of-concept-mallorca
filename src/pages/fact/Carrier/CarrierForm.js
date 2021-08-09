@@ -48,7 +48,7 @@ const CarrierForm = React.memo(
 
     /** step 2 */
     const [tabIndexWithError, setTabIndexWithError] = useState({
-      [GENERAL_TAB_INDEX]: true,
+      [GENERAL_TAB_INDEX]: false,
       [CONTACT_TAB_INDEX]: false,
       [VEHICLES_TAB_INDEX]:false,
     });
