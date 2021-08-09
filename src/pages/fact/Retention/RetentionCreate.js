@@ -32,6 +32,7 @@ const RetentionCreate = (props) => {
             defaultMessage: "Código",
           })
         ),
+        
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 4),
       ],
