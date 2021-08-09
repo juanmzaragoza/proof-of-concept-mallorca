@@ -29,6 +29,14 @@ const CurrencyCreate = (props) => {
       noEditable: true,
       validationType: "string",
       validations: [
+        ...props.stringValidations.fieldExistsValidation(
+          "divisa",
+          "codi",
+          props.intl.formatMessage({
+            id: "Paises.codigo",
+            defaultMessage: "Código",
+          })
+        ),
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 4),
       ],
@@ -50,7 +58,6 @@ const CurrencyCreate = (props) => {
       ],
     },
 
-
     {
       placeHolder: props.intl.formatMessage({
         id: "Divisa.abreviatura",
@@ -62,80 +69,81 @@ const CurrencyCreate = (props) => {
         xs: 12,
         md: 2,
       },
+      validationType:"string",
+      validations: [
+   
+        ...props.stringValidations.minMaxValidation(0, 5),],
     },
 
     {
-        placeHolder: props.intl.formatMessage({
-          id: "Divisa.valorEuros",
-          defaultMessage: "Valor euros"
-        }),
-        type: 'numeric',
-        key: 'valorEuros',
-        breakpoints: {
-          xs: 12,
-          md: 2
-        },
-        suffix: '€',
-        validationType: "number",
-        validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...props.numberValidations.minMaxValidation(0, 9999999)
-     
-        ]
+      placeHolder: props.intl.formatMessage({
+        id: "Divisa.valorEuros",
+        defaultMessage: "Valor euros",
+      }),
+      type: "numeric",
+      key: "valorEuros",
+      required:true,
+      breakpoints: {
+        xs: 12,
+        md: 2,
       },
-
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Divisa.decimalesPrecio",
-          defaultMessage: "Decimales Precios"
-        }),
-        type: 'numeric',
-        key: 'decimalsPreus',
-        required: true,
-        breakpoints: {
-          xs: 12,
-          md: 2
-        },
-        validationType: "number",
-        validations: [
+      suffix: "€",
+      validationType: "number",
+      validations: [
         ...props.commonValidations.requiredValidation(),
+        ...props.numberValidations.minMaxValidation(0, 9999999),
+      ],
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Divisa.decimalesPrecio",
+        defaultMessage: "Decimales Precios",
+      }),
+      type: "numeric",
+      key: "decimalsPreus",
+
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+      validations: [
         ...props.numberValidations.minMaxValidation(0, 2),
-    
-        ]
+      ],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Divisa.decimalesImporte",
+        defaultMessage: "Decimales Importe",
+      }),
+      type: "numeric",
+      key: "decimalsImports",
+
+      breakpoints: {
+        xs: 12,
+        md: 2,
       },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Divisa.decimalesImporte",
-          defaultMessage: "Decimales Importe"
-        }),
-        type: 'numeric',
-        key: 'decimalsImports',
-        required: true,
-        breakpoints: {
-          xs: 12,
-          md: 2
-        },
-        validationType: "number",
-        
-        validations: [
-        ...props.commonValidations.requiredValidation(),
+      validationType: "number",
+      validations: [
+
         ...props.numberValidations.minMaxValidation(0, 5),
-
-        ]
+      ],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Divisa.codigoContab",
+        defaultMessage: "Código contabilidad",
+      }),
+      type: "input",
+      key: "codiComptabilitat",
+      breakpoints: {
+        xs: 12,
+        md: 2,
       },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Divisa.codigoContab",
-          defaultMessage: "Código contabilidad",
-        }),
-        type: "input",
-        key: "codiComptabilitat",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-      },
-
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 1)],
+    },
   ];
   return (
     <CreateUpdateForm

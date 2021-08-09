@@ -29,8 +29,8 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [PROJECT_SECTION_INDEX]: false,
-      [TECNIC_SECTION_TAB_INDEX]: false,
       [CLIENT_SECTION_TAB_INDEX]: true,
+      [TECNIC_SECTION_TAB_INDEX]: false,
       [DATES_SECTION_TAB_INDEX]: false,
       [CONFIG_SECTION_TAB_INDEX]: true,
       [FINAL_SECTION_TAB_INDEX]:true

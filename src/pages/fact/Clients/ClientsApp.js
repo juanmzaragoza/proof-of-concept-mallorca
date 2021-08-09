@@ -7,13 +7,13 @@ import OutlinedContainer from "modules/shared/OutlinedContainer";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
+import { TIPO_DESCUENTO_SELECTOR_VALUES } from "constants/selectors";
 
 const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
-
   // warning!!! It's always valid because we haven't validations
   useEffect(() => {
     props.setIsValid(true);
-  },[]);
+  }, []);
 
   const { id: clientId } = useParams();
 
@@ -130,7 +130,7 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
         },
         suffix: "%",
         validationType: "number",
-        validations: props.numberValidations.minMaxValidation(0, 9999),
+        validations: props.numberValidations.minMaxValidation(0, 99),
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -179,7 +179,6 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
           md: 12,
         },
       },
-
     ],
   };
 
@@ -414,7 +413,6 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
           md: 12,
         },
       },
-    
     ],
   };
 

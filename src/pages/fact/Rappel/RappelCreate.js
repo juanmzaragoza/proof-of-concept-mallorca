@@ -25,7 +25,7 @@ const VatCreate = (props) => {
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 10),
+        ...props.stringValidations.minMaxValidation(1, 4),
       ],
     },
     {
@@ -43,7 +43,7 @@ const VatCreate = (props) => {
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 40),
+        ...props.stringValidations.minMaxValidation(1, 30),
       ],
     },
     {

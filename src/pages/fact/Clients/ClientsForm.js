@@ -44,9 +44,9 @@ const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromO
   const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
   const [tabIndexWithError, setTabIndexWithError] = useState({
     [GENERAL_TAB_INDEX]: false,
-    [CONTACT_TAB_INDEX]: false,
-    [CONTAB_TAB_INDEX]: false,
-    [FACT_TAB_INDEX]: false,
+    [CONTACT_TAB_INDEX]: true,
+    [CONTAB_TAB_INDEX]: true,
+    [FACT_TAB_INDEX]: true,
     [CLIENTE_TAB_INDEX]: false,
     [APLICADORES_TAB_INDEX]: false,
     [PERSONAL_TAB_INDEX]: false,

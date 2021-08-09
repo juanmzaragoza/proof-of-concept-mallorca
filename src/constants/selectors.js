@@ -981,3 +981,18 @@ export const TIPO_COSTES_SELECTOR_VALUES = [
     label: "Porcentaje",
   },
 ];
+
+
+
+export const TIPO_CLASIFICACION_SELECTOR_VALUES = [
+  {
+    value: "OBRES",
+    labelId: "Selector.obras",
+    label: "Obras",
+  },
+  {
+    value: "SERVEIS",
+    labelId: "Selector.servicios",
+    label: "Servicios",
+  },
+];

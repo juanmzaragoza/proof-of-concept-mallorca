@@ -1,47 +1,60 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { compose } from "redux";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
 
-
-
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import { withValidations } from "modules/wrappers";
-import {useTabForm} from "hooks/tab-form";
-import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import ExpandableGrid from "modules/ExpandableGrid";
 
-const GAMA_SECTION_INDEX = 0;
-const MODEL_SECTION_TAB_INDEX = 1;
+
 
 const Gama_ModelTab = ({ formData, setFormData, getFormData, ...props }) => {
-  const [ touched, handleTouched, addValidity, formIsValid ] 
-  = useTabForm({fields: {[GAMA_SECTION_INDEX]: false, [MODEL_SECTION_TAB_INDEX]: false}, setIsValid: props.setIsValid});
+
+  const { id: itemFamilyId } = useParams();
+
+  const CODE = props.intl.formatMessage({id: "Comun.codigo", defaultMessage: "Código"});
+  const DESCRIPCIO = props.intl.formatMessage({id: "Comun.descripcion", defaultMessage: "Descripción"});
 
   const formatCodeAndDescription = (data) => `${data.descripcio} (${data.codi})`;
+  const aSCodeAndDescription = [{title: CODE, name: 'codi'},{title: DESCRIPCIO, name: 'descripcio'}];
 
-  const GamaConfig = {
+  const FamiliaGamma = {
     title: props.intl.formatMessage({
-      id: "ArticulosGama.titulo",
-      defaultMessage: "Gama",
+      id: "Familia.familiaGama",
+      defaultMessage: "Familia Gama",
     }),
-    columns: [
+    query: [
       {
-        name: "codi",
-        title: props.intl.formatMessage({
-          id: "Comun.codigo",
-          defaultMessage: "Código",
-        }),
-      },
-      {
-        name: "descripcio",
-        title: props.intl.formatMessage({
-          id: "Comun.descripcion",
-          defaultMessage: "Descripción",
-        }),
+        columnName: "articleFamilia.id",
+        value: `"${itemFamilyId}"`,
+        exact: true,
       },
     ],
-
+    extraPostBody: {
+      articleFamilia: { id: itemFamilyId },
+    },
+    columns: [
+      {
+        name: "articleFamilia",
+        title: props.intl.formatMessage({
+          id: "Familia.articuloFamilia",
+          defaultMessage: "Artículo Família",
+        }),
+        getCellValue: (row) =>
+          row.articleFamilia.description ? row.articleFamilia?.description : "",
+      },
+      {
+        name: "articleGamma",
+        title: props.intl.formatMessage({
+          id: "ArticulosGama.titulo",
+          defaultMessage: "Gama",
+        }),
+        getCellValue: (row) =>
+          row.articleGamma.description ? row.articleGamma?.description : "",
+      },
+    ],
     formComponents: [
       {
         placeHolder: props.intl.formatMessage({
@@ -49,43 +62,59 @@ const Gama_ModelTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Gama",
         }),
         type: "LOV",
-        key: "articlesGama",
+        key: "articleGamma",
+        id: "articlesGama",
         breakpoints: {
           xs: 12,
+          md: 12,
         },
         selector: {
           key: "articleGammas",
           labelKey: formatCodeAndDescription,
           sort: "codi",
           cannotCreate: true,
-          advancedSearchColumns: formatCodeAndDescription,
+          advancedSearchColumns: aSCodeAndDescription,
         },
+        validationType: "object",
       },
     ],
   };
 
-  const ModelConfig = {
+  const FamiliaModel = {
     title: props.intl.formatMessage({
-      id: "ArticulosModelo.titulo",
-      defaultMessage: "Modelo",
+      id: "Familia.familiaModelo",
+      defaultMessage: "Familia Modelo",
     }),
-    columns: [
+    query: [
       {
-        name: "codi",
-        title: props.intl.formatMessage({
-          id: "Comun.codigo",
-          defaultMessage: "Código",
-        }),
-      },
-      {
-        name: "descripcio",
-        title: props.intl.formatMessage({
-          id: "Comun.descripcion",
-          defaultMessage: "Descripción",
-        }),
+        columnName: "articleFamilia.id",
+        value: `"${itemFamilyId}"`,
+        exact: true,
       },
     ],
-
+    extraPostBody: {
+      articleFamilia: { id: itemFamilyId },
+    },
+    columns: [
+      {
+        name: "articleFamilia",
+        title: props.intl.formatMessage({
+          id: "Familia.articuloFamilia",
+          defaultMessage: "Artículo Família",
+        }),
+        getCellValue: (row) =>
+          row.articleFamilia.description ? row.articleFamilia?.description : "",
+      },
+      {
+        name: "articleModel",
+        title: props.intl.formatMessage({
+          id: "ArticulosModelo.titulo",
+          defaultMessage: "Modelo",
+        }),
+        getCellValue: (row) =>
+          row.articleModel.description ? row.articleModel?.description : "",
+      },
+    ],
     formComponents: [
       {
         placeHolder: props.intl.formatMessage({
@@ -93,56 +122,67 @@ const Gama_ModelTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Modelo",
         }),
         type: "LOV",
-        key: "articlesModel",
+        key: "articleModel",
+        id: "articlesModel",
+        required: true,
         breakpoints: {
           xs: 12,
+          md: 12,
         },
         selector: {
           key: "articleModels",
           labelKey: formatCodeAndDescription,
           sort: "codi",
           cannotCreate: true,
-          advancedSearchColumns: formatCodeAndDescription,
+          advancedSearchColumns: aSCodeAndDescription,
         },
+        validationType: "object",
       },
     ],
   };
 
-  const tabs = [
-    {
-      label: <FormattedMessage id={"ArticulosModelo.titulo"} defaultMessage={"Modelo"}/>,
-      key: 0,
-      component: <ExpandableGrid
-        id='articlesModel'
-        responseKey='articleModels'
-        enabled={props.editMode}
-        configuration={ModelConfig} />
-    },
-  ];
-
   return (
     <Grid container>
-    <Grid xs={12} item>
+    <Grid xs={6} item>
       <OutlinedContainer
         className="general-tab-container"
         title={
           <FormattedMessage
-            id = {"ArticulosGama.titulo"}
-            defaultMessage = {"Gama"}
+            id = {"Familia.familiaGama"}
+            defaultMessage = {"Familia Gama"}
           />
         }
       >
        <ExpandableGrid
-        id="articlesGama"
-        responseKey="articleGammas"
+        id="familiesGamma"
+        responseKey="familiaGammas"
         enabled={props.editMode}
-        configuration={GamaConfig}
+        configuration={FamiliaGamma}
       />
       </OutlinedContainer>
     </Grid>
-    <OutlinedContainer>
+
+    <Grid xs={6} item>
+      <OutlinedContainer
+        className="general-tab-container"
+        title={
+          <FormattedMessage
+            id = {"Familia.familiaModelo"}
+            defaultMessage = {"Familia Modelo"}
+          />
+        }
+      >
+       <ExpandableGrid
+        id="familiesModel"
+        responseKey="familiaModels"
+        enabled={props.editMode}
+        configuration={FamiliaModel}
+      />
+      </OutlinedContainer>
+    </Grid>
+    {/* <OutlinedContainer>
       <ConfigurableTabs tabs={tabs} />
-    </OutlinedContainer>
+    </OutlinedContainer> */}
   </Grid>
   );
 };

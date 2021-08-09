@@ -1,6 +1,6 @@
 import React from "react";
-import {compose} from "redux";
-import {injectIntl} from "react-intl";
+import { compose } from "redux";
+import { injectIntl } from "react-intl";
 
 import CreateUpdateForm from "modules/ReactGrid/CreateUpdateForm";
 import { withValidations } from "modules/wrappers";
@@ -11,70 +11,74 @@ const LanguageCreate = (props) => {
     {
       placeHolder: props.intl.formatMessage({
         id: "Idiomas.codigo",
-        defaultMessage: "Código"
+        defaultMessage: "Código",
       }),
-      type: 'input',
-      key: 'codi',
+      type: "input",
+      key: "codi",
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4
+        md: 2,
       },
       noEditable: true,
       validationType: "string",
       validations: [
+        ...props.stringValidations.fieldExistsValidation(
+          "idioma",
+          "codi",
+          props.intl.formatMessage({
+            id: "Comun.codigo",
+            defaultMessage: "Código",
+          })
+        ),
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1,4)
-      ]
+        ...props.stringValidations.minMaxValidation(1, 4),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
-        id:"Idiomas.nombre",
-        defaultMessage: "Nombre"
+        id: "Idiomas.nombre",
+        defaultMessage: "Nombre",
       }),
-      type: 'input',
-      key: 'descripcio',
+      type: "input",
+      key: "descripcio",
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4
+        md: 6,
       },
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1,30)
-      ]
+        ...props.stringValidations.minMaxValidation(1, 30),
+      ],
     },
     {
-        placeHolder: props.intl.formatMessage({
-          id:"Idiomas.codigoIso",
-          defaultMessage: "Código Iso"
-        }),
-        type: 'input',
-        key: 'codiIso',
-        required: false,
-        breakpoints: {
-          xs: 12,
-          md: 4
-        },
-        validationType: "string",
-        validations: [
-          ...props.stringValidations.minMaxValidation(1,2)
-        ]
+      placeHolder: props.intl.formatMessage({
+        id: "Idiomas.codigoIso",
+        defaultMessage: "Código Iso",
+      }),
+      type: "input",
+      key: "codiIso",
+      required: false,
+      breakpoints: {
+        xs: 12,
+        md: 4,
       },
-
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
+    },
   ];
   return (
-    <CreateUpdateForm title={props.intl.formatMessage({
-                        id: "Idiomas.titol",
-                        defaultMessage: "Idiomas"
-                      })}
-                      formConfiguration={createConfiguration}
-                      url={API.idioma} />
-  )
+    <CreateUpdateForm
+      title={props.intl.formatMessage({
+        id: "Idiomas.titol",
+        defaultMessage: "Idiomas",
+      })}
+      formConfiguration={createConfiguration}
+      url={API.idioma}
+    />
+  );
 };
 
-export default compose(
-  withValidations,
-  injectIntl
-)(LanguageCreate);
+export default compose(withValidations, injectIntl)(LanguageCreate);

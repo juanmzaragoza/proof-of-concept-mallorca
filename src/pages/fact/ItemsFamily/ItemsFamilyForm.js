@@ -128,25 +128,20 @@ const ItemsFamilyForm = React.memo(({ actions, allFormData, getFormData, submitF
         loading={props.loading}
         formDataLoaded={props.formDataLoaded} />
     },
-    // {
-    //   ...getTranslations("FamiliaArticulos.tabs.cuentasTraspasos","Cuentas Traspasos Almacenes"),
-    //   key: WHAREHOUSE_TRANSFER_ACCOUNT_TAB_INDEX,
-    //   error: tabHasError(WHAREHOUSE_TRANSFER_ACCOUNT_TAB_INDEX),
-    //   component: <WarehouseTransferAccount
-    //     setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [WHAREHOUSE_TRANSFER_ACCOUNT_TAB_INDEX]: !value})}
-    //     editMode={editMode}
-    //     getFormData={getFormData}
-    //     setFormData={actions.setFormData}
-    //     submitFromOutside={submitFromOutside}
-    //     onSubmitTab={handleSubmitTab}
-    //     formErrors={props.formErrors}
-    //     loading={props.loading}
-    //     formDataLoaded={props.formDataLoaded} />
-    // },
     {
       ...getTranslations("FamiliaArticulos.tabs.cuentasTraspasos","Cuentas Traspasos Almacenes"),
-      key: 3,
-      component: "Cuentas Traspasos Almacenes"
+      key: WHAREHOUSE_TRANSFER_ACCOUNT_TAB_INDEX,
+      error: tabHasError(WHAREHOUSE_TRANSFER_ACCOUNT_TAB_INDEX),
+      component: <WarehouseTransferAccount
+        setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [WHAREHOUSE_TRANSFER_ACCOUNT_TAB_INDEX]: !value})}
+        editMode={editMode}
+        getFormData={getFormData}
+        setFormData={actions.setFormData}
+        submitFromOutside={submitFromOutside}
+        onSubmitTab={handleSubmitTab}
+        formErrors={props.formErrors}
+        loading={props.loading}
+        formDataLoaded={props.formDataLoaded} />
     },
     {
       ...getTranslations("FamiliaArticulos.tabs.cuentasClientes","Cuentas Clientes"),

@@ -15,13 +15,13 @@ import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { useParams } from "react-router-dom";
 
 const BANK_SECTION_INDEX = 0;
-const BANK_OFFICE_SECTION_TAB_INDEX = 1;
+
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [BANK_SECTION_INDEX]: false,
-      [BANK_OFFICE_SECTION_TAB_INDEX]: true,
+
     },
     setIsValid: props.setIsValid,
   });

@@ -6,7 +6,7 @@ import SupplierClientTypeList from "./SupplierClientTypeList";
 import SupplierClientTypeCreate from "./SupplierClientTypeCreate";
 import withHeaders from "modules/wrappers/withHeaders";
 import { SUPPLIER_CLIENT_TYPE_FACT_URL } from "constants/routes";
-import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 
 const URL = SUPPLIER_CLIENT_TYPE_FACT_URL;
 
@@ -26,6 +26,6 @@ const component = {
     component: withHeaders(SupplierClientType),
   },
   name: "FAC_TIPP",
-  icon: <SupervisorAccountIcon />,
+  icon: <AssignmentIndIcon />,
 };
 export default component;

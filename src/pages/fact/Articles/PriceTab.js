@@ -8,7 +8,7 @@ import {Chip} from "@material-ui/core";
 
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
-import { withValidations } from "modules/wrappers";
+import { withValidations, withDependentActions } from "modules/wrappers";
 import { useTabForm } from "hooks/tab-form";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import ExpandableGrid from "modules/ExpandableGrid";
@@ -73,6 +73,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
     }
   }
 
+  const fireActionOnBlur = props.articles.fireOnChangePrice;
   const iva = (md = 2) => [
     {
       placeHolder: props.intl.formatMessage({
@@ -87,6 +88,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: md,
       },
+      fireActionOnBlur,
       validationType: "object",
       ...withRequiredValidation(),
       selector: {
@@ -297,6 +299,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2
       },
+      fireActionOnBlur,
       validationType: "number",
     },
     {
@@ -310,6 +313,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2
       },
+      fireActionOnBlur,
       validationType: "number",
     },
     {
@@ -323,6 +327,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1
       },
+      fireActionOnBlur,
       validationType: "number",
     },
     ...iva(2),
@@ -337,6 +342,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2
       },
+      fireActionOnBlur,
       validationType: "number",
     },
     {
@@ -868,5 +874,6 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
 export default compose(
   React.memo,
   withValidations,
-  injectIntl
+  injectIntl,
+  withDependentActions
 )(PriceTab);
