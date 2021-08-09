@@ -55,7 +55,7 @@ const PaymentNatureCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 9,
+        md: 10,
       },
       validationType: "string",
       validations: [
@@ -65,12 +65,17 @@ const PaymentNatureCreate = (props) => {
     },
     {
       placeHolder: OBS,
-      type: "observations",
+      type: "input",
       key: "observacions",
+      required:true,
       breakpoints: {
         xs: 12,
-        md: 1,
+        md: 12,
       },
+      validationType: "string",
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+      ],
     },
   ];
   return (
