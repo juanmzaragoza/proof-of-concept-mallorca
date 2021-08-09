@@ -9,7 +9,7 @@ import * as API from "redux/api";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import withHeaders from "modules/wrappers/withHeaders";
 
-import ReceiptOutlinedIcon from "@material-ui/icons/ReceiptOutlined";
+import AttachmentIcon from '@material-ui/icons/Attachment';
 import FinalesFacturaList from "./FinalesFacturasList";
 import FinalesFacturaForm from "./FinalesFacturaForm";
 
@@ -50,6 +50,6 @@ const component = {
     component: withHeaders(FinalesFactura),
   },
   name: "FAC_FINFAC",
-  icon: <ReceiptOutlinedIcon />,
+  icon: <AttachmentIcon />,
 };
 export default component;
