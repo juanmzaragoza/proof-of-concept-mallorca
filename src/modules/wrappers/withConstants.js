@@ -537,6 +537,15 @@ const withConstants = (PassedComponent) => {
 
             icon: <LocalMall />,
           },
+          {
+            key: "FAC_BUSGRO",
+            title: props.intl.formatMessage({
+              id: "GruposEmpresas.titulo",
+              defaultMessage: "Grupos Empresas",
+            }),
+            path: "FAC_BUSGRO",
+            icon: <LocalMall />,
+          },
 
           {
             key: "FAC_SERCOM", // not mandatory for routes with children
@@ -1251,16 +1260,6 @@ const withConstants = (PassedComponent) => {
           defaultMessage: "Parámetros",
         }),
         path: "FAC_PARAM", // or has path or has children but not both
-        icon: <LocalMall />,
-      },
-
-      {
-        key: "FAC_BUSGRO",
-        title: props.intl.formatMessage({
-          id: "GruposEmpresas.titulo",
-          defaultMessage: "Grupos Empresas",
-        }),
-        path: "FAC_BUSGRO",
         icon: <LocalMall />,
       },
 
