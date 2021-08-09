@@ -21,7 +21,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
     fields: {
       [CREATE_SECTION_INDEX]: false,
       [LAST_NUMBERS_SECTION_TAB_INDEX]: false,
-      [DATOS_CONTABLES_SECTION_TAB_INDEX]: false,
+      [DATOS_CONTABLES_SECTION_TAB_INDEX]: true,
       [OPTIONS_SECTION_TAB_INDEX]: false,
       [SII_SECTION_TAB_INDEX]: true,
     },
@@ -59,6 +59,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
       placeHolder: CODE,
       type: "input",
       required: true,
+      noEditable:true,
       key: "codi",
       breakpoints: {
         xs: 12,
@@ -77,13 +78,43 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "descripcio",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 6,
       },
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 30),
       ],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "SerieVenta.diaInicio",
+        defaultMessage: "Día Inicio",
+      }),
+      type: "date",
+      required: true,
+      key: "validDesde",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "string",
+      validations: [...props.commonValidations.requiredValidation()],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "SerieVenta.diaFin",
+        defaultMessage: "Día Fin",
+      }),
+      type: "date",
+      required: true,
+      key: "validFins",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "string",
+      validations: [...props.commonValidations.requiredValidation()],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -94,7 +125,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "delegacio",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 4,
       },
       selector: {
         key: "delegacios",
@@ -113,7 +144,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "projecte",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 4,
       },
       selector: {
         key: "projectes",
@@ -215,17 +246,18 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "SerieVenta.cuentaVentasProforma",
-        defaultMessage: "Cuenta de ventas proforma",
+        id: "SerieVenta.ultimaFacturaAñoAnterior",
+        defaultMessage: "Última factura año anterior",
       }),
-      type: "input",
-      key: "compteVendesProforma",
+      type: "numeric",
+      required: true,
+      key: "darreraFacturaAnyAnterior",
       breakpoints: {
         xs: 12,
         md: 4,
       },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 10)],
+      validationType: "number",
+      validations: [...props.commonValidations.requiredValidation()],
     },
   ];
 
@@ -258,6 +290,36 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 2)],
     },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "SerieVenta.cuentasVentas",
+        defaultMessage: "Cuentas de Ventas",
+      }),
+      type: "input",
+      key: "compteVendes",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 10)],
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "SerieVenta.cuentaVentasEntidadesPublicas",
+        defaultMessage: "Cuenta de ventas entidades públicas",
+      }),
+      type: "input",
+      key: "compteVendesEntitatsPubliques",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 10)],
+    },
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.diarioContableProforma",
@@ -274,29 +336,54 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "SerieVenta.cuentasVentas",
-        defaultMessage: "Cuentas de Ventas",
+        id: "SerieVenta.cuentaVentasProforma",
+        defaultMessage: "Cuenta de ventas proforma",
       }),
       type: "input",
-      required: true,
-      key: "compteVendes",
+      key: "compteVendesProforma",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
       validationType: "string",
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 10),
-      ],
+      validations: [...props.stringValidations.minMaxValidation(1, 10)],
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "SerieVenta.cuentaVentasEntidadesPublicas",
-        defaultMessage: "Cuenta de ventas entidades públicas",
+        id: "SerieVenta.cuentaVentasEntidadesPublicasProforma",
+        defaultMessage: "Cuenta de ventas entidades públicas proforma",
       }),
       type: "input",
-      key: "compteVendesEntitatsPubliques",
+      key: "compteVendesProformaEntPub",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 10)],
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "SerieVenta.cuentaPresupuesto",
+        defaultMessage: "Cuenta presupuesto",
+      }),
+      type: "input",
+      key: "comptePressupost",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 10)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "SerieVenta.cuentaPresupuestoEntidadesPublicas",
+        defaultMessage: "Cuenta presupuesto entidades públicas",
+      }),
+      type: "input",
+      key: "compteEntPubPressupost",
       breakpoints: {
         xs: 12,
         md: 3,
@@ -332,48 +419,8 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 10)],
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "SerieVenta.cuentaPresupuesto",
-        defaultMessage: "Cuenta presupuesto",
-      }),
-      type: "input",
-      key: "comptePressupost",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 10)],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "SerieVenta.cuentaVentasEntidadesPublicasProforma",
-        defaultMessage: "Cuenta de ventas entidades públicas proforma",
-      }),
-      type: "input",
-      key: "compteVendesProformaEntPub",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 10)],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "SerieVenta.cuentaPresupuestoEntidadesPublicas",
-        defaultMessage: "Cuenta presupuesto entidades públicas",
-      }),
-      type: "input",
-      key: "compteEntPubPressupost",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 10)],
-    },
+
+   
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.traspasarAContabilidad",
@@ -395,7 +442,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "combinarCompteVendaAmbClient",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
     },
     {
@@ -410,41 +457,10 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "SerieVenta.ultimaFacturaAñoAnterior",
-        defaultMessage: "Última factura año anterior",
-      }),
-      type: "numeric",
-      required: true,
-      key: "darreraFacturaAnyAnterior",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      validationType: "number",
-      validations: [...props.commonValidations.requiredValidation()],
-    },
   ];
 
   const opciones = [
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "SerieVenta.facturaTitulo",
-        defaultMessage: "Factura Titulo",
-      }),
-      type: "input",
-      key: "facturaTitol",
-      breakpoints: {
-        xs: 12,
-        md: 12,
-      },
-      text: {
-        multiline: 2,
-      },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 500)],
-    },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.ncf",
@@ -454,41 +470,12 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "ncf",
       breakpoints: {
         xs: 12,
-        md: 1,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 20)],
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "SerieVenta.diaInicio",
-        defaultMessage: "Día Inicio",
-      }),
-      type: "date",
-      required: true,
-      key: "validDesde",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      validationType: "string",
-      validations: [...props.commonValidations.requiredValidation()],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "SerieVenta.diaFin",
-        defaultMessage: "Día Fin",
-      }),
-      type: "date",
-      required: true,
-      key: "validFins",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      validationType: "string",
-      validations: [...props.commonValidations.requiredValidation()],
-    },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.facturaRectificativa",
@@ -498,46 +485,10 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "facturaRectificativa",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
       selector: {
         options: FACTURA_RECTIFICATIVA_SELECTOR_VALUES,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "SerieVenta.desglosarIva",
-        defaultMessage: "Desglorar IVA",
-      }),
-      type: "checkbox",
-      key: "desglossarIva",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "SerieVenta.adjudicacionAlbaranFactura",
-        defaultMessage: "Adjudicación Albaran/Factura",
-      }),
-      type: "checkbox",
-      key: "adjalbfac",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "SerieVenta.numeracionManual",
-        defaultMessage: "Numeración manual",
-      }),
-      type: "checkbox",
-      key: "numeracioManual",
-      breakpoints: {
-        xs: 12,
-        md: 2,
       },
     },
     {
@@ -549,7 +500,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "magatzem",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
       selector: {
         key: "magatzems",
@@ -557,6 +508,32 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         sort: "codi",
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndName,
+      },
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "SerieVenta.adjudicacionAlbaranFactura",
+        defaultMessage: "Adjudicación Albaran/Factura",
+      }),
+      type: "checkbox",
+      key: "adjalbfac",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+    },
+   
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "SerieVenta.desglosarIva",
+        defaultMessage: "Desglorar IVA",
+      }),
+      type: "checkbox",
+      key: "desglossarIva",
+      breakpoints: {
+        xs: 12,
+        md: 2,
       },
     },
     {
@@ -599,6 +576,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndDescription,
       },
     },
+  
     {
       placeHolder: props.intl.formatMessage({
         id: "SerieVenta.departamento",
@@ -608,7 +586,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "departament",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
       selector: {
         key: "departaments",
@@ -628,7 +606,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
       id: "empresa",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
       selector: {
         key: "empresas",
@@ -637,6 +615,35 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndComercialName,
       },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "SerieVenta.numeracionManual",
+        defaultMessage: "Numeración manual",
+      }),
+      type: "checkbox",
+      key: "numeracioManual",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "SerieVenta.facturaTitulo",
+        defaultMessage: "Factura Titulo",
+      }),
+      type: "input",
+      key: "facturaTitol",
+      breakpoints: {
+        xs: 12,
+        md: 12,
+      },
+      text: {
+        multiline: 2,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 500)],
     },
   ];
 
@@ -650,7 +657,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "sitCodFac",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 2)],
@@ -664,7 +671,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "sitCodRct",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 2)],
@@ -678,7 +685,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "sitCodCla",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 2)],
@@ -692,7 +699,7 @@ const SalesSeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "sitCodDsgTip",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 2)],
