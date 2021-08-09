@@ -4,6 +4,7 @@ import * as API from "redux/api";
 import {LOV_LIMIT_PER_PAGE} from "constants/config";
 import {getFormedURL} from "../common";
 import {SET_FIRE_SAVE_FROM_HEADER} from "../pageHeader";
+import {finishLoading, startLoading} from "../app";
 
 //Action types
 const SET_ERROR_TO_GENERIC_FORM = "SET_ERROR_TO_GENERIC_FORM";
@@ -76,7 +77,7 @@ export const getCalculationForDependentFields = ({ id, body }) => {
   return async dispatch => {
     try {
       const URL = `${API[id]}`;
-      //dispatch(addToFormSelector({ name: id, loading: true }));
+      dispatch(startLoading());
       Axios.post(URL, body)
         .then(({data}) => data)
         .then((data) => {
@@ -85,10 +86,13 @@ export const getCalculationForDependentFields = ({ id, body }) => {
           })
         })
         .catch(() => {
-          //dispatch(addToFormSelector({ name: id, loading: false }));
+          dispatch(finishLoading());
+        })
+        .finally(() => {
+          dispatch(finishLoading());
         });
     } catch (error) {
-      //dispatch(addToFormSelector({ name: id, loading: false }));
+      dispatch(finishLoading());
     }
   }
 }
