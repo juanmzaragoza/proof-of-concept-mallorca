@@ -498,7 +498,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         <OutlinedContainer
           className="general-tab-container"
           title={
-            <FormattedMessage id={"Tarifa.titulo"} defaultMessage={"Tarifas"} />
+            <FormattedMessage id={"TiposVencimiento.titulo"} defaultMessage={"Tarifas"} />
           }
         >
           <GenericForm
