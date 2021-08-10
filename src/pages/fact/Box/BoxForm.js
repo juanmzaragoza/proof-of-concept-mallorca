@@ -23,6 +23,7 @@ import {
   getFormErrors,
   getFormDataByKey,
   getIsDataLoaded,
+  getIsSubmitted
 } from "../../../redux/genericForm/selectors";
 
 import { setFormDataByKey } from "../../../redux/genericForm";
@@ -121,6 +122,7 @@ const BoxForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
         ),
       },
@@ -144,31 +146,15 @@ const BoxForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
         ),
       },
-    //   {
-    //     ...getTranslations("Proveedores.tabs.contabilidad", "Contabilidad"),
-    //     key: ACCOUNTING_TAB_INDEX,
-    //     component: (
-    //       <AccountingTab
-    //         setIsValid={(value) =>
-    //           setTabIndexWithError({
-    //             ...tabIndexWithError,
-    //             [ACCOUNTING_TAB_INDEX]: !value,
-    //           })
-    //         }
-    //         editMode={editMode}
-    //         getFormData={getFormData}
-    //         setFormData={actions.setFormData}
-    //         submitFromOutside={submitFromOutside}
-    //         onSubmitTab={handleSubmitTab}
-    //         formErrors={props.formErrors}
-    //         loading={props.loading}
-    //         formDataLoaded={props.formDataLoaded}
-    //       />
-    //     ),
-    //   },
+      {
+        ...getTranslations("Cajas.situacionesIniciales", "Situaciones Iniciales"),
+        key: INITIAL_SITU_TAB_INDEX,
+        component: "Situaciones Iniciales (Pendiente BackEnd)"
+      },
       
     ];
 
@@ -278,6 +264,7 @@ const mapStateToProps = (state, props) => {
     allFormData: getFormData(state),
     getFormData: getFormDataByKey(state),
     formDataLoaded: getIsDataLoaded(state),
+    isSubmitted: getIsSubmitted(state),
   };
 };
 

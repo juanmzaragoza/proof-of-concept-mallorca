@@ -1621,7 +1621,10 @@
   "Ventas.titulo":"Ventas",
   "Compras.titulo":"Compras",
   "Empresa.titulo":"Empresa",
-  "PieDocumnento.numero":"Número"
+  "PieDocumnento.numero":"Número",
+  "Almacen.articulo":"Artículo",
+  "Cajas.situacionesIniciales":"Situaciones Iniciales",
+  "Cajas.valorDivisa":"Valor Divisa"
   
   }
 
