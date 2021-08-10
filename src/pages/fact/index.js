@@ -83,14 +83,25 @@ import PaymentNature from "./PaymentNature";
 import IncidenceType from "./IncidenceType";
 import FactoringLine from "./FactoringLine";
 import CostsType from "./CostsType";
+import Box from "./Box";
 import ToxicCategory from "./ToxicCategory";
 import Attributes from "./Attributes";
 import InvoiceComplement from "./InvoiceComplement";
 import ArticleFamilyTrans from "./ArticleFamilyTrans";
 import WorkType from "./WorkType";
 import WorkShop from "./WorkShop";
+
+import CompanyGroup from "./CompanyGroup";
+
 import OfferSupplierType from "./OfferSupplierType";
 import Packaging from "./Packaging";
+
+import PointSale from "./PointSale";
+
+import FormaCoste from "./FormaCoste";
+import CurrentAccounts from "./CurrentAccounts";
+import Clasification from "./Clasification";
+import AreasNegocio from "./AreasNegocio";
 
 const component = [
   SuppliersFamily,
@@ -172,14 +183,25 @@ const component = [
   IncidenceType,
   FactoringLine,
   CostsType,
+  Box,
   ToxicCategory,
   Attributes,
   InvoiceComplement,
   ArticleFamilyTrans,
   WorkType,
   WorkShop,
+  CompanyGroup,
   OfferSupplierType,
-  Packaging
+
+  Packaging,
+
+  PointSale,
+  FormaCoste,
+  CurrentAccounts,
+  Clasification,
+  AreasNegocio
+
+
 ];
 
 export default component;

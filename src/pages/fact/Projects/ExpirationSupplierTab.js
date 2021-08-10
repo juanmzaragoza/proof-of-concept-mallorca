@@ -11,7 +11,12 @@ import ExpandableGrid from "modules/ExpandableGrid";
 const ExpirationSuppplierTab = ({ formData, setFormData, getFormData, ...props }) => {
   const { id: projectId } = useParams();
 
-  const budget = {
+
+  useEffect(() => {
+    props.setIsValid(true);
+  },[]);
+
+  const ExpirationSupplier = {
     title: props.intl.formatMessage({
       id: "Proyectos.vencProv",
       defaultMessage: "Vencimientos por proveedor",
@@ -104,7 +109,7 @@ const ExpirationSuppplierTab = ({ formData, setFormData, getFormData, ...props }
             id="proveidorsVenciment"
             responseKey="proveidorVenciments"
             enabled={props.editMode}
-            configuration={budget}
+            configuration={ExpirationSupplier}
           />
         </OutlinedContainer>
       </Grid>

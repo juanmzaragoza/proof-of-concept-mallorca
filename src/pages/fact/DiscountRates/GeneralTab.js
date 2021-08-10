@@ -16,7 +16,7 @@ const VALORES_SECTION_INDEX = 0;
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false, 1: false },
+    fields: { [VALORES_SECTION_INDEX]: false },
     setIsValid: props.setIsValid,
   });
 
@@ -142,7 +142,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
       },
       {
-        name: "descompte00",
+        name: "descompte002",
         title: props.intl.formatMessage({
           id: "TarifasDescuento.desc2",
           defaultMessage: "Descuento 2",
@@ -153,7 +153,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       {
         placeHolder: CODE,
 
-        type: "input",
+        type: "numeric",
         key: "codi",
         required: true,
         breakpoints: {
@@ -161,10 +161,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           md: 2,
         },
         noEditable: true,
-        validationType: "string",
+        validationType: "number",
         validations: [
           ...props.commonValidations.requiredValidation(),
-          ...props.stringValidations.minMaxValidation(1, 10),
+          ...props.numberValidations.minMaxValidation(1,9999999999),
         ],
       },
       {

@@ -12,7 +12,7 @@ import { useTabForm } from "hooks/tab-form";
 
 const CREATE_SECTION_INDEX = 0;
 const CHECKBOX_SECTION_TAB_INDEX = 1;
-const FAMILY_CLIENTS_SUPPLIERS_SECTION_TAB_INDEX = 2;
+
 
 const DocumentFooterTab = ({
   formData,
@@ -23,7 +23,8 @@ const DocumentFooterTab = ({
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [CREATE_SECTION_INDEX]: false,
-      [CHECKBOX_SECTION_TAB_INDEX]: false,
+      [CHECKBOX_SECTION_TAB_INDEX]: true,
+
     },
     setIsValid: props.setIsValid,
   });
@@ -241,11 +242,13 @@ const DocumentFooterTab = ({
         ],
       },
     },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "PieDocumento.empresa",
         defaultMessage: "Empresa",
       }),
+
       type: "LOV",
       key: "empresa2",
       breakpoints: {
@@ -273,6 +276,8 @@ const DocumentFooterTab = ({
         ],
       },
     },
+
+     
     {
       placeHolder: props.intl.formatMessage({
         id: "PieDocumento.imprimirClase",
@@ -282,10 +287,14 @@ const DocumentFooterTab = ({
       key: "impCls",
       breakpoints: {
         xs: 6,
+
         md: 2,
+
+ 
       },
     },
   ];
+
 
   // const familyClientsSuppliersConfiguration = [
   //   {
@@ -301,6 +310,8 @@ const DocumentFooterTab = ({
   //     },
   //   },
   // ];
+
+
 
   const tabs = [
     {
@@ -329,7 +340,9 @@ const DocumentFooterTab = ({
           {...props}
         />
       ),
+
     },
+    
     // {
     //   className: "general-tab-subtab",
     //   label: <FormattedMessage id={"Proveedores.familia"} defaultMessage={"Familia"}/>,

@@ -31,7 +31,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import {ActionsColumn} from "./ActionsColumn";
 import { Loading } from '../shared/Loading';
 import {useHistory} from "react-router-dom";
-import {injectIntl} from "react-intl";
+import {FormattedMessage, injectIntl} from "react-intl";
 import {
   getErrors,
   getLoading,
@@ -40,13 +40,31 @@ import {
   getTotalCount
 } from "../../redux/reactGrid/selectors";
 import {deleteData, searchData, reset} from "../../redux/reactGrid";
-import {Input, TableCell, TextField} from "@material-ui/core";
+import {TableCell, TextField} from "@material-ui/core";
 
 const getRowId = row => row.id;
 
 const TableComponent = ({ ...restProps }) => (
   <Table.Table {...restProps} className="table-striped with-padding" />
 );
+
+/** Avoid declaring statement inside render methods
+ * https://devexpress.github.io/devextreme-reactive/react/common/docs/guides/performance-optimization/#avoid-declaring-statements-inside-render-methods
+ */
+const FilterCellBase = ({ filter, onFilter, column }) => {
+  return (
+    <TableCell>
+      <TextField
+        value={filter ? filter.value : ''}
+        onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
+        label={<FormattedMessage id={"ReactGrid.filtros.buscar_por"} defaultMessage={"Buscar por {name}"} values={{name: column.title? column.title:""}}/>} />
+    </TableCell>
+  )
+};
+
+const FilterCell = (props) => {
+  return <FilterCellBase {...props} />;
+};
 
 const ReactGrid = ({ configuration, enqueueSnackbar,
                      rows, loading, pageSize, totalCount, errors,
@@ -112,20 +130,6 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
       }}
     />
   );
-
-  const FilterCellBase = ({ filter, onFilter }) => {
-    return (
-    <TableCell>
-      <TextField
-        value={filter ? filter.value : ''}
-        onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
-        placeholder="Filter..." />
-    </TableCell>
-  )};
-
-  const FilterCell = (props) => {
-    return <FilterCellBase {...props} />;
-  };
 
   const commitChanges = ({ added, changed, deleted }) => {
     if (added) {}

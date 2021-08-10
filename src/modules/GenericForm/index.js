@@ -111,7 +111,7 @@ const GenericForm = ({loading, ...props}) => {
     props.handleIsValid && props.handleIsValid(formik.isValid);
   }
 
-  const getField = ({id, type, variant, placeHolder, required, key, noEditable, selector, disabled, text, prefix, suffix, extraQuery}, formik) => {
+  const getField = ({id, type, variant, placeHolder, required, key, noEditable, selector, disabled, text, prefix, suffix, extraQuery, format}, formik) => {
     const noEnable = loading || (props.editMode && noEditable) || disabled;
     const identification = id? id:key;
 
@@ -158,16 +158,16 @@ const GenericForm = ({loading, ...props}) => {
               handleChange(e, v);
               formik.setFieldValue(key,v);
             }}
-            value={props.getFormData && props.getFormData(key)? props.getFormData(key) : ""}
+            value={props.getFormData && props.getFormData(key)? props.getFormData(key) : 0}
             label={placeHolder}
             required={Boolean(required)}
             error={hasError(key,formik)}
             helperText={getMessageError(key, formik)}
             onBlur={handleBlur}
-            type={"text"}
             disabled={noEnable}
             prefix={prefix}
-            suffix={suffix} />
+            suffix={suffix}
+            format={format} />
         );
       case 'select':
         return (
@@ -341,7 +341,7 @@ const GenericForm = ({loading, ...props}) => {
             sm={breakpoints? breakpoints.sm:false}
             md={breakpoints? breakpoints.md:false}
             lg={breakpoints? breakpoints.lg:false} >
-        <FormControl className="form-control-filled-input" variant="filled" error={hasError(key,formik)}>
+        <FormControl className="form-control-filled-input" variant="filled" error={hasError(key,formik)} required={params.required}>
           {getField(params, formik)}
         </FormControl>
       </Grid>)
@@ -452,6 +452,8 @@ GenericForm.propTypes = {
     })),
     prefix: PropTypes.string,
     suffix: PropTypes.string,
+    // it only used in the numeric component (react-number-format)
+    format: PropTypes.any,
     // when you request filtering by extra fields in some request
     extraQuery: PropTypes.arrayOf(PropTypes.shape({
       columnName: PropTypes.string.isRequired,

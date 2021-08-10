@@ -85,6 +85,15 @@ const DocumentFooterTab = ({
 
     columns: [
       {
+        name: "numero",
+        title: props.intl.formatMessage({
+          id: "PieDocumnentos.numero",
+          defaultMessage: "Numero ",
+        }),
+    
+      },
+  
+      {
         name: "familiaClient.description",
         title: props.intl.formatMessage({
           id: "FamiliaClientes.titulo",
@@ -103,6 +112,21 @@ const DocumentFooterTab = ({
     ],
 
     formComponents: [
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "PieDocumento.numero",
+          defaultMessage: "Numero",
+        }),
+        type: "input",
+        required:true,
+        key: "numero",
+        breakpoints: {
+          xs: 6,
+          md: 2,
+        },
+        validationType:"string",
+        validations:[...props.commonValidations.requiredValidation()]
+      },
       {
         placeHolder: props.intl.formatMessage({
           id: "Clientes.familia",

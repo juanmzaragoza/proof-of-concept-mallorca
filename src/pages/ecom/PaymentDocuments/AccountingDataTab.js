@@ -21,7 +21,11 @@ const AccountingDataTab = ({
   ...props
 }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { [ACCOUNTING_SECTION_INDEX]: false },
+    fields: {
+      [ACCOUNTING_SECTION_INDEX]: false,
+      [INCOME_SECTION_INDEX]: false,
+      [PAYMENT_SECTION_INDEX]: false,
+    },
     setIsValid: props.setIsValid,
   });
 
@@ -103,7 +107,7 @@ const AccountingDataTab = ({
         id: "Iva.titulo",
         defaultMessage: "Iva",
       }),
-      required:true,
+      required: true,
       type: "LOV",
       key: "iva",
       breakpoints: {
@@ -121,10 +125,7 @@ const AccountingDataTab = ({
         ],
       },
       validationType: "object",
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-      ],
-    
+      validations: [...props.commonValidations.requiredValidation()],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -153,8 +154,10 @@ const AccountingDataTab = ({
       },
       required: true,
       validationType: "number",
-      validations: [...props.commonValidations.requiredValidation(),
-        ...props.numberValidations.minMaxValidation(0, 99)],
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+        ...props.numberValidations.minMaxValidation(0, 99),
+      ],
     },
 
     {
@@ -195,7 +198,7 @@ const AccountingDataTab = ({
       type: "LOV",
       key: "regimIva",
       id: "regimIvas",
-      required:true,
+      required: true,
       breakpoints: {
         xs: 12,
         md: 4,
@@ -211,10 +214,7 @@ const AccountingDataTab = ({
         ],
       },
       validationType: "object",
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-      ],
- 
+      validations: [...props.commonValidations.requiredValidation()],
     },
 
     {

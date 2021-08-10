@@ -1,13 +1,12 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 import { compose } from "redux";
-import { useParams } from "react-router-dom";
-import OutlinedContainer from "../../../modules/shared/OutlinedContainer";
-import { FormattedMessage, injectIntl } from "react-intl";
+
+import {  injectIntl } from "react-intl";
 import { withValidations } from "modules/wrappers";
-import { useTabForm } from "../../../hooks/tab-form";
+
 import ExpandableGrid from "modules/ExpandableGrid";
-import { Chip } from "@material-ui/core";
+
 
 const InitialSituationTab = ({
   formData,
@@ -15,10 +14,11 @@ const InitialSituationTab = ({
   getFormData,
   ...props
 }) => {
-  const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false },
-    setIsValid: props.setIsValid,
-  });
+
+  useEffect(() => {
+    props.setIsValid(true);
+  },[]);
+
   const aSCodeAndName = [
     {
       title: props.intl.formatMessage({

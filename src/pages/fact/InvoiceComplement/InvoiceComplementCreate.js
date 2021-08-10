@@ -129,6 +129,7 @@ const InvoiceComplementCreate = (props) => {
       }),
       type: "LOV",
       key: "iva",
+      id:"ivaFact",
       breakpoints: {
         xs: 12,
         md: 2,

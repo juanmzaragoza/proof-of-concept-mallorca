@@ -8,23 +8,17 @@ import { some, min, pickBy, cloneDeep } from "lodash";
 import GeneralTab from "./GeneralTab";
 import ContactTab from "./ContactTab";
 import ContabilidadTab from "./ContabilidadTab";
-// import FacturacionTab from "./FacturacionTab";
 
-// import SubClienteTab from "./SubClienteTab";
-// import AplicadoresTab from "./AplicadoresTab";
-// import PersonalizacionTab from "./PersonalizacionTab";
-// import ComercialTab from "./ComercialTab";
 
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig } from "redux/pageHeader";
 import { getFireSave } from "redux/pageHeader/selectors";
 import { withAbmServices } from "../../../modules/wrappers";
-import { getFormData, getFormErrors, getFormDataByKey, getIsDataLoaded } from "../../../redux/genericForm/selectors";
+import { getFormData, getFormErrors, getFormDataByKey, getIsDataLoaded, getIsSubmitted } from "../../../redux/genericForm/selectors";
 
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
-// import DocumentsTab from './DocumentsTab';
-// import ClientsApp from './ClientsApp';
+
 
 const GENERAL_TAB_INDEX = 0;
 const CONTACT_TAB_INDEX = 1;
@@ -35,7 +29,7 @@ const CONTAB_TAB_INDEX = 2;
 const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromOutside, services, ...props }) => {
   const [editMode, setEditMode] = useState(false);
   const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
-  const [tabIndexWithError, setTabIndexWithError] = useState({ [GENERAL_TAB_INDEX]: false, [CONTACT_TAB_INDEX]: false, [CONTAB_TAB_INDEX]: false});
+  const [tabIndexWithError, setTabIndexWithError] = useState({ [GENERAL_TAB_INDEX]: true, [CONTACT_TAB_INDEX]: false, [CONTAB_TAB_INDEX]: false});
   const [forceTabChange, setForceTabChange] = useState(false);
 
   const tabHasError = (index) => {
@@ -75,7 +69,8 @@ const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromO
         onSubmitTab={handleSubmitTab}
         formErrors={props.formErrors}
         loading={props.loading}
-        formDataLoaded={props.formDataLoaded} />
+        formDataLoaded={props.formDataLoaded}
+        isSubmitted={props.isSubmitted} />
     },
     {
       label: <FormattedMessage id={"Proveedores.tabs.contactos"} defaultMessage={"Contactos"} />,
@@ -90,7 +85,8 @@ const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromO
         onSubmitTab={handleSubmitTab}
         formErrors={props.formErrors}
         loading={props.loading}
-        formDataLoaded={props.formDataLoaded} />
+        formDataLoaded={props.formDataLoaded}
+        isSubmitted={props.isSubmitted} />
     },
     {
       label: <FormattedMessage id={"Proveedores.tabs.contabilidadFact"} defaultMessage={"Contabilidad y Facturación"} />,
@@ -105,7 +101,8 @@ const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromO
         onSubmitTab={handleSubmitTab}
         formErrors={props.formErrors}
         loading={props.loading}
-        formDataLoaded={props.formDataLoaded} />
+        formDataLoaded={props.formDataLoaded}
+        isSubmitted={props.isSubmitted} />
     },
     
 
@@ -185,7 +182,8 @@ const mapStateToProps = (state, props) => {
     loading: getLoading(state),
     allFormData: getFormData(state),
     getFormData: getFormDataByKey(state),
-    formDataLoaded: getIsDataLoaded(state)
+    formDataLoaded: getIsDataLoaded(state),
+    isSubmitted: getIsSubmitted(state),
   };
 };
 

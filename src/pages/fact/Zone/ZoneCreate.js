@@ -20,7 +20,6 @@ const ZoneCreate = (props) => {
     defaultMessage: "Descripción",
   });
 
-
   const createConfiguration = [
     {
       placeHolder: CODE,
@@ -35,6 +34,7 @@ const ZoneCreate = (props) => {
       noEditable: true,
       validationType: "string",
       validations: [
+        ...props.stringValidations.fieldExistsValidation("zona", "codi", CODE),
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 4),
       ],
@@ -67,9 +67,7 @@ const ZoneCreate = (props) => {
         md: 2,
       },
       validationType: "number",
-      validations: [
-        ...props.numberValidations.minMaxValidation(0, 9999),
-      ],
+      validations: [...props.numberValidations.minMaxValidation(0, 9999)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -96,8 +94,6 @@ const ZoneCreate = (props) => {
         md: 12,
       },
     },
-
-   
   ];
   return (
     <CreateUpdateForm
