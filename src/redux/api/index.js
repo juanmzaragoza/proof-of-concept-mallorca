@@ -148,7 +148,7 @@ export const bancCodi = `api/fact/bancs`;
 export const paisNifCodi = `api/paisosNif`;
 
 export const categoriesTraduccio = `api/ecom/categoriesTraduccio`;
-
+export const ubicacio = `api/fact/ubicacions`
 export const ubicacios = "api/fact/ubicacions";
 export const ubicacioArticles = "api/fact/ubicacionsArticle";
 
