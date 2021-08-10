@@ -28,6 +28,7 @@ ReactDOM.render(
                 vertical: 'bottom',
                 horizontal: 'right',
               }}
+              preventDuplicate={true}
             >
               <SnackbarUtilsConfigurator />
               <App />
