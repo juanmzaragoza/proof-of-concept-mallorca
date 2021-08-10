@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { useParams } from "react-router-dom";
 import { compose } from "redux";
 import { FormattedMessage, injectIntl } from "react-intl";
@@ -10,6 +10,10 @@ import ExpandableGrid from "modules/ExpandableGrid";
 
 const SalesSeriesAccountsTab = ({ formData, setFormData, getFormData, ...props }) => {
 
+  useEffect(() => {
+    props.setIsValid(true);
+  }, []);
+  
   const { id: itemFamilyId } = useParams();
 
   const CODE = props.intl.formatMessage({id: "Comun.codigo", defaultMessage: "Código"});
