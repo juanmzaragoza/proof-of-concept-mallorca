@@ -16,7 +16,7 @@ const ArticlesList = ({ actions, ...props }) => {
       defaultMessage: "Artículos",
       }),
     });
-    actions.setBreadcrumbHeader([{ title: "Artículos", href: "/fact/article" }]);
+    actions.setBreadcrumbHeader([{ title: "Artículos", href: "/fact/articulos" }]);
   }, []);
 
   const [filters, setFilters] = useState([]);

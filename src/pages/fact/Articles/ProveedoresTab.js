@@ -188,19 +188,54 @@ const ProveedoresTab = ({ formData, setFormData, getFormData, ...props }) => {
     ],
     formComponents: [
       {
+        placeHolder: PROVEEDOR,
+        type: "LOV",
+        key: "proveidor",
+        id: "suppliers",
+        required:true,
+        breakpoints: {
+          xs: 12,
+          md: 4,
+        },
+        selector: {
+          key: "proveidors",
+          labelKey: (data) => `${data.nomComercial} (${data.codi})`,
+          sort: "codi",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndComercialName,
+        },
+        validationType:"object",
+        validations:[...props.commonValidations.requiredValidation()]
+      },
+      {
         placeHolder: CODARTPRO,
         type: "input",
         key: "codi",
-        required: true,
         breakpoints: {
           xs: 12,
           md: 3,
         },
         validationType: "string",
         validations: [
-          ...props.commonValidations.requiredValidation(),
+  
           ...props.stringValidations.minMaxValidation(1, 20),
         ],
+      },
+      {
+        placeHolder: DIVISA,
+        type: "LOV",
+        key: "divisa",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "divisas",
+          labelKey: (data) => `${data.nom} (${data.codi})`,
+          sort: "codi",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndName,
+        },
       },
       {
         placeHolder: PRECIOCOSTE,
@@ -276,50 +311,19 @@ const ProveedoresTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "ultimDiaCarrecComplements",
         breakpoints: {
           xs: 12,
-          md: 4,
+          md: 2,
         },
       },
-      {
-        placeHolder: PROVEEDOR,
-        type: "LOV",
-        key: "proveidor",
-        id: "suppliers",
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        selector: {
-          key: "proveidors",
-          labelKey: (data) => `${data.nomComercial} (${data.codi})`,
-          sort: "codi",
-          cannotCreate: true,
-          advancedSearchColumns: aSCodeAndComercialName,
-        },
-      },
-      {
-        placeHolder: DIVISA,
-        type: "LOV",
-        key: "divisa",
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        selector: {
-          key: "divisas",
-          labelKey: (data) => `${data.nom} (${data.codi})`,
-          sort: "codi",
-          cannotCreate: true,
-          advancedSearchColumns: aSCodeAndName,
-        },
-      },
+
+
       {
         placeHolder: PRECIONETO,
         type: "numeric",
         disabled: true,
-        key: "ultimDescompte",
+        key: "preuNetExtraField",
         breakpoints: {
           xs: 12,
-          md: 2,
+          md: 3,
         },
         validationType: "number",
       },
@@ -333,7 +337,7 @@ const ProveedoresTab = ({ formData, setFormData, getFormData, ...props }) => {
         },
         validationType: "string",
         validations: [
-          ...props.commonValidations.requiredValidation(),
+         
           ...props.stringValidations.minMaxValidation(1, 1000),
         ],
       },

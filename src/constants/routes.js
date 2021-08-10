@@ -65,7 +65,7 @@ export const POINT_SALE_ECOM_URL = "/ecom/punto-ventas";
 
 export const COMPANY_FACT_URL = "/fact/empresas";
 
-export const ITEM_FAMILY_FACT_URL = "/fact/article-familia";
+export const ITEM_FAMILY_FACT_URL = "/fact/articulos-familia";
 export const ARTICLE_FACT_URL = "/fact/articulos";
 export const FAMILY_COSTS_FACT_URL = "/fact/familia-costes";
 

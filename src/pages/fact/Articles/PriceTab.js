@@ -267,9 +267,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
       validationType: "number",
-      validations: [
-        ...props.numberValidations.minMaxValidation(0, 999),
-      ],
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -283,9 +281,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
       validationType: "number",
-      validations: [
-        ...props.numberValidations.minMaxValidation(0, 999),
-      ],
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -347,7 +343,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "numeric",
       key: "decimalsPreu",
-      required:true,
+      required: true,
       breakpoints: {
         xs: 12,
         md: 2,
@@ -370,15 +366,14 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
       validationType: "number",
-      validations: [
-        ...props.numberValidations.minMaxValidation(0, 9),],
+      validations: [...props.numberValidations.minMaxValidation(0, 9)],
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "Articulos.precio.precioSinIva",
         defaultMessage: "Precio sin IVA",
       }),
-      required:true,
+      required: true,
       type: "numeric",
       key: "pvpFact",
       breakpoints: {
@@ -386,7 +381,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 1,
       },
       validationType: "number",
-      validations:[ ...props.commonValidations.requiredValidation(),]
+      validations: [...props.commonValidations.requiredValidation()],
     },
     ...iva(2),
     {
@@ -409,7 +404,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "numeric",
       key: "preuCostExistencies",
-      disabled:true,
+      disabled: true,
       breakpoints: {
         xs: 12,
         md: 2,
@@ -717,7 +712,6 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         options: TIPO_RAPPEL_SELECTOR_VALUES,
       },
       validationType: "string",
-  
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -781,7 +775,21 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     ],
     formComponents: [
-      code(3),
+      {
+        type: "numeric",
+        key: "codi",
+        placeHolder: CODE,
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        validationType: "number",
+        validations: [
+          ...props.commonValidations.requiredValidation(),
+          ...props.numberValidations.minMaxValidation(1, 4),
+        ],
+      },
       {
         placeHolder: INFLIM,
         type: "numeric",
@@ -847,6 +855,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         type: "LOV",
         key: "preuArticleEnvas",
+        required: true,
         breakpoints: {
           xs: 12,
           md: 3,
