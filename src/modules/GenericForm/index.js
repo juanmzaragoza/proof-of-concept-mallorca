@@ -111,7 +111,11 @@ const GenericForm = ({loading, ...props}) => {
     props.handleIsValid && props.handleIsValid(formik.isValid);
   }
 
-  const getField = ({id, type, variant, placeHolder, required, key, noEditable, selector, disabled, text, prefix, suffix, extraQuery, format}, formik) => {
+  const getField = ({
+                      id, type, variant, placeHolder, required,
+                      key, noEditable, selector, disabled, text,
+                      prefix, suffix, extraQuery, format, fireActionOnBlur
+                    }, formik) => {
     const noEnable = loading || (props.editMode && noEditable) || disabled;
     const identification = id? id:key;
 
@@ -124,6 +128,9 @@ const GenericForm = ({loading, ...props}) => {
       formik.handleBlur(e);
       handleIsValid(formik);
       props.onBlur && props.onBlur(e);
+      if(fireActionOnBlur){
+        fireActionOnBlur({key, value: props.getFormData(key)});
+      }
     }
 
     switch(type) {
@@ -142,7 +149,7 @@ const GenericForm = ({loading, ...props}) => {
             required={Boolean(required)}
             error={hasError(key,formik)}
             helperText={getMessageError(key, formik)}
-            onBlur={handleBlur}
+            onBlur={(e) => handleBlur(e, key)}
             type={"text"}
             disabled={noEnable}
             multiline={Boolean(text && text.multiline)}
@@ -163,7 +170,7 @@ const GenericForm = ({loading, ...props}) => {
             required={Boolean(required)}
             error={hasError(key,formik)}
             helperText={getMessageError(key, formik)}
-            onBlur={handleBlur}
+            onBlur={(e) => handleBlur(e, key)}
             disabled={noEnable}
             prefix={prefix}
             suffix={suffix}
@@ -180,7 +187,7 @@ const GenericForm = ({loading, ...props}) => {
             options={selector.options}
             error={hasError(key,formik)}
             helperText={getMessageError(key, formik)}
-            onBlur={handleBlur}
+            onBlur={(e) => handleBlur(e, key)}
             value={props.getFormData && props.getFormData(key)? props.getFormData(key) : ""}
             onChange={e => {
               handleChange(e, e.target.value);
@@ -199,6 +206,7 @@ const GenericForm = ({loading, ...props}) => {
                 disabled={noEnable}
                 color="primary"
                 required={required}
+                onBlur={(e) => handleBlur(e, key)}
               />
             }
             label={placeHolder}
@@ -214,6 +222,7 @@ const GenericForm = ({loading, ...props}) => {
               name={key}
               value={props.getFormData && props.getFormData(key)? props.getFormData(key) : ""}
               onChange={e => props.setFormData({key,value: e.currentTarget.value})}
+              onBlur={(e) => handleBlur(e, key)}
               required={required}
               disabled={noEnable}>
               {selector && selector.options.map(option => <FormControlLabel key={option.value} value={option.value} control={<Radio />} label={option.label} />) }
@@ -243,7 +252,7 @@ const GenericForm = ({loading, ...props}) => {
             disabled={noEnable}
             cannotCreate={selector.cannotCreate}
             creationComponents={selector.creationComponents}
-            onBlur={handleBlur}
+            onBlur={(e) => handleBlur(e, key)}
             relatedWith={selector.relatedWith}
             transform={selector.transform}
             advancedSearchColumns={selector.advancedSearchColumns}
@@ -260,7 +269,8 @@ const GenericForm = ({loading, ...props}) => {
             onChange={(e,v) => {
               handleChange(e, v);
               formik.setFieldValue(key,v);
-            }} />
+            }}
+            onBlur={(e) => handleBlur(e, key)}/>
         );
         case 'date':
           return (
@@ -282,7 +292,7 @@ const GenericForm = ({loading, ...props}) => {
               }}
               error={hasError(key, formik)}
               helperText={getMessageError(key, formik)}
-              onBlur={handleBlur}
+              onBlur={(e) => handleBlur(e, key)}
               disabled={noEnable}
             />
           );
@@ -302,6 +312,7 @@ const GenericForm = ({loading, ...props}) => {
                   name={key}
                   disabled={noEnable}
                   color="primary"
+                  onBlur={(e) => handleBlur(e, key)}
                 />
               }
               label={placeHolder}
@@ -322,7 +333,7 @@ const GenericForm = ({loading, ...props}) => {
                 handleChange(e, v);
                 formik.setFieldValue(key,v);
               }}
-              onBlur={handleBlur}/>
+              onBlur={(e) => handleBlur(e, key)}/>
           );
       default:
         return;
@@ -460,6 +471,8 @@ GenericForm.propTypes = {
       value: PropTypes.string.isRequired,
       exact: PropTypes.bool
     })),
+    // when it's defined, fire an action on blur
+    fireActionOnBlur: PropTypes.func
   })),
   onSubmit: PropTypes.func,
   formDataLoaded: PropTypes.bool,
