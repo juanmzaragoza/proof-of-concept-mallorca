@@ -64,7 +64,8 @@ const ArticlesBrandForm = React.memo(({ actions, allFormData, getFormData, submi
         onSubmitTab={handleSubmitTab}
         formErrors={props.formErrors}
         loading={props.loading}
-        formDataLoaded={props.formDataLoaded} />
+        formDataLoaded={props.formDataLoaded}
+        isSubmitted={props.isSubmitted} />
     },
   ];
 
