@@ -223,7 +223,7 @@ const NumeracionesTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Asiento",
         }),
         type: "numeric",
-        key: "seienComptable",
+        key: "seientComptable",
 
         breakpoints: {
           xs: 12,

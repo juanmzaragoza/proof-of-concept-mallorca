@@ -343,7 +343,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 40)],
+      ...withRequiredValidation([
+        ...props.stringValidations.minMaxValidation(1, 40),
+      ]),
     },
     {
       placeHolder: props.intl.formatMessage({

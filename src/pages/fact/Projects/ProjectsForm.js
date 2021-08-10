@@ -60,7 +60,7 @@ const ProjectsForm = React.memo(
 
     /** step 2 */
     const [tabIndexWithError, setTabIndexWithError] = useState({
-      [GENERAL_TAB_INDEX]: true,
+      [GENERAL_TAB_INDEX]: false,
       [MORE_TAB_INDEX]: true,
       [BUDGET_TAB_INDEX]: false,
       [PROJECT_APP_TAB_INDEX]: false,

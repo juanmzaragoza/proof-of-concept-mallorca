@@ -6,7 +6,8 @@ import { useParams } from "react-router-dom";
 import { some, min, pickBy, cloneDeep } from "lodash";
 
 import GeneralTab from "./GeneralTab";
-import NumeracionesTab from "./NumeracionesTab";
+import LimitCreditTab from "./LimitCreditTab";
+
 
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
@@ -22,16 +23,19 @@ import {
   getFormErrors,
   getFormDataByKey,
   getIsDataLoaded,
-  getIsSubmitted,
 } from "../../../redux/genericForm/selectors";
 
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
 
-const GENERAL_TAB_INDEX = 0;
-const NUM_TPV_TAB_INDEX = 1;
 
-const PointSaleForm = React.memo(
+
+const GENERAL_TAB_INDEX = 0;
+const LIMIT_TAB_INDEX = 1;
+const INITIAL_SITU_TAB_INDEX = 2;
+
+
+const BoxForm = React.memo(
   ({
     actions,
     allFormData,
@@ -47,7 +51,9 @@ const PointSaleForm = React.memo(
     /** step 2 */
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [GENERAL_TAB_INDEX]: false,
-      [NUM_TPV_TAB_INDEX]: false,
+      [LIMIT_TAB_INDEX]: false,
+      [INITIAL_SITU_TAB_INDEX]: false,
+  
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -115,20 +121,19 @@ const PointSaleForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
-            isSubmitted={props.isSubmitted}
           />
         ),
       },
       {
-        ...getTranslations("PuntoVenta.NumTpv", "Numeraciones TPV"),
-        key: NUM_TPV_TAB_INDEX,
-        error: tabHasError(NUM_TPV_TAB_INDEX),
+        ...getTranslations("Cajas.tabs.limiteCredito", "Límite Crédito"),
+        key: LIMIT_TAB_INDEX,
+        error: tabHasError(LIMIT_TAB_INDEX),
         component: (
-          <NumeracionesTab
+          <LimitCreditTab
             setIsValid={(value) =>
               setTabIndexWithError({
                 ...tabIndexWithError,
-                [NUM_TPV_TAB_INDEX]: !value,
+                [LIMIT_TAB_INDEX]: !value,
               })
             }
             editMode={editMode}
@@ -139,10 +144,32 @@ const PointSaleForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
-            isSubmitted={props.isSubmitted}
           />
         ),
       },
+    //   {
+    //     ...getTranslations("Proveedores.tabs.contabilidad", "Contabilidad"),
+    //     key: ACCOUNTING_TAB_INDEX,
+    //     component: (
+    //       <AccountingTab
+    //         setIsValid={(value) =>
+    //           setTabIndexWithError({
+    //             ...tabIndexWithError,
+    //             [ACCOUNTING_TAB_INDEX]: !value,
+    //           })
+    //         }
+    //         editMode={editMode}
+    //         getFormData={getFormData}
+    //         setFormData={actions.setFormData}
+    //         submitFromOutside={submitFromOutside}
+    //         onSubmitTab={handleSubmitTab}
+    //         formErrors={props.formErrors}
+    //         loading={props.loading}
+    //         formDataLoaded={props.formDataLoaded}
+    //       />
+    //     ),
+    //   },
+      
     ];
 
     const { id } = useParams();
@@ -163,10 +190,10 @@ const PointSaleForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "PuntoVenta.titulo",
-              defaultMessage: "Puntos Venta",
+              id: "Cajas.titulo",
+              defaultMessage: "Cajas",
             }),
-            href: "/fact/punto-ventas",
+            href: "/fact/cajas",
           },
           {
             title: props.intl.formatMessage({
@@ -188,9 +215,9 @@ const PointSaleForm = React.memo(
     /** Update HEADER */
     useEffect(() => {
       if (isEditable()) {
-        const nomComercial = getFormData("nom");
-        const nom = nomComercial
-          ? nomComercial
+        const descripcion = getFormData("descripcio");
+        const desc = descripcion
+          ? descripcion
           : `${props.intl.formatMessage({
               id: "Comun.cargando",
               defaultMessage: "Cargando",
@@ -198,16 +225,16 @@ const PointSaleForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "PuntoVenta.titulo",
-              defaultMessage: "Punto Venta",
+              id: "Cajas.titulo",
+              defaultMessage: "Cajas",
             }),
-            href: "/fact/punto-ventas",
+            href: "/fact/cajas",
           },
-          { title: nom, href: "/fact/punto-ventas" },
+          { title: desc, href: "/fact/cajas" },
           { title: nameSelectedTab },
         ]);
       }
-    }, [getFormData("nom"), nameSelectedTab]);
+    }, [getFormData("descripcio"), nameSelectedTab]);
 
     useEffect(() => {
       if (submitFromOutside) {
@@ -251,7 +278,6 @@ const mapStateToProps = (state, props) => {
     allFormData: getFormData(state),
     getFormData: getFormDataByKey(state),
     formDataLoaded: getIsDataLoaded(state),
-    isSubmitted: getIsSubmitted(state),
   };
 };
 
@@ -269,5 +295,5 @@ const component = compose(
   injectIntl,
   connect(mapStateToProps, mapDispatchToProps),
   withAbmServices
-)(PointSaleForm);
+)(BoxForm);
 export default component;

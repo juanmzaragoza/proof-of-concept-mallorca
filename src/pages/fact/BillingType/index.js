@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, Switch} from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
 
-import ReceiptOutlinedIcon from '@material-ui/icons/ReceiptOutlined';
+import ReceiptIcon from '@material-ui/icons/Receipt';
 import BillingTypeList from "./BillingTypeList";
 import BillingTypeCreate from "./BillingTypeCreate";
 import withHeaders from "modules/wrappers/withHeaders";
@@ -24,6 +24,6 @@ const component = {
     component: withHeaders(billingType)
   },
   name: 'FAC_TIPFAC',
-  icon: <ReceiptOutlinedIcon />
+  icon: <ReceiptIcon />
 }
 export default component;

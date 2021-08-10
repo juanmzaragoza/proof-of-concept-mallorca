@@ -7,24 +7,78 @@ import { withValidations } from "modules/wrappers";
 import * as API from "redux/api";
 
 const PurchaseSeriesCreate = (props) => {
-  const CODE = props.intl.formatMessage({ id: "Comun.codigo", defaultMessage: "Código" });
-  const DESCRIPTION = props.intl.formatMessage({ id: "Comun.descripcion", defaultMessage: "Descripción" });
-  const NOM = props.intl.formatMessage({ id: "Comun.nombre", defaultMessage: "Nombre" });
-  const NOMCOMERCIAL = props.intl.formatMessage({ id: "Presupuestos.nombreComercialCliente", defaultMessage: "Nombre Comercial" });
-  const TIPOASIENTO = props.intl.formatMessage({ id: "SerieVenta.tipoAsientoContable", defaultMessage: "Tipo asiento contable" });
-  const DIARIOCONTABLE = props.intl.formatMessage({ id: "SerieVenta.diarioContable", defaultMessage: "Diario contable" });
-  const CUENTACONTABLE = props.intl.formatMessage({ id: "SerieCompra.cuentaContableCompras", defaultMessage: "Cuenta contable compras" });
-  const DIARIOCONTABLEPROFORMAS = props.intl.formatMessage({ id: "SerieVenta.diarioContableProforma", defaultMessage: "Diario contable proforma" });
-  const CUENTACONTABLEPROFORMAS = props.intl.formatMessage({ id: "SerieVenta.cuentasContablesComprasProforma", defaultMessage: "Cuenta contable compras proformas" });
-  const VALIDODESDE = props.intl.formatMessage({ id: "SerieCompra.validoDesde", defaultMessage: "Válido desde" });
-  const VALIDOHASTA = props.intl.formatMessage({ id: "SerieCompra.validoHasta", defaultMessage: "Válido hasta" });
-  const SITCODFAC = props.intl.formatMessage({ id: "SerieCompra.codigoSituacionFactura", defaultMessage: "Código situación factura" });
-  const SITCODRCT = props.intl.formatMessage({ id: "SerieCompra.codigoSituacionRectificativa", defaultMessage: "Código situación rectificativa" });
-  const OPEDESC = props.intl.formatMessage({ id: "SerieCompra.descripcionOperario", defaultMessage: "Descripción operario" });
-  const SITCODCLA = props.intl.formatMessage({ id: "SerieCompra.codigoSituacionRegimenEspecial", defaultMessage: "Código situación régimen especial" });
-  const DESGIVA = props.intl.formatMessage({ id: "SerieVenta.desglosarIva", defaultMessage: "Desglorar IVA" });
-  const ALMACEN = props.intl.formatMessage({ id: "Articulos.stock.descuentos.almacen", defaultMessage: "Almacén" });
-  const EMPRESA = props.intl.formatMessage({ id: "FamiliaArticulos.empresa", defaultMessage: "Empresa" });
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
+  const DESCRIPTION = props.intl.formatMessage({
+    id: "Comun.descripcion",
+    defaultMessage: "Descripción",
+  });
+  const NOM = props.intl.formatMessage({
+    id: "Comun.nombre",
+    defaultMessage: "Nombre",
+  });
+  const NOMCOMERCIAL = props.intl.formatMessage({
+    id: "Presupuestos.nombreComercialCliente",
+    defaultMessage: "Nombre Comercial",
+  });
+  const TIPOASIENTO = props.intl.formatMessage({
+    id: "SerieVenta.tipoAsientoContable",
+    defaultMessage: "Tipo asiento contable",
+  });
+  const DIARIOCONTABLE = props.intl.formatMessage({
+    id: "SerieVenta.diarioContable",
+    defaultMessage: "Diario contable",
+  });
+  const CUENTACONTABLE = props.intl.formatMessage({
+    id: "SerieCompra.cuentaContableCompras",
+    defaultMessage: "Cuenta contable compras",
+  });
+  const DIARIOCONTABLEPROFORMAS = props.intl.formatMessage({
+    id: "SerieVenta.diarioContableProforma",
+    defaultMessage: "Diario contable proforma",
+  });
+  const CUENTACONTABLEPROFORMAS = props.intl.formatMessage({
+    id: "SerieVenta.cuentasContablesComprasProforma",
+    defaultMessage: "Cuenta contable compras proformas",
+  });
+  const VALIDODESDE = props.intl.formatMessage({
+    id: "SerieCompra.validoDesde",
+    defaultMessage: "Válido desde",
+  });
+  const VALIDOHASTA = props.intl.formatMessage({
+    id: "SerieCompra.validoHasta",
+    defaultMessage: "Válido hasta",
+  });
+  const SITCODFAC = props.intl.formatMessage({
+    id: "SerieCompra.codigoSituacionFactura",
+    defaultMessage: "Código situación factura",
+  });
+  const SITCODRCT = props.intl.formatMessage({
+    id: "SerieCompra.codigoSituacionRectificativa",
+    defaultMessage: "Código situación rectificativa",
+  });
+  const OPEDESC = props.intl.formatMessage({
+    id: "SerieCompra.descripcionOperario",
+    defaultMessage: "Descripción operario",
+  });
+  const SITCODCLA = props.intl.formatMessage({
+    id: "SerieCompra.codigoSituacionRegimenEspecial",
+    defaultMessage: "Código situación régimen especial",
+  });
+  const DESGIVA = props.intl.formatMessage({
+    id: "SerieVenta.desglosarIva",
+    defaultMessage: "Desglorar IVA",
+  });
+  const ALMACEN = props.intl.formatMessage({
+    id: "Articulos.stock.descuentos.almacen",
+    defaultMessage: "Almacén",
+  });
+  const EMPRESA = props.intl.formatMessage({
+    id: "FamiliaArticulos.empresa",
+    defaultMessage: "Empresa",
+  });
 
   const createConfiguration = [
     {
@@ -41,7 +95,11 @@ const PurchaseSeriesCreate = (props) => {
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 2),
-        ...props.stringValidations.fieldExistsValidation('serieCompras', 'codi', CODE)
+        ...props.stringValidations.fieldExistsValidation(
+          "serieCompras",
+          "codi",
+          CODE
+        ),
       ],
     },
     {
@@ -51,7 +109,7 @@ const PurchaseSeriesCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 6,
       },
       validationType: "string",
       validations: [
@@ -69,7 +127,6 @@ const PurchaseSeriesCreate = (props) => {
       },
       validationType: "string",
       validations: [
-        ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 2),
       ],
     },
@@ -82,9 +139,7 @@ const PurchaseSeriesCreate = (props) => {
         md: 2,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 2),
-      ],
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
     },
     {
       placeHolder: CUENTACONTABLE,
@@ -95,9 +150,7 @@ const PurchaseSeriesCreate = (props) => {
         md: 2,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 10),
-      ],
+      validations: [...props.stringValidations.minMaxValidation(1, 10)],
     },
     {
       placeHolder: DIARIOCONTABLEPROFORMAS,
@@ -108,9 +161,7 @@ const PurchaseSeriesCreate = (props) => {
         md: 2,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 2),
-      ],
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
     },
     {
       placeHolder: CUENTACONTABLEPROFORMAS,
@@ -121,9 +172,7 @@ const PurchaseSeriesCreate = (props) => {
         md: 3,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 10),
-      ],
+      validations: [...props.stringValidations.minMaxValidation(1, 10)],
     },
     {
       placeHolder: VALIDODESDE,
@@ -144,17 +193,24 @@ const PurchaseSeriesCreate = (props) => {
       },
     },
     {
+      placeHolder: DESGIVA,
+      type: "checkbox",
+      key: "desglossarIva",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+    },
+    {
       placeHolder: SITCODFAC,
       type: "input",
       key: "sitCodFac",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 2),
-      ],
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
     },
     {
       placeHolder: SITCODRCT,
@@ -165,9 +221,7 @@ const PurchaseSeriesCreate = (props) => {
         md: 2,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 2),
-      ],
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
     },
     {
       placeHolder: SITCODCLA,
@@ -175,29 +229,19 @@ const PurchaseSeriesCreate = (props) => {
       key: "sitCodCla",
       breakpoints: {
         xs: 12,
-        md: 3,
-      },
-      validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 2),
-      ],
-    },
-    {
-      placeHolder: DESGIVA,
-      type: "checkbox",
-      key: "desglossarIva",
-      breakpoints: {
-        xs: 12,
         md: 2,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
     },
+
     {
       placeHolder: ALMACEN,
       type: "LOV",
       key: "magatzem",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
       selector: {
         key: "magatzems",
@@ -209,8 +253,6 @@ const PurchaseSeriesCreate = (props) => {
           { title: NOM, name: "nom" },
         ],
       },
-      validationType: "object",
-      validations: [...props.commonValidations.requiredValidation()],
     },
     {
       placeHolder: EMPRESA,
@@ -231,8 +273,7 @@ const PurchaseSeriesCreate = (props) => {
           { title: NOMCOMERCIAL, name: "nomComercial" },
         ],
       },
-      validationType: "object",
-      validations: [...props.commonValidations.requiredValidation()],
+
     },
     {
       placeHolder: OPEDESC,
@@ -247,7 +288,7 @@ const PurchaseSeriesCreate = (props) => {
       },
       validationType: "string",
       validations: [
-        ...props.commonValidations.requiredValidation(),
+
         ...props.stringValidations.minMaxValidation(1, 500),
       ],
     },

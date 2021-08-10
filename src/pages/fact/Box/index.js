@@ -8,14 +8,12 @@ import Paper from "@material-ui/core/Paper";
 import * as API from "redux/api";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import withHeaders from "modules/wrappers/withHeaders";
+import BoxList from "./BoxList";
+import BoxForm from "./BoxForm";
+import InputIcon from "@material-ui/icons/Input";
+import { BOX_FACT_URL } from "constants/routes";
 
-import AttachmentIcon from '@material-ui/icons/Attachment';
-import FinalesFacturaList from "./FinalesFacturasList";
-import FinalesFacturaForm from "./FinalesFacturaForm";
-
-import { FINALES_FACTURAS_FACT_URL } from "constants/routes";
-
-const URL = FINALES_FACTURAS_FACT_URL;
+const URL = BOX_FACT_URL;
 
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
@@ -25,31 +23,30 @@ const mapDispatchToProps = (dispatch, props) => {
   return { actions };
 };
 
-const FinalesFacturaListIntl = compose(
+const BoxListIntl = compose(
   injectIntl,
   connect(null, mapDispatchToProps)
-)(FinalesFacturaList);
+)(BoxList);
 
-const FinalesFacturaWithUrl = () => (
-  <FinalesFacturaForm url={API.finalFactura} />
-);
+// suppliers form
+// TODO(): maybe we can create a state for the page and set the url there
+const BoxFormWithUrl = () => <BoxForm url={API.caixa} />;
 
-const FinalesFactura = () => (
+const Box = () => (
   <Paper style={{ position: "relative" }}>
     <Switch>
-      <Route exact path={`${URL}`} component={FinalesFacturaListIntl}></Route>
-      <Route path={`${URL}/create`} component={FinalesFacturaWithUrl}></Route>
-      <Route path={`${URL}/:id`} component={FinalesFacturaWithUrl}></Route>
+      <Route exact path={`${URL}`} component={BoxListIntl}></Route>
+      <Route path={`${URL}/create`} component={BoxFormWithUrl}></Route>
+      <Route path={`${URL}/:id`} component={BoxFormWithUrl}></Route>
     </Switch>
   </Paper>
 );
 
-const component = {
+export default {
   routeProps: {
     path: `${URL}`,
-    component: withHeaders(FinalesFactura),
+    component: withHeaders(Box),
   },
-  name: "FAC_FINFAC",
-  icon: <AttachmentIcon />,
+  name: "FAC_CAIXA",
+  icon: <InputIcon />,
 };
-export default component;
