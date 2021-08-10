@@ -12,7 +12,7 @@ import { useTabForm } from "hooks/tab-form";
 
 const CREATE_SECTION_INDEX = 0;
 const CHECKBOX_SECTION_TAB_INDEX = 1;
-const FAMILY_CLIENTS_SUPPLIERS_SECTION_TAB_INDEX = 2;
+
 
 const DocumentFooterTab = ({
   formData,
@@ -24,7 +24,7 @@ const DocumentFooterTab = ({
     fields: {
       [CREATE_SECTION_INDEX]: false,
       [CHECKBOX_SECTION_TAB_INDEX]: true,
-      [FAMILY_CLIENTS_SUPPLIERS_SECTION_TAB_INDEX]: true,
+
     },
     setIsValid: props.setIsValid,
   });
@@ -185,39 +185,99 @@ const DocumentFooterTab = ({
       key: "ordre",
       breakpoints: {
         xs: 6,
-        md: 3,
+        md: 2,
       },
       validationType: "number",
       validations: [...props.numberValidations.minMaxValidation(0, 99)],
     },
+    // {
+    //   placeHolder: props.intl.formatMessage({
+    //     id: "PieDocumento.serieCompra",
+    //     defaultMessage: "Series de Compra",
+    //   }),
+    //   type: "input",
+    //   key: "serieCompraCodi",
+    //   breakpoints: {
+    //     xs: 6,
+    //     md: 3,
+    //   },
+    //   validationType: "string",
+    //   validations: [...props.stringValidations.minMaxValidation(1, 2)],
+    // },
     {
       placeHolder: props.intl.formatMessage({
-        id: "PieDocumento.serieCompra",
-        defaultMessage: "Series de Compra",
+        id: "Proveedores.serieCompra",
+        defaultMessage: "Serie compra",
       }),
-      type: "input",
+      type: "LOV",
       key: "serieCompraCodi",
       breakpoints: {
-        xs: 6,
-        md: 3,
+        xs: 12,
+        md: 4,
       },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 2)],
+      selector: {
+        key: "serieCompras",
+        labelKey: (data) => `${data.descripcio} (${data.codi})`,
+        sort: "descripcio",
+        cannotCreate: true,
+        transform: {
+          apply: (serieCompras) => serieCompras && serieCompras.codi,
+          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+        },
+        advancedSearchColumns: [
+          {
+            title: props.intl.formatMessage({
+              id: "Comun.codigo",
+              defaultMessage: "Código",
+            }),
+            name: "codi",
+          },
+          {
+            title: props.intl.formatMessage({
+              id: "Comun.descripcion",
+              defaultMessage: "Descripción",
+            }),
+            name: "descripcio",
+          },
+        ],
+      },
     },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "PieDocumento.empresa",
         defaultMessage: "Empresa",
       }),
-      type: "input",
+
+      type: "LOV",
       key: "empresa2",
       breakpoints: {
-        xs: 6,
-        md: 3,
+        xs: 12,
+        md: 4,
       },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 4)],
+      selector: {
+        key: "empresas",
+        labelKey: (data) => `${data.nomComercial} (${data.codi})`,
+        sort: "nomComercial",
+        cannotCreate: true,
+        transform: {
+          apply: (empresa) => empresa && empresa.codi,
+          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+        },
+        advancedSearchColumns: [
+          { title: CODE, name: "codi" },
+          {
+            title: props.intl.formatMessage({
+              id: "Comun.nombre",
+              defaultMessage: "Nombre",
+            }),
+            name: "nomComercial",
+          },
+        ],
+      },
     },
+
+     
     {
       placeHolder: props.intl.formatMessage({
         id: "PieDocumento.imprimirClase",
@@ -227,25 +287,31 @@ const DocumentFooterTab = ({
       key: "impCls",
       breakpoints: {
         xs: 6,
-        md: 3,
+
+        md: 2,
+
+ 
       },
     },
   ];
 
-  const familyClientsSuppliersConfiguration = [
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "PieDocumento.familiaClienteProveedor",
-        defaultMessage: "Familia Cliente/Proveedor",
-      }),
-      type: "checkbox",
-      key: "familiaCliProv",
-      breakpoints: {
-        xs: 6,
-        md: 6,
-      },
-    },
-  ];
+
+  // const familyClientsSuppliersConfiguration = [
+  //   {
+  //     placeHolder: props.intl.formatMessage({
+  //       id: "PieDocumento.familiaClienteProveedor",
+  //       defaultMessage: "Familia Cliente/Proveedor",
+  //     }),
+  //     type: "checkbox",
+  //     key: "familiaCliProv",
+  //     breakpoints: {
+  //       xs: 6,
+  //       md: 6,
+  //     },
+  //   },
+  // ];
+
+
 
   const tabs = [
     {
@@ -274,36 +340,25 @@ const DocumentFooterTab = ({
           {...props}
         />
       ),
+
     },
-    {
-      className: "general-tab-subtab",
-      label: (
-        <FormattedMessage
-          id={"Proveedores.familia"}
-          defaultMessage={"Familia"}
-        />
-      ),
-      key: 1,
-      component: (
-        <GenericForm
-          formComponents={familyClientsSuppliersConfiguration}
-          emptyPaper={true}
-          setFormData={setFormData}
-          getFormData={getFormData}
-          loading={props.loading}
-          formErrors={props.formErrors}
-          submitFromOutside={props.submitFromOutside}
-          onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) =>
-            addValidity(FAMILY_CLIENTS_SUPPLIERS_SECTION_TAB_INDEX, value)
-          }
-          onBlur={(e) =>
-            handleTouched(FAMILY_CLIENTS_SUPPLIERS_SECTION_TAB_INDEX)
-          }
-          {...props}
-        />
-      ),
-    },
+    
+    // {
+    //   className: "general-tab-subtab",
+    //   label: <FormattedMessage id={"Proveedores.familia"} defaultMessage={"Familia"}/>,
+    //   key: 1,
+    //   component: <GenericForm formComponents={familyClientsSuppliersConfiguration}
+    //                           emptyPaper={true}
+    //                           setFormData={setFormData}
+    //                           getFormData={getFormData}
+    //                           loading={props.loading}
+    //                           formErrors={props.formErrors}
+    //                           submitFromOutside={props.submitFromOutside}
+    //                           onSubmit={() => props.onSubmitTab(formData)}
+    //                           handleIsValid={value => addValidity(FAMILY_CLIENTS_SUPPLIERS_SECTION_TAB_INDEX,value)}
+    //                           onBlur={(e) => handleTouched(FAMILY_CLIENTS_SUPPLIERS_SECTION_TAB_INDEX)}
+    //                           {...props} />
+    // },
   ];
 
   return (

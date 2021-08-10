@@ -16,7 +16,7 @@ const ARTICLE_MODEL_SECTION_INDEX = 0;
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false, 1: false },
+    fields: { [ARTICLE_MODEL_SECTION_INDEX]: false },
     setIsValid: props.setIsValid,
   });
 
@@ -62,34 +62,35 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 7,
       },
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 30)],
-      ...props.commonValidations.requiredValidation(),
+      validations: [
+        ...props.stringValidations.minMaxValidation(1, 30),
+        ...props.commonValidations.requiredValidation(),
+      ],
     },
     {
-        placeHolder: props.intl.formatMessage({
-          id: "Modelo.partida",
-          defaultMessage: "Partida"
-        }),
-        type: 'checkbox',
-        key: 'pda',
-        breakpoints: {
-          xs: 12,
-          md: 1
-        },
+      placeHolder: props.intl.formatMessage({
+        id: "Modelo.partida",
+        defaultMessage: "Partida",
+      }),
+      type: "checkbox",
+      key: "pda",
+      breakpoints: {
+        xs: 12,
+        md: 1,
       },
+    },
     {
-        placeHolder: props.intl.formatMessage({
-          id: "Modelo.control",
-          defaultMessage: "Control articulos transportados"
-        }),
-        type: 'checkbox',
-        key: 'control',
-        breakpoints: {
-          xs: 12,
-          md: 2
-        },
+      placeHolder: props.intl.formatMessage({
+        id: "Modelo.control",
+        defaultMessage: "Control articulos transportados",
+      }),
+      type: "checkbox",
+      key: "control",
+      breakpoints: {
+        xs: 12,
+        md: 2,
       },
-      
+    },
   ];
 
   const traducConfig = {

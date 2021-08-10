@@ -230,6 +230,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndDescription,
       },
+      validationType: "object",
+      ...withRequiredValidation([]),
     },
     {
       placeHolder: props.intl.formatMessage({

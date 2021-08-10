@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { useParams } from "react-router-dom";
 import { compose } from "redux";
 import { FormattedMessage, injectIntl } from "react-intl";
@@ -11,6 +11,11 @@ import ExpandableGrid from "modules/ExpandableGrid";
 
 
 const Gama_ModelTab = ({ formData, setFormData, getFormData, ...props }) => {
+
+
+  useEffect(() => {
+    props.setIsValid(true);
+  }, []);
 
   const { id: itemFamilyId } = useParams();
 

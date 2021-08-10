@@ -170,7 +170,7 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
       validationType: "number",
-      validation: [
+      validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.numberValidations.minMaxValidation(0, 99999),
       ],

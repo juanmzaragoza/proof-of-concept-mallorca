@@ -65,14 +65,14 @@ const PeriodTab = ({ formData, setFormData, ...props }) => {
         }),
         type: "numeric",
         key: "codi",
-        required: true,
+        disabled:true,
         noEditable: true,
         breakpoints: {
           xs: 12,
           md: 2,
         },
         validationType: "number",
-        validations: props.commonValidations.requiredValidation(),
+  
       },
       {
         placeHolder: props.intl.formatMessage({

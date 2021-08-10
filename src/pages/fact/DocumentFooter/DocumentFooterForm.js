@@ -4,22 +4,22 @@ import {bindActionCreators, compose} from "redux";
 import {connect} from "react-redux";
 import {useParams} from "react-router-dom";
 import { some, min, pickBy, cloneDeep } from "lodash";
-
 import DocumentFooterTab from "./DocumentFooterTab";
-
+import FamiliaTab from "./FamiliaTab";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
-
 import {setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig} from "redux/pageHeader";
 import {getFireSave} from "redux/pageHeader/selectors";
 import {withAbmServices} from "../../../modules/wrappers";
+
 import {getFormData, getFormErrors, getFormDataByKey, getIsDataLoaded,getIsSubmitted} from "../../../redux/genericForm/selectors";
+
 
 import {setFormDataByKey} from "../../../redux/genericForm";
 import {getLoading} from "../../../redux/app/selectors";
 
 
-/** step 1 */
 const DOCUMENT_FOOTER_TAB_INDEX = 0;
+const FAM_TAB_INDEX = 1;
 
 const DocumentFooterForm = React.memo(({ actions, allFormData, getFormData, submitFromOutside, services, ...props }) => {
   const [editMode, setEditMode] = useState(false);
@@ -27,7 +27,7 @@ const DocumentFooterForm = React.memo(({ actions, allFormData, getFormData, subm
   const [nameSelectedTab, setNameSelectedTab] = useState('');
 
   /** step 2 */
-  const [tabIndexWithError, setTabIndexWithError] = useState({[DOCUMENT_FOOTER_TAB_INDEX]: false });
+  const [tabIndexWithError, setTabIndexWithError] = useState({[DOCUMENT_FOOTER_TAB_INDEX]: false,[FAM_TAB_INDEX]:false });
   const [forceTabChange, setForceTabChange] = useState(false);
 
   const tabHasError = (index) => {
@@ -79,6 +79,21 @@ const DocumentFooterForm = React.memo(({ actions, allFormData, getFormData, subm
         loading={props.loading}
         formDataLoaded={props.formDataLoaded}
         isSubmitted={props.isSubmitted} />
+    },
+    {
+      ...getTranslations("PieDocumento.familiaClienteProv","Familia Clientes/Proveedor"),
+      key: FAM_TAB_INDEX,
+      error: tabHasError(FAM_TAB_INDEX),
+      component: <FamiliaTab
+        setIsValid={(value) => setTabIndexWithError({...tabIndexWithError, [FAM_TAB_INDEX]: !value})}
+        editMode={editMode}
+        getFormData={getFormData}
+        setFormData={actions.setFormData}
+        submitFromOutside={submitFromOutside}
+        onSubmitTab={handleSubmitTab}
+        formErrors={props.formErrors}
+        loading={props.loading}
+        formDataLoaded={props.formDataLoaded} />
     },
   ];
 

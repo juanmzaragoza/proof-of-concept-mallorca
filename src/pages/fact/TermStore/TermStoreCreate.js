@@ -83,19 +83,15 @@ const TermStoreCreate = (props) => {
   const createConfiguration = [
     {
       placeHolder: CODE,
-      type: "input",
+      type: "numeric",
       key: "codi",
-      required: true,
+      disabled:true,
       breakpoints: {
         xs: 12,
         md: 3,
       },
       noEditable: true,
-      validationType: "string",
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 10),
-      ],
+    
     },
     {
       placeHolder: props.intl.formatMessage({

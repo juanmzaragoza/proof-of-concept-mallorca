@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {bindActionCreators, compose} from "redux";
 import {connect} from "react-redux";
 import { getCalculationForDependentFields } from "../../redux/genericForm";
@@ -30,6 +30,7 @@ const withDependentActions = (PassedComponent) => {
       ];
       // call to service
       const body = buildBody({ key, value, fields });
+      // TODO() at this point, we can add method and query attributes
       return props.getCalculationForDependentFields({ id, body });
     }
 

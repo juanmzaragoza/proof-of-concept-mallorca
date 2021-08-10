@@ -14,10 +14,20 @@ const PERSONALIZACION_SECTION_INDEX = 0;
 const PARAMETROS_NUMERICOS_SECTION_TAB_INDEX = 1;
 const PARAMETROS_ALFANUMERICOS_SECTION_TAB_INDEX = 2;
 
-const PersonalizacionTab = ({ formData, setFormData, getFormData, ...props }) => {
-  const [ touched, handleTouched, addValidity, formIsValid ] 
-  = useTabForm({fields: {[PERSONALIZACION_SECTION_INDEX]: false, [PARAMETROS_NUMERICOS_SECTION_TAB_INDEX]:false, 
-    [PARAMETROS_ALFANUMERICOS_SECTION_TAB_INDEX]: false}, setIsValid: props.setIsValid});
+const PersonalizacionTab = ({
+  formData,
+  setFormData,
+  getFormData,
+  ...props
+}) => {
+  const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
+    fields: {
+      [PERSONALIZACION_SECTION_INDEX]: true,
+      [PARAMETROS_NUMERICOS_SECTION_TAB_INDEX]: true,
+      [PARAMETROS_ALFANUMERICOS_SECTION_TAB_INDEX]: true,
+    },
+    setIsValid: props.setIsValid,
+  });
 
   const personalizacionConfig = [
     {
@@ -29,7 +39,7 @@ const PersonalizacionTab = ({ formData, setFormData, getFormData, ...props }) =>
       key: "parametreCheck1",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
     },
     {
@@ -77,7 +87,7 @@ const PersonalizacionTab = ({ formData, setFormData, getFormData, ...props }) =>
       key: "parametreCheck5",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
     },
   ];
@@ -86,15 +96,16 @@ const PersonalizacionTab = ({ formData, setFormData, getFormData, ...props }) =>
     {
       placeHolder: props.intl.formatMessage({
         id: "Articulos.personalizacion.parametrosNumericos.parametro1",
-        defaultMessage: "Parámetro 1"
+        defaultMessage: "Parámetro 1",
       }),
       type: "numeric",
       key: "parametreNumeric1",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 2,
       },
       validationType: "number",
+      validations:[...props.numberValidations.minMaxValidation(0,999999999999)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -105,9 +116,12 @@ const PersonalizacionTab = ({ formData, setFormData, getFormData, ...props }) =>
       key: "parametreNumeric2",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 2,
       },
       validationType: "number",
+      validations: [
+        ...props.numberValidations.minMaxValidation(0, 999999999999),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -118,9 +132,12 @@ const PersonalizacionTab = ({ formData, setFormData, getFormData, ...props }) =>
       key: "parametreNumeric3",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 2,
       },
       validationType: "number",
+      validations: [
+        ...props.numberValidations.minMaxValidation(0, 999999999999),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -131,9 +148,12 @@ const PersonalizacionTab = ({ formData, setFormData, getFormData, ...props }) =>
       key: "parametreNumeric4",
       breakpoints: {
         xs: 12,
-        md: 6,
+        md: 2,
       },
       validationType: "number",
+      validations: [
+        ...props.numberValidations.minMaxValidation(0, 999999999999),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -144,9 +164,12 @@ const PersonalizacionTab = ({ formData, setFormData, getFormData, ...props }) =>
       key: "parametreNumeric5",
       breakpoints: {
         xs: 12,
-        md: 6,
+        md: 2,
       },
       validationType: "number",
+      validations: [
+        ...props.numberValidations.minMaxValidation(0, 999999999999),
+      ],
     },
   ];
 
@@ -160,12 +183,10 @@ const PersonalizacionTab = ({ formData, setFormData, getFormData, ...props }) =>
       key: "parametreAlfanumeric1",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 60)
-      ],
+      validations: [...props.stringValidations.minMaxValidation(1, 60)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -176,12 +197,10 @@ const PersonalizacionTab = ({ formData, setFormData, getFormData, ...props }) =>
       key: "parametreAlfanumeric2",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 60)
-      ],
+      validations: [...props.stringValidations.minMaxValidation(1, 60)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -192,12 +211,10 @@ const PersonalizacionTab = ({ formData, setFormData, getFormData, ...props }) =>
       key: "parametreAlfanumeric3",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 60)
-      ],
+      validations: [...props.stringValidations.minMaxValidation(1, 60)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -208,12 +225,10 @@ const PersonalizacionTab = ({ formData, setFormData, getFormData, ...props }) =>
       key: "parametreAlfanumeric4",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 60)
-      ],
+      validations: [...props.stringValidations.minMaxValidation(1, 60)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -224,66 +239,100 @@ const PersonalizacionTab = ({ formData, setFormData, getFormData, ...props }) =>
       key: "parametreAlfanumeric5",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 60)
-      ],
+      validations: [...props.stringValidations.minMaxValidation(1, 60)],
     },
   ];
 
   const tabs = [
     {
       className: "general-tab-subtab",
-      label: <FormattedMessage id={"Articulos.personalizacion.parametrosNumericos"} defaultMessage={"Parámteros numéricos"}/>,
+      label: (
+        <FormattedMessage
+          id={"Articulos.personalizacion.parametrosNumericos"}
+          defaultMessage={"Parámteros numéricos"}
+        />
+      ),
       key: 0,
-      component: <GenericForm formComponents={parametrosNumericos}
-                              emptyPaper={true}
-                              setFormData={setFormData}
-                              getFormData={getFormData}
-                              loading={props.loading}
-                              formErrors={props.formErrors}
-                              submitFromOutside={props.submitFromOutside}
-                              onSubmit={() => props.onSubmitTab(formData)}
-                              handleIsValid={value => addValidity(PARAMETROS_NUMERICOS_SECTION_TAB_INDEX,value)}
-                              onBlur={(e) => handleTouched(PARAMETROS_NUMERICOS_SECTION_TAB_INDEX)}
-                              {...props} />
+      component: (
+        <GenericForm
+          formComponents={parametrosNumericos}
+          emptyPaper={true}
+          setFormData={setFormData}
+          getFormData={getFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) =>
+            addValidity(PARAMETROS_NUMERICOS_SECTION_TAB_INDEX, value)
+          }
+          onBlur={(e) => handleTouched(PARAMETROS_NUMERICOS_SECTION_TAB_INDEX)}
+          {...props}
+        />
+      ),
     },
     {
       className: "general-tab-subtab",
-      label: <FormattedMessage id={"Articulos.personalizacion.parametrosAlfanumericos"} defaultMessage={"Parámetros alfanuméricos"}/>,
+      label: (
+        <FormattedMessage
+          id={"Articulos.personalizacion.parametrosAlfanumericos"}
+          defaultMessage={"Parámetros alfanuméricos"}
+        />
+      ),
       key: 1,
-      component: <GenericForm formComponents={parametrosAlfanumericos}
-                              emptyPaper={true}
-                              setFormData={setFormData}
-                              getFormData={getFormData}
-                              loading={props.loading}
-                              formErrors={props.formErrors}
-                              submitFromOutside={props.submitFromOutside}
-                              onSubmit={() => props.onSubmitTab(formData)}
-                              handleIsValid={value => addValidity(PARAMETROS_ALFANUMERICOS_SECTION_TAB_INDEX,value)}
-                              onBlur={(e) => handleTouched(PARAMETROS_ALFANUMERICOS_SECTION_TAB_INDEX)}
-                              {...props} />
+      component: (
+        <GenericForm
+          formComponents={parametrosAlfanumericos}
+          emptyPaper={true}
+          setFormData={setFormData}
+          getFormData={getFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) =>
+            addValidity(PARAMETROS_ALFANUMERICOS_SECTION_TAB_INDEX, value)
+          }
+          onBlur={(e) =>
+            handleTouched(PARAMETROS_ALFANUMERICOS_SECTION_TAB_INDEX)
+          }
+          {...props}
+        />
+      ),
     },
   ];
 
   return (
-    <Grid container >
+    <Grid container>
       <Grid xs={12} item>
-        <OutlinedContainer className="general-tab-container" title={<FormattedMessage id={"Articulos.tab.presentacion"} defaultMessage={"Presentación"}/>}>
-          <GenericForm formComponents={personalizacionConfig}
-                       emptyPaper={true}
-                       editMode={props.editMode}
-                       getFormData={getFormData}
-                       setFormData={setFormData}
-                       loading={props.loading}
-                       formErrors={props.formErrors}
-                       submitFromOutside={props.submitFromOutside}
-                       onSubmit={() => props.onSubmitTab(formData)}
-                       handleIsValid={value => addValidity(PERSONALIZACION_SECTION_INDEX,value)}
-                       onBlur={(e) => handleTouched(PERSONALIZACION_SECTION_INDEX)}
-                       {...props} />
+        <OutlinedContainer
+          className="general-tab-container"
+          title={
+            <FormattedMessage
+              id={"Articulos.personalizacion.titulo"}
+              defaultMessage={"Personalización"}
+            />
+          }
+        >
+          <GenericForm
+            formComponents={personalizacionConfig}
+            emptyPaper={true}
+            editMode={props.editMode}
+            getFormData={getFormData}
+            setFormData={setFormData}
+            loading={props.loading}
+            formErrors={props.formErrors}
+            submitFromOutside={props.submitFromOutside}
+            onSubmit={() => props.onSubmitTab(formData)}
+            handleIsValid={(value) =>
+              addValidity(PERSONALIZACION_SECTION_INDEX, value)
+            }
+            onBlur={(e) => handleTouched(PERSONALIZACION_SECTION_INDEX)}
+            {...props}
+          />
         </OutlinedContainer>
       </Grid>
       <Grid xs={12} item>

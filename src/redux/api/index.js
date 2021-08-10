@@ -148,7 +148,7 @@ export const bancCodi = `api/fact/bancs`;
 export const paisNifCodi = `api/paisosNif`;
 
 export const categoriesTraduccio = `api/ecom/categoriesTraduccio`;
-
+export const ubicacio = `api/fact/ubicacions`
 export const ubicacios = "api/fact/ubicacions";
 export const ubicacioArticles = "api/fact/ubicacionsArticle";
 
@@ -237,6 +237,8 @@ export const altraAplicacioClient = `api/fact/altresAplicacionsClient`;
 export const tipusIncidenciesFactura = `api/fact/tipusIncidenciesFactura`;
 export const liniaFactoring = `api/fact/liniesFactoring`;
 export const bancNom = `api/fact/bancs`;
+
+export const limitsCredit = `api/fact/limitsCredit`;
 export const categoriesToxicologiques = `api/fact/categoriesToxicologiques`;
 export const peuDocument = `api/fact/peusDocument`;
 export const traduccions = `api/fact/traduccions`;
@@ -252,6 +254,11 @@ export const empresesBusinessGroup = `api/fact/empresesBusinessGroup`;
 
 export const tipusOfertesProveidor = `api/fact/tipusOfertesProveidor`;
 export const envasos = `api/fact/envasos`;
+
+export const empresa2 = `api/fact/empreses`;
+export const peusDocumentFamilia = `api/fact/peusDocumentFamilia`;
+export const serieCompraCodi = `api/fact/seriesCompra`;
+
 
 export const articlesFamiliaComissio = `api/fact/articlesFamiliaComissio`;
 
