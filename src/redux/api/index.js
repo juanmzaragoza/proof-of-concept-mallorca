@@ -269,6 +269,7 @@ export const comptesTraspasMagatzem = 'api/fact/comptesTraspasMagatzem';
 
 export const liniesFinalFactura = `api/fact/liniesFinalFactura`;
 export const preusArticle = `api/fact/preusArticle`;
+export const preusArticleCalcularPreusMargeAmbDescompte = 'api/fact/preusArticle/calcularPreusMargeAmbDescompte';
 
 export const comptesClient = 'api/fact/comptesClient';
 export const comptesProveidor = 'api/fact/comptesProveidor';
