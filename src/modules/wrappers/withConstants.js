@@ -584,6 +584,15 @@ const withConstants = (PassedComponent) => {
             path: "FAC_LINFAC",
             icon: <LocalMall />,
           },
+          {
+            key: "FAC_ARENEG", // not mandatory for routes with children
+            title: props.intl.formatMessage({
+              id: "Proyectos.areaNegocio",
+              defaultMessage: "Área negocio",
+            }),
+            path: "FAC_ARENEG", // or has path or has children but not both
+            icon: <LocalMall />,
+          },
         ],
       },
       {
@@ -674,7 +683,15 @@ const withConstants = (PassedComponent) => {
         }),
         icon: <MonetizationOnOutlined />,
         children: [
-          //CAJAS
+          {
+            key: "FAC_CAIXA",
+            title: props.intl.formatMessage({
+              id: "Cajas.titulo",
+              defaultMessage: "Cajas",
+            }),
+            path: "FAC_CAIXA",
+            icon: <LocalMall />,
+          },
           {
             key: "FAC_CCR",
             title: props.intl.formatMessage({
@@ -1131,15 +1148,7 @@ const withConstants = (PassedComponent) => {
         icon: <LocalMall />,
       },
 
-      {
-        key: "FAC_ARENEG", // not mandatory for routes with children
-        title: props.intl.formatMessage({
-          id: "Proyectos.areaNegocio",
-          defaultMessage: "Área negocio",
-        }),
-        path: "FAC_ARENEG", // or has path or has children but not both
-        icon: <LocalMall />,
-      },
+     
       {
         key: "FAC_PROD", // not mandatory for routes with children
         title: props.intl.formatMessage({
@@ -1272,6 +1281,7 @@ const withConstants = (PassedComponent) => {
         path: "FAC_SERARENEG",
         icon: <LocalMall />,
       },
+     
     ];
 
     return (

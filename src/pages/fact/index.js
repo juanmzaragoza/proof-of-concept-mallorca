@@ -83,6 +83,7 @@ import PaymentNature from "./PaymentNature";
 import IncidenceType from "./IncidenceType";
 import FactoringLine from "./FactoringLine";
 import CostsType from "./CostsType";
+import Box from "./Box";
 import ToxicCategory from "./ToxicCategory";
 import Attributes from "./Attributes";
 import InvoiceComplement from "./InvoiceComplement";
@@ -182,6 +183,7 @@ const component = [
   IncidenceType,
   FactoringLine,
   CostsType,
+  Box,
   ToxicCategory,
   Attributes,
   InvoiceComplement,
@@ -198,6 +200,7 @@ const component = [
   CurrentAccounts,
   Clasification,
   AreasNegocio
+
 
 ];
 

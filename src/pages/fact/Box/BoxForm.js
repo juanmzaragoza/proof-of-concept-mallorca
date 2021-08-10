@@ -6,12 +6,8 @@ import { useParams } from "react-router-dom";
 import { some, min, pickBy, cloneDeep } from "lodash";
 
 import GeneralTab from "./GeneralTab";
-import SalesSeriesAccountsTab from "./SalesSeriesAccountsTab";
-import PurchasingSeriesAccountsTab from "./PurchasingSeriesAccountsTab";
-import WarehouseTransferAccount from "./WarehouseTransferAccount";
-import CustomerAccountTab from "./CustomerAccountTab";
-import SupplierAccountTab from "./SupplierAccountTab";
-import GamaModelTab from "./GamaModelTab";
+import LimitCreditTab from "./LimitCreditTab";
+
 
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
@@ -27,26 +23,20 @@ import {
   getFormErrors,
   getFormDataByKey,
   getIsDataLoaded,
-  getIsSubmitted,
+  getIsSubmitted
 } from "../../../redux/genericForm/selectors";
 
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
 
-/**
- * Items Family form module
- * If you want add a new tab, follow the next steps
- **/
-/** step 1 */
-const GENERAL_TAB_INDEX = 0;
-const SALES_SERIES_ACCOUNTS_TAB_INDEX = 1;
-const PURCHASING_SERIES_ACCOUNTS_TAB_INDEX = 2;
-const WHAREHOUSE_TRANSFER_ACCOUNT_TAB_INDEX = 3;
-const CUSTOMER_ACCOUNT_TAB_INDEX = 4;
-const SUPPLIER_ACCOUNT_TAB_INDEX = 5;
-const GAMA_MODEL_TAB_INDEX = 6;
 
-const ItemsFamilyForm = React.memo(
+
+const GENERAL_TAB_INDEX = 0;
+const LIMIT_TAB_INDEX = 1;
+const INITIAL_SITU_TAB_INDEX = 2;
+
+
+const BoxForm = React.memo(
   ({
     actions,
     allFormData,
@@ -62,12 +52,9 @@ const ItemsFamilyForm = React.memo(
     /** step 2 */
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [GENERAL_TAB_INDEX]: false,
-      [SALES_SERIES_ACCOUNTS_TAB_INDEX]: false,
-      [PURCHASING_SERIES_ACCOUNTS_TAB_INDEX]: false,
-      [WHAREHOUSE_TRANSFER_ACCOUNT_TAB_INDEX]: false,
-      [CUSTOMER_ACCOUNT_TAB_INDEX]: false,
-      [SUPPLIER_ACCOUNT_TAB_INDEX]: false,
-      [GAMA_MODEL_TAB_INDEX]: false,
+      [LIMIT_TAB_INDEX]: false,
+      [INITIAL_SITU_TAB_INDEX]: false,
+  
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -140,18 +127,15 @@ const ItemsFamilyForm = React.memo(
         ),
       },
       {
-        ...getTranslations(
-          "FamiliaArticulos.tabs.seriesVenta",
-          "Cuentas Series Ventas"
-        ),
-        key: SALES_SERIES_ACCOUNTS_TAB_INDEX,
-        error: tabHasError(SALES_SERIES_ACCOUNTS_TAB_INDEX),
+        ...getTranslations("Cajas.tabs.limiteCredito", "Límite Crédito"),
+        key: LIMIT_TAB_INDEX,
+        error: tabHasError(LIMIT_TAB_INDEX),
         component: (
-          <SalesSeriesAccountsTab
+          <LimitCreditTab
             setIsValid={(value) =>
               setTabIndexWithError({
                 ...tabIndexWithError,
-                [SALES_SERIES_ACCOUNTS_TAB_INDEX]: !value,
+                [LIMIT_TAB_INDEX]: !value,
               })
             }
             editMode={editMode}
@@ -167,140 +151,11 @@ const ItemsFamilyForm = React.memo(
         ),
       },
       {
-        ...getTranslations(
-          "FamiliaArticulos.tabs.seriesCompra",
-          "Cuentas Series Compras"
-        ),
-        key: PURCHASING_SERIES_ACCOUNTS_TAB_INDEX,
-        error: tabHasError(PURCHASING_SERIES_ACCOUNTS_TAB_INDEX),
-        component: (
-          <PurchasingSeriesAccountsTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [PURCHASING_SERIES_ACCOUNTS_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-            isSubmitted={props.isSubmitted}
-          />
-        ),
+        ...getTranslations("Cajas.situacionesIniciales", "Situaciones Iniciales"),
+        key: INITIAL_SITU_TAB_INDEX,
+        component: "Situaciones Iniciales (Pendiente BackEnd)"
       },
-      {
-        ...getTranslations(
-          "FamiliaArticulos.tabs.cuentasTraspasos",
-          "Cuentas Traspasos Almacenes"
-        ),
-        key: WHAREHOUSE_TRANSFER_ACCOUNT_TAB_INDEX,
-        error: tabHasError(WHAREHOUSE_TRANSFER_ACCOUNT_TAB_INDEX),
-        component: (
-          <WarehouseTransferAccount
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [WHAREHOUSE_TRANSFER_ACCOUNT_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-            isSubmitted={props.isSubmitted}
-          />
-        ),
-      },
-      {
-        ...getTranslations(
-          "FamiliaArticulos.tabs.cuentasClientes",
-          "Cuentas Clientes"
-        ),
-        key: CUSTOMER_ACCOUNT_TAB_INDEX,
-        error: tabHasError(CUSTOMER_ACCOUNT_TAB_INDEX),
-        component: (
-          <CustomerAccountTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [CUSTOMER_ACCOUNT_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-            isSubmitted={props.isSubmitted}
-          />
-        ),
-      },
-      {
-        ...getTranslations(
-          "FamiliaArticulos.tabs.cuentasProveedores",
-          "Cuentas Proveedores"
-        ),
-        key: SUPPLIER_ACCOUNT_TAB_INDEX,
-        error: tabHasError(SUPPLIER_ACCOUNT_TAB_INDEX),
-        component: (
-          <SupplierAccountTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [SUPPLIER_ACCOUNT_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-            isSubmitted={props.isSubmitted}
-          />
-        ),
-      },
-      {
-        ...getTranslations(
-          "FamiliaArticulos.tabs.gama_Modelo",
-          "Gamas-Modelos"
-        ),
-        key: GAMA_MODEL_TAB_INDEX,
-        error: tabHasError(GAMA_MODEL_TAB_INDEX),
-        component: (
-          <GamaModelTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [GAMA_MODEL_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-            isSubmitted={props.isSubmitted}
-          />
-        ),
-      },
+      
     ];
 
     const { id } = useParams();
@@ -321,10 +176,10 @@ const ItemsFamilyForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "FamiliaArticulos.titulo",
-              defaultMessage: "Familia",
+              id: "Cajas.titulo",
+              defaultMessage: "Cajas",
             }),
-            href: "/fact/articulos-familia",
+            href: "/fact/cajas",
           },
           {
             title: props.intl.formatMessage({
@@ -346,9 +201,9 @@ const ItemsFamilyForm = React.memo(
     /** Update HEADER */
     useEffect(() => {
       if (isEditable()) {
-        const descripcio = getFormData("descripcio");
-        const desc = descripcio
-          ? descripcio
+        const descripcion = getFormData("descripcio");
+        const desc = descripcion
+          ? descripcion
           : `${props.intl.formatMessage({
               id: "Comun.cargando",
               defaultMessage: "Cargando",
@@ -356,12 +211,12 @@ const ItemsFamilyForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "FamiliaArticulos.titulo",
-              defaultMessage: "Familia",
+              id: "Cajas.titulo",
+              defaultMessage: "Cajas",
             }),
-            href: "/fact/articulos-familia",
+            href: "/fact/cajas",
           },
-          { title: desc, href: "/fact/articulos-familia" },
+          { title: desc, href: "/fact/cajas" },
           { title: nameSelectedTab },
         ]);
       }
@@ -427,5 +282,5 @@ const component = compose(
   injectIntl,
   connect(mapStateToProps, mapDispatchToProps),
   withAbmServices
-)(ItemsFamilyForm);
+)(BoxForm);
 export default component;

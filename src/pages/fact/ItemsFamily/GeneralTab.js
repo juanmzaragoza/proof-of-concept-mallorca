@@ -28,10 +28,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [CREATE_SECTION_INDEX]: false,
-      [ACCOUNTING_SECTION_TAB_INDEX]: false,
-      [OPERATION_SECTION_TAB_INDEX]: false,
-      [OPTIONS_SECTION_TAB_INDEX]: false,
-      [BUSINESS_SECTION_TAB_INDEX]: false,
+      [ACCOUNTING_SECTION_TAB_INDEX]: true,
+      [OPERATION_SECTION_TAB_INDEX]: true,
+      [OPTIONS_SECTION_TAB_INDEX]: true,
+      [BUSINESS_SECTION_TAB_INDEX]: true,
     },
     setIsValid: props.setIsValid,
   });
@@ -434,6 +434,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "select",
       key: "tipus",
+      required:true,
       breakpoints: {
         xs: 12,
         md: 3,
@@ -441,6 +442,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       selector: {
         options: TIPO_FAMILIA_ARTICULO_SELECTOR_VALUES,
       },
+      validationType:"string",
+      validations:[...props.commonValidations.requiredValidation()]
     },
 
     {
@@ -588,6 +591,11 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           apply: (empresa) => empresa && empresa.codi,
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
         },
+        relatedWith: {
+          name: "projecte",
+          filterBy: "empresa.id",
+          keyValue: "id",
+        },
         advancedSearchColumns: aSCodeAndComercialName,
       },
     },
@@ -608,6 +616,11 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         sort: "codi",
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndName,
+      },
+      relatedWith: {
+        name: "delegacio",
+        filterBy: "empresa.id",
+        keyValue: "id",
       },
     },
     {

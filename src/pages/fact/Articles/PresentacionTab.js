@@ -17,14 +17,31 @@ const DIMENSIONES_SECTION_TAB_INDEX = 1;
 const MULTIPLOS_SECTION_TAB_INDEX = 2;
 
 const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
-  const [ touched, handleTouched, addValidity, formIsValid ] 
-  = useTabForm({fields: {[PRESENTACION_SECTION_INDEX]: false, [DIMENSIONES_SECTION_TAB_INDEX]:false, 
-    [MULTIPLOS_SECTION_TAB_INDEX]: false}, setIsValid: props.setIsValid});
+  const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
+    fields: {
+      [PRESENTACION_SECTION_INDEX]: true,
+      [DIMENSIONES_SECTION_TAB_INDEX]: true,
+      [MULTIPLOS_SECTION_TAB_INDEX]: true,
+    },
+    setIsValid: props.setIsValid,
+  });
 
-  const CODE = props.intl.formatMessage({ id: "Comun.codigo", defaultMessage: "Código" });
-  const NOM = props.intl.formatMessage({ id: "Comun.nombre", defaultMessage: "Nombre" });
-  const DESCRIPTION = props.intl.formatMessage({ id: "Comun.descripcion", defaultMessage: "Descripción" });
-  const COMERCIALNAME = props.intl.formatMessage({ id: "Presupuestos.nombreComercialCliente", defaultMessage: "Nombre Comercial" });
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
+  const NOM = props.intl.formatMessage({
+    id: "Comun.nombre",
+    defaultMessage: "Nombre",
+  });
+  const DESCRIPTION = props.intl.formatMessage({
+    id: "Comun.descripcion",
+    defaultMessage: "Descripción",
+  });
+  const COMERCIALNAME = props.intl.formatMessage({
+    id: "Presupuestos.nombreComercialCliente",
+    defaultMessage: "Nombre Comercial",
+  });
 
   const code = (md = 2) => ({
     type: "input",
@@ -39,30 +56,36 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
     validationType: "string",
     validations: [
       ...props.stringValidations.minMaxValidation(1, 4),
-      ...props.stringValidations.fieldExistsValidation('categoriesToxicologiques', 'codi', CODE)
+      ...props.stringValidations.fieldExistsValidation(
+        "categoriesToxicologiques",
+        "codi",
+        CODE
+      ),
     ],
   });
 
-  const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
 
-  const withRequiredValidation = (extraValidations = []) => {
-    return {
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...extraValidations,
-      ],
-    };
-  };
 
-  const formatCodeAndComercialName = (data) => `${data.nomComercial} (${data.codi})`;
+  const formatCodeAndComercialName = (data) =>
+    `${data.nomComercial} (${data.codi})`;
 
-  const aSCodeAndComercialName = [{title: CODE, name: 'codi'},{title: COMERCIALNAME, name: 'nomComercial'}];
+  const aSCodeAndComercialName = [
+    { title: CODE, name: "codi" },
+    { title: COMERCIALNAME, name: "nomComercial" },
+  ];
 
-  const aSCodeAndName = [ { title: CODE, name: "codi" }, { title: NOM, name: "nom" } ];
+  const aSCodeAndName = [
+    { title: CODE, name: "codi" },
+    { title: NOM, name: "nom" },
+  ];
 
-  const formatCodeAndDescription = (data) => `${data.descripcio} (${data.codi})`;
+  const formatCodeAndDescription = (data) =>
+    `${data.descripcio} (${data.codi})`;
 
-  const aSCodeAndDescription = [{title: CODE, name: 'codi'},{title: DESCRIPTION, name: 'descripcio'}];
+  const aSCodeAndDescription = [
+    { title: CODE, name: "codi" },
+    { title: DESCRIPTION, name: "descripcio" },
+  ];
 
   const categoriaToxicologica = (md = 3) => [
     {
@@ -79,8 +102,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "object",
       selector: {
         key: "categoriaToxicologicas",
-        labelKey: (data) =>
-          `${data.empresaCodi} ( ${data.nom} )`,
+        labelKey: (data) => `${data.empresaCodi} ( ${data.nom} )`,
         sort: "codi",
         creationComponents: [
           code(2),
@@ -97,32 +119,30 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
               md: 6,
             },
             validationType: "string",
-            validations: [
-              ...props.stringValidations.minMaxValidation(1, 4)
-            ],
+            validations: [...props.stringValidations.minMaxValidation(1, 4)],
           },
           {
             placeHolder: props.intl.formatMessage({
               id: "PieDocumento.empresa",
-              defaultMessage: "Empresa"
+              defaultMessage: "Empresa",
             }),
-            type: 'LOV',
-            key: 'empresaCodi',
+            type: "LOV",
+            key: "empresaCodi",
             breakpoints: {
               xs: 12,
               md: 4,
             },
             selector: {
-              key: 'empresas',
+              key: "empresas",
               labelKey: formatCodeAndComercialName,
-              sort: 'nomComercial',
+              sort: "nomComercial",
               cannotCreate: true,
               transform: {
                 apply: (empresa) => empresa && empresa.codi,
-                reverse: (rows, codi) => rows.find(row => row.codi === codi)
+                reverse: (rows, codi) => rows.find((row) => row.codi === codi),
               },
-              advancedSearchColumns: aSCodeAndComercialName
-            }
+              advancedSearchColumns: aSCodeAndComercialName,
+            },
           },
           {
             type: "input",
@@ -194,7 +214,11 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
             validationType: "string",
             validations: [
               ...props.stringValidations.minMaxValidation(1, 4),
-              ...props.stringValidations.fieldExistsValidation('subvencions', 'codi', CODE)
+              ...props.stringValidations.fieldExistsValidation(
+                "subvencions",
+                "codi",
+                CODE
+              ),
             ],
           },
           {
@@ -210,9 +234,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
               md: 3,
             },
             validationType: "string",
-            validations: [
-              ...props.stringValidations.minMaxValidation(1, 30),
-            ],
+            validations: [...props.stringValidations.minMaxValidation(1, 30)],
           },
           {
             type: "input",
@@ -227,9 +249,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
               md: 3,
             },
             validationType: "string",
-            validations: [
-              ...props.stringValidations.minMaxValidation(1, 30),
-            ],
+            validations: [...props.stringValidations.minMaxValidation(1, 30)],
           },
           {
             type: "input",
@@ -263,9 +283,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 4)
-      ],
+      validations: [...props.stringValidations.minMaxValidation(1, 4)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -292,9 +310,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 15)
-      ],
+      validations: [...props.stringValidations.minMaxValidation(1, 15)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -347,9 +363,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 30)
-      ],
+      validations: [...props.stringValidations.minMaxValidation(1, 30)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -363,9 +377,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 8)
-      ],
+      validations: [...props.stringValidations.minMaxValidation(1, 8)],
     },
     ...categoriaToxicologica(3),
     ...subvencion(3),
@@ -407,9 +419,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 15)
-      ],
+      validations: [...props.stringValidations.minMaxValidation(1, 15)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -423,9 +433,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 15)
-      ],
+      validations: [...props.stringValidations.minMaxValidation(1, 15)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -439,9 +447,7 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 15)
-      ],
+      validations: [...props.stringValidations.minMaxValidation(1, 15)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -461,16 +467,16 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
     {
       placeHolder: props.intl.formatMessage({
         id: "Articulos.presentacion.dimensiones.titulo",
-        defaultMessage: "Dimensiones"
+        defaultMessage: "Dimensiones",
       }),
-      type: 'select',
-      key: 'dimensions',
+      type: "select",
+      key: "dimensions",
       breakpoints: {
         xs: 12,
-        md: 3
+        md: 3,
       },
       selector: {
-        options: DIMENSION_SELECTOR_VALUES
+        options: DIMENSION_SELECTOR_VALUES,
       },
     },
     {
@@ -572,54 +578,88 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
   const tabs = [
     {
       className: "general-tab-subtab",
-      label: <FormattedMessage id={"Articulos.presentacion.dimensiones.titulo"} defaultMessage={"Dimensiones"}/>,
+      label: (
+        <FormattedMessage
+          id={"Articulos.presentacion.dimensiones.titulo"}
+          defaultMessage={"Dimensiones"}
+        />
+      ),
       key: 0,
-      component: <GenericForm formComponents={Dimensiones}
-                              emptyPaper={true}
-                              setFormData={setFormData}
-                              getFormData={getFormData}
-                              loading={props.loading}
-                              formErrors={props.formErrors}
-                              submitFromOutside={props.submitFromOutside}
-                              onSubmit={() => props.onSubmitTab(formData)}
-                              handleIsValid={value => addValidity(DIMENSIONES_SECTION_TAB_INDEX,value)}
-                              onBlur={(e) => handleTouched(DIMENSIONES_SECTION_TAB_INDEX)}
-                              {...props} />
+      component: (
+        <GenericForm
+          formComponents={Dimensiones}
+          emptyPaper={true}
+          setFormData={setFormData}
+          getFormData={getFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) =>
+            addValidity(DIMENSIONES_SECTION_TAB_INDEX, value)
+          }
+          onBlur={(e) => handleTouched(DIMENSIONES_SECTION_TAB_INDEX)}
+          {...props}
+        />
+      ),
     },
     {
       className: "general-tab-subtab",
-      label: <FormattedMessage id={"Articulos.presentacion.multiplos.titulo"} defaultMessage={"Múltiplos"}/>,
+      label: (
+        <FormattedMessage
+          id={"Articulos.presentacion.multiplos.titulo"}
+          defaultMessage={"Múltiplos"}
+        />
+      ),
       key: 1,
-      component: <GenericForm formComponents={Multiplos}
-                              emptyPaper={true}
-                              setFormData={setFormData}
-                              getFormData={getFormData}
-                              loading={props.loading}
-                              formErrors={props.formErrors}
-                              submitFromOutside={props.submitFromOutside}
-                              onSubmit={() => props.onSubmitTab(formData)}
-                              handleIsValid={value => addValidity(MULTIPLOS_SECTION_TAB_INDEX,value)}
-                              onBlur={(e) => handleTouched(MULTIPLOS_SECTION_TAB_INDEX)}
-                              {...props} />
+      component: (
+        <GenericForm
+          formComponents={Multiplos}
+          emptyPaper={true}
+          setFormData={setFormData}
+          getFormData={getFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) =>
+            addValidity(MULTIPLOS_SECTION_TAB_INDEX, value)
+          }
+          onBlur={(e) => handleTouched(MULTIPLOS_SECTION_TAB_INDEX)}
+          {...props}
+        />
+      ),
     },
   ];
 
   return (
-    <Grid container >
+    <Grid container>
       <Grid xs={12} item>
-        <OutlinedContainer className="general-tab-container" title={<FormattedMessage id={"Articulos.tab.presentacion"} defaultMessage={"Presentación"}/>}>
-          <GenericForm formComponents={presentacionConfig}
-                       emptyPaper={true}
-                       editMode={props.editMode}
-                       getFormData={getFormData}
-                       setFormData={setFormData}
-                       loading={props.loading}
-                       formErrors={props.formErrors}
-                       submitFromOutside={props.submitFromOutside}
-                       onSubmit={() => props.onSubmitTab(formData)}
-                       handleIsValid={value => addValidity(PRESENTACION_SECTION_INDEX,value)}
-                       onBlur={(e) => handleTouched(PRESENTACION_SECTION_INDEX)}
-                       {...props} />
+        <OutlinedContainer
+          className="general-tab-container"
+          title={
+            <FormattedMessage
+              id={"Articulos.tab.presentacion"}
+              defaultMessage={"Presentación"}
+            />
+          }
+        >
+          <GenericForm
+            formComponents={presentacionConfig}
+            emptyPaper={true}
+            editMode={props.editMode}
+            getFormData={getFormData}
+            setFormData={setFormData}
+            loading={props.loading}
+            formErrors={props.formErrors}
+            submitFromOutside={props.submitFromOutside}
+            onSubmit={() => props.onSubmitTab(formData)}
+            handleIsValid={(value) =>
+              addValidity(PRESENTACION_SECTION_INDEX, value)
+            }
+            onBlur={(e) => handleTouched(PRESENTACION_SECTION_INDEX)}
+            {...props}
+          />
         </OutlinedContainer>
       </Grid>
       <Grid xs={12} item>
