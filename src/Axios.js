@@ -42,6 +42,12 @@ const errorTypes = {
       defaultMessage: "Sesión expirada! Vuelva a iniciar sesión."
     }));
   },
+  404: () => {
+    SnackbarUtils.error(intl.formatMessage({
+      id: "Comun.error.entidad_no_econtrada",
+      defaultMessage: "El elemento consultado no existe en la base de datos"
+    }));
+  },
   500: () => {
     SnackbarUtils.error(intl.formatMessage({
       id: "Comun.error.error_interno",
@@ -55,6 +61,7 @@ const errorTypes = {
     }));
   }
 }
+const statusCodesHandledByComponents = [400];
 const solveError = (status) => {
   return errorTypes[status]? errorTypes[status]():errorTypes['_default']();
 }
@@ -75,7 +82,8 @@ Axios.interceptors.response.use(
         defaultMessage: "Sin conexión!"
       }), true);
     }
-  } else if(error.response){
+  // if the status cannot be handled by the component
+  } else if(error.response && !statusCodesHandledByComponents.includes(error.response.status)){
     SnackbarUtils.close(key);
     const {status} = error.response;
     solveError(status);
