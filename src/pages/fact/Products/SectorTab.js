@@ -9,13 +9,12 @@ import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
 
-import { useTabForm } from "hooks/tab-form";
 
 const SectorTab = ({ formData, setFormData, getFormData, ...props }) => {
-  const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false, 1: false },
-    setIsValid: props.setIsValid,
-  });
+
+  useEffect(() => {
+    props.setIsValid(true);
+  },[]);
 
   const formatCodeAndDescription = (data) =>
     `${data.descripcio} (${data.codi})`;
@@ -88,8 +87,8 @@ const SectorTab = ({ formData, setFormData, getFormData, ...props }) => {
           className="general-tab-container"
           title={
             <FormattedMessage
-              id={"Articulos.tabs.traducciones"}
-              defaultMessage={"Traudcciones"}
+              id={ "Productos.tabs.sector"}
+              defaultMessage={"Sectores"}
             />
           }
         >

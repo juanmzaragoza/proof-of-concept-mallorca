@@ -25,7 +25,7 @@ const InvSujetoPasivoTab = ({
 }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
-      [INV_SECTION_INDEX]: false,
+      [INV_SECTION_INDEX]: true,
     },
     setIsValid: props.setIsValid,
   });
@@ -42,10 +42,6 @@ const InvSujetoPasivoTab = ({
     id: "Comun.nombre",
     defaultMessage: "Nombre",
   });
-  const OBS = props.intl.formatMessage({
-    id: "FamiliaProveedores.observaciones",
-    defaultMessage: "Observaciones",
-  });
 
   const code = (md = 6) => ({
     type: "input",
@@ -59,32 +55,13 @@ const InvSujetoPasivoTab = ({
     },
   });
 
-  const codeAndName = (mdCode = 6, mdName = 6) => [
-    code(mdCode),
-    {
-      type: "input",
-      key: "nom",
-      placeHolder: NOM,
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdName,
-      },
-    },
-  ];
 
-  const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
-  const formatCodeAndDescription = (data) =>
-    `${data.descripcio} (${data.codi})`;
 
   const aSCodeAndDescription = [
     { title: CODE, name: "codi" },
     { title: DESCRIPCIO, name: "descripcio" },
   ];
-  const aSCodeAndName = [
-    { title: CODE, name: "codi" },
-    { title: NOM, name: "nom" },
-  ];
+
 
   const withRequiredValidation = (extraValidations = []) => {
     return {

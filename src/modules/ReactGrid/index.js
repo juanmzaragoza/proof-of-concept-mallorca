@@ -31,7 +31,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import {ActionsColumn} from "./ActionsColumn";
 import { Loading } from '../shared/Loading';
 import {useHistory} from "react-router-dom";
-import {injectIntl} from "react-intl";
+import {FormattedMessage, injectIntl} from "react-intl";
 import {
   getErrors,
   getLoading,
@@ -40,13 +40,31 @@ import {
   getTotalCount
 } from "../../redux/reactGrid/selectors";
 import {deleteData, searchData, reset} from "../../redux/reactGrid";
-import {Input, TableCell, TextField} from "@material-ui/core";
+import {TableCell, TextField} from "@material-ui/core";
 
 const getRowId = row => row.id;
 
 const TableComponent = ({ ...restProps }) => (
   <Table.Table {...restProps} className="table-striped with-padding" />
 );
+
+/** Avoid declaring statement inside render methods
+ * https://devexpress.github.io/devextreme-reactive/react/common/docs/guides/performance-optimization/#avoid-declaring-statements-inside-render-methods
+ */
+const FilterCellBase = ({ filter, onFilter, column }) => {
+  return (
+    <TableCell>
+      <TextField
+        value={filter ? filter.value : ''}
+        onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
+        label={<FormattedMessage id={"ReactGrid.filtros.buscar_por"} defaultMessage={"Buscar por {name}"} values={{name: column.title? column.title:""}}/>} />
+    </TableCell>
+  )
+};
+
+const FilterCell = (props) => {
+  return <FilterCellBase {...props} />;
+};
 
 const ReactGrid = ({ configuration, enqueueSnackbar,
                      rows, loading, pageSize, totalCount, errors,
@@ -76,7 +94,9 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
 
   const loadData = () => {
     const query = unionBy(extraQuery || [],filters,(filter) => filter.columnName) || [];
-    actions.loadData({ apiId: props.id, key: configuration.listKey, page: currentPage, query, sorting});
+    const method = configuration.method;
+    const body = configuration.body;
+    actions.loadData({ apiId: props.id, method, body, key: configuration.listKey, page: currentPage, query, sorting});
   };
 
   // executed when mounts component and when vars change
@@ -110,20 +130,6 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
       }}
     />
   );
-
-  const FilterCellBase = ({ filter, onFilter }) => {
-    return (
-    <TableCell>
-      <TextField
-        value={filter ? filter.value : ''}
-        onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
-        placeholder="Filter..." />
-    </TableCell>
-  )};
-
-  const FilterCell = (props) => {
-    return <FilterCellBase {...props} />;
-  };
 
   const commitChanges = ({ added, changed, deleted }) => {
     if (added) {}
@@ -194,7 +200,9 @@ ReactGrid.propTypes = {
     listKey: PropTypes.string.isRequired,
     enableInlineEdition: PropTypes.bool,
     disabledActions: PropTypes.bool,
-    disabledFiltering: PropTypes.bool
+    disabledFiltering: PropTypes.bool,
+    method: PropTypes.oneOf(['post','put','patch']),
+    body: PropTypes.object
   }),
   extraQuery: PropTypes.arrayOf(PropTypes.shape({
     columnName: PropTypes.string.isRequired,

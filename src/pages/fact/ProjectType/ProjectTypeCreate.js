@@ -31,7 +31,7 @@ const ProjectTypeCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 12,
+        md: 3,
       },
       noEditable: true,
       validationType: "string",
@@ -49,12 +49,12 @@ const ProjectTypeCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 12,
+        md: 9,
       },
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 30),
+        ...props.stringValidations.minMaxValidation(0, 30),
       ],
     },
     {
@@ -68,7 +68,7 @@ const ProjectTypeCreate = (props) => {
       },
       validationType: "string",
       validations: [
-        ...props.stringValidations.minMaxValidation(1, 30),
+        ...props.stringValidations.minMaxValidation(0, 30),
       ],
     },
   ];

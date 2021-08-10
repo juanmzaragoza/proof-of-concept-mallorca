@@ -13,7 +13,7 @@ import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import {setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig} from "redux/pageHeader";
 import {getFireSave} from "redux/pageHeader/selectors";
 import {withAbmServices} from "../../../modules/wrappers";
-import {getFormData, getFormErrors, getFormDataByKey, getIsDataLoaded} from "../../../redux/genericForm/selectors";
+import {getFormData, getFormErrors, getFormDataByKey, getIsDataLoaded,getIsSubmitted} from "../../../redux/genericForm/selectors";
 
 import {setFormDataByKey} from "../../../redux/genericForm";
 import {getLoading} from "../../../redux/app/selectors";
@@ -31,7 +31,7 @@ const BudgetForm = React.memo(({ actions, allFormData, getFormData, submitFromOu
   const [nameSelectedTab, setNameSelectedTab] = useState('');
 
   /** step 2 */
-  const [tabIndexWithError, setTabIndexWithError] = useState({[BUDGET_TAB_INDEX]: false, [CUSTOMER_TAB_INDEX]: false});
+  const [tabIndexWithError, setTabIndexWithError] = useState({[BUDGET_TAB_INDEX]: true, [CUSTOMER_TAB_INDEX]: true});
   const [forceTabChange, setForceTabChange] = useState(false);
 
   const tabHasError = (index) => {
@@ -81,7 +81,8 @@ const BudgetForm = React.memo(({ actions, allFormData, getFormData, submitFromOu
         onSubmitTab={handleSubmitTab}
         formErrors={props.formErrors}
         loading={props.loading}
-        formDataLoaded={props.formDataLoaded} />
+        formDataLoaded={props.formDataLoaded}
+        isSubmitted={props.isSubmitted} />
     },
     {
       ...getTranslations("Presupuestos.tabs.datosClientes","Datos Clientes"),
@@ -96,7 +97,8 @@ const BudgetForm = React.memo(({ actions, allFormData, getFormData, submitFromOu
         onSubmitTab={handleSubmitTab}
         formErrors={props.formErrors}
         loading={props.loading}
-        formDataLoaded={props.formDataLoaded} />
+        formDataLoaded={props.formDataLoaded}
+        isSubmitted={props.isSubmitted} />
     },
    
   ];
@@ -185,7 +187,8 @@ const mapStateToProps = (state, props) => {
     loading: getLoading(state),
     allFormData: getFormData(state),
     getFormData: getFormDataByKey(state),
-    formDataLoaded: getIsDataLoaded(state)
+    formDataLoaded: getIsDataLoaded(state),
+    isSubmitted: getIsSubmitted(state),
   };
 };
 

@@ -9,18 +9,13 @@ import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
 
 const AplicadoresTab = ({ formData, setFormData, getFormData, ...props }) => {
+
+  // warning!!! It's always valid because we haven't validations
+  useEffect(() => {
+    props.setIsValid(true);
+  },[]);
+
   const { id: clientId } = useParams();
-
-  const withRequiredValidation = (extraValidations = []) => {
-    return {
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...extraValidations,
-      ],
-    };
-  };
-
-
 
   const aplicadores = {
     title: props.intl.formatMessage({

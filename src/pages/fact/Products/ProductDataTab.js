@@ -75,7 +75,7 @@ const ProductsDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "abreviatura",
       breakpoints: {
         xs: 12,
-        md: 1,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 3)],
@@ -88,6 +88,31 @@ const ProductsDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       type: "input",
       key: "referencia",
       noEditable: true,
+      disabled: true,
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Productos.activo",
+        defaultMessage: "Activo",
+      }),
+      type: "checkbox",
+      key: "actiu",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Productos.visible",
+        defaultMessage: "Visible",
+      }),
+      type: "checkbox",
+      key: "visible",
       breakpoints: {
         xs: 12,
         md: 1,
@@ -103,7 +128,7 @@ const ProductsDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 4,
       },
       selector: {
         options: TIPO_PRODUCTO_SELECTOR_VALUES,
@@ -112,31 +137,44 @@ const ProductsDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       validations: [...props.commonValidations.requiredValidation()],
     },
 
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Productos.activo",
-        defaultMessage: "Activo",
-      }),
-      type: "checkbox",
-      key: "actiu",
-      breakpoints: {
-        xs: 12,
-        md: 1,
-      },
-    },
     
     {
       placeHolder: props.intl.formatMessage({
-        id: "Productos.visible",
-        defaultMessage: "Visible",
+        id: "FamiliaArticulos.empresa",
+        defaultMessage: "Empresas",
       }),
-      type: "checkbox",
-      key: "visible",
+      type: "LOV",
+      key: "empresa",
+      noEditable: true,
       breakpoints: {
         xs: 12,
-        md: 1,
+        md: 4,
+      },
+      selector: {
+        key: "empresas",
+        labelKey: (data) => `${data.nomComercial} (${data.codi})`,
+        sort: "nomComercial",
+        cannotCreate: true,
+        advancedSearchColumns: [
+          {
+            title: props.intl.formatMessage({
+              id: "Comun.codigo",
+              defaultMessage: "Código",
+            }),
+            name: "codi",
+          },
+          {
+            title: props.intl.formatMessage({
+              id: "Comun.nombre",
+              defaultMessage: "Nombre",
+            }),
+            name: "nomComercial",
+          },
+        ],
       },
     },
+
+   
     {
       placeHolder: props.intl.formatMessage({
         id: "Comun.descripcion",
@@ -165,7 +203,6 @@ const ProductsDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 6,
       },
     },
-  
   ];
 
   return (

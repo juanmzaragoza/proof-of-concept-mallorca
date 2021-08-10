@@ -275,7 +275,7 @@ const ApplicationCreate = (props) => {
         defaultMessage: "Aplicaciones",
       })}
       formConfiguration={createConfiguration}
-      url={API.aplicacions}
+      url={API.aplicacionsClient}
     />
   );
 };

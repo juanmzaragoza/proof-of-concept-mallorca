@@ -174,7 +174,7 @@ const BankOfficeCreate = (props) => {
         id: "Clientes.codigo",
         defaultMessage: "Código",
       }),
-      type: "input",
+      type: "numeric",
       key: "codi",
       required: true,
       breakpoints: {
@@ -182,10 +182,10 @@ const BankOfficeCreate = (props) => {
         md: 2,
       },
       noEditable: true,
-      validationType: "string",
+      validationType: "number",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(0, 9999),
+        ...props.numberValidations.minMaxValidation(0, 9999),
       ],
     },
     {
@@ -241,6 +241,8 @@ const BankOfficeCreate = (props) => {
         xs: 12,
         md: 3,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0,60)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -253,6 +255,8 @@ const BankOfficeCreate = (props) => {
         xs: 12,
         md: 3,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0,60)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -265,6 +269,8 @@ const BankOfficeCreate = (props) => {
         xs: 12,
         md: 3,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0,60)],
     },
 
     {

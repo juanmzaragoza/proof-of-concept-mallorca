@@ -7,10 +7,22 @@ import { withValidations } from "modules/wrappers";
 import * as API from "redux/api";
 
 const SubvencionesCreate = (props) => {
-  const CODE = props.intl.formatMessage({ id: "Comun.codigo", defaultMessage: "Código" });
-  const NOM = props.intl.formatMessage({ id: "Comun.nombre", defaultMessage: "Nombre" });
-  const ORIGEN = props.intl.formatMessage({ id: "Subvencion.origen", defaultMessage: "Origen" });
-  const PESO = props.intl.formatMessage({ id: "Subvencion.precioPorKilo", defaultMessage: "Precio por kilo" });
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
+  const NOM = props.intl.formatMessage({
+    id: "Comun.nombre",
+    defaultMessage: "Nombre",
+  });
+  const ORIGEN = props.intl.formatMessage({
+    id: "Subvencion.origen",
+    defaultMessage: "Origen",
+  });
+  const PESO = props.intl.formatMessage({
+    id: "Subvencion.precioPorKilo",
+    defaultMessage: "Precio por kilo",
+  });
 
   const createConfiguration = [
     {
@@ -27,7 +39,11 @@ const SubvencionesCreate = (props) => {
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 4),
-        ...props.stringValidations.fieldExistsValidation('subvencions', 'codi', CODE)
+        ...props.stringValidations.fieldExistsValidation(
+          "subvencions",
+          "codi",
+          CODE
+        ),
       ],
     },
     {
@@ -42,7 +58,7 @@ const SubvencionesCreate = (props) => {
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 30),
+        ...props.stringValidations.minMaxValidation(0, 20),
       ],
     },
     {
@@ -57,7 +73,7 @@ const SubvencionesCreate = (props) => {
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 30),
+        ...props.stringValidations.minMaxValidation(0, 20),
       ],
     },
     {
@@ -72,6 +88,7 @@ const SubvencionesCreate = (props) => {
       validationType: "number",
       validations: [
         ...props.commonValidations.requiredValidation(),
+        ...props.numberValidations.minMaxValidation(0, 99999),
       ],
     },
   ];

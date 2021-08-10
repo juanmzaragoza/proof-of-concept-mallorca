@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import {FormattedMessage, injectIntl} from "react-intl";
+import {FormattedMessage} from "react-intl";
 import {bindActionCreators, compose} from "redux";
 import {connect} from "react-redux";
-import {withSnackbar} from "notistack";
 
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
@@ -12,7 +11,7 @@ import {submit, reset} from "redux/lovForm";
 import {getData, getIsLoading} from "redux/lovForm/selectors";
 import ReactGrid from "../ReactGrid";
 
-const LOVAdvancedSearch = ({ id, title, open, close, actions, listKey, columns = [], ...props }) => {
+const LOVAdvancedSearch = ({ id, title, open, close, actions, listKey, columns = [], extraQuery, ...props }) => {
   const [openModal, setOpenModal] = useState(open);
 
   useEffect(()=>{
@@ -47,8 +46,9 @@ const LOVAdvancedSearch = ({ id, title, open, close, actions, listKey, columns =
           configuration={{
             columns: columns,
             listKey,
-            disabledActions: true
+            disabledActions: true,
           }}
+          extraQuery={extraQuery}
           onClickRow={closeIt}/>
       </DialogContent>
       <DialogActions>
@@ -69,7 +69,8 @@ LOVAdvancedSearch.propTypes = {
   open: PropTypes.bool,
   close: PropTypes.func,
   loading: PropTypes.bool,
-  columns: PropTypes.array
+  columns: PropTypes.array,
+  extraQuery: PropTypes.array
 };
 
 const mapStateToProps = (state, props) => {
@@ -89,6 +90,4 @@ const mapDispatchToProps = (dispatch, props) => {
 
 export default compose(
   connect(mapStateToProps,mapDispatchToProps),
-  withSnackbar,
-  injectIntl
 )(LOVAdvancedSearch);

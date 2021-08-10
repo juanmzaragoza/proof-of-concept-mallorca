@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
 
-
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
@@ -17,12 +16,11 @@ const ARTICLE_BRAND_SECTION_INDEX = 0;
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false, 1: false },
+    fields: { [ARTICLE_BRAND_SECTION_INDEX]: false, 1: true },
     setIsValid: props.setIsValid,
   });
 
   const { id: marcaId } = useParams();
-  
 
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
@@ -58,24 +56,24 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       key: "descripcio",
-      required:true,
+      required: true,
       breakpoints: {
         xs: 12,
         md: 8,
       },
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 30)],
-      ...props.commonValidations.requiredValidation(),
+      validations: [
+        ...props.stringValidations.minMaxValidation(1, 30),
+        ...props.commonValidations.requiredValidation(),
+      ],
     },
-
   ];
 
-  const traducConfig= {
-
+  const traducConfig = {
     title: props.intl.formatMessage({
-        id: "TraducionesFamilia.titulo",
-        defaultMessage: "Taducciones Familia",
-      }),
+      id: "TraducionesFamilia.titulo",
+      defaultMessage: "Taducciones Familia",
+    }),
 
     query: [
       {
@@ -85,75 +83,80 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     ],
     extraPostBody: {
-        marca: { id: marcaId },
-      },
-   
+      marca: { id: marcaId },
+    },
+
     columns: [
-        {
-            name: "idioma",
-            title: props.intl.formatMessage({
-              id: "Idiomas.titulo",
-              defaultMessage: "Idioma",
-            }),
-            getCellValue: (row) =>
-            row.idioma?.description ?? ""
-          },
-          {
-            name: "descripcio",
-            title: props.intl.formatMessage({
-              id: "Comun.descripcion",
-              defaultMessage: "descripción",
-            }),
-          },
+      {
+        name: "idioma",
+        title: props.intl.formatMessage({
+          id: "Idiomas.titulo",
+          defaultMessage: "Idioma",
+        }),
+        getCellValue: (row) => row.idioma?.description ?? "",
+      },
+      {
+        name: "descripcio",
+        title: props.intl.formatMessage({
+          id: "Comun.descripcion",
+          defaultMessage: "descripción",
+        }),
+      },
     ],
     formComponents: [
-        {
-            placeHolder: props.intl.formatMessage({
-              id: "Idiomas.titulo",
-              defaultMessage: "Idiomas",
-            }),
-            type: "LOV",
-            key: "idioma",
-            id:"idiomes",
-            noEditable: true,
-            breakpoints: {
-              xs: 12,
-              md: 3,
-            },
-            selector: {
-              key: "idiomas",
-              labelKey: (data) => `${data.descripcio} (${data.codi})`,
-              sort: "nomComercial",
-              cannotCreate: true,
-              advancedSearchColumns: [{title: CODE, name: 'codi'},{title: props.intl.formatMessage({
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Idiomas.titulo",
+          defaultMessage: "Idiomas",
+        }),
+        type: "LOV",
+        key: "idioma",
+        id: "idiomes",
+        noEditable: true,
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "idiomas",
+          labelKey: (data) => `${data.descripcio} (${data.codi})`,
+          sort: "nomComercial",
+          cannotCreate: true,
+          advancedSearchColumns: [
+            { title: CODE, name: "codi" },
+            {
+              title: props.intl.formatMessage({
                 id: "Comun.descripcion",
                 defaultMessage: "Descripción",
-              }), name: 'descripcio'}],
+              }),
+              name: "descripcio",
             },
+          ],
         },
-        {
-            placeHolder: props.intl.formatMessage({
-              id: "Traduccion.titulo",
-              defaultMessage: "Traducción",
-            }),
-            type: "input",
-            key: "descripcio",
-            breakpoints: {
-              xs: 12,
-              md: 9,
-            },
-          },
-
-    
-    ]
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Traduccion.titulo",
+          defaultMessage: "Traducción",
+        }),
+        type: "input",
+        key: "descripcio",
+        breakpoints: {
+          xs: 12,
+          md: 9,
+        },
+      },
+    ],
   };
-
-
-
 
   const tabs = [
     {
-      label:<FormattedMessage id={"Traducciones.titulo"} defaultMessage={"Traducciones Familia"} />,
+      label: (
+        <FormattedMessage
+          id={"Traducciones.titulo"}
+          defaultMessage={"Traducciones Familia"}
+        />
+      ),
       key: 0,
       component: (
         <ExpandableGrid
@@ -169,25 +172,22 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   return (
     <Grid container>
       <Grid xs={12} item>
-       
-     
-          <GenericForm
-            formComponents={ArticlesBrandConfig}
-            emptyPaper={true}
-            editMode={props.editMode}
-            getFormData={getFormData}
-            setFormData={setFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) =>
-              addValidity(ARTICLE_BRAND_SECTION_INDEX, value)
-            }
-            onBlur={(e) => handleTouched(ARTICLE_BRAND_SECTION_INDEX)}
-            {...props}
-          />
-      
+        <GenericForm
+          formComponents={ArticlesBrandConfig}
+          emptyPaper={true}
+          editMode={props.editMode}
+          getFormData={getFormData}
+          setFormData={setFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) =>
+            addValidity(ARTICLE_BRAND_SECTION_INDEX, value)
+          }
+          onBlur={(e) => handleTouched(ARTICLE_BRAND_SECTION_INDEX)}
+          {...props}
+        />
       </Grid>
       <Grid xs={12} item>
         <OutlinedContainer>

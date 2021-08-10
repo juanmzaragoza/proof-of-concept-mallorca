@@ -14,3 +14,4 @@ export const getQueryFormSelectorById = (state, id) => get(state, `genericForm.f
 export const getIsDisabledById = (state, id) => get(state, `genericForm.formSelectors[${id}].disabled`, false);
 export const getIsResetById = (state, id) => get(state, `genericForm.formSelectors[${id}].reset`, false);
 export const getIsDataLoaded = state => get(state, "genericForm.loaded", false);
+export const getIsSubmitted = state => get(state, "genericForm.submitted", false);

@@ -153,6 +153,7 @@ export const ubicacios = "api/fact/ubicacions";
 export const ubicacioArticles = "api/fact/ubicacionsArticle";
 
 export const articlesFact = "api/fact/articles";
+export const articlesFactByTarifa = "api/fact/articles/byTarifaProperties";
 
 export const tipusProveidors = `api/fact/tipusProveidors`;
 export const departamentProveidor = `api/fact/departamentsProveidor`;
@@ -173,23 +174,20 @@ export const magatzemsArticlesFact = "api/fact/magatzemsArticlesFact";
 export const categoriaToxicologica = "api/fact/categoriesToxicologiques";
 export const subvencions = "api/fact/subvencions";
 
-
-
 export const projectesPressupost = `api/fact/projectesPressupost`;
-export const capitol =`api/fact/capitols`;
+export const capitol = `api/fact/capitols`;
 export const pressupost = `api/fact/pressupostos`;
 export const partida = `api/fact/partides`;
 
-export const operariCodi = 'api/rrhh/operaris';
+export const operariCodi = "api/rrhh/operaris";
 export const factures = `api/fact/factures`;
-export const aplicacionsClients = `api/fact/aplicacionsClients`;
+// export const aplicacionsClients = `api/fact/aplicacionsClients`;
+export const altresAplicacionsClient = `api/fact/altresAplicacionsClient`;
 export const projectesAplicacio = `api/fact/projectesAplicacio`;
 export const proveidorsVenciment = `api/fact/proveidorsVenciment`;
 export const proveidor = `api/fact/proveidors`;
 export const historicsResponsables = `api/fact/historicsResponsables`;
 export const serieIntracomunitaria = `api/fact/seriesIntracomunitaria`;
-
-
 
 export const magatzemsPeriode = `api/fact/magatzemsPeriode`;
 export const situacionsInicial = `api/fact/situacionsInicial`;
@@ -197,20 +195,18 @@ export const magatzemPeriode = `api/fact/magatzemsPeriode`;
 export const magatzemsComptes = `api/fact/magatzemsComptes`;
 export const projecteNum = `api/fact/projectes`;
 
-export const escandalls = 'api/fact/escandalls';
-export const tipusCost = 'api/fact/tipusCostos';
-export const articlesCost = 'api/fact/articlesCost';
+export const escandalls = "api/fact/escandalls";
+export const tipusCost = "api/fact/tipusCostos";
+export const articlesCost = "api/fact/articlesCost";
 
-
-export const departament = 'api/fact/departaments';
+export const departament = "api/fact/departaments";
 export const pressuposts = `api/fact/pressupostos`;
 export const movimentsCaixa = `api/fact/movimentsCaixa`;
 export const albarans = `api/fact/albarans`;
 export const albaransProveidor = `api/fact/albaransProveidor`;
 export const comandesProveidor = `api/fact/comandesProveidor`;
 
-
-export const naturalesaPagoCobro = 'api/fact/naturalesesPagamentCobrament';
+export const naturalesaPagoCobro = "api/fact/naturalesesPagamentCobrament";
 export const certificatsProjecte = `api/fact/certificatsProjecte`;
 
 export const productes = `api/fact/productes`;
@@ -230,10 +226,57 @@ export const seccionsEmpresa = `api/fact/seccionsEmpresa`;
 
 export const seccio = `api/rrhh/seccions`;
 
-
 export const aplicacions = `api/fact/aplicacions`;
+export const aplicacionsClient = `api/fact/aplicacionsClient`;
 export const parametres = `api/fact/parameters`;
+
+export const altresAplicacionsSubclient = `api/fact/altresAplicacionsSubclient`;
+export const aplicacioClient = `api/fact/aplicacionsClients`;
+export const altraAplicacioClient = `api/fact/altresAplicacionsClient`;
+
 export const tipusIncidenciesFactura = `api/fact/tipusIncidenciesFactura`;
 export const liniaFactoring = `api/fact/liniesFactoring`;
 export const bancNom = `api/fact/bancs`;
+
 export const limitsCredit = `api/fact/limitsCredit`;
+export const categoriesToxicologiques = `api/fact/categoriesToxicologiques`;
+export const peuDocument = `api/fact/peusDocument`;
+export const traduccions = `api/fact/traduccions`;
+export const atributs = `api/fact/atributs`;
+export const complementsFactura = `api/fact/complementsFactura`;
+export const articlesFamiliaTransportista = `api/fact/articlesFamiliaTransportista`;
+export const tipusFullesObra = `api/fact/tipusFullesObra`;
+export const tallers = `api/fact/tallers`;
+export const valorsTarifaDescompte = `api/fact/valorsTarifaDescompte`;
+
+export const empresesGrup = `api/fact/businessGroups`;
+export const empresesBusinessGroup = `api/fact/empresesBusinessGroup`;
+
+export const tipusOfertesProveidor = `api/fact/tipusOfertesProveidor`;
+export const envasos = `api/fact/envasos`;
+
+export const articlesFamiliaComissio = `api/fact/articlesFamiliaComissio`;
+
+export const puntsVenda = `api/fact/puntsVenda`;
+export const numeracionsTpv = `api/fact/numeracionsTpv`;
+
+export const formesCost = `api/fact/formesCost`;
+export const costos = `api/fact/costos`;
+export const comptesCorrents = `api/fact/comptesCorrents`;
+export const classificacions = `api/fact/classificacions`;
+
+export const comptesFamiliaSerieVenda = 'api/fact/comptesFamiliaSerieVenda';
+export const comptesFamiliaSerieCompra = 'api/fact/comptesFamiliaSerieCompra';
+export const comptesTraspasMagatzem = 'api/fact/comptesTraspasMagatzem';
+
+export const liniesFinalFactura = `api/fact/liniesFinalFactura`;
+export const preusArticle = `api/fact/preusArticle`;
+
+export const comptesClient = 'api/fact/comptesClient';
+export const comptesProveidor = 'api/fact/comptesProveidor';
+export const familiesGamma = 'api/fact/familiesGamma';
+export const familiesModel = 'api/fact/familiesModel';
+
+export const areaNegocis = `api/fact/areaNegocis`;
+export const seriesAreaNegoci = `api/fact/seriesAreaNegoci`;
+

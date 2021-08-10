@@ -17,7 +17,7 @@ const FACT_SECTION_TAB_INDEX = 1;
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false, 1: false },
+    fields: { [SUBCLIENT_SECTION_INDEX]: false, [FACT_SECTION_TAB_INDEX]: true },
     setIsValid: props.setIsValid,
   });
 
@@ -77,7 +77,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     id: "Proveedores.Contacto.email",
     defaultMessage: "Email",
   });
-
 
   const MOVIL = props.intl.formatMessage({
     id: "Clientes.Contacto.movil",
@@ -253,7 +252,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       type: "input",
       key: "codi",
       noEditable: true,
-      required:true,
+      required: true,
       breakpoints: {
         xs: 12,
         md: 2,
@@ -343,7 +342,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       required: true,
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 30)],
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+        ...props.stringValidations.minMaxValidation(1, 30),
+      ],
     },
     ...codiPostal(3),
 

@@ -4,7 +4,6 @@ import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
 import { Chip } from "@material-ui/core";
 
-
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
@@ -18,12 +17,11 @@ const ARTICLE_FAMILY_SECTION_INDEX = 0;
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false, 1: false },
+    fields: { [ARTICLE_FAMILY_SECTION_INDEX]: false, 1: true },
     setIsValid: props.setIsValid,
   });
 
   const { id: articleFamilyId } = useParams();
-  
 
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
@@ -58,15 +56,18 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Descripción",
       }),
       type: "input",
-      required:true,
+      required: true,
       key: "descripcio",
       breakpoints: {
         xs: 12,
         md: 8,
       },
       validationType: "string",
-      ...props.commonValidations.requiredValidation(),
-      validations: [...props.stringValidations.minMaxValidation(1, 30)],
+
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+        ...props.stringValidations.minMaxValidation(1, 30),
+      ],
     },
 
     {
@@ -83,12 +84,11 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
-  const traducConfig= {
-
+  const traducConfig = {
     title: props.intl.formatMessage({
-        id: "TraducionesFamilia.titulo",
-        defaultMessage: "Taducciones Familia",
-      }),
+      id: "TraducionesFamilia.titulo",
+      defaultMessage: "Taducciones Familia",
+    }),
 
     query: [
       {
@@ -98,75 +98,77 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     ],
     extraPostBody: {
-        familia: { id: articleFamilyId },
-      },
-   
+      familia: { id: articleFamilyId },
+    },
+
     columns: [
-        {
-            name: "idioma",
-            title: props.intl.formatMessage({
-              id: "Idiomas.titulo",
-              defaultMessage: "Idioma",
-            }),
-            getCellValue: (row) =>
-            row.idioma?.description ?? ""
-          },
-          {
-            name: "descripcio",
-            title: props.intl.formatMessage({
-              id: "Comun.descripcion",
-              defaultMessage: "descripción",
-            }),
-          },
+      {
+        name: "idioma",
+        title: props.intl.formatMessage({
+          id: "Idiomas.titulo",
+          defaultMessage: "Idioma",
+        }),
+        getCellValue: (row) => row.idioma?.description ?? "",
+      },
+      {
+        name: "descripcio",
+        title: props.intl.formatMessage({
+          id: "Comun.descripcion",
+          defaultMessage: "descripción",
+        }),
+      },
     ],
     formComponents: [
-        {
-            placeHolder: props.intl.formatMessage({
-              id: "Idiomas.titulo",
-              defaultMessage: "Idiomas",
-            }),
-            type: "LOV",
-            key: "idioma",
-            id:"idiomes",
-            noEditable: true,
-            breakpoints: {
-              xs: 12,
-              md: 3,
-            },
-            selector: {
-              key: "idiomas",
-              labelKey: (data) => `${data.descripcio} (${data.codi})`,
-              sort: "nomComercial",
-              cannotCreate: true,
-              advancedSearchColumns: [{title: CODE, name: 'codi'},{title: props.intl.formatMessage({
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Idiomas.titulo",
+          defaultMessage: "Idiomas",
+        }),
+        type: "LOV",
+        key: "idioma",
+        id: "idiomes",
+        noEditable: true,
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "idiomas",
+          labelKey: (data) => `${data.descripcio} (${data.codi})`,
+          sort: "nomComercial",
+          cannotCreate: true,
+          advancedSearchColumns: [
+            { title: CODE, name: "codi" },
+            {
+              title: props.intl.formatMessage({
                 id: "Comun.descripcion",
                 defaultMessage: "Descripción",
-              }), name: 'descripcio'}],
+              }),
+              name: "descripcio",
             },
+          ],
         },
-        {
-            placeHolder: props.intl.formatMessage({
-              id: "Traduccion.titulo",
-              defaultMessage: "Traducción",
-            }),
-            type: "input",
-            key: "descripcio",
-            breakpoints: {
-              xs: 12,
-              md: 9,
-            },
-          },
-
-    
-    ]
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Traduccion.titulo",
+          defaultMessage: "Traducción",
+        }),
+        type: "input",
+        key: "descripcio",
+        breakpoints: {
+          xs: 12,
+          md: 9,
+        },
+      },
+    ],
   };
 
-  const companyConfig= {
-
+  const companyConfig = {
     title: props.intl.formatMessage({
-        id: "FamiliaArticulos.empresa",
-        defaultMessage: "Empresa",
-      }),
+      id: "FamiliaArticulos.empresa",
+      defaultMessage: "Empresa",
+    }),
 
     query: [
       {
@@ -176,79 +178,98 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     ],
     extraPostBody: {
-        articleFamilia: { id: articleFamilyId },
-      },
-   
+      articleFamilia: { id: articleFamilyId },
+    },
+
     columns: [
-        {
-            name: "empresa",
-            title: props.intl.formatMessage({
-              id: "FamiliaArticulos.empresa",
-              defaultMessage: "Empresa",
-            }),
-            getCellValue: (row) =>
-            row.empresa?.description ?? ""
-          },
-          {
-            name: "web",
-            title: props.intl.formatMessage({
-              id: "FamiliaArticulos.web",
-              defaultMessage: "Web",
-            }),
-            getCellValue: (row) =>
-              row.web && row.web === true ? (
-                <Chip label={props.intl.formatMessage({id: "Comun.SI", defaultMessage: "SI"})} variant="outlined" />
-              ) : (
-                <Chip label={props.intl.formatMessage({id: "Comun.NO", defaultMessage: "NO"})} variant="outlined" />
-              ),
-          },
+      {
+        name: "empresa",
+        title: props.intl.formatMessage({
+          id: "FamiliaArticulos.empresa",
+          defaultMessage: "Empresa",
+        }),
+        getCellValue: (row) => row.empresa?.description ?? "",
+      },
+      {
+        name: "web",
+        title: props.intl.formatMessage({
+          id: "FamiliaArticulos.web",
+          defaultMessage: "Web",
+        }),
+        getCellValue: (row) =>
+          row.web && row.web === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          ),
+      },
     ],
     formComponents: [
-        {
-            placeHolder: props.intl.formatMessage({
-              id: "FamiliaArticulos.empresa",
-              defaultMessage: "Empresas",
-            }),
-            type: "LOV",
-            key: "empresa",
-            id:"empresas",
-            noEditable: true,
-            breakpoints: {
-              xs: 12,
-              md: 3,
-            },
-            selector: {
-              key: "empresas",
-              labelKey: (data) => `${data.nomComercial} (${data.codi})`,
-              sort: "nomComercial",
-              cannotCreate: true,
-              advancedSearchColumns: [{title: CODE, name: 'codi'},{title: props.intl.formatMessage({
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "FamiliaArticulos.empresa",
+          defaultMessage: "Empresas",
+        }),
+        type: "LOV",
+        key: "empresa",
+        id: "empresas",
+        noEditable: true,
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "empresas",
+          labelKey: (data) => `${data.nomComercial} (${data.codi})`,
+          sort: "nomComercial",
+          cannotCreate: true,
+          advancedSearchColumns: [
+            { title: CODE, name: "codi" },
+            {
+              title: props.intl.formatMessage({
                 id: "Comun.nombre",
                 defaultMessage: "Nombre",
-              }), name: 'nomComercial'}],
+              }),
+              name: "nomComercial",
             },
+          ],
         },
-        {
-            placeHolder: props.intl.formatMessage({
-              id: "FamiliaArticulos.web",
-              defaultMessage: "Web",
-            }),
-            type: "checkbox",
-            key: "web",
-            breakpoints: {
-              xs: 12,
-              md: 3,
-            },
-          },
-
-    
-    ]
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "FamiliaArticulos.web",
+          defaultMessage: "Web",
+        }),
+        type: "checkbox",
+        key: "web",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+      },
+    ],
   };
-
 
   const tabs = [
     {
-      label:<FormattedMessage id={"Traducciones.titulo"} defaultMessage={"Traducciones Familia"} />,
+      label: (
+        <FormattedMessage
+          id={"Traducciones.titulo"}
+          defaultMessage={"Traducciones Familia"}
+        />
+      ),
       key: 0,
       component: (
         <ExpandableGrid
@@ -260,7 +281,12 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       ),
     },
     {
-      label:<FormattedMessage id={"FamiliaArticulos.empresa"} defaultMessage={"Empresa"} />,
+      label: (
+        <FormattedMessage
+          id={"FamiliaArticulos.empresa"}
+          defaultMessage={"Empresa"}
+        />
+      ),
       key: 1,
       component: (
         <ExpandableGrid
@@ -276,25 +302,22 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   return (
     <Grid container>
       <Grid xs={12} item>
-       
-     
-          <GenericForm
-            formComponents={ArticlesFamilyConfig}
-            emptyPaper={true}
-            editMode={props.editMode}
-            getFormData={getFormData}
-            setFormData={setFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) =>
-              addValidity(ARTICLE_FAMILY_SECTION_INDEX, value)
-            }
-            onBlur={(e) => handleTouched(ARTICLE_FAMILY_SECTION_INDEX)}
-            {...props}
-          />
-      
+        <GenericForm
+          formComponents={ArticlesFamilyConfig}
+          emptyPaper={true}
+          editMode={props.editMode}
+          getFormData={getFormData}
+          setFormData={setFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) =>
+            addValidity(ARTICLE_FAMILY_SECTION_INDEX, value)
+          }
+          onBlur={(e) => handleTouched(ARTICLE_FAMILY_SECTION_INDEX)}
+          {...props}
+        />
       </Grid>
       <Grid xs={12} item>
         <OutlinedContainer>

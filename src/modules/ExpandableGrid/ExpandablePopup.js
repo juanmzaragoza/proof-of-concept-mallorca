@@ -67,6 +67,7 @@ export const ExpandablePopup = ({
   useEffect(()=>{
     if(!isEqual(previousRow, row)){
       setFormDataLoaded(true);
+      setFormData(row);
     }
   },[row]);
 
@@ -84,7 +85,7 @@ export const ExpandablePopup = ({
           emptyPaper={true}
           containerSpacing={0}
           formComponents={formComponents}
-          getFormData={(key) => row[key]}
+          getFormData={(key) => formData[key]}
           setFormData={(data) => setFormData({...formData, [data.key]: data.value})}
           submitFromOutside={submitFromOutside}
           handleIsValid={setIsValid}

@@ -40,6 +40,20 @@ const MaturityTypeList = ({ actions, ...props }) => {
           defaultMessage: "Descripción"
         })
       },
+      { 
+        name: 'tipus',
+        title: props.intl.formatMessage({
+          id: "Clientes.tipo",
+          defaultMessage: "tipo"
+        })
+      },
+      { 
+        name: 'importTermini',
+        title: props.intl.formatMessage({
+          id: "TiposVencimiento.importeTerminio",
+          defaultMessage: "Importe Terminio"
+        })
+      },
     ],
     URL: API.tipusVenciment,
     listKey: 'tipusVenciments'
