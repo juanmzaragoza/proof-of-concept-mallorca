@@ -440,6 +440,7 @@ GenericForm.propTypes = {
     required: PropTypes.bool,
     key: PropTypes.string,
     noEditable: PropTypes.bool,
+    disabledCreating: PropTypes.bool,
     selector: PropTypes.shape({
       key: PropTypes.any,
       labelKey: PropTypes.any,
