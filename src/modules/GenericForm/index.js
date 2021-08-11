@@ -113,10 +113,13 @@ const GenericForm = ({loading, ...props}) => {
 
   const getField = ({
                       id, type, variant, placeHolder, required,
-                      key, noEditable, selector, disabled, text,
-                      prefix, suffix, extraQuery, format, fireActionOnBlur
+                      key, noEditable, disabledCreating, selector, disabled,
+                      text, prefix, suffix, extraQuery, format, fireActionOnBlur
                     }, formik) => {
-    const noEnable = loading || (props.editMode && noEditable) || disabled;
+    const noEnable = loading
+      || (props.editMode && noEditable)
+      || (!props.editMode && disabledCreating)
+      || disabled;
     const identification = id? id:key;
 
     const handleChange = (e, value) => {
