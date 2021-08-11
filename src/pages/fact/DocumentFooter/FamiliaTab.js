@@ -87,7 +87,7 @@ const DocumentFooterTab = ({
       {
         name: "numero",
         title: props.intl.formatMessage({
-          id: "PieDocumnentos.numero",
+          id: "PieDocumento.numero",
           defaultMessage: "Numero ",
         }),
     

@@ -148,7 +148,7 @@ export const bancCodi = `api/fact/bancs`;
 export const paisNifCodi = `api/paisosNif`;
 
 export const categoriesTraduccio = `api/ecom/categoriesTraduccio`;
-
+export const ubicacio = `api/fact/ubicacions`
 export const ubicacios = "api/fact/ubicacions";
 export const ubicacioArticles = "api/fact/ubicacionsArticle";
 
@@ -286,4 +286,4 @@ export const familiesModel = 'api/fact/familiesModel';
 export const areaNegocis = `api/fact/areaNegocis`;
 export const seriesAreaNegoci = `api/fact/seriesAreaNegoci`;
 
-
+export const articlesCalcPrice = `api/fact/articles/calcularPreus`;

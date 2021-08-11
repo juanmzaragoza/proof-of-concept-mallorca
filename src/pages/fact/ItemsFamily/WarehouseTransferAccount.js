@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { compose } from "redux";
 import { FormattedMessage, injectIntl } from "react-intl";
@@ -8,15 +8,31 @@ import OutlinedContainer from "modules/shared/OutlinedContainer";
 import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
 
-const WarehouseTransferAccount = ({ formData, setFormData, getFormData, ...props }) => {
-
+const WarehouseTransferAccount = ({
+  formData,
+  setFormData,
+  getFormData,
+  ...props
+}) => {
+  useEffect(() => {
+    props.setIsValid(true);
+  }, []);
   const { id: itemFamilyId } = useParams();
 
-  const CODE = props.intl.formatMessage({id: "Comun.codigo", defaultMessage: "Código"});
-  const NOM = props.intl.formatMessage({id: "Comun.nombre", defaultMessage: "Nombre"});
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
+  const NOM = props.intl.formatMessage({
+    id: "Comun.nombre",
+    defaultMessage: "Nombre",
+  });
 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
-  const aSCodeAndName = [{ title: CODE, name: "codi" }, { title: NOM, name: "nom" }];
+  const aSCodeAndName = [
+    { title: CODE, name: "codi" },
+    { title: NOM, name: "nom" },
+  ];
 
   const ComptesTraspasMagatzem = {
     title: props.intl.formatMessage({
@@ -98,13 +114,11 @@ const WarehouseTransferAccount = ({ formData, setFormData, getFormData, ...props
         validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
-          ...props.stringValidations.minMaxValidation(1, 10)
-        ]
+          ...props.stringValidations.minMaxValidation(1, 10),
+        ],
       },
     ],
   };
-
-
 
   return (
     <Grid container>
@@ -118,16 +132,19 @@ const WarehouseTransferAccount = ({ formData, setFormData, getFormData, ...props
             />
           }
         >
-         <ExpandableGrid
-          id="comptesTraspasMagatzem"
-          responseKey="compteTraspasMagatzems"
-          enabled={props.editMode}
-          configuration={ComptesTraspasMagatzem}
-        />
+          <ExpandableGrid
+            id="comptesTraspasMagatzem"
+            responseKey="compteTraspasMagatzems"
+            enabled={props.editMode}
+            configuration={ComptesTraspasMagatzem}
+          />
         </OutlinedContainer>
       </Grid>
-      
     </Grid>
   );
 };
-export default compose(React.memo, withValidations, injectIntl)(WarehouseTransferAccount);
+export default compose(
+  React.memo,
+  withValidations,
+  injectIntl
+)(WarehouseTransferAccount);

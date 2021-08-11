@@ -16,18 +16,32 @@ const ALTERNATIVO_SECTION_TAB_INDEX = 2;
 const CONTABILIDAD_SECTION_TAB_INDEX = 3;
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
-  const [ touched, handleTouched, addValidity, formIsValid ] 
-  = useTabForm({fields: {[GENERAL_SECTION_INDEX]: false, [CATEGORIAS_SECTION_TAB_INDEX]:false, 
-    [ALTERNATIVO_SECTION_TAB_INDEX]: false, [CONTABILIDAD_SECTION_TAB_INDEX]:false}, 
-    setIsValid: props.setIsValid});
+  const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
+    fields: {
+      [GENERAL_SECTION_INDEX]: false,
+      [CATEGORIAS_SECTION_TAB_INDEX]: false,
+      [ALTERNATIVO_SECTION_TAB_INDEX]: true,
+      [CONTABILIDAD_SECTION_TAB_INDEX]: true,
+    },
+    setIsValid: props.setIsValid,
+  });
 
-  const CODE = props.intl.formatMessage({ id: "Comun.codigo", defaultMessage: "Código" });
-  const NOM = props.intl.formatMessage({ id: "Comun.nombre", defaultMessage: "Nombre" });
-  const DESCRIPCIO = props.intl.formatMessage({ id: "Comun.descripcion", defaultMessage: "Descripción" });
-
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
+  const NOM = props.intl.formatMessage({
+    id: "Comun.nombre",
+    defaultMessage: "Nombre",
+  });
+  const DESCRIPCIO = props.intl.formatMessage({
+    id: "Comun.descripcion",
+    defaultMessage: "Descripción",
+  });
 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
-  const formatCodeAndDescription = (data) => `${data.descripcio} (${data.codi})`;
+  const formatCodeAndDescription = (data) =>
+    `${data.descripcio} (${data.codi})`;
 
   const withRequiredValidation = (extraValidations = []) => {
     return {
@@ -38,8 +52,14 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     };
   };
 
-  const aSCodeAndName = [ { title: CODE, name: "codi" }, { title: NOM, name: "nom" } ];
-  const aSCodeAndDescription = [ { title: CODE, name: "codi" }, { title: DESCRIPCIO, name: "descripcio" } ];
+  const aSCodeAndName = [
+    { title: CODE, name: "codi" },
+    { title: NOM, name: "nom" },
+  ];
+  const aSCodeAndDescription = [
+    { title: CODE, name: "codi" },
+    { title: DESCRIPCIO, name: "descripcio" },
+  ];
 
   const generalConfig = [
     {
@@ -54,7 +74,11 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "string",
       validations: [
         ...props.stringValidations.minMaxValidation(1, 15),
-        ...props.stringValidations.fieldExistsValidation('articlesFact', 'codi', CODE)
+        ...props.stringValidations.fieldExistsValidation(
+          "articlesFact",
+          "codi",
+          CODE
+        ),
       ],
     },
     {
@@ -63,10 +87,25 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "descripcioCurta",
       breakpoints: {
         xs: 12,
-        md: 8,
+        md: 5,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 60)],
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.alias",
+        defaultMessage: "Alias",
+      }),
+      type: "input",
+      key: "alies",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 30)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -82,20 +121,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Articulos.alias",
-        defaultMessage: "Alias",
-      }),
-      type: "input",
-      key: "alies",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 30)],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
         id: "FamiliaArticulos.proyecto",
         defaultMessage: "Proyecto",
       }),
@@ -103,7 +128,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "projecte",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       selector: {
         key: "projectes",
@@ -123,7 +148,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "delegacio",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       selector: {
         key: "delegacios",
@@ -168,21 +193,24 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 11,
       },
       text: {
-        multiline: 4
+        multiline: 4,
       },
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 2000)],
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+        ...props.stringValidations.minMaxValidation(1, 2000),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "FamiliaProveedores.observaciones",
-        defaultMessage: "Observaciones"
+        defaultMessage: "Observaciones",
       }),
-      type: 'observations',
-      key: 'observacions',
+      type: "observations",
+      key: "observacions",
       breakpoints: {
         xs: 12,
-        md: 1
+        md: 1,
       },
     },
   ];
@@ -261,7 +289,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "marca",
-      id:"articlesMarca",
+      id: "articlesMarca",
       breakpoints: {
         xs: 12,
         md: 6,
@@ -286,7 +314,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       type: "LOV",
       key: "alternatiu",
       id: "articlesFact",
-      required: true,
+
       breakpoints: {
         xs: 12,
         md: 4,
@@ -299,7 +327,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndDescription,
       },
       validationType: "object",
-      ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -309,7 +336,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       type: "LOV",
       key: "alternatiu2",
       id: "articlesFact",
-      required: true,
+
       breakpoints: {
         xs: 12,
         md: 4,
@@ -322,7 +349,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndDescription,
       },
       validationType: "object",
-      ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -332,7 +358,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       type: "LOV",
       key: "articleRaee",
       id: "articlesFact",
-      required: true,
+
       breakpoints: {
         xs: 12,
         md: 4,
@@ -345,7 +371,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndDescription,
       },
       validationType: "object",
-      ...withRequiredValidation(),
     },
   ];
 
@@ -397,70 +422,113 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const tabs = [
     {
       className: "general-tab-subtab",
-      label: <FormattedMessage id={"Articulos.categorias"} defaultMessage={"Categorías"}/>,
+      label: (
+        <FormattedMessage
+          id={"Articulos.categorias"}
+          defaultMessage={"Categorías"}
+        />
+      ),
       key: 0,
-      component: <GenericForm formComponents={categoria}
-                              emptyPaper={true}
-                              setFormData={setFormData}
-                              getFormData={getFormData}
-                              loading={props.loading}
-                              formErrors={props.formErrors}
-                              submitFromOutside={props.submitFromOutside}
-                              onSubmit={() => props.onSubmitTab(formData)}
-                              handleIsValid={value => addValidity(CATEGORIAS_SECTION_TAB_INDEX,value)}
-                              onBlur={(e) => handleTouched(CATEGORIAS_SECTION_TAB_INDEX)}
-                              {...props} />
+      component: (
+        <GenericForm
+          formComponents={categoria}
+          emptyPaper={true}
+          setFormData={setFormData}
+          getFormData={getFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) =>
+            addValidity(CATEGORIAS_SECTION_TAB_INDEX, value)
+          }
+          onBlur={(e) => handleTouched(CATEGORIAS_SECTION_TAB_INDEX)}
+          {...props}
+        />
+      ),
     },
     {
       className: "general-tab-subtab",
-      label: <FormattedMessage id={"Articulos.alternativos"} defaultMessage={"Alternativos"}/>,
+      label: (
+        <FormattedMessage
+          id={"Articulos.alternativos"}
+          defaultMessage={"Alternativos"}
+        />
+      ),
       key: 1,
-      component: <GenericForm formComponents={alternativo}
-                              emptyPaper={true}
-                              setFormData={setFormData}
-                              getFormData={getFormData}
-                              loading={props.loading}
-                              formErrors={props.formErrors}
-                              submitFromOutside={props.submitFromOutside}
-                              onSubmit={() => props.onSubmitTab(formData)}
-                              handleIsValid={value => addValidity(ALTERNATIVO_SECTION_TAB_INDEX,value)}
-                              onBlur={(e) => handleTouched(ALTERNATIVO_SECTION_TAB_INDEX)}
-                              {...props} />
+      component: (
+        <GenericForm
+          formComponents={alternativo}
+          emptyPaper={true}
+          setFormData={setFormData}
+          getFormData={getFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) =>
+            addValidity(ALTERNATIVO_SECTION_TAB_INDEX, value)
+          }
+          onBlur={(e) => handleTouched(ALTERNATIVO_SECTION_TAB_INDEX)}
+          {...props}
+        />
+      ),
     },
     {
       className: "general-tab-subtab",
-      label: <FormattedMessage id={"Articulos.contabilidad"} defaultMessage={"Contabilidad"}/>,
+      label: (
+        <FormattedMessage
+          id={"Articulos.contabilidad"}
+          defaultMessage={"Contabilidad"}
+        />
+      ),
       key: 2,
-      component: <GenericForm formComponents={contabilidad}
-                              emptyPaper={true}
-                              setFormData={setFormData}
-                              getFormData={getFormData}
-                              loading={props.loading}
-                              formErrors={props.formErrors}
-                              submitFromOutside={props.submitFromOutside}
-                              onSubmit={() => props.onSubmitTab(formData)}
-                              handleIsValid={value => addValidity(CONTABILIDAD_SECTION_TAB_INDEX,value)}
-                              onBlur={(e) => handleTouched(CONTABILIDAD_SECTION_TAB_INDEX)}
-                              {...props} />
+      component: (
+        <GenericForm
+          formComponents={contabilidad}
+          emptyPaper={true}
+          setFormData={setFormData}
+          getFormData={getFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) =>
+            addValidity(CONTABILIDAD_SECTION_TAB_INDEX, value)
+          }
+          onBlur={(e) => handleTouched(CONTABILIDAD_SECTION_TAB_INDEX)}
+          {...props}
+        />
+      ),
     },
   ];
 
   return (
-    <Grid container >
+    <Grid container>
       <Grid xs={12} item>
-        <OutlinedContainer className="general-tab-container" title={<FormattedMessage id={"Presupuestos.articulo"} defaultMessage={"Artículo"}/>}>
-          <GenericForm formComponents={generalConfig}
-                       emptyPaper={true}
-                       editMode={props.editMode}
-                       getFormData={getFormData}
-                       setFormData={setFormData}
-                       loading={props.loading}
-                       formErrors={props.formErrors}
-                       submitFromOutside={props.submitFromOutside}
-                       onSubmit={() => props.onSubmitTab(formData)}
-                       handleIsValid={value => addValidity(GENERAL_SECTION_INDEX,value)}
-                       onBlur={(e) => handleTouched(GENERAL_SECTION_INDEX)}
-                       {...props} />
+        <OutlinedContainer
+          className="general-tab-container"
+          title={
+            <FormattedMessage
+              id={"Presupuestos.articulo"}
+              defaultMessage={"Artículo"}
+            />
+          }
+        >
+          <GenericForm
+            formComponents={generalConfig}
+            emptyPaper={true}
+            editMode={props.editMode}
+            getFormData={getFormData}
+            setFormData={setFormData}
+            loading={props.loading}
+            formErrors={props.formErrors}
+            submitFromOutside={props.submitFromOutside}
+            onSubmit={() => props.onSubmitTab(formData)}
+            handleIsValid={(value) => addValidity(GENERAL_SECTION_INDEX, value)}
+            onBlur={(e) => handleTouched(GENERAL_SECTION_INDEX)}
+            {...props}
+          />
         </OutlinedContainer>
       </Grid>
       <Grid xs={12} item>
@@ -471,8 +539,4 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     </Grid>
   );
 };
-export default compose(
-  React.memo,
-  withValidations,
-  injectIntl
-)(GeneralTab);
+export default compose(React.memo, withValidations, injectIntl)(GeneralTab);

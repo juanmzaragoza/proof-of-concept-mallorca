@@ -55,6 +55,14 @@ const LimitCreditTab = ({ formData, setFormData, getFormData, ...props }) => {
 
     columns: [
       {
+        name: "classe",
+        title: props.intl.formatMessage({
+          id:  "Cajas.clase",
+          defaultMessage: "Clase",
+        }),
+        hidden:true,
+      },
+      {
         name: "divisa",
         title: props.intl.formatMessage({
           id: "Cajas.divisa",
@@ -69,6 +77,16 @@ const LimitCreditTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Importe",
         }),
       },
+      {
+        name: "valorDivisaEuros",
+        title: props.intl.formatMessage({
+          id: "Cajas.valorDivisa",
+          defaultMessage: "valor Divisa",
+        }),
+        hidden:true,
+      },
+
+      
       {
         name: "naturalesaPagamentCobrament",
         title: props.intl.formatMessage({
@@ -108,6 +126,7 @@ const LimitCreditTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         type: "LOV",
         key: "divisa",
+        noEditable:true,
         required: true,
         breakpoints: {
           xs: 12,
@@ -165,6 +184,7 @@ const LimitCreditTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Naturaleza pago/cobro",
         }),
         type: "LOV",
+        noEditable:true,
         key: "naturalesaPagamentCobrament",
         id: "naturalesaPagoCobro",
         required: true,
@@ -199,7 +219,7 @@ const LimitCreditTab = ({ formData, setFormData, getFormData, ...props }) => {
         >
           <ExpandableGrid
             id="limitsCredit"
-            responseKey="limitsCredits"
+            responseKey="limitCredits"
             enabled={props.editMode}
             configuration={limitCreditConfig}
           />

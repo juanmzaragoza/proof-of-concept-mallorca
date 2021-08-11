@@ -16,7 +16,7 @@ const ARTICLE_BRAND_SECTION_INDEX = 0;
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false, 1: false },
+    fields: { [ARTICLE_BRAND_SECTION_INDEX]: false },
     setIsValid: props.setIsValid,
   });
 
@@ -62,8 +62,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 9,
       },
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 30)],
-      ...props.commonValidations.requiredValidation(),
+      validations: [
+        ...props.stringValidations.minMaxValidation(1, 30),
+        ...props.commonValidations.requiredValidation(),
+      ],
     },
   ];
 
