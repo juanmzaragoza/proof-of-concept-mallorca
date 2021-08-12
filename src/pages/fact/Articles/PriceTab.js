@@ -806,6 +806,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
           md: 3,
         },
         validationType: "number",
+        validations:[...props.commonValidations.requiredValidation()]
       },
       {
         placeHolder: SUPLIM,
@@ -816,16 +817,20 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 3,
         },
+        validationType: "number",
+        validations:[...props.commonValidations.requiredValidation()]
       },
       {
         placeHolder: PRICE,
-        type: "input",
+        type: "numeric",
         key: "preu",
         required: true,
         breakpoints: {
           xs: 12,
           md: 3,
         },
+        validationType: "number",
+        validations:[...props.commonValidations.requiredValidation()]
       },
       {
         placeHolder: APLDTO,
