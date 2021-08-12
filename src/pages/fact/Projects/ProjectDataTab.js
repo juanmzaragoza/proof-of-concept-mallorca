@@ -699,7 +699,7 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         relatedWith: {
           name: "clientAdresa",
           filterBy: "client.id",
-          keyValue: "client.id",
+          keyValue: "id",
         },
       },
     },
