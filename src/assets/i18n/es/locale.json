@@ -1625,7 +1625,8 @@
   "PieDocumnento.numero":"Número",
   "Almacen.articulo":"Artículo",
   "Cajas.situacionesIniciales":"Situaciones Iniciales",
-  "Cajas.valorDivisa":"Valor Divisa"
+  "Cajas.valorDivisa":"Valor Divisa",
+  "Presupuestos.codigoSerieVenta":"Código Serie Venta"
   
   }
 

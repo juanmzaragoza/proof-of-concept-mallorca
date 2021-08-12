@@ -45,6 +45,6 @@ export default {
     path: `${URL}`,
     component: withHeaders(AreasNegoci),
   },
-  name: "FAC_SERARENEG",
+  name: "FAC_ARENEG",
   icon: <FontDownloadIcon />,
 };
