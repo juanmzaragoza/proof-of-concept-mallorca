@@ -22,19 +22,6 @@ import {
   SwapVerticalCircle,
   HomeWorkOutlined,
 } from "@material-ui/icons";
-// import LocalMall from "@material-ui/icons/LocalMall";
-// import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
-// import SettingsIcon from "@material-ui/icons/Settings";
-// import AssignmentIcon from "@material-ui/icons/Assignment";
-// import MonetizationOnOutlinedIcon from "@material-ui/icons/MonetizationOnOutlined";
-// import TableChartIcon from "@material-ui/icons/TableChart";
-// import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
-// import DeveloperBoardIcon from "@material-ui/icons/DeveloperBoard";
-// import TableChartOutlinedIcon from "@material-ui/icons/TableChartOutlined";
-// import BusinessCenterIcon from "@material-ui/icons/BusinessCenter";
-// import SwapHorizontalCircleIcon from "@material-ui/icons/SwapHorizontalCircle";
-// import SwapVerticalCircleIcon from "@material-ui/icons/SwapVerticalCircle";
-// import HomeWorkOutlinedIcon from '@material-ui/icons/HomeWorkOutlined';
 
 const withConstants = (PassedComponent) => {
   const WrappedComponent = ({ actions, ...props }) => {

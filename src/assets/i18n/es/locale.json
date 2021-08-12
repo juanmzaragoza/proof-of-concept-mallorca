@@ -20,6 +20,7 @@
   "Comun.error.sesion_expirada": "Sesión expirada! Vuelva a iniciar sesión.",
   "Comun.error.servidor_fuera_servicio": "Servidor fuera de servicio",
   "Comun.error.sin_permisos": "No posee los permisos suficientes ;(",
+  "Comun.error.entidad_no_econtrada": "El elemento consultado no existe en la base de datos",
   "Comun.acciones": "Acciones",
   "Comun.SI": "SI",
   "Comun.NO": "NO",
