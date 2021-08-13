@@ -5,11 +5,13 @@ import Grid from "@material-ui/core/Grid/Grid";
 
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import { compose } from "redux";
-import { withValidations } from "modules/wrappers";
+import { withValidations, withDependentActionsTest } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
 
 const Prices = ({ formData, setFormData, getFormData, ...props }) => {
   const { id: tarifaId } = useParams();
+
+  const fireActionOnBlur = props.preusArticle.fireOnChangeCalculateMargin;
 
   useEffect(() => {
     props.setIsValid(true);
@@ -29,6 +31,8 @@ const Prices = ({ formData, setFormData, getFormData, ...props }) => {
     { title: CODE, name: "codi" },
     { title: DESCRIPTION, name: "descripcio" },
   ];
+
+  
 
   const priceParticulars = {
     title: props.intl.formatMessage({
@@ -104,6 +108,7 @@ const Prices = ({ formData, setFormData, getFormData, ...props }) => {
           cannotCreate: true,
           advancedSearchColumns: aSCodeAndDescription,
         },
+        fireActionOnBlur,
         validationType: "object",
         validations: [...props.commonValidations.requiredValidation()],
       },
@@ -119,6 +124,7 @@ const Prices = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
+        fireActionOnBlur,
         validationType: "number",
         validations: [...props.commonValidations.requiredValidation()],
       },
@@ -134,6 +140,7 @@ const Prices = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 2,
         },
+        fireActionOnBlur,
         validationType: "number",
         validations: [...props.numberValidations.minMaxValidation(0, 99)],
       },
@@ -149,6 +156,7 @@ const Prices = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 2,
         },
+        fireActionOnBlur,
         validationType: "number",
         validations: [...props.numberValidations.minMaxValidation(0, 99)],
       },
@@ -164,6 +172,7 @@ const Prices = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 2,
         },
+        fireActionOnBlur
       },
     ],
   };
@@ -181,7 +190,7 @@ const Prices = ({ formData, setFormData, getFormData, ...props }) => {
           }
         >
           <ExpandableGrid
-            id="preusArticle"
+            id="preuArticles"
             responseKey="preuArticles"
             enabled={props.editMode}
             configuration={priceParticulars}
@@ -191,4 +200,4 @@ const Prices = ({ formData, setFormData, getFormData, ...props }) => {
     </Grid>
   );
 };
-export default compose(React.memo, withValidations, injectIntl)(Prices);
+export default compose(React.memo, withValidations, withDependentActionsTest, injectIntl)(Prices);
