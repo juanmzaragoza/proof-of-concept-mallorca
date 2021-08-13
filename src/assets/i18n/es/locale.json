@@ -1527,7 +1527,7 @@
   "Facturas.criterioRte": "Criterio Rectificación",
   "Facturas.criterioDesc": "Criterio Descripción",
   "Facturas.nombreCliente2": "Nombre Cliente 2",
-  "Facturas.delegacion":"Deñegación",
+  "Facturas.delegacion":"Delegación",
   "Facturas.añoMes":"Año-Mes",
   "Facturas.obsAñoMes":"Observaciones Año-Mes",
   "Facturas.importeMov":"Importe Movimiento",
@@ -1723,7 +1723,14 @@
   "Almacen.articulo":"Artículo",
   "Cajas.situacionesIniciales":"Situaciones Iniciales",
   "Cajas.valorDivisa":"Valor Divisa",
-  "Presupuestos.codigoSerieVenta":"Código Serie Venta"
+  "Presupuestos.codigoSerieVenta":"Código Serie Venta",
+  "Comun.paisNif2":"País NIF 2",
+  "Comun.nif2":" NIF 2",
+  "Comun.paisNif3":"País NIF 3",
+  "Comun.nif3":" NIF 3",
+  "Facturas.diaImpr":"Día Impr",
+  "Facturas.fechaLiquidacion":"Fecha Liquidación",
+  "Facturas.facturasCliente":"Facturas Cliente"
   
   
 

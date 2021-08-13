@@ -17,9 +17,9 @@ const RECT_ELECT_SECTION_TAB_INDEX = 2;
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
-      [INVOICE_SECTION_INDEX]: false,
-      [FACT_ELECT_SECTION_TAB_INDEX]: false,
-      [RECT_ELECT_SECTION_TAB_INDEX]: false,
+      [INVOICE_SECTION_INDEX]: true,
+      [FACT_ELECT_SECTION_TAB_INDEX]: true,
+      [RECT_ELECT_SECTION_TAB_INDEX]: true,
     },
     setIsValid: props.setIsValid,
   });
@@ -111,8 +111,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Proveedores.pais_nif",
-        defaultMessage: "País NIF",
+        id: "Comun.paisNif3",
+        defaultMessage: "País NIF 3",
       }),
       type: "LOV",
       key: "paisNif3",
@@ -165,8 +165,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Proveedores.nif",
-        defaultMessage: "NIF",
+        id: "Comun.nif3",
+        defaultMessage: "NIF 3",
       }),
       type: "input",
       key: "nif3",
@@ -319,31 +319,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "dtoDes",
       breakpoints: {
         xs: 12,
-        md: 3,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Facturas.descDto2",
-        defaultMessage: "Desc. dto 2",
-      }),
-      type: "input",
-      key: "dtoDes2",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Facturas.motivoRet",
-        defaultMessage: "Motivo retención",
-      }),
-      type: "input",
-      key: "mtuRet",
-      breakpoints: {
-        xs: 12,
-        md: 3,
+        md: 9,
       },
     },
     {
@@ -359,6 +335,31 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       disabled: true,
     },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Facturas.descDto2",
+        defaultMessage: "Desc. dto 2",
+      }),
+      type: "input",
+      key: "dtoDes2",
+      breakpoints: {
+        xs: 12,
+        md: 8,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Facturas.motivoRet",
+        defaultMessage: "Motivo retención",
+      }),
+      type: "input",
+      key: "mtuRet",
+      breakpoints: {
+        xs: 12,
+        md: 4,
+      },
+    },
+  
   ];
 
   const rectificacionesConfig = [

@@ -19,7 +19,7 @@ import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { setBreadcrumbHeader, setFireSaveFromHeader, setFormConfig } from "redux/pageHeader";
 import { getFireSave } from "redux/pageHeader/selectors";
 import { withAbmServices } from "../../../modules/wrappers";
-import { getFormData, getFormErrors, getFormDataByKey, getIsDataLoaded } from "../../../redux/genericForm/selectors";
+import { getFormData, getFormErrors, getFormDataByKey, getIsDataLoaded, getIsSubmitted } from "../../../redux/genericForm/selectors";
 
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
@@ -92,7 +92,8 @@ const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromO
         onSubmitTab={handleSubmitTab}
         formErrors={props.formErrors}
         loading={props.loading}
-        formDataLoaded={props.formDataLoaded} />
+        formDataLoaded={props.formDataLoaded}
+        isSubmitted={props.isSubmitted} />
     },
     {
       label: <FormattedMessage id={"Proveedores.tabs.contactos"} defaultMessage={"Contactos"} />,
@@ -107,7 +108,8 @@ const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromO
         onSubmitTab={handleSubmitTab}
         formErrors={props.formErrors}
         loading={props.loading}
-        formDataLoaded={props.formDataLoaded} />
+        formDataLoaded={props.formDataLoaded}
+        isSubmitted={props.isSubmitted} />
     },
     {
       label: <FormattedMessage id={"Proveedores.tabs.contabilidad"} defaultMessage={"Contabilidad"} />,
@@ -122,7 +124,8 @@ const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromO
         onSubmitTab={handleSubmitTab}
         formErrors={props.formErrors}
         loading={props.loading}
-        formDataLoaded={props.formDataLoaded} />
+        formDataLoaded={props.formDataLoaded}
+        isSubmitted={props.isSubmitted} />
     },
     {
       label: <FormattedMessage id={"Proveedores.tabs.facturacion"} defaultMessage={"Facturación"} />,
@@ -137,7 +140,8 @@ const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromO
         onSubmitTab={handleSubmitTab}
         formErrors={props.formErrors}
         loading={props.loading}
-        formDataLoaded={props.formDataLoaded} />
+        formDataLoaded={props.formDataLoaded}
+        isSubmitted={props.isSubmitted} />
     },
     {
       label: <FormattedMessage id={"Clientes.SubClientes"} defaultMessage={"SubClientes"} />,
@@ -152,7 +156,8 @@ const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromO
         onSubmitTab={handleSubmitTab}
         formErrors={props.formErrors}
         loading={props.loading}
-        formDataLoaded={props.formDataLoaded} />
+        formDataLoaded={props.formDataLoaded}
+        isSubmitted={props.isSubmitted} />
     },
     {
       label: <FormattedMessage id={"Proveedores.tabs.personalizacion"} defaultMessage={"Personalización"} />,
@@ -167,7 +172,8 @@ const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromO
         onSubmitTab={handleSubmitTab}
         formErrors={props.formErrors}
         loading={props.loading}
-        formDataLoaded={props.formDataLoaded} />
+        formDataLoaded={props.formDataLoaded}
+        isSubmitted={props.isSubmitted} />
     },
     {
       label: <FormattedMessage id={"Proveedores.tabs.documentos"} defaultMessage={"Documentos"} />,
@@ -181,7 +187,8 @@ const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromO
       onSubmitTab={handleSubmitTab}
       formErrors={props.formErrors}
       loading={props.loading}
-      formDataLoaded={props.formDataLoaded} />
+      formDataLoaded={props.formDataLoaded}
+      isSubmitted={props.isSubmitted} />
     },
     {
       label: <FormattedMessage id={"Clientes.comercial"} defaultMessage={"Comercial"} />,
@@ -196,7 +203,8 @@ const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromO
         onSubmitTab={handleSubmitTab}
         formErrors={props.formErrors}
         loading={props.loading}
-        formDataLoaded={props.formDataLoaded} />
+        formDataLoaded={props.formDataLoaded}
+        isSubmitted={props.isSubmitted} />
     },
     {
       label: <FormattedMessage id={"Clientes.otraAplicacion"} defaultMessage={"Otra Aplicaciones"} />,
@@ -211,7 +219,8 @@ const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromO
         onSubmitTab={handleSubmitTab}
         formErrors={props.formErrors}
         loading={props.loading}
-        formDataLoaded={props.formDataLoaded} />
+        formDataLoaded={props.formDataLoaded}
+        isSubmitted={props.isSubmitted} />
     },
     {
       label: <FormattedMessage id={"Clientes.aplicadores"} defaultMessage={"Aplicadores"} />,
@@ -226,7 +235,8 @@ const ClientsForm = React.memo(({ actions, allFormData, getFormData, submitFromO
         onSubmitTab={handleSubmitTab}
         formErrors={props.formErrors}
         loading={props.loading}
-        formDataLoaded={props.formDataLoaded} />
+        formDataLoaded={props.formDataLoaded}
+        isSubmitted={props.isSubmitted} />
     },
 
     
@@ -308,7 +318,8 @@ const mapStateToProps = (state, props) => {
     loading: getLoading(state),
     allFormData: getFormData(state),
     getFormData: getFormDataByKey(state),
-    formDataLoaded: getIsDataLoaded(state)
+    formDataLoaded: getIsDataLoaded(state),
+    isSubmitted: getIsSubmitted(state)
   };
 };
 

@@ -5,20 +5,19 @@ import Grid from "@material-ui/core/Grid/Grid";
 
 
 import OutlinedContainer from "modules/shared/OutlinedContainer";
-import GenericForm from "modules/GenericForm";
-import ConfigurableTabs from "modules/shared/ConfigurableTabs";
+
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
 
-import { useTabForm } from "hooks/tab-form";
+
 
 
 const MovimientosCajaTab = ({ formData, setFormData, getFormData, ...props }) => {
-  const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false, 1: false },
-    setIsValid: props.setIsValid,
-  });
+  useEffect(() => {
+    props.setIsValid(true);
+  }, []);
+
 
   const { id: facturaId } = useParams();
 

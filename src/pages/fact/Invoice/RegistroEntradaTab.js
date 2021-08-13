@@ -2,12 +2,6 @@ import React, { useEffect, useState } from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
 
-import {
-  TDOC_SELECTOR_VALUES,
-  FORMA_PAGO_FACT_SELECTOR_VALUES,
-  TIPO_REG_IVA_SELECTOR_VALUES,
-  TIPO_RETENCION3_SELECTOR_VALUES,
-} from "constants/selectors";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
@@ -24,10 +18,10 @@ const AEAT_SECTION_TAB_INDEX = 3;
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
-      [INVOICE_SECTION_INDEX]: false,
-      [FACTORING_SECTION_TAB_INDEX]: false,
-      [RETENTION_SECTION_TAB_INDEX]: false,
-      [AEAT_SECTION_TAB_INDEX]: false,
+      [INVOICE_SECTION_INDEX]: true,
+      [FACTORING_SECTION_TAB_INDEX]: true,
+      [RETENTION_SECTION_TAB_INDEX]: true,
+      [AEAT_SECTION_TAB_INDEX]: true,
     },
     setIsValid: props.setIsValid,
   });

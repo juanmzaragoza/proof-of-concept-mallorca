@@ -22,6 +22,7 @@ import {
   getFormErrors,
   getFormDataByKey,
   getIsDataLoaded,
+  getIsSubmitted
 } from "../../../redux/genericForm/selectors";
 
 import { setFormDataByKey } from "../../../redux/genericForm";
@@ -123,6 +124,7 @@ const InvoiceForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
         ),
       },
@@ -146,6 +148,7 @@ const InvoiceForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
         ),
       },
@@ -169,6 +172,7 @@ const InvoiceForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
         ),
       },
@@ -192,6 +196,7 @@ const InvoiceForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
         ),
       },
@@ -215,6 +220,7 @@ const InvoiceForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
         ),
       },
@@ -238,10 +244,10 @@ const InvoiceForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "Facturas.titulo",
-              defaultMessage: "Facturas",
+              id: "Facturas.facturasCliente",
+              defaultMessage: "Facturas Cliente",
             }),
-            href: "/fact/facturas",
+            href: "/fact/facturas-cliente",
           },
           {
             title: props.intl.formatMessage({
@@ -273,12 +279,12 @@ const InvoiceForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "Facturas.titulo",
-              defaultMessage: "Facturas",
+              id: "Facturas.facturasCliente",
+              defaultMessage: "Facturas Cliente",
             }),
-            href: "/fact/facturas",
+            href: "/fact/facturas-cliente",
           },
-          { title: nom, href: "/fact/facturas" },
+          { title: nom, href: "/fact/facturas-cliente" },
           { title: nameSelectedTab },
         ]);
       }
@@ -326,6 +332,7 @@ const mapStateToProps = (state, props) => {
     allFormData: getFormData(state),
     getFormData: getFormDataByKey(state),
     formDataLoaded: getIsDataLoaded(state),
+    isSubmitted: getIsSubmitted(state)
   };
 };
 

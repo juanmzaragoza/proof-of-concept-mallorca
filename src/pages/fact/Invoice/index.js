@@ -11,9 +11,9 @@ import {setBreadcrumbHeader, setListingConfig} from "redux/pageHeader";
 import withHeaders from "modules/wrappers/withHeaders";
 import InvoiceList from "./InvoiceList";
 import InvoiceForm from "./InvoiceForm";
-import {INVOICE_FACT_URL} from "constants/routes";
+import {INVOICE_CUSTOMER_FACT_URL} from "constants/routes";
 
-const URL = INVOICE_FACT_URL;
+const URL = INVOICE_CUSTOMER_FACT_URL;
 
 
 const mapDispatchToProps = (dispatch, props) => {
