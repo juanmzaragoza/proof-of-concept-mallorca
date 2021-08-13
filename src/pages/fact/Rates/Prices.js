@@ -5,13 +5,13 @@ import Grid from "@material-ui/core/Grid/Grid";
 
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import { compose } from "redux";
-import { withValidations, withDependentActionsTest } from "modules/wrappers";
+import { withValidations, withDependentActions } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
 
 const Prices = ({ formData, setFormData, getFormData, ...props }) => {
   const { id: tarifaId } = useParams();
 
-  const fireActionOnBlur = props.preusArticle.fireOnChangeCalculateMargin;
+  const fireActionOnBlur = props.rates.fireOnChangeCalculateMargin;
 
   useEffect(() => {
     props.setIsValid(true);
@@ -31,8 +31,6 @@ const Prices = ({ formData, setFormData, getFormData, ...props }) => {
     { title: CODE, name: "codi" },
     { title: DESCRIPTION, name: "descripcio" },
   ];
-
-  
 
   const priceParticulars = {
     title: props.intl.formatMessage({
@@ -200,4 +198,9 @@ const Prices = ({ formData, setFormData, getFormData, ...props }) => {
     </Grid>
   );
 };
-export default compose(React.memo, withValidations, withDependentActionsTest, injectIntl)(Prices);
+export default compose(
+  React.memo,
+  withValidations,
+  withDependentActions,
+  injectIntl
+)(Prices);

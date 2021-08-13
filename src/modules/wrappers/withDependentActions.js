@@ -34,8 +34,24 @@ const withDependentActions = (PassedComponent) => {
       return props.getCalculationForDependentFields({ id, body });
     }
 
+    const fireOnChangeCalculateMargin = ({ key, value }) => {
+      const id = 'preusArticleCalcularPreusMargeAmbDescompte';
+      const fields = [
+        {key: 'article', react: true},
+        {key: 'preuArticleTarifa', react: true},
+        {key: 'descompte', react: true},
+        {key: 'descompte002', react: true},
+        {key: 'marge', react: true},
+      ];
+      // call to service
+      const body = buildBody({ key, value, fields });
+      // TODO() at this point, we can add method and query attributes
+      return props.getCalculationForDependentFields({ id, body });
+    }
+
     return <PassedComponent
       articles={{ fireOnChangePrice }}
+      rates={{ fireOnChangeCalculateMargin }}
       {...props} />;
   }
 
