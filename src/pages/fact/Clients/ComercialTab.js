@@ -7,11 +7,15 @@ import GenericForm from "../../../modules/GenericForm";
 import { withValidations } from "modules/wrappers";
 import { useTabForm } from "../../../hooks/tab-form";
 
-const COMERCIAL_SECTION_INDEX = 0;
+const ALPHANUMERICS_SECTION_INDEX = 0;
+const NUMERICS_SECTION_INDEX = 0;
 
 const ComercialTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false, 1: false },
+    fields: {
+      [ALPHANUMERICS_SECTION_INDEX]: true,
+      [NUMERICS_SECTION_INDEX]: true
+    },
     setIsValid: props.setIsValid,
   });
 
@@ -164,9 +168,9 @@ const ComercialTab = ({ formData, setFormData, getFormData, ...props }) => {
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
             handleIsValid={(value) =>
-              addValidity(COMERCIAL_SECTION_INDEX, value)
+              addValidity(ALPHANUMERICS_SECTION_INDEX, value)
             }
-            onBlur={(e) => handleTouched(COMERCIAL_SECTION_INDEX)}
+            onBlur={(e) => handleTouched(ALPHANUMERICS_SECTION_INDEX)}
             {...props}
           />
         </OutlinedContainer>
@@ -192,9 +196,9 @@ const ComercialTab = ({ formData, setFormData, getFormData, ...props }) => {
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
             handleIsValid={(value) =>
-              addValidity(COMERCIAL_SECTION_INDEX, value)
+              addValidity(NUMERICS_SECTION_INDEX, value)
             }
-            onBlur={(e) => handleTouched(COMERCIAL_SECTION_INDEX)}
+            onBlur={(e) => handleTouched(NUMERICS_SECTION_INDEX)}
             {...props}
           />
         </OutlinedContainer>

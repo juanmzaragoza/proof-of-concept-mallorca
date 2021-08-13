@@ -53,10 +53,10 @@ const CustomerAppList = ({ actions, ...props }) => {
         getCellValue: row => row.empresa?.description ?? ""
       },
     ],
-    URL: API.aplicacionsClients,
-    listKey: "aplicacioClients",
+    URL: API.altresAplicacionsClient,
+    listKey: "altraAplicacioClients",
   };
-  return <ReactGrid id="aplicacionsClients" configuration={listConfiguration} />;
+  return <ReactGrid id="altresAplicacionsClient" configuration={listConfiguration} />;
 };
 
 const mapDispatchToProps = (dispatch, props) => {

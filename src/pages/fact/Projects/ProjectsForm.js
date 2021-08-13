@@ -19,6 +19,7 @@ import {
   getFormErrors,
   getFormDataByKey,
   getIsDataLoaded,
+  getIsSubmitted,
 } from "redux/genericForm/selectors";
 
 import { setFormDataByKey } from "redux/genericForm";
@@ -33,10 +34,6 @@ import InvSujetoPasivoTab from "./InvSujetoPasivoTab";
 import CertificacionesTab from "./CertificacionesTab";
 import DocumentsTab from "./DocumentsTab";
 
-/**
- * Suppliers form module
- * If you want add a new tab, follow the next steps
- **/
 /** step 1 */
 const GENERAL_TAB_INDEX = 0;
 const MORE_TAB_INDEX = 1;
@@ -45,7 +42,7 @@ const PROJECT_APP_TAB_INDEX = 4;
 const EXPIRATION_TAB_INDEX = 5;
 const INV_SUJ_TAB_INDEX = 6;
 const HISTORY_TAB_INDEX = 7;
-const CERT_TAB_INDEX =3;
+const CERT_TAB_INDEX = 3;
 const DOCUMENTS_TAB_INDEX = 8;
 
 const ProjectsForm = React.memo(
@@ -64,14 +61,14 @@ const ProjectsForm = React.memo(
     /** step 2 */
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [GENERAL_TAB_INDEX]: false,
-      [MORE_TAB_INDEX]: false,
-      [BUDGET_TAB_INDEX]:false,
-      [PROJECT_APP_TAB_INDEX]:false,
-      [EXPIRATION_TAB_INDEX]:false,
-      [INV_SUJ_TAB_INDEX]:false,
-      [HISTORY_TAB_INDEX]:false,
-      [CERT_TAB_INDEX]:false,
-      [DOCUMENTS_TAB_INDEX]:false
+      [MORE_TAB_INDEX]: true,
+      [BUDGET_TAB_INDEX]: false,
+      [PROJECT_APP_TAB_INDEX]: false,
+      [EXPIRATION_TAB_INDEX]: false,
+      [INV_SUJ_TAB_INDEX]: false,
+      [HISTORY_TAB_INDEX]: false,
+      [CERT_TAB_INDEX]: false,
+      [DOCUMENTS_TAB_INDEX]: false,
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -139,6 +136,7 @@ const ProjectsForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
         ),
       },
@@ -162,6 +160,7 @@ const ProjectsForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
         ),
       },
@@ -185,6 +184,7 @@ const ProjectsForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
         ),
       },
@@ -208,10 +208,11 @@ const ProjectsForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
         ),
       },
-      
+
       {
         ...getTranslations("Proyectos.otraAplicacion", "Proyectos otras App"),
         key: PROJECT_APP_TAB_INDEX,
@@ -232,6 +233,7 @@ const ProjectsForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
         ),
       },
@@ -255,11 +257,15 @@ const ProjectsForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
         ),
       },
       {
-        ...getTranslations("Proyectos.inversionSujeto", "Inversión Sujeto Pasivo"),
+        ...getTranslations(
+          "Proyectos.inversionSujeto",
+          "Inversión Sujeto Pasivo"
+        ),
         key: INV_SUJ_TAB_INDEX,
         error: tabHasError(INV_SUJ_TAB_INDEX),
         component: (
@@ -278,10 +284,11 @@ const ProjectsForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
         ),
       },
-      
+
       {
         ...getTranslations("Proyectos.historialResp", "Historial Responsables"),
         key: HISTORY_TAB_INDEX,
@@ -302,11 +309,12 @@ const ProjectsForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
         ),
       },
       {
-        ...getTranslations( "Proveedores.tabs.documentos", "Documentos "),
+        ...getTranslations("Proveedores.tabs.documentos", "Documentos "),
         key: DOCUMENTS_TAB_INDEX,
         error: tabHasError(DOCUMENTS_TAB_INDEX),
         component: (
@@ -325,12 +333,10 @@ const ProjectsForm = React.memo(
             formErrors={props.formErrors}
             loading={props.loading}
             formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
           />
         ),
       },
-
-
-      
     ];
 
     const { id } = useParams();
@@ -439,6 +445,7 @@ const mapStateToProps = (state, props) => {
     allFormData: getFormData(state),
     getFormData: getFormDataByKey(state),
     formDataLoaded: getIsDataLoaded(state),
+    isSubmitted: getIsSubmitted(state),
   };
 };
 

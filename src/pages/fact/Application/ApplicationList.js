@@ -75,10 +75,10 @@ const ApplicationList = ({ actions, ...props }) => {
       },
    
     ],
-    URL: API.aplicacions,
-    listKey: "aplicacios",
+    URL: API.aplicacionsClient,
+    listKey: "aplicacioClients",
   };
-  return <ReactGrid id="aplicacions" configuration={listConfiguration} />;
+  return <ReactGrid id="aplicacionsClient" configuration={listConfiguration} />;
 };
 
 const mapDispatchToProps = (dispatch, props) => {

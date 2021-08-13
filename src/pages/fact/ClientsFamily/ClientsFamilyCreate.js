@@ -68,6 +68,14 @@ const ClientsFamilyCreate = (props) => {
       noEditable: true,
       validationType: "string",
       validations: [
+        ...props.stringValidations.fieldExistsValidation(
+          "familiaClient",
+          "codi",
+          props.intl.formatMessage({
+            id: "Comun.codigo",
+            defaultMessage: "Código",
+          })
+        ),
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 4),
       ],

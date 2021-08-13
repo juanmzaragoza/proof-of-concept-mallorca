@@ -5,14 +5,14 @@ import { compose } from "redux";
 import CreateUpdateForm from "modules/ReactGrid/CreateUpdateForm";
 import { withValidations } from "modules/wrappers";
 import * as API from "redux/api";
-import {VALORACION_INVENTARIO_TRABAJO_SELECTOR_VALUES} from "../../../constants/selectors";
+import { VALORACION_INVENTARIO_TRABAJO_SELECTOR_VALUES } from "../../../constants/selectors";
 
 const ArticlesLocationCreate = (props) => {
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
     defaultMessage: "Código",
   });
-  
+
   const DESCRIPTION = props.intl.formatMessage({
     id: "Comun.descripcion",
     defaultMessage: "Descripción",
@@ -32,7 +32,11 @@ const ArticlesLocationCreate = (props) => {
     validations: [
       ...props.commonValidations.requiredValidation(),
       ...props.stringValidations.minMaxValidation(1, 4),
-      ...props.stringValidations.fieldExistsValidation('magatzem', 'codi', CODE)
+      ...props.stringValidations.fieldExistsValidation(
+        "magatzem",
+        "codi",
+        CODE
+      ),
     ],
   });
 
@@ -51,7 +55,7 @@ const ArticlesLocationCreate = (props) => {
   const aSCodeAndDescription = [
     { title: CODE, name: "codi" },
     { title: DESCRIPTION, name: "descripcio" },
-  ]
+  ];
 
   const aSCodeAndName = [
     { title: CODE, name: "codi" },
@@ -86,6 +90,11 @@ const ArticlesLocationCreate = (props) => {
         key: "magatzems",
         labelKey: formatCodeAndName,
         sort: "codi",
+        relatedWith: {
+          name: "ubicacio",
+          filterBy: "magatzem.id",
+          keyValue: "id",
+        },
         creationComponents: [
           code(3),
           {
@@ -103,7 +112,7 @@ const ArticlesLocationCreate = (props) => {
             validationType: "string",
             validations: [
               ...props.commonValidations.requiredValidation(),
-              ...props.stringValidations.minMaxValidation(1, 30)
+              ...props.stringValidations.minMaxValidation(1, 30),
             ],
           },
           {
@@ -121,23 +130,23 @@ const ArticlesLocationCreate = (props) => {
             validationType: "string",
             validations: [
               ...props.commonValidations.requiredValidation(),
-              ...props.stringValidations.minMaxValidation(1, 60)
+              ...props.stringValidations.minMaxValidation(1, 60),
             ],
           },
           {
             placeHolder: props.intl.formatMessage({
               id: "Almacen.select.valoracionInventarioTrabajo",
-              defaultMessage: "Valoración inventario traspaso"
+              defaultMessage: "Valoración inventario traspaso",
             }),
-            type: 'select',
-            key: 'valoracioInventariTraspas',
+            type: "select",
+            key: "valoracioInventariTraspas",
             required: true,
             breakpoints: {
               xs: 12,
               md: 4,
             },
             selector: {
-              options: VALORACION_INVENTARIO_TRABAJO_SELECTOR_VALUES
+              options: VALORACION_INVENTARIO_TRABAJO_SELECTOR_VALUES,
             },
           },
           {
@@ -154,7 +163,7 @@ const ArticlesLocationCreate = (props) => {
             validationType: "string",
             validations: [
               ...props.commonValidations.requiredValidation(),
-              ...props.stringValidations.minMaxValidation(1, 60)
+              ...props.stringValidations.minMaxValidation(1, 60),
             ],
           },
           {
@@ -171,7 +180,7 @@ const ArticlesLocationCreate = (props) => {
             validationType: "string",
             validations: [
               ...props.commonValidations.requiredValidation(),
-              ...props.stringValidations.minMaxValidation(1, 60)
+              ...props.stringValidations.minMaxValidation(1, 60),
             ],
           },
           {
@@ -188,7 +197,7 @@ const ArticlesLocationCreate = (props) => {
             validationType: "string",
             validations: [
               ...props.commonValidations.requiredValidation(),
-              ...props.stringValidations.minMaxValidation(1, 60)
+              ...props.stringValidations.minMaxValidation(1, 60),
             ],
           },
           {
@@ -205,7 +214,7 @@ const ArticlesLocationCreate = (props) => {
             validationType: "string",
             validations: [
               ...props.commonValidations.requiredValidation(),
-              ...props.stringValidations.minMaxValidation(1, 30)
+              ...props.stringValidations.minMaxValidation(1, 30),
             ],
           },
           {
@@ -222,7 +231,7 @@ const ArticlesLocationCreate = (props) => {
             validationType: "string",
             validations: [
               ...props.commonValidations.requiredValidation(),
-              ...props.stringValidations.minMaxValidation(1, 2)
+              ...props.stringValidations.minMaxValidation(1, 2),
             ],
           },
           {
@@ -239,7 +248,7 @@ const ArticlesLocationCreate = (props) => {
             validationType: "string",
             validations: [
               ...props.commonValidations.requiredValidation(),
-              ...props.stringValidations.minMaxValidation(1, 2)
+              ...props.stringValidations.minMaxValidation(1, 2),
             ],
           },
           {
@@ -256,7 +265,7 @@ const ArticlesLocationCreate = (props) => {
             validationType: "string",
             validations: [
               ...props.commonValidations.requiredValidation(),
-              ...props.stringValidations.minMaxValidation(1, 2)
+              ...props.stringValidations.minMaxValidation(1, 2),
             ],
           },
           {
@@ -273,7 +282,7 @@ const ArticlesLocationCreate = (props) => {
             validationType: "string",
             validations: [
               ...props.commonValidations.requiredValidation(),
-              ...props.stringValidations.minMaxValidation(1, 10)
+              ...props.stringValidations.minMaxValidation(1, 10),
             ],
           },
           {
@@ -291,9 +300,9 @@ const ArticlesLocationCreate = (props) => {
             selector: {
               key: "codiPostals",
               labelKey: (data) =>
-              `${data.poblacio} ${data.municipi ? ` - ${data.municipi}` : ""} (${
-                data.codi
-              })`,
+                `${data.poblacio} ${
+                  data.municipi ? ` - ${data.municipi}` : ""
+                } (${data.codi})`,
               sort: "codi",
               cannotCreate: true,
               advancedSearchColumns: aSCodeAndPoblacio,
@@ -327,7 +336,7 @@ const ArticlesLocationCreate = (props) => {
 
   const createConfiguration = [
     {
-      placeHolder:  props.intl.formatMessage({
+      placeHolder: props.intl.formatMessage({
         id: "ArticulosUbicacion.unidad",
         defaultMessage: "Unidad",
       }),
@@ -336,10 +345,15 @@ const ArticlesLocationCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 6,
+        md: 2,
       },
       validationType: "number",
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+        ...props.numberValidations.minMaxValidation(0, 999999999),
+      ],
     },
+    ...almacen(5),
     {
       placeHolder: props.intl.formatMessage({
         id: "Ubicacion.titulo",
@@ -350,20 +364,18 @@ const ArticlesLocationCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 6,
+        md: 5,
       },
       selector: {
         key: "ubicacios",
-        labelKey: (data) => `${data.description} (${data.codi})`,
+        labelKey: (data) => `${data.descripcio} (${data.codi})`,
         sort: "codi",
         cannotCreate: true,
-        relatedWith: {
-          name: "magatzem",
-          filterBy: "ubicacio.id",
-          keyValue: "id",
-        },
+
         advancedSearchColumns: aSCodeAndDescription,
       },
+      validationType:"object",
+      ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -372,11 +384,11 @@ const ArticlesLocationCreate = (props) => {
       }),
       type: "LOV",
       key: "article",
-      id:"articlesFact",
+      id: "articlesFact",
       required: true,
       breakpoints: {
         xs: 12,
-        md: 6,
+        md: 5,
       },
       selector: {
         key: "articles",
@@ -385,8 +397,9 @@ const ArticlesLocationCreate = (props) => {
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndDescription,
       },
+      validationType:"object",
+      ...withRequiredValidation(),
     },
-    ...almacen(6),
   ];
 
   return (

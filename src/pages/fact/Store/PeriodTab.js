@@ -1,19 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 import { compose } from "redux";
 import { useParams } from "react-router-dom";
-import OutlinedContainer from "../../../modules/shared/OutlinedContainer";
-import { FormattedMessage, injectIntl } from "react-intl";
+
+import { injectIntl } from "react-intl";
 import { withValidations } from "modules/wrappers";
-import { useTabForm } from "../../../hooks/tab-form";
+
 import ExpandableGrid from "modules/ExpandableGrid";
-import { Chip } from "@material-ui/core";
+
 
 const PeriodTab = ({ formData, setFormData, ...props }) => {
-  const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false },
-    setIsValid: props.setIsValid,
-  });
+  useEffect(() => {
+    props.setIsValid(true);
+  }, []);
 
   const { id: storeId } = useParams();
 
@@ -66,14 +65,14 @@ const PeriodTab = ({ formData, setFormData, ...props }) => {
         }),
         type: "numeric",
         key: "codi",
-        required: true,
+        disabled:true,
         noEditable: true,
         breakpoints: {
           xs: 12,
           md: 2,
         },
         validationType: "number",
-        validations: props.commonValidations.requiredValidation(),
+  
       },
       {
         placeHolder: props.intl.formatMessage({

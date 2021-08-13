@@ -1000,3 +1000,32 @@ export const TIPO_PRODUCTO_SELECTOR_VALUES = [
     label: "Aplicación",
   },
 ];
+
+
+export const TIPO_COSTES_SELECTOR_VALUES = [
+  {
+    value: "IMPORTE",
+    labelId: "Selector.importe",
+    label: "Importe",
+  },
+  {
+    value: "PORCENTAJE",
+    labelId: "Selector.porcentaje",
+    label: "Porcentaje",
+  },
+];
+
+
+
+export const TIPO_CLASIFICACION_SELECTOR_VALUES = [
+  {
+    value: "OBRES",
+    labelId: "Selector.obras",
+    label: "Obras",
+  },
+  {
+    value: "SERVEIS",
+    labelId: "Selector.servicios",
+    label: "Servicios",
+  },
+];

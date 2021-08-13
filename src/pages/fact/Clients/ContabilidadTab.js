@@ -16,7 +16,10 @@ import {
 
 import { useTabForm } from "hooks/tab-form";
 
-const EMPRESA_SECTION_INDEX = 0;
+const ACCOUNT_NUMBER_SECTION_INDEX = 0;
+const IBAN_SECTION_INDEX = 1;
+const ACCOUNTING_DATA_SECTION_INDEX = 2;
+const ACCOUNTING_ACCOUNT_SECTION_INDEX = 3;
 
 const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
@@ -203,10 +206,6 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     },
   ];
-
-  const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
-  const formatCodeAndDescription = (data) =>
-    `${data.descripcio} (${data.codi})`;
 
   const aSCodeAndName = [
     { title: CODE, name: "codi" },
@@ -796,7 +795,6 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
     ],
     extraPostBody: {
       client: { id: clientId },
-      // bancCodi: `${getFormData("bancCodi") ? getFormData("bancCodi") : ""}`
     },
     columns: [
       {
@@ -845,20 +843,6 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     ],
     formComponents: [
-      // {
-      //   type: "input",
-      //   key: "bancCodi",
-      //   placeHolder: props.intl.formatMessage({
-      //     id: "Clientes.codigoBanco",
-      //     defaultMessage: "Código banco",
-      //   }),
-      //   required:true,
-      //   breakpoints: {
-      //     xs: 12,
-      //     md: 3,
-      //   },
-      //   ...withRequiredValidation([]),
-      // },
       {
         placeHolder: props.intl.formatMessage({
           id: "Clientes.banco",
@@ -1142,9 +1126,9 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
                   submitFromOutside={props.submitFromOutside}
                   onSubmit={() => props.onSubmitTab(formData)}
                   handleIsValid={(value) =>
-                    addValidity(EMPRESA_SECTION_INDEX, value)
+                    addValidity(ACCOUNT_NUMBER_SECTION_INDEX, value)
                   }
-                  onBlur={(e) => handleTouched(EMPRESA_SECTION_INDEX)}
+                  onBlur={(e) => handleTouched(ACCOUNT_NUMBER_SECTION_INDEX)}
                   {...props}
                 />
               </OutlinedContainer>
@@ -1170,9 +1154,9 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
                   submitFromOutside={props.submitFromOutside}
                   onSubmit={() => props.onSubmitTab(formData)}
                   handleIsValid={(value) =>
-                    addValidity(EMPRESA_SECTION_INDEX, value)
+                    addValidity(IBAN_SECTION_INDEX, value)
                   }
-                  onBlur={(e) => handleTouched(EMPRESA_SECTION_INDEX)}
+                  onBlur={(e) => handleTouched(IBAN_SECTION_INDEX)}
                   {...props}
                 />
               </OutlinedContainer>
@@ -1202,9 +1186,9 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
                 submitFromOutside={props.submitFromOutside}
                 onSubmit={() => props.onSubmitTab(formData)}
                 handleIsValid={(value) =>
-                  addValidity(EMPRESA_SECTION_INDEX, value)
+                  addValidity(ACCOUNTING_DATA_SECTION_INDEX, value)
                 }
-                onBlur={(e) => handleTouched(EMPRESA_SECTION_INDEX)}
+                onBlur={(e) => handleTouched(ACCOUNTING_DATA_SECTION_INDEX)}
                 {...props}
               />
             </OutlinedContainer>
@@ -1230,9 +1214,9 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
                 submitFromOutside={props.submitFromOutside}
                 onSubmit={() => props.onSubmitTab(formData)}
                 handleIsValid={(value) =>
-                  addValidity(EMPRESA_SECTION_INDEX, value)
+                  addValidity(ACCOUNTING_ACCOUNT_SECTION_INDEX, value)
                 }
-                onBlur={(e) => handleTouched(EMPRESA_SECTION_INDEX)}
+                onBlur={(e) => handleTouched(ACCOUNTING_ACCOUNT_SECTION_INDEX)}
                 {...props}
               />
             </OutlinedContainer>

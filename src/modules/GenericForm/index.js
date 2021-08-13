@@ -28,7 +28,6 @@ import WYSIWYGEditor from "./WYSIWYGEditor";
 
 const GenericForm = ({loading, ...props}) => {
   const formRef = useRef(null);
-  const [enableReinitialize, setEnableReinitialize] = useState(false);
   const [isManualValidated, setIsManualValidated] = useState(false);
   const [initVal, setInitVal] = useState({});
 
@@ -36,7 +35,7 @@ const GenericForm = ({loading, ...props}) => {
   const initialValues = {
     'input': "",
     'select': "",
-    'checkbox': "",
+    'checkbox': false,
     'radio': "",
     'LOV': null,
     'observations': "",
@@ -56,7 +55,13 @@ const GenericForm = ({loading, ...props}) => {
       data[component.key] = value;
     }
     setInitVal(data);
+    setIsManualValidated(false);
   }
+
+  /** First effect: initialize the formik */
+  useEffect(() => {
+    initValues();
+  },[]);
 
   /**
    * Effect to submit from outside
@@ -80,15 +85,14 @@ const GenericForm = ({loading, ...props}) => {
   useEffect(() => {
     if(props.formDataLoaded) {
       initValues();
-      setEnableReinitialize(true);
     } else{
       setIsManualValidated(false);
-      setEnableReinitialize(false);
     }
   },[props.formDataLoaded]);
 
   const hasError = (key, formik) => {
-    return formik.touched && formik.touched[key] && (Boolean(formik.errors[key])) ||
+    /** We added isSubmitted flag to show all the fields errors when the form is submitted */
+    return ((formik.touched && formik.touched[key]) || props.isSubmitted) && (Boolean(formik.errors[key])) ||
       (props.formErrors && Boolean(props.formErrors[key]));
   }
 
@@ -98,7 +102,8 @@ const GenericForm = ({loading, ...props}) => {
   }
 
   const getMessageError = (key, formik) => {
-    return formik.touched && formik.touched[key] && (Boolean(formik.errors[key]) && formik.errors[key]) ||
+    /** We added isSubmitted flag to show all the fields errors when the form is submitted */
+    return ((formik.touched && formik.touched[key]) || props.isSubmitted) && (Boolean(formik.errors[key]) && formik.errors[key]) ||
       (props.formErrors && Boolean(props.formErrors[key])? capitalize(props.formErrors[key].message) : '');
   }
 
@@ -106,8 +111,15 @@ const GenericForm = ({loading, ...props}) => {
     props.handleIsValid && props.handleIsValid(formik.isValid);
   }
 
-  const getField = ({id, type, variant, placeHolder, required, key, noEditable, selector, disabled, text, prefix, suffix, extraQuery}, formik) => {
-    const noEnable = loading || (props.editMode && noEditable) || disabled;
+  const getField = ({
+                      id, type, variant, placeHolder, required,
+                      key, noEditable, disabledCreating, selector, disabled,
+                      text, prefix, suffix, extraQuery, format, fireActionOnBlur
+                    }, formik) => {
+    const noEnable = loading
+      || (props.editMode && noEditable)
+      || (!props.editMode && disabledCreating)
+      || disabled;
     const identification = id? id:key;
 
     const handleChange = (e, value) => {
@@ -119,6 +131,9 @@ const GenericForm = ({loading, ...props}) => {
       formik.handleBlur(e);
       handleIsValid(formik);
       props.onBlur && props.onBlur(e);
+      if(fireActionOnBlur){
+        fireActionOnBlur({key, value: props.getFormData(key)});
+      }
     }
 
     switch(type) {
@@ -137,7 +152,7 @@ const GenericForm = ({loading, ...props}) => {
             required={Boolean(required)}
             error={hasError(key,formik)}
             helperText={getMessageError(key, formik)}
-            onBlur={handleBlur}
+            onBlur={(e) => handleBlur(e, key)}
             type={"text"}
             disabled={noEnable}
             multiline={Boolean(text && text.multiline)}
@@ -153,16 +168,16 @@ const GenericForm = ({loading, ...props}) => {
               handleChange(e, v);
               formik.setFieldValue(key,v);
             }}
-            value={props.getFormData && props.getFormData(key)? props.getFormData(key) : ""}
+            value={props.getFormData && props.getFormData(key)? props.getFormData(key) : 0}
             label={placeHolder}
             required={Boolean(required)}
             error={hasError(key,formik)}
             helperText={getMessageError(key, formik)}
-            onBlur={handleBlur}
-            type={"text"}
+            onBlur={(e) => handleBlur(e, key)}
             disabled={noEnable}
             prefix={prefix}
-            suffix={suffix} />
+            suffix={suffix}
+            format={format} />
         );
       case 'select':
         return (
@@ -175,7 +190,7 @@ const GenericForm = ({loading, ...props}) => {
             options={selector.options}
             error={hasError(key,formik)}
             helperText={getMessageError(key, formik)}
-            onBlur={handleBlur}
+            onBlur={(e) => handleBlur(e, key)}
             value={props.getFormData && props.getFormData(key)? props.getFormData(key) : ""}
             onChange={e => {
               handleChange(e, e.target.value);
@@ -193,6 +208,8 @@ const GenericForm = ({loading, ...props}) => {
                 name={key}
                 disabled={noEnable}
                 color="primary"
+                required={required}
+                onBlur={(e) => handleBlur(e, key)}
               />
             }
             label={placeHolder}
@@ -208,6 +225,7 @@ const GenericForm = ({loading, ...props}) => {
               name={key}
               value={props.getFormData && props.getFormData(key)? props.getFormData(key) : ""}
               onChange={e => props.setFormData({key,value: e.currentTarget.value})}
+              onBlur={(e) => handleBlur(e, key)}
               required={required}
               disabled={noEnable}>
               {selector && selector.options.map(option => <FormControlLabel key={option.value} value={option.value} control={<Radio />} label={option.label} />) }
@@ -237,7 +255,7 @@ const GenericForm = ({loading, ...props}) => {
             disabled={noEnable}
             cannotCreate={selector.cannotCreate}
             creationComponents={selector.creationComponents}
-            onBlur={handleBlur}
+            onBlur={(e) => handleBlur(e, key)}
             relatedWith={selector.relatedWith}
             transform={selector.transform}
             advancedSearchColumns={selector.advancedSearchColumns}
@@ -254,7 +272,8 @@ const GenericForm = ({loading, ...props}) => {
             onChange={(e,v) => {
               handleChange(e, v);
               formik.setFieldValue(key,v);
-            }} />
+            }}
+            onBlur={(e) => handleBlur(e, key)}/>
         );
         case 'date':
           return (
@@ -276,7 +295,7 @@ const GenericForm = ({loading, ...props}) => {
               }}
               error={hasError(key, formik)}
               helperText={getMessageError(key, formik)}
-              onBlur={handleBlur}
+              onBlur={(e) => handleBlur(e, key)}
               disabled={noEnable}
             />
           );
@@ -296,6 +315,7 @@ const GenericForm = ({loading, ...props}) => {
                   name={key}
                   disabled={noEnable}
                   color="primary"
+                  onBlur={(e) => handleBlur(e, key)}
                 />
               }
               label={placeHolder}
@@ -316,7 +336,7 @@ const GenericForm = ({loading, ...props}) => {
                 handleChange(e, v);
                 formik.setFieldValue(key,v);
               }}
-              onBlur={handleBlur}/>
+              onBlur={(e) => handleBlur(e, key)}/>
           );
       default:
         return;
@@ -335,7 +355,7 @@ const GenericForm = ({loading, ...props}) => {
             sm={breakpoints? breakpoints.sm:false}
             md={breakpoints? breakpoints.md:false}
             lg={breakpoints? breakpoints.lg:false} >
-        <FormControl className="form-control-filled-input" variant="filled" error={hasError(key,formik)}>
+        <FormControl className="form-control-filled-input" variant="filled" error={hasError(key,formik)} required={params.required}>
           {getField(params, formik)}
         </FormControl>
       </Grid>)
@@ -362,7 +382,7 @@ const GenericForm = ({loading, ...props}) => {
     useEffect(()=>{
       if(!isManualValidated && !formik.isValidating){
         formik.validateForm().then(data => {
-          props.handleIsValid && props.handleIsValid({isValid: isEmpty(data)});
+          props.handleIsValid && props.handleIsValid(isEmpty(data));
         });
         setIsManualValidated(true);
       }
@@ -379,14 +399,14 @@ const GenericForm = ({loading, ...props}) => {
           validateOnMount={false}
           validateOnChange
           validateOnBlur
-          enableReinitialize={enableReinitialize}
+          enableReinitialize={true}
           onSubmit={(values, actions) => {
             props.onSubmit(values);
             actions.setSubmitting(false);
           }}>
           {formik => {
             return (
-              <form ref={formRef} onSubmit={(e) => {
+              <form noValidate ref={formRef} onSubmit={(e) => {
                 e.preventDefault();
                 handleIsValid(formik);
                 formik.handleSubmit(e);
@@ -420,6 +440,7 @@ GenericForm.propTypes = {
     required: PropTypes.bool,
     key: PropTypes.string,
     noEditable: PropTypes.bool,
+    disabledCreating: PropTypes.bool,
     selector: PropTypes.shape({
       key: PropTypes.any,
       labelKey: PropTypes.any,
@@ -446,12 +467,16 @@ GenericForm.propTypes = {
     })),
     prefix: PropTypes.string,
     suffix: PropTypes.string,
+    // it only used in the numeric component (react-number-format)
+    format: PropTypes.any,
     // when you request filtering by extra fields in some request
     extraQuery: PropTypes.arrayOf(PropTypes.shape({
       columnName: PropTypes.string.isRequired,
       value: PropTypes.string.isRequired,
       exact: PropTypes.bool
     })),
+    // when it's defined, fire an action on blur
+    fireActionOnBlur: PropTypes.func
   })),
   onSubmit: PropTypes.func,
   formDataLoaded: PropTypes.bool,

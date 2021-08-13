@@ -1,23 +1,18 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 import { compose } from "redux";
-import { useParams } from "react-router-dom";
 import { FormattedMessage, injectIntl } from "react-intl";
 
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
 import { withValidations } from "modules/wrappers";
 import { useTabForm } from "hooks/tab-form";
-import ConfigurableTabs from "modules/shared/ConfigurableTabs";
-import ExpandableGrid from "modules/ExpandableGrid";
-import { TIPO_MENSAJE_SELECTOR_VALUES } from "constants/selectors";
-import { Chip } from "@material-ui/core";
 
-const CLIENTE_SECTION_INDEX = 0;
+const CONTACT_SECTION_INDEX = 0;
 
 const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: false, 1: false },
+    fields: { [CONTACT_SECTION_INDEX]: true },
     setIsValid: props.setIsValid,
   });
 
@@ -50,10 +45,7 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
     id: "Proveedores.Contacto.web",
     defaultMessage: "WWW",
   });
-  const DESCRIPCIO = props.intl.formatMessage({
-    id: "Comun.descripcion",
-    defaultMessage: "Descripción",
-  });
+
   const TELEFON_FACTURA = props.intl.formatMessage({
     id: "Proveedores.Contacto.telefonoFactura",
     defaultMessage: "Telefóno Factura",
@@ -72,134 +64,10 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
     defaultMessage: "Responsable",
   });
 
-  const code = (md = 6) => ({
-    type: "input",
-    key: "codi",
-    placeHolder: CODE,
-    required: true,
-    breakpoints: {
-      xs: 12,
-      md: md,
-    },
-  });
-
-  const codiPostal = (md = 6) => [
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Direccion.codPostal",
-        defaultMessage: "Código Postal",
-      }),
-      type: "LOV",
-      key: "codiPostal",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: md,
-      },
-      validationType: "object",
-      ...withRequiredValidation(),
-      selector: {
-        key: "codiPostals",
-        labelKey: (data) =>
-          `${data.poblacio} ${data.municipi ? ` - ${data.municipi}` : ""} (${
-            data.codi
-          })`,
-        sort: "codi",
-        creationComponents: [
-          code(4),
-          {
-            placeHolder: props.intl.formatMessage({
-              id: "CodigoPostal.pais",
-              defaultMessage: "País",
-            }),
-            type: "LOV",
-            key: "pais",
-            required: false,
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-            selector: {
-              key: "paises",
-              labelKey: (data) => `${data.nom} (${data.codi})`,
-              sort: "codi",
-              cannotCreate: true,
-              relatedWith: {
-                name: "provincia",
-                filterBy: "pais.id",
-                keyValue: "id",
-              },
-              advancedSearchColumns: aSCodeAndName,
-            },
-          },
-          {
-            placeHolder: props.intl.formatMessage({
-              id: "CodigoPostal.provincia",
-              defaultMessage: "Provincia",
-            }),
-            type: "LOV",
-            key: "provincia",
-            required: false,
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-            selector: {
-              key: "provincias",
-              labelKey: (data) => `${data.nom} (${data.codi})`,
-              sort: "codi",
-              cannotCreate: true,
-              advancedSearchColumns: aSCodeAndName,
-            },
-          },
-          {
-            type: "input",
-            key: "municipi",
-            placeHolder: props.intl.formatMessage({
-              id: "CodigoPostal.municipio",
-              defaultMessage: "Municipio",
-            }),
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 6,
-            },
-          },
-          {
-            type: "input",
-            key: "poblacio",
-            placeHolder: props.intl.formatMessage({
-              id: "CodigoPostal.poblacion",
-              defaultMessage: "Población",
-            }),
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 6,
-            },
-          },
-        ],
-        advancedSearchColumns: aSCodeAndDescription,
-      },
-    },
-  ];
-  const aSCodeAndDescription = [
-    { title: CODE, name: "codi" },
-    { title: DESCRIPCIO, name: "descripcio" },
-  ];
   const aSCodeAndName = [
     { title: CODE, name: "codi" },
     { title: NOM, name: "nom" },
   ];
-
-  const withRequiredValidation = (extraValidations = []) => {
-    return {
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...extraValidations,
-      ],
-    };
-  };
 
   const contactsConfig = [
     {
@@ -413,8 +281,8 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
             formErrors={props.formErrors}
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(CLIENTE_SECTION_INDEX, value)}
-            onBlur={(e) => handleTouched(CLIENTE_SECTION_INDEX)}
+            handleIsValid={(value) => addValidity(CONTACT_SECTION_INDEX, value)}
+            onBlur={(e) => handleTouched(CONTACT_SECTION_INDEX)}
             {...props}
           />
         </OutlinedContainer>

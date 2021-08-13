@@ -1,136 +1,166 @@
-import React, {useEffect, useState} from "react";
-import {FormattedMessage, injectIntl} from "react-intl";
+import React, { useEffect, useState } from "react";
+import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
-import {compose} from "redux";
-import {withValidations} from "modules/wrappers";
+import { compose } from "redux";
+import { withValidations } from "modules/wrappers";
 
-import {TIPO_VENCIMIENTO_SELECTOR_VALUES, TIPO_MES_SELECTOR_VALUES} from "../../../constants/selectors";
+import {
+  TIPO_VENCIMIENTO_SELECTOR_VALUES,
+  TIPO_MES_SELECTOR_VALUES,
+} from "../../../constants/selectors";
 
-import {useTabForm} from "hooks/tab-form";
+import { useTabForm } from "hooks/tab-form";
 
 const CREATE_SECTION_INDEX = 0;
 const PERCENTAGES_SECTION_TAB_INDEX = 1;
 const PLAZOS_SECTION_TAB_INDEX = 2;
 
-const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
-  const [ touched, handleTouched, addValidity, formIsValid ] 
-  = useTabForm({fields: {[CREATE_SECTION_INDEX]: false, [PERCENTAGES_SECTION_TAB_INDEX]:false, [PLAZOS_SECTION_TAB_INDEX]:false}, setIsValid: props.setIsValid});
+const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
+  const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
+    fields: {
+      [CREATE_SECTION_INDEX]: false,
+      [PERCENTAGES_SECTION_TAB_INDEX]: true,
+      [PLAZOS_SECTION_TAB_INDEX]: true,
+    },
+    setIsValid: props.setIsValid,
+  });
 
-  const CODE = props.intl.formatMessage({ id: "Comun.codigo", defaultMessage: "Código" });
-  const NOM = props.intl.formatMessage({ id: "Comun.nombre", defaultMessage: "Nombre" });
-  const DESCRIPTION = props.intl.formatMessage({ id: "Comun.descripcion", defaultMessage: "Descripción" });
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
+  const NOM = props.intl.formatMessage({
+    id: "Comun.nombre",
+    defaultMessage: "Nombre",
+  });
+  const DESCRIPTION = props.intl.formatMessage({
+    id: "Comun.descripcion",
+    defaultMessage: "Descripción",
+  });
 
   const createConfiguration = [
     {
       placeHolder: CODE,
-      type: 'input',
-      key: 'codi',
+      type: "input",
+      key: "codi",
       required: true,
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
       noEditable: true,
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 4),
-        ...props.stringValidations.fieldExistsValidation('tipusVenciment', 'codi', CODE)
-      ]
+        ...props.stringValidations.fieldExistsValidation(
+          "tipusVenciment",
+          "codi",
+          CODE
+        ),
+      ],
     },
     {
       placeHolder: DESCRIPTION,
-      type: 'input',
-      key: 'descripcio',
+      type: "input",
+      key: "descripcio",
       breakpoints: {
         xs: 12,
-        md: 6
+        md: 6,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(1, 30)
-      ]
+      validations: [...props.stringValidations.minMaxValidation(1, 30)],
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.tipo",
-        defaultMessage: "Tipo"
+        defaultMessage: "Tipo",
       }),
-      type: 'select',
-      key: 'tipus',
+      type: "select",
+      required:true,
+      key: "tipus",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
       selector: {
-        options: TIPO_VENCIMIENTO_SELECTOR_VALUES
+        options: TIPO_VENCIMIENTO_SELECTOR_VALUES,
       },
+      validationType: "string",
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "TipusVencimiento.generarCobro",
-        defaultMessage: "Generación cobro/pago"
+        defaultMessage: "Generación cobro/pago",
       }),
-      type: 'checkbox',
-      key: 'generarCobramentPagament',
+      type: "checkbox",
+      key: "generarCobramentPagament",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "TiposVencimiento.importeTerminio",
-        defaultMessage: "Importe terminio"
+        defaultMessage: "Importe terminio",
       }),
-      type: 'numeric',
-      key: 'importTermini',
+      type: "numeric",
+      key: "importTermini",
       breakpoints: {
         xs: 12,
-        md: 3
+        md: 3,
       },
       validationType: "number",
+      validations: [
+        ...props.numberValidations.minMaxValidation(0, 999999999999999),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "TiposVencimiento.diasTerminio",
-        defaultMessage: "Días terminio"
+        defaultMessage: "Días terminio",
       }),
-      type: 'numeric',
-      key: 'diaTermini',
+      type: "numeric",
+      key: "diaTermini",
       breakpoints: {
         xs: 12,
-        md: 3
+        md: 2,
       },
       validationType: "number",
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "TiposVencimiento.terminioAMesesCompletos",
-        defaultMessage: "Terminio a meses completos"
-      }),
-      type: 'checkbox',
-      key: 'terminiAMesosComplets',
-      breakpoints: {
-        xs: 12,
-        md: 3
-      },
+      validations: [...props.numberValidations.minMaxValidation(0, 99)],
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "TiposVencimiento.numeroTerminios",
-        defaultMessage: "Numero terminios"
+        defaultMessage: "Numero terminios",
       }),
-      type: 'numeric',
-      key: 'nombreTerminis',
+      type: "numeric",
+      key: "nombreTerminis",
       breakpoints: {
         xs: 12,
-        md: 3
+        md: 2,
       },
       validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 99)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "TiposVencimiento.terminioAMesesCompletos",
+        defaultMessage: "Terminio a meses completos",
+      }),
+      type: "checkbox",
+      key: "terminiAMesosComplets",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
     },
   ];
 
@@ -138,67 +168,77 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
     {
       placeHolder: props.intl.formatMessage({
         id: "TiposVencimiento.plazo1Porcentaje",
-        defaultMessage: "Porcentaje 1º Plazo"
+        defaultMessage: "Porcentaje 1º Plazo",
       }),
-      type: 'numeric',
-      key: 'percentatgePrimerTermini',
+      type: "numeric",
+      key: "percentatgePrimerTermini",
+      suffix: "%",
       breakpoints: {
         xs: 12,
-        md: 4
+        md: 2,
       },
       validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "TiposVencimiento.plazo2Porcentaje",
-        defaultMessage: "Porcentaje 2º Plazo"
+        defaultMessage: "Porcentaje 2º Plazo",
       }),
-      type: 'numeric',
-      key: 'percentatgeSegonTermini',
+      suffix: "%",
+      type: "numeric",
+      key: "percentatgeSegonTermini",
       breakpoints: {
         xs: 12,
-        md: 4
+        md: 2,
       },
       validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "TiposVencimiento.plazo3Porcentaje",
-        defaultMessage: "Porcentaje 3º Plazo"
+        defaultMessage: "Porcentaje 3º Plazo",
       }),
-      type: 'numeric',
-      key: 'percentatgeTercerTermini',
+      suffix: "%",
+      type: "numeric",
+      key: "percentatgeTercerTermini",
       breakpoints: {
         xs: 12,
-        md: 4
+        md: 2,
       },
       validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "TiposVencimiento.plazo4Porcentaje",
-        defaultMessage: "Porcentaje 4º Plazo"
+        defaultMessage: "Porcentaje 4º Plazo",
       }),
-      type: 'numeric',
-      key: 'percentatgeQuartTermini',
+      suffix: "%",
+      type: "numeric",
+      key: "percentatgeQuartTermini",
       breakpoints: {
         xs: 12,
-        md: 6
+        md: 2,
       },
       validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "TiposVencimiento.plazo5Porcentaje",
-        defaultMessage: "Porcentaje 5º Plazo"
+        defaultMessage: "Porcentaje 5º Plazo",
       }),
-      type: 'numeric',
-      key: 'percentatgeQuintTermini',
+      suffix: "%",
+      type: "numeric",
+      key: "percentatgeQuintTermini",
       breakpoints: {
         xs: 12,
-        md: 6
+        md: 2,
       },
       validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
   ];
 
@@ -209,12 +249,13 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         defaultMessage: "Días 1º Terminio",
       }),
       type: "numeric",
-      key: "dataInici",
+      key: "diesPrimerTermini",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
       validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -222,12 +263,13 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         defaultMessage: "Días 2º Terminio",
       }),
       type: "numeric",
-      key: "dataInici",
+      key: "diesSegonTermini",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
       validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -235,12 +277,13 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         defaultMessage: "Días 3º Terminio",
       }),
       type: "numeric",
-      key: "dataInici",
+      key: "diesTercerTermini",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
       validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -248,12 +291,13 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         defaultMessage: "Días 4º Terminio",
       }),
       type: "numeric",
-      key: "dataInici",
+      key: "diesQuartTermini",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
       validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -261,12 +305,13 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
         defaultMessage: "Días 5º Terminio",
       }),
       type: "numeric",
-      key: "dataInici",
+      key: "diesQuintTermini",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
       validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -277,9 +322,10 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       key: "minimDies",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
       validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
 
     {
@@ -291,23 +337,24 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       key: "dia2Terminis",
       breakpoints: {
         xs: 12,
-        md: 3
+        md: 2,
       },
       validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 99)],
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "TiposVencimiento.mesCierre",
-        defaultMessage: "Mes cierre"
+        defaultMessage: "Mes cierre",
       }),
-      type: 'select',
-      key: 'mesTan',
+      type: "select",
+      key: "mesTan",
       breakpoints: {
         xs: 12,
-        md: 3
+        md: 2,
       },
       selector: {
-        options: TIPO_MES_SELECTOR_VALUES
+        options: TIPO_MES_SELECTOR_VALUES,
       },
     },
     {
@@ -319,23 +366,24 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       key: "diaPagament",
       breakpoints: {
         xs: 12,
-        md: 3
+        md: 2,
       },
       validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "TiposVencimiento.mesPago",
-        defaultMessage: "Mes pago"
+        defaultMessage: "Mes pago",
       }),
-      type: 'select',
-      key: 'mesPagament',
+      type: "select",
+      key: "mesPagament",
       breakpoints: {
         xs: 12,
-        md: 3
+        md: 2,
       },
       selector: {
-        options: TIPO_MES_SELECTOR_VALUES
+        options: TIPO_MES_SELECTOR_VALUES,
       },
     },
     {
@@ -347,7 +395,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       key: "darrerDiaMesVentes",
       breakpoints: {
         xs: 12,
-        md: 3
+        md: 2,
       },
     },
     {
@@ -359,7 +407,7 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       key: "darrerDiaMesCompres",
       breakpoints: {
         xs: 12,
-        md: 3
+        md: 2,
       },
     },
     {
@@ -371,12 +419,10 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       key: "classeVenciment",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(0, 1)
-      ],
+      validations: [...props.stringValidations.minMaxValidation(0, 1)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -387,66 +433,93 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
       key: "datCreVenCpr",
       breakpoints: {
         xs: 12,
-        md: 4
+        md: 3,
       },
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(0, 1)
-      ],
+      validations: [...props.stringValidations.minMaxValidation(0, 1)],
     },
-  ]
+  ];
 
   const tabs = [
     {
       className: "general-tab-subtab",
-      label: <FormattedMessage id={"Tarifa.porcentajes"} defaultMessage={"Porcentajes"}/>,
+      label: (
+        <FormattedMessage
+          id={"Tarifa.porcentajes"}
+          defaultMessage={"Porcentajes"}
+        />
+      ),
       key: 0,
-      component: <GenericForm formComponents={PorcentajeConfiguration}
-                              emptyPaper={true}
-                              setFormData={setFormData}
-                              getFormData={getFormData}
-                              loading={props.loading}
-                              formErrors={props.formErrors}
-                              submitFromOutside={props.submitFromOutside}
-                              onSubmit={() => props.onSubmitTab(formData)}
-                              handleIsValid={value => addValidity(PERCENTAGES_SECTION_TAB_INDEX,value)}
-                              onBlur={(e) => handleTouched(PERCENTAGES_SECTION_TAB_INDEX)}
-                              {...props} />
+      component: (
+        <GenericForm
+          formComponents={PorcentajeConfiguration}
+          emptyPaper={true}
+          setFormData={setFormData}
+          getFormData={getFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) =>
+            addValidity(PERCENTAGES_SECTION_TAB_INDEX, value)
+          }
+          onBlur={(e) => handleTouched(PERCENTAGES_SECTION_TAB_INDEX)}
+          {...props}
+        />
+      ),
     },
     {
       className: "general-tab-subtab",
-      label: <FormattedMessage id={"TiposVencimiento.plazos"} defaultMessage={"Plazos"}/>,
+      label: (
+        <FormattedMessage
+          id={"TiposVencimiento.plazos"}
+          defaultMessage={"Plazos"}
+        />
+      ),
       key: 1,
-      component: <GenericForm formComponents={PlazosConfiguration}
-                              emptyPaper={true}
-                              setFormData={setFormData}
-                              getFormData={getFormData}
-                              loading={props.loading}
-                              formErrors={props.formErrors}
-                              submitFromOutside={props.submitFromOutside}
-                              onSubmit={() => props.onSubmitTab(formData)}
-                              handleIsValid={value => addValidity(PLAZOS_SECTION_TAB_INDEX,value)}
-                              onBlur={(e) => handleTouched(PLAZOS_SECTION_TAB_INDEX)}
-                              {...props} />
+      component: (
+        <GenericForm
+          formComponents={PlazosConfiguration}
+          emptyPaper={true}
+          setFormData={setFormData}
+          getFormData={getFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) =>
+            addValidity(PLAZOS_SECTION_TAB_INDEX, value)
+          }
+          onBlur={(e) => handleTouched(PLAZOS_SECTION_TAB_INDEX)}
+          {...props}
+        />
+      ),
     },
   ];
 
   return (
-    <Grid container >
+    <Grid container>
       <Grid xs={12} item>
-        <OutlinedContainer className="general-tab-container" title={<FormattedMessage id={"Tarifa.titulo"} defaultMessage={"Tarifas"}/>}>
-          <GenericForm formComponents={createConfiguration}
-                       emptyPaper={true}
-                       editMode={props.editMode}
-                       getFormData={getFormData}
-                       setFormData={setFormData}
-                       loading={props.loading}
-                       formErrors={props.formErrors}
-                       submitFromOutside={props.submitFromOutside}
-                       onSubmit={() => props.onSubmitTab(formData)}
-                       handleIsValid={value => addValidity(CREATE_SECTION_INDEX,value)}
-                       onBlur={(e) => handleTouched(CREATE_SECTION_INDEX)}
-                       {...props} />
+        <OutlinedContainer
+          className="general-tab-container"
+          title={
+            <FormattedMessage id={"TiposVencimiento.titulo"} defaultMessage={"Tarifas"} />
+          }
+        >
+          <GenericForm
+            formComponents={createConfiguration}
+            emptyPaper={true}
+            editMode={props.editMode}
+            getFormData={getFormData}
+            setFormData={setFormData}
+            loading={props.loading}
+            formErrors={props.formErrors}
+            submitFromOutside={props.submitFromOutside}
+            onSubmit={() => props.onSubmitTab(formData)}
+            handleIsValid={(value) => addValidity(CREATE_SECTION_INDEX, value)}
+            onBlur={(e) => handleTouched(CREATE_SECTION_INDEX)}
+            {...props}
+          />
         </OutlinedContainer>
       </Grid>
       <Grid xs={12} item>
@@ -457,8 +530,4 @@ const GeneralTab = ({formData, setFormData, getFormData, ...props}) => {
     </Grid>
   );
 };
-export default compose(
-  React.memo,
-  withValidations,
-  injectIntl
-)(GeneralTab);
+export default compose(React.memo, withValidations, injectIntl)(GeneralTab);

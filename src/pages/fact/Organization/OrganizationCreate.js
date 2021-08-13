@@ -35,13 +35,12 @@ const OrganizationCreate = (props) => {
       }),
       type: "LOV",
       key: "codiPostal",
-      required: true,
+
       breakpoints: {
         xs: 12,
         md: md,
       },
-      validationType: "object",
-      ...withRequiredValidation(),
+
       selector: {
         key: "codiPostals",
         labelKey: (data) =>
@@ -138,14 +137,7 @@ const OrganizationCreate = (props) => {
     { title: NOM, name: "poblacioMunicipiCodiTxt" },
   ];
 
-  const withRequiredValidation = (extraValidations = []) => {
-    return {
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...extraValidations,
-      ],
-    };
-  };
+
 
   const createConfiguration = [
     {
@@ -163,8 +155,13 @@ const OrganizationCreate = (props) => {
       noEditable: true,
       validationType: "string",
       validations: [
+        ...props.stringValidations.fieldExistsValidation(
+          "organitzacio",
+          "codi",
+          CODE
+        ),
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 4),
+        ...props.stringValidations.minMaxValidation(1, 6),
       ],
     },
     {
@@ -181,6 +178,7 @@ const OrganizationCreate = (props) => {
       },
       validationType: "string",
       validations: [
+        
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 30),
       ],

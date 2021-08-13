@@ -15,13 +15,12 @@ import { withValidations } from "modules/wrappers";
 import { useTabForm } from "../../../hooks/tab-form";
 
 const CUSTOMER_SECTION_INDEX = 0;
-const ADDRESS_SECTION_TAB_INDEX = 1;
+
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [CUSTOMER_SECTION_INDEX]: false,
-      [ADDRESS_SECTION_TAB_INDEX]: false,
     },
     setIsValid: props.setIsValid,
   });
@@ -171,6 +170,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         ],
         advancedSearchColumns: aSCodeAndDescription,
       },
+      validationType: "object",
+      validations: [...props.commonValidations.requiredValidation()],
     },
   ];
 

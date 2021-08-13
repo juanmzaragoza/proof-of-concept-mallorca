@@ -11,11 +11,17 @@ import { withValidations } from "modules/wrappers";
 import { useTabForm } from "hooks/tab-form";
 
 const PROJECT_SECTION_INDEX = 0;
+const CONTAB = 1;
+const CONSTRUCTION = 2;
+const COSTES = 3;
 
 const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
-      [PROJECT_SECTION_INDEX]: false,
+      [PROJECT_SECTION_INDEX]: true,
+      [CONTAB]: true,
+      [CONSTRUCTION]: false,
+      [COSTES]: true,
     },
     setIsValid: props.setIsValid,
   });
@@ -29,8 +35,6 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
     id: "Comun.nombre",
     defaultMessage: "Nombre",
   });
-
-  const getString = (key) => (getFormData(key) ? getFormData(key) : "");
 
   const aSCodeAndName = [
     { title: CODE, name: "codi" },
@@ -106,9 +110,7 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
       validationType: "number",
-      validations: [
-        ...props.numberValidations.minMaxValidation(0, 99),
-      ],
+      validations: [...props.numberValidations.minMaxValidation(0, 99)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -168,7 +170,7 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
       validationType: "number",
-      validation: [
+      validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.numberValidations.minMaxValidation(0, 99999),
       ],
@@ -424,8 +426,8 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
             formErrors={props.formErrors}
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(PROJECT_SECTION_INDEX, value)}
-            onBlur={(e) => handleTouched(PROJECT_SECTION_INDEX)}
+            handleIsValid={(value) => addValidity(CONTAB, value)}
+            onBlur={(e) => handleTouched(CONTAB)}
             {...props}
           />
         </OutlinedContainer>
@@ -450,8 +452,8 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
             formErrors={props.formErrors}
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(PROJECT_SECTION_INDEX, value)}
-            onBlur={(e) => handleTouched(PROJECT_SECTION_INDEX)}
+            handleIsValid={(value) => addValidity(CONSTRUCTION, value)}
+            onBlur={(e) => handleTouched(CONSTRUCTION)}
             {...props}
           />
         </OutlinedContainer>
@@ -476,8 +478,8 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
             formErrors={props.formErrors}
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(PROJECT_SECTION_INDEX, value)}
-            onBlur={(e) => handleTouched(PROJECT_SECTION_INDEX)}
+            handleIsValid={(value) => addValidity(COSTES, value)}
+            onBlur={(e) => handleTouched(COSTES)}
             {...props}
           />
         </OutlinedContainer>

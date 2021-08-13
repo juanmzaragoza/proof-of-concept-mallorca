@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, Switch} from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
 
-import {LocationCity} from "@material-ui/icons";
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PostalCodeList from "./PostalCodeList";
 import PostalCodeCreate from "./PostalCodeCreate";
 import withHeaders from "modules/wrappers/withHeaders";
@@ -26,6 +26,6 @@ const component = {
     component: withHeaders(postalCode)
   },
   name: 'FAC_CP',
-  icon: <LocationCity />
+  icon: <LocationOnIcon />
 }
 export default component;

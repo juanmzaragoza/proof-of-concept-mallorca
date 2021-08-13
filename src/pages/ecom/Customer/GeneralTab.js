@@ -26,7 +26,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [CUSTOMER_SECTION_INDEX]: false,
-      [ADDRESS_SECTION_TAB_INDEX]: false,
+      [ADDRESS_SECTION_TAB_INDEX]: true,
     },
     setIsValid: props.setIsValid,
   });

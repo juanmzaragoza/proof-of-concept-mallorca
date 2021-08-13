@@ -32,7 +32,7 @@ const CustomerAppCreate = (props) => {
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 10),
-        ...props.stringValidations.fieldExistsValidation('aplicacionsClients', 'aplicacioCodi', CODE)
+        ...props.stringValidations.fieldExistsValidation('altresAplicacionsClient', 'aplicacioCodi', CODE)
       ],
     },
     {
@@ -115,7 +115,7 @@ const CustomerAppCreate = (props) => {
         defaultMessage: "Aplicaciones Cliente",
       })}
       formConfiguration={createConfiguration}
-      url={API.aplicacionsClients}
+      url={API.altresAplicacionsClient}
     />
   );
 };

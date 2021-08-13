@@ -49,6 +49,7 @@ const LOVAutocomplete = (props) => {
   const [openSearchModal, setOpenSearchModal] = useState(false);
   const [opts, setOpts] = useState([]);
   const [value, setValue] = useState();
+  const [queryAdvancedSearch, setQueryAdvancedSearch] = useState([]);
 
   // initialization
   useEffect(() => {
@@ -67,6 +68,7 @@ const LOVAutocomplete = (props) => {
   /**
    * Functionality to reset the value of another LOV
    * One is for who fires the signal and the another for how receives it
+   * Also we filtering the values of the another LOV depending on the selected value
    */
   // if this component is related with another LOV
   useEffect(() => {
@@ -77,7 +79,9 @@ const LOVAutocomplete = (props) => {
         reset: true
       })
     }
+    refreshAnotherLov(value);
   },[value]);
+
   // if a reset signal is received
   useEffect(()=>{
     if(props.resetByAnotherLOV) {
@@ -130,6 +134,8 @@ const LOVAutocomplete = (props) => {
       search: props.querySearch,
       query
     });
+    // we save this query to use it in the future on open the advanced searching
+    setQueryAdvancedSearch(query);
   }
 
   const buttonInsideSelector = (icon, disabled = false, onClick) => {
@@ -144,6 +150,21 @@ const LOVAutocomplete = (props) => {
   const handleChange = (e, v) => {
     props.onChange(e, props.transform? props.transform.apply(v):v);
   };
+
+  // this method refreshes another LOV
+  const refreshAnotherLov = (newValue) => {
+    if(newValue && props.relatedWith){
+      props.setQuery({
+        name: props.relatedWith.name,
+        query: [{
+          columnName: props.relatedWith.filterBy,
+          value: `'${get(newValue,props.relatedWith.keyValue? props.relatedWith.keyValue:'id')}'`,
+          exact: true
+        }]
+      })
+      props.refreshData({name: props.relatedWith.name, refresh: true});
+    }
+  }
 
   return (
     <>
@@ -162,17 +183,7 @@ const LOVAutocomplete = (props) => {
           setOpenSearchModal(true);
         } else {
           // I'm refreshing another LOV -> ACTION FOR ANOTHER
-          if(props.relatedWith){
-            props.setQuery({
-              name: props.relatedWith.name,
-              query: [{
-                columnName: props.relatedWith.filterBy,
-                value: `'${get(newValue,props.relatedWith.keyValue? props.relatedWith.keyValue:'id')}'`,
-                exact: true
-              }]
-            })
-            props.refreshData({name: props.relatedWith.name, refresh: true});
-          }
+          refreshAnotherLov(newValue);
           handleChange(e,newValue);
         }
       }}
@@ -309,6 +320,7 @@ const LOVAutocomplete = (props) => {
       open={openSearchModal}
       listKey={props.responseKey}
       columns={props.advancedSearchColumns}
+      extraQuery={queryAdvancedSearch}
       close={(data) => {
         if(data) {
           const list = opts;

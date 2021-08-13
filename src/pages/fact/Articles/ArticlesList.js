@@ -6,7 +6,7 @@ import { Chip } from "@material-ui/core";
 import { setBreadcrumbHeader, setListingConfig } from "../../../redux/pageHeader";
 import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
-import AdvancedFilters from "./AdvancedFilters";
+import AdvancedFilters from "../../../modules/AdvancedFilters";
 
 const ArticlesList = ({ actions, ...props }) => {
   useEffect(() => {
@@ -16,7 +16,7 @@ const ArticlesList = ({ actions, ...props }) => {
       defaultMessage: "Artículos",
       }),
     });
-    actions.setBreadcrumbHeader([{ title: "Artículos", href: "/fact/article" }]);
+    actions.setBreadcrumbHeader([{ title: "Artículos", href: "/fact/articulos" }]);
   }, []);
 
   const [filters, setFilters] = useState([]);

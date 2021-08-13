@@ -1,10 +1,8 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useParams } from "react-router-dom";
 import { compose } from "redux";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
-
-
 
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import { withValidations } from "modules/wrappers";
@@ -12,76 +10,92 @@ import ExpandableGrid from "modules/ExpandableGrid";
 
 const PurchasingSeriesAccountsTab = ({ formData, setFormData, getFormData, ...props }) => {
 
-  const CODE = props.intl.formatMessage({id: "SerieVenta.serie", defaultMessage: "Série"});
+  useEffect(() => {
+    props.setIsValid(true);
+  }, []);
+
+  const { id: itemFamilyId } = useParams();
+
+  const CODE = props.intl.formatMessage({id: "Comun.codigo", defaultMessage: "Código"});
   const DESCRIPCIO = props.intl.formatMessage({id: "Comun.descripcion", defaultMessage: "Descripción"});
-  const NOM = props.intl.formatMessage({id: "Comun.descripcion", defaultMessage: "Descripción"});
 
-  const aSCodeAndName = [{title: CODE, name: 'codi'},{title: NOM, name: 'nom'}];
-  const aSCodeAndComercialName = [{title: CODE, name: 'codi'},{title: NOM, name: 'nomComercial'}];
+  const formatCodeAndDescription = (data) => `${data.descripcio} (${data.codi})`;
+  const aSCodeAndDescription = [{title: CODE, name: 'codi'},{title: DESCRIPCIO, name: 'descripcio'}];
 
-  const PurchasingSeries = {
+  const ComptesFamiliaSeriesCompra = {
     title: props.intl.formatMessage({
-      id: "FamiliaArticulos.tabs.seriesVenta",
-      defaultMessage: "Cuentas Series Ventas",
+      id: "Familia.cuentaFamiliaSerieCompra",
+      defaultMessage: "Cuenta Familia Series de Compras",
     }),
+    query: [
+      {
+        columnName: "articleFamilia.id",
+        value: `"${itemFamilyId}"`,
+        exact: true,
+      },
+    ],
+    extraPostBody: {
+      articleFamilia: { id: itemFamilyId },
+    },
     columns: [
       {
-        name: "codi",
+        name: "articleFamilia",
         title: props.intl.formatMessage({
-          id: "SerieVenta.serie",
-          defaultMessage: "Série",
+          id: "Familia.articuloFamilia",
+          defaultMessage: "Artículo Família",
         }),
+        getCellValue: (row) =>
+          row.articleFamilia.description ? row.articleFamilia?.description : "",
       },
       {
-        name: "descripcio",
-        title: DESCRIPCIO,
-      },
-      {
-        name: "validDesde",
+        name: "serieCompra",
         title: props.intl.formatMessage({
-          id: "SerieVenta.diaInicio",
-          defaultMessage: "Día Inicio",
+          id: "Proveedores.serieCompra",
+          defaultMessage: "Serie Compra",
         }),
-        getCellValue: row => row.validDesde ? new Date(row.validDesde).toLocaleDateString() : "" 
+        getCellValue: (row) =>
+          row.serieCompra.description ? row.serieCompra?.description : "",
       },
       {
-        name: "validFins",
+        name: "compteContableCompres",
         title: props.intl.formatMessage({
-          id: "SerieVenta.diaFin",
-          defaultMessage: "Día Fin",
-        }),
-        getCellValue: row => row.validFins ? new Date(row.validFins).toLocaleDateString() : "" 
-      },
-      {
-        name: "compteComptableCompres",
-        title: props.intl.formatMessage({
-          id: "FamiliaProveedores.ctaprcmp",
-          defaultMessage: "Cuenta Compras",
+          id: "Familia.cuentaContableCompras",
+          defaultMessage: "Cuenta contable compras",
         }),
       },
     ],
-
     formComponents: [
       {
-        placeHolder: CODE,
-        type: "input",
+        placeHolder: props.intl.formatMessage({
+          id: "Proveedores.serieCompra",
+          defaultMessage: "Serie Compra",
+        }),
+        type: "LOV",
+        key: "serieCompra",
+        id: "serieCompras",
         required: true,
-        key: "codi",
         breakpoints: {
           xs: 12,
-          md: 2,
+          md: 6,
         },
-        validationType: "string",
-        validations: [
-          ...props.commonValidations.requiredValidation(),
-          ...props.stringValidations.minMaxValidation(1, 2)
-        ]
+        selector: {
+          key: "serieCompras",
+          labelKey: formatCodeAndDescription,
+          sort: "descripcio",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndDescription,
+        },
+        validationType: "object",
+        validations: [...props.commonValidations.requiredValidation()],
       },
       {
-        placeHolder: DESCRIPCIO,
+        placeHolder: props.intl.formatMessage({
+          id: "Familia.cuentaContableCompras",
+          defaultMessage: "Cuenta contable compras",
+        }),
         type: "input",
+        key: "compteContableCompres",
         required: true,
-        key: "descripcio",
         breakpoints: {
           xs: 12,
           md: 6,
@@ -89,242 +103,25 @@ const PurchasingSeriesAccountsTab = ({ formData, setFormData, getFormData, ...pr
         validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
-          ...props.stringValidations.minMaxValidation(1, 30)
-        ]
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Almacen.tipoAsiento",
-          defaultMessage: "Tipo asiento contable",
-        }),
-        type: "input",
-        required: true,
-        key: "tipusSeientComptable",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-        validationType: "string",
-        validations: [
-          ...props.commonValidations.requiredValidation(),
-          ...props.stringValidations.minMaxValidation(1, 2)
-        ]
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "SerieVenta.diarioContable",
-          defaultMessage: "Diario contable",
-        }),
-        type: "input",
-        required: true,
-        key: "diariComptable",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-        validationType: "string",
-        validations: [
-          ...props.commonValidations.requiredValidation(),
-          ...props.stringValidations.minMaxValidation(1, 2)
-        ]
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Almacen.cuenta",
-          defaultMessage: "Cuenta contable",
-        }),
-        type: "input",
-        required: true,
-        key: "compteComptableCompres",
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        validationType: "string",
-        validations: [
-          ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 10)
         ]
       },
       {
         placeHolder: props.intl.formatMessage({
-          id: "SerieVenta.cuentasContablesProforma",
-          defaultMessage: "Cuenta contable proformas",
+          id: "FamiliaProveedores.observaciones",
+          defaultMessage: "Observaciones",
         }),
         type: "input",
-        required: true,
-        key: "compteComptableCompres",
+        key: "observacions",
         breakpoints: {
           xs: 12,
-          md: 4,
+          md: 12,
+        },
+        text: {
+          multiline: 3
         },
         validationType: "string",
-        validations: [
-          ...props.commonValidations.requiredValidation(),
-          ...props.stringValidations.minMaxValidation(1, 2)
-        ]
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "SerieVenta.cuentasContablesComprasProforma",
-          defaultMessage: "Cuenta contable compras proformas",
-        }),
-        type: "input",
-        required: true,
-        key: "diariComptableProformes",
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        validationType: "string",
-        validations: [
-          ...props.commonValidations.requiredValidation(),
-          ...props.stringValidations.minMaxValidation(1, 10)
-        ]
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "SerieVenta.diaInicio",
-          defaultMessage: "Día Inicio",
-        }),
-        type: "date",
-        required: true,
-        key: "validDesde",
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "SerieVenta.diaFin",
-          defaultMessage: "Día Fin",
-        }),
-        type: "date",
-        required: true,
-        key: "validFins",
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "SerieVenta.situacionCodigoFacturacion",
-          defaultMessage: "Situación código facturación",
-        }),
-        type: "input",
-        key: "sitCodFac",
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        validationType: "string",
-        validations: [
-          ...props.commonValidations.requiredValidation(),
-          ...props.stringValidations.minMaxValidation(1, 2)
-        ]
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "SerieVenta.situacionCodigoRectificativo",
-          defaultMessage: "Situación código rectificativo",
-        }),
-        type: "input",
-        key: "sitCodRct",
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        validationType: "string",
-        validations: [
-          ...props.commonValidations.requiredValidation(),
-          ...props.stringValidations.minMaxValidation(1, 2)
-        ]
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "SerieVenta.descripcionOperario",
-          defaultMessage: "Descripción operario",
-        }),
-        type: "input",
-        key: "desope",
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        validationType: "string",
-        validations: [
-          ...props.commonValidations.requiredValidation(),
-          ...props.stringValidations.minMaxValidation(1, 500)
-        ]
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "SerieVenta.sitCodCla",
-          defaultMessage: "SitCodCla",
-        }),
-        type: "input",
-        key: "sitCodCla",
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        validationType: "string",
-        validations: [
-          ...props.commonValidations.requiredValidation(),
-          ...props.stringValidations.minMaxValidation(1, 2)
-        ]
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "SerieVenta.desglosarIva",
-          defaultMessage: "Desglorar IVA"
-        }),
-        type: 'checkbox',
-        key: 'desglossarIva',
-        breakpoints: {
-          xs: 12,
-          md: 4
-        },
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "SerieVenta.almacen",
-          defaultMessage: "Almacén",
-        }),
-        type: "LOV",
-        key: "magatzem",
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        selector: {
-          key: "magatzems",
-          labelKey: (data) => `${data.nom} (${data.codi})`,
-          sort: "codi",
-          cannotCreate: true,
-          advancedSearchColumns: aSCodeAndName,
-        },
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "PieDocumento.empresa",
-          defaultMessage: "Empresa",
-        }),
-        type: "LOV",
-        key: "empresa",
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        selector: {
-          key: "empresas",
-          labelKey: (data) => `${data.nomComercial} (${data.codi})`,
-          sort: "codi",
-          cannotCreate: true,
-          advancedSearchColumns: aSCodeAndComercialName,
-        },
+        validations: [...props.stringValidations.minMaxValidation(1, 1000)],
       },
     ],
   };
@@ -338,16 +135,16 @@ const PurchasingSeriesAccountsTab = ({ formData, setFormData, getFormData, ...pr
           className="general-tab-container"
           title={
             <FormattedMessage
-              id={"SerieVenta.cuentasCompras"}
-              defaultMessage={"Cuentas de Compras"}
+              id={"Familia.cuentaFamiliaSerieCompra"}
+              defaultMessage={"Cuenta Familia Series de Compras"}
             />
           }
         >
          <ExpandableGrid
-          id="serieCompras"
-          responseKey="serieCompras"
+          id="comptesFamiliaSerieCompra"
+          responseKey="compteFamiliaSerieCompras"
           enabled={props.editMode}
-          configuration={PurchasingSeries}
+          configuration={ComptesFamiliaSeriesCompra}
         />
         </OutlinedContainer>
       </Grid>
