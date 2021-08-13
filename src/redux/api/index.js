@@ -38,6 +38,7 @@ export const regimsIva = `api/fact/regimsIva`;
 export const classeRetencio = `api/fact/classeRetencions`;
 export const compteCorrentEmpresas = `api/fact/comptesCorrentsEmpresa`;
 export const empresa = `api/fact/empreses`;
+export const tarifa = `api/fact/tarifes`;
 export const tarifa1 = `api/fact/tarifes`;
 export const tarifa2 = `api/fact/tarifes`;
 export const tarifas = "api/fact/tarifes";
@@ -292,4 +293,5 @@ export const areaNegocis = `api/fact/areaNegocis`;
 export const seriesAreaNegoci = `api/fact/seriesAreaNegoci`;
 
 export const articlesCalcPrice = `api/fact/articles/calcularPreus`;
-
+export const tarifaProveidor = `api/fact/tarifesProveidor`;
+export const liniesComandaProveidor = `api/fact/liniesComandaProveidor`;

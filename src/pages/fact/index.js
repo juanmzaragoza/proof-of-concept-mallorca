@@ -88,6 +88,7 @@ import FormaCoste from "./FormaCoste";
 import CurrentAccounts from "./CurrentAccounts";
 import Clasification from "./Clasification";
 import AreasNegocio from "./AreasNegocio";
+import SuppliersOrders from "./SuppliersOrders";
 
 const component = [
   SuppliersFamily,
@@ -187,7 +188,8 @@ const component = [
   FormaCoste,
   CurrentAccounts,
   Clasification,
-  AreasNegocio
+  AreasNegocio,
+  SuppliersOrders
 
 
 ];

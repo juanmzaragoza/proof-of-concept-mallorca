@@ -1029,3 +1029,42 @@ export const TIPO_CLASIFICACION_SELECTOR_VALUES = [
     label: "Servicios",
   },
 ];
+
+export const ESTADO_PEDIDO_PROV_SELECTOR_VALUES = [
+  {
+    value: "ACEPTADA",
+    labelId: "Selector.aceptado",
+    label: "Aceptado",
+  },
+  {
+    value: "PENDENT",
+    labelId: "Selector.pendiente",
+    label: "Pendiente",
+  },
+  {
+    value: "TANCADA",
+    labelId: "Selector.cerrado",
+    label: "Cerrado",
+  },
+  {
+    value: "RETENIDA",
+    labelId: "Selector.retenido",
+    label: "Retenido",
+  },
+  {
+    value: "PREVISIO",
+    labelId: "Selector.prevision",
+    label: "Previsión",
+  },
+];
+
+export const PORTES_PEDIDO_SELECTOR_VALUES = [
+  { value: "PAGATS", labelId: "Selector.pagados", label: "Pagados" },
+  { value: "DEGUTS", labelId: "Selector.debidos", label: "Debidos" },
+  {
+    value: "CARREGATS_EN_FACTURA",
+    labelId: "Selector.cargados_en_factura",
+    label: "Cargados en Factura",
+  },
+  { value: "ALTRES", labelId: "Selector.otros", label: "Otros" },
+];

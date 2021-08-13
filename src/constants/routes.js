@@ -129,3 +129,4 @@ export const CURRENT_ACCOUNT_FACT_URL = '/fact/cuentas-corrientes';
 export const CLASSIFACTION_FACT_URL = '/fact/clasificaciones';
 export const AREA_NEGOCIO_FACT_URL = '/fact/areas-negocio'
 export const BOX_FACT_URL = '/fact/cajas';
+export const SUPPLIER_ORDER_FACT_URL = '/fact/pedidos-proveedores'

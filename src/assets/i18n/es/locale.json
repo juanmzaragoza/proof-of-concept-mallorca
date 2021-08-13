@@ -1730,9 +1730,38 @@
   "Comun.nif3":" NIF 3",
   "Facturas.diaImpr":"Día Impr",
   "Facturas.fechaLiquidacion":"Fecha Liquidación",
-  "Facturas.facturasCliente":"Facturas Cliente"
-  
-  
+  "Facturas.facturasCliente":"Facturas Cliente",
+  "PedidosProveedores.titulo":"Pedidos Proveedores",
+  "PedidosProveedor.numero":"Número",
+  "PedidosProveedor.fecha":"Fecha",
+  "PedidosProveedor.tabs.liniasPedido": "Líneas Pedido",
+  "PedidosProveedor.tabs.presupuestos": "Presupuestos",
+  "PedidosProveedor.tabs.otros": "Otros",
+  "PedidosProveedor.tabs.varios": "Varios",
+  "PedidosProveedor.referencia":"Referencia",
+  "PedidosProveedor.direccionComercial":"Dirección comercial",
+  "Selector.retenido":"Retenido",
+  "Selector.prevision":"Previsión",
+  "PedidosProveedor.estado":"Estado",
+  "Clientes.fact.tarifaProv":"Tarifa Proveedor",
+  "PedidosProveedor.descuento1":"Descuento 1",
+  "PedidosProveedor.descuento2":"Descuento 2",
+  "PedidosProveedor.envioPartida":"Fehca Envio Partida",
+  "PedidosProveedor.horaPrevista":"Hora Prevista Recepción",
+  "PedidosProveedor.averias":"Avería",
+  "PedidosProveedor.mantenerCoste":"Mantener Coste",
+  "PedidosProveedor.descripcionArticulo":"Desripción Artículo",
+  "PedidosProveedor.unidades":"Unidades",
+  "PedidosProveedor.unidadesGratuitas":"Unidades Gratuitas",
+  "PedidosProveedor.unidadesMetricas":"Unidades Métricas",
+  "PedidosProveedor.importe":"Importe",
+  "PedidosProveedor.unidadesMetricasGrat":"Unidades Métricas Gratuitas",
+  "PedidosProveedor.precio":"Precio",
+  "PedidosProveedor.vehiculo":"Vehículo",
+  "PedidosProveedor.entrega":"Entrega"
+
+
+
 
 
 }
