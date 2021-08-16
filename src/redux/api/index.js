@@ -295,3 +295,6 @@ export const seriesAreaNegoci = `api/fact/seriesAreaNegoci`;
 export const articlesCalcPrice = `api/fact/articles/calcularPreus`;
 export const tarifaProveidor = `api/fact/tarifesProveidor`;
 export const liniesComandaProveidor = `api/fact/liniesComandaProveidor`;
+export const recollidaObjecte = `api/fact/recollidesObjecte`;
+export const tipusIncidenciaFactura = `api/fact/tipusIncidenciesFactura`;
+export const mantenimentDeTipus = `api/fact/mantenimentsDeTipus`;

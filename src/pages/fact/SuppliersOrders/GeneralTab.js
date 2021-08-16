@@ -13,15 +13,15 @@ import { withValidations } from "modules/wrappers";
 import { useTabForm } from "hooks/tab-form";
 
 const SUPPLIERS_ORDERS_SECTION_INDEX = 0;
-const PRESSUPUESTO_SECTION_INDEX = 1;
-const OTROS_SECTION_INDEX = 2;
+const PRESSUPUESTO_SECTION_INDEX = 2;
+const OTROS_SECTION_INDEX = 1;
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [SUPPLIERS_ORDERS_SECTION_INDEX]: false,
-      [PRESSUPUESTO_SECTION_INDEX]: true,
       [OTROS_SECTION_INDEX]: false,
+      [PRESSUPUESTO_SECTION_INDEX]: true,
     },
     setIsValid: props.setIsValid,
   });
@@ -738,11 +738,36 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       className: "general-tab-subtab",
       label: (
         <FormattedMessage
+          id={"PedidosProveedor.tabs.otros"}
+          defaultMessage={"Otros"}
+        />
+      ),
+      key: 0,
+      component: (
+        <GenericForm
+          formComponents={otrosConfig}
+          emptyPaper={true}
+          setFormData={setFormData}
+          getFormData={getFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) => addValidity(OTROS_SECTION_INDEX, value)}
+          onBlur={(e) => handleTouched(OTROS_SECTION_INDEX)}
+          {...props}
+        />
+      ),
+    },
+    {
+      className: "general-tab-subtab",
+      label: (
+        <FormattedMessage
           id={"PedidosProveedor.tabs.presupuestos"}
           defaultMessage={"Presupuestos"}
         />
       ),
-      key: 0,
+      key: 1,
       component: (
         <GenericForm
           formComponents={presupostConfig}
@@ -761,31 +786,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         />
       ),
     },
-    {
-      className: "general-tab-subtab",
-      label: (
-        <FormattedMessage
-          id={"PedidosProveedor.tabs.otros"}
-          defaultMessage={"Otros"}
-        />
-      ),
-      key: 1,
-      component: (
-        <GenericForm
-          formComponents={otrosConfig}
-          emptyPaper={true}
-          setFormData={setFormData}
-          getFormData={getFormData}
-          loading={props.loading}
-          formErrors={props.formErrors}
-          submitFromOutside={props.submitFromOutside}
-          onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) => addValidity(OTROS_SECTION_INDEX, value)}
-          onBlur={(e) => handleTouched(OTROS_SECTION_INDEX)}
-          {...props}
-        />
-      ),
-    },
+   
   ];
 
   return (

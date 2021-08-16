@@ -1758,7 +1758,17 @@
   "PedidosProveedor.unidadesMetricasGrat":"Unidades Métricas Gratuitas",
   "PedidosProveedor.precio":"Precio",
   "PedidosProveedor.vehiculo":"Vehículo",
-  "PedidosProveedor.entrega":"Entrega"
+  "PedidosProveedor.entrega":"Entrega",
+  "PedidosProveedor.recogidaObjecto":"Recogida Objeto",
+  "PedidosProveedor.tipoIncidenciaFactura":"Tipo Incidencia Factura",
+  "PedidosProveedor.nombreVolumen":"Nombre Volumen",
+  "PedidosProveedor.tipoMantenimineto":"Tipo Mantenimiento",
+  "PedidosProveedor.telefonoVolumen":"Teléfono",
+  "PedidosProveedor.codigoPostalVolumen":"Código Postal",
+  "PedidosProveedor.direccionVolumen":"Dirección",
+  "PedidosProveedores.voluminoso":"Voluminoso"
+
+  
 
 
 

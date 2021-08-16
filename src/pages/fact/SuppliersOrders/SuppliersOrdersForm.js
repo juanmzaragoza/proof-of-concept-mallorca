@@ -217,7 +217,7 @@ const SuppliersOrdersForm = React.memo(
     /** Update HEADER */
     useEffect(() => {
       if (isEditable()) {
-        const nomComercial = getFormData("numero");
+        const nomComercial = getFormData("numero") + "/" + getFormData("referencia");
         const nom = nomComercial
           ? nomComercial
           : `${props.intl.formatMessage({

@@ -6,7 +6,7 @@ const SuppliersOrdersList = ({ actions, ...props }) => {
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
-        id: "PedidosProveedoes.titulo",
+        id: "PedidosProveedores.titulo",
         defaultMessage: "Pedidos Proveedores",
       }),
     });
@@ -25,21 +25,21 @@ const SuppliersOrdersList = ({ actions, ...props }) => {
       {
         name: "numero",
         title: props.intl.formatMessage({
-          id: "PedidosProveedores.numero",
+          id: "PedidosProveedor.numero",
           defaultMessage: "Número ",
         }),
       },
       {
         name: "dia",
         title: props.intl.formatMessage({
-          id: "PedidosProveedores.fecha",
+          id: "PedidosProveedor.fecha",
           defaultMessage: "Fecha ",
         }),
       },
       {
         name: "estat",
         title: props.intl.formatMessage({
-          id: "PedidosProveedores.estado",
+          id: "PedidosProveedor.estado",
           defaultMessage: "Estado ",
         }),
       },
