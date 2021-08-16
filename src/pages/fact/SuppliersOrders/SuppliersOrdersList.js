@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import * as API from "redux/api";
-import AdvancedFilters from "modules/AdvancedFilters";
 import ReactGrid from "modules/ReactGrid";
 
 const SuppliersOrdersList = ({ actions, ...props }) => {
@@ -16,14 +15,6 @@ const SuppliersOrdersList = ({ actions, ...props }) => {
     ]);
   }, []);
 
-  const CODE = props.intl.formatMessage({
-    id: "Comun.codigo",
-    defaultMessage: "Código",
-  });
-  const NOM = props.intl.formatMessage({
-    id: "Comun.nombre",
-    defaultMessage: "Nombre",
-  });
 
   const listConfiguration = {
     title: props.intl.formatMessage({

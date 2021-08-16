@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
-import { Chip } from "@material-ui/core";
-
 import {
   ESTADO_PEDIDO_PROV_SELECTOR_VALUES,
   PORTES_PEDIDO_SELECTOR_VALUES,
@@ -13,8 +10,6 @@ import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
-import ExpandableGrid from "modules/ExpandableGrid";
-
 import { useTabForm } from "hooks/tab-form";
 
 const SUPPLIERS_ORDERS_SECTION_INDEX = 0;

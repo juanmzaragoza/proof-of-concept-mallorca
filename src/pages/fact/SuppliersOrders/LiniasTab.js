@@ -351,44 +351,6 @@ const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
         ],
       },
 
-      //   {
-      //     placeHolder: props.intl.formatMessage({
-      //       id: "Clientes.empresas",
-      //       defaultMessage: "Empresas",
-      //     }),
-      //     type: "LOV",
-      //     key: "empresa",
-      //     required: true,
-      //     breakpoints: {
-      //       xs: 12,
-      //       md: 6,
-      //     },
-      //     selector: {
-      //       key: "empresas",
-      //       labelKey: (data) => `${data.nomFiscal} (${data.codi})`,
-      //       sort: "nomFiscal",
-      //       cannotCreate: true,
-      //       advancedSearchColumns: [
-      //         {
-      //           title: props.intl.formatMessage({
-      //             id: "Comun.codigo",
-      //             defaultMessage: "Código",
-      //           }),
-      //           name: "codi",
-      //         },
-      //         {
-      //           title: props.intl.formatMessage({
-      //             id: "Comun.nombre",
-      //             defaultMessage: "Nombre",
-      //           }),
-      //           name: "nomFiscal",
-      //         },
-      //       ],
-      //     },
-      //     validationType: "object",
-      //     ...withRequiredValidation([]),
-      //   },
-
       {
         placeHolder: props.intl.formatMessage({
           id: "Comun.observaciones",
