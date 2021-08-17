@@ -31,20 +31,12 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     id: "Comun.descripcion",
     defaultMessage: "Descripción",
   });
-  const DOMICILI = props.intl.formatMessage({
-    id: "Proveedores.Direccion.domicilio",
-    defaultMessage: "Domicilio",
-  });
 
   const NOM = props.intl.formatMessage({
     id: "Comun.nombre",
     defaultMessage: "Nombre",
   });
 
-  const OBS = props.intl.formatMessage({
-    id: "FamiliaProveedores.observaciones",
-    defaultMessage: "Observaciones",
-  });
 
   const code = (md = 6) => ({
     type: "input",
@@ -58,33 +50,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   });
 
-  const codeAndName = (mdCode = 6, mdName = 6) => [
-    code(mdCode),
-    {
-      type: "input",
-      key: "nom",
-      placeHolder: NOM,
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdName,
-      },
-    },
-  ];
-
-  const codeAndDescription = (mdCode = 6, mdDes = 6) => [
-    code(mdCode),
-    {
-      type: "input",
-      key: "descripcio",
-      placeHolder: DESCRIPCIO,
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdDes,
-      },
-    },
-  ];
+  
 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
   const formatCodeAndDescription = (data) =>
