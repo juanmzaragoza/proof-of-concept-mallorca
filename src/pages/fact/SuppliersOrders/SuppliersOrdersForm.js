@@ -217,7 +217,7 @@ const SuppliersOrdersForm = React.memo(
     /** Update HEADER */
     useEffect(() => {
       if (isEditable()) {
-        const nomComercial = getFormData("numero") + "/" + getFormData("referencia");
+        const nomComercial = getFormData("numero");
         const nom = nomComercial
           ? nomComercial
           : `${props.intl.formatMessage({
@@ -236,7 +236,7 @@ const SuppliersOrdersForm = React.memo(
           { title: nameSelectedTab },
         ]);
       }
-    }, [getFormData("numero"), nameSelectedTab]);
+    }, [getFormData("numero" ), nameSelectedTab]);
 
     useEffect(() => {
       if (submitFromOutside) {

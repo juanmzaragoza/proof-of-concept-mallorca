@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import {
   ESTADO_PEDIDO_PROV_SELECTOR_VALUES,
   PORTES_PEDIDO_SELECTOR_VALUES,
+  TIPO_TRANSPORTE_SELECTOR_VALUES
 } from "constants/selectors";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
@@ -385,24 +386,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
 
     {
       placeHolder: props.intl.formatMessage({
-        id: "PedidosProveedor.estado",
-        defaultMessage: "Estado",
-      }),
-      type: "select",
-      key: "estat",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      selector: {
-        options: ESTADO_PEDIDO_PROV_SELECTOR_VALUES,
-      },
-      validationType: "string",
-      validations: [...props.commonValidations.requiredValidation()],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
         id: "Proveedores.Facturacion.transportista",
         defaultMessage: "Transportista",
       }),
@@ -470,6 +453,25 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndDescription,
       },
     },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "PedidosProveedor.estado",
+        defaultMessage: "Estado",
+      }),
+      type: "select",
+      key: "estat",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      selector: {
+        options: ESTADO_PEDIDO_PROV_SELECTOR_VALUES,
+      },
+      validationType: "string",
+      validations: [...props.commonValidations.requiredValidation()],
+    },
     {
       placeHolder: props.intl.formatMessage({
         id: "Proveedores.Facturacion.portes",
@@ -479,11 +481,126 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "portes",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       selector: {
         options: PORTES_PEDIDO_SELECTOR_VALUES,
       },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "PedidosProveedores.tipoTransporte",
+        defaultMessage: "Tipo transporte",
+      }),
+      type: "select",
+      key: "tipusTransport",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      selector: {
+        options: TIPO_TRANSPORTE_SELECTOR_VALUES,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.tvencimiento",
+        defaultMessage: "Tipo Vencimiento",
+      }),
+      type: "LOV",
+      key: "tveCodi",
+      id: "tipusVenciment",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      selector: {
+        key: "tipusVenciments",
+        labelKey: formatCodeAndDescription,
+        sort: "descripcio",
+        cannotCreate: true,
+        creationComponents: [
+          {
+            type: "input",
+            key: "codi",
+            placeHolder: CODE,
+            required: true,
+            noEditable: true,
+            breakpoints: {
+              xs: 12,
+              md: 4,
+            },
+          },
+          {
+            type: "input",
+            key: "nom",
+            placeHolder: NOM,
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 4,
+            },
+          },
+          {
+            type: "input",
+            key: "tipus",
+            placeHolder: props.intl.formatMessage({
+              id: "TiposVencimiento.tipos",
+              defaultMessage: "Tipos",
+            }),
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 4,
+            },
+          },
+        ],
+        advancedSearchColumns: aSCodeAndDescription,
+        transform: {
+          apply: (tipusVenciments) => tipusVenciments && tipusVenciments.codi,
+          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+        },
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.fact.docCobro",
+        defaultMessage: "Documento cobro",
+      }),
+      type: "LOV",
+      key: "documentPagamentCodi",
+      id: "documentPagamentCobrament",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      selector: {
+        key: "documentPagamentCobraments",
+        labelKey: formatCodeAndDescription,
+        sort: "descripcio",
+        advancedSearchColumns: aSCodeAndDescription,
+        cannotCreate: true,
+        transform: {
+          apply: (documentPagamentCobraments) =>
+            documentPagamentCobraments && documentPagamentCobraments.codi,
+          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+        },
+      },
+    },
+
+    
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "PedidosProveedor.diaRecepcion",
+        defaultMessage: "Fecha Recepció",
+      }),
+      type: "date",
+      key: "diaPrevistEntrega",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "string",
     },
 
     {
@@ -499,14 +616,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       validationType: "string",
     },
-
     {
       placeHolder: props.intl.formatMessage({
-        id: "PedidosProveedor.envioPartida",
-        defaultMessage: "Fecha Envio Partida ",
+        id: "PedidosProveedor.horaRececpción",
+        defaultMessage: "Hora Recepción",
       }),
-      type: "date",
-      key: "dataEnvioPartida",
+      type: "input",
+      key: "horaRebut",
       breakpoints: {
         xs: 12,
         md: 2,
@@ -718,6 +834,25 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         ],
       },
       validationType: "object",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "PedidosProveedor.tipoIncidenciaFactura",
+        defaultMessage: "Tipo Incidencia Factura",
+      }),
+      type: "LOV",
+      key: "tipusIncidenciaFactura",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      selector: {
+        key: "tipusIncidenciaFacturas",
+        labelKey: formatCodeAndName,
+        sort: "descripcio",
+        advancedSearchColumns: aSCodeAndName,
+        cannotCreate: true,
+      },
     },
     {
       placeHolder: props.intl.formatMessage({

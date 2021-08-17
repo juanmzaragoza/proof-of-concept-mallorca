@@ -1066,3 +1066,18 @@ export const ESTADO_OFERTA_PROV_SELECTOR_VALUES = [
     label: "Asignada",
   },
 ];
+
+export const TIPO_TRANSPORTE_SELECTOR_VALUES = [
+
+  {
+    value: "1",
+    labelId: "Selector.transporte",
+    label: "Transporte",
+  },
+  {
+    value: "2",
+    labelId: "Selector.transportable",
+    label: "Transportable",
+  },
+
+];

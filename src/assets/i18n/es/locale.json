@@ -1783,5 +1783,10 @@
   "OfertaProveedores.texto1": "Texto 1",
   "OfertaProveedores.textos":"Textos ",
   "OfertaProveedores.contrato":"Contrato",
-  "OfertaProveedor.liniasOferta":"Línias de la Oferta"
+  "OfertaProveedor.liniasOferta":"Línias de la Oferta",
+  "PedidosProveedor.diaRecepcion":"Fecha recepción",
+  "PedidosProveedor.horaRececpción":"Hora Recepción",
+  "Selector.transporte":"Transporte",
+  "Selector.transportable":"Transportable",
+  "PedidosProveedores.tipoTransporte":"Tipo Transporte"
 }
