@@ -402,7 +402,7 @@ export const TIPO_REGISTRO_COMERCIAL_SELECTOR_VALUES = [
     value: "VISITA_PRESENCIAL",
     labelId: "Selector.visitaPresencial",
     label: "Visita Presencial",
-  }
+  },
 ];
 
 export const TIPO_ENUM_PUNT_VENTA_VALUES = [
@@ -518,7 +518,6 @@ export const TIPO_ESTADO_PROYECTO_SELECTOR_VALUES = [
   },
 ];
 
-
 export const MEDIO_SELECTOR_VALUES = [
   {
     value: "WEB",
@@ -569,7 +568,7 @@ export const MEDIO_SELECTOR_VALUES = [
     value: "ALTRES",
     labelId: "Selector.otros",
     label: "Otros",
-  }
+  },
 ];
 
 export const AVISO_ALBARANES_CLIENTE_SELECTOR_VALUES = [
@@ -587,7 +586,7 @@ export const AVISO_ALBARANES_CLIENTE_SELECTOR_VALUES = [
     value: "SI_NO_ES_LO_PRESSUPOSTAT",
     labelId: "Selector.siNoEsLoPresupuesto",
     label: "Si no es lo presupuesto",
-  }
+  },
 ];
 
 export const TIPO_FAMILIA_ARTICULO_SELECTOR_VALUES = [
@@ -600,9 +599,8 @@ export const TIPO_FAMILIA_ARTICULO_SELECTOR_VALUES = [
     value: "MA_OBRA",
     labelId: "Selector.manoObra",
     label: "Mano de obra",
-  }
+  },
 ];
-
 
 export const TIPO_DIR_COMERCIALES_SELECTOR_VALUES = [
   {
@@ -640,7 +638,6 @@ export const TIPO_EJECUCION_PROYECTO_SELECTOR_VALUES = [
   },
 ];
 
-
 export const TIPO_SERVEI_FAMILIA_ARTICULO_SELECTOR_VALUES = [
   {
     value: "OBRA_SERVEI",
@@ -651,7 +648,7 @@ export const TIPO_SERVEI_FAMILIA_ARTICULO_SELECTOR_VALUES = [
     value: "TALLER",
     labelId: "Selector.taller",
     label: "Taller",
-  }
+  },
 ];
 
 export const FACTURA_RECTIFICATIVA_SELECTOR_VALUES = [
@@ -669,7 +666,7 @@ export const FACTURA_RECTIFICATIVA_SELECTOR_VALUES = [
     value: "MULTIPLE",
     labelId: "Selector.multiple",
     label: "Múltiple",
-  }
+  },
 ];
 
 export const TIPO_TARIFA_SELECTOR_VALUES = [
@@ -692,7 +689,7 @@ export const TIPO_TARIFA_SELECTOR_VALUES = [
     value: "TARIFA_PARTICULAR_SOBRE_PVP",
     labelId: "Selector.tarifaParticularSobrePvp",
     label: "Tarifa particular sobre PVP",
-  }
+  },
 ];
 
 export const FORMA_CALCULO_SELECTOR_VALUES = [
@@ -705,9 +702,8 @@ export const FORMA_CALCULO_SELECTOR_VALUES = [
     value: "VENDA",
     labelId: "Selector.venta",
     label: "Venta",
-  }
+  },
 ];
-
 
 export const VALORACION_INVENTARIO_TRABAJO_SELECTOR_VALUES = [
   {
@@ -734,10 +730,10 @@ export const VALORACION_INVENTARIO_TRABAJO_SELECTOR_VALUES = [
     value: "PREU_COST_TEORIC_DE_ARTICLE",
     labelId: "Almacen.select.precioCosteTeoricoArticulo",
     label: "Precio coste teórico de artículo",
-  }
+  },
 ];
 
-export const FORMA_PAGO_FACT_SELECTOR_VALUES =[
+export const FORMA_PAGO_FACT_SELECTOR_VALUES = [
   {
     value: "PLAZO",
     labelId: "Selector.aPlazos",
@@ -750,9 +746,7 @@ export const FORMA_PAGO_FACT_SELECTOR_VALUES =[
   },
 ];
 
-
 export const TIPO_RETENCION3_SELECTOR_VALUES = [
-
   {
     value: "DESPUES_BASE",
     labelId: "Selector.despuesBaseImp",
@@ -808,7 +802,7 @@ export const TIPO_RAPPEL_SELECTOR_VALUES = [
     value: "PER_MARGE",
     labelId: "Articulos.precio.select.porMargen",
     label: "Por margen",
-  }
+  },
 ];
 
 export const CLASIFICACION_SELECTOR_VALUES = [
@@ -831,7 +825,7 @@ export const CLASIFICACION_SELECTOR_VALUES = [
     value: "MUERTAS",
     labelId: "Articulos.stock.descuentos.select.muertas",
     label: "Muertas",
-  }
+  },
 ];
 
 export const DIMENSION_SELECTOR_VALUES = [
@@ -854,7 +848,7 @@ export const DIMENSION_SELECTOR_VALUES = [
     value: "LLARG_X_AMPLE_X_ALT",
     labelId: "Articulos.presentacion.dimensiones.select.largoXAnchoXAlto",
     label: "Largo x ancho x alto",
-  }
+  },
 ];
 
 export const APP_PROYECTOS_SELECTOR_VALUES = [
@@ -888,7 +882,6 @@ export const APP_PROYECTOS_SELECTOR_VALUES = [
     labelId: "Selector.aplicacion6",
     label: "Canteras Ibiza",
   },
-
 ];
 
 export const ROL_OPERARIO_SELECTOR_VALUES = [
@@ -912,12 +905,9 @@ export const ROL_OPERARIO_SELECTOR_VALUES = [
     labelId: "Selector.administrativo",
     label: "Administrativo ",
   },
-
-
 ];
 
-export const TIPO_INVERSION_SELECTOR_VALUES =
-[
+export const TIPO_INVERSION_SELECTOR_VALUES = [
   {
     value: "NO_SUJETO_INVERSION",
     labelId: "Selector.noSujeto",
@@ -943,12 +933,9 @@ export const TIPO_INVERSION_SELECTOR_VALUES =
     labelId: "Selector.borrar",
     label: "Borrar ",
   },
-
-
 ];
 
-export const TIPO_OBRA_SELECTOR_VALUES =
-[
+export const TIPO_OBRA_SELECTOR_VALUES = [
   {
     value: "CONTRUCCION_EDIFICACIONES",
     labelId: "Selector.construccion",
@@ -969,9 +956,6 @@ export const TIPO_OBRA_SELECTOR_VALUES =
     labelId: "Selector.otros",
     label: "Otros",
   },
-
-
-
 ];
 
 export const INCIDENCIA_PORCENTAJE_SELECTOR_VALUES = [
@@ -987,7 +971,6 @@ export const INCIDENCIA_PORCENTAJE_SELECTOR_VALUES = [
   },
 ];
 
-
 export const TIPO_PRODUCTO_SELECTOR_VALUES = [
   {
     value: "PRODUCTE",
@@ -1001,7 +984,6 @@ export const TIPO_PRODUCTO_SELECTOR_VALUES = [
   },
 ];
 
-
 export const TIPO_COSTES_SELECTOR_VALUES = [
   {
     value: "IMPORTE",
@@ -1014,8 +996,6 @@ export const TIPO_COSTES_SELECTOR_VALUES = [
     label: "Porcentaje",
   },
 ];
-
-
 
 export const TIPO_CLASIFICACION_SELECTOR_VALUES = [
   {
@@ -1067,4 +1047,22 @@ export const PORTES_PEDIDO_SELECTOR_VALUES = [
     label: "Cargados en Factura",
   },
   { value: "ALTRES", labelId: "Selector.otros", label: "Otros" },
+];
+
+export const ESTADO_OFERTA_PROV_SELECTOR_VALUES = [
+  {
+    value: "ANULADA",
+    labelId: "Selector.anulada",
+    label: "Anulada",
+  },
+  {
+    value: "PENDENT",
+    labelId: "Selector.pendiente",
+    label: "Pendiente",
+  },
+  {
+    value: "ASIGNADA",
+    labelId: "Selector.asignada",
+    label: "Asignada",
+  },
 ];

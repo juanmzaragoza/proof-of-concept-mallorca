@@ -149,7 +149,7 @@ export const bancCodi = `api/fact/bancs`;
 export const paisNifCodi = `api/paisosNif`;
 
 export const categoriesTraduccio = `api/ecom/categoriesTraduccio`;
-export const ubicacio = `api/fact/ubicacions`
+export const ubicacio = `api/fact/ubicacions`;
 export const ubicacios = "api/fact/ubicacions";
 export const ubicacioArticles = "api/fact/ubicacionsArticle";
 
@@ -266,7 +266,6 @@ export const empresa2 = `api/fact/empreses`;
 export const peusDocumentFamilia = `api/fact/peusDocumentFamilia`;
 export const serieCompraCodi = `api/fact/seriesCompra`;
 
-
 export const articlesFamiliaComissio = `api/fact/articlesFamiliaComissio`;
 
 export const puntsVenda = `api/fact/puntsVenda`;
@@ -277,17 +276,17 @@ export const costos = `api/fact/costos`;
 export const comptesCorrents = `api/fact/comptesCorrents`;
 export const classificacions = `api/fact/classificacions`;
 
-export const comptesFamiliaSerieVenda = 'api/fact/comptesFamiliaSerieVenda';
-export const comptesFamiliaSerieCompra = 'api/fact/comptesFamiliaSerieCompra';
-export const comptesTraspasMagatzem = 'api/fact/comptesTraspasMagatzem';
+export const comptesFamiliaSerieVenda = "api/fact/comptesFamiliaSerieVenda";
+export const comptesFamiliaSerieCompra = "api/fact/comptesFamiliaSerieCompra";
+export const comptesTraspasMagatzem = "api/fact/comptesTraspasMagatzem";
 
 export const liniesFinalFactura = `api/fact/liniesFinalFactura`;
 export const preusArticle = `api/fact/preusArticle`;
 
-export const comptesClient = 'api/fact/comptesClient';
-export const comptesProveidor = 'api/fact/comptesProveidor';
-export const familiesGamma = 'api/fact/familiesGamma';
-export const familiesModel = 'api/fact/familiesModel';
+export const comptesClient = "api/fact/comptesClient";
+export const comptesProveidor = "api/fact/comptesProveidor";
+export const familiesGamma = "api/fact/familiesGamma";
+export const familiesModel = "api/fact/familiesModel";
 
 export const areaNegocis = `api/fact/areaNegocis`;
 export const seriesAreaNegoci = `api/fact/seriesAreaNegoci`;
@@ -298,3 +297,5 @@ export const liniesComandaProveidor = `api/fact/liniesComandaProveidor`;
 export const recollidaObjecte = `api/fact/recollidesObjecte`;
 export const tipusIncidenciaFactura = `api/fact/tipusIncidenciesFactura`;
 export const mantenimentDeTipus = `api/fact/mantenimentsDeTipus`;
+export const ofertesProveidor = `api/fact/ofertesProveidors`;
+export const tipusOfertaProveidor = `api/fact/tipusOfertesProveidor`;

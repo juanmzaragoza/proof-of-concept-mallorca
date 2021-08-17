@@ -28,23 +28,23 @@ import ItemsFamily from "./ItemsFamily";
 import Projects from "./Projects";
 import Company from "./Company";
 import BusinessArea from "./BusinessArea";
-import Rates from './Rates';
-import Location from './Location';
-import ArticlesLocation from './ArticlesLocation';
-import FamilyCosts from './FamilyCosts';
-import Invoice from './Invoice';
-import Articles from './Articles';
-import Store from './Store';
-import SalesSeries from './SalesSeries';
-import DocumentoPagoCobro from './DocumentoPagoCobro';
-import MaturityType from './MaturityType';
-import Products from './Products';
-import BillingType from './BillingType';
-import DiscountRates from './DiscountRates';
-import FinalesFacturas from './FinalesFacturas';
-import SeriesIntracomunitarias from './SeriesIntracomunitarias';
-import PurchaseSeries from './PurchaseSeries';
-import Sector from './Sector';
+import Rates from "./Rates";
+import Location from "./Location";
+import ArticlesLocation from "./ArticlesLocation";
+import FamilyCosts from "./FamilyCosts";
+import Invoice from "./Invoice";
+import Articles from "./Articles";
+import Store from "./Store";
+import SalesSeries from "./SalesSeries";
+import DocumentoPagoCobro from "./DocumentoPagoCobro";
+import MaturityType from "./MaturityType";
+import Products from "./Products";
+import BillingType from "./BillingType";
+import DiscountRates from "./DiscountRates";
+import FinalesFacturas from "./FinalesFacturas";
+import SeriesIntracomunitarias from "./SeriesIntracomunitarias";
+import PurchaseSeries from "./PurchaseSeries";
+import Sector from "./Sector";
 import Vehicle from "./Vehicle";
 import Carrier from "./Carrier";
 import CommercialSituation from "./CommercialSituation";
@@ -89,6 +89,7 @@ import CurrentAccounts from "./CurrentAccounts";
 import Clasification from "./Clasification";
 import AreasNegocio from "./AreasNegocio";
 import SuppliersOrders from "./SuppliersOrders";
+import SuppliersOffers from "./SuppliersOffers";
 
 const component = [
   SuppliersFamily,
@@ -189,9 +190,8 @@ const component = [
   CurrentAccounts,
   Clasification,
   AreasNegocio,
-  SuppliersOrders
-
-
+  SuppliersOrders,
+  SuppliersOffers,
 ];
 
 export default component;
