@@ -90,6 +90,7 @@ import Clasification from "./Clasification";
 import AreasNegocio from "./AreasNegocio";
 import SuppliersOrders from "./SuppliersOrders";
 import SuppliersOffers from "./SuppliersOffers";
+import AlbaranesClientes from "./AlbaranesClientes";
 
 const component = [
   SuppliersFamily,
@@ -192,6 +193,7 @@ const component = [
   AreasNegocio,
   SuppliersOrders,
   SuppliersOffers,
+  AlbaranesClientes
 ];
 
 export default component;
