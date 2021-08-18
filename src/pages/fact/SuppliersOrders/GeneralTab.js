@@ -629,6 +629,30 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       validationType: "string",
     },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "PedidosProveedor.piePedido",
+        defaultMessage: "Pie Pedido",
+      }),
+      type: "LOV",
+      key: "observacionsPeuComanda",
+      id: "peusDocument",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      selector: {
+        key: "peuDocuments",
+        labelKey: (data) => `${data.descripcio} (${data.codi})`,
+        sort: "codi",
+        cannotCreate: true,
+        advancedSearchColumns: aSCodeAndDescription,
+        transform: {
+          apply: (peuDocuments) => peuDocuments && peuDocuments.codi,
+          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+        },
+      },
+    },
 
     {
       placeHolder: OBS,

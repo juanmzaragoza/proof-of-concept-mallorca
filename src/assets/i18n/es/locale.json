@@ -1788,5 +1788,20 @@
   "PedidosProveedor.horaRececpción":"Hora Recepción",
   "Selector.transporte":"Transporte",
   "Selector.transportable":"Transportable",
-  "PedidosProveedores.tipoTransporte":"Tipo Transporte"
+  "PedidosProveedores.tipoTransporte":"Tipo Transporte",
+  "PedidosProveedor.referencia2":"Referencia 2",
+  "PedidosProveedor.disponible":"Disponible ",
+  "PedidosProveedor.kilos":"Kilos",
+  "PedidosProveedor.largo":"Largo",
+  "PedidosProveedor.ancho":"Ancho",
+  "PedidosProveedor.alto":"Alto",
+  "PedidosProveedor.numeroPedidoAlmacen":"Num. Pedido Almacén",
+  "PedidosProveedor.envase":"Envase",
+  "PedidosProveedor.precioEnvase":"Precio Envase",
+  "PedidosProveedor.unidadesEnvase":"Unidades Envase",
+  "PedidosProveedor.tipoUnidad":"Tipo Unidad",
+  "PedidosProveedor.piePedido":"Pie Pedido",
+  "PedidosProveedor.pedidoMinimo":"Pedido Mínimo",
+  "PedidosProveedor.importeBruto":"Importe Bruto"
+
 }
