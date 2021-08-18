@@ -9,7 +9,6 @@ import "./styles.scss";
 
 import {
   FilteringState,
-  IntegratedFiltering,
   SortingState,
   IntegratedSorting,
   PagingState,
@@ -39,7 +38,12 @@ import {
   getRows,
   getTotalCount
 } from "../../redux/reactGrid/selectors";
-import {deleteData, searchData, reset} from "../../redux/reactGrid";
+import {
+  updateData,
+  deleteData,
+  searchData,
+  reset
+} from "../../redux/reactGrid";
 import {TableCell, TextField} from "@material-ui/core";
 
 const getRowId = row => row.id;
@@ -116,9 +120,9 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
     }
   },[errors]);
 
-  const FocusableCell = ({ onClick, ...restProps }) => (
-    <Table.Cell {...restProps} tabIndex={0} onFocus={onClick} />
-  );
+  const FocusableCell = ({ onClick, ...restProps }) => {
+    return <Table.Cell {...restProps} tabIndex={0} onFocus={onClick} />
+  };
 
   const TableRow = ({ row, ...restProps }) => (
     <Table.Row
@@ -126,14 +130,20 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
       // eslint-disable-next-line no-alert
       onClick={() => onClickRow && onClickRow(row)}
       style={{
-        cursor: 'pointer',
+        cursor: configuration.enableInlineEdition? 'pointer':'auto',
       }}
     />
   );
 
   const commitChanges = ({ added, changed, deleted }) => {
     if (added) {}
-    if (changed) {}
+    if (changed) {
+      const row = rows.find(row => changed[row.id]);
+      if(row){
+        const changedRow = { ...row, ...changed[row.id] };
+        actions.updateData({ key: props.id, id: row.id, data: changedRow });
+      }
+    }
     if(deleted) {
       actions.deleteData({ key: props.id, id: deleted[0] });
     }
@@ -222,6 +232,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
+    updateData: bindActionCreators(updateData, dispatch),
     loadData: bindActionCreators(searchData, dispatch),
     deleteData: bindActionCreators(deleteData, dispatch),
     reset: bindActionCreators(reset, dispatch),
@@ -232,5 +243,5 @@ const mapDispatchToProps = (dispatch, props) => {
 export default compose(
   withSnackbar,
   injectIntl,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps),
 )(ReactGrid);

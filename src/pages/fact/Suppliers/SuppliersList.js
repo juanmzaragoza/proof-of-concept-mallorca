@@ -62,7 +62,8 @@ const SuppliersList = ({actions, ...props}) => {
       },
     ],
     URL: API.suppliers,
-    listKey: 'proveidors'
+    listKey: 'proveidors',
+    enableInlineEdition: true,
   };
 
   const advancedFilters = [
@@ -178,7 +179,8 @@ const SuppliersList = ({actions, ...props}) => {
       <AdvancedFilters fields={advancedFilters} handleSearch={setFilters} />
       <ReactGrid id='suppliers'
                  extraQuery={filters}
-                 configuration={listConfiguration} />
+                 configuration={listConfiguration}
+                 url={API.suppliers} />
     </>
   )
 };
