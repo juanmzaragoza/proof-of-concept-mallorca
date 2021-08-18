@@ -29,7 +29,8 @@ const SuppliersList = ({actions, ...props}) => {
     columns: [
       {
         name: 'codi',
-        title: CODE
+        title: CODE,
+        inlineEditionDisabled: true
       },
       {
         name: 'nomComercial',

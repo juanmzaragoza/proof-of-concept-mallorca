@@ -76,7 +76,10 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
                      actions, ...props }) => {
 
   const history = useHistory();
-  const [columns] = useState(configuration.columns);
+  const [columns] = useState(configuration.columns.map(({name, title, getCellValue}) => ({name, title, getCellValue})));
+  const [editingStateColumnExtensions] = useState(configuration.columns.map(
+    ({name: columnName, inlineEditionDisabled}) => ({columnName, editingEnabled: !inlineEditionDisabled}))
+  );
   const [currentPage, setCurrentPage] = useState(0);
   const [sorting, setSorting] = useState([]);
   const [filters, setFilters] = useState([]);
@@ -177,7 +180,9 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
           totalCount={totalCount}
         />
         {/***************************/}
-        <EditingState onCommitChanges={commitChanges} />
+        <EditingState
+          onCommitChanges={commitChanges}
+          columnExtensions={editingStateColumnExtensions} />
 
         <Table tableComponent={TableComponent}
                cellComponent={FocusableCell}
@@ -185,7 +190,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
                noDataText={"table-data"} />
         <TableHeaderRow showSortingControls />
         {!configuration.disabledFiltering && <TableFilterRow cellComponent={FilterCell} />}
-        {configuration.enableInlineEdition && <TableInlineCellEditing selectTextOnEditStart />}
+        {configuration.enableInlineEdition && <TableInlineCellEditing selectTextOnEditStart={false} />}
         {!configuration.disabledActions && <ActionsColumn title={props.intl.formatMessage({
           id: "Comun.acciones",
           defaultMessage: "Acciones"
@@ -205,7 +210,8 @@ ReactGrid.propTypes = {
     columns: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string,
       title: PropTypes.string,
-      getCellValue: PropTypes.func
+      getCellValue: PropTypes.func,
+      inlineEditionDisabled: PropTypes.bool
     })),
     listKey: PropTypes.string.isRequired,
     enableInlineEdition: PropTypes.bool,
