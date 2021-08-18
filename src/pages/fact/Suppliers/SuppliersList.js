@@ -21,6 +21,50 @@ const SuppliersList = ({actions, ...props}) => {
   const CODE = props.intl.formatMessage({id: "Comun.codigo", defaultMessage: "Código"});
   const NOM = props.intl.formatMessage({id: "Comun.nombre", defaultMessage: "Nombre"});
 
+  const FAMILY_FIELD = {
+    placeHolder: props.intl.formatMessage({
+      id: "Proveedores.familia",
+      defaultMessage: "Familia"
+    }),
+    type: 'LOV',
+    key: 'familiaProveidor',
+    required: true,
+    breakpoints: {
+      xs: 12,
+      md: 6
+    },
+    variant: 'outlined',
+    selector: {
+      key: 'familiaProveidors',
+      labelKey: (data) => `${data.nom} (${data.codi})`,
+      sort: 'nom',
+      creationComponents: [
+        {
+          type: 'input',
+          key: 'codi',
+          placeHolder: CODE,
+          required: true,
+          noEditable: true,
+          breakpoints: {
+            xs: 12,
+            md: 6
+          }
+        },
+        {
+          type: 'input',
+          key: 'nom',
+          placeHolder: NOM,
+          required: true,
+          breakpoints: {
+            xs: 12,
+            md: 6
+          }
+        }
+      ],
+      advancedSearchColumns: [{title: CODE, name: 'codi'},{title: NOM, name: 'nom'}]
+    },
+  };
+
   const listConfiguration = {
     title: props.intl.formatMessage({
       id: "Proveedores.titulo",
@@ -47,12 +91,13 @@ const SuppliersList = ({actions, ...props}) => {
         })
       },
       {
-        name: 'familiaProveidor.id',
+        name: 'familiaProveidor',
         title: props.intl.formatMessage({
           id: "Proveedores.familia",
           defaultMessage: "Familia"
         }),
-        getCellValue: row => row.familiaProveidor? row.familiaProveidor.description:""
+        getCellValue: row => row.familiaProveidor? row.familiaProveidor.description:"",
+        field: FAMILY_FIELD
       },
       {
         name: 'alias',
@@ -130,49 +175,7 @@ const SuppliersList = ({actions, ...props}) => {
       },
       variant: 'outlined'
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.familia",
-        defaultMessage: "Familia"
-      }),
-      type: 'LOV',
-      key: 'familiaProveidor',
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 6
-      },
-      variant: 'outlined',
-      selector: {
-        key: 'familiaProveidors',
-        labelKey: (data) => `${data.nom} (${data.codi})`,
-        sort: 'nom',
-        creationComponents: [
-          {
-            type: 'input',
-            key: 'codi',
-            placeHolder: CODE,
-            required: true,
-            noEditable: true,
-            breakpoints: {
-              xs: 12,
-              md: 6
-            }
-          },
-          {
-            type: 'input',
-            key: 'nom',
-            placeHolder: NOM,
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 6
-            }
-          }
-        ],
-        advancedSearchColumns: [{title: CODE, name: 'codi'},{title: NOM, name: 'nom'}]
-      },
-    },
+    FAMILY_FIELD,
   ];
 
   return (

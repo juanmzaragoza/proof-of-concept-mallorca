@@ -45,6 +45,7 @@ import {
   reset
 } from "../../redux/reactGrid";
 import {TableCell, TextField} from "@material-ui/core";
+import {LOVFormatter} from "./Formatter";
 
 const getRowId = row => row.id;
 
@@ -83,6 +84,11 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
   const [currentPage, setCurrentPage] = useState(0);
   const [sorting, setSorting] = useState([]);
   const [filters, setFilters] = useState([]);
+
+  const [lovFields] = useState(configuration.columns
+    .filter(column => column.field && column.field.type === 'LOV')
+    .map(column => column.field)
+  );
 
   const rightMenu = [
     {
@@ -159,6 +165,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
         columns={columns}
         getRowId={getRowId}
       >
+        <LOVFormatter fields={lovFields} />
         {/* Sorting configuration */}
         <SortingState
           sorting={sorting}
