@@ -1068,7 +1068,6 @@ export const ESTADO_OFERTA_PROV_SELECTOR_VALUES = [
 ];
 
 export const TIPO_TRANSPORTE_SELECTOR_VALUES = [
-
   {
     value: "1",
     labelId: "Selector.transporte",
@@ -1079,5 +1078,22 @@ export const TIPO_TRANSPORTE_SELECTOR_VALUES = [
     labelId: "Selector.transportable",
     label: "Transportable",
   },
+];
 
+export const TIPO_DESTINO_SELECTOR_VALUES = [
+  {
+    value: "ENTREGADO",
+    labelId: "Selector.entregado",
+    label: "Entregado"
+  },
+  {
+    value: "DEPOSITO",
+    labelId: "Selector.depositado",
+    label: "depositado",
+  },
+  {
+    value: "RESERVADO",
+    labelId: "Selector.reservado",
+    label: "reservado",
+  },
 ];

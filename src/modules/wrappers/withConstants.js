@@ -634,6 +634,15 @@ const withConstants = (PassedComponent) => {
             path: "FAC_TAL",
             icon: <LocalMall />,
           },
+          {
+            key: "FAC_ALBARA",
+            title: props.intl.formatMessage({
+              id: "AlbaranesCliente.titulo",
+              defaultMessage: "Alabranes Cliente",
+            }),
+            path: "FAC_ALBARA",
+            icon: <LocalMall />,
+          },
         ],
       },
       {
