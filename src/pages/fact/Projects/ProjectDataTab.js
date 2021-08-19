@@ -129,11 +129,11 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
               labelKey: (data) => `${data.nom} (${data.codi})`,
               sort: "codi",
               cannotCreate: true,
-              relatedWith: {
+              relatedWith: [{
                 name: "provincia",
                 filterBy: "pais.id",
                 keyValue: "id",
-              },
+              },],
               advancedSearchColumns: aSCodeAndName,
             },
           },
@@ -672,11 +672,11 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
           { title: NOM, name: "nomComercial" },
         ],
         cannotCreate: true,
-        relatedWith: {
+        relatedWith: [{
           name: "subClient",
           filterBy: "client.id",
           keyValue: "id",
-        },
+        },],
       },
     },
     {
@@ -696,11 +696,11 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         sort: "nom",
         advancedSearchColumns: aSCodeAndName,
         cannotCreate: true,
-        relatedWith: {
+        relatedWith: [{
           name: "clientAdresa",
           filterBy: "client.id",
           keyValue: "id",
-        },
+        },],
       },
     },
     {

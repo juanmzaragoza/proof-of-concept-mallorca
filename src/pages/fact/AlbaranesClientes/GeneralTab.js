@@ -27,12 +27,11 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       [ALBARANES_SECTION_INDEX]: false,
       [FACTURA_SECTION_TAB_INDEX]: true,
       [PRESUPUESTO_SECTION_TAB_INDEX]: true,
-      [OTROS_SECTION_TAB_INDEX]: false,
+      [OTROS_SECTION_TAB_INDEX]: true,
     },
     setIsValid: props.setIsValid,
   });
 
-  const [nombreCliente, setNombreCliente] = useState(getFormData("nomClient"));
 
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
@@ -138,11 +137,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
               labelKey: (data) => `${data.nom} (${data.codi})`,
               sort: "codi",
               cannotCreate: true,
-              relatedWith: {
-                name: "provincia",
-                filterBy: "pais.id",
-                keyValue: "id",
-              },
+              relatedWith: [
+                {
+                  name: "provincia",
+                  filterBy: "pais.id",
+                  keyValue: "id",
+                },
+              ],
               advancedSearchColumns: aSCodeAndName,
             },
           },
@@ -200,18 +201,15 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const getString = (key) => (getFormData(key) ? getFormData(key) : "");
 
-  // let getClient = getString("nomClient");
 
   useEffect(() => {
     const getClient = getString("nomClient");
     const client = getString("client");
 
-      setFormData({
-        key: "nomClient",
-        value: client?.nomComercial ? client.nomComercial : getClient,
-      });
-
-    
+    setFormData({
+      key: "nomClient",
+      value: client?.nomComercial ? client.nomComercial : getClient,
+    });
   }, [getFormData("client")]);
 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
@@ -239,11 +237,29 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const suppliersConfig = [
     {
       placeHolder: props.intl.formatMessage({
+        id: "PedidosProveedor.numeroDoc",
+        defaultMessage: "Número Documento ",
+      }),
+      type: "numeric",
+      key: "numeroDocument",
+      required: true,
+      noEditable: true,
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+      ...withRequiredValidation([
+        ...props.numberValidations.minMaxValidation(1, 999999999),
+      ]),
+    },
+    {
+      placeHolder: props.intl.formatMessage({
         id: "PedidosProveedor.numero",
         defaultMessage: "Número ",
       }),
       type: "numeric",
-      key: "numeroDocument",
+      key: "numero",
       required: true,
       noEditable: true,
       breakpoints: {
@@ -265,7 +281,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
       validationType: "string",
       validations: [
@@ -320,7 +336,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "referencia",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 20)],
@@ -361,11 +377,23 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         sort: "codi",
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndName,
-        relatedWith: {
-          name: "clientAdresa",
-          filterBy: "client.id",
-          keyValue: "id",
-        },
+        relatedWith: [
+          {
+            name: "clientAdresa",
+            filterBy: "client.id",
+            keyValue: "id",
+          },
+          {
+            name: "subClient",
+            filterBy: "client.id",
+            keyValue: "id",
+          },
+          {
+            name: "departamentClients",
+            filterBy: "client.id",
+            keyValue: "id",
+          },
+        ],
       },
       validationType: "object",
       ...withRequiredValidation(),
@@ -419,14 +447,28 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           { title: CODE, name: "codi" },
           { title: DOMICILI, name: "domicili" },
         ],
-        relatedWith: {
-          name: "subClient",
-          filterBy: "client.id",
-          keyValue: "client.id",
-        },
       },
     },
     ...codiPostal(3),
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "AlbaranesCliente.departamento",
+        defaultMessage: "Departamento Cliente",
+      }),
+      type: "LOV",
+      key: "departamentClients",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      selector: {
+        key: "departamentClients",
+        labelKey: (data) => `${data.nom} (${data.codi})`,
+        sort: "codi",
+        cannotCreate: true,
+        advancedSearchColumns: aSCodeAndName,
+      },
+    },
     {
       placeHolder: props.intl.formatMessage({
         id: "Proyectos.subcliente",
@@ -480,7 +522,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "divisaValorEuros",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "number",
       validations: [
@@ -499,7 +541,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       id: "ivaFact",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       selector: {
         key: "ivas",
@@ -519,7 +561,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       id: "tarifa1",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       selector: {
         key: "tarifas",
@@ -658,11 +700,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           apply: (pressuposts) => pressuposts && pressuposts.codi,
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
         },
-        relatedWith: {
-          name: "capitol",
-          filterBy: "pressupostCodi",
-          keyValue: "codi",
-        },
+        relatedWith: [
+          {
+            name: "capitol",
+            filterBy: "pressupostCodi",
+            keyValue: "codi",
+          },
+        ],
       },
     },
     {
@@ -681,11 +725,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         labelKey: (data) => `${data.descripcio} (${data.codi})`,
         sort: "nom",
         cannotCreate: true,
-        relatedWith: {
-          name: "partida",
-          filterBy: "capitol.id",
-          keyValue: "id",
-        },
+        relatedWith: [
+          {
+            name: "partida",
+            filterBy: "capitol.id",
+            keyValue: "id",
+          },
+        ],
       },
     },
 
@@ -868,11 +914,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "transportistas",
         labelKey: formatCodeAndName,
         sort: "descripcio",
-        relatedWith: {
-          name: "vehicles",
-          filterBy: "transportista.id",
-          keyValue: "id",
-        },
+        relatedWith: [
+          {
+            name: "vehicles",
+            filterBy: "transportista.id",
+            keyValue: "id",
+          },
+        ],
         creationComponents: [
           {
             type: "input",

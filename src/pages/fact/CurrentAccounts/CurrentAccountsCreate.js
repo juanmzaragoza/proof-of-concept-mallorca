@@ -125,11 +125,11 @@ const CurrentAccountsCreate = (props) => {
         labelKey: (data) => `${data.nom} (${data.codi})`,
         sort: "codi",
         cannotCreate: true,
-        relatedWith: {
+        relatedWith: [{
           name: "oficinaBancariaCodi",
           filterBy: "banc.id",
           keyValue: "id",
-        },
+        },],
         transform: {
           apply: (bancs) => bancs && bancs.codi,
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),

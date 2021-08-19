@@ -201,7 +201,7 @@ const AlbaranesClientesForm = React.memo(
     /** Update HEADER */
     useEffect(() => {
       if (isEditable()) {
-        const nomComercial = getFormData("numero");
+        const nomComercial = "'"+getFormData("numero")+"'";
         const nom = nomComercial
           ? nomComercial
           : `${props.intl.formatMessage({

@@ -22,12 +22,12 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [ALMACEN_SECTION_INDEX]: false,
-      [CONTAB_SECTION_TAB_INDEX]: true,
-      [TIPO_COM_SECTION_INDEX]: true,
-      [APLICADOR_SECTION_INDEX]: true,
-      [MAQUINARIA_COM_SECTION_INDEX]: true,
-      [IMPRESION_SECTION_INDEX]: true,
-      [AVERIA_SECTION_INDEX]: true,
+      [CONTAB_SECTION_TAB_INDEX]: false,
+      [TIPO_COM_SECTION_INDEX]: false,
+      [APLICADOR_SECTION_INDEX]: false,
+      [MAQUINARIA_COM_SECTION_INDEX]: false,
+      [IMPRESION_SECTION_INDEX]: false,
+      [AVERIA_SECTION_INDEX]: false,
     },
     setIsValid: props.setIsValid,
   });

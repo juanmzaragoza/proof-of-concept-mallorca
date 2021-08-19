@@ -123,11 +123,13 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
               labelKey: (data) => `${data.nom} (${data.codi})`,
               sort: "codi",
               cannotCreate: true,
-              relatedWith: {
-                name: "provincia",
-                filterBy: "pais.id",
-                keyValue: "id",
-              },
+              relatedWith: [
+                {
+                  name: "provincia",
+                  filterBy: "pais.id",
+                  keyValue: "id",
+                },
+              ],
               advancedSearchColumns: aSCodeAndName,
             },
           },
@@ -218,11 +220,11 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
         labelKey: (data) => `${data.nom} (${data.codi})`,
         sort: "codi",
         cannotCreate: true,
-        relatedWith: {
+        relatedWith: [{
           name: "oficinaBancariaCodi",
           filterBy: "banc.id",
           keyValue: "id",
-        },
+        },],
         transform: {
           apply: (bancs) => bancs && bancs.codi,
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
@@ -991,9 +993,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
                   formErrors={props.formErrors}
                   submitFromOutside={props.submitFromOutside}
                   onSubmit={() => props.onSubmitTab(formData)}
-                  handleIsValid={(value) =>
-                    addValidity(IBAN_INDEX, value)
-                  }
+                  handleIsValid={(value) => addValidity(IBAN_INDEX, value)}
                   onBlur={(e) => handleTouched(IBAN_INDEX)}
                   {...props}
                 />
@@ -1069,8 +1069,4 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
     </Grid>
   );
 };
-export default compose(
-  React.memo,
-  withValidations,
-  injectIntl
-)(AccountingTab);
+export default compose(React.memo, withValidations, injectIntl)(AccountingTab);

@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
   ESTADO_PEDIDO_PROV_SELECTOR_VALUES,
   PORTES_PEDIDO_SELECTOR_VALUES,
-  TIPO_TRANSPORTE_SELECTOR_VALUES
+  TIPO_TRANSPORTE_SELECTOR_VALUES,
 } from "constants/selectors";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
@@ -214,11 +214,18 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         sort: "codi",
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndName,
-        relatedWith: {
-          name: "adresaComercials",
-          filterBy: "proveidor.id",
-          keyValue: "id",
-        },
+        relatedWith: [
+          {
+            name: "adresaComercials",
+            filterBy: "proveidor.id",
+            keyValue: "id",
+          },
+          {
+            name: "tarifaProveidor",
+            filterBy: "proveidor.id",
+            keyValue: "id",
+          },
+        ],
       },
       validationType: "object",
       ...withRequiredValidation([]),
@@ -244,11 +251,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           { title: CODE, name: "codi" },
           { title: DOMICILI, name: "domicili" },
         ],
-        relatedWith: {
-          name: "tarifaProveidor",
-          filterBy: "proveidor.id",
-          keyValue: "proveidor.id",
-        },
       },
     },
 
@@ -281,7 +283,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "numeric",
       suffix: "€",
-      required:true,
+      required: true,
       key: "valorDivisaEuros",
       breakpoints: {
         xs: 12,
@@ -399,11 +401,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "transportistas",
         labelKey: formatCodeAndName,
         sort: "descripcio",
-        relatedWith: {
-          name: "vehicles",
-          filterBy: "transportista.id",
-          keyValue: "id",
-        },
+        relatedWith: [
+          {
+            name: "vehicles",
+            filterBy: "transportista.id",
+            keyValue: "id",
+          },
+        ],
         creationComponents: [
           {
             type: "input",
@@ -588,7 +592,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     },
 
-    
     {
       placeHolder: props.intl.formatMessage({
         id: "PedidosProveedor.diaRecepcion",
@@ -688,11 +691,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           apply: (pressuposts) => pressuposts && pressuposts.codi,
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
         },
-        relatedWith: {
-          name: "capitol",
-          filterBy: "pressupostCodi",
-          keyValue: "codi",
-        },
+        relatedWith: [
+          {
+            name: "capitol",
+            filterBy: "pressupostCodi",
+            keyValue: "codi",
+          },
+        ],
       },
     },
     {
@@ -711,11 +716,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         labelKey: (data) => `${data.descripcio} (${data.codi})`,
         sort: "nom",
         cannotCreate: true,
-        relatedWith: {
-          name: "partida",
-          filterBy: "capitol.id",
-          keyValue: "id",
-        },
+        relatedWith: [
+          {
+            name: "partida",
+            filterBy: "capitol.id",
+            keyValue: "id",
+          },
+        ],
       },
     },
 
@@ -945,7 +952,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         />
       ),
     },
-   
   ];
 
   return (
