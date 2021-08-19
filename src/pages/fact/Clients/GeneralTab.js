@@ -22,10 +22,9 @@ import { useTabForm } from "hooks/tab-form";
 
 const GENERAL_SECTION_INDEX = 0;
 const ADDRESS_SECTION_TAB_INDEX = 1;
-const FACT_SECTION_TAB_INDEX = 1;
-const ACCOUNTING_OFFICE_SECTION_TAB_INDEX = 2;
-const MANAGING_BODY_SECTION_TAB_INDEX = 3;
-const MANAGING_UNITY_TAB_INDEX = 4;
+const FACT_SECTION_TAB_INDEX = 2;
+const ACCOUNTING_OFFICE_SECTION_TAB_INDEX = 3;
+
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
@@ -34,8 +33,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       [ADDRESS_SECTION_TAB_INDEX]: false,
       [FACT_SECTION_TAB_INDEX]: true,
       [ACCOUNTING_OFFICE_SECTION_TAB_INDEX]: true,
-      [MANAGING_BODY_SECTION_TAB_INDEX]: true,
-      [MANAGING_UNITY_TAB_INDEX]: true,
+
     },
     setIsValid: props.setIsValid,
   });
@@ -1378,9 +1376,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
                   submitFromOutside={props.submitFromOutside}
                   onSubmit={() => props.onSubmitTab(formData)}
                   handleIsValid={(value) =>
-                    addValidity(MANAGING_BODY_SECTION_TAB_INDEX, value)
+                    addValidity(ACCOUNTING_OFFICE_SECTION_TAB_INDEX, value)
                   }
-                  onBlur={(e) => handleTouched(MANAGING_BODY_SECTION_TAB_INDEX)}
+                  onBlur={(e) => handleTouched(ACCOUNTING_OFFICE_SECTION_TAB_INDEX)}
                   {...props}
                 />
               </OutlinedContainer>
@@ -1406,9 +1404,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
                   submitFromOutside={props.submitFromOutside}
                   onSubmit={() => props.onSubmitTab(formData)}
                   handleIsValid={(value) =>
-                    addValidity(MANAGING_UNITY_TAB_INDEX, value)
+                    addValidity(ACCOUNTING_OFFICE_SECTION_TAB_INDEX, value)
                   }
-                  onBlur={(e) => handleTouched(MANAGING_UNITY_TAB_INDEX)}
+                  onBlur={(e) => handleTouched(ACCOUNTING_OFFICE_SECTION_TAB_INDEX)}
                   {...props}
                 />
               </OutlinedContainer>

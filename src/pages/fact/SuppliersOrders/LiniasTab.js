@@ -21,9 +21,9 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
     setIsValid: props.setIsValid,
   });
 
-  // useEffect(() => {
-  //   props.setIsValid(true);
-  // }, []);
+  useEffect(() => {
+    props.setIsValid(true);
+  }, []);
 
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",

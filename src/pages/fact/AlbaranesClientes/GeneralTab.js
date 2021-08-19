@@ -17,9 +17,9 @@ import { withValidations } from "modules/wrappers";
 import { useTabForm } from "hooks/tab-form";
 
 const ALBARANES_SECTION_INDEX = 0;
-const FACTURA_SECTION_TAB_INDEX = 1;
+const FACTURA_SECTION_TAB_INDEX = 3;
 const PRESUPUESTO_SECTION_TAB_INDEX = 2;
-const OTROS_SECTION_TAB_INDEX = 3;
+const OTROS_SECTION_TAB_INDEX = 1;
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
@@ -27,7 +27,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       [ALBARANES_SECTION_INDEX]: false,
       [FACTURA_SECTION_TAB_INDEX]: true,
       [PRESUPUESTO_SECTION_TAB_INDEX]: true,
-      [OTROS_SECTION_TAB_INDEX]: true,
+      [OTROS_SECTION_TAB_INDEX]: false,
     },
     setIsValid: props.setIsValid,
   });
@@ -832,7 +832,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       type: "LOV",
       key: "operariPrpCodi",
       required: true,
-      id: "operari",
+      id: "operariCodi",
       breakpoints: {
         xs: 12,
         md: 3,
@@ -842,58 +842,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         labelKey: formatCodeAndName,
         sort: "nom",
         transform: {
-          apply: (operaris) => operaris && operaris.codi,
+          apply: (operari) => operari && operari.codi,
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
         },
-        creationComponents: [
-          ...codeAndName(),
-          {
-            placeHolder: props.intl.formatMessage({
-              id: "Comercial.horario",
-              defaultMessage: "Horario",
-            }),
-            type: "LOV",
-            key: "horari",
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-            selector: {
-              key: "horaris",
-              labelKey: (data) => `${data.nom} (${data.codi})`,
-              sort: "codi",
-              cannotCreate: true,
-              advancedSearchColumns: aSCodeAndName,
-            },
-          },
-          {
-            type: "input",
-            key: "pin",
-            placeHolder: props.intl.formatMessage({
-              id: "Comercial.pin",
-              defaultMessage: "Pin",
-            }),
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-          },
-          {
-            type: "input",
-            key: "ptenmn",
-            placeHolder: props.intl.formatMessage({
-              id: "Comercial.ptenmn",
-              defaultMessage: "Ptenmn",
-            }),
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-          },
-        ],
+        cannotCreate:true,
         advancedSearchColumns: aSCodeAndName,
       },
       validationType: "string",
@@ -977,14 +929,14 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       className: "general-tab-subtab",
       label: (
         <FormattedMessage
-          id={"AlbaranesCliente.facturas"}
-          defaultMessage={"Factura"}
+          id={"AlbaranesCliente.otros"}
+          defaultMessage={"Otros"}
         />
       ),
       key: 0,
       component: (
         <GenericForm
-          formComponents={factura}
+          formComponents={otrosConfig}
           emptyPaper={true}
           setFormData={setFormData}
           getFormData={getFormData}
@@ -992,10 +944,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           formErrors={props.formErrors}
           submitFromOutside={props.submitFromOutside}
           onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) =>
-            addValidity(FACTURA_SECTION_TAB_INDEX, value)
-          }
-          onBlur={(e) => handleTouched(FACTURA_SECTION_TAB_INDEX)}
+          handleIsValid={(value) => addValidity(OTROS_SECTION_TAB_INDEX, value)}
+          onBlur={(e) => handleTouched(OTROS_SECTION_TAB_INDEX)}
           {...props}
         />
       ),
@@ -1031,14 +981,14 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       className: "general-tab-subtab",
       label: (
         <FormattedMessage
-          id={"AlbaranesCliente.otros"}
-          defaultMessage={"Otros"}
+          id={"AlbaranesCliente.facturas"}
+          defaultMessage={"Factura"}
         />
       ),
       key: 2,
       component: (
         <GenericForm
-          formComponents={otrosConfig}
+          formComponents={factura}
           emptyPaper={true}
           setFormData={setFormData}
           getFormData={getFormData}
@@ -1046,12 +996,16 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           formErrors={props.formErrors}
           submitFromOutside={props.submitFromOutside}
           onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) => addValidity(OTROS_SECTION_TAB_INDEX, value)}
-          onBlur={(e) => handleTouched(OTROS_SECTION_TAB_INDEX)}
+          handleIsValid={(value) =>
+            addValidity(FACTURA_SECTION_TAB_INDEX, value)
+          }
+          onBlur={(e) => handleTouched(FACTURA_SECTION_TAB_INDEX)}
           {...props}
         />
       ),
     },
+   
+   
   ];
 
   return (

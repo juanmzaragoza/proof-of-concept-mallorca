@@ -864,7 +864,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           { title: NOM, name: "nom" },
         ],
       },
-      validationType: "object",
     },
     {
       placeHolder: props.intl.formatMessage({

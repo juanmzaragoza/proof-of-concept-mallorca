@@ -11,23 +11,13 @@ import { withValidations } from "modules/wrappers";
 import { useTabForm } from "hooks/tab-form";
 
 const ALMACEN_SECTION_INDEX = 0;
-const CONTAB_SECTION_TAB_INDEX = 1;
-const TIPO_COM_SECTION_INDEX = 2;
-const APLICADOR_SECTION_INDEX = 3;
-const MAQUINARIA_COM_SECTION_INDEX = 4;
-const IMPRESION_SECTION_INDEX = 5;
-const AVERIA_SECTION_INDEX = 6;
+
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [ALMACEN_SECTION_INDEX]: false,
-      [CONTAB_SECTION_TAB_INDEX]: false,
-      [TIPO_COM_SECTION_INDEX]: false,
-      [APLICADOR_SECTION_INDEX]: false,
-      [MAQUINARIA_COM_SECTION_INDEX]: false,
-      [IMPRESION_SECTION_INDEX]: false,
-      [AVERIA_SECTION_INDEX]: false,
+
     },
     setIsValid: props.setIsValid,
   });
@@ -434,9 +424,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
             handleIsValid={(value) =>
-              addValidity(CONTAB_SECTION_TAB_INDEX, value)
+              addValidity(ALMACEN_SECTION_INDEX, value)
             }
-            onBlur={(e) => handleTouched(CONTAB_SECTION_TAB_INDEX)}
+            onBlur={(e) => handleTouched(ALMACEN_SECTION_INDEX)}
             {...props}
           />
         </OutlinedContainer>
@@ -462,9 +452,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
             handleIsValid={(value) =>
-              addValidity(TIPO_COM_SECTION_INDEX, value)
+              addValidity(ALMACEN_SECTION_INDEX, value)
             }
-            onBlur={(e) => handleTouched(TIPO_COM_SECTION_INDEX)}
+            onBlur={(e) => handleTouched(ALMACEN_SECTION_INDEX)}
             {...props}
           />
         </OutlinedContainer>
@@ -490,9 +480,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
             handleIsValid={(value) =>
-              addValidity(APLICADOR_SECTION_INDEX, value)
+              addValidity(ALMACEN_SECTION_INDEX, value)
             }
-            onBlur={(e) => handleTouched(APLICADOR_SECTION_INDEX)}
+            onBlur={(e) => handleTouched(ALMACEN_SECTION_INDEX)}
             {...props}
           />
         </OutlinedContainer>
@@ -518,9 +508,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
             handleIsValid={(value) =>
-              addValidity(MAQUINARIA_COM_SECTION_INDEX, value)
+              addValidity(ALMACEN_SECTION_INDEX, value)
             }
-            onBlur={(e) => handleTouched(MAQUINARIA_COM_SECTION_INDEX)}
+            onBlur={(e) => handleTouched(ALMACEN_SECTION_INDEX)}
             {...props}
           />
         </OutlinedContainer>
@@ -546,9 +536,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
             handleIsValid={(value) =>
-              addValidity(IMPRESION_SECTION_INDEX, value)
+              addValidity(ALMACEN_SECTION_INDEX, value)
             }
-            onBlur={(e) => handleTouched(IMPRESION_SECTION_INDEX)}
+            onBlur={(e) => handleTouched(ALMACEN_SECTION_INDEX)}
             {...props}
           />
         </OutlinedContainer>
@@ -573,8 +563,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
             formErrors={props.formErrors}
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(AVERIA_SECTION_INDEX, value)}
-            onBlur={(e) => handleTouched(AVERIA_SECTION_INDEX)}
+            handleIsValid={(value) => addValidity(ALMACEN_SECTION_INDEX, value)}
+            onBlur={(e) => handleTouched(ALMACEN_SECTION_INDEX)}
             {...props}
           />
         </OutlinedContainer>
