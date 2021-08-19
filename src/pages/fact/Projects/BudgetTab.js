@@ -92,11 +92,11 @@ const BudgetTab = ({ formData, setFormData, getFormData, ...props }) => {
           labelKey: (data) => `(${data.codi})`,
           sort: "codi",
           cannotCreate: true,
-          relatedWith: {
+          relatedWith:[ {
             name: "capitol",
             filterBy: "pressupostCodi",
             keyValue: "codi",
-          },
+          },],
         },
       },
       {
@@ -115,11 +115,11 @@ const BudgetTab = ({ formData, setFormData, getFormData, ...props }) => {
           labelKey: (data) => `${data.descripcio} (${data.codi})`,
           sort: "nom",
           cannotCreate: true,
-          relatedWith: {
+          relatedWith: [{
             name: "partida",
             filterBy: "capitol.id",
             keyValue: "id",
-          },
+          },],
         },
       
       },

@@ -591,11 +591,11 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           apply: (empresa) => empresa && empresa.codi,
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
         },
-        relatedWith: {
+        relatedWith: [{
           name: "projecte",
           filterBy: "empresa.id",
           keyValue: "id",
-        },
+        },],
         advancedSearchColumns: aSCodeAndComercialName,
       },
     },
@@ -617,11 +617,11 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndName,
       },
-      relatedWith: {
+      relatedWith:[ {
         name: "delegacio",
         filterBy: "empresa.id",
         keyValue: "id",
-      },
+      },],
     },
     {
       placeHolder: props.intl.formatMessage({

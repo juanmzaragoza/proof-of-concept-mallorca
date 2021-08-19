@@ -14,13 +14,12 @@ import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 
-
 import { useTabForm } from "hooks/tab-form";
 
 const ALBARANES_SECTION_INDEX = 0;
-const FACTURA_SECTION_TAB_INDEX = 1;
+const FACTURA_SECTION_TAB_INDEX = 3;
 const PRESUPUESTO_SECTION_TAB_INDEX = 2;
-const OTROS_SECTION_TAB_INDEX= 3;
+const OTROS_SECTION_TAB_INDEX = 1;
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
@@ -28,10 +27,11 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       [ALBARANES_SECTION_INDEX]: false,
       [FACTURA_SECTION_TAB_INDEX]: true,
       [PRESUPUESTO_SECTION_TAB_INDEX]: true,
-      [OTROS_SECTION_TAB_INDEX]:false,
+      [OTROS_SECTION_TAB_INDEX]: false,
     },
     setIsValid: props.setIsValid,
   });
+
 
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
@@ -137,11 +137,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
               labelKey: (data) => `${data.nom} (${data.codi})`,
               sort: "codi",
               cannotCreate: true,
-              relatedWith: {
-                name: "provincia",
-                filterBy: "pais.id",
-                keyValue: "id",
-              },
+              relatedWith: [
+                {
+                  name: "provincia",
+                  filterBy: "pais.id",
+                  keyValue: "id",
+                },
+              ],
               advancedSearchColumns: aSCodeAndName,
             },
           },
@@ -197,6 +199,19 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
+  const getString = (key) => (getFormData(key) ? getFormData(key) : "");
+
+
+  useEffect(() => {
+    const getClient = getString("nomClient");
+    const client = getString("client");
+
+    setFormData({
+      key: "nomClient",
+      value: client?.nomComercial ? client.nomComercial : getClient,
+    });
+  }, [getFormData("client")]);
+
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
   const formatCodeAndDescription = (data) =>
     `${data.descripcio} (${data.codi})`;
@@ -222,11 +237,29 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const suppliersConfig = [
     {
       placeHolder: props.intl.formatMessage({
+        id: "PedidosProveedor.numeroDoc",
+        defaultMessage: "Número Documento ",
+      }),
+      type: "numeric",
+      key: "numeroDocument",
+      required: true,
+      noEditable: true,
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+      ...withRequiredValidation([
+        ...props.numberValidations.minMaxValidation(1, 999999999),
+      ]),
+    },
+    {
+      placeHolder: props.intl.formatMessage({
         id: "PedidosProveedor.numero",
         defaultMessage: "Número ",
       }),
       type: "numeric",
-      key: "numeroDocument",
+      key: "numero",
       required: true,
       noEditable: true,
       breakpoints: {
@@ -248,7 +281,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
       validationType: "string",
       validations: [
@@ -263,7 +296,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "serieVenda",
-      required:true,
+      required: true,
       id: "serieVendas",
       breakpoints: {
         xs: 12,
@@ -303,7 +336,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "referencia",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 20)],
@@ -344,11 +377,23 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         sort: "codi",
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndName,
-        relatedWith: {
-          name: "clientAdresa",
-          filterBy: "client.id",
-          keyValue: "id",
-        },
+        relatedWith: [
+          {
+            name: "clientAdresa",
+            filterBy: "client.id",
+            keyValue: "id",
+          },
+          {
+            name: "subClient",
+            filterBy: "client.id",
+            keyValue: "id",
+          },
+          {
+            name: "departamentClients",
+            filterBy: "client.id",
+            keyValue: "id",
+          },
+        ],
       },
       validationType: "object",
       ...withRequiredValidation(),
@@ -402,14 +447,28 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           { title: CODE, name: "codi" },
           { title: DOMICILI, name: "domicili" },
         ],
-        relatedWith: {
-          name: "subClient",
-          filterBy: "client.id",
-          keyValue: "client.id",
-        },
       },
     },
     ...codiPostal(3),
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "AlbaranesCliente.departamento",
+        defaultMessage: "Departamento Cliente",
+      }),
+      type: "LOV",
+      key: "departamentClients",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      selector: {
+        key: "departamentClients",
+        labelKey: (data) => `${data.nom} (${data.codi})`,
+        sort: "codi",
+        cannotCreate: true,
+        advancedSearchColumns: aSCodeAndName,
+      },
+    },
     {
       placeHolder: props.intl.formatMessage({
         id: "Proyectos.subcliente",
@@ -463,7 +522,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "divisaValorEuros",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "number",
       validations: [
@@ -482,7 +541,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       id: "ivaFact",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       selector: {
         key: "ivas",
@@ -502,7 +561,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       id: "tarifa1",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       selector: {
         key: "tarifas",
@@ -641,11 +700,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           apply: (pressuposts) => pressuposts && pressuposts.codi,
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
         },
-        relatedWith: {
-          name: "capitol",
-          filterBy: "pressupostCodi",
-          keyValue: "codi",
-        },
+        relatedWith: [
+          {
+            name: "capitol",
+            filterBy: "pressupostCodi",
+            keyValue: "codi",
+          },
+        ],
       },
     },
     {
@@ -664,11 +725,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         labelKey: (data) => `${data.descripcio} (${data.codi})`,
         sort: "nom",
         cannotCreate: true,
-        relatedWith: {
-          name: "partida",
-          filterBy: "capitol.id",
-          keyValue: "id",
-        },
+        relatedWith: [
+          {
+            name: "partida",
+            filterBy: "capitol.id",
+            keyValue: "id",
+          },
+        ],
       },
     },
 
@@ -741,8 +804,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "operariCmlCodi",
-      id:"operari",
-      required:true,
+      id: "operari",
+      required: true,
       breakpoints: {
         xs: 12,
         md: 3,
@@ -755,7 +818,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           apply: (operaris) => operaris && operaris.codi,
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
         },
-        cannotCreate:true,
+        cannotCreate: true,
         advancedSearchColumns: aSCodeAndName,
       },
       validationType: "string",
@@ -768,8 +831,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "operariPrpCodi",
-      required:true,
-      id:"operari",
+      required: true,
+      id: "operariCodi",
       breakpoints: {
         xs: 12,
         md: 3,
@@ -779,58 +842,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         labelKey: formatCodeAndName,
         sort: "nom",
         transform: {
-          apply: (operaris) => operaris && operaris.codi,
+          apply: (operari) => operari && operari.codi,
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
         },
-        creationComponents: [
-          ...codeAndName(),
-          {
-            placeHolder: props.intl.formatMessage({
-              id: "Comercial.horario",
-              defaultMessage: "Horario",
-            }),
-            type: "LOV",
-            key: "horari",
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-            selector: {
-              key: "horaris",
-              labelKey: (data) => `${data.nom} (${data.codi})`,
-              sort: "codi",
-              cannotCreate: true,
-              advancedSearchColumns: aSCodeAndName,
-            },
-          },
-          {
-            type: "input",
-            key: "pin",
-            placeHolder: props.intl.formatMessage({
-              id: "Comercial.pin",
-              defaultMessage: "Pin",
-            }),
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-          },
-          {
-            type: "input",
-            key: "ptenmn",
-            placeHolder: props.intl.formatMessage({
-              id: "Comercial.ptenmn",
-              defaultMessage: "Ptenmn",
-            }),
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-          },
-        ],
+        cannotCreate:true,
         advancedSearchColumns: aSCodeAndName,
       },
       validationType: "string",
@@ -851,11 +866,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "transportistas",
         labelKey: formatCodeAndName,
         sort: "descripcio",
-        relatedWith: {
-          name: "vehicles",
-          filterBy: "transportista.id",
-          keyValue: "id",
-        },
+        relatedWith: [
+          {
+            name: "vehicles",
+            filterBy: "transportista.id",
+            keyValue: "id",
+          },
+        ],
         creationComponents: [
           {
             type: "input",
@@ -912,14 +929,14 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       className: "general-tab-subtab",
       label: (
         <FormattedMessage
-          id={"AlbaranesCliente.facturas"}
-          defaultMessage={"Factura"}
+          id={"AlbaranesCliente.otros"}
+          defaultMessage={"Otros"}
         />
       ),
       key: 0,
       component: (
         <GenericForm
-          formComponents={factura}
+          formComponents={otrosConfig}
           emptyPaper={true}
           setFormData={setFormData}
           getFormData={getFormData}
@@ -927,10 +944,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           formErrors={props.formErrors}
           submitFromOutside={props.submitFromOutside}
           onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) =>
-            addValidity(FACTURA_SECTION_TAB_INDEX, value)
-          }
-          onBlur={(e) => handleTouched(FACTURA_SECTION_TAB_INDEX)}
+          handleIsValid={(value) => addValidity(OTROS_SECTION_TAB_INDEX, value)}
+          onBlur={(e) => handleTouched(OTROS_SECTION_TAB_INDEX)}
           {...props}
         />
       ),
@@ -966,14 +981,14 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       className: "general-tab-subtab",
       label: (
         <FormattedMessage
-          id={"AlbaranesCliente.otros"}
-          defaultMessage={"Otros"}
+          id={"AlbaranesCliente.facturas"}
+          defaultMessage={"Factura"}
         />
       ),
       key: 2,
       component: (
         <GenericForm
-          formComponents={otrosConfig}
+          formComponents={factura}
           emptyPaper={true}
           setFormData={setFormData}
           getFormData={getFormData}
@@ -982,13 +997,15 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           submitFromOutside={props.submitFromOutside}
           onSubmit={() => props.onSubmitTab(formData)}
           handleIsValid={(value) =>
-            addValidity(OTROS_SECTION_TAB_INDEX, value)
+            addValidity(FACTURA_SECTION_TAB_INDEX, value)
           }
-          onBlur={(e) => handleTouched(OTROS_SECTION_TAB_INDEX)}
+          onBlur={(e) => handleTouched(FACTURA_SECTION_TAB_INDEX)}
           {...props}
         />
       ),
     },
+   
+   
   ];
 
   return (

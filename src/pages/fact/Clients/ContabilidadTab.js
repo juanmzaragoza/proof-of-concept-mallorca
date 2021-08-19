@@ -147,11 +147,13 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
               labelKey: (data) => `${data.nom} (${data.codi})`,
               sort: "codi",
               cannotCreate: true,
-              relatedWith: {
-                name: "provincia",
-                filterBy: "pais.id",
-                keyValue: "id",
-              },
+              relatedWith: [
+                {
+                  name: "provincia",
+                  filterBy: "pais.id",
+                  keyValue: "id",
+                },
+              ],
               advancedSearchColumns: aSCodeAndName,
             },
           },
@@ -242,11 +244,13 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         labelKey: (data) => `${data.nom} (${data.codi})`,
         sort: "codi",
         cannotCreate: true,
-        relatedWith: {
-          name: "oficinaBancaria",
-          filterBy: "banc.id",
-          keyValue: "id",
-        },
+        relatedWith: [
+          {
+            name: "oficinaBancaria",
+            filterBy: "banc.id",
+            keyValue: "id",
+          },
+        ],
         transform: {
           apply: (bancs) => bancs && bancs.codi,
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
@@ -860,11 +864,13 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
           labelKey: (data) => `${data.nom} (${data.codi})`,
           sort: "codi",
           cannotCreate: true,
-          relatedWith: {
-            name: "oficinaBancaria",
-            filterBy: "banc.id",
-            keyValue: "id",
-          },
+          relatedWith: [
+            {
+              name: "oficinaBancaria",
+              filterBy: "banc.id",
+              keyValue: "id",
+            },
+          ],
           transform: {
             apply: (bancs) => bancs && bancs.codi,
             reverse: (rows, codi) => rows.find((row) => row.codi === codi),

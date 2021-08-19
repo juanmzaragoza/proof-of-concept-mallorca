@@ -189,11 +189,11 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           { title: CODE, name: "codi" },
           { title: NOM, name: "descripcioTipusOfertesProveidors" },
         ],
-        // relatedWith: {
+        // relatedWith:[ {
         //   name: "adresaComercials",
         //   filterBy: "proveidor.id",
         //   keyValue: "id",
-        // },
+        // },]
       },
       validationType: "object",
     },

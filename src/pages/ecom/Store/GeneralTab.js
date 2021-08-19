@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
 
-
 // import "./styles.scss";
 
 import OutlinedContainer from "modules/shared/OutlinedContainer";
@@ -15,7 +14,6 @@ import { withValidations } from "modules/wrappers";
 import { useTabForm } from "../../../hooks/tab-form";
 
 const CUSTOMER_SECTION_INDEX = 0;
-
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
@@ -68,9 +66,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   });
 
-  
-
- 
   const codiPostal = (md = 6) => [
     {
       placeHolder: props.intl.formatMessage({
@@ -80,7 +75,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       type: "LOV",
       key: "codiPostal",
       id: "codigosPostales",
-      required:true,
+      required: true,
       breakpoints: {
         xs: 12,
         md: md,
@@ -112,11 +107,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
               labelKey: (data) => `${data.nom} (${data.codi})`,
               sort: "codi",
               cannotCreate: true,
-              relatedWith: {
-                name: "provincia",
-                filterBy: "pais.id",
-                keyValue: "id",
-              },
+              relatedWith: [
+                {
+                  name: "provincia",
+                  filterBy: "pais.id",
+                  keyValue: "id",
+                },
+              ],
               advancedSearchColumns: aSCodeAndName,
             },
           },
@@ -176,7 +173,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   ];
 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
-  
+
   const aSCodeAndDescription = [
     { title: CODE, name: "codi" },
     { title: DESCRIPCIO, name: "descripcio" },
@@ -210,10 +207,14 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 4),
-        ...props.stringValidations.fieldExistsValidation('magatzems', 'codi', props.intl.formatMessage({
-          id: "Comun.codigo",
-          defaultMessage: "Código",
-        }),)
+        ...props.stringValidations.fieldExistsValidation(
+          "magatzems",
+          "codi",
+          props.intl.formatMessage({
+            id: "Comun.codigo",
+            defaultMessage: "Código",
+          })
+        ),
       ],
     },
     {
@@ -245,7 +246,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(0, 1)],
+        ...props.stringValidations.minMaxValidation(0, 1),
+      ],
     },
     {
       placeHolder: DOMICILI,
@@ -259,7 +261,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 30)],
+        ...props.stringValidations.minMaxValidation(1, 30),
+      ],
     },
     ...codiPostal(4),
     {
@@ -273,7 +276,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md:4,
+        md: 4,
       },
       selector: {
         key: "divisas",

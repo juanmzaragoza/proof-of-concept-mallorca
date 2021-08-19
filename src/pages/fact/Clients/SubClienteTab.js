@@ -122,11 +122,11 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
               labelKey: (data) => `${data.nom} (${data.codi})`,
               sort: "codi",
               cannotCreate: true,
-              relatedWith: {
+              relatedWith: [{
                 name: "provincia",
                 filterBy: "pais.id",
                 keyValue: "id",
-              },
+              },],
               advancedSearchColumns: aSCodeAndName,
             },
           },

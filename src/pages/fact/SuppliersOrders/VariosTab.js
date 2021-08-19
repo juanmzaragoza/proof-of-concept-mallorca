@@ -28,62 +28,9 @@ const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
     id: "Comun.descripcion",
     defaultMessage: "Descripción",
   });
-  const DOMICILI = props.intl.formatMessage({
-    id: "Proveedores.Direccion.domicilio",
-    defaultMessage: "Domicilio",
-  });
 
-  const NOM = props.intl.formatMessage({
-    id: "Comun.nombre",
-    defaultMessage: "Nombre",
-  });
 
-  const OBS = props.intl.formatMessage({
-    id: "FamiliaProveedores.observaciones",
-    defaultMessage: "Observaciones",
-  });
 
-  const code = (md = 6) => ({
-    type: "input",
-    key: "codi",
-    placeHolder: CODE,
-    required: true,
-    noEditable: true,
-    breakpoints: {
-      xs: 12,
-      md: md,
-    },
-  });
-
-  const codeAndName = (mdCode = 6, mdName = 6) => [
-    code(mdCode),
-    {
-      type: "input",
-      key: "nom",
-      placeHolder: NOM,
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdName,
-      },
-    },
-  ];
-
-  const codeAndDescription = (mdCode = 6, mdDes = 6) => [
-    code(mdCode),
-    {
-      type: "input",
-      key: "descripcio",
-      placeHolder: DESCRIPCIO,
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdDes,
-      },
-    },
-  ];
-
-  const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
   const formatCodeAndDescription = (data) =>
     `${data.descripcio} (${data.codi})`;
 
@@ -91,19 +38,6 @@ const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
     { title: CODE, name: "codi" },
     { title: DESCRIPCIO, name: "descripcio" },
   ];
-  const aSCodeAndName = [
-    { title: CODE, name: "codi" },
-    { title: NOM, name: "nom" },
-  ];
-
-  const withRequiredValidation = (extraValidations = []) => {
-    return {
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...extraValidations,
-      ],
-    };
-  };
 
   const datosGenerales = [
     {

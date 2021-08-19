@@ -6,37 +6,29 @@ import Grid from "@material-ui/core/Grid/Grid";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
-import ExpandableGrid  from "modules/ExpandableGrid";
+import ExpandableGrid from "modules/ExpandableGrid";
 import { Chip } from "@material-ui/core";
 import GenericForm from "modules/GenericForm";
 import { useTabForm } from "hooks/tab-form";
 
 const CAMPOS_INF_SECTION_INDEX = 0;
 
-const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
-
+const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [CAMPOS_INF_SECTION_INDEX]: true,
-
     },
     setIsValid: props.setIsValid,
   });
 
-
   useEffect(() => {
     props.setIsValid(true);
-   
   }, []);
-
-
-
 
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
     defaultMessage: "Código",
   });
-
 
   const NOM = props.intl.formatMessage({
     id: "Comun.nombre",
@@ -47,7 +39,7 @@ const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
     id: "Comun.descripcion",
     defaultMessage: "Descripción",
   });
-  
+
   const aSCodeAndDescription = [
     { title: CODE, name: "codi" },
     { title: DESCRIPCIO, name: "descripcio" },
@@ -58,7 +50,7 @@ const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
   const getString = (key) => (getFormData(key) ? getFormData(key) : "");
   useEffect(() => {
     const prov = getString("proveidor");
-    console.log(prov)
+    console.log(prov);
     setFormData({
       key: "pedidoMinim",
       value: prov ? prov.comandaMinimaDivisa : "",
@@ -75,7 +67,7 @@ const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       key: "pedidoMinim",
-      disabled:true,
+      disabled: true,
       breakpoints: {
         xs: 12,
         md: 2,
@@ -88,7 +80,7 @@ const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       key: "importBrut",
-      disabled:true,
+      disabled: true,
       breakpoints: {
         xs: 12,
         md: 2,
@@ -209,7 +201,7 @@ const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
           id: "PedidosProveedor.referencia",
           defaultMessage: "Referencia  ",
         }),
-        hidden:true,
+        hidden: true,
       },
       {
         name: "referencia2",
@@ -217,7 +209,7 @@ const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
           id: "PedidosProveedor.referencia2",
           defaultMessage: "Referencia 2 ",
         }),
-        hidden:true,
+        hidden: true,
       },
 
       {
@@ -242,8 +234,7 @@ const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
               })}
             />
           ),
-          hidden: true,
-     
+        hidden: true,
       },
       {
         name: "kilograms",
@@ -301,7 +292,7 @@ const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
         }),
         getCellValue: (row) => row.envas && row.envas?.description,
       },
-      
+
       {
         name: "unitatsEnvas",
         title: props.intl.formatMessage({
@@ -318,7 +309,7 @@ const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
         }),
         hidden: true,
       },
-      
+
       {
         name: "observacions",
         title: props.intl.formatMessage({
@@ -389,7 +380,6 @@ const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
         },
         validationType: "object",
         validations: [...props.commonValidations.requiredValidation()],
-      
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -512,7 +502,7 @@ const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
         validationType: "number",
         validations: [...props.stringValidations.minMaxValidation(0, 99)],
       },
-      
+
       {
         placeHolder: props.intl.formatMessage({
           id: "PedidosProveedor.importe",
@@ -543,10 +533,7 @@ const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
           md: 2,
         },
         validationType: "string",
-        validations: [
-          ...props.numberValidations.minMaxValidation(0, 30),
-
-        ],
+        validations: [...props.numberValidations.minMaxValidation(0, 30)],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -560,12 +547,9 @@ const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
           md: 2,
         },
         validationType: "string",
-        validations: [
-          ...props.numberValidations.minMaxValidation(0, 30),
-
-        ],
+        validations: [...props.numberValidations.minMaxValidation(0, 30)],
       },
-  
+
       {
         placeHolder: props.intl.formatMessage({
           id: "PedidosProveedor.kilos",
@@ -578,10 +562,7 @@ const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
           md: 3,
         },
         validationType: "number",
-        validations: [
-          ...props.numberValidations.minMaxValidation(0, 9999999),
-
-        ],
+        validations: [...props.numberValidations.minMaxValidation(0, 9999999)],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -597,7 +578,6 @@ const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
         validationType: "number",
         validations: [
           ...props.numberValidations.minMaxValidation(0, 9999999999),
-
         ],
       },
       {
@@ -667,7 +647,6 @@ const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
         validationType: "number",
         validations: [
           ...props.numberValidations.minMaxValidation(0, 999999999999),
-
         ],
       },
       {
@@ -684,7 +663,6 @@ const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
         validationType: "number",
         validations: [
           ...props.numberValidations.minMaxValidation(0, 999999999999),
-
         ],
       },
       {
@@ -708,11 +686,13 @@ const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
             apply: (pressuposts) => pressuposts && pressuposts.codi,
             reverse: (rows, codi) => rows.find((row) => row.codi === codi),
           },
-          relatedWith: {
-            name: "capitol",
-            filterBy: "pressupostCodi",
-            keyValue: "codi",
-          },
+          relatedWith: [
+            {
+              name: "capitol",
+              filterBy: "pressupostCodi",
+              keyValue: "codi",
+            },
+          ],
         },
       },
       {
@@ -731,14 +711,16 @@ const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
           labelKey: (data) => `${data.descripcio} (${data.codi})`,
           sort: "nom",
           cannotCreate: true,
-          relatedWith: {
-            name: "partida",
-            filterBy: "capitol.id",
-            keyValue: "id",
-          },
+          relatedWith: [
+            {
+              name: "partida",
+              filterBy: "capitol.id",
+              keyValue: "id",
+            },
+          ],
         },
       },
-  
+
       {
         placeHolder: props.intl.formatMessage({
           id: "Proyectos.partida",
@@ -757,8 +739,7 @@ const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
           cannotCreate: true,
         },
       },
-      
-      
+
       {
         placeHolder: props.intl.formatMessage({
           id: "Comun.observaciones",
@@ -777,7 +758,7 @@ const LiniasTab = ({ formData,setFormData, getFormData, ...props }) => {
   return (
     <Grid container>
       <Grid xs={12} item>
-      <GenericForm
+        <GenericForm
           formComponents={camposInformativos}
           emptyPaper={true}
           editMode={props.editMode}

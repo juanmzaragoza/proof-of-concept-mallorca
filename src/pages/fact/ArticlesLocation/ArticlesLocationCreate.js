@@ -90,11 +90,13 @@ const ArticlesLocationCreate = (props) => {
         key: "magatzems",
         labelKey: formatCodeAndName,
         sort: "codi",
-        relatedWith: {
-          name: "ubicacio",
-          filterBy: "magatzem.id",
-          keyValue: "id",
-        },
+        relatedWith: [
+          {
+            name: "ubicacio",
+            filterBy: "magatzem.id",
+            keyValue: "id",
+          },
+        ],
         creationComponents: [
           code(3),
           {
@@ -374,7 +376,7 @@ const ArticlesLocationCreate = (props) => {
 
         advancedSearchColumns: aSCodeAndDescription,
       },
-      validationType:"object",
+      validationType: "object",
       ...withRequiredValidation(),
     },
     {
@@ -397,7 +399,7 @@ const ArticlesLocationCreate = (props) => {
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndDescription,
       },
-      validationType:"object",
+      validationType: "object",
       ...withRequiredValidation(),
     },
   ];

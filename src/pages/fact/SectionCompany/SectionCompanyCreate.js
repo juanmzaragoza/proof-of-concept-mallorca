@@ -95,11 +95,11 @@ const SectionCompanyCreate = (props) => {
           { title: CODE, name: "codi" },
           { title: NOM, name: "nomFiscal" },
         ],
-        relatedWith: {
+        relatedWith: [{
           name: "seccio",
           filterBy: "empresa.id",
           keyValue: "id",
-        },
+        },],
       },
       validationType: "object",
       ...withRequiredValidation(),

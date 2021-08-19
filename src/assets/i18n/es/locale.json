@@ -1837,7 +1837,9 @@
   "AlbaranesCliente.aplicador":"Aplicador",
   "AlbaranesCliente.fechaImpresion":"Fecha Impresión",
   "AlbaranesCliente.impresionAlbaran":"Impresión Albarán",
-  "AlbaranesCliente.parteReparacion":"Parte Reparación"
+  "AlbaranesCliente.parteReparacion":"Parte Reparación",
+  "AlbaranesCliente.departamento":"Departamento Cliente",
+  "PedidosProveedor.numeroDoc":"Número Documento"
 
 
   

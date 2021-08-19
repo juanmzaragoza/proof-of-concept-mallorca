@@ -16,12 +16,10 @@ import { useParams } from "react-router-dom";
 
 const BANK_SECTION_INDEX = 0;
 
-
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [BANK_SECTION_INDEX]: false,
-
     },
     setIsValid: props.setIsValid,
   });
@@ -49,8 +47,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       md: md,
     },
   });
-
-
 
   const codiPostal = (md = 6) => [
     {
@@ -93,11 +89,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
               labelKey: (data) => `${data.nom} (${data.codi})`,
               sort: "codi",
               cannotCreate: true,
-              relatedWith: {
-                name: "provincia",
-                filterBy: "pais.id",
-                keyValue: "id",
-              },
+              relatedWith: [
+                {
+                  name: "provincia",
+                  filterBy: "pais.id",
+                  keyValue: "id",
+                },
+              ],
               advancedSearchColumns: aSCodeAndName,
             },
           },
@@ -161,7 +159,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       ],
     };
   };
-
 
   const aSCodeAndName = [
     { title: CODE, name: "codi" },
@@ -417,7 +414,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           handleIsValid={(value) => addValidity(BANK_SECTION_INDEX, value)}
           onBlur={(e) => handleTouched(BANK_SECTION_INDEX)}
           {...props}
-
         />
       </Grid>
       <Grid xs={12} item>
