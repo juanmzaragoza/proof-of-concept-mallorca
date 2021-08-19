@@ -14,13 +14,12 @@ import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 
-
 import { useTabForm } from "hooks/tab-form";
 
 const ALBARANES_SECTION_INDEX = 0;
 const FACTURA_SECTION_TAB_INDEX = 1;
 const PRESUPUESTO_SECTION_TAB_INDEX = 2;
-const OTROS_SECTION_TAB_INDEX= 3;
+const OTROS_SECTION_TAB_INDEX = 3;
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
@@ -28,10 +27,12 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       [ALBARANES_SECTION_INDEX]: false,
       [FACTURA_SECTION_TAB_INDEX]: true,
       [PRESUPUESTO_SECTION_TAB_INDEX]: true,
-      [OTROS_SECTION_TAB_INDEX]:false,
+      [OTROS_SECTION_TAB_INDEX]: false,
     },
     setIsValid: props.setIsValid,
   });
+
+  const [nombreCliente, setNombreCliente] = useState(getFormData("nomClient"));
 
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
@@ -197,6 +198,22 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
+  const getString = (key) => (getFormData(key) ? getFormData(key) : "");
+
+  // let getClient = getString("nomClient");
+
+  useEffect(() => {
+    const getClient = getString("nomClient");
+    const client = getString("client");
+
+      setFormData({
+        key: "nomClient",
+        value: client?.nomComercial ? client.nomComercial : getClient,
+      });
+
+    
+  }, [getFormData("client")]);
+
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
   const formatCodeAndDescription = (data) =>
     `${data.descripcio} (${data.codi})`;
@@ -263,7 +280,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "serieVenda",
-      required:true,
+      required: true,
       id: "serieVendas",
       breakpoints: {
         xs: 12,
@@ -741,8 +758,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "operariCmlCodi",
-      id:"operari",
-      required:true,
+      id: "operari",
+      required: true,
       breakpoints: {
         xs: 12,
         md: 3,
@@ -755,7 +772,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           apply: (operaris) => operaris && operaris.codi,
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
         },
-        cannotCreate:true,
+        cannotCreate: true,
         advancedSearchColumns: aSCodeAndName,
       },
       validationType: "string",
@@ -768,8 +785,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "operariPrpCodi",
-      required:true,
-      id:"operari",
+      required: true,
+      id: "operari",
       breakpoints: {
         xs: 12,
         md: 3,
@@ -981,9 +998,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           formErrors={props.formErrors}
           submitFromOutside={props.submitFromOutside}
           onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) =>
-            addValidity(OTROS_SECTION_TAB_INDEX, value)
-          }
+          handleIsValid={(value) => addValidity(OTROS_SECTION_TAB_INDEX, value)}
           onBlur={(e) => handleTouched(OTROS_SECTION_TAB_INDEX)}
           {...props}
         />

@@ -46,6 +46,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     defaultMessage: "Nombre",
   });
 
+
  
 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
