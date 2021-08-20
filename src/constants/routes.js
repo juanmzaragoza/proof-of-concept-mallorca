@@ -129,4 +129,5 @@ export const AREA_NEGOCIO_FACT_URL = "/fact/areas-negocio";
 export const BOX_FACT_URL = "/fact/cajas";
 export const SUPPLIER_ORDER_FACT_URL = "/fact/pedidos-proveedores";
 export const SUPPLIERS_OFFERS_FACT_URL = "/fact/ofertas-proveedores";
-export const ALBARANES_CLIENTE_FACT_URL = "/fact/albaranes-clientes"
+export const ALBARANES_CLIENTE_FACT_URL = "/fact/albaranes-clientes";
+export const ALBARANES_PROV_FACT_URL = "/fact/albaranes-proveedores";

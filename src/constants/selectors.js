@@ -1097,3 +1097,38 @@ export const TIPO_DESTINO_SELECTOR_VALUES = [
     label: "reservado",
   },
 ];
+
+
+export const TIPO_ALBARAN_SELECTOR_VALUES = [
+
+  {
+    value: "DEPOSIT",
+    labelId: "Selector.deposito",
+    label: "deposito",
+  },
+  {
+    value: "COMPRA",
+    labelId: "Selector.compra",
+    label: "Compra",
+  },
+];
+
+
+
+export const TIPO_DOC_ALBARAN_SELECTOR_VALUES = [
+
+  {
+    value: "ALBARA",
+    labelId: "Selector.albaran",
+    label: "albaran",
+  },
+  {
+    value: "FACTURA",
+    labelId: "Selector.factura",
+    label: "factura",
+  },
+];
+
+
+
+
