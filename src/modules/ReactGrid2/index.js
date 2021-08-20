@@ -131,8 +131,8 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
         remoteOperations={true}
         onOptionChanged={handleOptionChanged}
       >
-        <HeaderFilter visible={true} allowSearch={true} />
-        <FilterRow visible={true} />
+        {!configuration.disabledFiltering && <HeaderFilter visible={true} allowSearch={true} />}
+        {!configuration.disabledFiltering && <FilterRow visible={true} />}
 
         {columns.map((column,key) => {
           return <Column
@@ -142,11 +142,6 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
             calculateCellValue={column.getCellValue}
             filterOperations={['contains']} />
         })}
-        <Editing
-          mode="row"
-          //allowAdding
-          allowDeleting
-          allowUpdating />
         {!configuration.disabledActions && <Column type="buttons" width={90}>
           <Button icon="edit" onClick={e => history.push(`${history.location.pathname}/${e.row.data.id}`)}/>
           <Button icon="trash" onClick={e => deleteData(e.row.data)} />
