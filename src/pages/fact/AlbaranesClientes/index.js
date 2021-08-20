@@ -15,7 +15,7 @@ import {ALBARANES_CLIENTE_FACT_URL} from "constants/routes";
 
 const URL = ALBARANES_CLIENTE_FACT_URL;
 
-// suppliers list
+
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
     setListingConfig: bindActionCreators(setListingConfig, dispatch),
@@ -29,9 +29,8 @@ const AlbaranesClientesListIntl = compose(
   connect(null,mapDispatchToProps)
 )(AlbaranesClientesList);
 
-// suppliers form
-// TODO(): maybe we can create a state for the page and set the url there
-const AlbaranesClientesWithUrl = () => <AlbaranesClientesForm url={API.albaranesCliente} />;
+
+const AlbaranesClientesWithUrl = () => <AlbaranesClientesForm url={API.albarans} />;
 
 const AlbaranesClientes = () => (
   <Paper style={{ position: 'relative' }}>

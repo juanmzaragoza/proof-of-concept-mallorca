@@ -88,13 +88,13 @@ const AlbaranesClientesList = ({ actions, ...props }) => {
           ),
       },
     ],
-    URL: API.albaranesCliente,
+    URL: API.albarans,
     listKey: "albaras",
   };
 
   return (
     <>
-      <ReactGrid id="albaranesCliente" configuration={listConfiguration} />
+      <ReactGrid id="albarans" configuration={listConfiguration} />
     </>
   );
 };
