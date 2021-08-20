@@ -27,8 +27,6 @@ import {isEmpty, unionBy} from "lodash";
 import CustomStore from "devextreme/data/custom_store";
 import Promise from "lodash/_Promise";
 
-
-const allowedPageSizes = [5, 10, 'all'];
 const ReactGrid = ({ configuration, enqueueSnackbar,
                      rows, loading, pageSize, totalCount, errors,
                      extraQuery, onClickRow,
@@ -81,13 +79,24 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
     if(!value){
       setFilters(filters.filter(filter => filter.columnName !== columnName));
     } else{
-      setFilters([...filters, {columnName, value }]);
+      const filterElement = {columnName,value};
+      const index = filters.findIndex(filter => filter.columnName === columnName);
+      if(index > -1){
+        const oldFilters = filters;
+        oldFilters[index] = filterElement;
+        setFilters([...oldFilters]);
+      } else{
+        setFilters([...filters, filterElement]);
+      }
     }
   };
   const operations = {
     filterValue: filterValues,
     selectedFilterOperation: filterValues,
-    sortOrder: () => console.log("sort order op")
+    sortOrder: ({ column: {name: columnName}, value }) => {
+      // only one sorting at the same time
+      setSorting([{columnName, direction: value }]);
+    }
   }
   const handleOptionChanged = (e) => {
     // extract operation from fullName: "columns[1].filterValue"
@@ -123,7 +132,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
         })}
         <Editing
           mode="row"
-          allowAdding
+          //allowAdding
           allowDeleting
           allowUpdating />
 
@@ -133,7 +142,6 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
           onPageIndexChange={setCurrentPage}  />
         <Pager
           visible={true}
-          allowedPageSizes={allowedPageSizes}
           displayMode={'full'}
           showPageSizeSelector={false}
           showInfo={true}
