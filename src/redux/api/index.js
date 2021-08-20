@@ -299,4 +299,4 @@ export const tipusIncidenciaFactura = `api/fact/tipusIncidenciesFactura`;
 export const mantenimentDeTipus = `api/fact/mantenimentsDeTipus`;
 export const ofertesProveidor = `api/fact/ofertesProveidors`;
 export const tipusOfertaProveidor = `api/fact/tipusOfertesProveidor`;
-export const albaranesCliente = `api/fact/albarans`;
+export const liniesAlbaraProveidor = `api/fact/liniesAlbaraProveidor`;

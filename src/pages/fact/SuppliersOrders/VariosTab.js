@@ -111,10 +111,10 @@ const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 5,
       },
-      validationType:"string",
-      validations:[...props.stringValidations.minMaxValidation(0,40)]
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 40)],
     },
-   
+
     {
       placeHolder: props.intl.formatMessage({
         id: "PedidosProveedor.telefonoVolumen",
@@ -126,8 +126,8 @@ const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 4,
       },
-      validationType:"string",
-      validations:[...props.stringValidations.minMaxValidation(0,60)]
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 60)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -140,8 +140,8 @@ const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 3,
       },
-      validationType:"string",
-      validations:[...props.stringValidations.minMaxValidation(0,8)]
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 8)],
     },
 
     {
@@ -155,10 +155,9 @@ const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 12,
       },
-      validationType:"string",
-      validations:[...props.stringValidations.minMaxValidation(0,60)]
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 60)],
     },
-
   ];
 
   return (

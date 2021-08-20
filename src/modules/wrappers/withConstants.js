@@ -682,6 +682,15 @@ const withConstants = (PassedComponent) => {
             path: 'FAC_OFEPRO', // or has path or has children but not both
             icon: <LocalMall />
           },
+          {
+            key: "FAC_ALBPRO",
+            title: props.intl.formatMessage({
+              id: "AlbaranesProveedor.titulo",
+              defaultMessage: "Albaranes Proveedor",
+            }),
+            path: "FAC_ALBPRO",
+            icon: <LocalMall />,
+          },
     
         ],
       },

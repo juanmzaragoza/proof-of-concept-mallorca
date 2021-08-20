@@ -3,16 +3,16 @@ import * as API from "redux/api";
 import ReactGrid from "modules/ReactGrid";
 import { Chip } from "@material-ui/core";
 
-const AlbaranesClientesList = ({ actions, ...props }) => {
+const AlbaranesProveedoresList = ({ actions, ...props }) => {
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
-        id: "AlbaranesCliente.titulo",
-        defaultMessage: "Albaranes Cliente",
+        id: "AlbaranesProveedor.titulo",
+        defaultMessage: "Albaranes Proveedor",
       }),
     });
     actions.setBreadcrumbHeader([
-      { title: "Albaranes Cliente", href: "fact/albaranes-clientes" },
+      { title: "Albaranes Proveedor", href: "fact/albaranes-proveedores" },
     ]);
   }, []);
 
@@ -27,19 +27,11 @@ const AlbaranesClientesList = ({ actions, ...props }) => {
 
   const listConfiguration = {
     title: props.intl.formatMessage({
-      id: "AlbaranesCliente.titulo",
-      defaultMessage: "Albaranes Cliente",
+      id: "AlbaranesProveedor.titulo",
+      defaultMessage: "Albaranes Proveedor",
     }),
     columns: [
-      {
-        name: "serieVenda.description",
-        title: props.intl.formatMessage({
-          id: "AlbaranesCliente.serieVenta",
-          defaultMessage: "Serie Ventas",
-        }),
-        getCellValue: (row) =>
-          row.serieVenda ? row.serieVenda.description : "",
-      },
+   
       {
         name: "numero",
         title: props.intl.formatMessage({
@@ -48,30 +40,37 @@ const AlbaranesClientesList = ({ actions, ...props }) => {
         }),
       },
       {
-        name: "data",
+        name: "valorDivisaEuros",
+        title: props.intl.formatMessage({
+          id: "AlbaranesCliente.numero",
+          defaultMessage: "Número",
+        }),
+      },
+      {
+        name: "dia",
         title: props.intl.formatMessage({
           id: "AlbaranesCliente.fecha",
           defaultMessage: "Fecha",
         }),
         getCellValue: (row) =>
-          row.data ? new Date(row.data).toLocaleDateString() : "",
+          row.dia ? new Date(row.dia).toLocaleDateString() : "",
       },
       {
-        name: "client.id",
+        name: "proveidor.id",
         title: props.intl.formatMessage({
-          id: "AlbaranesCliente.cliente",
-          defaultMessage: "Cliente",
+          id: "AlbaranesProveedor.proveedor",
+          defaultMessage: "Proveedor",
         }),
-        getCellValue: (row) => (row.client ? row.client.description : ""),
+        getCellValue: (row) => (row.proveidor ? row.proveidor.description : ""),
       },
       {
-        name: "facturable",
+        name: "conformat",
         title: props.intl.formatMessage({
-          id: "AlbaranesCliente.facturable",
-          defaultMessage: "facturable",
+          id: "AlbaranesProveedor.conformado",
+          defaultMessage: "Conformado",
         }),
         getCellValue: (row) =>
-          row.facturable && row.facturable === true ? (
+          row.conformat && row.conformat === "S" ? (
             <Chip
               label={props.intl.formatMessage({
                 id: "Comun.SI",
@@ -88,15 +87,15 @@ const AlbaranesClientesList = ({ actions, ...props }) => {
           ),
       },
     ],
-    URL: API.albarans,
-    listKey: "albaras",
+    URL: API.albaransProveidor,
+    listKey: "albaraProveidors",
   };
 
   return (
     <>
-      <ReactGrid id="albarans" configuration={listConfiguration} />
+      <ReactGrid id="albaransProveidor" configuration={listConfiguration} />
     </>
   );
 };
 
-export default AlbaranesClientesList;
+export default AlbaranesProveedoresList;

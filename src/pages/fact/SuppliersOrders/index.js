@@ -1,5 +1,5 @@
 import React from 'react';
-import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined';
+import ReceiptIcon from '@material-ui/icons/Receipt';
 import {injectIntl} from "react-intl";
 import {Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
@@ -49,5 +49,5 @@ export default {
     component: withHeaders(SuppliersOrders)
   },
   name: 'FAC_PROCOM',
-  icon: <AssignmentOutlinedIcon />
+  icon: <ReceiptIcon />
 }
