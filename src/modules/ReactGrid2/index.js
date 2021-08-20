@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import PropTypes from "prop-types";
 import {withSnackbar} from "notistack";
 import {injectIntl} from "react-intl";
 import {bindActionCreators, compose} from "redux";
@@ -26,7 +27,12 @@ import {
   getRows,
   getTotalCount
 } from "redux/reactGrid/selectors";
-import {deleteData, reset, searchData} from "redux/reactGrid";
+import {
+  deleteData,
+  reset,
+  searchData,
+  updateData
+} from "redux/reactGrid";
 import {Loading} from "modules/shared/Loading";
 
 const ReactGrid = ({ configuration, enqueueSnackbar,
@@ -69,7 +75,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
   },[errors]);
 
   const store = new CustomStore({
-    key: 'codi',
+    key: 'id',
     load: (loadOptions) => {
       return new Promise((resolve, reject) => {
         resolve({
@@ -78,6 +84,13 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
         })
       })
     },
+    update: (key, values) => {
+      const row = rows.find(row => row.id === key);
+      if(row){
+        const changedRow = { ...row, ...values };
+        actions.updateData({ key: props.id, id: row.id, data: changedRow });
+      }
+    }
   });
 
   /**
@@ -111,9 +124,10 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
   const handleOptionChanged = (e) => {
     // extract operation from fullName: "columns[1].filterValue"
     const operation = e.fullName.split('.')[OPERATION_INDEX];
-    if(operation){
+    const regexResult = e.fullName.match(/\d+/);
+    if(operation && regexResult){
       // extract index column
-      const indexColumn = e.fullName.match(/\d+/)[REGEX_COLUMN_INDEX];
+      const indexColumn = regexResult[REGEX_COLUMN_INDEX];
       // get column from the indexColumn
       const column = columns[indexColumn];
       const value = e.value;
@@ -147,6 +161,12 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
           <Button icon="trash" onClick={e => deleteData(e.row.data)} />
         </Column>}
 
+        {configuration.enableInlineEdition && <Editing
+          allowUpdating={true}
+          allowAdding={true}
+          allowDeleting={true}
+          mode="cell" />}
+
         <Scrolling rowRenderingMode='virtual'></Scrolling>
         <Paging
           defaultPageSize={pageSize}
@@ -164,6 +184,27 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
   )
 }
 
+ReactGrid.propTypes = {
+  id: PropTypes.string.isRequired,
+  configuration: PropTypes.shape({
+    columns: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string,
+      title: PropTypes.string,
+      getCellValue: PropTypes.func
+    })),
+    listKey: PropTypes.string.isRequired,
+    enableInlineEdition: PropTypes.bool,
+    disabledActions: PropTypes.bool,
+    disabledFiltering: PropTypes.bool,
+    method: PropTypes.oneOf(['post','put','patch']),
+    body: PropTypes.object
+  }),
+  extraQuery: PropTypes.arrayOf(PropTypes.shape({
+    columnName: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired
+  }))
+};
+
 const mapStateToProps = (state, props) => {
   return {
     rows: getRows(state),
@@ -176,6 +217,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
+    updateData: bindActionCreators(updateData, dispatch),
     loadData: bindActionCreators(searchData, dispatch),
     deleteData: bindActionCreators(deleteData, dispatch),
     reset: bindActionCreators(reset, dispatch),
