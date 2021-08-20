@@ -284,7 +284,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       type: "numeric",
       suffix: "€",
       required: true,
-      key: "valorDivisaEuros",
+      key: "divisaValorEuros",
       breakpoints: {
         xs: 12,
         md: 3,
