@@ -3,6 +3,9 @@ import {withSnackbar} from "notistack";
 import {injectIntl} from "react-intl";
 import {bindActionCreators, compose} from "redux";
 import {connect} from "react-redux";
+import {useHistory} from "react-router-dom";
+import {isEmpty, unionBy} from "lodash";
+import Promise from "lodash/_Promise";
 import DataGrid,
 {
   Scrolling,
@@ -11,10 +14,11 @@ import DataGrid,
   HeaderFilter,
   FilterRow,
   Column,
-  Editing
+  Editing,
+  Button
 } from 'devextreme-react/data-grid';
+import CustomStore from "devextreme/data/custom_store";
 
-import {Loading} from "modules/shared/Loading";
 import {
   getErrors,
   getLoading,
@@ -23,19 +27,22 @@ import {
   getTotalCount
 } from "redux/reactGrid/selectors";
 import {deleteData, reset, searchData} from "redux/reactGrid";
-import {isEmpty, unionBy} from "lodash";
-import CustomStore from "devextreme/data/custom_store";
-import Promise from "lodash/_Promise";
+import {Loading} from "modules/shared/Loading";
 
 const ReactGrid = ({ configuration, enqueueSnackbar,
                      rows, loading, pageSize, totalCount, errors,
                      extraQuery, onClickRow,
                      actions, ...props }) => {
 
+  const history = useHistory();
   const [columns] = useState(configuration.columns);
   const [currentPage, setCurrentPage] = useState(0);
   const [sorting, setSorting] = useState([]);
   const [filters, setFilters] = useState([]);
+
+  const deleteData = (row) => {
+    actions.deleteData({ key: props.id, id: row.id });
+  };
 
   const loadData = () => {
     const query = unionBy(extraQuery || [],filters,(filter) => filter.columnName) || [];
@@ -73,6 +80,9 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
     },
   });
 
+  /**
+   * Handler to filter and sorting
+   */
   const OPERATION_INDEX = 1;
   const REGEX_COLUMN_INDEX = 0;
   const filterValues = ({ column: {name: columnName}, value }) => {
@@ -101,12 +111,14 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
   const handleOptionChanged = (e) => {
     // extract operation from fullName: "columns[1].filterValue"
     const operation = e.fullName.split('.')[OPERATION_INDEX];
-    // extract index column
-    const indexColumn = e.fullName.match(/\d+/)[REGEX_COLUMN_INDEX];
-    // get column from the indexColumn
-    const column = columns[indexColumn];
-    const value = e.value;
-    operations[operation] && operations[operation]({ column, value });
+    if(operation){
+      // extract index column
+      const indexColumn = e.fullName.match(/\d+/)[REGEX_COLUMN_INDEX];
+      // get column from the indexColumn
+      const column = columns[indexColumn];
+      const value = e.value;
+      operations[operation] && operations[operation]({ column, value });
+    }
   }
 
   return (
@@ -135,6 +147,10 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
           //allowAdding
           allowDeleting
           allowUpdating />
+        {!configuration.disabledActions && <Column type="buttons" width={90}>
+          <Button icon="edit" onClick={e => history.push(`${history.location.pathname}/${e.row.data.id}`)}/>
+          <Button icon="trash" onClick={e => deleteData(e.row.data)} />
+        </Column>}
 
         <Scrolling rowRenderingMode='virtual'></Scrolling>
         <Paging
