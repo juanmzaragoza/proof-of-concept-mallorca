@@ -176,7 +176,10 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
           displayMode={'full'}
           showPageSizeSelector={false}
           showInfo={true}
-          infoText="Página {0} de {1} (Total {2} elementos)"
+          infoText={props.intl.formatMessage({
+            id: "ReactGrid.paginado.info",
+            defaultMessage: "Página {0} de {1} (Total {2} elementos)"
+          })}
           showNavigationButtons={true} />
       </DataGrid>
       {loading && <Loading />}
