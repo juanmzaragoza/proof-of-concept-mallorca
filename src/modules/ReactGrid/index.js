@@ -140,13 +140,15 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
     <React.Fragment>
       <DataGrid
         id='gridContainer'
+        keyExpr="id"
         dataSource={store}
         showBorders={true}
         columnAutoWidth={true}
         remoteOperations={true}
-        onOptionChanged={handleOptionChanged}
         rowAlternationEnabled={true}
         showRowLines={true}
+        focusedRowEnabled={true}
+        onOptionChanged={handleOptionChanged}
       >
         {!configuration.disabledFiltering && <HeaderFilter visible={false} />}
         {!configuration.disabledFiltering && <FilterRow visible={true} />}
