@@ -57,7 +57,6 @@ const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
       type: "LOV",
       key: "codiPostalVol",
       id:"codiPostal",
-      required: true,
       breakpoints: {
         xs: 12,
         md: md,
