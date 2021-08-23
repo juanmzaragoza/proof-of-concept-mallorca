@@ -1870,5 +1870,23 @@
   "AlbaranesProveedor.movimientosStock":"Movimientos Stock",
   "AlbaranesProveedor.fechaFabricación/Cad":"Fecha Fabricación/Cad.",
   "AlbaranesProveedor.albaran":"Albarán",
-  "AlbaranesProveedor.cliente":"Cliente"
-  }
+  "AlbaranesProveedor.cliente":"Cliente",
+  "FacturasProveedor.titulo":"Facturas Proveedor",
+  "FacturasProveedor.proveedor":"Proveedor",
+  "FacturasProveedor.numero":"Número",
+  "FacturasProveedor.total":"Total",
+  "FacturasProveedor.bruto":"Importe Bruto",
+  "FacturasProveedor.base":"Base Imponible",
+  "FacturasProveedor.nombreFiscal":"Nombre Fiscal",
+  "FacturasProveedor.documento":"Documento",
+  "FacturasProveedor.fechaRecibida":"Fecha Recibida",
+  "FacturasProveedor.fechaExpedida":"Fecha Expedida",
+  "FacturasProveedor.fechaContabilizada":"Fecha Operación",
+  "FacturasProveedor.fecha":"Fecha",
+  "FacturasProveedor.facturaConforme":"Factura Conforme",
+  "FacturasProveedor.retenciones":"Retenciones y Descuentos",
+  "FacturasProveedor.cajas":"Cajas",
+  "FacturasProveedor.operario":"Operario",
+  "FacturasProveedor.operarioJefeGrupo":"Operario Jefe Grupo",
+    "FacturasProveedor.operarioJefeObra":"Operario Jefe Obra"
+}

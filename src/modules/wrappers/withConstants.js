@@ -643,6 +643,13 @@ const withConstants = (PassedComponent) => {
             path: "FAC_ALBARA",
             icon: <LocalMall />,
           },
+          {
+            key: 'FAC_FAC', // not mandatory for routes with children
+            title: props.intl.formatMessage({id:  "Facturas.facturasCliente",defaultMessage: "Facturas Cliente"}),
+            path: 'FAC_FAC', // or has path or has children but not both
+            icon: <LocalMall />
+          },
+    
         ],
       },
       {
@@ -689,6 +696,15 @@ const withConstants = (PassedComponent) => {
               defaultMessage: "Albaranes Proveedor",
             }),
             path: "FAC_ALBPRO",
+            icon: <LocalMall />,
+          },
+          {
+            key: "FAC_FACPRO",
+            title: props.intl.formatMessage({
+              id: "FacturasProveedor.titulo",
+              defaultMessage: "Facturas Proveedor",
+            }),
+            path: "FAC_FACPRO",
             icon: <LocalMall />,
           },
     
@@ -1166,13 +1182,7 @@ const withConstants = (PassedComponent) => {
       },
 
  
-      {
-        key: 'FAC_FAC', // not mandatory for routes with children
-        title: props.intl.formatMessage({id:  "Facturas.facturasCliente",defaultMessage: "Facturas Cliente"}),
-        path: 'FAC_FAC', // or has path or has children but not both
-        icon: <LocalMall />
-      },
-
+   
     
       {
         key: "FAC_PROD", // not mandatory for routes with children
