@@ -152,7 +152,7 @@ const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
-  const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
+
 
   const aSCodeAndDescription = [
     { title: CODE, name: "codi" },
