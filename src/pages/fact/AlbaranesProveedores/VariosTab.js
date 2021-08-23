@@ -35,6 +35,123 @@ const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
     defaultMessage: "Nombre",
   });
 
+
+  const code = (md = 6) => ({
+    type: "input",
+    key: "codi",
+    placeHolder: CODE,
+    required: true,
+    noEditable: true,
+    breakpoints: {
+      xs: 12,
+      md: md,
+    },
+  });
+
+  const codiPostal = (md = 6) => [
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.Direccion.codPostal",
+        defaultMessage: "Código Postal",
+      }),
+      type: "LOV",
+      key: "codiPostalVol",
+      id:"codiPostal",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: md,
+      },
+      selector: {
+        key: "codiPostals",
+        labelKey: (data) =>
+          `${data.poblacio} ${data.municipi ? ` - ${data.municipi}` : ""} (${
+            data.codi
+          })`,
+        sort: "codi",
+        transform: {
+          apply: (codiPostals) => codiPostals && codiPostals.codi,
+          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+        },
+        creationComponents: [
+          code(4),
+          {
+            placeHolder: props.intl.formatMessage({
+              id: "CodigoPostal.pais",
+              defaultMessage: "País",
+            }),
+            type: "LOV",
+            key: "pais",
+            required: false,
+            breakpoints: {
+              xs: 12,
+              md: 4,
+            },
+            selector: {
+              key: "paises",
+              labelKey: (data) => `${data.nom} (${data.codi})`,
+              sort: "codi",
+              cannotCreate: true,
+              relatedWith: [{
+                name: "provincia",
+                filterBy: "pais.id",
+                keyValue: "id",
+              },],
+              advancedSearchColumns: aSCodeAndName,
+            },
+          },
+          {
+            placeHolder: props.intl.formatMessage({
+              id: "CodigoPostal.provincia",
+              defaultMessage: "Provincia",
+            }),
+            type: "LOV",
+            key: "provincia",
+            required: false,
+            breakpoints: {
+              xs: 12,
+              md: 4,
+            },
+            selector: {
+              key: "provincias",
+              labelKey: (data) => `${data.nom} (${data.codi})`,
+              sort: "codi",
+              cannotCreate: true,
+              advancedSearchColumns: aSCodeAndName,
+            },
+          },
+          {
+            type: "input",
+            key: "municipi",
+            placeHolder: props.intl.formatMessage({
+              id: "CodigoPostal.municipio",
+              defaultMessage: "Municipio",
+            }),
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 6,
+            },
+          },
+          {
+            type: "input",
+            key: "poblacio",
+            placeHolder: props.intl.formatMessage({
+              id: "CodigoPostal.poblacion",
+              defaultMessage: "Población",
+            }),
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 6,
+            },
+          },
+        ],
+        advancedSearchColumns: aSCodeAndDescription,
+      },
+    },
+  ];
+
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
 
   const aSCodeAndDescription = [
@@ -224,25 +341,13 @@ const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "direccioVol",
       breakpoints: {
         xs: 12,
-        md: 9,
+        md: 8,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 60)],
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "PedidosProveedor.codigoPostalVolumen",
-        defaultMessage: "Código Postal Volumen ",
-      }),
-      type: "input",
-      key: "codiPostalVol",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(0, 8)],
-    },
+    ...codiPostal(4)
+
   ];
 
   const complementoConfig = [
@@ -256,6 +361,29 @@ const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
       breakpoints: {
         xs: 12,
         md: 12,
+      },
+    },
+  ];
+
+  const clienteConfig = [
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "AlbaranesProveedor.albaran",
+        defaultMessage: "Albarán",
+      }),
+      type: "LOV",
+      key: "albara",
+      id:"albarans",
+      breakpoints: {
+        xs: 12,
+        md: 12,
+      },
+      selector: {
+        key: "albaras",
+        labelKey: (data) => `${data.serieVenda.pk.codi}/ ${data.numero}`,
+        sort: "codi",
+        cannotCreate: true,
+        advancedSearchColumns: aSCodeAndDescription,
       },
     },
   ];
@@ -407,6 +535,32 @@ const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
         >
           <GenericForm
             formComponents={voluminoso}
+            emptyPaper={true}
+            editMode={props.editMode}
+            getFormData={getFormData}
+            setFormData={setFormData}
+            loading={props.loading}
+            formErrors={props.formErrors}
+            submitFromOutside={props.submitFromOutside}
+            onSubmit={() => props.onSubmitTab(formData)}
+            handleIsValid={(value) => addValidity(ALMACEN_SECTION_INDEX, value)}
+            onBlur={(e) => handleTouched(ALMACEN_SECTION_INDEX)}
+            {...props}
+          />
+        </OutlinedContainer>
+      </Grid>
+      <Grid xs={4} item>
+        <OutlinedContainer
+          className="general-tab-container"
+          title={
+            <FormattedMessage
+              id={"AlbaranesProveedor.cliente"}
+              defaultMessage={" Cliente"}
+            />
+          }
+        >
+          <GenericForm
+            formComponents={clienteConfig}
             emptyPaper={true}
             editMode={props.editMode}
             getFormData={getFormData}
