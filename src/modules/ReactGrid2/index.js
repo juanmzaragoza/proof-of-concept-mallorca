@@ -34,6 +34,7 @@ import {
   updateData
 } from "redux/reactGrid";
 import {Loading} from "modules/shared/Loading";
+import LOVCellComponent from "./LOVCellComponent";
 
 const ReactGrid = ({ configuration, enqueueSnackbar,
                      rows, loading, pageSize, totalCount, errors,
@@ -149,12 +150,23 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
         {!configuration.disabledFiltering && <FilterRow visible={true} />}
 
         {columns.map((column,key) => {
-          return <Column
-            key={key}
-            caption={column.title}
-            dataField={column.name}
-            calculateCellValue={column.getCellValue}
-            filterOperations={['contains']} />
+          const LOVCellComponentWithField = (props) => <LOVCellComponent field={column.field} {...props} />;
+          return column.field && column.field.type === 'LOV'?
+            <Column
+              key={key}
+              caption={column.title}
+              dataField={column.name}
+              calculateCellValue={column.getCellValue}
+              filterOperations={['contains']}
+              editCellComponent={LOVCellComponentWithField}
+            />
+            :
+            <Column
+              key={key}
+              caption={column.title}
+              dataField={column.name}
+              calculateCellValue={column.getCellValue}
+              filterOperations={['contains']} />
         })}
         {!configuration.disabledActions && <Column type="buttons" width={90}>
           <Button icon="edit" onClick={e => history.push(`${history.location.pathname}/${e.row.data.id}`)}/>
