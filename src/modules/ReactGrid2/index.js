@@ -159,6 +159,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
               calculateCellValue={column.getCellValue}
               filterOperations={['contains']}
               editCellComponent={LOVCellComponentWithField}
+              allowEditing={!column.inlineEditionDisabled}
             />
             :
             <Column
@@ -166,7 +167,8 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
               caption={column.title}
               dataField={column.name}
               calculateCellValue={column.getCellValue}
-              filterOperations={['contains']} />
+              filterOperations={['contains']}
+              allowEditing={!column.inlineEditionDisabled} />
         })}
         {!configuration.disabledActions && <Column type="buttons" width={90}>
           <Button icon="edit" onClick={e => history.push(`${history.location.pathname}/${e.row.data.id}`)}/>
