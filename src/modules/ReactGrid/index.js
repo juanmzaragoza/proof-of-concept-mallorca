@@ -147,7 +147,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
         onOptionChanged={handleOptionChanged}
         rowAlternationEnabled={true}
       >
-        {!configuration.disabledFiltering && <HeaderFilter visible={true} allowSearch={true} />}
+        {!configuration.disabledFiltering && <HeaderFilter visible={false} />}
         {!configuration.disabledFiltering && <FilterRow visible={true} />}
 
         {columns.map((column,key) => {
