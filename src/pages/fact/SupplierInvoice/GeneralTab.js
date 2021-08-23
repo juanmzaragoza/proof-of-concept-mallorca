@@ -17,18 +17,15 @@ import { useTabForm } from "hooks/tab-form";
 
 const INVOICE_SECTION_INDEX = 0;
 const CONTAB_SECTION_TAB_INDEX = 1;
-const PRESS_SECTION_TAB_INDEX = 2;
-const TOTAL_SECTION_TAB_INDEX = 3;
-const OTROS_TAB_INDEX = 4;
+const TOTAL_SECTION_TAB_INDEX = 2;
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [INVOICE_SECTION_INDEX]: false,
+      [TOTAL_SECTION_TAB_INDEX]: false,
       [CONTAB_SECTION_TAB_INDEX]: true,
-      [PRESS_SECTION_TAB_INDEX]: true,
-      [TOTAL_SECTION_TAB_INDEX]: true,
-      [OTROS_TAB_INDEX]: true,
+    
     },
     setIsValid: props.setIsValid,
   });
@@ -57,14 +54,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   });
 
   const getString = (key) => (getFormData(key) ? getFormData(key) : "");
-
-  useEffect(() => {
-    const codiPostal = getString("codiPostal");
-    setFormData({
-      key: "poblacio",
-      value: codiPostal ? codiPostal.poblacio : "",
-    });
-  }, [getFormData("codiPostal")]);
 
   useEffect(() => {
     const getProveedor = getString("nomFiscal");
@@ -112,109 +101,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       breakpoints: {
         xs: 12,
         md: mdDes,
-      },
-    },
-  ];
-
-  const codiPostal = (md = 6) => [
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Direccion.codPostal",
-        defaultMessage: "Código Postal",
-      }),
-      type: "LOV",
-      key: "codiPostal",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: md,
-      },
-      validationType: "object",
-      ...withRequiredValidation(),
-      selector: {
-        key: "codiPostals",
-        labelKey: (data) =>
-          `${data.poblacio} ${data.municipi ? ` - ${data.municipi}` : ""} (${
-            data.codi
-          })`,
-        sort: "codi",
-        creationComponents: [
-          code(4),
-          {
-            placeHolder: props.intl.formatMessage({
-              id: "CodigoPostal.pais",
-              defaultMessage: "País",
-            }),
-            type: "LOV",
-            key: "pais",
-            required: false,
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-            selector: {
-              key: "paises",
-              labelKey: (data) => `${data.nom} (${data.codi})`,
-              sort: "codi",
-              cannotCreate: true,
-              relatedWith: [
-                {
-                  name: "provincia",
-                  filterBy: "pais.id",
-                  keyValue: "id",
-                },
-              ],
-              advancedSearchColumns: aSCodeAndName,
-            },
-          },
-          {
-            placeHolder: props.intl.formatMessage({
-              id: "CodigoPostal.provincia",
-              defaultMessage: "Provincia",
-            }),
-            type: "LOV",
-            key: "provincia",
-            required: false,
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-            selector: {
-              key: "provincias",
-              labelKey: (data) => `${data.nom} (${data.codi})`,
-              sort: "codi",
-              cannotCreate: true,
-              advancedSearchColumns: aSCodeAndName,
-            },
-          },
-          {
-            type: "input",
-            key: "municipi",
-            placeHolder: props.intl.formatMessage({
-              id: "CodigoPostal.municipio",
-              defaultMessage: "Municipio",
-            }),
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 6,
-            },
-          },
-          {
-            type: "input",
-            key: "poblacio",
-            placeHolder: props.intl.formatMessage({
-              id: "CodigoPostal.poblacion",
-              defaultMessage: "Población",
-            }),
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 6,
-            },
-          },
-        ],
-        advancedSearchColumns: aSCodeAndDescription,
       },
     },
   ];
@@ -745,53 +631,94 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "FacturasProveedor.bruto",
-        defaultMessage: "Importe bruto",
+        id: "FamiliaArticulos.proyecto",
+        defaultMessage: "Proyecto ",
       }),
-      type: "numeric",
-      key: "facturaBruto",
-      required: true,
+      type: "LOV",
+      key: "projecte",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
-      validationType: "number",
-      ...withRequiredValidation(),
+      selector: {
+        key: "projectes",
+        labelKey: (data) => `${data.nom} (${data.codi})`,
+        sort: "nom",
+        cannotCreate: true,
+        advancedSearchColumns: aSCodeAndName,
+      },
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "FacturasProveedor.base",
-        defaultMessage: "Base imponible",
+        id: "FacturasProveedor.operario",
+        defaultMessage: "Operario",
       }),
-      type: "numeric",
-      key: "baseImposable",
-      required: true,
+      type: "LOV",
+      key: "operariCodi",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
-      validationType: "number",
-      ...withRequiredValidation([
-        ...props.numberValidations.minMaxValidation(0, 99),
-      ]),
+      selector: {
+        key: "operaris",
+        labelKey: formatCodeAndName,
+        sort: "nom",
+        cannotCreate: true,
+        advancedSearchColumns: aSCodeAndName,
+        transform: {
+          apply: (operari) => operari && operari.codi,
+          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+        },
+      },
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "FacturasProveedor.total",
-        defaultMessage: "Total",
+        id: "FacturasProveedor.operarioJefeObra",
+        defaultMessage: "Operario Jefe Obra",
       }),
-      type: "numeric",
-      key: "facturaTotal",
-      required: true,
+      type: "LOV",
+      key: "operariCodiJfo",
+      id: "operari",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
-
-      validationType: "number",
-      ...withRequiredValidation(),
+      selector: {
+        key: "operaris",
+        labelKey: formatCodeAndName,
+        sort: "nom",
+        cannotCreate: true,
+        advancedSearchColumns: aSCodeAndName,
+        transform: {
+          apply: (operari) => operari && operari.codi,
+          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+        },
+      },
     },
-
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "FacturasProveedor.operarioJefeGrupo",
+        defaultMessage: "Operario Jefe Grupo",
+      }),
+      type: "LOV",
+      key: "operariCodiGrup",
+      id: "operaris",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      selector: {
+        key: "operaris",
+        labelKey: formatCodeAndName,
+        sort: "nom",
+        cannotCreate: true,
+        advancedSearchColumns: aSCodeAndName,
+        transform: {
+          apply: (operari) => operari && operari.codi,
+          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+        },
+      },
+    },
     {
       placeHolder: props.intl.formatMessage({
         id: "FacturasProveedor.facturaConforme",
@@ -864,170 +791,30 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 5,
       },
     },
-  ];
-
-  const pressupConfig = [
     {
       placeHolder: props.intl.formatMessage({
-        id: "Facturas.codigoPresupuesto",
-        defaultMessage: "Código Presupuesto",
+        id: "PuntoVenta.cajas",
+        defaultMessage: "Cajas",
       }),
       type: "LOV",
-      key: "pressupostCodi",
+      key: "caixaCodi",
+      id: "caixes",
       breakpoints: {
         xs: 12,
         md: 3,
       },
       selector: {
-        relatedWith: [
-          {
-            name: "certificacio",
-            filterBy: "presupostCodi",
-            keyValue: "codi",
-          },
-        ],
-        key: "pressuposts",
-        labelKey: (data) => `(${data.codi})`,
-        sort: "codi",
+        key: "caixas",
+        labelKey: formatCodeAndDescription,
+        sort: "descripcio",
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndDescription,
         transform: {
-          apply: (pressuposts) => pressuposts && pressuposts.codi,
+          apply: (caixas) => caixas && caixas.codi,
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
         },
       },
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "FamiliaArticulos.proyecto",
-        defaultMessage: "Proyecto ",
-      }),
-      type: "LOV",
-      key: "projecte",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      selector: {
-        key: "projectes",
-        labelKey: (data) => `${data.nom} (${data.codi})`,
-        sort: "nom",
-        cannotCreate: true,
-        advancedSearchColumns: aSCodeAndName,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "PieDocumento.certificaciones",
-        defaultMessage: "Certificaciones ",
-      }),
-      type: "LOV",
-      key: "certificacio",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      selector: {
-        key: "certificacios",
-        labelKey: (data) => `${data.diaInici} (${data.numeroCertificat})`,
-        sort: "diaInici",
-        cannotCreate: true,
-        advancedSearchColumns: aSCodeAndDescription,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Facturas.delegacion",
-        defaultMessage: "Delegación",
-      }),
-      type: "LOV",
-      key: "delegacio",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      selector: {
-        key: "delegacios",
-        labelKey: (data) => `${data.nom} (${data.codi})`,
-        sort: "codi",
-        cannotCreate: true,
-        advancedSearchColumns: aSCodeAndName,
-      },
-    },
-  ];
-
-  const otros = [
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "FacturasProveedor.operario",
-        defaultMessage: "Operario",
-      }),
-      type: "LOV",
-      key: "operariCodi",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      selector: {
-        key: "operaris",
-        labelKey: formatCodeAndName,
-        sort: "nom",
-        cannotCreate: true,
-        advancedSearchColumns: aSCodeAndName,
-        transform: {
-          apply: (operari) => operari && operari.codi,
-          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-        },
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "FacturasProveedor.operoperarioJefeObraario",
-        defaultMessage: "Operario Jefe Obra",
-      }),
-      type: "LOV",
-      key: "operariCodiJfo",
-      id: "operari",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      selector: {
-        key: "operaris",
-        labelKey: formatCodeAndName,
-        sort: "nom",
-        cannotCreate: true,
-        advancedSearchColumns: aSCodeAndName,
-        transform: {
-          apply: (operari) => operari && operari.codi,
-          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-        },
-      },
-    },
-    {
-        placeHolder: props.intl.formatMessage({
-          id: "FacturasProveedor.operarioJefeGrupo",
-          defaultMessage: "Operario Jefe Grupo",
-        }),
-        type: "LOV",
-        key: "operariCodiGrup",
-        id: "operaris",
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        selector: {
-          key: "operaris",
-          labelKey: formatCodeAndName,
-          sort: "nom",
-          cannotCreate: true,
-          advancedSearchColumns: aSCodeAndName,
-          transform: {
-            apply: (operari) => operari && operari.codi,
-            reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-          },
-        },
-      },
   ];
 
   const totalesFactura = [
@@ -1040,7 +827,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       breakpoints: {
         xs: 12,
-        md: 1,
+        md: 2,
       },
       suffix: "%",
       validationType: "number",
@@ -1055,7 +842,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       breakpoints: {
         xs: 12,
-        md: 1,
+        md: 2,
       },
       suffix: "%",
       validationType: "number",
@@ -1109,67 +896,81 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndDescription,
       },
     },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "FacturasProveedor.bruto",
+        defaultMessage: "Importe bruto",
+      }),
+      type: "numeric",
+      key: "facturaBruto",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+      ...withRequiredValidation(),
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "FacturasProveedor.base",
+        defaultMessage: "Base imponible",
+      }),
+      type: "numeric",
+      key: "baseImposable",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+      ...withRequiredValidation([
+        ...props.numberValidations.minMaxValidation(0, 99),
+      ]),
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "FacturasProveedor.IVA",
+        defaultMessage: "IVA",
+      }),
+      type: "numeric",
+      key: "quantitatIva",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+      ...withRequiredValidation([
+        ...props.numberValidations.minMaxValidation(0, 99999999999),
+      ]),
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "FacturasProveedor.total",
+        defaultMessage: "Total",
+      }),
+      type: "numeric",
+      key: "facturaTotal",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+
+      validationType: "number",
+      ...withRequiredValidation(),
+    },
   ];
 
   const tabs = [
     {
       label: (
         <FormattedMessage
-          id={"Proyectos.contabilidad"}
-          defaultMessage={"Contabilidad"}
+          id={"Facturas.totalesFactura"}
+          defaultMessage={"totales Factura"}
         />
       ),
       key: 0,
-      component: (
-        <GenericForm
-          formComponents={contabConfig}
-          emptyPaper={true}
-          setFormData={setFormData}
-          getFormData={getFormData}
-          loading={props.loading}
-          formErrors={props.formErrors}
-          submitFromOutside={props.submitFromOutside}
-          onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) =>
-            addValidity(CONTAB_SECTION_TAB_INDEX, value)
-          }
-          onBlur={(e) => handleTouched(CONTAB_SECTION_TAB_INDEX)}
-          {...props}
-        />
-      ),
-    },
-    {
-      label: (
-        <FormattedMessage
-          id={"Facturas.presupuestoProyecto"}
-          defaultMessage={"Presupuesto/Proyecto"}
-        />
-      ),
-      key: 1,
-      component: (
-        <GenericForm
-          formComponents={pressupConfig}
-          emptyPaper={true}
-          setFormData={setFormData}
-          getFormData={getFormData}
-          loading={props.loading}
-          formErrors={props.formErrors}
-          submitFromOutside={props.submitFromOutside}
-          onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) => addValidity(PRESS_SECTION_TAB_INDEX, value)}
-          onBlur={(e) => handleTouched(PRESS_SECTION_TAB_INDEX)}
-          {...props}
-        />
-      ),
-    },
-    {
-      label: (
-        <FormattedMessage
-          id={"FacturasProveedor.retenciones"}
-          defaultMessage={"retenciones Factura"}
-        />
-      ),
-      key: 2,
       component: (
         <GenericForm
           formComponents={totalesFactura}
@@ -1186,18 +987,17 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         />
       ),
     },
-
     {
       label: (
         <FormattedMessage
-          id={"Proyectos.finalFactura"}
-          defaultMessage={"Final factura"}
+          id={"Proyectos.contabilidad"}
+          defaultMessage={"Contabilidad"}
         />
       ),
-      key: 3,
+      key: 1,
       component: (
         <GenericForm
-          formComponents={otros}
+          formComponents={contabConfig}
           emptyPaper={true}
           setFormData={setFormData}
           getFormData={getFormData}
@@ -1205,8 +1005,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           formErrors={props.formErrors}
           submitFromOutside={props.submitFromOutside}
           onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) => addValidity(OTROS_TAB_INDEX, value)}
-          onBlur={(e) => handleTouched(OTROS_TAB_INDEX)}
+          handleIsValid={(value) =>
+            addValidity(CONTAB_SECTION_TAB_INDEX, value)
+          }
+          onBlur={(e) => handleTouched(CONTAB_SECTION_TAB_INDEX)}
           {...props}
         />
       ),

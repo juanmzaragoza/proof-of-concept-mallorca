@@ -26,15 +26,14 @@ import {
 
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
-
-
+import AlbaranesTab from "./AlbaranesTab";
+import MovimientosCajaTab from "./MovimientosCajaTab";
 
 
 const GENERAL_TAB_INDEX = 0;
-const CONTAB_TAB_INDEX = 1;
+const ALBARAN_TAB_INDEX = 1;
 const MOVIMIENTOS_TAB_INDEX = 2;
-const REG_EN_TAB_INDEX = 3;
-const MORE_INFO_TAB_INDEX = 4;
+
 
 const SupplierInvoiceForm = React.memo(
   ({
@@ -51,10 +50,8 @@ const SupplierInvoiceForm = React.memo(
 
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [GENERAL_TAB_INDEX]: false,
-    //   [CONTAB_TAB_INDEX]: false,
-    //   [REG_EN_TAB_INDEX]: false,
-    //   [MORE_INFO_TAB_INDEX]: false,
-    //   [MOVIMIENTOS_TAB_INDEX]:false
+      [ALBARAN_TAB_INDEX]: false,
+      [MOVIMIENTOS_TAB_INDEX]:false
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -125,54 +122,54 @@ const SupplierInvoiceForm = React.memo(
           />
         ),
       },
-    //   {
-    //     ...getTranslations("Clientes.Documentos.albaranes", "Albaranes"),
-    //     key: CONTAB_TAB_INDEX,
-    //     error: tabHasError(CONTAB_TAB_INDEX),
-    //     component: (
-    //       <AlbaranesTab
-    //         setIsValid={(value) =>
-    //           setTabIndexWithError({
-    //             ...tabIndexWithError,
-    //             [CONTAB_TAB_INDEX]: !value,
-    //           })
-    //         }
-    //         editMode={editMode}
-    //         getFormData={getFormData}
-    //         setFormData={actions.setFormData}
-    //         submitFromOutside={submitFromOutside}
-    //         onSubmitTab={handleSubmitTab}
-    //         formErrors={props.formErrors}
-    //         loading={props.loading}
-    //         formDataLoaded={props.formDataLoaded}
-    //         isSubmitted={props.isSubmitted}
-    //       />
-    //     ),
-    //   },
-    //   {
-    //     ...getTranslations("Clientes.Documentos.movimientoCaja", "Movimientos Cajas"),
-    //     key: MOVIMIENTOS_TAB_INDEX,
-    //     error: tabHasError(MOVIMIENTOS_TAB_INDEX),
-    //     component: (
-    //       <MovimientosCajaTab
-    //         setIsValid={(value) =>
-    //           setTabIndexWithError({
-    //             ...tabIndexWithError,
-    //             [MOVIMIENTOS_TAB_INDEX]: !value,
-    //           })
-    //         }
-    //         editMode={editMode}
-    //         getFormData={getFormData}
-    //         setFormData={actions.setFormData}
-    //         submitFromOutside={submitFromOutside}
-    //         onSubmitTab={handleSubmitTab}
-    //         formErrors={props.formErrors}
-    //         loading={props.loading}
-    //         formDataLoaded={props.formDataLoaded}
-    //         isSubmitted={props.isSubmitted}
-    //       />
-    //     ),
-    //   },
+      {
+        ...getTranslations("Clientes.Documentos.albaranes", "Albaranes"),
+        key: ALBARAN_TAB_INDEX,
+        error: tabHasError(ALBARAN_TAB_INDEX),
+        component: (
+          <AlbaranesTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [ALBARAN_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
+          />
+        ),
+      },
+      {
+        ...getTranslations("Clientes.Documentos.movimientoCaja", "Movimientos Cajas"),
+        key: MOVIMIENTOS_TAB_INDEX,
+        error: tabHasError(MOVIMIENTOS_TAB_INDEX),
+        component: (
+          <MovimientosCajaTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [MOVIMIENTOS_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
+          />
+        ),
+      },
     //   {
     //     ...getTranslations("Facturas.tabs.registroEntrada", "Registro Entrada"),
     //     key: REG_EN_TAB_INDEX,
