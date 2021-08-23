@@ -806,7 +806,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
           md: 3,
         },
         validationType: "number",
-        validations:[...props.commonValidations.requiredValidation()]
+        validations: [...props.commonValidations.requiredValidation()],
       },
       {
         placeHolder: SUPLIM,
@@ -818,7 +818,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
           md: 3,
         },
         validationType: "number",
-        validations:[...props.commonValidations.requiredValidation()]
+        validations: [...props.commonValidations.requiredValidation()],
       },
       {
         placeHolder: PRICE,
@@ -830,7 +830,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
           md: 3,
         },
         validationType: "number",
-        validations:[...props.commonValidations.requiredValidation()]
+        validations: [...props.commonValidations.requiredValidation()],
       },
       {
         placeHolder: APLDTO,
@@ -877,11 +877,13 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
             `${data.article.description} ( ${data.envas.description} )`,
           sort: "article",
           cannotCreate: true,
-          relatedWith: {
-            name: "article",
-            filterBy: "article.id",
-            keyValue: "id",
-          },
+          relatedWith: [
+            {
+              name: "article",
+              filterBy: "article.id",
+              keyValue: "id",
+            },
+          ],
           advancedSearchColumns: aSArticleAndEnvas,
         },
         extraQuery: [

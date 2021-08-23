@@ -137,11 +137,13 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
               labelKey: (data) => `${data.nom} (${data.codi})`,
               sort: "codi",
               cannotCreate: true,
-              relatedWith: {
-                name: "provincia",
-                filterBy: "pais.id",
-                keyValue: "id",
-              },
+              relatedWith: [
+                {
+                  name: "provincia",
+                  filterBy: "pais.id",
+                  keyValue: "id",
+                },
+              ],
               advancedSearchColumns: aSCodeAndName,
             },
           },
@@ -540,7 +542,6 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 3,
         },
-
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -559,14 +560,13 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
           sort: "nom",
           advancedSearchColumns: aSCodeAndName,
           cannotCreate: true,
-         
         },
         extraQuery: [
           {
-            columnName: 'client.id',
+            columnName: "client.id",
             value: `"${clienteId}"`,
-            exact: true
-          }
+            exact: true,
+          },
         ],
       },
       {
@@ -577,10 +577,9 @@ const ContactTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 12,
         },
-        text:{
-          multiline:2
-        }
-
+        text: {
+          multiline: 2,
+        },
       },
     ],
   };

@@ -449,12 +449,12 @@ GenericForm.propTypes = {
       creationComponents: PropTypes.array,
       cannotCreate: PropTypes.bool,
       // for example, see the LOVAutocomplete component
-      relatedWith: PropTypes.shape({
+      relatedWith:   PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string.isRequired,
         filterBy: PropTypes.string.isRequired,
         keyValue: PropTypes.string,
       })
-    }),
+    )}),
     disabled: PropTypes.bool,
     text: PropTypes.shape({
       multiline: PropTypes.number

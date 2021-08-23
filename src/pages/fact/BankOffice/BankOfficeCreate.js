@@ -85,11 +85,13 @@ const BankOfficeCreate = (props) => {
               labelKey: (data) => `${data.nom} (${data.codi})`,
               sort: "codi",
               cannotCreate: true,
-              relatedWith: {
-                name: "provincia",
-                filterBy: "pais.id",
-                keyValue: "id",
-              },
+              relatedWith: [
+                {
+                  name: "provincia",
+                  filterBy: "pais.id",
+                  keyValue: "id",
+                },
+              ],
               advancedSearchColumns: aSCodeAndName,
             },
           },
@@ -154,7 +156,6 @@ const BankOfficeCreate = (props) => {
     };
   };
 
-
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
 
   const aSCodeAndName = [
@@ -166,7 +167,6 @@ const BankOfficeCreate = (props) => {
     { title: CODE, name: "codi" },
     { title: NOM, name: "poblacioMunicipiCodiTxt" },
   ];
-
 
   const createConfiguration = [
     {
@@ -242,7 +242,7 @@ const BankOfficeCreate = (props) => {
         md: 3,
       },
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(0,60)],
+      validations: [...props.stringValidations.minMaxValidation(0, 60)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -256,7 +256,7 @@ const BankOfficeCreate = (props) => {
         md: 3,
       },
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(0,60)],
+      validations: [...props.stringValidations.minMaxValidation(0, 60)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -270,7 +270,7 @@ const BankOfficeCreate = (props) => {
         md: 3,
       },
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(0,60)],
+      validations: [...props.stringValidations.minMaxValidation(0, 60)],
     },
 
     {

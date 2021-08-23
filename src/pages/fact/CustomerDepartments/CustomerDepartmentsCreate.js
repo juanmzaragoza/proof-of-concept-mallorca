@@ -92,11 +92,11 @@ const CustomerDepartmentsCreate = (props) => {
               labelKey: (data) => `${data.nom} (${data.codi})`,
               sort: "codi",
               cannotCreate: true,
-              relatedWith: {
+              relatedWith: [{
                 name: "provincia",
                 filterBy: "pais.id",
                 keyValue: "id",
-              },
+              },],
               advancedSearchColumns: aSCodeAndName,
             },
           },
@@ -342,11 +342,11 @@ const CustomerDepartmentsCreate = (props) => {
         labelKey: (data) => `${data.nomComercial} (${data.codi})`,
         sort: "codi",
         cannotCreate: true,
-        relatedWith: {
+        relatedWith:[ {
           name: "subClient",
           filterBy: "client.id",
           keyValue: "id",
-        },
+        },],
         advancedSearchColumns: aSCodeAndComercialName,
       },
     },
