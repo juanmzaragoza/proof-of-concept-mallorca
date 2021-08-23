@@ -146,6 +146,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
         remoteOperations={true}
         onOptionChanged={handleOptionChanged}
         rowAlternationEnabled={true}
+        showRowLines={true}
       >
         {!configuration.disabledFiltering && <HeaderFilter visible={false} />}
         {!configuration.disabledFiltering && <FilterRow visible={true} />}
