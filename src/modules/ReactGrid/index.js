@@ -1,70 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import {bindActionCreators, compose} from "redux";
-import {connect} from "react-redux";
+import React, {useEffect, useState} from 'react';
 import PropTypes from "prop-types";
 import {withSnackbar} from "notistack";
-import {isEmpty, unionBy} from "lodash";
-
-import "./styles.scss";
-
-import {
-  FilteringState,
-  IntegratedFiltering,
-  SortingState,
-  IntegratedSorting,
-  PagingState,
-  CustomPaging,
-  EditingState,
-} from '@devexpress/dx-react-grid';
-import {
-  Table,
-  Grid,
-  TableHeaderRow,
-  TableFilterRow,
-  PagingPanel,
-  TableInlineCellEditing,
-} from '@devexpress/dx-react-grid-material-ui';
-
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-
-import {ActionsColumn} from "./ActionsColumn";
-import { Loading } from '../shared/Loading';
+import {injectIntl} from "react-intl";
+import {bindActionCreators, compose} from "redux";
+import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
-import {FormattedMessage, injectIntl} from "react-intl";
+import {isEmpty, unionBy} from "lodash";
+import Promise from "lodash/_Promise";
+import DataGrid,
+{
+  Scrolling,
+  Pager,
+  Paging,
+  HeaderFilter,
+  FilterRow,
+  Column,
+  Editing,
+  Button
+} from 'devextreme-react/data-grid';
+import CustomStore from "devextreme/data/custom_store";
+
 import {
   getErrors,
   getLoading,
   getPageSize,
   getRows,
   getTotalCount
-} from "../../redux/reactGrid/selectors";
-import {deleteData, searchData, reset} from "../../redux/reactGrid";
-import {TableCell, TextField} from "@material-ui/core";
-
-const getRowId = row => row.id;
-
-const TableComponent = ({ ...restProps }) => (
-  <Table.Table {...restProps} className="table-striped with-padding" />
-);
-
-/** Avoid declaring statement inside render methods
- * https://devexpress.github.io/devextreme-reactive/react/common/docs/guides/performance-optimization/#avoid-declaring-statements-inside-render-methods
- */
-const FilterCellBase = ({ filter, onFilter, column }) => {
-  return (
-    <TableCell>
-      <TextField
-        value={filter ? filter.value : ''}
-        onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
-        label={<FormattedMessage id={"ReactGrid.filtros.buscar_por"} defaultMessage={"Buscar por {name}"} values={{name: column.title? column.title:""}}/>} />
-    </TableCell>
-  )
-};
-
-const FilterCell = (props) => {
-  return <FilterCellBase {...props} />;
-};
+} from "redux/reactGrid/selectors";
+import {
+  deleteData,
+  reset,
+  searchData,
+  updateData
+} from "redux/reactGrid";
+import {Loading} from "modules/shared/Loading";
+import LOVCellComponent from "./LOVCellComponent";
 
 const ReactGrid = ({ configuration, enqueueSnackbar,
                      rows, loading, pageSize, totalCount, errors,
@@ -76,17 +46,6 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
   const [currentPage, setCurrentPage] = useState(0);
   const [sorting, setSorting] = useState([]);
   const [filters, setFilters] = useState([]);
-
-  const rightMenu = [
-    {
-      icon: <DeleteIcon />,
-      action: row => deleteData(row)
-    },
-    {
-      icon: <EditIcon />,
-      action: row => history.push(`${history.location.pathname}/${row.id}`)
-    },
-  ];
 
   const deleteData = (row) => {
     actions.deleteData({ key: props.id, id: row.id });
@@ -105,7 +64,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
   // if the filters change
   useEffect(() => {
     setCurrentPage(0);
-  },[filters,extraQuery]);
+  },[extraQuery]);
 
   useEffect(()=>{
     if(!isEmpty(errors)){
@@ -116,86 +75,136 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
     }
   },[errors]);
 
-  const FocusableCell = ({ onClick, ...restProps }) => (
-    <Table.Cell {...restProps} tabIndex={0} onFocus={onClick} />
-  );
+  const store = new CustomStore({
+    key: 'id',
+    load: (loadOptions) => {
+      return new Promise((resolve, reject) => {
+        resolve({
+          data: rows,
+          totalCount: totalCount,
+        })
+      })
+    },
+    update: (key, values) => {
+      const row = rows.find(row => row.id === key);
+      if(row){
+        const changedRow = { ...row, ...values };
+        actions.updateData({ key: props.id, id: row.id, data: changedRow });
+      }
+    }
+  });
 
-  const TableRow = ({ row, ...restProps }) => (
-    <Table.Row
-      {...restProps}
-      // eslint-disable-next-line no-alert
-      onClick={() => onClickRow && onClickRow(row)}
-      style={{
-        cursor: 'pointer',
-      }}
-    />
-  );
-
-  const commitChanges = ({ added, changed, deleted }) => {
-    if (added) {}
-    if (changed) {}
-    if(deleted) {
-      actions.deleteData({ key: props.id, id: deleted[0] });
+  /**
+   * Handler to filter and sorting
+   */
+  const OPERATION_INDEX = 1;
+  const REGEX_COLUMN_INDEX = 0;
+  const filterValues = ({ column: {name: columnName}, value }) => {
+    if(!value){
+      setFilters(filters.filter(filter => filter.columnName !== columnName));
+    } else{
+      const filterElement = {columnName,value};
+      const index = filters.findIndex(filter => filter.columnName === columnName);
+      if(index > -1){
+        const oldFilters = filters;
+        oldFilters[index] = filterElement;
+        setFilters([...oldFilters]);
+      } else{
+        setFilters([...filters, filterElement]);
+      }
     }
   };
+  const operations = {
+    filterValue: filterValues,
+    selectedFilterOperation: filterValues,
+    sortOrder: ({ column: {name: columnName}, value }) => {
+      // only one sorting at the same time
+      setSorting([{columnName, direction: value }]);
+    }
+  }
+  const handleOptionChanged = (e) => {
+    // extract operation from fullName: "columns[1].filterValue"
+    const operation = e.fullName.split('.')[OPERATION_INDEX];
+    const regexResult = e.fullName.match(/\d+/);
+    if(operation && regexResult){
+      // extract index column
+      const indexColumn = regexResult[REGEX_COLUMN_INDEX];
+      // get column from the indexColumn
+      const column = columns[indexColumn];
+      const value = e.value;
+      operations[operation] && operations[operation]({ column, value });
+    }
+  }
 
   return (
-    <>
-      <Grid
-        rows={rows}
-        columns={columns}
-        getRowId={getRowId}
+    <React.Fragment>
+      <DataGrid
+        id='gridContainer'
+        dataSource={store}
+        showBorders={true}
+        columnAutoWidth={true}
+        remoteOperations={true}
+        onOptionChanged={handleOptionChanged}
+        rowAlternationEnabled={true}
       >
-        {/* Sorting configuration */}
-        <SortingState
-          sorting={sorting}
-          onSortingChange={setSorting} />
-        <IntegratedSorting />
-        {/***************************/}
-        {/* Filtering configuration */}
-        <FilteringState
-          defaultFilters={[]}
-          onFiltersChange={setFilters} />
-        {/***************************/}
-        {/* Paging configuration */}
-        <PagingState
-          currentPage={currentPage}
-          onCurrentPageChange={setCurrentPage}
-          pageSize={pageSize}
-        />
-        <CustomPaging
-          totalCount={totalCount}
-        />
-        {/***************************/}
-        <EditingState onCommitChanges={commitChanges} />
+        {!configuration.disabledFiltering && <HeaderFilter visible={true} allowSearch={true} />}
+        {!configuration.disabledFiltering && <FilterRow visible={true} />}
 
-        <Table tableComponent={TableComponent}
-               cellComponent={FocusableCell}
-               rowComponent={TableRow}
-               noDataText={"table-data"} />
-        <TableHeaderRow showSortingControls />
-        {!configuration.disabledFiltering && <TableFilterRow cellComponent={FilterCell} />}
-        {configuration.enableInlineEdition && <TableInlineCellEditing selectTextOnEditStart />}
-        {!configuration.disabledActions && <ActionsColumn title={props.intl.formatMessage({
-          id: "Comun.acciones",
-          defaultMessage: "Acciones"
-        })} actions={rows && rows.length? rightMenu:[]} />}
-        <PagingPanel />
+        {columns.map((column,key) => {
+          const extraProps = {};
+          if(column.field && column.field.type === 'LOV'){
+            const LOVCellComponentWithField = (props) => <LOVCellComponent field={column.field} {...props} />;
+            extraProps['editCellComponent'] = LOVCellComponentWithField;
+          }
+          return <Column
+            key={key}
+            caption={column.title}
+            dataField={column.name}
+            calculateCellValue={column.getCellValue}
+            filterOperations={['contains']}
+            allowEditing={!column.inlineEditionDisabled}
+            {...extraProps}
+          />
+        })}
+        {!configuration.disabledActions && <Column type="buttons" width={90}>
+          <Button icon="edit" onClick={e => history.push(`${history.location.pathname}/${e.row.data.id}`)}/>
+          <Button icon="trash" onClick={e => deleteData(e.row.data)} />
+        </Column>}
 
-      </Grid>
+        {configuration.enableInlineEdition && <Editing
+          allowUpdating={true}
+          allowDeleting={true}
+          mode="cell" />}
+
+        <Scrolling rowRenderingMode='virtual'></Scrolling>
+        <Paging
+          defaultPageSize={pageSize}
+          onPageIndexChange={setCurrentPage}  />
+        <Pager
+          visible={true}
+          displayMode={'full'}
+          showPageSizeSelector={false}
+          showInfo={true}
+          infoText={props.intl.formatMessage({
+            id: "ReactGrid.paginado.info",
+            defaultMessage: "Página {0} de {1} (Total {2} elementos)"
+          })}
+          showNavigationButtons={true} />
+      </DataGrid>
       {loading && <Loading />}
-    </>
-  );
-};
+    </React.Fragment>
+  )
+}
 
 ReactGrid.propTypes = {
   id: PropTypes.string.isRequired,
   configuration: PropTypes.shape({
-    title: PropTypes.string,
     columns: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string,
       title: PropTypes.string,
-      getCellValue: PropTypes.func
+      getCellValue: PropTypes.func,
+      inlineEditionDisabled: PropTypes.bool,
+      field: PropTypes.any
     })),
     listKey: PropTypes.string.isRequired,
     enableInlineEdition: PropTypes.bool,
@@ -222,6 +231,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
+    updateData: bindActionCreators(updateData, dispatch),
     loadData: bindActionCreators(searchData, dispatch),
     deleteData: bindActionCreators(deleteData, dispatch),
     reset: bindActionCreators(reset, dispatch),

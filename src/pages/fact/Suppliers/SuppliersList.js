@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import * as API from "redux/api";
 import AdvancedFilters from "modules/AdvancedFilters";
 import ReactGrid from "modules/ReactGrid";
-import {default as ReactGrid2} from "modules/ReactGrid2";
+//import {default as ReactGrid2} from "modules/ReactGrid2";
 
 const SuppliersList = ({actions, ...props}) => {
   const [filters, setFilters] = useState([]);
@@ -182,9 +182,6 @@ const SuppliersList = ({actions, ...props}) => {
   return (
     <>
       <AdvancedFilters fields={advancedFilters} handleSearch={setFilters} />
-      <ReactGrid2 id='suppliers'
-                 extraQuery={filters}
-                 configuration={listConfiguration} />
       <ReactGrid id='suppliers'
                  extraQuery={filters}
                  configuration={listConfiguration} />
