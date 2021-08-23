@@ -150,25 +150,20 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
         {!configuration.disabledFiltering && <FilterRow visible={true} />}
 
         {columns.map((column,key) => {
-          const LOVCellComponentWithField = (props) => <LOVCellComponent field={column.field} {...props} />;
-          return column.field && column.field.type === 'LOV'?
-            <Column
-              key={key}
-              caption={column.title}
-              dataField={column.name}
-              calculateCellValue={column.getCellValue}
-              filterOperations={['contains']}
-              editCellComponent={LOVCellComponentWithField}
-              allowEditing={!column.inlineEditionDisabled}
-            />
-            :
-            <Column
-              key={key}
-              caption={column.title}
-              dataField={column.name}
-              calculateCellValue={column.getCellValue}
-              filterOperations={['contains']}
-              allowEditing={!column.inlineEditionDisabled} />
+          const extraProps = {};
+          if(column.field && column.field.type === 'LOV'){
+            const LOVCellComponentWithField = (props) => <LOVCellComponent field={column.field} {...props} />;
+            extraProps['editCellComponent'] = LOVCellComponentWithField;
+          }
+          return <Column
+            key={key}
+            caption={column.title}
+            dataField={column.name}
+            calculateCellValue={column.getCellValue}
+            filterOperations={['contains']}
+            allowEditing={!column.inlineEditionDisabled}
+            {...extraProps}
+          />
         })}
         {!configuration.disabledActions && <Column type="buttons" width={90}>
           <Button icon="edit" onClick={e => history.push(`${history.location.pathname}/${e.row.data.id}`)}/>
