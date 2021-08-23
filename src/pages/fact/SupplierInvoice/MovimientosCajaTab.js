@@ -36,7 +36,7 @@ const MovimientosCajaTab = ({ formData, setFormData, getFormData, ...props }) =>
       },
     ],
     extraPostBody: {
-        facturaProveidor: { id: facturaId },
+      facturaProveidor: { id: facturaId },
     },
     columns: [
       {
@@ -52,6 +52,7 @@ const MovimientosCajaTab = ({ formData, setFormData, getFormData, ...props }) =>
           id: "Proyectos.clase",
           defaultMessage: "Clase",
         }),
+        hidden:true,
       },
       {
         name: "dia",
@@ -113,12 +114,22 @@ const MovimientosCajaTab = ({ formData, setFormData, getFormData, ...props }) =>
         getCellValue: (row) => row.documentPagamentCobrament && row.documentPagamentCobrament?.description,
       },
       {
+        name: "caixa",
+        title: props.intl.formatMessage({
+          id:   "FacturasProveedor.caja",
+          defaultMessage: "Caja",
+        }),
+        getCellValue: (row) => row.caixa && row.caixa?.description,
+        hidden:true,
+      },
+      {
         name: "client",
         title: props.intl.formatMessage({
           id:   "Presupuestos.cliente",
           defaultMessage: "Cliente",
         }),
         getCellValue: (row) => row.client && row.client?.description,
+        hidden:true,
       },
     
     

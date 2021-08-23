@@ -1893,5 +1893,8 @@
   "FacturasProveedor.cajasCuentas":"Cajas y Cuentas",
   "FacturasProveedor.clase":"Clase",
   "FacturasProveedor.numeroDocumento":"Número Documento",
-   "FacturasProveedor.IVA": "IVA"
+   "FacturasProveedor.IVA": "IVA",
+   "Facturas.cuenta":"Cuenta",
+   "FacturasProveedor.caja":"Caja",
+   "FacturasProveedor.proyecto":"Proyecto"
 }

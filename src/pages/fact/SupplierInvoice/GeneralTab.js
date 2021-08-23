@@ -25,7 +25,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       [INVOICE_SECTION_INDEX]: false,
       [TOTAL_SECTION_TAB_INDEX]: false,
       [CONTAB_SECTION_TAB_INDEX]: true,
-    
     },
     setIsValid: props.setIsValid,
   });
@@ -63,6 +62,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "nomFiscal",
       value: proveedor?.nomFiscal ? proveedor.nomFiscal : getProveedor,
     });
+
+    console.log(getProveedor,proveedor)
   }, [getFormData("proveidor")]);
 
   const code = (md = 6) => ({
@@ -681,7 +682,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       id: "operari",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       selector: {
         key: "operaris",
@@ -705,7 +706,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       id: "operaris",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       selector: {
         key: "operaris",
@@ -814,6 +815,20 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
         },
       },
+    },
+    {
+      type: "input",
+      key: "ctePag",
+      placeHolder: props.intl.formatMessage({
+        id: "Facturas.cuenta",
+        defaultMessage: "Cuenta ",
+      }),
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 10)],
     },
   ];
 

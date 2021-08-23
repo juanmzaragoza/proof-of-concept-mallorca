@@ -37,19 +37,6 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         facturaProveidor: { id: facturaId },
     },
 
-//     cls: "0"
-// conformat: "S"
-
-// facturaRegimAgrari: false
-
-// magatzemPeriode: {id: "eyJpZGVudGlmaWNhZG9yQ29kaSI6IkxJTSIsImNvZGkiOjIsIm1hZ2F0emVtQ29kaSI6IjAwMDAifQ==",…}
-
-
-// pressupostCodi: 1
-// proveidor: {id: "eyJpZGVudGlmaWNhZG9yQ29kaSI6IkxJTSIsImNvZGkiOiIwMDAxMDYifQ==",…}
-// tipus: "COMPRA"
-// tipusDocument: "FACTURA"
-// valorDivisaEuros: 6.55957
 
     columns: [
       {
@@ -72,6 +59,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "Proyectos.referencia",
           defaultMessage: "Referencia",
         }),
+        hidden:true,
       },
       {
         name: "cls",
@@ -90,6 +78,31 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         getCellValue: (row) =>
           row.dia ? new Date(row.dia).toLocaleDateString() : "",
       },
+      {
+        name: "projecte",
+        title: props.intl.formatMessage({
+          id: "FacturasProveedor.proyecto",
+          defaultMessage: "Proyecto",
+        }),
+        getCellValue: (row) => row.projecte && row.projecte?.description,
+     
+      },
+      {
+        name: "kilos",
+        title: props.intl.formatMessage({
+          id: "Proveedores.Documentos.kilos",
+          defaultMessage: "Kilos",
+        }),
+      },
+      {
+        name: "bultos",
+        title: props.intl.formatMessage({
+          id: "Proveedores.Documentos.bultos",
+          defaultMessage: "Bultos",
+        }),
+      },
+
+    
       
      
       {
