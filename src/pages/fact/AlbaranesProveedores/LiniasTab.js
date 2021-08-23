@@ -78,8 +78,8 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const liniasPedidosConfig = {
     title: props.intl.formatMessage({
-      id: "PedidosProveedor.tabs.liniasPedido",
-      defaultMessage: "Líneas Pedido ",
+      id: "AlbaranesProveedor.tabs.liniasAlbaran",
+      defaultMessage: "Línias Albarán ",
     }),
     query: [
       {
@@ -675,7 +675,35 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
           cannotCreate: true,
         },
       },
-
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "AlbaranesProveedor.movimientosStock",
+          defaultMessage: "Movimientos Stock",
+        }),
+        type: "numeric",
+        key: "movimentStockNumero",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        validationType: "number",
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 999999999999),
+        ],
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "AlbaranesProveedor.fechaFabricación/Cad",
+          defaultMessage: "Fecha Fabricación/Caducidad ",
+        }),
+        type: "date",
+        key: "diaFabricacioCdc",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+    
+      },
       {
         placeHolder: props.intl.formatMessage({
           id: "Comun.observaciones",
@@ -698,8 +726,8 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
           className="general-tab-container"
           title={
             <FormattedMessage
-              id={"PedidosProveedor.tabs.liniasPedido"}
-              defaultMessage={"Linias Pedido"}
+              id={"AlbaranesProveedor.tabs.liniasAlbaran"}
+              defaultMessage={"Línias Albarán "}
             />
           }
         >

@@ -95,6 +95,109 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
+
+  const codiPostal = (md = 6) => [
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.Direccion.codPostal",
+        defaultMessage: "Código Postal",
+      }),
+      type: "LOV",
+      key: "codiPostal",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: md,
+      },
+      selector: {
+        key: "codiPostals",
+        labelKey: (data) =>
+          `${data.poblacio} ${data.municipi ? ` - ${data.municipi}` : ""} (${
+            data.codi
+          })`,
+        sort: "codi",
+        transform: {
+          apply: (codiPostals) => codiPostals && codiPostals.codi,
+          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+        },
+        creationComponents: [
+          code(4),
+          {
+            placeHolder: props.intl.formatMessage({
+              id: "CodigoPostal.pais",
+              defaultMessage: "País",
+            }),
+            type: "LOV",
+            key: "pais",
+            required: false,
+            breakpoints: {
+              xs: 12,
+              md: 4,
+            },
+            selector: {
+              key: "paises",
+              labelKey: (data) => `${data.nom} (${data.codi})`,
+              sort: "codi",
+              cannotCreate: true,
+              relatedWith: [{
+                name: "provincia",
+                filterBy: "pais.id",
+                keyValue: "id",
+              },],
+              advancedSearchColumns: aSCodeAndName,
+            },
+          },
+          {
+            placeHolder: props.intl.formatMessage({
+              id: "CodigoPostal.provincia",
+              defaultMessage: "Provincia",
+            }),
+            type: "LOV",
+            key: "provincia",
+            required: false,
+            breakpoints: {
+              xs: 12,
+              md: 4,
+            },
+            selector: {
+              key: "provincias",
+              labelKey: (data) => `${data.nom} (${data.codi})`,
+              sort: "codi",
+              cannotCreate: true,
+              advancedSearchColumns: aSCodeAndName,
+            },
+          },
+          {
+            type: "input",
+            key: "municipi",
+            placeHolder: props.intl.formatMessage({
+              id: "CodigoPostal.municipio",
+              defaultMessage: "Municipio",
+            }),
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 6,
+            },
+          },
+          {
+            type: "input",
+            key: "poblacio",
+            placeHolder: props.intl.formatMessage({
+              id: "CodigoPostal.poblacion",
+              defaultMessage: "Población",
+            }),
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 6,
+            },
+          },
+        ],
+        advancedSearchColumns: aSCodeAndDescription,
+      },
+    },
+  ];
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
   const formatCodeAndDescription = (data) =>
     `${data.descripcio} (${data.codi})`;
@@ -273,26 +376,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         ],
       },
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "AlbaranesCliente.tarifa",
-        defaultMessage: "Tarifa ",
-      }),
-      type: "LOV",
-      key: "tarifaProveidor",
-
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      selector: {
-        key: "tarifaProveidors",
-        labelKey: formatCodeAndDescription,
-        sort: "descripcio",
-        creationComponents: [...codeAndDescription(6, 6)],
-        advancedSearchColumns: aSCodeAndDescription,
-      },
-    },
+   
     {
       placeHolder: props.intl.formatMessage({
         id: "AlbaranesProveedor.serieCompra",
@@ -381,7 +465,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       id: "ivaFact",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
       selector: {
         key: "ivas",
@@ -634,17 +718,18 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.tarifaDescuento",
-        defaultMessage: "Tarifa descuento",
+        id: "AlbaranesCliente.tarifa",
+        defaultMessage: "Tarifa ",
       }),
       type: "LOV",
-      key: "tarifaDescompte",
+      key: "tarifaProveidor",
+
       breakpoints: {
         xs: 12,
         md: 3,
       },
       selector: {
-        key: "tarifaDescomptes",
+        key: "tarifaProveidors",
         labelKey: formatCodeAndDescription,
         sort: "descripcio",
         creationComponents: [...codeAndDescription(6, 6)],

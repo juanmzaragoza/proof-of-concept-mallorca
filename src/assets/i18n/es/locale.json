@@ -1688,7 +1688,7 @@
   "FinalFacturas.posicion": "Posición",
   "FinalFacturas.titulos": "Título",
   "FinalFacturas.formula": "Fórmula",
-  "FinalFacturas.lineas": "Líneas",
+  "FinalFacturas.lineas": "Línias",
   "FinalFacturas.importeFacturado": "Importe Facturado",
   "FinalFacturas.aplicarTotal": "Aplicar Total",
   "FinalFacturas.imprimir": "Imprimir",
@@ -1866,5 +1866,10 @@
   "AlbaranesProveedor.fechaComple":"Fecha Complemento",
   "AlbaranesProveedor.complementos":"Complementos",
   "PedidosProveedor.factorConversion":"Factor Conversión",
-  "PedidosProveedor.lote":"Lote"
+  "PedidosProveedor.lote":"Lote",
+  "AlbaranesProveedor.tabs.liniasAlbaran":"Linias Albarán",
+  "AlbaranesProveedor.movimientosStock":"Movimientos Stock",
+  "AlbaranesProveedor.fechaFabricación/Cad":"Fecha Fabricación/Cad.",
+  "AlbaranesProveedor.albaran":"Albarán",
+  "AlbaranesProveedor.cliente":"Cliente"
   }
