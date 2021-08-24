@@ -410,7 +410,7 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         cannotCreate: true,
       },
       validationType: "object",
-      validations: [...props.commonValidations.requiredValidation()],
+      ...withRequiredValidation(),
     },
     {
       placeHolder: DESCRIPCIO,
@@ -536,7 +536,7 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "string",
-      ...withRequiredValidation(),
+      // validations:[...props.commonValidations.requiredValidation()]
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -563,7 +563,7 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "string",
-      ...withRequiredValidation(),
+      // ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -744,7 +744,7 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
       validationType: "string",
-      ...withRequiredValidation([]),
+      // ...withRequiredValidation([]),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -772,7 +772,7 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
       validationType: "string",
-      ...withRequiredValidation([]),
+      // ...withRequiredValidation([]),
     },
     {
       placeHolder: props.intl.formatMessage({

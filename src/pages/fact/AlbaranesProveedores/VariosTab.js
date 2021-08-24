@@ -57,7 +57,6 @@ const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
       type: "LOV",
       key: "codiPostalVol",
       id:"codiPostal",
-      required: true,
       breakpoints: {
         xs: 12,
         md: md,
@@ -152,7 +151,7 @@ const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
-  const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
+
 
   const aSCodeAndDescription = [
     { title: CODE, name: "codi" },

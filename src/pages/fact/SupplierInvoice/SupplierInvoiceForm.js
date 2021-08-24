@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { some, min, pickBy, cloneDeep } from "lodash";
 
+import GeneralTab from "./GeneralTab";
+
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
 import {
@@ -13,43 +15,29 @@ import {
   setFormConfig,
 } from "redux/pageHeader";
 import { getFireSave } from "redux/pageHeader/selectors";
-import { withAbmServices } from "modules/wrappers";
+import { withAbmServices } from "../../../modules/wrappers";
 import {
   getFormData,
   getFormErrors,
   getFormDataByKey,
   getIsDataLoaded,
   getIsSubmitted,
-} from "redux/genericForm/selectors";
+} from "../../../redux/genericForm/selectors";
 
-import { setFormDataByKey } from "redux/genericForm";
-import { getLoading } from "redux/app/selectors";
-import ProjectDataTab from "./ProjectDataTab";
-import MoreTab from "./MoreTab";
-import BudgetTab from "./BudgetTab";
-import ProjectsAppTab from "./ProjectsAppTab";
-import ExpirationSupplierTab from "./ExpirationSupplierTab";
-import RespHistoryTab from "./RespHistoryTab";
-import InvSujetoPasivoTab from "./InvSujetoPasivoTab";
-import CertificacionesTab from "./CertificacionesTab";
-import DocumentsTab from "./DocumentsTab";
-import ProjectRateSup from "./ProjectRateSup";
+import { setFormDataByKey } from "../../../redux/genericForm";
+import { getLoading } from "../../../redux/app/selectors";
+import AlbaranesTab from "./AlbaranesTab";
+import MovimientosCajaTab from "./MovimientosCajaTab";
+import ComplementsTab from "./ComplementsTab";
+import BasesVencimientoTab from "./BasesVencimientoTab";
 
-/** step 1 */
 const GENERAL_TAB_INDEX = 0;
-const MORE_TAB_INDEX = 1;
-const BUDGET_TAB_INDEX = 2;
-const RATES_SUP_TAB_INDEX = 3;
-const CERT_TAB_INDEX =4;
-const PROJECT_APP_TAB_INDEX = 5;
-const EXPIRATION_TAB_INDEX = 6;
-const INV_SUJ_TAB_INDEX = 7;
-const HISTORY_TAB_INDEX = 8;
-const DOCUMENTS_TAB_INDEX = 9;
+const COMPLEMENT_TAB_INDEX = 1;
+const BV_TAB_INDEX = 2;
+const ALBARAN_TAB_INDEX = 3;
+const MOVIMIENTOS_TAB_INDEX = 4;
 
-
-
-const ProjectsForm = React.memo(
+const SupplierInvoiceForm = React.memo(
   ({
     actions,
     allFormData,
@@ -62,20 +50,12 @@ const ProjectsForm = React.memo(
     const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
     const [nameSelectedTab, setNameSelectedTab] = useState("");
 
-    /** step 2 */
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [GENERAL_TAB_INDEX]: false,
-      [MORE_TAB_INDEX]: true,
-      [BUDGET_TAB_INDEX]:false,
-      [RATES_SUP_TAB_INDEX]: false,
-      [CERT_TAB_INDEX]:false,
-      [PROJECT_APP_TAB_INDEX]:false,
-      [EXPIRATION_TAB_INDEX]:false,
-      [INV_SUJ_TAB_INDEX]:false,
-      [HISTORY_TAB_INDEX]:false,
-      [DOCUMENTS_TAB_INDEX]:false,
-    
-
+      [COMPLEMENT_TAB_INDEX]: false,
+      [BV_TAB_INDEX]: false,
+      [ALBARAN_TAB_INDEX]: false,
+      [MOVIMIENTOS_TAB_INDEX]: false,
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -111,6 +91,8 @@ const ProjectsForm = React.memo(
       }
     };
 
+
+
     const getTranslations = (id, defaultMessage) => {
       return {
         label: <FormattedMessage id={id} defaultMessage={defaultMessage} />,
@@ -121,14 +103,13 @@ const ProjectsForm = React.memo(
       };
     };
 
-    /** step 3 */
     const tabs = [
       {
-        ...getTranslations("Proyectos.tabs.datosProyecto", "Datos proyecto"),
+        ...getTranslations("Proveedores.tabs.general", "General"),
         key: GENERAL_TAB_INDEX,
         error: tabHasError(GENERAL_TAB_INDEX),
         component: (
-          <ProjectDataTab
+          <GeneralTab
             setIsValid={(value) =>
               setTabIndexWithError({
                 ...tabIndexWithError,
@@ -148,135 +129,15 @@ const ProjectsForm = React.memo(
         ),
       },
       {
-        ...getTranslations("Proyectos.tabs.mas", "Más"),
-        key: MORE_TAB_INDEX,
-        error: tabHasError(MORE_TAB_INDEX),
+        ...getTranslations("FacturasProveedor.complementos", "Complementos"),
+        key: COMPLEMENT_TAB_INDEX,
+        error: tabHasError(COMPLEMENT_TAB_INDEX),
         component: (
-          <MoreTab
+          <ComplementsTab
             setIsValid={(value) =>
               setTabIndexWithError({
                 ...tabIndexWithError,
-                [MORE_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-            isSubmitted={props.isSubmitted}
-          />
-        ),
-      },
-      {
-        ...getTranslations("Proyectos.presupuestos", "Presupuestos"),
-        key: BUDGET_TAB_INDEX,
-        error: tabHasError(BUDGET_TAB_INDEX),
-        component: (
-          <BudgetTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [BUDGET_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-            isSubmitted={props.isSubmitted}
-          />
-        ),
-      },
-      {
-        ...getTranslations("Proyectos.tarifasProveedores", "Tarifas Proveedores"),
-        key: RATES_SUP_TAB_INDEX,
-        error: tabHasError(RATES_SUP_TAB_INDEX),
-        component: (
-          <ProjectRateSup
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [RATES_SUP_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-          />
-        ),
-      },
-      {
-        ...getTranslations("Proyectos.certificaciones", "Certificaciones"),
-        key: CERT_TAB_INDEX,
-        error: tabHasError(CERT_TAB_INDEX),
-        component: (
-          <CertificacionesTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [CERT_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-            isSubmitted={props.isSubmitted}
-          />
-        ),
-      },
-
-      {
-        ...getTranslations("Proyectos.otraAplicacion", "Proyectos otras App"),
-        key: PROJECT_APP_TAB_INDEX,
-        error: tabHasError(PROJECT_APP_TAB_INDEX),
-        component: (
-          <ProjectsAppTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [PROJECT_APP_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-            isSubmitted={props.isSubmitted}
-          />
-        ),
-      },
-      {
-        ...getTranslations("Proyectos.vencProv", "Vencimeintos por proveedor"),
-        key: EXPIRATION_TAB_INDEX,
-        error: tabHasError(EXPIRATION_TAB_INDEX),
-        component: (
-          <ExpirationSupplierTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [EXPIRATION_TAB_INDEX]: !value,
+                [COMPLEMENT_TAB_INDEX]: !value,
               })
             }
             editMode={editMode}
@@ -293,17 +154,17 @@ const ProjectsForm = React.memo(
       },
       {
         ...getTranslations(
-          "Proyectos.inversionSujeto",
-          "Inversión Sujeto Pasivo"
+          "FacturasProveedor.basesVencimientos",
+          "Bases y Vencimientos"
         ),
-        key: INV_SUJ_TAB_INDEX,
-        error: tabHasError(INV_SUJ_TAB_INDEX),
+        key: BV_TAB_INDEX,
+        error: tabHasError(BV_TAB_INDEX),
         component: (
-          <InvSujetoPasivoTab
+          <BasesVencimientoTab
             setIsValid={(value) =>
               setTabIndexWithError({
                 ...tabIndexWithError,
-                [INV_SUJ_TAB_INDEX]: !value,
+                [BV_TAB_INDEX]: !value,
               })
             }
             editMode={editMode}
@@ -320,15 +181,15 @@ const ProjectsForm = React.memo(
       },
 
       {
-        ...getTranslations("Proyectos.historialResp", "Historial Responsables"),
-        key: HISTORY_TAB_INDEX,
-        error: tabHasError(HISTORY_TAB_INDEX),
+        ...getTranslations("Clientes.Documentos.albaranes", "Albaranes"),
+        key: ALBARAN_TAB_INDEX,
+        error: tabHasError(ALBARAN_TAB_INDEX),
         component: (
-          <RespHistoryTab
+          <AlbaranesTab
             setIsValid={(value) =>
               setTabIndexWithError({
                 ...tabIndexWithError,
-                [HISTORY_TAB_INDEX]: !value,
+                [ALBARAN_TAB_INDEX]: !value,
               })
             }
             editMode={editMode}
@@ -344,15 +205,18 @@ const ProjectsForm = React.memo(
         ),
       },
       {
-        ...getTranslations("Proveedores.tabs.documentos", "Documentos "),
-        key: DOCUMENTS_TAB_INDEX,
-        error: tabHasError(DOCUMENTS_TAB_INDEX),
+        ...getTranslations(
+          "Clientes.Documentos.movimientoCaja",
+          "Movimientos Cajas"
+        ),
+        key: MOVIMIENTOS_TAB_INDEX,
+        error: tabHasError(MOVIMIENTOS_TAB_INDEX),
         component: (
-          <DocumentsTab
+          <MovimientosCajaTab
             setIsValid={(value) =>
               setTabIndexWithError({
                 ...tabIndexWithError,
-                [DOCUMENTS_TAB_INDEX]: !value,
+                [MOVIMIENTOS_TAB_INDEX]: !value,
               })
             }
             editMode={editMode}
@@ -387,10 +251,10 @@ const ProjectsForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "Proyectos.titulo",
-              defaultMessage: "Proyectos",
+              id: "FacturasProveedor.titulo",
+              defaultMessage: "Facturas Proveedor",
             }),
-            href: "/fact/proyectos",
+            href: "/fact/facturas-proveedores",
           },
           {
             title: props.intl.formatMessage({
@@ -412,7 +276,7 @@ const ProjectsForm = React.memo(
     /** Update HEADER */
     useEffect(() => {
       if (isEditable()) {
-        const nomComercial = getFormData("nom");
+        const nomComercial = getFormData("nomFiscal");
         const nom = nomComercial
           ? nomComercial
           : `${props.intl.formatMessage({
@@ -422,16 +286,16 @@ const ProjectsForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "Proyectos.titulo",
-              defaultMessage: "Proyectos",
+              id: "FacturasProveedor.titulo",
+              defaultMessage: "Facturas Proveedor",
             }),
-            href: "/fact/proyectos",
+            href: "/fact/facturas-proveedores",
           },
-          { title: nom, href: "/fact/proyectos" },
+          { title: nom, href: "/fact/facturas-proveedores" },
           { title: nameSelectedTab },
         ]);
       }
-    }, [getFormData("nom"), nameSelectedTab]);
+    }, [getFormData("nomFiscal"), nameSelectedTab]);
 
     useEffect(() => {
       if (submitFromOutside) {
@@ -493,5 +357,5 @@ const component = compose(
   injectIntl,
   connect(mapStateToProps, mapDispatchToProps),
   withAbmServices
-)(ProjectsForm);
+)(SupplierInvoiceForm);
 export default component;
