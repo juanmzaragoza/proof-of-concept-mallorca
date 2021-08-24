@@ -304,3 +304,5 @@ export const operaris = `api/rrhh/operaris`;
 export const complementFacturaProveidor = `api/fact/complementsFacturaProveidor`;
 export const basesFactura = `api/fact/basesFactura`;
 export const vencimentsFactura = `api/fact/vencimentsFactura`;
+export const projectesTarifaProveidor = `api/fact/projectesTarifaProveidor`;
+export const fullesObra = `api/fact/fullesObra`;

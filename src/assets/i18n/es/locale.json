@@ -1917,7 +1917,18 @@
   "FacturasProveedor.valorDivisa":"Valor divisa euros",
   "FacturasProveedor.referenciaAnual":"Referencia Anual",
   "FacturasProveedor.retenerGarantia":"Retener Garantía",
-  "FacturasProveedor.cuentaVenta":"Cuenta Venta Sequencia"
+  "FacturasProveedor.cuentaVenta":"Cuenta Venta Sequencia",
+  "Proyectos.tarifasProveedores" :"Tarifas Proveedores",
+  "Proyectos.tarifaProveedor":"Tarifa Proveedor",
+  "Proyectos.codigoProveedor": "Código Proveedor",
+  "Proyectos.Documentos.hojasObra":"Hojas obra",
+  "Proyectos.Documentos.tipo":"Tipo",
+  "Proyectos.Documentos.nivelUrgencia":"Nivel Urgencia",
+  "Proyectos.Documentos.nombreSubcliente":"Nombre Subcliente",
+  "Proyectos.Documentos.nombreCliente":"Nombre Cliente",
+  "Proyectos.Documentos.subCliente":"SubCliente",
+  "Proveedores.Documentos.fechaPrevistaEntrega":"Fecha Prevista Entrega",
+  "Proveedores.Documentos.fechaFin": "Fecha Fin"
  
   
 }

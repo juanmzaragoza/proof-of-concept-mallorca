@@ -462,8 +462,8 @@ const InvSujetoPasivoTab = ({
           className="general-tab-container"
           title={
             <FormattedMessage
-              id={"Proyectos.datosGenerales"}
-              defaultMessage={"Datos Generales"}
+              id={"Proyectos.inversionSujeto"}
+              defaultMessage={"inversionSujeto"}
             />
           }
         >

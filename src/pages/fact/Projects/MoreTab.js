@@ -11,17 +11,13 @@ import { withValidations } from "modules/wrappers";
 import { useTabForm } from "hooks/tab-form";
 
 const PROJECT_SECTION_INDEX = 0;
-const CONTAB = 1;
-const CONSTRUCTION = 2;
-const COSTES = 3;
+
 
 const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
-      [PROJECT_SECTION_INDEX]: true,
-      [CONTAB]: true,
-      [CONSTRUCTION]: false,
-      [COSTES]: true,
+      [PROJECT_SECTION_INDEX]: false,
+ 
     },
     setIsValid: props.setIsValid,
   });
@@ -426,8 +422,8 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
             formErrors={props.formErrors}
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(CONTAB, value)}
-            onBlur={(e) => handleTouched(CONTAB)}
+            handleIsValid={(value) => addValidity(PROJECT_SECTION_INDEX, value)}
+            onBlur={(e) => handleTouched(PROJECT_SECTION_INDEX)}
             {...props}
           />
         </OutlinedContainer>
@@ -452,8 +448,8 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
             formErrors={props.formErrors}
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(CONSTRUCTION, value)}
-            onBlur={(e) => handleTouched(CONSTRUCTION)}
+            handleIsValid={(value) => addValidity(PROJECT_SECTION_INDEX, value)}
+            onBlur={(e) => handleTouched(PROJECT_SECTION_INDEX)}
             {...props}
           />
         </OutlinedContainer>
@@ -478,8 +474,8 @@ const MoreTab = ({ formData, setFormData, getFormData, ...props }) => {
             formErrors={props.formErrors}
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(COSTES, value)}
-            onBlur={(e) => handleTouched(COSTES)}
+            handleIsValid={(value) => addValidity(PROJECT_SECTION_INDEX, value)}
+            onBlur={(e) => handleTouched(PROJECT_SECTION_INDEX)}
             {...props}
           />
         </OutlinedContainer>
