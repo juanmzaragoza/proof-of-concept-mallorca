@@ -21,19 +21,19 @@ import {
   getFormErrors,
   getFormDataByKey,
   getIsDataLoaded,
-  getIsSubmitted
+  getIsSubmitted,
 } from "../../../redux/genericForm/selectors";
 
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
 import AlbaranesTab from "./AlbaranesTab";
 import MovimientosCajaTab from "./MovimientosCajaTab";
-
+import ComplementsTab from "./ComplementsTab";
 
 const GENERAL_TAB_INDEX = 0;
-const ALBARAN_TAB_INDEX = 1;
-const MOVIMIENTOS_TAB_INDEX = 2;
-
+const COMPLEMENT_TAB_INDEX = 1;
+const ALBARAN_TAB_INDEX = 2;
+const MOVIMIENTOS_TAB_INDEX = 3;
 
 const SupplierInvoiceForm = React.memo(
   ({
@@ -50,8 +50,9 @@ const SupplierInvoiceForm = React.memo(
 
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [GENERAL_TAB_INDEX]: false,
+      [COMPLEMENT_TAB_INDEX]: false,
       [ALBARAN_TAB_INDEX]: false,
-      [MOVIMIENTOS_TAB_INDEX]:false
+      [MOVIMIENTOS_TAB_INDEX]: false,
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -123,6 +124,30 @@ const SupplierInvoiceForm = React.memo(
         ),
       },
       {
+        ...getTranslations("FacturasProveedor.complementos", "Complementos"),
+        key: COMPLEMENT_TAB_INDEX,
+        error: tabHasError(COMPLEMENT_TAB_INDEX),
+        component: (
+          <ComplementsTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [COMPLEMENT_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
+          />
+        ),
+      },
+      {
         ...getTranslations("Clientes.Documentos.albaranes", "Albaranes"),
         key: ALBARAN_TAB_INDEX,
         error: tabHasError(ALBARAN_TAB_INDEX),
@@ -147,7 +172,10 @@ const SupplierInvoiceForm = React.memo(
         ),
       },
       {
-        ...getTranslations("Clientes.Documentos.movimientoCaja", "Movimientos Cajas"),
+        ...getTranslations(
+          "Clientes.Documentos.movimientoCaja",
+          "Movimientos Cajas"
+        ),
         key: MOVIMIENTOS_TAB_INDEX,
         error: tabHasError(MOVIMIENTOS_TAB_INDEX),
         component: (
@@ -170,54 +198,54 @@ const SupplierInvoiceForm = React.memo(
           />
         ),
       },
-    //   {
-    //     ...getTranslations("Facturas.tabs.registroEntrada", "Registro Entrada"),
-    //     key: REG_EN_TAB_INDEX,
-    //     error: tabHasError(REG_EN_TAB_INDEX),
-    //     component: (
-    //       <RegistroEntradaTab
-    //         setIsValid={(value) =>
-    //           setTabIndexWithError({
-    //             ...tabIndexWithError,
-    //             [REG_EN_TAB_INDEX]: !value,
-    //           })
-    //         }
-    //         editMode={editMode}
-    //         getFormData={getFormData}
-    //         setFormData={actions.setFormData}
-    //         submitFromOutside={submitFromOutside}
-    //         onSubmitTab={handleSubmitTab}
-    //         formErrors={props.formErrors}
-    //         loading={props.loading}
-    //         formDataLoaded={props.formDataLoaded}
-    //         isSubmitted={props.isSubmitted}
-    //       />
-    //     ),
-    //   },
-    //   {
-    //     ...getTranslations("Facturas.otrosDatos", "Otros Datos"),
-    //     key: MORE_INFO_TAB_INDEX,
-    //     error: tabHasError(MORE_INFO_TAB_INDEX),
-    //     component: (
-    //       <MoreTab
-    //         setIsValid={(value) =>
-    //           setTabIndexWithError({
-    //             ...tabIndexWithError,
-    //             [MORE_INFO_TAB_INDEX]: !value,
-    //           })
-    //         }
-    //         editMode={editMode}
-    //         getFormData={getFormData}
-    //         setFormData={actions.setFormData}
-    //         submitFromOutside={submitFromOutside}
-    //         onSubmitTab={handleSubmitTab}
-    //         formErrors={props.formErrors}
-    //         loading={props.loading}
-    //         formDataLoaded={props.formDataLoaded}
-    //         isSubmitted={props.isSubmitted}
-    //       />
-    //     ),
-    //   },
+      //   {
+      //     ...getTranslations("Facturas.tabs.registroEntrada", "Registro Entrada"),
+      //     key: REG_EN_TAB_INDEX,
+      //     error: tabHasError(REG_EN_TAB_INDEX),
+      //     component: (
+      //       <RegistroEntradaTab
+      //         setIsValid={(value) =>
+      //           setTabIndexWithError({
+      //             ...tabIndexWithError,
+      //             [REG_EN_TAB_INDEX]: !value,
+      //           })
+      //         }
+      //         editMode={editMode}
+      //         getFormData={getFormData}
+      //         setFormData={actions.setFormData}
+      //         submitFromOutside={submitFromOutside}
+      //         onSubmitTab={handleSubmitTab}
+      //         formErrors={props.formErrors}
+      //         loading={props.loading}
+      //         formDataLoaded={props.formDataLoaded}
+      //         isSubmitted={props.isSubmitted}
+      //       />
+      //     ),
+      //   },
+      //   {
+      //     ...getTranslations("Facturas.otrosDatos", "Otros Datos"),
+      //     key: MORE_INFO_TAB_INDEX,
+      //     error: tabHasError(MORE_INFO_TAB_INDEX),
+      //     component: (
+      //       <MoreTab
+      //         setIsValid={(value) =>
+      //           setTabIndexWithError({
+      //             ...tabIndexWithError,
+      //             [MORE_INFO_TAB_INDEX]: !value,
+      //           })
+      //         }
+      //         editMode={editMode}
+      //         getFormData={getFormData}
+      //         setFormData={actions.setFormData}
+      //         submitFromOutside={submitFromOutside}
+      //         onSubmitTab={handleSubmitTab}
+      //         formErrors={props.formErrors}
+      //         loading={props.loading}
+      //         formDataLoaded={props.formDataLoaded}
+      //         isSubmitted={props.isSubmitted}
+      //       />
+      //     ),
+      //   },
     ];
 
     const { id } = useParams();
@@ -326,7 +354,7 @@ const mapStateToProps = (state, props) => {
     allFormData: getFormData(state),
     getFormData: getFormDataByKey(state),
     formDataLoaded: getIsDataLoaded(state),
-    isSubmitted: getIsSubmitted(state)
+    isSubmitted: getIsSubmitted(state),
   };
 };
 

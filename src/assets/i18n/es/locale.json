@@ -1896,5 +1896,9 @@
    "FacturasProveedor.IVA": "IVA",
    "Facturas.cuenta":"Cuenta",
    "FacturasProveedor.caja":"Caja",
-   "FacturasProveedor.proyecto":"Proyecto"
+   "FacturasProveedor.proyecto":"Proyecto",
+   "FacturasProveedor.importe":"Importe",
+   "FacturasProveedor.complementos":"Complementos",
+   "FacturasProveedor.cuentaContable":"Cuenta Contable",
+   "FacturasProveedor.complemento":"Complemento"
 }
