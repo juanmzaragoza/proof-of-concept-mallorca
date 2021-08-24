@@ -27,9 +27,12 @@ import {
 
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
+import LiniesTab from "./LiniesTab";
 
 const BUDGET_TAB_INDEX = 0;
-const CUSTOMER_TAB_INDEX = 1;
+const LINE_TAB_INDEX = 1;
+const CUSTOMER_TAB_INDEX = 2;
+
 
 const CustomerBudgetForm = React.memo(
   ({
@@ -46,6 +49,7 @@ const CustomerBudgetForm = React.memo(
 
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [BUDGET_TAB_INDEX]: false,
+      [LINE_TAB_INDEX]:false,
       [CUSTOMER_TAB_INDEX]: false,
     });
     const [forceTabChange, setForceTabChange] = useState(false);
@@ -118,16 +122,16 @@ const CustomerBudgetForm = React.memo(
           />
         ),
       },
-      {
-        ...getTranslations("Presupuestos.tabs.datosClientes", "Datos Clientes"),
-        key: CUSTOMER_TAB_INDEX,
-        error: tabHasError(CUSTOMER_TAB_INDEX),
+       {
+        ...getTranslations("Presupuestos.liniasPresupuesto", "linias Presupuesto"),
+        key: LINE_TAB_INDEX,
+        error: tabHasError(LINE_TAB_INDEX),
         component: (
-          <VariosTab
+          <LiniesTab
             setIsValid={(value) =>
               setTabIndexWithError({
                 ...tabIndexWithError,
-                [CUSTOMER_TAB_INDEX]: !value,
+                [LINE_TAB_INDEX]: !value,
               })
             }
             editMode={editMode}
@@ -142,6 +146,30 @@ const CustomerBudgetForm = React.memo(
           />
         ),
       },
+      // {
+      //   ...getTranslations("Presupuestos.tabs.datosClientes", "Datos Clientes"),
+      //   key: CUSTOMER_TAB_INDEX,
+      //   error: tabHasError(CUSTOMER_TAB_INDEX),
+      //   component: (
+      //     <VariosTab
+      //       setIsValid={(value) =>
+      //         setTabIndexWithError({
+      //           ...tabIndexWithError,
+      //           [CUSTOMER_TAB_INDEX]: !value,
+      //         })
+      //       }
+      //       editMode={editMode}
+      //       getFormData={getFormData}
+      //       setFormData={actions.setFormData}
+      //       submitFromOutside={submitFromOutside}
+      //       onSubmitTab={handleSubmitTab}
+      //       formErrors={props.formErrors}
+      //       loading={props.loading}
+      //       formDataLoaded={props.formDataLoaded}
+      //       isSubmitted={props.isSubmitted}
+      //     />
+      //   ),
+      // },
     ];
 
     const { id } = useParams();

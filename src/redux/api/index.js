@@ -306,3 +306,4 @@ export const basesFactura = `api/fact/basesFactura`;
 export const vencimentsFactura = `api/fact/vencimentsFactura`;
 export const projectesTarifaProveidor = `api/fact/projectesTarifaProveidor`;
 export const fullesObra = `api/fact/fullesObra`;
+export const pressupostLinia = `api/fact/pressupostosLinia`;

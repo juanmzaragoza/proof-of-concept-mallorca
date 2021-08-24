@@ -1929,7 +1929,21 @@
   "Proyectos.Documentos.subCliente":"SubCliente",
   "Proveedores.Documentos.fechaPrevistaEntrega":"Fecha Prevista Entrega",
   "Proveedores.Documentos.fechaFin": "Fecha Fin",
-  "PieDocumento.numero":"Número"
- 
+  "PieDocumento.numero":"Número",
+  "Presupuestos.fechaCaducidad":"Fecha Caducidad",
+  "Presupuestos.fechaCierre":"Fecha Cierre",
+  "Presupuestos.fechaInicio":"Fecha Inicio",
+  "Presupuestos.fechaAceptacion":"Fecha Aceptación",
+  "Presupuestos.fechaFin":"Fecha Fin",
+  "Presupuestos.presentado":"Presentado Cliente",
+  "Presupuestos.numero":"Número",
+  "Presupuestos.horaEntrega":"Hora Entrega",
+  "Presupuestos.descuento2":"Descuento 2",
+  "Presupuestos.descuento1":"Descuento 1",
+  "Presupuestos.mesesGarantia":"Meses Garantía",
+  "Presupuestos.otros":"Otros",
+  "Presupuestos.liniasPresupuesto":"Línias Presupuesto",
+  "Presupuestos.precioIva":"Precio IVA"
+
   
 }

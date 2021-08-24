@@ -112,6 +112,20 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     };
   };
 
+
+  const getString = (key) => (getFormData(key) ? getFormData(key) : "");
+
+
+  useEffect(() => {
+    const getClient = getString("nomClient");
+    const client = getString("client");
+
+    setFormData({
+      key: "nomClient",
+      value: client?.nomComercial ? client.nomComercial : getClient,
+    });
+  }, [getFormData("client")]);
+  
   const datosGenerales = [
     {
       placeHolder: props.intl.formatMessage({
