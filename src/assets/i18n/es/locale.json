@@ -1928,7 +1928,8 @@
   "Proyectos.Documentos.nombreCliente":"Nombre Cliente",
   "Proyectos.Documentos.subCliente":"SubCliente",
   "Proveedores.Documentos.fechaPrevistaEntrega":"Fecha Prevista Entrega",
-  "Proveedores.Documentos.fechaFin": "Fecha Fin"
+  "Proveedores.Documentos.fechaFin": "Fecha Fin",
+  "PieDocumento.numero":"Número"
  
   
 }
