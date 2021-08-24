@@ -27,6 +27,22 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     setIsValid: props.setIsValid,
   });
 
+
+  const getString = (key) => (getFormData(key) ? getFormData(key) : "");
+
+
+  useEffect(() => {
+    const getClient = getString("pressupostNomClientExtraField");
+    const preCodi = getString("preCodi");
+
+    console.log(preCodi)
+    setFormData({
+      key: "pressupostNomClientExtraField",
+      value: preCodi?.nomComercial ? preCodi.nomComercial : getClient,
+    });
+  }, [getFormData("preCodi")]);
+
+
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
     defaultMessage: "Código",
@@ -700,6 +716,62 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         ],
       },
     },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "PedidosProveedor.estado",
+        defaultMessage: "Estado",
+      }),
+      type: "input",
+      key: "pressupostEstatExtraField",
+      disabled: true,
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "PedidosProveedor.cliente",
+        defaultMessage: "Cliente",
+      }),
+      type: "input",
+      key: "pressupostNomClientExtraField",
+      disabled: true,
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "PedidosProveedor.subcliente",
+        defaultMessage: "SubCliente",
+      }),
+      type: "input",
+      key: "pressupostSubClientNomExtraField",
+      disabled: true,
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "PedidosProveedor.dirección",
+        defaultMessage: "Dirección",
+      }),
+      type: "input",
+      key: "pressupostClientAdresaCodiExtraField",
+      disabled: true,
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+    },
+
+
+
+    
     {
       placeHolder: props.intl.formatMessage({
         id: "Proyectos.capitulos",
