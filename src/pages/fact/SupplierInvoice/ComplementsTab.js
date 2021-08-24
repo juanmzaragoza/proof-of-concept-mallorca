@@ -8,8 +8,9 @@ import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
 import { TIPO_DESCUENTO_SELECTOR_VALUES } from "constants/selectors";
+import { Chip } from "@material-ui/core";
 
-const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
+const ComplementsTab = ({ formData, setFormData, getFormData, ...props }) => {
   // warning!!! It's always valid because we haven't validations
   useEffect(() => {
     props.setIsValid(true);
@@ -17,7 +18,30 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const { id: supplierInvoiceId } = useParams();
 
-  const clientCodi = getFormData("codi");
+
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
+  const DESCRIPCIO = props.intl.formatMessage({
+    id: "Comun.descripcion",
+    defaultMessage: "Descripción",
+  });
+
+  const NOM = props.intl.formatMessage({
+    id: "Comun.nombre",
+    defaultMessage: "Nombre",
+  });
+
+
+  const formatCodeAndDescription = (data) =>
+    `${data.descripcio} (${data.codi})`;
+
+  const aSCodeAndDescription = [
+    { title: CODE, name: "codi" },
+    { title: DESCRIPCIO, name: "descripcio" },
+  ];
+
 
   const withRequiredValidation = (extraValidations = []) => {
     return {
@@ -41,15 +65,17 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     ],
     extraPostBody: {
-        facturaProveidor: { id: `${supplierInvoiceId}` },
+      facturaProveidor: { id: `${supplierInvoiceId}` },
     },
     columns: [
       {
-        name: "codi",
+        name: "complementFactura",
         title: props.intl.formatMessage({
-          id: "Comun.codigo",
-          defaultMessage: "Código",
+          id: "FacturasProveedor.complemento",
+          defaultMessage: "Complemento",
         }),
+        getCellValue: (row) =>
+          row.complementFactura && row.complementFactura?.description,
       },
       {
         name: "imports",
@@ -58,7 +84,7 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Importe",
         }),
       },
-    
+
       {
         name: "iva",
         title: props.intl.formatMessage({
@@ -75,81 +101,140 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
       },
       {
-        name: "complementFactura",
+        name: "incrementarFactura",
         title: props.intl.formatMessage({
-          id: "FacturasProveedor.complemento",
-          defaultMessage: "Complemento",
+          id: "FacturasProveedor.incrementarFactura",
+          defaultMessage: "Incrementar Factura",
         }),
-        getCellValue: (row) => row.complementFactura && row.complementFactura?.description,
+        getCellValue: (row) =>
+          row.incrementarFactura && row.incrementarFactura === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+            />
+          ),
+      },
+      {
+        name: "incrementarBaseImposable",
+        title: props.intl.formatMessage({
+          id: "FacturasProveedor.incrementarBase",
+          defaultMessage: "Incrementar Base",
+        }),
+        getCellValue: (row) =>
+          row.incrementarBaseImposable &&
+          row.incrementarBaseImposable === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+            />
+          ),
+      },
+      {
+        name: "aplicarDescompte",
+        title: props.intl.formatMessage({
+          id: "FacturasProveedor.aplicarDto",
+          defaultMessage: "Aplicar Descuento",
+        }),
+        getCellValue: (row) =>
+          row.aplicarDescompte && row.aplicarDescompte === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+            />
+          ),
+        hidden: true,
+      },
+      {
+        name: "distribuirCostosEntreArticles",
+        title: props.intl.formatMessage({
+          id: "FacturasProveedor.distribuirCosteArt",
+          defaultMessage: "Distribuir Coste entre Artículos",
+        }),
+        getCellValue: (row) =>
+          row.distribuirCostosEntreArticles &&
+          row.distribuirCostosEntreArticles === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+            />
+          ),
+        hidden: true,
+      },
+      {
+        name: "fechaAplicacioDistribucioCostos",
+        title: props.intl.formatMessage({
+          id: "FacturasProveedor.diaDistribucion",
+          defaultMessage: "Día Distribución",
+        }),
+        getCellValue: (row) =>
+          row.fechaAplicacioDistribucioCostos
+            ? new Date(row.fechaAplicacioDistribucioCostos).toLocaleDateString()
+            : "",
+      },
+      {
+        name: "observacions",
+        title: props.intl.formatMessage({
+          id: "Comun.observaciones",
+          defaultMessage: "Observaciones",
+        }),
+        hidden: true,
       },
     ],
     formComponents: [
       {
         placeHolder: props.intl.formatMessage({
-          id: "Clientes.aplicacion",
-          defaultMessage: "Aplicación",
-        }),
-        type: "input",
-        key: "aplicacio",
-        noEditable: true,
-        required: true,
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        validationType: "string",
-        ...withRequiredValidation([
-          ...props.stringValidations.minMaxValidation(0, 3),
-        ]),
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.codigoOtraApp",
-          defaultMessage: "Código cliente otra Aplicación",
-        }),
-        type: "input",
-        key: "aplicacioCodi",
-        required: true,
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        validationType: "string",
-        ...withRequiredValidation([
-          ...props.stringValidations.minMaxValidation(0, 10),
-        ]),
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.porcentaje",
-          defaultMessage: "Porcentaje ",
-        }),
-        type: "numeric",
-        key: "percentatge",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-        suffix: "%",
-        validationType: "number",
-        validations: props.numberValidations.minMaxValidation(0, 99),
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.empresas",
-          defaultMessage: "Empresas",
+          id: "FacturasProveedor.complementoFactura",
+          defaultMessage: "Complemento Factura",
         }),
         type: "LOV",
-        key: "empresa",
+        key: "complementFactura",
+        id:"complementsFactura",
         required: true,
+        noEditable:true,
         breakpoints: {
           xs: 12,
-          md: 4,
+          md: 3,
         },
         selector: {
-          key: "empresas",
-          labelKey: (data) => `${data.nomFiscal} (${data.codi})`,
-          sort: "nomFiscal",
+          key: "complementFacturas",
+          labelKey: (data) => `${data.descripcio} (${data.codi})`,
+          sort: "descripcio",
           cannotCreate: true,
           advancedSearchColumns: [
             {
@@ -161,14 +246,132 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
             },
             {
               title: props.intl.formatMessage({
-                id: "Comun.nombre",
-                defaultMessage: "Nombre",
+                id: "Comun.descripcion",
+                defaultMessage: "descripción",
               }),
-              name: "nomFiscal",
+              name: "descripcio",
             },
           ],
         },
+        validationType: "object",
+        ...withRequiredValidation([]),
       },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "FacturasProveedor.importe",
+          defaultMessage: "Importe",
+        }),
+        type: "numeric",
+        key: "imports",
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        validationType: "number",
+        ...withRequiredValidation([
+          ...props.numberValidations.minMaxValidation(0, 999999999999),
+        ]),
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "FacturasProveedor.incrementarFactura",
+          defaultMessage: "IncrementarFactura",
+        }),
+        type: "checkbox",
+        key: "incrementarFactura",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "FacturasProveedor.incrementarBase",
+          defaultMessage: "Incrementar Base",
+        }),
+        type: "checkbox",
+        key: "incrementarBaseImposable",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Iva.titulo",
+          defaultMessage: "IVA",
+        }),
+        type: "LOV",
+        key: "iva",
+        id: "ivaFact",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "ivas",
+          labelKey: formatCodeAndDescription,
+          sort: "descripcio",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndDescription,
+        },
+      },
+  
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "FacturasProveedor.cuentaContable",
+          defaultMessage: "Cuenta contable",
+        }),
+        type: "input",
+        key: "compteContable",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        validationType: "string",
+        validations:[
+          ...props.stringValidations.minMaxValidation(0, 10),
+        ],
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "FacturasProveedor.diaDistribucion",
+          defaultMessage: "Día Distribución",
+        }),
+        type: "date",
+        key: "fechaAplicacioDistribucioCostos",
+        breakpoints: {
+          xs: 12,
+          md: 2,
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "FacturasProveedor.aplicarDto",
+          defaultMessage: "Aplicar Descuento",
+        }),
+        type: "checkbox",
+        key: "aplicarDescompte",
+        breakpoints: {
+          xs: 12,
+          md: 2,
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "FacturasProveedor.distribuirCosteArt",
+          defaultMessage: "Distribuir Coste entre artículos",
+        }),
+        type: "checkbox",
+        key: "distribuirCostosEntreArticles",
+        breakpoints: {
+          xs: 12,
+          md: 2,
+        },
+      },
+     
+     
       {
         placeHolder: props.intl.formatMessage({
           id: "Comun.observaciones",
@@ -186,7 +389,6 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   return (
     <Grid container>
-      
       <Grid xs={12} item>
         <OutlinedContainer
           className="general-tab-container"
@@ -208,4 +410,4 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
     </Grid>
   );
 };
-export default compose(React.memo, withValidations, injectIntl)(ClientsAppTab);
+export default compose(React.memo, withValidations, injectIntl)(ComplementsTab);

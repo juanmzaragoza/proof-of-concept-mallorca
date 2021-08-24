@@ -29,11 +29,13 @@ import { getLoading } from "../../../redux/app/selectors";
 import AlbaranesTab from "./AlbaranesTab";
 import MovimientosCajaTab from "./MovimientosCajaTab";
 import ComplementsTab from "./ComplementsTab";
+import BasesVencimientoTab from "./BasesVencimientoTab";
 
 const GENERAL_TAB_INDEX = 0;
 const COMPLEMENT_TAB_INDEX = 1;
-const ALBARAN_TAB_INDEX = 2;
-const MOVIMIENTOS_TAB_INDEX = 3;
+const BV_TAB_INDEX = 2;
+const ALBARAN_TAB_INDEX = 3;
+const MOVIMIENTOS_TAB_INDEX = 4;
 
 const SupplierInvoiceForm = React.memo(
   ({
@@ -51,6 +53,7 @@ const SupplierInvoiceForm = React.memo(
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [GENERAL_TAB_INDEX]: false,
       [COMPLEMENT_TAB_INDEX]: false,
+      [BV_TAB_INDEX]: false,
       [ALBARAN_TAB_INDEX]: false,
       [MOVIMIENTOS_TAB_INDEX]: false,
     });
@@ -87,6 +90,8 @@ const SupplierInvoiceForm = React.memo(
             });
       }
     };
+
+
 
     const getTranslations = (id, defaultMessage) => {
       return {
@@ -148,6 +153,34 @@ const SupplierInvoiceForm = React.memo(
         ),
       },
       {
+        ...getTranslations(
+          "FacturasProveedor.basesVencimientos",
+          "Bases y Vencimientos"
+        ),
+        key: BV_TAB_INDEX,
+        error: tabHasError(BV_TAB_INDEX),
+        component: (
+          <BasesVencimientoTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [BV_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
+          />
+        ),
+      },
+
+      {
         ...getTranslations("Clientes.Documentos.albaranes", "Albaranes"),
         key: ALBARAN_TAB_INDEX,
         error: tabHasError(ALBARAN_TAB_INDEX),
@@ -198,54 +231,6 @@ const SupplierInvoiceForm = React.memo(
           />
         ),
       },
-      //   {
-      //     ...getTranslations("Facturas.tabs.registroEntrada", "Registro Entrada"),
-      //     key: REG_EN_TAB_INDEX,
-      //     error: tabHasError(REG_EN_TAB_INDEX),
-      //     component: (
-      //       <RegistroEntradaTab
-      //         setIsValid={(value) =>
-      //           setTabIndexWithError({
-      //             ...tabIndexWithError,
-      //             [REG_EN_TAB_INDEX]: !value,
-      //           })
-      //         }
-      //         editMode={editMode}
-      //         getFormData={getFormData}
-      //         setFormData={actions.setFormData}
-      //         submitFromOutside={submitFromOutside}
-      //         onSubmitTab={handleSubmitTab}
-      //         formErrors={props.formErrors}
-      //         loading={props.loading}
-      //         formDataLoaded={props.formDataLoaded}
-      //         isSubmitted={props.isSubmitted}
-      //       />
-      //     ),
-      //   },
-      //   {
-      //     ...getTranslations("Facturas.otrosDatos", "Otros Datos"),
-      //     key: MORE_INFO_TAB_INDEX,
-      //     error: tabHasError(MORE_INFO_TAB_INDEX),
-      //     component: (
-      //       <MoreTab
-      //         setIsValid={(value) =>
-      //           setTabIndexWithError({
-      //             ...tabIndexWithError,
-      //             [MORE_INFO_TAB_INDEX]: !value,
-      //           })
-      //         }
-      //         editMode={editMode}
-      //         getFormData={getFormData}
-      //         setFormData={actions.setFormData}
-      //         submitFromOutside={submitFromOutside}
-      //         onSubmitTab={handleSubmitTab}
-      //         formErrors={props.formErrors}
-      //         loading={props.loading}
-      //         formDataLoaded={props.formDataLoaded}
-      //         isSubmitted={props.isSubmitted}
-      //       />
-      //     ),
-      //   },
     ];
 
     const { id } = useParams();

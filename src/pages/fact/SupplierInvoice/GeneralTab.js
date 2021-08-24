@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 
 import {
   TDOC_SELECTOR_VALUES,
-  TIPO_REG_IVA_SELECTOR_VALUES,
+  TIPO_DIR_COMERCIALES_SELECTOR_VALUES,
   TIPO_RETENCION_SELECTOR_VALUES,
 } from "constants/selectors";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
@@ -29,6 +29,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     setIsValid: props.setIsValid,
   });
 
+  useEffect(() => {
+    props.setIsValid(true);
+  }, []);
+
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
     defaultMessage: "Código",
@@ -36,10 +40,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const DESCRIPCIO = props.intl.formatMessage({
     id: "Comun.descripcion",
     defaultMessage: "Descripción",
-  });
-  const DOMICILI = props.intl.formatMessage({
-    id: "Proveedores.Direccion.domicilio",
-    defaultMessage: "Domicilio",
   });
 
   const NOM = props.intl.formatMessage({
@@ -56,11 +56,17 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   useEffect(() => {
     const getProveedor = getString("nomFiscal");
+    const getNifProveedor = getString("nif");
     const proveedor = getString("proveidor");
 
     setFormData({
       key: "nomFiscal",
       value: proveedor?.nomFiscal ? proveedor.nomFiscal : getProveedor,
+    });
+
+    setFormData({
+      key: "nif",
+      value: proveedor?.nif ? proveedor.nif : getNifProveedor,
     });
 
     console.log(getProveedor,proveedor)
@@ -142,7 +148,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "number",
-      ...withRequiredValidation(),
+      validations: [...props.commonValidations.requiredValidation()],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -157,9 +163,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 1,
       },
       validationType: "string",
-      ...withRequiredValidation([
+      validations: [
         ...props.stringValidations.minMaxValidation(0, 1),
-      ]),
+        ...props.commonValidations.requiredValidation(),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -174,9 +181,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
       validationType: "string",
-      ...withRequiredValidation([
+      validations: [
         ...props.stringValidations.minMaxValidation(0, 60),
-      ]),
+        ...props.commonValidations.requiredValidation(),
+      ],
     },
 
     {
@@ -213,7 +221,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndName,
       },
       validationType: "object",
-      ...withRequiredValidation([]),
+      validations: [...props.commonValidations.requiredValidation()],
     },
 
     {
@@ -229,9 +237,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 5,
       },
       validationType: "string",
-      ...withRequiredValidation([
-        ...props.stringValidations.minMaxValidation(1, 240),
-      ]),
+      validations: [
+
+        ...props.stringValidations.minMaxValidation(0, 240),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -380,7 +389,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         },
       },
       validationType: "string",
-      ...withRequiredValidation(),
+      validations: [...props.commonValidations.requiredValidation()],
     },
 
     {
@@ -418,7 +427,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         ],
       },
       validationType: "object",
-      ...withRequiredValidation(),
+      validations: [...props.commonValidations.requiredValidation()],
     },
 
     {
@@ -434,9 +443,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "number",
-      ...withRequiredValidation([
+      validations: [
+        ...props.commonValidations.requiredValidation(),
         ...props.numberValidations.minMaxValidation(1, 9999999),
-      ]),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -456,114 +466,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         labelKey: (data) => `${data.descripcio} (${data.codi})`,
         sort: "codi",
         advancedSearchColumns: aSCodeAndDescription,
-        creationComponents: [
-          {
-            type: "input",
-            key: "codi",
-            placeHolder: CODE,
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 2,
-            },
-            validationType: "string",
-            ...withRequiredValidation([
-              ...props.stringValidations.minMaxValidation(1, 2),
-            ]),
-          },
-          {
-            type: "input",
-            key: "descripcio",
-            placeHolder: NOM,
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-            validationType: "string",
-            ...withRequiredValidation([
-              ...props.stringValidations.minMaxValidation(1, 30),
-            ]),
-          },
-          {
-            type: "input",
-            key: "codiComptabilitat",
-            placeHolder: props.intl.formatMessage({
-              id: "Clientes.codigo.contabilidad",
-              defaultMessage: "Código contabilidad",
-            }),
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 3,
-            },
-            validationType: "string",
-            validations: [...props.stringValidations.minMaxValidation(1, 2)],
-          },
-
-          {
-            placeHolder: props.intl.formatMessage({
-              id: "Clientes.tipo",
-              defaultMessage: "Tipo",
-            }),
-            type: "select",
-            key: "tip",
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 3,
-            },
-            selector: {
-              options: TIPO_REG_IVA_SELECTOR_VALUES,
-            },
-
-            validationType: "string",
-            ...withRequiredValidation(),
-          },
-          {
-            type: "input",
-            key: "codiFacturaElectronica",
-            placeHolder: props.intl.formatMessage({
-              id: "Clientes.codigo.facturaElectronica",
-              defaultMessage: "Código factura electrónica",
-            }),
-
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-            validationType: "string",
-            validations: [...props.stringValidations.minMaxValidation(1, 4)],
-          },
-          {
-            type: "input",
-            key: "sitCodClaExd",
-            placeHolder: props.intl.formatMessage({
-              id: "Clientes.re.expedida",
-              defaultMessage: "Régimen especial fact expedida",
-            }),
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-            validationType: "string",
-            validations: [...props.stringValidations.minMaxValidation(1, 2)],
-          },
-          {
-            type: "input",
-            key: "sitCodClaReb",
-            placeHolder: props.intl.formatMessage({
-              id: "Clientes.re.recibida",
-              defaultMessage: "Régimen especial fact recibida",
-            }),
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-            validationType: "string",
-            validations: [...props.stringValidations.minMaxValidation(1, 2)],
-          },
-        ],
+        cannotCreate: true,
       },
       validationType: "object",
       validations: [...props.commonValidations.requiredValidation()],
@@ -725,15 +628,19 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "FacturasProveedor.facturaConforme",
         defaultMessage: "Factura Conforme",
       }),
-      type: "switch",
+      type: "select",
       key: "facturaConforme",
       required: true,
+      selector: {
+        options: TIPO_DIR_COMERCIALES_SELECTOR_VALUES,
+      },
+
       breakpoints: {
         xs: 12,
         md: 2,
       },
       validationType: "string",
-      ...withRequiredValidation(),
+      validations: [...props.commonValidations.requiredValidation()],
     },
   ];
 
@@ -949,6 +856,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "IVA",
       }),
       type: "numeric",
+      required: true,
       key: "quantitatIva",
       breakpoints: {
         xs: 12,
@@ -973,7 +881,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
 
       validationType: "number",
-      ...withRequiredValidation(),
+      validations: [...props.commonValidations.requiredValidation()],
     },
   ];
 

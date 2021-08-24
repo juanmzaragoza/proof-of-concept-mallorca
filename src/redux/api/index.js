@@ -302,3 +302,5 @@ export const tipusOfertaProveidor = `api/fact/tipusOfertesProveidor`;
 export const liniesAlbaraProveidor = `api/fact/liniesAlbaraProveidor`;
 export const operaris = `api/rrhh/operaris`;
 export const complementFacturaProveidor = `api/fact/complementsFacturaProveidor`;
+export const basesFactura = `api/fact/basesFactura`;
+export const vencimentsFactura = `api/fact/vencimentsFactura`;
