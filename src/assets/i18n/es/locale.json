@@ -1956,7 +1956,9 @@
   "Presupuestos.proforma":"Proforma",
   "Presupuestos.impComision":"Imp Comisión",
   "Presupuestos.horasEquiv":"Horas Equivalencias",
-  "Presupuestos.acumularImporte":"Acumular importe"
+  "Presupuestos.acumularImporte":"Acumular importe",
+  "Instalaciones.titulo":"Instalaciones",
+  "Instalaciones.direccion":"Dirección"
 
 
 }

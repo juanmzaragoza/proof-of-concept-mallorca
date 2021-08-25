@@ -939,6 +939,12 @@ const withConstants = (PassedComponent) => {
           },
         ],
       },
+      {
+        key: 'FAC_INS', 
+        title: props.intl.formatMessage({id:  "Instalaciones.titulo",defaultMessage: "Instalaciones"}),
+        path: 'FAC_INS',
+        icon: <LocalMall />
+      },
 
       {
         key: "FAC_PAINIF", // not mandatory for routes with children

@@ -308,3 +308,4 @@ export const projectesTarifaProveidor = `api/fact/projectesTarifaProveidor`;
 export const fullesObra = `api/fact/fullesObra`;
 export const pressupostLinia = `api/fact/pressupostosLinia`;
 export const finalFacturas = `api/fact/finalFactures`;
+export const instalacions =`api/fact/instalacions`;

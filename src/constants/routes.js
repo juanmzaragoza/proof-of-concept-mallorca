@@ -133,3 +133,4 @@ export const ALBARANES_CLIENTE_FACT_URL = "/fact/albaranes-clientes";
 export const ALBARANES_PROV_FACT_URL = "/fact/albaranes-proveedores";
 export const INVOICE_SUPPLIER_FACT_URL = "/fact/facturas-proveedores";
 export const BUDGET_FACT_URL = "/fact/presupuestos";
+export const INSTALACIONES_FACT_URL = "/fact/instalaciones";
