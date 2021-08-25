@@ -79,6 +79,7 @@ const ArticlesLocationCreate = (props) => {
       }),
       type: "LOV",
       key: "magatzem",
+      noEditable:true,
       required: true,
       breakpoints: {
         xs: 12,
@@ -364,6 +365,7 @@ const ArticlesLocationCreate = (props) => {
       type: "LOV",
       key: "ubicacio",
       required: true,
+      noEditable:true,
       breakpoints: {
         xs: 12,
         md: 5,
@@ -387,6 +389,7 @@ const ArticlesLocationCreate = (props) => {
       type: "LOV",
       key: "article",
       id: "articlesFact",
+      noEditable:true,
       required: true,
       breakpoints: {
         xs: 12,
