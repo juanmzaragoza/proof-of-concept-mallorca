@@ -6,6 +6,7 @@ import { getFormedURL } from "../common";
 
 //Action types
 const ADD = "ADD_TO_REACT_GRID";
+const REPLACE = "REPLACE_DATA_TO_REACT_GRID";
 const REMOVE = "REMOVE_TO_REACT_GRID";
 const RESET = "RESET_REACT_GRID";
 
@@ -81,6 +82,27 @@ export const deleteData = ({ key, id }) => {
   };
 };
 
+export const updateData = ({ key, id, data }) => {
+  return async (dispatch) => {
+    try {
+      dispatch(add({ loading: true }));
+      const queryString = `${API[key]}/${id}`;
+      Axios.put(queryString, JSON.stringify(data))
+        .then(({ status, data, ...rest }) => {
+          dispatch(replace({ id, ...data }));
+          dispatch(add({ loading: false }));
+        })
+        .catch((error) => {
+          dispatch(add({ loading: false }));
+          error.response && handlePersistError(error.response)(dispatch);
+        });
+    } catch (error) {
+      dispatch(add({ loading: false }));
+      dispatch(add({ errors: error }));
+    }
+  };
+};
+
 const handlePersistError = ({ status, data }) => {
   return async (dispatch) => {
     if (status === 400 && data.errors) {
@@ -100,6 +122,13 @@ export const add = (payload) => {
     payload,
   };
 };
+
+export const replace = (payload) => {
+  return {
+    type: REPLACE,
+    payload
+  }
+}
 
 export const reset = () => {
   return {
@@ -128,6 +157,9 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case ADD:
       return { ...state, ...action.payload };
+    case REPLACE:
+      const changedRows = state.data.map(row => row.id === action.payload.id? action.payload:row)
+      return { ...state, data: changedRows };
     case REMOVE:
       const { id } = action.payload;
       return {
