@@ -145,6 +145,7 @@
   "Proveedores.tabs.series": "Series",
   "ReactGrid.filtros.buscar_por": "Buscar por {name}",
   "ReactGrid.error.algo_salio_mal": "Ups! Algo ha salido mal :(",
+  "ReactGrid.paginado.info": "Página {0} de {1} (Total {2} elementos)",
   "Selector.nif": "NIF",
   "Selector.nif_op_intra": "NIF operador intracomunitario",
   "Selector.doc_oficial": "Doc. oficial expedido en país",
