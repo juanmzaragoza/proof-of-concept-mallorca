@@ -1944,7 +1944,9 @@
   "Presupuestos.mesesGarantia":"Meses Garantía",
   "Presupuestos.otros":"Otros",
   "Presupuestos.liniasPresupuesto":"Línias Presupuesto",
-  "Presupuestos.precioIva":"Precio IVA"
+  "Presupuestos.precioIva":"Precio IVA",
+  "Presupuestos.finalFactura":"Final Factura",
+  "Presupuestos.parametros":"Parámetros"
 
   
 }

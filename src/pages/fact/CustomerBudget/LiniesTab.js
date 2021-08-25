@@ -203,11 +203,11 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       {
         placeHolder: props.intl.formatMessage({
-          id: "Presupuestos.precioTotalLinia",
-          defaultMessage: "Precio total linia",
+          id:  "Presupuestos.precioIva",
+          defaultMessage: "Precio con IVA",
         }),
-        type: "input",
-        key: "preuTotalLinia",
+        type: "numeric",
+        key: "preuAmbIva",
         required: true,
         breakpoints: {
           xs: 12,
@@ -216,7 +216,7 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
         validationType: "number",
         validations: [
           ...props.commonValidations.requiredValidation(),
-          ...props.numberValidations.maxValidation(10000),
+          ...props.numberValidations.maxValidation(9999999999999),
         ],
       },
       {

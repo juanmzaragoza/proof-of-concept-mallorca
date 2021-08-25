@@ -31,8 +31,7 @@ import LiniesTab from "./LiniesTab";
 
 const BUDGET_TAB_INDEX = 0;
 const LINE_TAB_INDEX = 1;
-const CUSTOMER_TAB_INDEX = 2;
-
+const VARIOS_TAB_INDEX = 2;
 
 const CustomerBudgetForm = React.memo(
   ({
@@ -49,8 +48,8 @@ const CustomerBudgetForm = React.memo(
 
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [BUDGET_TAB_INDEX]: false,
-      [LINE_TAB_INDEX]:false,
-      [CUSTOMER_TAB_INDEX]: false,
+      [LINE_TAB_INDEX]: false,
+      [VARIOS_TAB_INDEX]: false,
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -122,8 +121,11 @@ const CustomerBudgetForm = React.memo(
           />
         ),
       },
-       {
-        ...getTranslations("Presupuestos.liniasPresupuesto", "linias Presupuesto"),
+      {
+        ...getTranslations(
+          "Presupuestos.liniasPresupuesto",
+          "linias Presupuesto"
+        ),
         key: LINE_TAB_INDEX,
         error: tabHasError(LINE_TAB_INDEX),
         component: (
@@ -146,30 +148,30 @@ const CustomerBudgetForm = React.memo(
           />
         ),
       },
-      // {
-      //   ...getTranslations("Presupuestos.tabs.datosClientes", "Datos Clientes"),
-      //   key: CUSTOMER_TAB_INDEX,
-      //   error: tabHasError(CUSTOMER_TAB_INDEX),
-      //   component: (
-      //     <VariosTab
-      //       setIsValid={(value) =>
-      //         setTabIndexWithError({
-      //           ...tabIndexWithError,
-      //           [CUSTOMER_TAB_INDEX]: !value,
-      //         })
-      //       }
-      //       editMode={editMode}
-      //       getFormData={getFormData}
-      //       setFormData={actions.setFormData}
-      //       submitFromOutside={submitFromOutside}
-      //       onSubmitTab={handleSubmitTab}
-      //       formErrors={props.formErrors}
-      //       loading={props.loading}
-      //       formDataLoaded={props.formDataLoaded}
-      //       isSubmitted={props.isSubmitted}
-      //     />
-      //   ),
-      // },
+      {
+        ...getTranslations("PedidosProveedor.tabs.varios", "Varios"),
+        key: VARIOS_TAB_INDEX,
+        error: tabHasError(VARIOS_TAB_INDEX),
+        component: (
+          <VariosTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [VARIOS_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
+          />
+        ),
+      },
     ];
 
     const { id } = useParams();
@@ -215,7 +217,9 @@ const CustomerBudgetForm = React.memo(
     /** Update HEADER */
     useEffect(() => {
       if (isEditable()) {
-        const nomComercial = getFormData("nomComercial");
+        const nomComercial = `${
+          getFormData("serieVenda")?.pk?.codi
+        }/${getFormData("numero")}/${getFormData("versio")}`;
         const nom = nomComercial
           ? nomComercial
           : `${props.intl.formatMessage({
@@ -234,7 +238,12 @@ const CustomerBudgetForm = React.memo(
           { title: nameSelectedTab },
         ]);
       }
-    }, [getFormData("nomComercial"), nameSelectedTab]);
+    }, [
+      getFormData("numero"),
+      getFormData("versio"),
+      getFormData("serieVenda"),
+      nameSelectedTab,
+    ]);
 
     useEffect(() => {
       if (submitFromOutside) {

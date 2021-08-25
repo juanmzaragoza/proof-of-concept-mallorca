@@ -248,8 +248,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       validationType: "string",
       validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(0, 40),
+        // ...props.commonValidations.requiredValidation(),
+        ...props.stringValidations.minMaxValidation(1, 40),
       ],
     },
     {
