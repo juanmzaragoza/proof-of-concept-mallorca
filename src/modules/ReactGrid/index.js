@@ -9,14 +9,15 @@ import {isEmpty, unionBy} from "lodash";
 import Promise from "lodash/_Promise";
 import DataGrid,
 {
-  Scrolling,
   Pager,
   Paging,
   HeaderFilter,
   FilterRow,
   Column,
   Editing,
-  Button
+  Button,
+  MasterDetail,
+  Selection
 } from 'devextreme-react/data-grid';
 import CustomStore from "devextreme/data/custom_store";
 
@@ -35,11 +36,13 @@ import {
 } from "redux/reactGrid";
 import {Loading} from "modules/shared/Loading";
 import LOVCellComponent from "./LOVCellComponent";
+import MasterDetailedForm from "./MasterDetailForm";
+
 import './styles.scss';
 
 const ReactGrid = ({ configuration, enqueueSnackbar,
                      rows, loading, pageSize, totalCount, errors,
-                     extraQuery, onClickRow,
+                     extraQuery, formComponents = [], onClickRow,
                      actions, ...props }) => {
 
   const history = useHistory();
@@ -47,6 +50,9 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
   const [currentPage, setCurrentPage] = useState(0);
   const [sorting, setSorting] = useState([]);
   const [filters, setFilters] = useState([]);
+
+  const [expandedData, setExpandedData] = useState({});
+  const [store, setStore] = useState(null);
 
   const deleteData = (row) => {
     actions.deleteData({ key: props.id, id: row.id });
@@ -76,24 +82,27 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
     }
   },[errors]);
 
-  const store = new CustomStore({
-    key: 'id',
-    load: (loadOptions) => {
-      return new Promise((resolve, reject) => {
-        resolve({
-          data: rows,
-          totalCount: totalCount,
+  useEffect(()=>{
+    const customStore = new CustomStore({
+      key: 'id',
+      load: (loadOptions) => {
+        return new Promise((resolve, reject) => {
+          resolve({
+            data: rows,
+            totalCount: totalCount,
+          })
         })
-      })
-    },
-    update: (key, values) => {
-      const row = rows.find(row => row.id === key);
-      if(row){
-        const changedRow = { ...row, ...values };
-        actions.updateData({ key: props.id, id: row.id, data: changedRow });
+      },
+      update: (key, values) => {
+        const row = rows.find(row => row.id === key);
+        if(row){
+          const changedRow = { ...row, ...values };
+          actions.updateData({ key: props.id, id: row.id, data: changedRow });
+        }
       }
-    }
-  });
+    });
+    setStore(customStore);
+  },[rows,totalCount]);
 
   /**
    * Handler to filter and sorting
@@ -137,11 +146,22 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
     }
   }
 
+  const isExpandableEnabled = formComponents.length > 0;
+  const expandableOptions = isExpandableEnabled?
+    {
+      onSelectionChanged: (e) => {
+        e.component.collapseAll(-1);
+      },
+      onFocusedRowChanged: (e) => {
+        e.component.collapseAll(-1);
+        e.component.expandRow(e.row.key);
+        setExpandedData(e.row.data);
+      }
+    }:{};
   return (
     <React.Fragment>
       <DataGrid
         id='gridContainer'
-        keyExpr="id"
         dataSource={store}
         showBorders={true}
         columnAutoWidth={true}
@@ -150,6 +170,8 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
         showRowLines={true}
         focusedRowEnabled={true}
         onOptionChanged={handleOptionChanged}
+        repaintChangesOnly={true}
+        {...expandableOptions}
       >
         {!configuration.disabledFiltering && <HeaderFilter visible={false} />}
         {!configuration.disabledFiltering && <FilterRow visible={true} />}
@@ -174,13 +196,20 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
           <Button icon="edit" onClick={e => history.push(`${history.location.pathname}/${e.row.data.id}`)}/>
           <Button icon="trash" onClick={e => deleteData(e.row.data)} />
         </Column>}
+        <Selection mode="single" />
+        <MasterDetail
+          enabled={isExpandableEnabled}
+          component={() => <MasterDetailedForm
+            formComponents={formComponents}
+            row={expandedData}
+          />}
+        />
 
         {configuration.enableInlineEdition && <Editing
           allowUpdating={true}
           allowDeleting={true}
           mode="cell" />}
 
-        <Scrolling rowRenderingMode='virtual'></Scrolling>
         <Paging
           defaultPageSize={pageSize}
           onPageIndexChange={setCurrentPage}  />
@@ -220,7 +249,8 @@ ReactGrid.propTypes = {
   extraQuery: PropTypes.arrayOf(PropTypes.shape({
     columnName: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired
-  }))
+  })),
+  formComponents: PropTypes.array
 };
 
 const mapStateToProps = (state, props) => {
