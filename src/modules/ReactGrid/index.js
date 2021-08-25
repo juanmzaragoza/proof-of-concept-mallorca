@@ -35,6 +35,7 @@ import {
 } from "redux/reactGrid";
 import {Loading} from "modules/shared/Loading";
 import LOVCellComponent from "./LOVCellComponent";
+import './styles.scss';
 
 const ReactGrid = ({ configuration, enqueueSnackbar,
                      rows, loading, pageSize, totalCount, errors,

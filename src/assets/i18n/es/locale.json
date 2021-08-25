@@ -1932,8 +1932,31 @@
   "Proveedores.Documentos.fechaFin": "Fecha Fin",
   "PedidosProveedor.cliente":"Cliente",
   "PedidosProveedor.subcliente":"SubCliente",
-  "PedidosProveedor.dirección":"Dirección"
+  "PedidosProveedor.dirección":"Dirección",
+  "PieDocumento.numero":"Número",
+  "Presupuestos.fechaCaducidad":"Fecha Caducidad",
+  "Presupuestos.fechaCierre":"Fecha Cierre",
+  "Presupuestos.fechaInicio":"Fecha Inicio",
+  "Presupuestos.fechaAceptacion":"Fecha Aceptación",
+  "Presupuestos.fechaFin":"Fecha Fin",
+  "Presupuestos.presentado":"Presentado Cliente",
+  "Presupuestos.numero":"Número",
+  "Presupuestos.horaEntrega":"Hora Entrega",
+  "Presupuestos.descuento2":"Descuento 2",
+  "Presupuestos.descuento1":"Descuento 1",
+  "Presupuestos.mesesGarantia":"Meses Garantía",
+  "Presupuestos.otros":"Otros",
+  "Presupuestos.liniasPresupuesto":"Línias Presupuesto",
+  "Presupuestos.precioIva":"Precio IVA",
+  "Presupuestos.finalFactura":"Final Factura",
+  "Presupuestos.parametros":"Parámetros",
+  "Presupuestos.pteBaja":"Porcentaje Baja",
+  "Presupuestos.pteComision":"Porcentaje Comisión",
+  "Presupuestos.pteRealizacion":"Porcentaje Realización",
+  "Presupuestos.proforma":"Proforma",
+  "Presupuestos.impComision":"Imp Comisión",
+  "Presupuestos.horasEquiv":"Horas Equivalencias",
+  "Presupuestos.acumularImporte":"Acumular importe"
 
- 
-  
+
 }

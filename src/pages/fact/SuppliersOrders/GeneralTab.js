@@ -32,7 +32,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const getString = (key) => (getFormData(key) ? getFormData(key) : "");
 
   useEffect(() => {
-    console.log(num);
 
     const getClient = getString("pressupostNomClientExtraField");
     const getCodiClient = getString("pressupostClientCodiExtraField");
@@ -175,6 +174,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     };
   };
 
+
+  
   const datosGenerales = [
     {
       placeHolder: props.intl.formatMessage({
