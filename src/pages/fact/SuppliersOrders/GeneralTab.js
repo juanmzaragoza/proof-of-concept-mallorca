@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
@@ -27,21 +27,68 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     setIsValid: props.setIsValid,
   });
 
+  const [num, setNum] = useState(0);
 
   const getString = (key) => (getFormData(key) ? getFormData(key) : "");
 
-
   useEffect(() => {
+    console.log(num);
+
     const getClient = getString("pressupostNomClientExtraField");
-    const preCodi = getString("preCodi");
+    const getCodiClient = getString("pressupostClientCodiExtraField");
+    const getEstat = getString("pressupostEstatExtraField");
+    const getSubClient = getString("pressupostSubClientNomExtraField");
+    const getCodiSubclient = getString("pressupostSubClientCodiExtraField");
+    const getDireccio = getString("pressupostDomiciliExtraField");
+    const pressupost = getString("pressupost");
 
-    console.log(preCodi)
-    setFormData({
-      key: "pressupostNomClientExtraField",
-      value: preCodi?.nomComercial ? preCodi.nomComercial : getClient,
-    });
-  }, [getFormData("preCodi")]);
-
+    if (num === 1 || num === 0) {
+      setFormData({
+        key: "pressupostNomClientExtraField",
+        value: pressupost?.nomClient
+          ? `${pressupost.nomClient} (${pressupost.client.pk.codi})`
+          : `${getClient} (${getCodiClient})`,
+      });
+      setFormData({
+        key: "pressupostEstatExtraField",
+        value: pressupost?.estat ? pressupost.estat : getEstat,
+      });
+      setFormData({
+        key: "pressupostDomiciliExtraField",
+        value: pressupost?.domicili ? pressupost.domicli : getDireccio,
+      });
+      setFormData({
+        key: "pressupostSubClientNomExtraField",
+        value: pressupost?.subClient
+          ? `${pressupost.subClient} (${pressupost.subClient.pk.codi})`
+          : getSubClient
+          ? `${getSubClient} (${getCodiSubclient})`
+          : "",
+      });
+    } else {
+      setFormData({
+        key: "pressupostNomClientExtraField",
+        value: pressupost?.nomClient
+          ? `${pressupost.nomClient} (${pressupost.client.pk.codi})`
+          : "",
+      });
+      setFormData({
+        key: "pressupostEstatExtraField",
+        value: pressupost?.estat ? pressupost.estat : "",
+      });
+      setFormData({
+        key: "pressupostDomiciliExtraField",
+        value: pressupost?.domicili ? pressupost.domicili : "",
+      });
+      setFormData({
+        key: "pressupostSubClientNomExtraField",
+        value: pressupost?.subClient
+          ? `${pressupost.subClient.description} (${pressupost.subClient.pk.codi})`
+          : "",
+      });
+    }
+    setNum(num + 1);
+  }, [getFormData("pressupost")]);
 
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
@@ -300,7 +347,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       type: "numeric",
       suffix: "€",
       required: true,
-      key: "divisaValorEuros",
+      key: "valorDivisaEuros",
       breakpoints: {
         xs: 12,
         md: 3,
@@ -692,21 +739,16 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Presupuesto",
       }),
       type: "LOV",
-      key: "preCodi",
-      id: "pressupost",
+      key: "pressupost",
       breakpoints: {
         xs: 12,
         md: 3,
       },
       selector: {
         key: "pressuposts",
-        labelKey: (data) => `${data.client.description} (${data.codi})`,
+        labelKey: (data) => `${data.serieVenda.pk.codi}/${data.numero}/${data.versio} (${data.codi})`,
         sort: "codi",
         cannotCreate: true,
-        transform: {
-          apply: (pressuposts) => pressuposts && pressuposts.codi,
-          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-        },
         relatedWith: [
           {
             name: "capitol",
@@ -726,7 +768,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       disabled: true,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
     },
     {
@@ -739,7 +781,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       disabled: true,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
     },
     {
@@ -752,7 +794,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       disabled: true,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
     },
     {
@@ -761,17 +803,14 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Dirección",
       }),
       type: "input",
-      key: "pressupostClientAdresaCodiExtraField",
+      key: "pressupostDomiciliExtraField",
       disabled: true,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
     },
 
-
-
-    
     {
       placeHolder: props.intl.formatMessage({
         id: "Proyectos.capitulos",
@@ -928,7 +967,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       selector: {
         key: "avarias",
-        labelKey: (data) => `${data.nom} (${data.num})`,
+        labelKey: (data) => `${data.descripcioAvaria ? data.descripcioAvaria : ""} (${data.num})`,
         sort: "num",
         cannotCreate: true,
         advancedSearchColumns: [

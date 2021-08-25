@@ -50,14 +50,13 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
   const getString = (key) => (getFormData(key) ? getFormData(key) : "");
   useEffect(() => {
     const prov = getString("proveidor");
-    console.log(prov);
+  
     setFormData({
       key: "pedidoMinim",
       value: prov ? prov.comandaMinimaDivisa : "",
     });
   }, [getFormData("proveidor")]);
 
-  console.log(formData);
 
   const camposInformativos = [
     {
