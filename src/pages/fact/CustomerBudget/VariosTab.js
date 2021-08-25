@@ -16,8 +16,8 @@ const NUMERIC_SECTION_INDEX = 1;
 const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
-      [VARIOS_SECTION_INDEX]: false,
-      [NUMERIC_SECTION_INDEX]: false,
+      [VARIOS_SECTION_INDEX]: true,
+      [NUMERIC_SECTION_INDEX]: true,
     },
     setIsValid: props.setIsValid,
   });
@@ -26,10 +26,7 @@ const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
     id: "Comun.codigo",
     defaultMessage: "Código",
   });
-  const DESCRIPCIO = props.intl.formatMessage({
-    id: "Comun.descripcion",
-    defaultMessage: "Descripción",
-  });
+
 
   const NOM = props.intl.formatMessage({
     id: "Comun.nombre",
@@ -38,13 +35,103 @@ const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
 
-  const aSCodeAndDescription = [
-    { title: CODE, name: "codi" },
-    { title: DESCRIPCIO, name: "descripcio" },
-  ];
+
   const aSCodeAndName = [
     { title: CODE, name: "codi" },
     { title: NOM, name: "nom" },
+  ];
+
+  const variosConfig = [
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Presupuestos.pteRealizacion",
+        defaultMessage: "Porcentaje Relaización",
+      }),
+      type: "numeric",
+      key: "pteRealitzacio",
+      suffix: "%",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Presupuestos.pteBaja",
+        defaultMessage: "Porcetnaje Baja",
+      }),
+      type: "numeric",
+      key: "pteBaixa",
+      suffix: "%",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Presupuestos.horasEquiv",
+        defaultMessage: "horas Equivalencia",
+      }),
+      type: "numeric",
+      key: "horesEquiv",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
+    },
+    
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Presupuestos.pteComision",
+        defaultMessage: "Porcentaje Comisión",
+      }),
+      type: "numeric",
+      key: "pteComisio",
+      suffix: "%",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Presupuestos.impComision",
+        defaultMessage: "Imp Comisión",
+      }),
+      type: "numeric",
+      key: "importComisionable",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+      validations: [
+        ...props.numberValidations.minMaxValidation(0, 9999999999999999999),
+      ],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Presupuestos.acumularImporte",
+        defaultMessage: "Acumular Importe",
+      }),
+      type: "checkbox",
+      key: "acumularImportAcceptat",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 999)],
+    },
   ];
 
   const finalFacturaConfig = [
@@ -133,14 +220,26 @@ const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
-  const maquinaConfig = [
+  const proformaConfig = [
     {
       placeHolder: props.intl.formatMessage({
-        id: "AlbaranesCliente.maquina",
-        defaultMessage: "Máquina Código",
+        id: "Presupuestos.numero",
+        defaultMessage: "Número",
       }),
-      type: "input",
-      key: "maquinaCodi",
+      type: "numeric",
+      key: "numeroProforma",
+      breakpoints: {
+        xs: 12,
+        md: 12,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Presupuestos.fecha",
+        defaultMessage: "Fecha",
+      }),
+      type: "date",
+      key: "dataProforma",
       breakpoints: {
         xs: 12,
         md: 12,
@@ -148,32 +247,7 @@ const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
-  const reparacionConfig = [
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "PedidosProveedor.averias",
-        defaultMessage: "Averias",
-      }),
-      type: "LOV",
-      key: "avaria",
-      id: "avaries",
-      breakpoints: {
-        xs: 12,
-        md: 12,
-      },
-      selector: {
-        key: "avarias",
-        labelKey: (data) => `${data.descripcioAvaria} (${data.num})`,
-        sort: "num",
-        cannotCreate: true,
-        advancedSearchColumns: [
-          { title: CODE, name: "num" },
-          { title: DESCRIPCIO, name: "descripcioAvaria" },
-        ],
-      },
-      validationType: "object",
-    },
-  ];
+
 
   const tipoComisionConfig = [
     {
@@ -218,20 +292,6 @@ const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
-  const impresionConfig = [
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "AlbaranesCliente.fechaImpresion",
-        defaultMessage: "Fecha Impresión",
-      }),
-      type: "date",
-      key: "diaImpressio",
-      breakpoints: {
-        xs: 12,
-        md: 12,
-      },
-    },
-  ];
 
   const personalAlfConfig = [
     {
@@ -362,7 +422,7 @@ const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
   const tabs = [
     {
       label: props.intl.formatMessage({
-        id:  "Presupuestos.parametros",
+        id: "Presupuestos.parametros",
         defaultMessage: "Parámetros",
       }),
       key: 0,
@@ -431,188 +491,168 @@ const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   return (
     <Grid container spacing={2}>
-      <Grid xs={6} item>
-        <OutlinedContainer
-          className="general-tab-container"
-          title={
-            <FormattedMessage
-              id={"Presupuestos.finalFactura"}
-              defaultMessage={"Final Factura"}
-            />
-          }
-        >
-          <GenericForm
-            formComponents={finalFacturaConfig}
-            emptyPaper={true}
-            editMode={props.editMode}
-            getFormData={getFormData}
-            setFormData={setFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(VARIOS_SECTION_INDEX, value)}
-            onBlur={(e) => handleTouched(VARIOS_SECTION_INDEX)}
-            {...props}
-          />
-        </OutlinedContainer>
-      </Grid>
-      <Grid xs={3} item>
-        <OutlinedContainer
-          className="general-tab-container"
-          title={
-            <FormattedMessage
-              id={"AlbaranesCliente.tipoComision"}
-              defaultMessage={"Tipo Comisión"}
-            />
-          }
-        >
-          <GenericForm
-            formComponents={tipoComisionConfig}
-            emptyPaper={true}
-            editMode={props.editMode}
-            getFormData={getFormData}
-            setFormData={setFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(VARIOS_SECTION_INDEX, value)}
-            onBlur={(e) => handleTouched(VARIOS_SECTION_INDEX)}
-            {...props}
-          />
-        </OutlinedContainer>
-      </Grid>
-      <Grid xs={3} item>
-        <OutlinedContainer
-          className="general-tab-container"
-          title={
-            <FormattedMessage
-              id={"AlbaranesCliente.aplicador"}
-              defaultMessage={"Aplciador "}
-            />
-          }
-        >
-          <GenericForm
-            formComponents={aplicadorConfig}
-            emptyPaper={true}
-            editMode={props.editMode}
-            getFormData={getFormData}
-            setFormData={setFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(VARIOS_SECTION_INDEX, value)}
-            onBlur={(e) => handleTouched(VARIOS_SECTION_INDEX)}
-            {...props}
-          />
-        </OutlinedContainer>
-      </Grid>
-      <Grid xs={6} item>
-        <OutlinedContainer
-          className="general-tab-container"
-          title={
-            <FormattedMessage
-              id={"Articulos.stock.descuentos.ubicacion"}
-              defaultMessage={"ubicación"}
-            />
-          }
-        >
-          <GenericForm
-            formComponents={ubicacionConfig}
-            emptyPaper={true}
-            editMode={props.editMode}
-            getFormData={getFormData}
-            setFormData={setFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(VARIOS_SECTION_INDEX, value)}
-            onBlur={(e) => handleTouched(VARIOS_SECTION_INDEX)}
-            {...props}
-          />
-        </OutlinedContainer>
+      <Grid xs={12} item>
+        <GenericForm
+          formComponents={variosConfig}
+          emptyPaper={true}
+          editMode={props.editMode}
+          setFormData={setFormData}
+          getFormData={getFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) => addValidity(VARIOS_SECTION_INDEX, value)}
+          onBlur={(e) => handleTouched(VARIOS_SECTION_INDEX)}
+          {...props}
+        />
       </Grid>
 
-      <Grid xs={3} item>
-        <OutlinedContainer
-          className="general-tab-container"
-          title={
-            <FormattedMessage
-              id={"AlbaranesCliente.maquinaria"}
-              defaultMessage={"Maquinaria"}
-            />
-          }
-        >
-          <GenericForm
-            formComponents={maquinaConfig}
-            emptyPaper={true}
-            editMode={props.editMode}
-            getFormData={getFormData}
-            setFormData={setFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(VARIOS_SECTION_INDEX, value)}
-            onBlur={(e) => handleTouched(VARIOS_SECTION_INDEX)}
-            {...props}
-          />
-        </OutlinedContainer>
+      <Grid xs={9} item>
+        <Grid container spacing={2}>
+          <Grid xs={8} item>
+            <OutlinedContainer
+              className="general-tab-container"
+              title={
+                <FormattedMessage
+                  id={"Presupuestos.finalFactura"}
+                  defaultMessage={"Final Factura"}
+                />
+              }
+            >
+              <GenericForm
+                formComponents={finalFacturaConfig}
+                emptyPaper={true}
+                editMode={props.editMode}
+                getFormData={getFormData}
+                setFormData={setFormData}
+                loading={props.loading}
+                formErrors={props.formErrors}
+                submitFromOutside={props.submitFromOutside}
+                onSubmit={() => props.onSubmitTab(formData)}
+                handleIsValid={(value) =>
+                  addValidity(VARIOS_SECTION_INDEX, value)
+                }
+                onBlur={(e) => handleTouched(VARIOS_SECTION_INDEX)}
+                {...props}
+              />
+            </OutlinedContainer>
+          </Grid>
+          <Grid xs={4} item>
+            <OutlinedContainer
+              className="general-tab-container"
+              title={
+                <FormattedMessage
+                  id={"AlbaranesCliente.tipoComision"}
+                  defaultMessage={"Tipo Comisión"}
+                />
+              }
+            >
+              <GenericForm
+                formComponents={tipoComisionConfig}
+                emptyPaper={true}
+                editMode={props.editMode}
+                getFormData={getFormData}
+                setFormData={setFormData}
+                loading={props.loading}
+                formErrors={props.formErrors}
+                submitFromOutside={props.submitFromOutside}
+                onSubmit={() => props.onSubmitTab(formData)}
+                handleIsValid={(value) =>
+                  addValidity(VARIOS_SECTION_INDEX, value)
+                }
+                onBlur={(e) => handleTouched(VARIOS_SECTION_INDEX)}
+                {...props}
+              />
+            </OutlinedContainer>
+          </Grid>
+          <Grid xs={8} item>
+            <OutlinedContainer
+              className="general-tab-container"
+              title={
+                <FormattedMessage
+                  id={"Articulos.stock.descuentos.ubicacion"}
+                  defaultMessage={"ubicación"}
+                />
+              }
+            >
+              <GenericForm
+                formComponents={ubicacionConfig}
+                emptyPaper={true}
+                editMode={props.editMode}
+                getFormData={getFormData}
+                setFormData={setFormData}
+                loading={props.loading}
+                formErrors={props.formErrors}
+                submitFromOutside={props.submitFromOutside}
+                onSubmit={() => props.onSubmitTab(formData)}
+                handleIsValid={(value) =>
+                  addValidity(VARIOS_SECTION_INDEX, value)
+                }
+                onBlur={(e) => handleTouched(VARIOS_SECTION_INDEX)}
+                {...props}
+              />
+            </OutlinedContainer>
+          </Grid>
+          <Grid xs={4} item>
+            <OutlinedContainer
+              className="general-tab-container"
+              title={
+                <FormattedMessage
+                  id={"AlbaranesCliente.aplicador"}
+                  defaultMessage={"Aplciador "}
+                />
+              }
+            >
+              <GenericForm
+                formComponents={aplicadorConfig}
+                emptyPaper={true}
+                editMode={props.editMode}
+                getFormData={getFormData}
+                setFormData={setFormData}
+                loading={props.loading}
+                formErrors={props.formErrors}
+                submitFromOutside={props.submitFromOutside}
+                onSubmit={() => props.onSubmitTab(formData)}
+                handleIsValid={(value) =>
+                  addValidity(VARIOS_SECTION_INDEX, value)
+                }
+                onBlur={(e) => handleTouched(VARIOS_SECTION_INDEX)}
+                {...props}
+              />
+            </OutlinedContainer>
+          </Grid>
+        </Grid>
       </Grid>
       <Grid xs={3} item>
-        <OutlinedContainer
-          className="general-tab-container"
-          title={
-            <FormattedMessage
-              id={"AlbaranesCliente.impresionAlbaran"}
-              defaultMessage={"impresionAlbaran"}
+        <Grid xs={12} item>
+          <OutlinedContainer
+            className="general-tab-container"
+            title={
+              <FormattedMessage
+                id={"Presupuestos.proforma"}
+                defaultMessage={"proforma"}
+              />
+            }
+          >
+            <GenericForm
+              formComponents={proformaConfig}
+              emptyPaper={true}
+              editMode={props.editMode}
+              getFormData={getFormData}
+              setFormData={setFormData}
+              loading={props.loading}
+              formErrors={props.formErrors}
+              submitFromOutside={props.submitFromOutside}
+              onSubmit={() => props.onSubmitTab(formData)}
+              handleIsValid={(value) =>
+                addValidity(VARIOS_SECTION_INDEX, value)
+              }
+              onBlur={(e) => handleTouched(VARIOS_SECTION_INDEX)}
+              {...props}
             />
-          }
-        >
-          <GenericForm
-            formComponents={impresionConfig}
-            emptyPaper={true}
-            editMode={props.editMode}
-            getFormData={getFormData}
-            setFormData={setFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(VARIOS_SECTION_INDEX, value)}
-            onBlur={(e) => handleTouched(VARIOS_SECTION_INDEX)}
-            {...props}
-          />
-        </OutlinedContainer>
-      </Grid>
-      <Grid xs={3} item>
-        <OutlinedContainer
-          className="general-tab-container"
-          title={
-            <FormattedMessage
-              id={"AlbaranesCliente.parteReparacion"}
-              defaultMessage={"Parte Reparación"}
-            />
-          }
-        >
-          <GenericForm
-            formComponents={reparacionConfig}
-            emptyPaper={true}
-            editMode={props.editMode}
-            getFormData={getFormData}
-            setFormData={setFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(VARIOS_SECTION_INDEX, value)}
-            onBlur={(e) => handleTouched(VARIOS_SECTION_INDEX)}
-            {...props}
-          />
-        </OutlinedContainer>
+          </OutlinedContainer>
+        </Grid>
       </Grid>
       <Grid xs={12} item>
         <OutlinedContainer>

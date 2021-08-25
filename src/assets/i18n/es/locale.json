@@ -1946,7 +1946,14 @@
   "Presupuestos.liniasPresupuesto":"Línias Presupuesto",
   "Presupuestos.precioIva":"Precio IVA",
   "Presupuestos.finalFactura":"Final Factura",
-  "Presupuestos.parametros":"Parámetros"
+  "Presupuestos.parametros":"Parámetros",
+  "Presupuestos.pteBaja":"Porcentaje Baja",
+  "Presupuestos.pteComision":"Porcentaje Comisión",
+  "Presupuestos.pteRealizacion":"Porcentaje Realización",
+  "Presupuestos.proforma":"Proforma",
+  "Presupuestos.impComision":"Imp Comisión",
+  "Presupuestos.horasEquiv":"Horas Equivalencias",
+  "Presupuestos.acumularImporte":"Acumular importe"
 
   
 }

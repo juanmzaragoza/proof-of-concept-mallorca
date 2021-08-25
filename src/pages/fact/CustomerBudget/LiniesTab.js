@@ -9,7 +9,7 @@ import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
 import { TIPO_DESCUENTO_SELECTOR_VALUES } from "constants/selectors";
 
-const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
+const LiniesTab = ({ formData, setFormData, getFormData, ...props }) => {
   // warning!!! It's always valid because we haven't validations
   useEffect(() => {
     props.setIsValid(true);
@@ -21,41 +21,13 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
     id: "Comun.codigo",
     defaultMessage: "Código",
   });
-  const DESCRIPCIO = props.intl.formatMessage({
-    id: "Comun.descripcion",
-    defaultMessage: "Descripción",
-  });
+
   const NOM = props.intl.formatMessage({
     id: "Comun.nombre",
     defaultMessage: "Nombre",
   });
 
-  const OBS = props.intl.formatMessage({
-    id: "FamiliaProveedores.observaciones",
-    defaultMessage: "Observaciones",
-  });
 
-  const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
-  const formatCodeAndDescription = (data) =>
-    `${data.descripcio} (${data.codi})`;
-
-  const aSCodeAndDescription = [
-    { title: CODE, name: "codi" },
-    { title: DESCRIPCIO, name: "descripcio" },
-  ];
-  const aSCodeAndName = [
-    { title: CODE, name: "codi" },
-    { title: NOM, name: "nom" },
-  ];
-
-  const withRequiredValidation = (extraValidations = []) => {
-    return {
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...extraValidations,
-      ],
-    };
-  };
 
   const budgetLineConfig = {
     title: props.intl.formatMessage({
@@ -263,4 +235,4 @@ const ClientsAppTab = ({ formData, setFormData, getFormData, ...props }) => {
     </Grid>
   );
 };
-export default compose(React.memo, withValidations, injectIntl)(ClientsAppTab);
+export default compose(React.memo, withValidations, injectIntl)(LiniesTab);

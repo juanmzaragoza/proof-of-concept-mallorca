@@ -24,13 +24,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [BUDGET_SECTION_INDEX]: false,
-      [OTROS_CONFIG_TAB_INDEX]: true,
-
+      [OTROS_CONFIG_TAB_INDEX]: false,
     },
     setIsValid: props.setIsValid,
   });
-
-  const { id: budgetId } = useParams();
 
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
@@ -411,15 +408,18 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Presupuestos.valorDivisa",
         defaultMessage: "Valor divisa euros",
       }),
-      type: "input",
+      type: "numeric",
       key: "valorDivisaEuros",
       required: true,
       breakpoints: {
         xs: 12,
         md: 3,
       },
-      validationType: "string",
-      validations: [...props.commonValidations.requiredValidation()],
+      validationType: "number",
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+        ...props.numberValidations.minMaxValidation(0, 9999999),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -780,14 +780,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
-  
   const tabs = [
     {
       label: (
-        <FormattedMessage
-          id={"Presupuestos.otros"}
-          defaultMessage={"Otros"}
-        />
+        <FormattedMessage id={"Presupuestos.otros"} defaultMessage={"Otros"} />
       ),
       key: 0,
       component: (
@@ -806,7 +802,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         />
       ),
     },
- 
   ];
 
   return (
