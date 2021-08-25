@@ -4,5 +4,15 @@
 
 .dx-datagrid-content .dx-datagrid-table .dx-row > td,
 .dx-datagrid-content .dx-datagrid-table .dx-row > tr > td {
-  padding: 13px;
+  padding: 10px;
+}
+
+.dx-datagrid-rowsview
+  .dx-row-focused.dx-data-row
+  .dx-command-edit:not(.dx-focused)
+  .dx-link,
+.dx-datagrid-rowsview .dx-row-focused.dx-data-row > td:not(.dx-focused),
+.dx-datagrid-rowsview .dx-row-focused.dx-data-row > tr > td:not(.dx-focused) {
+  background-color: rgba(63, 126, 128, 1);
+  color: #fff;
 }
