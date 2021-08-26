@@ -26,6 +26,43 @@ const ArticleFamilyTranspList = ({ actions, ...props }) => {
     ]);
   }, []);
 
+
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
+
+  const DESCRIPTION = props.intl.formatMessage({
+    id: "Comun.descripcion",
+    defaultMessage: "Descripción",
+  });
+
+  const aSCodeAndDescription = [
+    { title: CODE, name: "codi" },
+    { title: DESCRIPTION, name: "descripcio" },
+  ];
+
+
+  const ARTICLE = {
+    placeHolder: props.intl.formatMessage({
+      id: "Proveedores.familia",
+      defaultMessage: "Familia",
+    }),
+    type: "LOV",
+    key: "articleFamilia",
+    breakpoints: {
+      xs: 12,
+      md: 3,
+    },
+    selector: {
+      key: "articleFamilias",
+      labelKey: (data) => `${data.descripcio} (${data.codi})`,
+      sort: "codi",
+      cannotCreate: true,
+      advancedSearchColumns: aSCodeAndDescription,
+    },
+  };
+
   const listConfiguration = {
     columns: [
       {
@@ -34,15 +71,19 @@ const ArticleFamilyTranspList = ({ actions, ...props }) => {
           id: "FamTransp.num",
           defaultMessage: "Num.",
         }),
+        inlineEditionDisabled: true
       },
       {
-        name: "articleFamilia.description",
+        name: 'articleFamilia',
         title: props.intl.formatMessage({
           id: "Proveedores.familia",
-          defaultMessage: "Familia",
+          defaultMessage: "Familia"
         }),
-        getCellValue: (row) => row.articleFamilia?.description ?? "",
+        getCellValue: row => row.articleFamilia? row.articleFamilia.description:"",
+        field: ARTICLE
+  
       },
+      
 
       {
         name: "nomTransportista",
@@ -61,6 +102,7 @@ const ArticleFamilyTranspList = ({ actions, ...props }) => {
     ],
     URL: API.articlesFamiliaTransportista,
     listKey: "articleFamiliaTransportistas",
+    enableInlineEdition: true
   };
   return (
     <ReactGrid

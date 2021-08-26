@@ -35,6 +35,7 @@ const AddressTypeList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "descripcio",
@@ -46,6 +47,7 @@ const AddressTypeList = ({ actions, ...props }) => {
     ],
     URL: API.tipusAdreces,
     listKey: "tipusAdresas",
+    enableInlineEdition: true
   };
   return <ReactGrid id="tipusAdreces" configuration={listConfiguration} />;
 };

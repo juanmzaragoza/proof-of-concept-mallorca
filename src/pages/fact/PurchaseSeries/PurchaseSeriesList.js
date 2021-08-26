@@ -35,6 +35,7 @@ const PurchaseSeriesList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "descripcio",
@@ -53,6 +54,7 @@ const PurchaseSeriesList = ({ actions, ...props }) => {
     ],
     URL: API.serieCompras,
     listKey: "serieCompras",
+    enableInlineEdition: true
   };
   return <ReactGrid id="serieCompras" configuration={listConfiguration} />;
 };

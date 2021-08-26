@@ -100,6 +100,7 @@ const CompanyAccountCreate = (props) => {
       type: "LOV",
       key: "bancCodi",
       required: true,
+      noEditable: true,
       breakpoints: {
         xs: 12,
         md: 3,
@@ -109,11 +110,13 @@ const CompanyAccountCreate = (props) => {
         labelKey: (data) => `${data.nom} (${data.codi})`,
         sort: "codi",
         cannotCreate: true,
-        relatedWith: [{
-          name: "oficinaBancaria",
-          filterBy: "banc.id",
-          keyValue: "id",
-        },],
+        relatedWith: [
+          {
+            name: "oficinaBancaria",
+            filterBy: "banc.id",
+            keyValue: "id",
+          },
+        ],
         transform: {
           apply: (bancs) => bancs && bancs.codi,
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
@@ -129,6 +132,7 @@ const CompanyAccountCreate = (props) => {
       }),
       type: "LOV",
       key: "oficinaBancaria",
+      noEditable: true,
       required: true,
       breakpoints: {
         xs: 12,

@@ -49,7 +49,7 @@ const VariosTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "entrega",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 1)],

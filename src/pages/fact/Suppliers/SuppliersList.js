@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import * as API from "redux/api";
 import AdvancedFilters from "modules/AdvancedFilters";
 import ReactGrid from "modules/ReactGrid";
-//import {default as ReactGrid2} from "modules/ReactGrid2";
 
 const SuppliersList = ({actions, ...props}) => {
   const [filters, setFilters] = useState([]);
@@ -179,12 +178,77 @@ const SuppliersList = ({actions, ...props}) => {
     FAMILY_FIELD
   ];
 
+  const formComponents = [
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.nombre_comercial",
+        defaultMessage: "Nombre Comercial",
+      }),
+      type: "input",
+      key: "nomComercial",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 4,
+      },
+      validationType: "string",
+      /*...withRequiredValidation([
+        ...props.stringValidations.minMaxValidation(1, 40),
+      ]),*/
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.nombre_fiscal",
+        defaultMessage: "Nombre Fiscal",
+      }),
+      type: "input",
+      key: "nomFiscal",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 4,
+      },
+      validationType: "string",
+      /*...withRequiredValidation([
+        ...props.stringValidations.minMaxValidation(1, 40),
+      ]),*/
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.bloqueado",
+        defaultMessage: "Bloqueado",
+      }),
+      type: "checkbox",
+      key: "bloquejat",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.alias",
+        defaultMessage: "Alias",
+      }),
+      type: "input",
+      key: "alias",
+      breakpoints: {
+        xs: 12,
+        md: 4,
+      },
+      validationType: "string",
+      //validations: [...props.stringValidations.minMaxValidation(1, 30)],
+    },
+  ];
+
   return (
     <>
       <AdvancedFilters fields={advancedFilters} handleSearch={setFilters} />
       <ReactGrid id='suppliers'
                  extraQuery={filters}
-                 configuration={listConfiguration} />
+                 configuration={listConfiguration}
+                 formComponents={formComponents}
+                 {...props} />
     </>
   )
 };

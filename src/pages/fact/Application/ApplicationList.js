@@ -26,6 +26,18 @@ const ApplicationList = ({ actions, ...props }) => {
     ]);
   }, []);
 
+
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
+
+  const NOM = props.intl.formatMessage({
+    id: "Comun.nombre",
+    defaultMessage: "Nombre",
+  });
+
+
   const listConfiguration = {
     columns: [
 
@@ -35,6 +47,7 @@ const ApplicationList = ({ actions, ...props }) => {
           id:  "Proyectos.referencia",
           defaultMessage: "Referencia",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "client.description",
@@ -43,6 +56,7 @@ const ApplicationList = ({ actions, ...props }) => {
           defaultMessage: "Clientes",
         }),
         getCellValue: (row) => row.client?.description ?? "",
+       inlineEditionDisabled:true,
       },
       {
         name: "producte.description",
@@ -51,6 +65,7 @@ const ApplicationList = ({ actions, ...props }) => {
           defaultMessage: "Producto",
         }),
         getCellValue: (row) => row.producte?.description ?? "",
+        inlineEditionDisabled:true,
       },
       {
         name: "tipusManteniment",
@@ -77,6 +92,7 @@ const ApplicationList = ({ actions, ...props }) => {
     ],
     URL: API.aplicacionsClient,
     listKey: "aplicacioClients",
+    enableInlineEdition: true
   };
   return <ReactGrid id="aplicacionsClient" configuration={listConfiguration} />;
 };

@@ -335,7 +335,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "alternatiu2",
-      id: "articlesFact",
+      id: "articleFact",
 
       breakpoints: {
         xs: 12,
@@ -357,7 +357,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "articleRaee",
-      id: "articlesFact",
+      id: "articlesFactRae",
 
       breakpoints: {
         xs: 12,
@@ -370,6 +370,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndDescription,
       },
+      extraQuery: [
+        {
+          columnName: "familia.codi",
+          value: `"RAEE"`,
+          exact: true,
+        },
+      ],
       validationType: "object",
     },
   ];

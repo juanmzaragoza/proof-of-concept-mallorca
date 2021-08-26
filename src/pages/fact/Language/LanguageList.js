@@ -1,63 +1,72 @@
-import React, {useEffect} from "react";
-import {injectIntl} from "react-intl";
-import {connect} from "react-redux";
-import {bindActionCreators,compose} from "redux";
+import React, { useEffect } from "react";
+import { injectIntl } from "react-intl";
+import { connect } from "react-redux";
+import { bindActionCreators, compose } from "redux";
 
 import ReactGrid from "modules/ReactGrid";
-import {setBreadcrumbHeader, setListingConfig} from "redux/pageHeader";
+import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
 const LanguageList = ({ actions, ...props }) => {
-
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
         id: "Idiomas.titol",
-        defaultMessage: "Idiomes"
+        defaultMessage: "Idiomes",
       }),
     });
     actions.setBreadcrumbHeader([
-      {title: props.intl.formatMessage({
+      {
+        title: props.intl.formatMessage({
           id: "Idiomas.titol",
-          defaultMessage: "Idiomes"
-        }), href:"/fact/idiomes"}
+          defaultMessage: "Idiomes",
+        }),
+        href: "/fact/idiomes",
+      },
     ]);
-  },[]);
+  }, []);
 
   const listConfiguration = {
     columns: [
-      { name: 'codi',
+      {
+        name: "codi",
         title: props.intl.formatMessage({
           id: "Idiomas.codigo",
-          defaultMessage: "Código"
-        })
+          defaultMessage: "Código",
+        }),
+        inlineEditionDisabled: true,
       },
-      { name: 'descripcio',
+      {
+        name: "descripcio",
         title: props.intl.formatMessage({
           id: "Idiomas.nombre",
-          defaultMessage: "Nombre"
-        })
+          defaultMessage: "Nombre",
+        }),
+      },
+      {
+        title: props.intl.formatMessage({
+          id: "Idiomas.codigoIso",
+          defaultMessage: "Código Iso",
+        }),
+        name: "codiIso",
       },
     ],
     URL: API.idioma,
-    listKey: 'idiomas'
+    listKey: "idiomas",
+    enableInlineEdition: true,
   };
-  return (
-    <ReactGrid
-      id='idioma'
-      configuration={listConfiguration} />
-  );
-}
+  return <ReactGrid id="idioma" configuration={listConfiguration} />;
+};
 
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
     setListingConfig: bindActionCreators(setListingConfig, dispatch),
-    setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch)
+    setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch),
   };
   return { actions };
 };
 
 export default compose(
   injectIntl,
-  connect(null,mapDispatchToProps)
+  connect(null, mapDispatchToProps)
 )(LanguageList);

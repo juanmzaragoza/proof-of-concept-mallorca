@@ -26,6 +26,7 @@ const CompanyAccountList = ({ actions, ...props }) => {
     ]);
   }, []);
 
+
   const listConfiguration = {
     columns: [
       {
@@ -35,6 +36,7 @@ const CompanyAccountList = ({ actions, ...props }) => {
           defaultMessage: "Clientes",
         }),
         getCellValue: (row) => row.client?.description ?? "",
+        inlineEditionDisabled: true
       },
       {
         name: "empresa.description",
@@ -43,6 +45,7 @@ const CompanyAccountList = ({ actions, ...props }) => {
           defaultMessage: "Empresas",
         }),
         getCellValue: (row) => row.empresa?.description ?? "",
+        inlineEditionDisabled: true
       },
       {
         name: "bancCodi",
@@ -50,6 +53,7 @@ const CompanyAccountList = ({ actions, ...props }) => {
           id: "Clientes.banco",
           defaultMessage: "Banco",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "oficinaBancaria.description",
@@ -58,6 +62,7 @@ const CompanyAccountList = ({ actions, ...props }) => {
           defaultMessage: "Oficina Bancaria",
         }),
         getCellValue: (row) => row.oficinaBancaria?.description ?? "",
+        inlineEditionDisabled: true
       },
       {
         name: "digitControl",
@@ -73,30 +78,31 @@ const CompanyAccountList = ({ actions, ...props }) => {
           defaultMessage: "Cuenta Corriente",
         }),
       },
-      // {
-      //   name: "paisIban",
-      //   title: props.intl.formatMessage({
-      //     id: "Clientes.paisIban",
-      //     defaultMessage: "País IBAN",
-      //   }),
-      // },
-      // {
-      //   name: "digitControlIban",
-      //   title: props.intl.formatMessage({
-      //     id: "Clientes.digitosIban",
-      //     defaultMessage: "Dígitos IBAN",
-      //   }),
-      // },
-      // {
-      //   name: "bic",
-      //   title: props.intl.formatMessage({
-      //     id: "Clientes.bicIban",
-      //     defaultMessage: "BIC IBAN",
-      //   }),
-      // },
+      {
+        name: "paisIban",
+        title: props.intl.formatMessage({
+          id: "Clientes.paisIban",
+          defaultMessage: "País IBAN",
+        }),
+      },
+      {
+        name: "digitControlIban",
+        title: props.intl.formatMessage({
+          id: "Clientes.digitosIban",
+          defaultMessage: "Dígitos IBAN",
+        }),
+      },
+      {
+        name: "bic",
+        title: props.intl.formatMessage({
+          id: "Clientes.bicIban",
+          defaultMessage: "BIC IBAN",
+        }),
+      },
     ],
     URL: API.compteCorrentEmpresas,
     listKey: "compteCorrentEmpresas",
+    enableInlineEdition: true
   };
   return (
     <ReactGrid id="compteCorrentEmpresas" configuration={listConfiguration} />

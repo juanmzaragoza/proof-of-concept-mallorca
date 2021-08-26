@@ -34,6 +34,7 @@ const CountryNifList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "nom",
@@ -48,6 +49,7 @@ const CountryNifList = ({ actions, ...props }) => {
           id: "PaisNif.tipusNif",
           defaultMessage: "Tipo Nif",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "tamanyNif",
@@ -55,10 +57,12 @@ const CountryNifList = ({ actions, ...props }) => {
           id: "PaisNif.tamanyNif",
           defaultMessage: "Tamaño NIF",
         }),
+
       },
     ],
     URL: API.paisesNif,
     listKey: "paisNifs",
+    enableInlineEdition: true
   };
   return <ReactGrid id="paisesNif" configuration={listConfiguration} />;
 };

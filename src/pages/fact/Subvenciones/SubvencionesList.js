@@ -34,6 +34,7 @@ const SubvencionesList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "nom",
@@ -59,6 +60,7 @@ const SubvencionesList = ({ actions, ...props }) => {
     ],
     URL: API.subvencions,
     listKey: "subvencios",
+    enableInlineEdition: true
   };
   return <ReactGrid id="subvencions" configuration={listConfiguration} />;
 };

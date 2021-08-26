@@ -31,7 +31,8 @@ const Province = ({ actions, ...props }) => {
         title: props.intl.formatMessage({
           id: "Provincias.codigo",
           defaultMessage: "Código"
-        })
+        }),
+        inlineEditionDisabled: true
       },
       {
         name: 'nom',
@@ -46,11 +47,13 @@ const Province = ({ actions, ...props }) => {
           id: "Provincias.pais",
           defaultMessage: "Pais"
         }),
-        getCellValue: row => row.pais?.description ?? ""
+        getCellValue: row => row.pais?.description ?? "",
+        inlineEditionDisabled: true
       },
     ],
     URL: 'api/fact/provincies',
-    listKey: 'provincias'
+    listKey: 'provincias',
+    enableInlineEdition: true
   };
   return (
     <ReactGrid

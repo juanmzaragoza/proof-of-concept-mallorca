@@ -71,19 +71,16 @@ const AlbaranesProveedoresList = ({ actions, ...props }) => {
         }),
         getCellValue: (row) =>
           row.conformat && row.conformat === "S" ? (
-            <Chip
-              label={props.intl.formatMessage({
-                id: "Comun.SI",
-                defaultMessage: "SI",
-              })}
-            />
+            `${props.intl.formatMessage({
+              id: "Comun.SI",
+              defaultMessage: "SI",
+            })}`
           ) : (
-            <Chip
-              label={props.intl.formatMessage({
-                id: "Comun.NO",
-                defaultMessage: "NO",
-              })}
-            />
+            `${props.intl.formatMessage({
+              id: "Comun.NO",
+              defaultMessage: "NO",
+            })}`
+           
           ),
       },
     ],

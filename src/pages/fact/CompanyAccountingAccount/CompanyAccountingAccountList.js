@@ -35,7 +35,8 @@ const CompanyAccountingAccountList = ({ actions, ...props }) => {
           id: "Clientes.titulo",
           defaultMessage: "Clientes"
         }),
-        getCellValue: row => row.client?.description ?? ""
+        getCellValue: row => row.client?.description ?? "",
+        inlineEditionDisabled: true
       },
       {
         name: 'empresa.description',
@@ -43,11 +44,27 @@ const CompanyAccountingAccountList = ({ actions, ...props }) => {
           id: "Clientes.empresas",
           defaultMessage: "Empresas"
         }),
-        getCellValue: row => row.empresa?.description ?? ""
+        getCellValue: row => row.empresa?.description ?? "",
+        inlineEditionDisabled: true
+      },
+      {
+        name: "compteComptable",
+        title: props.intl.formatMessage({
+          id: "Clientes.cuentasContables",
+          defaultMessage: "Cuentas contables",
+        }),
+      },
+      {
+        name: "compteVendes",
+        title:  props.intl.formatMessage({
+          id: "Retenciones.cuentaVentas",
+          defaultMessage: "Cuenta ventas",
+        }),
       },
     ],
     URL: API.compteComptableEmpresas,
     listKey: "compteComptableEmpresas",
+    enableInlineEdition: true
   };
   return <ReactGrid id="compteComptableEmpresas" configuration={listConfiguration} />;
 };

@@ -38,6 +38,7 @@ const BoxList = ({ actions, ...props }) => {
           defaultMessage: "Descripción",
         }),
       },
+
       {
         name: "ferApuntComptable",
         title: props.intl.formatMessage({
@@ -46,21 +47,19 @@ const BoxList = ({ actions, ...props }) => {
         }),
         getCellValue: (row) =>
           row.ferApuntComptable && row.ferApuntComptable === true ? (
-            <Chip
-              label={props.intl.formatMessage({
-                id: "Comun.SI",
-                defaultMessage: "SI",
-              })}
-            />
+            `${props.intl.formatMessage({
+              id: "Comun.SI",
+              defaultMessage: "SI",
+            })}`
           ) : (
-            <Chip
-              label={props.intl.formatMessage({
-                id: "Comun.NO",
-                defaultMessage: "NO",
-              })}
-            />
+            `${props.intl.formatMessage({
+              id: "Comun.NO",
+              defaultMessage: "NO",
+            })}`
+           
           ),
       },
+     
       {
         name: "tipusAssentamentComptable",
         title: props.intl.formatMessage({

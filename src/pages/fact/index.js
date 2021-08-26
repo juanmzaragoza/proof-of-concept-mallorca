@@ -92,6 +92,10 @@ import SuppliersOrders from "./SuppliersOrders";
 import SuppliersOffers from "./SuppliersOffers";
 import AlbaranesClientes from "./AlbaranesClientes";
 import AlbaranesProveedores from "./AlbaranesProveedores";
+import SupplierInvoice from "./SupplierInvoice";
+import CustomerBudget from "./CustomerBudget";
+import Instalaciones from "./Instalaciones";
+import TipoInstalaciones from "./TipoInstalaciones";
 
 const component = [
   SuppliersFamily,
@@ -195,7 +199,11 @@ const component = [
   SuppliersOrders,
   SuppliersOffers,
   AlbaranesClientes,
-  AlbaranesProveedores
+  AlbaranesProveedores,
+  SupplierInvoice,
+  CustomerBudget,
+  Instalaciones,
+  TipoInstalaciones
 ];
 
 export default component;

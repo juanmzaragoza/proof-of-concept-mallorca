@@ -29,7 +29,8 @@ const SuppliersFamilyList = ({ actions, ...props }) => {
         title: props.intl.formatMessage({
           id: "FamiliaProveedores.codigo",
           defaultMessage: "Código"
-        })
+        }),
+        inlineEditionDisabled: true
       },
       { name: 'nom',
         title: props.intl.formatMessage({
@@ -39,7 +40,8 @@ const SuppliersFamilyList = ({ actions, ...props }) => {
       },
     ],
     URL: API.familiaProveidor,
-    listKey: 'familiaProveidors'
+    listKey: 'familiaProveidors',
+    enableInlineEdition: true
   };
   return (
     <ReactGrid

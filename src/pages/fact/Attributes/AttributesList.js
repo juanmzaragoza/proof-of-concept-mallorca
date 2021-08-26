@@ -34,6 +34,7 @@ const AttributeList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "descripcio",
@@ -45,6 +46,7 @@ const AttributeList = ({ actions, ...props }) => {
     ],
     URL: API.atributs,
     listKey: "atributs",
+    enableInlineEdition: true
   };
   return <ReactGrid id="atributs" configuration={listConfiguration} />;
 };

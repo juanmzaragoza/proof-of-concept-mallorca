@@ -31,6 +31,7 @@ const ProductSectorCreate = (props) => {
         }),
         type: 'LOV',
         key: 'producte',
+        noEditable:true,
         breakpoints: {
           xs: 12,
           md: 4
@@ -50,6 +51,7 @@ const ProductSectorCreate = (props) => {
         }),
         type: 'LOV',
         key: 'sector',
+        noEditable:true,
         breakpoints: {
           xs: 12,
           md: 4

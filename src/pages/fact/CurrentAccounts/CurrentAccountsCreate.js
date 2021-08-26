@@ -115,6 +115,7 @@ const CurrentAccountsCreate = (props) => {
       }),
       type: "LOV",
       key: "bancCodi",
+      noEditable:true,
       required:true,
       breakpoints: {
         xs: 12,
@@ -147,6 +148,7 @@ const CurrentAccountsCreate = (props) => {
       }),
       type: "LOV",
       key: "oficinaBancariaCodi",
+    
       required:true,
       breakpoints: {
         xs: 12,
