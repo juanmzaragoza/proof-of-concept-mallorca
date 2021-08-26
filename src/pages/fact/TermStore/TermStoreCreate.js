@@ -135,6 +135,7 @@ const TermStoreCreate = (props) => {
       type: "LOV",
       key: "magatzem",
       required: true,
+      noEditable:true,
       breakpoints: {
         xs: 12,
         md: 5,
