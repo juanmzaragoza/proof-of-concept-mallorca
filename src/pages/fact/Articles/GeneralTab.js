@@ -370,6 +370,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndDescription,
       },
+      extraQuery: [
+        {
+          columnName: "familia.codi",
+          value: `"RAEE"`,
+          exact: true,
+        },
+      ],
       validationType: "object",
     },
   ];
