@@ -34,6 +34,7 @@ const OfferSupplierList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "descripcioTipusOfertesProveidors",
@@ -45,6 +46,7 @@ const OfferSupplierList = ({ actions, ...props }) => {
     ],
     URL: API.tipusOfertesProveidor,
     listKey: "tipusOfertaProveidors",
+    enableInlineEdition: true
   };
   return (
     <ReactGrid id="tipusOfertesProveidor" configuration={listConfiguration} />
