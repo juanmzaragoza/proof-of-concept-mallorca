@@ -26,6 +26,43 @@ const FactoringLineList = ({ actions, ...props }) => {
     ]);
   }, []);
 
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
+  const NOM = props.intl.formatMessage({
+    id: "Comun.nombre",
+    defaultMessage: "Nombre",
+  });
+
+  const banco = {
+    placeHolder: props.intl.formatMessage({
+      id: "LiniasFactoring.bancCodi",
+      defaultMessage: "Banco",
+    }),
+    type: "LOV",
+    key: "banc",
+    breakpoints: {
+      xs: 12,
+      md: 5,
+    },
+    selector: {
+      key: "bancs",
+      labelKey: (data) => `${data.nom} (${data.codi})`,
+      sort: "codi",
+      transform: {
+        apply: (bancs) => bancs && bancs.codi,
+        reverse: (rows, codi) => rows.find((row) => row.codi == codi),
+      },
+      cannotCreate: true,
+
+      advancedSearchColumns: [
+        { title: CODE, name: "codi" },
+        { title: NOM, name: "nom" },
+      ],
+    },
+  };
+
   const listConfiguration = {
     columns: [
       {
@@ -34,6 +71,7 @@ const FactoringLineList = ({ actions, ...props }) => {
           id: "LiniasFactoring.numContrato",
           defaultMessage: "Num. Contrato",
         }),
+        inlineEditionDisabled: true,
       },
       {
         name: "banc",
@@ -41,6 +79,8 @@ const FactoringLineList = ({ actions, ...props }) => {
           id: "LiniasFactoring.codigoBanco",
           defaultMessage: "Código Banco",
         }),
+
+        field: banco,
       },
       {
         name: "bancNom",
@@ -66,6 +106,7 @@ const FactoringLineList = ({ actions, ...props }) => {
     ],
     URL: API.liniaFactoring,
     listKey: "liniaFactorings",
+    enableInlineEdition: true,
   };
   return <ReactGrid id="liniaFactoring" configuration={listConfiguration} />;
 };
