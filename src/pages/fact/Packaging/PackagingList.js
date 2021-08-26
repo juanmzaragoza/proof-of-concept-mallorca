@@ -34,6 +34,7 @@ const PackagingList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "descripcio",
@@ -45,6 +46,7 @@ const PackagingList = ({ actions, ...props }) => {
     ],
     URL: API.envasos,
     listKey: "envases",
+    enableInlineEdition: true
   };
   return (
     <ReactGrid id="envasos" configuration={listConfiguration} />
