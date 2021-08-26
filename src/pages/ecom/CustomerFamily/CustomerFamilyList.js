@@ -36,6 +36,7 @@ const CustomerFamilyList = ({ actions, ...props }) => {
           id: "Cliente.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "nom",
@@ -62,6 +63,7 @@ const CustomerFamilyList = ({ actions, ...props }) => {
     ],
     URL: API.familiaClients,
     listKey: "familiaClients",
+    enableInlineEdition: true
   };
   return <ReactGrid id="familiaClients" configuration={listConfiguration} />;
 };
