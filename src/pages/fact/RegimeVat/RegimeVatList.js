@@ -35,6 +35,7 @@ const RegimeVatList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "descripcio",
@@ -60,6 +61,7 @@ const RegimeVatList = ({ actions, ...props }) => {
     ],
     URL: API.regimsIva,
     listKey: "regimIvas",
+    enableInlineEdition: true
   };
   return <ReactGrid id="regimsIva" configuration={listConfiguration} />;
 };
