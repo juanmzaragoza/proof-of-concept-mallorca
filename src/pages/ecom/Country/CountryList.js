@@ -30,7 +30,8 @@ const CountryList = ({ actions, ...props }) => {
         title: props.intl.formatMessage({
           id: "Comun.codigo",
           defaultMessage: "Código"
-        })
+        }),
+        inlineEditionDisabled: true
       },
       { name: 'nom',
         title: props.intl.formatMessage({
@@ -52,7 +53,8 @@ const CountryList = ({ actions, ...props }) => {
     },
     ],
     URL: API.paisos,
-    listKey: 'paises'
+    listKey: 'paises',
+    enableInlineEdition: true
   };
   return (
     <ReactGrid
