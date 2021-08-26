@@ -1960,7 +1960,18 @@
   "Instalaciones.titulo":"Instalaciones",
   "Instalaciones.direccion":"Dirección",
   "TipoInstalaciones.titulo":"Tipo Instalaciones",
-  "Presupuestos.desgloseCap":"Desglose en Capítulos"
+  "Presupuestos.desgloseCap":"Desglose en Capítulos",
+  "Presupuestos.tabs.capitulos":"Capítulos",
+  "Presupuestos.gestor":"Gestor",
+  "Presupuestos.tabs.partidas":"Partidas",
+  "Presupuesto.capitulo":"Capítulo",
+  "Presupuesto.subcontratado":"Subcontratado",
+  "Presupuesto.fechaPrevision":"Fecha Previsión",
+  "Presupuesto.tipoUnidades":"Tipo Unidades",
+  "Presupuesto.unidades":"Unidades",
+  "Presupuesto.valorSub":"Valor Sub",
+  "Presupuesto.previsionChequeada":"Previsión Chequeada"
+  
 
 
 }

@@ -28,6 +28,7 @@ import {
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
 import LiniesTab from "./LiniesTab";
+import CapitulosTab from "./CapitulosTab";
 
 const BUDGET_TAB_INDEX = 0;
 const VARIOS_TAB_INDEX = 1;
@@ -50,11 +51,11 @@ const CustomerBudgetForm = React.memo(
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [BUDGET_TAB_INDEX]: false,
       [VARIOS_TAB_INDEX]: false,
-      [CAPITULOS_TAB_INDEX]:false,
+      [CAPITULOS_TAB_INDEX]: false,
       [LINE_TAB_INDEX]: false,
-      
     });
     const [forceTabChange, setForceTabChange] = useState(false);
+    const [mostrarCapitol, setMostrarCapitol] = useState(false);
 
     const tabHasError = (index) => {
       return !!tabIndexWithError[index];
@@ -98,8 +99,18 @@ const CustomerBudgetForm = React.memo(
       };
     };
 
+    useEffect(() => {
+      const des = getFormData("desglose");
+      if (des) {
+        setMostrarCapitol(true);
+      } else {
+        setMostrarCapitol(false);
+      }
+    }, [getFormData("desglose")]);
+
     /** step 3 */
-    const tabs = [
+
+    const tabsDes = [
       {
         ...getTranslations("Presupuestos.tabs.general", "General"),
         key: BUDGET_TAB_INDEX,
@@ -124,7 +135,6 @@ const CustomerBudgetForm = React.memo(
           />
         ),
       },
-      
       {
         ...getTranslations("PedidosProveedor.tabs.varios", "Varios"),
         key: VARIOS_TAB_INDEX,
@@ -150,11 +160,117 @@ const CustomerBudgetForm = React.memo(
         ),
       },
       {
+        ...getTranslations("Presupuestos.tabs.capitulos", "Capítulos"),
+        key: CAPITULOS_TAB_INDEX,
+        error: tabHasError(CAPITULOS_TAB_INDEX),
+        component: (
+          <CapitulosTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [CAPITULOS_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
+          />
+        ),
+      },
+
+
+      {
         ...getTranslations(
           "Presupuestos.liniasPresupuesto",
           "linias Presupuesto"
         ),
         key: LINE_TAB_INDEX,
+        error: tabHasError(LINE_TAB_INDEX),
+        component: (
+          <LiniesTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [LINE_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
+          />
+        ),
+      },
+    ];
+
+    const tabsNoDes = [
+      {
+        ...getTranslations("Presupuestos.tabs.general", "General"),
+        key: BUDGET_TAB_INDEX,
+        error: tabHasError(BUDGET_TAB_INDEX),
+        component: (
+          <GeneralTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [BUDGET_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
+          />
+        ),
+      },
+      {
+        ...getTranslations("PedidosProveedor.tabs.varios", "Varios"),
+        key: 1,
+        error: tabHasError(VARIOS_TAB_INDEX),
+        component: (
+          <VariosTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [VARIOS_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
+          />
+        ),
+      },
+     
+
+      {
+        ...getTranslations(
+          "Presupuestos.liniasPresupuesto",
+          "linias Presupuesto"
+        ),
+        key: 2,
         error: tabHasError(LINE_TAB_INDEX),
         component: (
           <LiniesTab
@@ -266,14 +382,14 @@ const CustomerBudgetForm = React.memo(
     }, [editMode]);
 
     const getTabName = (value) => {
-      const tab = tabs.find((tab) => tab.key === value);
+      const tab = tabsDes.find((tab) => tab.key === value);
       return tab?.labelStr;
     };
 
     return (
       <div style={{ padding: "10px" }}>
         <ConfigurableTabs
-          tabs={tabs}
+          tabs={mostrarCapitol ? tabsDes : tabsNoDes}
           tabIndex={tabIndex}
           forceChange={forceTabChange}
           onChange={(value) => setNameSelectedTab(getTabName(value))}
