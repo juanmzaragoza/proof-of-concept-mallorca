@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import PropTypes from "prop-types";
 import {withSnackbar} from "notistack";
 import {injectIntl} from "react-intl";
@@ -46,10 +46,12 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
                      actions, ...props }) => {
 
   const history = useHistory();
+  const dataGrid = useRef(null);
   const [columns] = useState(configuration.columns);
   const [currentPage, setCurrentPage] = useState(0);
   const [sorting, setSorting] = useState([]);
   const [filters, setFilters] = useState([]);
+  const [expandedRow, setExpandedRow] = useState(null);
 
   const [expandedData, setExpandedData] = useState({});
   const [store, setStore] = useState(null);
@@ -71,7 +73,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
   // if the filters change
   useEffect(() => {
     setCurrentPage(0);
-  },[extraQuery]);
+  },[filters, extraQuery]);
 
   useEffect(()=>{
     if(!isEmpty(errors)){
@@ -94,15 +96,24 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
         })
       },
       update: (key, values) => {
-        const row = rows.find(row => row.id === key);
-        if(row){
-          const changedRow = { ...row, ...values };
-          actions.updateData({ key: props.id, id: row.id, data: changedRow });
+        const changedRow = updateRow(key,values);
+        if(changedRow){
+          actions.updateData({ key: props.id, id: changedRow.id, data: changedRow });
+          expandedData && setExpandedData(changedRow);
         }
       }
     });
     setStore(customStore);
   },[rows,totalCount]);
+
+  const updateRow = (key, values) => {
+    let changedRow = null;
+    const row = rows.find(row => row.id === key);
+    if(row){
+      changedRow = { ...row, ...values };
+    }
+    return changedRow;
+  }
 
   /**
    * Handler to filter and sorting
@@ -154,14 +165,29 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
       },
       onFocusedRowChanged: (e) => {
         e.component.collapseAll(-1);
-        e.component.expandRow(e.row.key);
-        setExpandedData(e.row.data);
+        if(e.row && !expandedRow) {
+          e.component.expandRow(e.row.key);
+          setExpandedData(e.row.data);
+          setExpandedRow(e.row.key);
+        } else{
+          setExpandedRow(null);
+        }
+      },
+      onRowCollapsed: (e) => {
+        setExpandedRow(null);
       }
     }:{};
+
+  const collapseAllRows = useCallback(() => {
+    dataGrid.current.instance.collapseAll(-1);
+    setExpandedRow(null);
+  }, [dataGrid, expandedRow]);
+
   return (
     <React.Fragment>
       <DataGrid
         id='gridContainer'
+        ref={dataGrid}
         dataSource={store}
         showBorders={true}
         columnAutoWidth={true}
@@ -202,6 +228,14 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
           component={() => <MasterDetailedForm
             formComponents={formComponents}
             row={expandedData}
+            onCancel={(e) => {
+              collapseAllRows();
+            }}
+            onSuccess={(updatedData) => {
+              collapseAllRows();
+              loadData();
+            }}
+            {...props}
           />}
         />
 
@@ -250,7 +284,8 @@ ReactGrid.propTypes = {
     columnName: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired
   })),
-  formComponents: PropTypes.array
+  formComponents: PropTypes.array,
+  url: PropTypes.string
 };
 
 const mapStateToProps = (state, props) => {
