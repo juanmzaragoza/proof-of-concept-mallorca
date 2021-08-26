@@ -35,6 +35,7 @@ const GamaList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "descripcio",
@@ -43,16 +44,11 @@ const GamaList = ({ actions, ...props }) => {
           defaultMessage: "Descripción",
         }),
       },
-      // {
-      //   name: "prupes",
-      //   title: props.intl.formatMessage({
-      //     id: "Gama.prupes",
-      //     defaultMessage: "Prupes",
-      //   }),
-      // },
+
     ],
     URL: API.articlesGama,
     listKey: "articleGammas",
+    enableInlineEdition: true
   };
   return <ReactGrid id="articlesGama" configuration={listConfiguration} />;
 };
