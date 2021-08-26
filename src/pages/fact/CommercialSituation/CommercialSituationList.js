@@ -35,6 +35,7 @@ const CommercialSituationList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "nom",
@@ -46,6 +47,7 @@ const CommercialSituationList = ({ actions, ...props }) => {
     ],
     URL: API.situacionsComercial,
     listKey: "situacioComercials",
+    enableInlineEdition: true
   };
   return <ReactGrid id="situacionsComercial" configuration={listConfiguration} />;
 };
