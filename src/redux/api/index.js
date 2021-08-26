@@ -310,3 +310,5 @@ export const pressupostLinia = `api/fact/pressupostosLinia`;
 export const finalFacturas = `api/fact/finalFactures`;
 export const instalacions =`api/fact/instalacions`;
 export const tipusInstalacions = `api/fact/tipusInstalacions`;
+export const articleFact = `api/fact/articles`;
+export const articlesFactRae = `api/fact/articles`;
