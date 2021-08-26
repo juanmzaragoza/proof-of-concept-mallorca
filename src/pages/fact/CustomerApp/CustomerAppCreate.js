@@ -53,16 +53,21 @@ const CustomerAppCreate = (props) => {
       placeHolder: PERCEN,
       type: "numeric",
       key: "percentatge",
+      suffix:"%",
       breakpoints: {
         xs: 12,
         md: 2,
       },
       validationType: "number",
+      validations: [
+        ...props.numberValidations.minMaxValidation(0,999),
+      ],
     },
     {
       placeHolder: CLI,
       type: "LOV",
       key: "client",
+      noEditable:true,
       breakpoints: {
         xs: 12,
         md: 3,

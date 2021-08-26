@@ -35,6 +35,7 @@ const BillingTypeList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "descripcio",
@@ -46,6 +47,7 @@ const BillingTypeList = ({ actions, ...props }) => {
     ],
     URL: API.tipusFacturacio,
     listKey: "tipusFacturacios",
+    enableInlineEdition: true
   };
   return <ReactGrid id="tipusFacturacio" configuration={listConfiguration} />;
 };

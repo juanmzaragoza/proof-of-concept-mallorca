@@ -34,6 +34,7 @@ const TermStoreList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true,
       },
       {
         name: "descripcio",
@@ -50,6 +51,7 @@ const TermStoreList = ({ actions, ...props }) => {
         }),
         getCellValue: (row) =>
           row.dataInici ? new Date(row.dataInici).toLocaleDateString() : "",
+        inlineEditionDisabled: true,
       },
       {
         name: "magatzem",
@@ -59,10 +61,12 @@ const TermStoreList = ({ actions, ...props }) => {
         }),
         getCellValue: (row) =>
           row.magatzem?.description ? row.magatzem.description : "",
+        inlineEditionDisabled: true,
       },
     ],
     URL: API.magatzemPeriode,
     listKey: "magatzemPeriodes",
+    enableInlineEdition: true,
   };
 
   return (

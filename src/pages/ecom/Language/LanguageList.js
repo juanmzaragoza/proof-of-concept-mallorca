@@ -30,7 +30,8 @@ const LanguageList = ({ actions, ...props }) => {
         title: props.intl.formatMessage({
           id: "Comun.codigo",
           defaultMessage: "Código"
-        })
+        }),
+        inlineEditionDisabled: true
       },
       { name: 'descripcio',
         title: props.intl.formatMessage({
@@ -46,7 +47,8 @@ const LanguageList = ({ actions, ...props }) => {
     },
     ],
     URL: API.idiomas,
-    listKey: 'idiomas'
+    listKey: 'idiomas',
+    enableInlineEdition: true
   };
   return (
     <ReactGrid

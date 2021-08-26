@@ -34,6 +34,7 @@ const ZoneList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "nom",
@@ -61,6 +62,7 @@ const ZoneList = ({ actions, ...props }) => {
     ],
     URL: API.zona,
     listKey: "zonas",
+    enableInlineEdition: true
   };
   return <ReactGrid id="zona" configuration={listConfiguration} />;
 };

@@ -35,6 +35,7 @@ const CostsTypeList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "descripcio",
@@ -48,7 +49,9 @@ const CostsTypeList = ({ actions, ...props }) => {
         title: props.intl.formatMessage({
           id: "TipoCostes.tipo",
           defaultMessage: "Tipo",
+        
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "sequenciaAltaAutomatica",
@@ -63,6 +66,7 @@ const CostsTypeList = ({ actions, ...props }) => {
     ],
     URL: API.tipusCost,
     listKey: "tipusCosts",
+    enableInlineEdition: true
   };
   return <ReactGrid id="tipusCost" configuration={listConfiguration} />;
 };

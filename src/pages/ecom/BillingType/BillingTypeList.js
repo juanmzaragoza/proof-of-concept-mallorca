@@ -30,7 +30,8 @@ const BillingTypeList = ({ actions, ...props }) => {
         title: props.intl.formatMessage({
           id: "Comun.codigo",
           defaultMessage: "Código"
-        })
+        }),
+        inlineEditionDisabled: true
       },
       { name: 'descripcio',
         title: props.intl.formatMessage({
@@ -38,21 +39,33 @@ const BillingTypeList = ({ actions, ...props }) => {
           defaultMessage: "Descripción"
         })
       },
-      { name: 'concedimCredit',
+      {
+        name: "concedimCredit",
         title: props.intl.formatMessage({
           id:  "TiposFacturacion.obligarFacturar",
           defaultMessage: "Obligar a Facturar los Albranes"
         }),
-        getCellValue: row => row.concedimCredit ? (
-          <FormattedMessage id={"Comun.si"} defaultMessage={"Si"} />
-        ) : (
-          <FormattedMessage id={"Comun.no"} defaultMessage={"No"} />
-        ),
+        getCellValue: (row) =>
+          row.concedimCredit && row.concedimCredit === true ? (
+            `${props.intl.formatMessage({
+              id: "Comun.SI",
+              defaultMessage: "SI",
+            })}`
+          ) : (
+            `${props.intl.formatMessage({
+              id: "Comun.NO",
+              defaultMessage: "NO",
+            })}`
+           
+          ),
+          inlineEditionDisabled: true
       },
+    
     
     ],
     URL: API.tipusFacturacions,
-    listKey: 'tipusFacturacios'
+    listKey: 'tipusFacturacios',
+    enableInlineEdition: true
   };
   return (
     <ReactGrid

@@ -333,6 +333,7 @@ const CustomerDepartmentsCreate = (props) => {
       placeHolder: CLI,
       type: "LOV",
       key: "client",
+      noEditable:true,
       breakpoints: {
         xs: 12,
         md: 3,
@@ -354,6 +355,7 @@ const CustomerDepartmentsCreate = (props) => {
       placeHolder: SUBCLI,
       type: "LOV",
       key: "subClient",
+      noEditable:true,
       breakpoints: {
         xs: 12,
         md: 3,

@@ -35,6 +35,7 @@ const IncidenceTypeList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "nom",
@@ -47,6 +48,7 @@ const IncidenceTypeList = ({ actions, ...props }) => {
     ],
     URL: API.tipusIncidenciesFactura,
     listKey: "tipusIncidenciaFacturas",
+    enableInlineEdition: true
   };
   return <ReactGrid id="tipusIncidenciesFactura" configuration={listConfiguration} />;
 };

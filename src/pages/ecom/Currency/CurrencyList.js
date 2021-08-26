@@ -34,6 +34,7 @@ const CurrencyList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "nom",
@@ -61,6 +62,7 @@ const CurrencyList = ({ actions, ...props }) => {
     ],
     URL: API.divises,
     listKey: "divisas",
+    enableInlineEdition: true
   };
   return <ReactGrid id="divises" configuration={listConfiguration} />;
 };

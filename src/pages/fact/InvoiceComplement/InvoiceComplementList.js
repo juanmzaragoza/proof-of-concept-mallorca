@@ -29,6 +29,41 @@ const InvoiceComplementList = ({ actions, ...props }) => {
     ]);
   }, []);
 
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
+
+  const DESCRIPTION = props.intl.formatMessage({
+    id: "Comun.descripcion",
+    defaultMessage: "Descripción",
+  });
+
+  const aSCodeAndDescription = [
+    { title: CODE, name: "codi" },
+    { title: DESCRIPTION, name: "descripcio" },
+  ];
+
+  const articleFamilia = {
+    placeHolder: props.intl.formatMessage({
+      id: "Proveedores.familia",
+      defaultMessage: "Familia",
+    }),
+    type: "LOV",
+    key: "articleFamilia",
+    breakpoints: {
+      xs: 12,
+      md: 3,
+    },
+    selector: {
+      key: "articleFamilias",
+      labelKey: (data) => `${data.descripcio} (${data.codi})`,
+      sort: "codi",
+      cannotCreate: true,
+      advancedSearchColumns: aSCodeAndDescription,
+    },
+  };
+
   const listConfiguration = {
     title: props.intl.formatMessage({
       id: "ComplementosFactura.titulo",
@@ -41,6 +76,7 @@ const InvoiceComplementList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "descripcio",
@@ -50,101 +86,28 @@ const InvoiceComplementList = ({ actions, ...props }) => {
         }),
       },
       {
-        name: "incrementarFactura",
+        name: "articleFamilia",
         title: props.intl.formatMessage({
-          id: "ComplementosFactura.incrementarFactura",
-          defaultMessage: "Incrementar Factura",
+          id: "Almacen.articulo",
+          defaultMessage: "Artículo",
         }),
         getCellValue: (row) =>
-          row.incrementarFactura && row.incrementarFactura === true ? (
-            <Chip
-              label={props.intl.formatMessage({
-                id: "Comun.SI",
-                defaultMessage: "SI",
-              })}
-            />
-          ) : (
-            <Chip
-              label={props.intl.formatMessage({
-                id: "Comun.NO",
-                defaultMessage: "NO",
-              })}
-            />
-          ),
+          row.articleFamilia?.description ? row.articleFamilia?.description : "",
+          field:articleFamilia
+
       },
       {
-        name: "incrementarBaseImposable",
+        name: "compteContable",
         title: props.intl.formatMessage({
-          id: "ComplementosFactura.incrementarBase",
-          defaultMessage: "Incrementar Base",
+          id: "Clientes.cuenta.contable",
+          defaultMessage: "Cuenta contable",
         }),
-        getCellValue: (row) =>
-          row.incrementarBaseImposable && row.incrementarBaseImposable === true ? (
-            <Chip
-              label={props.intl.formatMessage({
-                id: "Comun.SI",
-                defaultMessage: "SI",
-              })}
-            />
-          ) : (
-            <Chip
-              label={props.intl.formatMessage({
-                id: "Comun.NO",
-                defaultMessage: "NO",
-              })}
-            />
-          ),
       },
-      {
-        name: "aplicarDescompte",
-        title: props.intl.formatMessage({
-          id: "ComplementosFactura.aplicarDto",
-          defaultMessage: "Aplicar Descuento",
-        }),
-        getCellValue: (row) =>
-          row.aplicarDescompte && row.aplicarDescompte === true ? (
-            <Chip
-              label={props.intl.formatMessage({
-                id: "Comun.SI",
-                defaultMessage: "SI",
-              })}
-            />
-          ) : (
-            <Chip
-              label={props.intl.formatMessage({
-                id: "Comun.NO",
-                defaultMessage: "NO",
-              })}
-            />
-          ),
-      },
-      {
-        name: "distribuirCostosEntreArticles",
-        title: props.intl.formatMessage({
-          id: "ComplementosFactura.distribuirCostes",
-          defaultMessage: "Distribuir costes entre Artículos",
-        }),
-        getCellValue: (row) =>
-          row.distribuirCostosEntreArticles &&
-          row.distribuirCostosEntreArticles === true ? (
-            <Chip
-              label={props.intl.formatMessage({
-                id: "Comun.SI",
-                defaultMessage: "SI",
-              })}
-            />
-          ) : (
-            <Chip
-              label={props.intl.formatMessage({
-                id: "Comun.NO",
-                defaultMessage: "NO",
-              })}
-            />
-          ),
-      },
+      
     ],
     URL: API.complementsFactura,
     listKey: "complementFacturas",
+    enableInlineEdition: true
   };
 
   return (

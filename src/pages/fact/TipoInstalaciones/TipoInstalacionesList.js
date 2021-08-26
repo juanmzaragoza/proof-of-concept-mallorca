@@ -1,33 +1,32 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import * as API from "redux/api";
+import ReactGrid from "modules/ReactGrid";
 import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import { bindActionCreators, compose } from "redux";
+import {
+  setBreadcrumbHeader,
+  setListingConfig,
+} from "../../../redux/pageHeader";
 
-import ReactGrid from "modules/ReactGrid";
-import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
-import * as API from "redux/api";
-
-const SupplierClientList = ({ actions, ...props }) => {
-
+const TipoInstalacionesList = ({ actions, ...props }) => {
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
-        id: "TipoProveedoresCliente.titulo",
-        defaultMessage: "Tipo proveedores/cliente ",
+        id: "TipoInstalaciones.titulo",
+        defaultMessage: "Tipo Instalaciones",
       }),
     });
     actions.setBreadcrumbHeader([
-      {
-        title: props.intl.formatMessage({
-          id: "TipoProveedoresCliente.titulo",
-          defaultMessage: "Tipo proveedores/cliente ",
-        }),
-        href: "/fact/tipo-proveedores-clientes",
-      },
+      { title: "Tipo Instalaciones", href: "fact/tipo-instalaciones" },
     ]);
   }, []);
 
   const listConfiguration = {
+    title: props.intl.formatMessage({
+      id: "TipoInstalaciones.titulo",
+      defaultMessage: "Tipo Instalaciones",
+    }),
     columns: [
       {
         name: "codi",
@@ -35,21 +34,23 @@ const SupplierClientList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
-        inlineEditionDisabled: true
+        inlineEditionDisabled: true,
       },
+
       {
         name: "descripcio",
         title: props.intl.formatMessage({
           id: "Comun.descripcion",
-          defaultMessage: "Descripción",
+          defaultMessage: "descripcion",
         }),
       },
     ],
-    URL: API.tipusProveidorClient,
-    listKey: "tipusProveidorClients",
-    enableInlineEdition: true
+    URL: API.tipusInstalacions,
+    listKey: "tipusInstalacios",
+    enableInlineEdition: true,
   };
-  return <ReactGrid id="tipusProveidorClient" configuration={listConfiguration} />;
+
+  return <ReactGrid id="tipusInstalacions" configuration={listConfiguration} />;
 };
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -63,4 +64,4 @@ const mapDispatchToProps = (dispatch, props) => {
 export default compose(
   injectIntl,
   connect(null, mapDispatchToProps)
-)(SupplierClientList);
+)(TipoInstalacionesList);

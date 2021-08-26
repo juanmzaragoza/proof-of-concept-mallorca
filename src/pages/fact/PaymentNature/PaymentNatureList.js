@@ -34,6 +34,7 @@ const PaymentNatureList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "descripcio",
@@ -45,6 +46,7 @@ const PaymentNatureList = ({ actions, ...props }) => {
     ],
     URL: API.naturalesaPagamentCobrament,
     listKey: "naturalesaPagamentCobraments",
+    enableInlineEdition: true
   };
   return (
     <ReactGrid
