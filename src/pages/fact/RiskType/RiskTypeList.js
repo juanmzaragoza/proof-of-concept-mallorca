@@ -35,6 +35,7 @@ const RiskTypeList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "descripcio",
@@ -61,6 +62,7 @@ const RiskTypeList = ({ actions, ...props }) => {
     ],
     URL: API.tipusRisc,
     listKey: "tipusRiscs",
+    enableInlineEdition: true
   };
   return <ReactGrid id="tipusRisc" configuration={listConfiguration} />;
 };
