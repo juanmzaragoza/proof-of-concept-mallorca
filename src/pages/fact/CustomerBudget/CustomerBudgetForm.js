@@ -30,8 +30,9 @@ import { getLoading } from "../../../redux/app/selectors";
 import LiniesTab from "./LiniesTab";
 
 const BUDGET_TAB_INDEX = 0;
-const LINE_TAB_INDEX = 1;
-const VARIOS_TAB_INDEX = 2;
+const VARIOS_TAB_INDEX = 1;
+const CAPITULOS_TAB_INDEX = 2;
+const LINE_TAB_INDEX = 3;
 
 const CustomerBudgetForm = React.memo(
   ({
@@ -48,8 +49,10 @@ const CustomerBudgetForm = React.memo(
 
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [BUDGET_TAB_INDEX]: false,
-      [LINE_TAB_INDEX]: false,
       [VARIOS_TAB_INDEX]: false,
+      [CAPITULOS_TAB_INDEX]:false,
+      [LINE_TAB_INDEX]: false,
+      
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -121,19 +124,17 @@ const CustomerBudgetForm = React.memo(
           />
         ),
       },
+      
       {
-        ...getTranslations(
-          "Presupuestos.liniasPresupuesto",
-          "linias Presupuesto"
-        ),
-        key: LINE_TAB_INDEX,
-        error: tabHasError(LINE_TAB_INDEX),
+        ...getTranslations("PedidosProveedor.tabs.varios", "Varios"),
+        key: VARIOS_TAB_INDEX,
+        error: tabHasError(VARIOS_TAB_INDEX),
         component: (
-          <LiniesTab
+          <VariosTab
             setIsValid={(value) =>
               setTabIndexWithError({
                 ...tabIndexWithError,
-                [LINE_TAB_INDEX]: !value,
+                [VARIOS_TAB_INDEX]: !value,
               })
             }
             editMode={editMode}
@@ -149,15 +150,18 @@ const CustomerBudgetForm = React.memo(
         ),
       },
       {
-        ...getTranslations("PedidosProveedor.tabs.varios", "Varios"),
-        key: VARIOS_TAB_INDEX,
-        error: tabHasError(VARIOS_TAB_INDEX),
+        ...getTranslations(
+          "Presupuestos.liniasPresupuesto",
+          "linias Presupuesto"
+        ),
+        key: LINE_TAB_INDEX,
+        error: tabHasError(LINE_TAB_INDEX),
         component: (
-          <VariosTab
+          <LiniesTab
             setIsValid={(value) =>
               setTabIndexWithError({
                 ...tabIndexWithError,
-                [VARIOS_TAB_INDEX]: !value,
+                [LINE_TAB_INDEX]: !value,
               })
             }
             editMode={editMode}

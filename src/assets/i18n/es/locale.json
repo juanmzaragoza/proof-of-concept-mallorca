@@ -1959,7 +1959,8 @@
   "Presupuestos.acumularImporte":"Acumular importe",
   "Instalaciones.titulo":"Instalaciones",
   "Instalaciones.direccion":"Dirección",
-  "TipoInstalaciones.titulo":"Tipo Instalaciones"
+  "TipoInstalaciones.titulo":"Tipo Instalaciones",
+  "Presupuestos.desgloseCap":"Desglose en Capítulos"
 
 
 }
