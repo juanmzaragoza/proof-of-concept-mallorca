@@ -34,6 +34,7 @@ const InitialSituationList = ({ actions, ...props }) => {
           id:  "SituacionesIniciales.codigoAlmacen",
           defaultMessage: "Código Almacén",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "article",
@@ -43,7 +44,9 @@ const InitialSituationList = ({ actions, ...props }) => {
         }),
         getCellValue: (row) =>
           row.article?.description ? row.article?.description : "",
+          inlineEditionDisabled: true
       },
+    
 
       {
         name: "unitatsInicials",
@@ -69,6 +72,7 @@ const InitialSituationList = ({ actions, ...props }) => {
         }),
         getCellValue: (row) =>
           row.divisa?.description ? row.divisa?.description : "",
+          inlineEditionDisabled: true
       },
 
       {
@@ -81,11 +85,13 @@ const InitialSituationList = ({ actions, ...props }) => {
           row.magatzemPeriode?.description
             ? row.magatzemPeriode?.description
             : "",
+            inlineEditionDisabled: true
 
       },
     ],
     URL: API.situacionsInicial,
     listKey: "situacioInicials",
+    enableInlineEdition: true
   };
 
   return (
