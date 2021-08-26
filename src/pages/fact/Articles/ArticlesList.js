@@ -52,11 +52,21 @@ const ArticlesList = ({ actions, ...props }) => {
           id: "Proveedores.bloqueado",
           defaultMessage: "Bloqueado"
         }),
-        getCellValue: row => (row.bloquejat && row.bloquejat === true)?
-          <Chip label={props.intl.formatMessage({id: "Comun.SI", defaultMessage: "SI"})} />
-          :
-          <Chip label={props.intl.formatMessage({id: "Comun.NO", defaultMessage: "NO"})} />
+        getCellValue: (row) =>
+          row.bloquejat && row.bloquejat === true ? (
+            `${props.intl.formatMessage({
+              id: "Comun.SI",
+              defaultMessage: "SI",
+            })}`
+          ) : (
+            `${props.intl.formatMessage({
+              id: "Comun.NO",
+              defaultMessage: "NO",
+            })}`
+           
+          ),
       },
+    
     ],
     URL: API.articles,
     listKey: "articles",
