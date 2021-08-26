@@ -434,7 +434,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "select",
       key: "tipus",
-      required:true,
+      required: true,
       breakpoints: {
         xs: 12,
         md: 3,
@@ -442,8 +442,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       selector: {
         options: TIPO_FAMILIA_ARTICULO_SELECTOR_VALUES,
       },
-      validationType:"string",
-      validations:[...props.commonValidations.requiredValidation()]
+      validationType: "string",
+      validations: [...props.commonValidations.requiredValidation()],
     },
 
     {
@@ -591,11 +591,18 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           apply: (empresa) => empresa && empresa.codi,
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
         },
-        relatedWith: [{
-          name: "projecte",
-          filterBy: "empresa.id",
-          keyValue: "id",
-        },],
+        relatedWith: [
+          {
+            name: "projecte",
+            filterBy: "empresa.id",
+            keyValue: "id",
+          },
+          {
+            name: "delegacio",
+            filterBy: "empresa.id",
+            keyValue: "id",
+          },
+        ],
         advancedSearchColumns: aSCodeAndComercialName,
       },
     },
@@ -617,11 +624,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndName,
       },
-      relatedWith:[ {
-        name: "delegacio",
-        filterBy: "empresa.id",
-        keyValue: "id",
-      },],
+      relatedWith: [
+        {
+          name: "delegacio",
+          filterBy: "empresa.id",
+          keyValue: "id",
+        },
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -937,7 +946,12 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       ),
     },
     {
-      label:<FormattedMessage id={"Traducciones.titulo"} defaultMessage={"Traducciones Familia"} />,
+      label: (
+        <FormattedMessage
+          id={"Traducciones.titulo"}
+          defaultMessage={"Traducciones Familia"}
+        />
+      ),
       key: 4,
       component: (
         <ExpandableGrid
