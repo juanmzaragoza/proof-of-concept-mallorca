@@ -66,7 +66,7 @@ const SubClientList = ({ actions, ...props }) => {
           defaultMessage: "Bloqueado",
         }),
         getCellValue: (row) =>
-          row.bloquejat && row.bloquejat === "S"
+          row.bloquejat && row.bloquejat === true
             ? `${props.intl.formatMessage({
                 id: "Comun.SI",
                 defaultMessage: "SI",
