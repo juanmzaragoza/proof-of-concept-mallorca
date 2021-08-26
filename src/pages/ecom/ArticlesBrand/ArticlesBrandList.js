@@ -30,7 +30,8 @@ const ArticlesBrandList = ({ actions, ...props }) => {
         title: props.intl.formatMessage({
           id: "Comun.codigo",
           defaultMessage: "Código"
-        })
+        }),
+        inlineEditionDisabled: true
       },
       { name: 'descripcio',
         title: props.intl.formatMessage({
@@ -40,7 +41,8 @@ const ArticlesBrandList = ({ actions, ...props }) => {
       },
     ],
     URL: API.articleMarcas,
-    listKey: 'articleMarcas'
+    listKey: 'articleMarcas',
+    enableInlineEdition: true
   };
   return (
     <ReactGrid
