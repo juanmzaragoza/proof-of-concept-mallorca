@@ -35,6 +35,7 @@ const UnitTypeList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "descripcio",
@@ -46,6 +47,7 @@ const UnitTypeList = ({ actions, ...props }) => {
     ],
     URL: API.tipusUnitats,
     listKey: "unitatTipuses",
+    enableInlineEdition: true
   };
   return <ReactGrid id="tipusUnitats" configuration={listConfiguration} />;
 };
