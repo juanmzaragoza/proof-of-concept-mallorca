@@ -55,10 +55,16 @@ const ProductsList = ({actions, ...props}) => {
           id: "Productos.activo",
           defaultMessage: "Activo"
         }),
-        getCellValue: row => (row.actiu && row.actiu === true)?
-          <Chip label={props.intl.formatMessage({id: "Comun.SI", defaultMessage: "SI"})} />
-          :
-          <Chip label={props.intl.formatMessage({id: "Comun.NO", defaultMessage: "NO"})} />
+        getCellValue: (row) =>
+          row.actiu && row.actiu === true
+            ? `${props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}`
+            : `${props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}`,
       },
       {
         name: "visible",
@@ -66,10 +72,16 @@ const ProductsList = ({actions, ...props}) => {
           id: "Productos.visible",
           defaultMessage: "Visible"
         }),
-        getCellValue: row => (row.visible && row.visible === true)?
-          <Chip label={props.intl.formatMessage({id: "Comun.SI", defaultMessage: "SI"})} />
-          :
-          <Chip label={props.intl.formatMessage({id: "Comun.NO", defaultMessage: "NO"})} />
+        getCellValue: (row) =>
+          row.visible && row.visible === true
+            ? `${props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}`
+            : `${props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}`,
       },
 
       
