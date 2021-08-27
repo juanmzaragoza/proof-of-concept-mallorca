@@ -98,6 +98,7 @@ import Instalaciones from "./Instalaciones";
 import TipoInstalaciones from "./TipoInstalaciones";
 import Aplicadores from "./Aplicadores";
 import Certifications from "./Certifications";
+import Delegation from "./Delegation";
 
 const component = [
   SuppliersFamily,
@@ -207,7 +208,8 @@ const component = [
   Instalaciones,
   TipoInstalaciones,
   Aplicadores,
-  Certifications
+  Certifications,
+  Delegation
 ];
 
 export default component;
