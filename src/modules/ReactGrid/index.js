@@ -36,13 +36,12 @@ import {
 } from "redux/reactGrid";
 import {Loading} from "modules/shared/Loading";
 import LOVCellComponent from "./LOVCellComponent";
-import MasterDetailedForm from "./MasterDetailForm";
 
 import './styles.scss';
 
 const ReactGrid = ({ configuration, enqueueSnackbar,
                      rows, loading, pageSize, totalCount, errors,
-                     extraQuery, formComponents = [], onClickRow,
+                     extraQuery = [], onClickRow,
                      actions, ...props }) => {
 
   const history = useHistory();
@@ -157,7 +156,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
     }
   }
 
-  const isExpandableEnabled = formComponents.length > 0;
+  const isExpandableEnabled = !!configuration.enableExpandableContent;
   const expandableOptions = isExpandableEnabled?
     {
       onSelectionChanged: (e) => {
@@ -283,6 +282,7 @@ ReactGrid.propTypes = {
     enableInlineEdition: PropTypes.bool,
     disabledActions: PropTypes.bool,
     disabledFiltering: PropTypes.bool,
+    enableExpandableContent: PropTypes.bool,
     method: PropTypes.oneOf(['post','put','patch']),
     body: PropTypes.object
   }),
@@ -290,8 +290,6 @@ ReactGrid.propTypes = {
     columnName: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired
   })),
-  formComponents: PropTypes.array,
-  url: PropTypes.string
 };
 
 const mapStateToProps = (state, props) => {

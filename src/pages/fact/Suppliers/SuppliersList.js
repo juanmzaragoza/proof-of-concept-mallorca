@@ -110,7 +110,8 @@ const SuppliersList = ({actions, ...props}) => {
     ],
     URL: API.suppliers,
     listKey: 'proveidors',
-    enableInlineEdition: true
+    enableInlineEdition: true,
+    enableExpandableContent: true
   };
 
   const advancedFilters = [
@@ -247,9 +248,7 @@ const SuppliersList = ({actions, ...props}) => {
       <AdvancedFilters fields={advancedFilters} handleSearch={setFilters} />
       <ReactGrid id='suppliers'
                  extraQuery={filters}
-                 configuration={listConfiguration}
-                 formComponents={formComponents}
-                 {...props} >
+                 configuration={listConfiguration} >
         {props =>
           <MasterDetailedForm formComponents={formComponents} {...props}/>
         }
