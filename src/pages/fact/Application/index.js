@@ -26,7 +26,7 @@ const component = {
     path: `${URL}`,
     component: withHeaders(Application),
   },
-  name: "FAC_APLICA",
+  name: "FAC_APT",
   icon: <AppsIcon />,
 };
 export default component;

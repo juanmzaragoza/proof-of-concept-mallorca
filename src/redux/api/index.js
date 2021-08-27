@@ -312,3 +312,6 @@ export const instalacions =`api/fact/instalacions`;
 export const tipusInstalacions = `api/fact/tipusInstalacions`;
 export const articleFact = `api/fact/articles`;
 export const articlesFactRae = `api/fact/articles`;
+export const liniesAlbaraClient = `api/fact/liniesAlbaraClient`;
+export const eas = `api/fact/eass`;
+export const lote = `api/fact/lots`;
