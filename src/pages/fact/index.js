@@ -99,6 +99,7 @@ import TipoInstalaciones from "./TipoInstalaciones";
 import Aplicadores from "./Aplicadores";
 import Certifications from "./Certifications";
 import Delegation from "./Delegation";
+import Expedients from "./Expedients";
 
 const component = [
   SuppliersFamily,
@@ -209,7 +210,8 @@ const component = [
   TipoInstalaciones,
   Aplicadores,
   Certifications,
-  Delegation
+  Delegation,
+  Expedients,
 ];
 
 export default component;

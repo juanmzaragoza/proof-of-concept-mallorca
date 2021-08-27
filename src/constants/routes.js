@@ -138,3 +138,4 @@ export const INSTALACIONES_TYPE_FACT_URL = "/fact/tipo-instalaciones";
 export const APLICADOR_FACT_URL = "/fact/aplicadores";
 export const CERTIFIACTION_FACT_URL = "/fact/certificaciones";
 export const DELEGATION_TYPE_FACT_URL = "/fact/delegaciones";
+export const EXPEDIENT_FACT_URL = "/fact/expedientes";

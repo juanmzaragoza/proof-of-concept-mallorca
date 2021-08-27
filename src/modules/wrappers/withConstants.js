@@ -572,13 +572,13 @@ const withConstants = (PassedComponent) => {
             icon: <LocalMall />,
           },
           {
-            key: "FAC_ARENEG", 
-            
+            key: "FAC_ARENEG",
+
             title: props.intl.formatMessage({
               id: "Proyectos.areaNegocio",
               defaultMessage: "Área negocio",
             }),
-            path: "FAC_ARENEG", 
+            path: "FAC_ARENEG",
             icon: <LocalMall />,
           },
           {
@@ -588,6 +588,15 @@ const withConstants = (PassedComponent) => {
               defaultMessage: "Delegaciones",
             }),
             path: "FAC_DELEG",
+            icon: <LocalMall />,
+          },
+          {
+            key: "FAC_EXPED",
+            title: props.intl.formatMessage({
+              id: "Expedientes.titulo",
+              defaultMessage: "Expedientes",
+            }),
+            path: "FAC_EXPED",
             icon: <LocalMall />,
           },
         ],
