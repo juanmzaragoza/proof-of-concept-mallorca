@@ -67,7 +67,15 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
   };
 
   // executed when mounts component and when vars change
-  useEffect(() => loadData(),[currentPage,sorting,filters,extraQuery]);
+  useEffect(() => {
+    console.log(currentPage,sorting,filters,extraQuery);
+    loadData()
+  },[
+    currentPage,
+    JSON.stringify(sorting),
+    JSON.stringify(filters),
+    JSON.stringify(extraQuery)
+  ]);
 
   // if the filters change
   useEffect(() => {
@@ -241,7 +249,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
         <Selection mode="single" />
         <MasterDetail
           enabled={isExpandableEnabled}
-          component={() => <ExpandableContent />}
+          component={() => isExpandableEnabled && <ExpandableContent />}
         />
 
         {configuration.enableInlineEdition && <Editing

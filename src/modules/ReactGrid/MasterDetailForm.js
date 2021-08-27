@@ -79,6 +79,7 @@ const MasterDetailedForm = (
 };
 
 MasterDetailedForm.propTypes = {
+  // property from withAbmServices HOC -> necessary to update data
   url: PropTypes.string.isRequired,
   formComponents: PropTypes.array.isRequired,
   row: PropTypes.any,

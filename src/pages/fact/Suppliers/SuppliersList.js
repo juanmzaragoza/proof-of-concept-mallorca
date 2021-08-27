@@ -250,7 +250,7 @@ const SuppliersList = ({actions, ...props}) => {
                  extraQuery={filters}
                  configuration={listConfiguration} >
         {props =>
-          <MasterDetailedForm formComponents={formComponents} {...props}/>
+          <MasterDetailedForm url={API.suppliers} formComponents={formComponents} {...props}/>
         }
       </ReactGrid>
     </>
