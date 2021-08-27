@@ -135,3 +135,4 @@ export const INVOICE_SUPPLIER_FACT_URL = "/fact/facturas-proveedores";
 export const BUDGET_FACT_URL = "/fact/presupuestos";
 export const INSTALACIONES_FACT_URL = "/fact/instalaciones";
 export const INSTALACIONES_TYPE_FACT_URL = "/fact/tipo-instalaciones";
+export const APLICADOR_FACT_URL = "/fact/aplicadores";

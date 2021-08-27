@@ -1966,7 +1966,19 @@
   "AlbaranesCliente.eas":"Eas",
   "AlbaranesCliente.descuentoProv":"Descuento Prov.",
   "AlbaranesCliente.promocionProv":"Promoción Prov.",
-  "AlbaranesCliente.descuentoProvTemp":"Descuento Prov.Temporal"
+  "AlbaranesCliente.descuentoProvTemp":"Descuento Prov.Temporal",
+  "Aplicadores.titulo":"Aplicadores",
+  "Aplicadores.apellidos":"Apellidos",
+  "Aplicadores.nif":"NIF",
+  "Aplicadores.categoria":"Categoria",
+  "Selector.basico":"Básico",
+  "Selector.cualificado":"Cualificado",
+  "Selector.fumigador":"Fumigador",
+  "Selector.piloto":"Piloto",
+  "Aplicadores.fechaExpedicion":"Fecha Expedición",
+  "Aplicadores.fechaCaducidad":"Fecha Caducidad",
+  "Aplicadores.activo":"Activo",
+  "Aplicadores.contrato":"Contrato"
 
 
 }
