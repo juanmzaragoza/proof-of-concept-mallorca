@@ -42,7 +42,7 @@ const DelegationCreate = (props) => {
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 30),
+        ...props.stringValidations.minMaxValidation(1, 60),
       ],
     },
   ];
