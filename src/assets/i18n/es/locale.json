@@ -1978,7 +1978,17 @@
   "Aplicadores.fechaExpedicion":"Fecha Expedición",
   "Aplicadores.fechaCaducidad":"Fecha Caducidad",
   "Aplicadores.activo":"Activo",
-  "Aplicadores.contrato":"Contrato"
+  "Aplicadores.contrato":"Contrato",
+  "Certificaciones.titulo":"Certificaciones",
+  "Certificaciones.numeroCertificado":"Número Certificado",
+  "Certificaciones.presupuestoCodigo":"Presupuesto Código",
+  "Certificaciones.numeroCertificadoCliente":"Número Certificados Cliente",
+  "Certificaciones.diaInicio":"Dia Inicio",
+  "Certificaciones.diaCierre":"Dia Cierre",
+  "Certificaciones.ultimaCertificacion":"Última Certificación",
+  "Certificaciones.certificacionOrigen":"Certificación Origen",
+  "Certificaciones.porcentajeEjecucion":"% Ejecución",
+  "Certificaciones.complementaria":"Complementaria"
 
 
 }

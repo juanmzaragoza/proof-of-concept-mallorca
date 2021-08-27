@@ -670,6 +670,15 @@ const withConstants = (PassedComponent) => {
             path: "FAC_APLICA",
             icon: <LocalMall />,
           },
+          {
+            key: "FAC_CERTIFI",
+            title: props.intl.formatMessage({
+              id: "Certificaciones.titulo",
+              defaultMessage: "Certificaciones",
+            }),
+            path: "FAC_CERTIFI",
+            icon: <LocalMall />,
+          },
         ],
       },
       {
