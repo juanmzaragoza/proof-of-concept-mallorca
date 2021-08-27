@@ -29,11 +29,13 @@ import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
 import LiniesTab from "./LiniesTab";
 import CapitulosTab from "./CapitulosTab";
+import OpcionesTab from "./OpcionesTab";
 
 const BUDGET_TAB_INDEX = 0;
 const VARIOS_TAB_INDEX = 1;
 const CAPITULOS_TAB_INDEX = 2;
 const LINE_TAB_INDEX = 3;
+const OPCIONES_TAB_INDEX = 4;
 
 const CustomerBudgetForm = React.memo(
   ({
@@ -53,6 +55,7 @@ const CustomerBudgetForm = React.memo(
       [VARIOS_TAB_INDEX]: false,
       [CAPITULOS_TAB_INDEX]: false,
       [LINE_TAB_INDEX]: false,
+      [OPCIONES_TAB_INDEX]:false,
     });
     const [forceTabChange, setForceTabChange] = useState(false);
     const [mostrarCapitol, setMostrarCapitol] = useState(false);
@@ -212,6 +215,32 @@ const CustomerBudgetForm = React.memo(
           />
         ),
       },
+
+      {
+        ...getTranslations("Presupuestos.tabs.opciones", "Opciones"),
+        key: OPCIONES_TAB_INDEX,
+        error: tabHasError(OPCIONES_TAB_INDEX),
+        component: (
+          <OpcionesTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [OPCIONES_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
+          />
+        ),
+      },
+
     ];
 
     const tabsNoDes = [
@@ -278,6 +307,30 @@ const CustomerBudgetForm = React.memo(
               setTabIndexWithError({
                 ...tabIndexWithError,
                 [LINE_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
+          />
+        ),
+      },
+      {
+        ...getTranslations("Presupuestos.tabs.opciones", "Opciones"),
+        key: 3,
+        error: tabHasError(OPCIONES_TAB_INDEX),
+        component: (
+          <OpcionesTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [OPCIONES_TAB_INDEX]: !value,
               })
             }
             editMode={editMode}
