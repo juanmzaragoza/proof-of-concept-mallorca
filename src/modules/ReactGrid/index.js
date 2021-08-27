@@ -183,6 +183,23 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
     setExpandedRow(null);
   }, [dataGrid, expandedRow]);
 
+  /** This component is like a decorator that adds properties to children */
+  const ExpandableContent = () => {
+    return (
+      props.children({
+        ...props,
+        row: expandedData,
+        onCancel: () => {
+          collapseAllRows();
+        },
+        onSuccess: (updatedData) => {
+          collapseAllRows();
+          loadData();
+        }
+      })
+    )
+  }
+
   return (
     <React.Fragment>
       <DataGrid
@@ -225,18 +242,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
         <Selection mode="single" />
         <MasterDetail
           enabled={isExpandableEnabled}
-          component={() => <MasterDetailedForm
-            formComponents={formComponents}
-            row={expandedData}
-            onCancel={(e) => {
-              collapseAllRows();
-            }}
-            onSuccess={(updatedData) => {
-              collapseAllRows();
-              loadData();
-            }}
-            {...props}
-          />}
+          component={() => <ExpandableContent />}
         />
 
         {configuration.enableInlineEdition && <Editing

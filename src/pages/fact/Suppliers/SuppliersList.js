@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import * as API from "redux/api";
 import AdvancedFilters from "modules/AdvancedFilters";
 import ReactGrid from "modules/ReactGrid";
+import MasterDetailedForm from "../../../modules/ReactGrid/MasterDetailForm";
 
 const SuppliersList = ({actions, ...props}) => {
   const [filters, setFilters] = useState([]);
@@ -248,7 +249,11 @@ const SuppliersList = ({actions, ...props}) => {
                  extraQuery={filters}
                  configuration={listConfiguration}
                  formComponents={formComponents}
-                 {...props} />
+                 {...props} >
+        {props =>
+          <MasterDetailedForm formComponents={formComponents} {...props}/>
+        }
+      </ReactGrid>
     </>
   )
 };
