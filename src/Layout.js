@@ -253,8 +253,8 @@ const Layout = ({ children, ...props}) => {
               <Route path={'/'} exact={true} component={() => <div className={classes.bigWord}>Pantalla Principal</div>} />
               {pages
                 .filter(module => module.routeProps)
-                .map(module => (
-                  <Route {...module.routeProps} key={module.name} />
+                .map((module, index) => (
+                  <Route {...module.routeProps} key={index} />
                 ))
               }
               {/* TODO() add not found component */}
