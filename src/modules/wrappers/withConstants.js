@@ -572,12 +572,31 @@ const withConstants = (PassedComponent) => {
             icon: <LocalMall />,
           },
           {
-            key: "FAC_ARENEG", // not mandatory for routes with children
+            key: "FAC_ARENEG",
+
             title: props.intl.formatMessage({
               id: "Proyectos.areaNegocio",
               defaultMessage: "Área negocio",
             }),
-            path: "FAC_ARENEG", // or has path or has children but not both
+            path: "FAC_ARENEG",
+            icon: <LocalMall />,
+          },
+          {
+            key: "FAC_DELEG",
+            title: props.intl.formatMessage({
+              id: "Delegaciones.titulo",
+              defaultMessage: "Delegaciones",
+            }),
+            path: "FAC_DELEG",
+            icon: <LocalMall />,
+          },
+          {
+            key: "FAC_EXPED",
+            title: props.intl.formatMessage({
+              id: "Expedientes.titulo",
+              defaultMessage: "Expedientes",
+            }),
+            path: "FAC_EXPED",
             icon: <LocalMall />,
           },
         ],
@@ -668,6 +687,15 @@ const withConstants = (PassedComponent) => {
               defaultMessage: "Aplicadores",
             }),
             path: "FAC_APLICA",
+            icon: <LocalMall />,
+          },
+          {
+            key: "FAC_CERTIFI",
+            title: props.intl.formatMessage({
+              id: "Certificaciones.titulo",
+              defaultMessage: "Certificaciones",
+            }),
+            path: "FAC_CERTIFI",
             icon: <LocalMall />,
           },
         ],

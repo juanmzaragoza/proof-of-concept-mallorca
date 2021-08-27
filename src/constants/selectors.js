@@ -1160,4 +1160,19 @@ export const APLICADOR_TYPE_SELECTOR_VALUES = [
 ];
 
 
+export const CERTIFICATION_SELECTOR_VALUES = [
+  {
+    value: "N",
+    labelId: "Selector.no",
+    label: "No",
+  },
+  {
+    value: "S",
+    labelId: "Selector.si",
+    label: "Si",
+  },
+  
+];
+
+
 
