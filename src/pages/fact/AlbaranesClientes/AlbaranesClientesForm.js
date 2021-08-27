@@ -26,12 +26,11 @@ import {
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
 import MoreTab from "./MoreTab";
-
+import LiniasTab from "./LiniasTab";
 
 const GENERAL_TAB_INDEX = 0;
 const MORE_TAB_INDEX = 1;
 const LINIAS_TAB_INDEX = 2;
-
 
 const AlbaranesClientesForm = React.memo(
   ({
@@ -46,12 +45,10 @@ const AlbaranesClientesForm = React.memo(
     const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
     const [nameSelectedTab, setNameSelectedTab] = useState("");
 
-
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [GENERAL_TAB_INDEX]: false,
       [MORE_TAB_INDEX]: true,
       [LINIAS_TAB_INDEX]: false,
-
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -152,10 +149,25 @@ const AlbaranesClientesForm = React.memo(
         key: LINIAS_TAB_INDEX,
         error: tabHasError(LINIAS_TAB_INDEX),
         component: (
-         "Pendiente del servicio Linias Albaran"
+          <LiniasTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [LINIAS_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
+          />
         ),
       },
-     
     ];
 
     const { id } = useParams();
@@ -201,7 +213,7 @@ const AlbaranesClientesForm = React.memo(
     /** Update HEADER */
     useEffect(() => {
       if (isEditable()) {
-        const nomComercial = "'"+getFormData("numero")+"'";
+        const nomComercial = "'" + getFormData("numero") + "'";
         const nom = nomComercial
           ? nomComercial
           : `${props.intl.formatMessage({
@@ -264,7 +276,7 @@ const mapStateToProps = (state, props) => {
     allFormData: getFormData(state),
     getFormData: getFormDataByKey(state),
     formDataLoaded: getIsDataLoaded(state),
-    isSubmitted: getIsSubmitted(state)
+    isSubmitted: getIsSubmitted(state),
   };
 };
 

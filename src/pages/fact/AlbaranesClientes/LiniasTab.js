@@ -83,22 +83,38 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
     }),
     query: [
       {
-        columnName: "albaraProveidor.id",
+        columnName: "albara.id",
         value: `"${pedidoProvId}"`,
         exact: true,
       },
     ],
 
     extraPostBody: {
-      albaraProveidor: { id: `${pedidoProvId}` },
+      albara: { id: `${pedidoProvId}` },
     },
 
     columns: [
+      {
+        name: "sequencia",
+        title: props.intl.formatMessage({
+          id: "Clasificaciones.sequencia",
+          defaultMessage: "sequencia",
+        }),
+      },
+
       {
         name: "numero",
         title: props.intl.formatMessage({
           id: "PedidosProveedor.numero",
           defaultMessage: "Número",
+        }),
+        hidden: true,
+      },
+      {
+        name: "albaraNumeroDocument",
+        title: props.intl.formatMessage({
+          id: "AlbaranesCliente.albaranNumero",
+          defaultMessage: "Albaran Num",
         }),
         hidden: true,
       },
@@ -134,32 +150,17 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         hidden: true,
       },
       {
-        name: "unitatsGratuites",
+        name: "preuBrut",
         title: props.intl.formatMessage({
-          id: "PedidosProveedor.unidadesGratuitas",
-          defaultMessage: "Unidades Gratuitas",
+          id: "PedidosProveedor.precioBruto",
+          defaultMessage: "Precio Bruto ",
         }),
       },
       {
-        name: "unitatsMetriquesGtt",
+        name: "descompteImport",
         title: props.intl.formatMessage({
-          id: "PedidosProveedor.unidadesMetricasGrat",
-          defaultMessage: "Unidades Métricas Gratuitas",
-        }),
-        hidden: true,
-      },
-      {
-        name: "descompte",
-        title: props.intl.formatMessage({
-          id: "PedidosProveedor.descuento1",
-          defaultMessage: "Descuento ",
-        }),
-      },
-      {
-        name: "descompteProntoPago",
-        title: props.intl.formatMessage({
-          id: "PedidosProveedor.descuento2",
-          defaultMessage: "Descuento ",
+          id: "AlbaranesCliente.dtoImp",
+          defaultMessage: "Descuento Importe",
         }),
       },
       {
@@ -170,13 +171,29 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
       },
       {
-        name: "imports",
+        name: "descompte",
+        title: props.intl.formatMessage({
+          id: "PedidosProveedor.descuento1",
+          defaultMessage: "Descuento ",
+        }),
+      },
+
+      {
+        name: "descompte002",
+        title: props.intl.formatMessage({
+          id: "PedidosProveedor.descuento2",
+          defaultMessage: "Descuento ",
+        }),
+        hidden: true,
+      },
+
+      {
+        name: "imp",
         title: props.intl.formatMessage({
           id: "PedidosProveedor.importe",
           defaultMessage: "Importe ",
         }),
       },
-
 
       {
         name: "lote",
@@ -230,7 +247,7 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
 
       {
-        name: "unitatsEnvas",
+        name: "envasUnitats",
         title: props.intl.formatMessage({
           id: "PedidosProveedor.unidadesEnvase",
           defaultMessage: "unidades Envase",
@@ -238,7 +255,7 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         hidden: true,
       },
       {
-        name: "preuEnvas",
+        name: "envasPreu",
         title: props.intl.formatMessage({
           id: "PedidosProveedor.precioEnvase",
           defaultMessage: "Precio Envase",
@@ -259,11 +276,32 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
     formComponents: [
       {
         placeHolder: props.intl.formatMessage({
+          id: "AlbaranesCliente.albaranNumero",
+          defaultMessage: "Albaran Num",
+        }),
+        type: "numeric",
+        required: true,
+        noEditable: true,
+        key: "albaraNumeroDocument",
+        breakpoints: {
+          xs: 12,
+          md: 2,
+        },
+        validationType: "number",
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 999999999),
+          ...props.commonValidations.requiredValidation(),
+        ],
+      },
+
+      {
+        placeHolder: props.intl.formatMessage({
           id: "PedidosProveedor.numero",
           defaultMessage: "Número ",
         }),
         type: "numeric",
         required: true,
+        noEditable: true,
         key: "numero",
         breakpoints: {
           xs: 12,
@@ -273,6 +311,22 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         validations: [
           ...props.numberValidations.minMaxValidation(0, 999999999),
           ...props.commonValidations.requiredValidation(),
+        ],
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Clasificaciones.sequencia",
+          defaultMessage: "Sequencia",
+        }),
+        type: "numeric",
+        key: "sequencia",
+        breakpoints: {
+          xs: 12,
+          md: 2,
+        },
+        validationType: "number",
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 999999999),
         ],
       },
 
@@ -287,7 +341,7 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         required: true,
         breakpoints: {
           xs: 12,
-          md: 5,
+          md: 4,
         },
         selector: {
           key: "articles",
@@ -304,57 +358,6 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       {
         placeHolder: props.intl.formatMessage({
-          id: "PedidosProveedor.precio",
-          defaultMessage: "Importe ",
-        }),
-        type: "numeric",
-        required: true,
-        key: "preu",
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        validationType: "number",
-        validations: [
-          ...props.numberValidations.minMaxValidation(0, 999999999),
-          ...props.commonValidations.requiredValidation(),
-        ],
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "PedidosProveedor.factorConversion",
-          defaultMessage: "Factor Conversión ",
-        }),
-        type: "numeric",
-        required: true,
-        key: "factorConversioEntrada",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-        validationType: "number",
-        validations: [
-          ...props.numberValidations.minMaxValidation(0, 999999999999),
-          ...props.commonValidations.requiredValidation(),
-        ],
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "PedidosProveedor.descripcionArticulo",
-          defaultMessage: "Decripción Artículo",
-        }),
-        type: "input",
-        required: true,
-        key: "descripcio",
-        breakpoints: {
-          xs: 12,
-          md: 9,
-        },
-        validationType: "string",
-        validations: [...props.commonValidations.requiredValidation()],
-      },
-      {
-        placeHolder: props.intl.formatMessage({
           id: "PedidosProveedor.unidades",
           defaultMessage: "Unidades",
         }),
@@ -363,52 +366,61 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "unitats",
         breakpoints: {
           xs: 12,
-          md: 3,
+          md: 2,
         },
         validationType: "number",
         validations: [...props.commonValidations.requiredValidation()],
       },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "PedidosProveedor.unidadesMetricas",
-          defaultMessage: "Unidades Metricas",
-        }),
-        type: "numeric",
-        key: "unitatsMetriques",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-        validationType: "number",
-        validations: [],
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "PedidosProveedor.unidadesGratuitas",
-          defaultMessage: "Unidades Gratuitas",
-        }),
-        type: "numeric",
 
-        key: "unitatsGratuites",
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "PedidosProveedor.precioBruto",
+          defaultMessage: "Precio Brtuo",
+        }),
+        type: "numeric",
+        key: "preuBrut",
         breakpoints: {
           xs: 12,
           md: 2,
         },
         validationType: "number",
-        validations: [],
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 99999999999),
+        ],
       },
       {
         placeHolder: props.intl.formatMessage({
-          id: "PedidosProveedor.unidadesMetricasGrat",
-          defaultMessage: "Unidades Métricas Gratuitas",
+          id: "AlbaranesCliente.dtoImp",
+          defaultMessage: "Descuento Imp",
         }),
         type: "numeric",
-        key: "unitatsMetriquesGtt",
+        key: "descompteImport",
+        breakpoints: {
+          xs: 12,
+          md: 2,
+        },
+        suffix: "%",
+        validationType: "number",
+        validations: [...props.stringValidations.minMaxValidation(0, 99)],
+      },
+
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "PedidosProveedor.precio",
+          defaultMessage: "Precio ",
+        }),
+        type: "numeric",
+        required: true,
+        key: "preu",
         breakpoints: {
           xs: 12,
           md: 2,
         },
         validationType: "number",
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 99999999999),
+          ...props.commonValidations.requiredValidation(),
+        ],
       },
 
       {
@@ -432,7 +444,7 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Descuento 2",
         }),
         type: "numeric",
-        key: "descompteProntoPago",
+        key: "descompte002",
         breakpoints: {
           xs: 12,
           md: 2,
@@ -449,7 +461,8 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         type: "numeric",
         required: true,
-        key: "imports",
+        noEditable: true,
+        key: "imp",
         breakpoints: {
           xs: 12,
           md: 2,
@@ -460,30 +473,32 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
           ...props.commonValidations.requiredValidation(),
         ],
       },
-
       {
         placeHolder: props.intl.formatMessage({
-          id: "Clientes.iva",
-          defaultMessage: "IVA",
+          id: "AlbaranesCliente.eas",
+          defaultMessage: "Eas",
         }),
         type: "LOV",
-        key: "iva",
-        id: "ives",
+        key: "eas",
         required: true,
         breakpoints: {
           xs: 12,
-          md: 4,
+          md: 3,
         },
         selector: {
-          key: "ivas",
-          labelKey: (data) => `${data.descripcio} (${data.codi})`,
-          sort: "descripcio",
-          advancedSearchColumns: aSCodeAndDescription,
+          key: "eases",
+          labelKey: (data) => `${data.diaInici} (${data.sequencia})`,
+          sort: "nom",
           cannotCreate: true,
+          advancedSearchColumns: [
+            { title: CODE, name: "codi" },
+            { title: NOM, name: "descripcioCurta" },
+          ],
         },
         validationType: "object",
         validations: [...props.commonValidations.requiredValidation()],
       },
+
       {
         placeHolder: props.intl.formatMessage({
           id: "PedidosProveedor.envase",
@@ -494,7 +509,7 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "envasos",
         breakpoints: {
           xs: 12,
-          md: 4,
+          md: 3,
         },
         selector: {
           key: "envases",
@@ -511,7 +526,7 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Unidades Envase",
         }),
         type: "numeric",
-        key: "unitatsEnvas",
+        key: "envasUnitats",
         breakpoints: {
           xs: 12,
           md: 2,
@@ -527,7 +542,7 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Precio Envase",
         }),
         type: "numeric",
-        key: "preuEnvas",
+        key: "envasPreu",
         breakpoints: {
           xs: 12,
           md: 2,
@@ -536,6 +551,43 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         validations: [
           ...props.numberValidations.minMaxValidation(0, 999999999999),
         ],
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "PedidosProveedor.unidadesMetricas",
+          defaultMessage: "Unidades Metricas",
+        }),
+        type: "numeric",
+        key: "unitatsMetriques",
+        breakpoints: {
+          xs: 12,
+          md: 2,
+        },
+        validationType: "number",
+        validations: [],
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Clientes.iva",
+          defaultMessage: "IVA",
+        }),
+        type: "LOV",
+        key: "iva",
+        id: "ives",
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "ivas",
+          labelKey: (data) => `${data.descripcio} (${data.codi})`,
+          sort: "descripcio",
+          advancedSearchColumns: aSCodeAndDescription,
+          cannotCreate: true,
+        },
+        validationType: "object",
+        validations: [...props.commonValidations.requiredValidation()],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -560,7 +612,7 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
           },
         },
       },
-
+      
       {
         placeHolder: props.intl.formatMessage({
           id: "PedidosProveedor.largo",
@@ -570,7 +622,7 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "llarg",
         breakpoints: {
           xs: 12,
-          md: 3,
+          md: 2,
         },
         validationType: "number",
         validations: [
@@ -586,7 +638,7 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "ample",
         breakpoints: {
           xs: 12,
-          md: 3,
+          md: 2,
         },
         validationType: "number",
         validations: [
@@ -602,7 +654,7 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "alt",
         breakpoints: {
           xs: 12,
-          md: 3,
+          md: 2,
         },
         validationType: "number",
         validations: [
@@ -685,6 +737,38 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       {
         placeHolder: props.intl.formatMessage({
+          id: "AlbaranesCliente.descuentoProv",
+          defaultMessage: "Descuento Prov.",
+        }),
+        type: "numeric",
+        key: "descompteProveidor",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        validationType: "number",
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 999999999999),
+        ],
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "AlbaranesCliente.descuentoProvTemp",
+          defaultMessage: "Promoción Prov. Temporal",
+        }),
+        type: "numeric",
+        key: "descompteProveidorTemporal",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        validationType: "number",
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 999999999999),
+        ],
+      },
+      {
+        placeHolder: props.intl.formatMessage({
           id: "AlbaranesProveedor.movimientosStock",
           defaultMessage: "Movimientos Stock",
         }),
@@ -710,7 +794,24 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 3,
         },
-    
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "PedidosProveedor.descripcionArticulo",
+          defaultMessage: "Decripción Artículo",
+        }),
+        type: "input",
+        required: true,
+        key: "descripcio",
+        breakpoints: {
+          xs: 12,
+          md: 12,
+        },
+        validationType: "string",
+        validations: [
+          ...props.commonValidations.requiredValidation(),
+          ...props.stringValidations.minMaxValidation(0, 2000),
+        ],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -740,8 +841,8 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
           }
         >
           <ExpandableGrid
-            id="liniesAlbaraProveidor"
-            responseKey="liniaAlbaraProveidors"
+            id="liniesAlbaraClient"
+            responseKey="liniaAlbaraClients"
             enabled={props.editMode}
             configuration={liniasPedidosConfig}
           />

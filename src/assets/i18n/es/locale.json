@@ -1959,7 +1959,14 @@
   "Presupuestos.acumularImporte":"Acumular importe",
   "Instalaciones.titulo":"Instalaciones",
   "Instalaciones.direccion":"Dirección",
-  "TipoInstalaciones.titulo":"Tipo Instalaciones"
+  "TipoInstalaciones.titulo":"Tipo Instalaciones",
+  "AlbaranesCliente.albaranNumero":"Albarán Núm. Doc",
+  "AlbaranesCliente.dtoImp":"Descuento Imp.",
+  "PedidosProveedor.precioBruto":"Precio Bruto",
+  "AlbaranesCliente.eas":"Eas",
+  "AlbaranesCliente.descuentoProv":"Descuento Prov.",
+  "AlbaranesCliente.promocionProv":"Promoción Prov.",
+  "AlbaranesCliente.descuentoProvTemp":"Descuento Prov.Temporal"
 
 
 }
