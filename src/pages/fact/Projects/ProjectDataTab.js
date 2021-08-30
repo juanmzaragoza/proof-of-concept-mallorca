@@ -33,7 +33,7 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
       [TECNIC_SECTION_TAB_INDEX]: false,
       [DATES_SECTION_TAB_INDEX]: false,
       [CONFIG_SECTION_TAB_INDEX]: true,
-      [FINAL_SECTION_TAB_INDEX]:true
+      [FINAL_SECTION_TAB_INDEX]: true,
     },
     setIsValid: props.setIsValid,
   });
@@ -129,11 +129,13 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
               labelKey: (data) => `${data.nom} (${data.codi})`,
               sort: "codi",
               cannotCreate: true,
-              relatedWith: {
-                name: "provincia",
-                filterBy: "pais.id",
-                keyValue: "id",
-              },
+              relatedWith: [
+                {
+                  name: "provincia",
+                  filterBy: "pais.id",
+                  keyValue: "id",
+                },
+              ],
               advancedSearchColumns: aSCodeAndName,
             },
           },
@@ -326,8 +328,8 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "number",
-     
-      validations: [ ...props.numberValidations.minMaxValidation(0, 100000000)],
+
+      validations: [...props.numberValidations.minMaxValidation(0, 100000000)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -408,7 +410,7 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         cannotCreate: true,
       },
       validationType: "object",
-      validations: [...props.commonValidations.requiredValidation()],
+      ...withRequiredValidation(),
     },
     {
       placeHolder: DESCRIPCIO,
@@ -506,7 +508,7 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         options: TIPO_EJECUCION_PROYECTO_SELECTOR_VALUES,
       },
       validationType: "string",
-      ...withRequiredValidation(),
+      ...withRequiredValidation([]),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -534,7 +536,7 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "string",
-      ...withRequiredValidation(),
+      // validations:[...props.commonValidations.requiredValidation()]
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -561,7 +563,7 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
       validationType: "string",
-      ...withRequiredValidation(),
+      // ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -650,7 +652,6 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
     ...codiPostal(4),
   ];
 
-  console.log(getFormData("client"));
   const customerData = [
     {
       placeHolder: props.intl.formatMessage({
@@ -672,11 +673,18 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
           { title: NOM, name: "nomComercial" },
         ],
         cannotCreate: true,
-        relatedWith: {
-          name: "subClient",
-          filterBy: "client.id",
-          keyValue: "id",
-        },
+        relatedWith: [
+          {
+            name: "subClient",
+            filterBy: "client.id",
+            keyValue: "id",
+          },
+          {
+            name: "clientAdresa",
+            filterBy: "client.id",
+            keyValue: "id",
+          },
+        ],
       },
     },
     {
@@ -696,11 +704,6 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         sort: "nom",
         advancedSearchColumns: aSCodeAndName,
         cannotCreate: true,
-        relatedWith: {
-          name: "clientAdresa",
-          filterBy: "client.id",
-          keyValue: "client.id",
-        },
       },
     },
     {
@@ -731,17 +734,17 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
     {
       placeHolder: props.intl.formatMessage({
         id: "Proyectos.fechaAdjudicacion",
-        defaultMessage: "Adjudicación",
+        defaultMessage: "Adjudicación ",
       }),
-      required: true,
       type: "date",
+      required: true,
       key: "dataAdjudicacio",
       breakpoints: {
         xs: 12,
         md: 4,
       },
       validationType: "string",
-      ...withRequiredValidation(),
+      // ...withRequiredValidation([]),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -755,20 +758,21 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
     },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "Proyectos.inicioGarantia",
-        defaultMessage: "Inicio garantía",
+        defaultMessage: "Inicio garantía ",
       }),
-      required: true,
       type: "date",
+      required: true,
       key: "dataIniciGarantia",
       breakpoints: {
         xs: 12,
         md: 4,
       },
       validationType: "string",
-      ...withRequiredValidation(),
+      // ...withRequiredValidation([]),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -1263,9 +1267,7 @@ const ProjectDataTab = ({ formData, setFormData, getFormData, ...props }) => {
           formErrors={props.formErrors}
           submitFromOutside={props.submitFromOutside}
           onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) =>
-            addValidity(FINAL_SECTION_TAB_INDEX, value)
-          }
+          handleIsValid={(value) => addValidity(FINAL_SECTION_TAB_INDEX, value)}
           onBlur={(e) => handleTouched(FINAL_SECTION_TAB_INDEX)}
           {...props}
         />

@@ -100,7 +100,7 @@ const ExpirationSuppplierTab = ({ formData, setFormData, getFormData, ...props }
           className="general-tab-container"
           title={
             <FormattedMessage
-              id={"Proyectos.presupuestos"}
+              id={"Proyectos.vencProv"}
               defaultMessage={"Presupuestos"}
             />
           }

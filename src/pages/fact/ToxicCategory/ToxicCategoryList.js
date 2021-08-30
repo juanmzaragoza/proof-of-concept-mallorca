@@ -34,6 +34,8 @@ const ToxicCategoryList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
+        
       },
       {
         name: "nom",
@@ -48,6 +50,7 @@ const ToxicCategoryList = ({ actions, ...props }) => {
           id: "CategoriaTox.empresaCodigo",
           defaultMessage: "Código Empresa",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "peuDocument",
@@ -56,10 +59,12 @@ const ToxicCategoryList = ({ actions, ...props }) => {
           defaultMessage: "Pie Documento",
         }),
         getCellValue: (row) => row.peuDocument?.description ?? "",
+        inlineEditionDisabled: true
       },
     ],
     URL: API.categoriaToxicologica,
     listKey: "categoriaToxicologicas",
+    enableInlineEdition: true
   };
   return (
     <ReactGrid id="categoriaToxicologica" configuration={listConfiguration} />

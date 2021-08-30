@@ -35,6 +35,7 @@ const SeriesIntracomunitariasList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "descripcio",
@@ -46,6 +47,7 @@ const SeriesIntracomunitariasList = ({ actions, ...props }) => {
     ],
     URL: API.serieIntracomunitaria,
     listKey: "serieIntracomunitarias",
+    enableInlineEdition: true
   };
   return <ReactGrid id="serieIntracomunitaria" configuration={listConfiguration} />;
 };

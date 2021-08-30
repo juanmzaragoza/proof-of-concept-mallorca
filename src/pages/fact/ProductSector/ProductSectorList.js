@@ -55,7 +55,6 @@ const ProductSectorList = ({ actions, ...props }) => {
         getCellValue: (row) =>
           row.idioma?.description ? row.idioma.description : "",
       },
-    
     ],
     URL: API.productesSector,
     listKey: "producteSectors",

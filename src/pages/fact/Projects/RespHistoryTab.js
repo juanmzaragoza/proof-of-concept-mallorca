@@ -166,8 +166,8 @@ const RespHistoryTab = ({ formData, setFormData, getFormData, ...props }) => {
           className="general-tab-container"
           title={
             <FormattedMessage
-              id={"Proyectos.presupuestos"}
-              defaultMessage={"Presupuestos"}
+              id={ "Proyectos.historialResp"}
+              defaultMessage={"historialResp"}
             />
           }
         >

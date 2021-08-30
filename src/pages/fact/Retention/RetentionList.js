@@ -35,6 +35,8 @@ const RetentionList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
+        
       },
       {
         name: "descripcio",
@@ -61,6 +63,7 @@ const RetentionList = ({ actions, ...props }) => {
     ],
     URL: API.classeRetencio,
     listKey: "classeRetencios",
+    enableInlineEdition: true
   };
   return <ReactGrid id="classeRetencio" configuration={listConfiguration} />;
 };

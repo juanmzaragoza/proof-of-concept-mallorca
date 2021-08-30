@@ -35,6 +35,7 @@ const SupplierClientList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "descripcio",
@@ -46,6 +47,7 @@ const SupplierClientList = ({ actions, ...props }) => {
     ],
     URL: API.tipusProveidorClient,
     listKey: "tipusProveidorClients",
+    enableInlineEdition: true
   };
   return <ReactGrid id="tipusProveidorClient" configuration={listConfiguration} />;
 };

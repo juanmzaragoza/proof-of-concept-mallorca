@@ -115,6 +115,7 @@ const CurrentAccountsCreate = (props) => {
       }),
       type: "LOV",
       key: "bancCodi",
+      noEditable:true,
       required:true,
       breakpoints: {
         xs: 12,
@@ -125,11 +126,11 @@ const CurrentAccountsCreate = (props) => {
         labelKey: (data) => `${data.nom} (${data.codi})`,
         sort: "codi",
         cannotCreate: true,
-        relatedWith: {
+        relatedWith: [{
           name: "oficinaBancariaCodi",
           filterBy: "banc.id",
           keyValue: "id",
-        },
+        },],
         transform: {
           apply: (bancs) => bancs && bancs.codi,
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
@@ -147,6 +148,7 @@ const CurrentAccountsCreate = (props) => {
       }),
       type: "LOV",
       key: "oficinaBancariaCodi",
+    
       required:true,
       breakpoints: {
         xs: 12,

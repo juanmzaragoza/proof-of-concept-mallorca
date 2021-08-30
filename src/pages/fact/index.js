@@ -18,7 +18,6 @@ import PostalCode from "./PostalCode";
 import DocumentFooter from "./DocumentFooter";
 import ProjectType from "./ProjectType";
 import CompanyAccountingAccount from "./CompanyAccountingAccount";
-
 import CommercialRegister from "./CommercialRegister";
 import Gama from "./Gama";
 import ItemBrand from "./ItemBrand";
@@ -26,54 +25,41 @@ import ItemModel from "./ItemModel";
 import CommisionType from "./CommisionType";
 import UnitType from "./UnitType";
 import ItemsFamily from "./ItemsFamily";
-
 import Projects from "./Projects";
-
 import Company from "./Company";
-
 import BusinessArea from "./BusinessArea";
-
 import Rates from "./Rates";
 import Location from "./Location";
 import ArticlesLocation from "./ArticlesLocation";
 import FamilyCosts from "./FamilyCosts";
+import Invoice from "./Invoice";
 import Articles from "./Articles";
 import Store from "./Store";
 import SalesSeries from "./SalesSeries";
 import DocumentoPagoCobro from "./DocumentoPagoCobro";
 import MaturityType from "./MaturityType";
-
 import Products from "./Products";
-
 import BillingType from "./BillingType";
 import DiscountRates from "./DiscountRates";
 import FinalesFacturas from "./FinalesFacturas";
 import SeriesIntracomunitarias from "./SeriesIntracomunitarias";
 import PurchaseSeries from "./PurchaseSeries";
-
 import Sector from "./Sector";
 import Vehicle from "./Vehicle";
 import Carrier from "./Carrier";
 import CommercialSituation from "./CommercialSituation";
 import Rappel from "./Rappel";
-
 import AddressType from "./AddressType";
 import CustomerAdress from "./CustomerAdress";
 import Subvenciones from "./Subvenciones";
-
 import SubClients from "./SubClients";
-
 import CustomerDepartments from "./CustomerDepartments";
 import Departaments from "./Departaments";
-
 import CustomerApp from "./CustomerApp";
 import TermStore from "./TermStore";
 import InitialSituation from "./InitialSituation";
-
 import SectionCompany from "./SectionCompany";
-
 import ProductSector from "./ProductSector";
-
 import CompanyAccount from "./CompanyAccount";
 import Application from "./Application";
 import RiskType from "./RiskType";
@@ -102,6 +88,18 @@ import FormaCoste from "./FormaCoste";
 import CurrentAccounts from "./CurrentAccounts";
 import Clasification from "./Clasification";
 import AreasNegocio from "./AreasNegocio";
+import SuppliersOrders from "./SuppliersOrders";
+import SuppliersOffers from "./SuppliersOffers";
+import AlbaranesClientes from "./AlbaranesClientes";
+import AlbaranesProveedores from "./AlbaranesProveedores";
+import SupplierInvoice from "./SupplierInvoice";
+import CustomerBudget from "./CustomerBudget";
+import Instalaciones from "./Instalaciones";
+import TipoInstalaciones from "./TipoInstalaciones";
+import Aplicadores from "./Aplicadores";
+import Certifications from "./Certifications";
+import Delegation from "./Delegation";
+import Expedients from "./Expedients";
 
 const component = [
   SuppliersFamily,
@@ -142,6 +140,9 @@ const component = [
   Location,
   ArticlesLocation,
   FamilyCosts,
+
+  Invoice,
+
   Articles,
   Store,
   SalesSeries,
@@ -149,7 +150,6 @@ const component = [
   MaturityType,
 
   Products,
-
   Sector,
   Vehicle,
   Carrier,
@@ -199,9 +199,19 @@ const component = [
   FormaCoste,
   CurrentAccounts,
   Clasification,
-  AreasNegocio
-
-
+  AreasNegocio,
+  SuppliersOrders,
+  SuppliersOffers,
+  AlbaranesClientes,
+  AlbaranesProveedores,
+  SupplierInvoice,
+  CustomerBudget,
+  Instalaciones,
+  TipoInstalaciones,
+  Aplicadores,
+  Certifications,
+  Delegation,
+  Expedients,
 ];
 
 export default component;

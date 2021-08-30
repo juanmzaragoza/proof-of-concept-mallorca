@@ -572,12 +572,31 @@ const withConstants = (PassedComponent) => {
             icon: <LocalMall />,
           },
           {
-            key: "FAC_ARENEG", // not mandatory for routes with children
+            key: "FAC_ARENEG",
+
             title: props.intl.formatMessage({
               id: "Proyectos.areaNegocio",
               defaultMessage: "Área negocio",
             }),
-            path: "FAC_ARENEG", // or has path or has children but not both
+            path: "FAC_ARENEG",
+            icon: <LocalMall />,
+          },
+          {
+            key: "FAC_DELEG",
+            title: props.intl.formatMessage({
+              id: "Delegaciones.titulo",
+              defaultMessage: "Delegaciones",
+            }),
+            path: "FAC_DELEG",
+            icon: <LocalMall />,
+          },
+          {
+            key: "FAC_EXPED",
+            title: props.intl.formatMessage({
+              id: "Expedientes.titulo",
+              defaultMessage: "Expedientes",
+            }),
+            path: "FAC_EXPED",
             icon: <LocalMall />,
           },
         ],
@@ -634,6 +653,51 @@ const withConstants = (PassedComponent) => {
             path: "FAC_TAL",
             icon: <LocalMall />,
           },
+          {
+            key: "FAC_ALBARA",
+            title: props.intl.formatMessage({
+              id: "AlbaranesCliente.titulo",
+              defaultMessage: "Alabranes Cliente",
+            }),
+            path: "FAC_ALBARA",
+            icon: <LocalMall />,
+          },
+          {
+            key: "FAC_FAC",
+            title: props.intl.formatMessage({
+              id: "Facturas.facturasCliente",
+              defaultMessage: "Facturas Cliente",
+            }),
+            path: "FAC_FAC",
+            icon: <LocalMall />,
+          },
+          {
+            key: "FAC_PRESSU",
+            title: props.intl.formatMessage({
+              id: "Presupuestos.titulo",
+              defaultMessage: "Presupuestos Cliente",
+            }),
+            path: "FAC_PRESSU",
+            icon: <LocalMall />,
+          },
+          {
+            key: "FAC_APLICA",
+            title: props.intl.formatMessage({
+              id: "Aplicadores.titulo",
+              defaultMessage: "Aplicadores",
+            }),
+            path: "FAC_APLICA",
+            icon: <LocalMall />,
+          },
+          {
+            key: "FAC_CERTIFI",
+            title: props.intl.formatMessage({
+              id: "Certificaciones.titulo",
+              defaultMessage: "Certificaciones",
+            }),
+            path: "FAC_CERTIFI",
+            icon: <LocalMall />,
+          },
         ],
       },
       {
@@ -659,6 +723,42 @@ const withConstants = (PassedComponent) => {
               defaultMessage: "Tipo Oferta Proveedor",
             }),
             path: "FAC_TIPOFEPRO",
+            icon: <LocalMall />,
+          },
+          {
+            key: "FAC_PROCOM", // not mandatory for routes with children
+            title: props.intl.formatMessage({
+              id: "PedidosProveedores.titulo",
+              defaultMessage: "Pedidos Proveedores",
+            }),
+            path: "FAC_PROCOM", // or has path or has children but not both
+            icon: <LocalMall />,
+          },
+          {
+            key: "FAC_OFEPRO", // not mandatory for routes with children
+            title: props.intl.formatMessage({
+              id: "OfertasProveedores.titulo",
+              defaultMessage: "Ofertas Proveedores",
+            }),
+            path: "FAC_OFEPRO", // or has path or has children but not both
+            icon: <LocalMall />,
+          },
+          {
+            key: "FAC_ALBPRO",
+            title: props.intl.formatMessage({
+              id: "AlbaranesProveedor.titulo",
+              defaultMessage: "Albaranes Proveedor",
+            }),
+            path: "FAC_ALBPRO",
+            icon: <LocalMall />,
+          },
+          {
+            key: "FAC_FACPRO",
+            title: props.intl.formatMessage({
+              id: "FacturasProveedor.titulo",
+              defaultMessage: "Facturas Proveedor",
+            }),
+            path: "FAC_FACPRO",
             icon: <LocalMall />,
           },
         ],
@@ -886,6 +986,15 @@ const withConstants = (PassedComponent) => {
           },
         ],
       },
+      {
+        key: "FAC_INS",
+        title: props.intl.formatMessage({
+          id: "Instalaciones.titulo",
+          defaultMessage: "Instalaciones",
+        }),
+        path: "FAC_INS",
+        icon: <LocalMall />,
+      },
 
       {
         key: "FAC_PAINIF", // not mandatory for routes with children
@@ -894,6 +1003,15 @@ const withConstants = (PassedComponent) => {
           defaultMessage: "Pais NIF",
         }),
         path: "FAC_PAINIF", // or has path or has children but not both
+        icon: <LocalMall />,
+      },
+      {
+        key: "FAC_TIT",
+        title: props.intl.formatMessage({
+          id: "TipoInstalaciones.titulo",
+          defaultMessage: "Tipo Instalaciones",
+        }),
+        path: "FAC_TIT",
         icon: <LocalMall />,
       },
 
@@ -1125,6 +1243,7 @@ const withConstants = (PassedComponent) => {
           },
         ],
       },
+
       {
         key: "FAC_REGCOM", // not mandatory for routes with children
         title: props.intl.formatMessage({
@@ -1135,7 +1254,6 @@ const withConstants = (PassedComponent) => {
         icon: <LocalMall />,
       },
 
-     
       {
         key: "FAC_PROD", // not mandatory for routes with children
         title: props.intl.formatMessage({
@@ -1240,12 +1358,12 @@ const withConstants = (PassedComponent) => {
         icon: <LocalMall />,
       },
       {
-        key: "FAC_APLICA", // not mandatory for routes with children
+        key: "FAC_APT", // not mandatory for routes with children
         title: props.intl.formatMessage({
           id: "Aplicaciones.titulo",
           defaultMessage: "Aplicaciones",
         }),
-        path: "FAC_APLICA", // or has path or has children but not both
+        path: "FAC_APT", // or has path or has children but not both
         icon: <LocalMall />,
       },
 
@@ -1268,7 +1386,6 @@ const withConstants = (PassedComponent) => {
         path: "FAC_SERARENEG",
         icon: <LocalMall />,
       },
-     
     ];
 
     return (

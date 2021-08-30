@@ -35,6 +35,7 @@ const VatList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "descripcio",
@@ -61,6 +62,7 @@ const VatList = ({ actions, ...props }) => {
     ],
     URL: API.iva,
     listKey: "ivas",
+    enableInlineEdition: true
   };
   return <ReactGrid id="iva" configuration={listConfiguration} />;
 };

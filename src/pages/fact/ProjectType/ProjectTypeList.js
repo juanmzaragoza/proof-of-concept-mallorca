@@ -35,6 +35,7 @@ const ProjectTypeList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "nom",
@@ -46,6 +47,7 @@ const ProjectTypeList = ({ actions, ...props }) => {
     ],
     URL: API.projectesTipo,
     listKey: "projecteTipuses",
+    enableInlineEdition: true
   };
   return <ReactGrid id="projectesTipo" configuration={listConfiguration} />;
 };

@@ -74,40 +74,41 @@ export const RATES_FACT_URL = "/fact/tarifes";
 export const LOCATION_FACT_URL = "/fact/ubicacion";
 export const ARTICLES_LOCATION_FACT_URL = "/fact/articulo-ubicacion";
 
+export const INVOICE_CUSTOMER_FACT_URL = "/fact/facturas-cliente";
+
 export const STORE_FACT_URL = "/fact/almacenes";
 
-export const TIPO_VENCIMIENTO_FACT_URL = '/fact/tipo-vencimiento';
+export const TIPO_VENCIMIENTO_FACT_URL = "/fact/tipo-vencimiento";
 
-export const SALES_SERIES_FACT_URL = '/fact/series-ventas';
-export const DOCUMENTO_PAGO_COBRO_FACT_URL = '/fact/documentos-pago-cobro';
+export const SALES_SERIES_FACT_URL = "/fact/series-ventas";
+export const DOCUMENTO_PAGO_COBRO_FACT_URL = "/fact/documentos-pago-cobro";
 
-export const PRODUCT_FACT_URL ='/fact/productos';
+export const PRODUCT_FACT_URL = "/fact/productos";
 
-export const SECTOR_FACT_URL = '/fact/sectores';
-export const VEHICLE_FACT_URL = '/fact/vehiculos';
-export const CARRIER_FACT_URL = '/fact/transportistas';
-export const COMMERCIAL_FACT_URL = '/fact/situaciones-comerciales';
-export const RAPPEL_FACT_URL = '/fact/rappels';
-export const CUSTOMER_ADDRESS_FACT_URL ='/fact/direcciones-clientes';
-export const SUBCLIENTS_FACT_URL = '/fact/subclientes';
-export const DEPART_FACT_URL = '/fact/departamentos';
-export const PERIOD_STORE_FACT_URL = '/fact/periodos-almacen';
-export const INITIAL_SITUATION_FACT_URL ='/fact/situaciones-inicales';
+export const SECTOR_FACT_URL = "/fact/sectores";
+export const VEHICLE_FACT_URL = "/fact/vehiculos";
+export const CARRIER_FACT_URL = "/fact/transportistas";
+export const COMMERCIAL_FACT_URL = "/fact/situaciones-comerciales";
+export const RAPPEL_FACT_URL = "/fact/rappels";
+export const CUSTOMER_ADDRESS_FACT_URL = "/fact/direcciones-clientes";
+export const SUBCLIENTS_FACT_URL = "/fact/subclientes";
+export const DEPART_FACT_URL = "/fact/departamentos";
+export const PERIOD_STORE_FACT_URL = "/fact/periodos-almacen";
+export const INITIAL_SITUATION_FACT_URL = "/fact/situaciones-inicales";
 
-export const SECTION_COMPANY_FACT_URL = '/fact/secciones-empresa'
+export const SECTION_COMPANY_FACT_URL = "/fact/secciones-empresa";
 
+export const PRODUCT_SECTOR_FACT_URL = "/fact/productos-sectores";
+export const COMPANY_ACCOUNT_FACT_URL = "/fact/cuentas-corrientes-empresas";
 
-export const PRODUCT_SECTOR_FACT_URL = '/fact/productos-sectores';
-export const COMPANY_ACCOUNT_FACT_URL = '/fact/cuentas-corrientes-empresas';
-
-export const APP_FACT_URL = '/fact/aplicaciones';
-export const RISK_TYPE_FACT_URL = '/fact/tipo-riesgo';
-export const PARAMETERS_FACT_URL = '/fact/parametros';
-export const SUPPLIER_CLIENT_TYPE_FACT_URL = '/fact/tipo-proveedores-cliente';
-export const NATURALEZA_PAGO_FACT_URL = '/fact/naturaleza-pago';
-export const INCIDENCE_TYPE_FACT_URL = '/fact/tipo-incidencia-factura';
-export const FACTORING_LINE_FACT_URL = '/fact/linias-factoring';
-export const COSTS_TYPE_FACT_URL = '/fact/tipo-costes';
+export const APP_FACT_URL = "/fact/aplicaciones";
+export const RISK_TYPE_FACT_URL = "/fact/tipo-riesgo";
+export const PARAMETERS_FACT_URL = "/fact/parametros";
+export const SUPPLIER_CLIENT_TYPE_FACT_URL = "/fact/tipo-proveedores-cliente";
+export const NATURALEZA_PAGO_FACT_URL = "/fact/naturaleza-pago";
+export const INCIDENCE_TYPE_FACT_URL = "/fact/tipo-incidencia-factura";
+export const FACTORING_LINE_FACT_URL = "/fact/linias-factoring";
+export const COSTS_TYPE_FACT_URL = "/fact/tipo-costes";
 
 export const CATEG_TOXIC_FACT_URL = "/fact/categorias-toxicologicas";
 export const ATR_TYPE_FACT_URL = "/fact/atributos";
@@ -117,12 +118,24 @@ export const WORK_TYPE_FACT_URL = "/fact/tipo-trabajo";
 export const WORKSHOP_FACT_URL = "/fact/taller";
 export const COMPANY_GROUP_FACT_URL = "/fact/grupos-empresas";
 
-export const OFFER_SUPP_TYPE_FACT_URL = '/fact/tipo-oferta-proveedor';
-export const PACKAGING_TYPE_FACT_URL = '/fact/envases';
-export const POINT_SALE_FACT_URL = '/fact/punto-ventas';
+export const OFFER_SUPP_TYPE_FACT_URL = "/fact/tipo-oferta-proveedor";
+export const PACKAGING_TYPE_FACT_URL = "/fact/envases";
+export const POINT_SALE_FACT_URL = "/fact/punto-ventas";
 
-export const FORMA_COST_FACT_URL = '/fact/forma-coste';
-export const CURRENT_ACCOUNT_FACT_URL = '/fact/cuentas-corrientes';
-export const CLASSIFACTION_FACT_URL = '/fact/clasificaciones';
-export const AREA_NEGOCIO_FACT_URL = '/fact/areas-negocio'
-export const BOX_FACT_URL = '/fact/cajas';
+export const FORMA_COST_FACT_URL = "/fact/forma-coste";
+export const CURRENT_ACCOUNT_FACT_URL = "/fact/cuentas-corrientes";
+export const CLASSIFACTION_FACT_URL = "/fact/clasificaciones";
+export const AREA_NEGOCIO_FACT_URL = "/fact/areas-negocio";
+export const BOX_FACT_URL = "/fact/cajas";
+export const SUPPLIER_ORDER_FACT_URL = "/fact/pedidos-proveedores";
+export const SUPPLIERS_OFFERS_FACT_URL = "/fact/ofertas-proveedores";
+export const ALBARANES_CLIENTE_FACT_URL = "/fact/albaranes-clientes";
+export const ALBARANES_PROV_FACT_URL = "/fact/albaranes-proveedores";
+export const INVOICE_SUPPLIER_FACT_URL = "/fact/facturas-proveedores";
+export const BUDGET_FACT_URL = "/fact/presupuestos";
+export const INSTALACIONES_FACT_URL = "/fact/instalaciones";
+export const INSTALACIONES_TYPE_FACT_URL = "/fact/tipo-instalaciones";
+export const APLICADOR_FACT_URL = "/fact/aplicadores";
+export const CERTIFIACTION_FACT_URL = "/fact/certificaciones";
+export const DELEGATION_TYPE_FACT_URL = "/fact/delegaciones";
+export const EXPEDIENT_FACT_URL = "/fact/expedientes";

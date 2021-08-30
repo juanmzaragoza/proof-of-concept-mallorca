@@ -34,6 +34,7 @@ const CurrentAccountsList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "nom",
@@ -48,6 +49,7 @@ const CurrentAccountsList = ({ actions, ...props }) => {
           id: "Clientes.codigoBanco",
           defaultMessage: "Codigo Banco",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "oficinaBancariaCodi",
@@ -55,6 +57,7 @@ const CurrentAccountsList = ({ actions, ...props }) => {
           id: "Clientes.Contab.oficines",
           defaultMessage: "Oficinas Banco",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "identificadorCcr",
@@ -80,6 +83,7 @@ const CurrentAccountsList = ({ actions, ...props }) => {
     ],
     URL: API.comptesCorrents,
     listKey: "compteCorrents",
+    enableInlineEdition: true
   };
   return <ReactGrid id="comptesCorrents" configuration={listConfiguration} />;
 };

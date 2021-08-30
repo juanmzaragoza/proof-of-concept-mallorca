@@ -34,6 +34,7 @@ const CompanyGroupList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "nom",
@@ -45,6 +46,7 @@ const CompanyGroupList = ({ actions, ...props }) => {
     ],
     URL: API.empresesGrup,
     listKey: "businessGroups",
+    enableInlineEdition: true
   };
   return <ReactGrid id="empresesGrup" configuration={listConfiguration} />;
 };

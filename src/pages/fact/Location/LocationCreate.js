@@ -70,6 +70,7 @@ const LocationCreate = (props) => {
       }),
       type: "LOV",
       key: "magatzem",
+      noEditable:true,
       required: true,
       breakpoints: {
         xs: 12,

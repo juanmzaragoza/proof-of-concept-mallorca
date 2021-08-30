@@ -35,6 +35,7 @@ const LocationList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "descripcio",
@@ -49,11 +50,13 @@ const LocationList = ({ actions, ...props }) => {
           id: "Presupuestos.almacen",
           defaultMessage: "Almacén",
         }),
-        getCellValue: row => row.magatzem?.description ?? ""
+        getCellValue: row => row.magatzem?.description ?? "",
+        inlineEditionDisabled: true
       },
     ],
     URL: API.ubicacios,
     listKey: "ubicacios",
+    enableInlineEdition: true
   };
   return <ReactGrid id="ubicacios" configuration={listConfiguration} />;
 };

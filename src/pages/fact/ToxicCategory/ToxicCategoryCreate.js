@@ -78,11 +78,13 @@ const ToxicCategoryCreate = (props) => {
         labelKey: (data) => `${data.nomComercial} (${data.codi})`,
         sort: "nomComercial",
         cannotCreate: true,
-        relatedWith: {
-          name: "peuDocument",
-          filterBy: "empresa.id",
-          keyValue: "id",
-        },
+        relatedWith: [
+          {
+            name: "peuDocument",
+            filterBy: "empresa.id",
+            keyValue: "id",
+          },
+        ],
         transform: {
           apply: (empresa) => empresa && empresa.codi,
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
