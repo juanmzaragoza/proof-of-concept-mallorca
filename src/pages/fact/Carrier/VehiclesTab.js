@@ -30,7 +30,6 @@ const VehicleTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const { id: transpId } = useParams();
 
-
   const vehicleConfig = {
     title: props.intl.formatMessage({
       id: "Vehiculos.titulo",
@@ -439,11 +438,13 @@ const VehicleTab = ({ formData, setFormData, getFormData, ...props }) => {
             apply: (empresa) => empresa && empresa.codi,
             reverse: (rows, codi) => rows.find((row) => row.codi === codi),
           },
-          relatedWith: {
-            name: "delegacio",
-            filterBy: "empresa.id",
-            keyValue: "id",
-          },
+          relatedWith: [
+            {
+              name: "delegacio",
+              filterBy: "empresa.id",
+              keyValue: "id",
+            },
+          ],
           advancedSearchColumns: [
             { title: CODE, name: "codi" },
             {
