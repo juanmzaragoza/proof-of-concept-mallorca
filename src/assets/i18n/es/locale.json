@@ -2018,7 +2018,10 @@
   "PresupuestosLinia.opcion2":"Opción 2",
   "PresupuestosLinia.opcion1":"Opción 1",
   "Presupuestos.referencia2":"Referencia 2",
-  "Presupuestos.referencia":"Referencia"
+  "Presupuestos.referencia":"Referencia",
+  "Presupuestos.costes":"Costes",
+  "Presupuestos.importeCoste":"Importe Coste",
+  "Presupuestos.tipoCoste":"Tipo Coste"
 
 
 }
