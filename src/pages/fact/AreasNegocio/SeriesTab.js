@@ -52,6 +52,14 @@ const SeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
 
     columns: [
       {
+        name: "serieVenda.pk.codi",
+        title: props.intl.formatMessage({
+          id: "Presupuestos.codigoSerieVenta",
+          defaultMessage: "Código Serie Venta",
+        }),
+        getCellValue: (row) => row?.serieVenda?.pk.codi || "",
+      },
+      {
         name: "serieVenda.description",
         title: props.intl.formatMessage({
           id: "Presupuestos.serieVenta",
@@ -59,6 +67,7 @@ const SeriesTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         getCellValue: (row) => row?.serieVenda?.description || "",
       },
+
     ],
 
     formComponents: [

@@ -23,7 +23,7 @@ const component = {
     path: `${BUSINESS_AREA_FACT_URL}`,
     component: withHeaders(businessArea)
   },
-  name: 'FAC_ARENEG',
+  // name: 'FAC_ARENEG',
   icon: <BusinessIcon />
 }
 export default component;

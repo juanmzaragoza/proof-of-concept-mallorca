@@ -92,11 +92,11 @@ const CustomerDepartmentsCreate = (props) => {
               labelKey: (data) => `${data.nom} (${data.codi})`,
               sort: "codi",
               cannotCreate: true,
-              relatedWith: {
+              relatedWith: [{
                 name: "provincia",
                 filterBy: "pais.id",
                 keyValue: "id",
-              },
+              },],
               advancedSearchColumns: aSCodeAndName,
             },
           },
@@ -333,6 +333,7 @@ const CustomerDepartmentsCreate = (props) => {
       placeHolder: CLI,
       type: "LOV",
       key: "client",
+      noEditable:true,
       breakpoints: {
         xs: 12,
         md: 3,
@@ -342,11 +343,11 @@ const CustomerDepartmentsCreate = (props) => {
         labelKey: (data) => `${data.nomComercial} (${data.codi})`,
         sort: "codi",
         cannotCreate: true,
-        relatedWith: {
+        relatedWith:[ {
           name: "subClient",
           filterBy: "client.id",
           keyValue: "id",
-        },
+        },],
         advancedSearchColumns: aSCodeAndComercialName,
       },
     },
@@ -354,6 +355,7 @@ const CustomerDepartmentsCreate = (props) => {
       placeHolder: SUBCLI,
       type: "LOV",
       key: "subClient",
+      noEditable:true,
       breakpoints: {
         xs: 12,
         md: 3,

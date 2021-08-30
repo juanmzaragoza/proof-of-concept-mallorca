@@ -34,6 +34,8 @@ const WorkTypeList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
+        
       },
       {
         name: "descripcio",
@@ -45,6 +47,7 @@ const WorkTypeList = ({ actions, ...props }) => {
     ],
     URL: API.tipusFullesObra,
     listKey: "tipusFullObras",
+    enableInlineEdition: true
   };
   return <ReactGrid id="tipusFullesObra" configuration={listConfiguration} />;
 };

@@ -35,6 +35,8 @@ const ItemBrandList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+
+        inlineEditionDisabled: true
       },
       {
         name: "descripcio",
@@ -46,6 +48,7 @@ const ItemBrandList = ({ actions, ...props }) => {
     ],
     URL: API.articlesMarca,
     listKey: "articleMarcas",
+    enableInlineEdition: true
   };
   return <ReactGrid id="articlesMarca" configuration={listConfiguration} />;
 };

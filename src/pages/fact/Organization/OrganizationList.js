@@ -33,6 +33,7 @@ const OrganizationList = ({ actions, ...props }) => {
           id: "Provincias.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "nom",
@@ -73,6 +74,7 @@ const OrganizationList = ({ actions, ...props }) => {
     ],
     URL: API.organitzacio,
     listKey: "organitzacios",
+    enableInlineEdition: true
   };
   return <ReactGrid id="organitzacio" configuration={listConfiguration} />;
 };

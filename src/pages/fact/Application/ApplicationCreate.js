@@ -20,8 +20,6 @@ const ApplicationCreate = (props) => {
   });
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
 
-
-
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
     defaultMessage: "Código",
@@ -49,11 +47,9 @@ const ApplicationCreate = (props) => {
         xs: 12,
         md: 2,
       },
-      disabled:true,
+      disabled: true,
       validationType: "string",
-      validations: [
-        ...props.stringValidations.minMaxValidation(0, 3),
-      ],
+      validations: [...props.stringValidations.minMaxValidation(0, 3)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -70,7 +66,7 @@ const ApplicationCreate = (props) => {
       validationType: "number",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.numberValidations.minMaxValidation(0, 3)
+        ...props.numberValidations.minMaxValidation(0, 3),
       ],
     },
     {
@@ -154,11 +150,13 @@ const ApplicationCreate = (props) => {
           { title: CODE, name: "codi" },
           { title: NOM, name: "nomComercial" },
         ],
-        relatedWith: {
-          name: "subClient",
-          filterBy: "client.id",
-          keyValue: "id",
-        },
+        relatedWith: [
+          {
+            name: "subClient",
+            filterBy: "client.id",
+            keyValue: "id",
+          },
+        ],
       },
     },
     {
@@ -251,7 +249,7 @@ const ApplicationCreate = (props) => {
       },
       validationType: "string",
     },
-   
+
     {
       placeHolder: props.intl.formatMessage({
         id: "Aplicaciones.sqlPlus",
@@ -266,7 +264,6 @@ const ApplicationCreate = (props) => {
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 50)],
     },
-    
   ];
   return (
     <CreateUpdateForm

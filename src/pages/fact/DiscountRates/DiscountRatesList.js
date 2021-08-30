@@ -35,6 +35,7 @@ const DiscountRatesList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "descripcio",
@@ -46,6 +47,7 @@ const DiscountRatesList = ({ actions, ...props }) => {
     ],
     URL: API.tarifaDescompte,
     listKey: "tarifaDescomptes",
+    enableInlineEdition: true
   };
   return <ReactGrid id="tarifaDescompte" configuration={listConfiguration} />;
 };

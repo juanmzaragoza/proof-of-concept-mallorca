@@ -30,7 +30,8 @@ const ArticlesGamaList = ({ actions, ...props }) => {
         title: props.intl.formatMessage({
           id: "Comun.codigo",
           defaultMessage: "Código"
-        })
+        }),
+        inlineEditionDisabled: true
       },
       { name: 'descripcio',
         title: props.intl.formatMessage({
@@ -40,7 +41,8 @@ const ArticlesGamaList = ({ actions, ...props }) => {
       },
     ],
     URL: API.articleGammas,
-    listKey: 'articleGammas'
+    listKey: 'articleGammas',
+    enableInlineEdition: true
   };
   return (
     <ReactGrid

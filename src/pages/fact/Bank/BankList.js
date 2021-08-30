@@ -35,6 +35,7 @@ const BankList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "nom",
@@ -46,6 +47,7 @@ const BankList = ({ actions, ...props }) => {
     ],
     URL: API.banc,
     listKey: "bancs",
+    enableInlineEdition: true
   };
   return <ReactGrid id="banc" configuration={listConfiguration} />;
 };

@@ -35,6 +35,7 @@ const SectorList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "nom",
@@ -63,12 +64,14 @@ const SectorList = ({ actions, ...props }) => {
           id:  "Proveedores.idioma",
           defaultMessage: "Idioma",
         }),
-        getCellValue: row => row.idioma?.description ? row.idioma.description : ""
+        getCellValue: row => row.idioma?.description ? row.idioma.description : "",
+        inlineEditionDisabled: true
       },
 
     ],
     URL: API.sectors,
     listKey: "sectors",
+    enableInlineEdition: true
   };
   return <ReactGrid id="sectors" configuration={listConfiguration} />;
 };

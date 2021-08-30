@@ -42,7 +42,9 @@ const ArticleLocationList = ({ actions, ...props }) => {
           id: "Ubicacion.titulo",
           defaultMessage: "Ubicación",
         }),
-        getCellValue: row => row.ubicacio?.description ?? ""
+        getCellValue: row => row.ubicacio?.description ?? "",
+        inlineEditionDisabled: true
+
       },
       {
         name: "article",
@@ -50,11 +52,14 @@ const ArticleLocationList = ({ actions, ...props }) => {
           id: "ArticulosUbicacion.articulo.titulo",
           defaultMessage: "Articulo",
         }),
-        getCellValue: row => row.article?.description ?? ""
+        getCellValue: row => row.article? row.article.description:"",
+        inlineEditionDisabled: true
+   
       },
     ],
     URL: API.ubicacioArticles,
     listKey: "ubicacioArticles",
+    enableInlineEdition: true
   };
   return <ReactGrid id="ubicacioArticles" configuration={listConfiguration} />;
 };

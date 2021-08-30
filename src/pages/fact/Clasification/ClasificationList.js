@@ -6,6 +6,7 @@ import { bindActionCreators, compose } from "redux";
 import ReactGrid from "modules/ReactGrid";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
+import { TIPO_CLASIFICACION_SELECTOR_VALUES } from "constants/selectors";
 
 const ClasificationList = ({ actions, ...props }) => {
   useEffect(() => {
@@ -26,6 +27,22 @@ const ClasificationList = ({ actions, ...props }) => {
     ]);
   }, []);
 
+  const tipoClasificacion = {
+    placeHolder: props.intl.formatMessage({
+      id: "Clasificaciones.clasificacion",
+      defaultMessage: "Clasificación",
+    }),
+    type: "select",
+    key: "tipus",
+    breakpoints: {
+      xs: 12,
+      md: 3,
+    },
+    selector: {
+      options: TIPO_CLASIFICACION_SELECTOR_VALUES,
+    },
+  };
+
   const listConfiguration = {
     columns: [
       {
@@ -34,6 +51,7 @@ const ClasificationList = ({ actions, ...props }) => {
           id: "Clasificaciones.sequencia",
           defaultMessage: "Sequencia",
         }),
+        inlineEditionDisabled: true,
       },
       {
         name: "codiClassificacio",
@@ -41,6 +59,7 @@ const ClasificationList = ({ actions, ...props }) => {
           id: "Clasificaciones.codigoClas",
           defaultMessage: "Código Clasificación",
         }),
+        inlineEditionDisabled: true,
       },
       {
         name: "descripcio",
@@ -55,6 +74,7 @@ const ClasificationList = ({ actions, ...props }) => {
           id: "Clasificaciones.clasificacion",
           defaultMessage: "Clasificación",
         }),
+        field:tipoClasificacion
       },
       {
         name: "categoria",
@@ -66,6 +86,7 @@ const ClasificationList = ({ actions, ...props }) => {
     ],
     URL: API.classificacions,
     listKey: "classificacios",
+    enableInlineEdition: true,
   };
   return <ReactGrid id="classificacions" configuration={listConfiguration} />;
 };

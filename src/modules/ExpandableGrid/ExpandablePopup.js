@@ -50,6 +50,7 @@ export const ExpandablePopup = ({
 
   useEffect(()=>{
     onChange(formData);
+   
   },[formData]);
 
   const save = (e) => {
