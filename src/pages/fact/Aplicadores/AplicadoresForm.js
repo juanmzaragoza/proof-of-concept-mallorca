@@ -25,14 +25,12 @@ import {
 
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
-import MoreTab from "./MoreTab";
-import LiniasTab from "./LiniasTab";
+
 
 const GENERAL_TAB_INDEX = 0;
-const MORE_TAB_INDEX = 1;
-const LINIAS_TAB_INDEX = 2;
 
-const AlbaranesClientesForm = React.memo(
+
+const AplicadoresForm = React.memo(
   ({
     actions,
     allFormData,
@@ -47,8 +45,7 @@ const AlbaranesClientesForm = React.memo(
 
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [GENERAL_TAB_INDEX]: false,
-      [MORE_TAB_INDEX]: true,
-      [LINIAS_TAB_INDEX]: false,
+
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -94,7 +91,7 @@ const AlbaranesClientesForm = React.memo(
       };
     };
 
-    /** step 3 */
+
     const tabs = [
       {
         ...getTranslations("AlbaranesCliente.tabs.general", "Datos Generales"),
@@ -120,54 +117,7 @@ const AlbaranesClientesForm = React.memo(
           />
         ),
       },
-      {
-        ...getTranslations("AlbaranesCliente.tabs.mas", "Ḿás"),
-        key: MORE_TAB_INDEX,
-        error: tabHasError(MORE_TAB_INDEX),
-        component: (
-          <MoreTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [MORE_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-            isSubmitted={props.isSubmitted}
-          />
-        ),
-      },
-      {
-        ...getTranslations("AlbaranesCliente.tabs.linias", "Línias Albarán"),
-        key: LINIAS_TAB_INDEX,
-        error: tabHasError(LINIAS_TAB_INDEX),
-        component: (
-          <LiniasTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [LINIAS_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-            isSubmitted={props.isSubmitted}
-          />
-        ),
-      },
+
     ];
 
     const { id } = useParams();
@@ -188,10 +138,10 @@ const AlbaranesClientesForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "AlbaranesCliente.titulo",
-              defaultMessage: "Albaranes Cliente",
+              id: "Aplicadores.titulo",
+              defaultMessage: "Aplicadores",
             }),
-            href: "/fact/albaranes-clientes",
+            href: "/fact/aplicadores",
           },
           {
             title: props.intl.formatMessage({
@@ -213,7 +163,7 @@ const AlbaranesClientesForm = React.memo(
     /** Update HEADER */
     useEffect(() => {
       if (isEditable()) {
-        const nomComercial = "'" + getFormData("numero") + "'";
+        const nomComercial = getFormData("nom") + " " + getFormData("cognoms");
         const nom = nomComercial
           ? nomComercial
           : `${props.intl.formatMessage({
@@ -223,16 +173,16 @@ const AlbaranesClientesForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "AlbaranesCliente.titulo",
-              defaultMessage: "Albaranes Cliente",
+              id: "Aplicadores.titulo",
+              defaultMessage: "Aplicadores",
             }),
-            href: "/fact/albaranes-clientes",
+            href: "/fact/aplicadores",
           },
-          { title: nom, href: "/fact/albaranes-clientes" },
+          { title: nom, href: "/fact/aplicadores" },
           { title: nameSelectedTab },
         ]);
       }
-    }, [getFormData("numero"), nameSelectedTab]);
+    }, [getFormData("numero"),getFormData("cognoms"), nameSelectedTab]);
 
     useEffect(() => {
       if (submitFromOutside) {
@@ -294,5 +244,5 @@ const component = compose(
   injectIntl,
   connect(mapStateToProps, mapDispatchToProps),
   withAbmServices
-)(AlbaranesClientesForm);
+)(AplicadoresForm);
 export default component;

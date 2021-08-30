@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { some, min, pickBy, cloneDeep } from "lodash";
 
 import GeneralTab from "./GeneralTab";
+
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
 import {
@@ -25,14 +26,14 @@ import {
 
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
-import MoreTab from "./MoreTab";
-import LiniasTab from "./LiniasTab";
+import FacturasTab from "./FacturasTab";
+import AlbaranTab from "./AlbaranTab";
 
-const GENERAL_TAB_INDEX = 0;
-const MORE_TAB_INDEX = 1;
-const LINIAS_TAB_INDEX = 2;
+const CERT_TAB_INDEX = 0;
+const FACTURA_TAB_INDEX = 1;
+const ALBARAN_TAB_INDEX = 2;
 
-const AlbaranesClientesForm = React.memo(
+const CertificationForm = React.memo(
   ({
     actions,
     allFormData,
@@ -42,13 +43,14 @@ const AlbaranesClientesForm = React.memo(
     ...props
   }) => {
     const [editMode, setEditMode] = useState(false);
-    const [tabIndex, setTabIndex] = useState(GENERAL_TAB_INDEX);
+    const [tabIndex, setTabIndex] = useState(CERT_TAB_INDEX);
     const [nameSelectedTab, setNameSelectedTab] = useState("");
 
+    /** step 2 */
     const [tabIndexWithError, setTabIndexWithError] = useState({
-      [GENERAL_TAB_INDEX]: false,
-      [MORE_TAB_INDEX]: true,
-      [LINIAS_TAB_INDEX]: false,
+      [CERT_TAB_INDEX]: false,
+      [FACTURA_TAB_INDEX]: false,
+      [ALBARAN_TAB_INDEX]: false,
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -79,7 +81,7 @@ const AlbaranesClientesForm = React.memo(
         isEditable()
           ? update(id, allFormData)
           : create(allFormData, () => {
-              goToTab(GENERAL_TAB_INDEX);
+              goToTab(CERT_TAB_INDEX);
             });
       }
     };
@@ -97,15 +99,15 @@ const AlbaranesClientesForm = React.memo(
     /** step 3 */
     const tabs = [
       {
-        ...getTranslations("AlbaranesCliente.tabs.general", "Datos Generales"),
-        key: GENERAL_TAB_INDEX,
-        error: tabHasError(GENERAL_TAB_INDEX),
+        ...getTranslations("Clientes.tabs.general", "General"),
+        key: CERT_TAB_INDEX,
+        error: tabHasError(CERT_TAB_INDEX),
         component: (
           <GeneralTab
             setIsValid={(value) =>
               setTabIndexWithError({
                 ...tabIndexWithError,
-                [GENERAL_TAB_INDEX]: !value,
+                [CERT_TAB_INDEX]: !value,
               })
             }
             editMode={editMode}
@@ -121,15 +123,15 @@ const AlbaranesClientesForm = React.memo(
         ),
       },
       {
-        ...getTranslations("AlbaranesCliente.tabs.mas", "Ḿás"),
-        key: MORE_TAB_INDEX,
-        error: tabHasError(MORE_TAB_INDEX),
+        ...getTranslations("Facturas.titulo", "Facturas"),
+        key: FACTURA_TAB_INDEX,
+        error: tabHasError(FACTURA_TAB_INDEX),
         component: (
-          <MoreTab
+          <FacturasTab
             setIsValid={(value) =>
               setTabIndexWithError({
                 ...tabIndexWithError,
-                [MORE_TAB_INDEX]: !value,
+                [FACTURA_TAB_INDEX]: !value,
               })
             }
             editMode={editMode}
@@ -145,15 +147,15 @@ const AlbaranesClientesForm = React.memo(
         ),
       },
       {
-        ...getTranslations("AlbaranesCliente.tabs.linias", "Línias Albarán"),
-        key: LINIAS_TAB_INDEX,
-        error: tabHasError(LINIAS_TAB_INDEX),
+        ...getTranslations("Clientes.Documentos.albaranes", "Albaranes"),
+        key: ALBARAN_TAB_INDEX,
+        error: tabHasError(ALBARAN_TAB_INDEX),
         component: (
-          <LiniasTab
+          <AlbaranTab
             setIsValid={(value) =>
               setTabIndexWithError({
                 ...tabIndexWithError,
-                [LINIAS_TAB_INDEX]: !value,
+                [ALBARAN_TAB_INDEX]: !value,
               })
             }
             editMode={editMode}
@@ -188,10 +190,10 @@ const AlbaranesClientesForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "AlbaranesCliente.titulo",
-              defaultMessage: "Albaranes Cliente",
+              id: "Certificaciones.titulo",
+              defaultMessage: "Certificaciones",
             }),
-            href: "/fact/albaranes-clientes",
+            href: "/fact/certificaciones",
           },
           {
             title: props.intl.formatMessage({
@@ -213,7 +215,7 @@ const AlbaranesClientesForm = React.memo(
     /** Update HEADER */
     useEffect(() => {
       if (isEditable()) {
-        const nomComercial = "'" + getFormData("numero") + "'";
+        const nomComercial = "'" + getFormData("numeroCertificat") + "'";
         const nom = nomComercial
           ? nomComercial
           : `${props.intl.formatMessage({
@@ -223,16 +225,16 @@ const AlbaranesClientesForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "AlbaranesCliente.titulo",
-              defaultMessage: "Albaranes Cliente",
+              id: "Certificaciones.titulo",
+              defaultMessage: "Certificaciones",
             }),
-            href: "/fact/albaranes-clientes",
+            href: "/fact/Ccrtificaciones",
           },
-          { title: nom, href: "/fact/albaranes-clientes" },
+          { title: nom, href: "/fact/certificaciones" },
           { title: nameSelectedTab },
         ]);
       }
-    }, [getFormData("numero"), nameSelectedTab]);
+    }, [getFormData("numeroCertificat"), nameSelectedTab]);
 
     useEffect(() => {
       if (submitFromOutside) {
@@ -294,5 +296,5 @@ const component = compose(
   injectIntl,
   connect(mapStateToProps, mapDispatchToProps),
   withAbmServices
-)(AlbaranesClientesForm);
+)(CertificationForm);
 export default component;

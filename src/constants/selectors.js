@@ -1130,5 +1130,49 @@ export const TIPO_DOC_ALBARAN_SELECTOR_VALUES = [
 ];
 
 
+export const APLICADOR_TYPE_SELECTOR_VALUES = [
+
+  {
+    value: "BASICO",
+    labelId: "Selector.basico",
+    label: "Básico",
+  },
+  {
+    value: "CUALIFICADO",
+    labelId: "Selector.cualificado",
+    label: "Cualificado",
+  },
+  {
+    value: "FUMIGADOR",
+    labelId: "Selector.fumigador",
+    label: "Fumigdor",
+  },
+  {
+    value: "PILOTO",
+    labelId: "Selector.piloto",
+    label: "Piloto",
+  },
+  {
+    value: "OTROS",
+    labelId: "Selector.otros",
+    label: "Otros",
+  },
+];
+
+
+export const CERTIFICATION_SELECTOR_VALUES = [
+  {
+    value: "N",
+    labelId: "Selector.no",
+    label: "No",
+  },
+  {
+    value: "S",
+    labelId: "Selector.si",
+    label: "Si",
+  },
+  
+];
+
 
 
