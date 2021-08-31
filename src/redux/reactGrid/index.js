@@ -9,6 +9,7 @@ const ADD = "ADD_TO_REACT_GRID";
 const REPLACE = "REPLACE_DATA_TO_REACT_GRID";
 const REMOVE = "REMOVE_TO_REACT_GRID";
 const RESET = "RESET_REACT_GRID";
+const RESET_SPECIFIC_REACT_GRID = "RESET_SPECIFIC_REACT_GRID";
 
 //Functions
 export const searchData = ({
@@ -37,80 +38,83 @@ export const searchData = ({
         return Axios.get(formedURL());
       }
     };
+    const gridId = apiId;
     try {
-      dispatch(add({ loading: true }));
+      dispatch(add({ gridId, loading: true }));
       apiCall()
         .then(({ data }) => data)
         .then(({ _embedded, page }) => {
-          dispatch(add({ data: _embedded ? _embedded[key] : [] }));
-          dispatch(add({ totalCount: page.totalElements }));
-          dispatch(add({ loading: false }));
-          dispatch(add({ pageSize: REACT_GRID_LIMIT_PER_PAGE }));
+          dispatch(add({ gridId, data: _embedded ? _embedded[key] : [] }));
+          dispatch(add({ gridId, totalCount: page.totalElements }));
+          dispatch(add({ gridId, loading: false }));
+          dispatch(add({ gridId, pageSize: REACT_GRID_LIMIT_PER_PAGE }));
         })
         .catch((error) => {
-          dispatch(add({ loading: false }));
-          error.response && handlePersistError(error.response)(dispatch);
+          dispatch(add({ gridId, loading: false }));
+          error.response && handlePersistError({gridId,...error.response})(dispatch);
         })
         .finally(() => {
-          dispatch(add({ loading: false }));
+          dispatch(add({ gridId, loading: false }));
         });
     } catch (error) {
-      dispatch(add({ loading: false }));
-      dispatch(add({ errors: error }));
+      dispatch(add({ gridId, loading: false }));
+      dispatch(add({ gridId, errors: error }));
     }
   };
 };
 
 export const deleteData = ({ key, id }) => {
+  const gridId = key;
   return async (dispatch) => {
     try {
-      dispatch(add({ loading: true }));
+      dispatch(add({ gridId, loading: true }));
       const queryString = `${API[key]}/${id}`;
       Axios.delete(queryString)
         .then(({ status, data, ...rest }) => {
-          dispatch(remove({ id }));
-          dispatch(add({ loading: false }));
+          dispatch(remove({ gridId, id }));
+          dispatch(add({ gridId, loading: false }));
         })
         .catch((error) => {
-          dispatch(add({ loading: false }));
-          error.response && handlePersistError(error.response)(dispatch);
+          dispatch(add({ gridId, loading: false }));
+          error.response && handlePersistError({ gridId, ...error.response})(dispatch);
         });
     } catch (error) {
-      dispatch(add({ loading: false }));
-      dispatch(add({ errors: error }));
+      dispatch(add({ gridId, loading: false }));
+      dispatch(add({ gridId, errors: error }));
     }
   };
 };
 
 export const updateData = ({ key, id, data }) => {
+  const gridId = key;
   return async (dispatch) => {
     try {
-      dispatch(add({ loading: true }));
+      dispatch(add({ gridId, loading: true }));
       const queryString = `${API[key]}/${id}`;
       Axios.put(queryString, JSON.stringify(data))
         .then(({ status, data, ...rest }) => {
-          dispatch(replace({ id, ...data }));
-          dispatch(add({ loading: false }));
+          dispatch(replace({ gridId, id, ...data }));
+          dispatch(add({ gridId, loading: false }));
         })
         .catch((error) => {
           dispatch(add({ loading: false }));
-          error.response && handlePersistError(error.response)(dispatch);
+          error.response && handlePersistError({gridId, ...error.response})(dispatch);
         });
     } catch (error) {
-      dispatch(add({ loading: false }));
-      dispatch(add({ errors: error }));
+      dispatch(add({ gridId, loading: false }));
+      dispatch(add({ gridId, errors: error }));
     }
   };
 };
 
-const handlePersistError = ({ status, data }) => {
+const handlePersistError = ({ gridId, status, data }) => {
   return async (dispatch) => {
     if (status === 400 && data.errors) {
       const errors = {};
       for (const err of data.errors) {
         errors[err.field] = { message: err.defaultMessage };
       }
-      dispatch(add({ errors }));
+      dispatch(add({ gridId, errors }));
     }
   };
 };
@@ -136,6 +140,13 @@ export const reset = () => {
   };
 };
 
+export const resetGrid = (payload) => {
+  return {
+    type: RESET_SPECIFIC_REACT_GRID,
+    payload
+  };
+}
+
 export const remove = (payload) => {
   return {
     type: REMOVE,
@@ -144,7 +155,7 @@ export const remove = (payload) => {
 };
 
 //Reducers
-const initialState = {
+const oneInitialState = {
   data: [],
   page: 0,
   pageSize: REACT_GRID_LIMIT_PER_PAGE,
@@ -152,21 +163,38 @@ const initialState = {
   loading: false,
   errors: {},
 };
+const initialState = {
+  [undefined]: oneInitialState
+}
 
 export default (state = initialState, action) => {
+  const { gridId, ...rest } = action.payload?? {};
   switch (action.type) {
     case ADD:
-      return { ...state, ...action.payload };
+      return { ...state,
+        [gridId]: {
+          ...state[gridId],
+          ...rest
+        }};
     case REPLACE:
-      const changedRows = state.data.map(row => row.id === action.payload.id? action.payload:row)
-      return { ...state, data: changedRows };
+      const changedRows = state[gridId].data.map(row => row.id === rest.id? rest:row)
+      return { ...state,
+        [gridId]: {
+          ...state[gridId],
+          data: changedRows
+        }};
     case REMOVE:
-      const { id } = action.payload;
+      const { id } = rest;
       return {
         ...state,
-        totalCount: state.totalCount - 1,
-        data: removeFrom(state.data, (row) => row.id !== id),
-      };
+        [gridId]: {
+          ...state[gridId],
+          totalCount: state[gridId].totalCount - 1,
+          data: removeFrom(state[gridId].data, (row) => row.id !== id),
+      }};
+    case RESET_SPECIFIC_REACT_GRID:
+      gridId && delete state[gridId];
+      return state;
     case RESET:
     case "RESET":
       return initialState;

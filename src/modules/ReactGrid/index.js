@@ -30,7 +30,7 @@ import {
 } from "redux/reactGrid/selectors";
 import {
   deleteData,
-  reset,
+  resetGrid,
   searchData,
   updateData
 } from "redux/reactGrid";
@@ -66,9 +66,12 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
     actions.loadData({ apiId: props.id, method, body, key: configuration.listKey, page: currentPage, query, sorting});
   };
 
+  useEffect(() => {
+    return () => actions.reset();
+  },[]);
+
   // executed when mounts component and when vars change
   useEffect(() => {
-    console.log(currentPage,sorting,filters,extraQuery);
     loadData()
   },[
     currentPage,
@@ -258,7 +261,8 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
           mode="cell" />}
 
         <Paging
-          defaultPageSize={pageSize}
+          pageSize={pageSize}
+          defaultPageSize={10}
           onPageIndexChange={setCurrentPage}  />
         <Pager
           visible={true}
@@ -302,11 +306,11 @@ ReactGrid.propTypes = {
 
 const mapStateToProps = (state, props) => {
   return {
-    rows: getRows(state),
-    totalCount: getTotalCount(state),
-    loading: getLoading(state),
-    pageSize: getPageSize(state),
-    errors: getErrors(state),
+    rows: getRows(state, props.id),
+    totalCount: getTotalCount(state, props.id),
+    loading: getLoading(state, props.id),
+    pageSize: getPageSize(state, props.id),
+    errors: getErrors(state, props.id),
   };
 };
 
@@ -315,7 +319,7 @@ const mapDispatchToProps = (dispatch, props) => {
     updateData: bindActionCreators(updateData, dispatch),
     loadData: bindActionCreators(searchData, dispatch),
     deleteData: bindActionCreators(deleteData, dispatch),
-    reset: bindActionCreators(reset, dispatch),
+    reset: bindActionCreators(() => resetGrid({ gridId: props.id }), dispatch),
   };
   return { actions };
 };
