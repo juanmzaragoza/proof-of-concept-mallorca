@@ -257,7 +257,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
 
         {configuration.enableInlineEdition && <Editing
           allowUpdating={true}
-          allowDeleting={true}
+          allowDeleting={!configuration.disabledActions}
           mode="cell" />}
 
         <Paging
