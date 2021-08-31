@@ -159,6 +159,7 @@ const Prices = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         type: "numeric",
         key: "marge",
+        disabledCreating: true,
         breakpoints: {
           xs: 12,
           md: 2,

@@ -853,6 +853,7 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
         type: "LOV",
         key: "empresa",
         required: true,
+        noEditable:true,
         breakpoints: {
           xs: 12,
           md: 4,
