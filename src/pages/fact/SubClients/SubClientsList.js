@@ -8,6 +8,7 @@ import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 import { Chip } from "@material-ui/core";
 const SubClientList = ({ actions, ...props }) => {
+
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
@@ -53,11 +54,10 @@ const SubClientList = ({ actions, ...props }) => {
       {
         name: "client",
         title: props.intl.formatMessage({
-          id: "Presupuestos.cliente",
+          id:  "Presupuestos.cliente",
           defaultMessage: "Cliente",
         }),
-        getCellValue: (row) =>
-          row.client?.description ? row.client.description : "",
+        getCellValue: row => row.client?.description ? row.client.description : ""
       },
       {
         name: "bloquejat",
@@ -66,16 +66,14 @@ const SubClientList = ({ actions, ...props }) => {
           defaultMessage: "Bloqueado",
         }),
         getCellValue: (row) =>
-          row.bloquejat && row.bloquejat === true
-            ? `${props.intl.formatMessage({
-                id: "Comun.SI",
-                defaultMessage: "SI",
-              })}`
-            : `${props.intl.formatMessage({
-                id: "Comun.NO",
-                defaultMessage: "NO",
-              })}`,
+          row?.bloquejat && row.bloquejat === "S" ? (
+            <Chip label="SI" variant="outlined" />
+          ) : (
+            <Chip label="NO" variant="outlined" />
+          ),
+        hidden: true,
       },
+
     ],
     URL: API.subClients,
     listKey: "subClients",

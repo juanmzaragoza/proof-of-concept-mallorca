@@ -35,7 +35,6 @@ const DepartamentList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
-        inlineEditionDisabled: true
       },
       {
         name: "descripcio",
@@ -47,7 +46,6 @@ const DepartamentList = ({ actions, ...props }) => {
     ],
     URL: API.departaments,
     listKey: "departaments",
-    enableInlineEdition: true
   };
   return <ReactGrid id="departaments" configuration={listConfiguration} />;
 };

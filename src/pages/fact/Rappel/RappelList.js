@@ -35,7 +35,6 @@ const VatList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
-        inlineEditionDisabled: true
       },
       {
         name: "descripcio",
@@ -70,7 +69,6 @@ const VatList = ({ actions, ...props }) => {
     ],
     URL: API.rappel,
     listKey: "rappels",
-    enableInlineEdition: true
   };
   return <ReactGrid id="rappel" configuration={listConfiguration} />;
 };

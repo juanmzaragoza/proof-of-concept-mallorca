@@ -34,7 +34,6 @@ const VehicleList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
-        inlineEditionDisabled: true
       },
       {
         name: "descripcio",
@@ -59,7 +58,6 @@ const VehicleList = ({ actions, ...props }) => {
         }),
         getCellValue: (row) =>
           row.transportista?.description ? row.transportista.description : "",
-          inlineEditionDisabled: true
       },
       {
         name: "conductorHabitual",
@@ -71,7 +69,6 @@ const VehicleList = ({ actions, ...props }) => {
     ],
     URL: API.vehicles,
     listKey: "vehicles",
-    enableInlineEdition: true
   };
   return <ReactGrid id="vehicles" configuration={listConfiguration} />;
 };

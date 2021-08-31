@@ -119,13 +119,11 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
               labelKey: (data) => `${data.nom} (${data.codi})`,
               sort: "codi",
               cannotCreate: true,
-              relatedWith: [
-                {
-                  name: "provincia",
-                  filterBy: "pais.id",
-                  keyValue: "id",
-                },
-              ],
+              relatedWith: {
+                name: "provincia",
+                filterBy: "pais.id",
+                keyValue: "id",
+              },
               advancedSearchColumns: aSCodeAndName,
             },
           },
@@ -265,13 +263,11 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           { title: NOM, name: "nomComercial" },
         ],
         cannotCreate: true,
-        relatedWith: [
-          {
-            name: "subClient",
-            filterBy: "client.id",
-            keyValue: "id",
-          },
-        ],
+        relatedWith: {
+          name: "subClient",
+          filterBy: "client.id",
+          keyValue: "id",
+        },
       },
       validationType: "object",
       validations: [...props.commonValidations.requiredValidation()],

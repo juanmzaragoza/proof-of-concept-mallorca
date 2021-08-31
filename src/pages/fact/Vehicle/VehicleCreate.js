@@ -20,6 +20,9 @@ const VehicleCreate = (props) => {
     defaultMessage: "Nombre",
   });
 
+
+
+
   const createConfiguration = [
     {
       placeHolder: CODE,
@@ -177,7 +180,9 @@ const VehicleCreate = (props) => {
         md: 2,
       },
       validationType: "number",
-      validations: [...props.numberValidations.minMaxValidation(0, 9999999999)],
+      validations: [
+        ...props.numberValidations.minMaxValidation(0, 9999999999),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -191,7 +196,9 @@ const VehicleCreate = (props) => {
         md: 2,
       },
       validationType: "number",
-      validations: [...props.numberValidations.minMaxValidation(0, 9999999999)],
+      validations: [
+        ...props.numberValidations.minMaxValidation(0, 9999999999),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -293,13 +300,11 @@ const VehicleCreate = (props) => {
           apply: (empresa) => empresa && empresa.codi,
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
         },
-        relatedWith: [
-          {
-            name: "delegacio",
-            filterBy: "empresa.id",
-            keyValue: "id",
-          },
-        ],
+        relatedWith: {
+          name: "delegacio",
+          filterBy: "empresa.id",
+          keyValue: "id",
+        },
         advancedSearchColumns: [
           { title: CODE, name: "codi" },
           {
@@ -319,7 +324,7 @@ const VehicleCreate = (props) => {
       }),
       type: "LOV",
       key: "delegacio",
-      noEditable: true,
+      noEditable:true,
       breakpoints: {
         xs: 12,
         md: 4,

@@ -15,6 +15,7 @@ import { useTabForm } from "../../../hooks/tab-form";
 
 const CUSTOMER_SECTION_INDEX = 0;
 
+
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
@@ -106,13 +107,11 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
               labelKey: (data) => `${data.nom} (${data.codi})`,
               sort: "codi",
               cannotCreate: true,
-              relatedWith: [
-                {
-                  name: "provincia",
-                  filterBy: "pais.id",
-                  keyValue: "id",
-                },
-              ],
+              relatedWith: {
+                name: "provincia",
+                filterBy: "pais.id",
+                keyValue: "id",
+              },
               advancedSearchColumns: aSCodeAndName,
             },
           },
@@ -249,17 +248,17 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       ],
     },
     {
-      placeHolder: props.intl.formatMessage({
-        id: "Vehiculos.vhEmpresa",
-        defaultMessage: "Vehículo Empresa",
-      }),
-      type: "checkbox",
-      key: "vehicleEmpresa",
-      breakpoints: {
-        xs: 12,
-        md: 2,
+        placeHolder: props.intl.formatMessage({
+          id: "Vehiculos.vhEmpresa",
+          defaultMessage: "Vehículo Empresa",
+        }),
+        type: "checkbox",
+        key: "vehicleEmpresa",
+        breakpoints: {
+          xs: 12,
+          md:2,
+        },
       },
-    },
     {
       placeHolder: DOMICILI,
       type: "input",
