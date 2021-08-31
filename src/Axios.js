@@ -27,7 +27,7 @@ Axios.interceptors.request.use(function (conf) {
   return Promise.reject(error);
 });
 
-const errorTypes = {
+export const errorTypes = {
   401: () => {
     SnackbarUtils.error(intl.formatMessage({
       id: "Comun.error.sin_permisos",

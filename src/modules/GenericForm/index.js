@@ -30,6 +30,7 @@ const GenericForm = ({loading, ...props}) => {
   const formRef = useRef(null);
   const [isManualValidated, setIsManualValidated] = useState(false);
   const [initVal, setInitVal] = useState({});
+  const [loadingAction, setLoadingAction] = useState(false);
 
   /** Get initial value by component*/
   const initialValues = {
@@ -119,6 +120,7 @@ const GenericForm = ({loading, ...props}) => {
     const noEnable = loading
       || (props.editMode && noEditable)
       || (!props.editMode && disabledCreating)
+      || loadingAction
       || disabled;
     const identification = id? id:key;
 
@@ -131,8 +133,22 @@ const GenericForm = ({loading, ...props}) => {
       formik.handleBlur(e);
       handleIsValid(formik);
       props.onBlur && props.onBlur(e);
+
       if(fireActionOnBlur){
-        fireActionOnBlur({key, value: props.getFormData(key)});
+        setLoadingAction(true);
+        fireActionOnBlur({key, getFormData: props.getFormData})
+          .then(data => {
+            Object.keys(data).map(key => {
+              props.setFormData({ key, value: data[key]});
+            });
+            handleIsValid(formik);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+          .finally(() => {
+            setLoadingAction(false);
+          });
       }
     }
 

@@ -1,8 +1,9 @@
 import React from "react";
-import {bindActionCreators, compose} from "redux";
-import {connect} from "react-redux";
-import { getCalculationForDependentFields } from "../../redux/genericForm";
-import {getFormDataByKey} from "../../redux/genericForm/selectors";
+import {compose} from "redux";
+import {injectIntl} from "react-intl";
+import {withSnackbar} from "notistack";
+import * as API from "../../redux/api";
+import Axios, {errorTypes} from "../../Axios";
 
 const CAMP_DE_CANVI = 'campDeCanvi';
 
@@ -10,16 +11,38 @@ const withDependentActions = (PassedComponent) => {
 
   const WrappedComponent = (props) => {
 
-    const buildBody = ({ fields, key, value }) => {
-      const body =  {};
-      fields.map((field) => {
-        body[field.key] = field.key === key? value:props.getFormData(field.key);
+    const doRequest = ({ id, key, getFormData, fields }) => {
+
+      const buildBody = ({ fields }) => {
+        const body =  {};
+        fields.map((field) => {
+          body[field.key] = getFormData(field.key);
+        });
+        body[CAMP_DE_CANVI] = key;
+        return body;
+      }
+
+      return new Promise((resolve, reject) => {
+        const body = buildBody({key, fields});
+        Axios.post(`${API[id]}`, body)
+          .then(({data}) => data)
+          .then((data) => {
+            resolve(data);
+          })
+          .catch((e) => {
+            const status = e.response?.status;
+            if(!errorTypes[status]) {
+              props.enqueueSnackbar(props.intl.formatMessage({
+                id: "withDependentActions.onRequest.error",
+                defaultMessage: "No se pudo realizar el cálculo correctamente"
+              }), {variant: 'error'});
+            }
+            reject(e);
+          });
       });
-      body[CAMP_DE_CANVI] = key;
-      return body;
     }
 
-    const fireOnChangePrice = ({ key, value }) => {
+    const fireOnChangePrice = ({ key, getFormData }) => {
       const id = 'articlesCalcPrice';
       const fields = [
         {key: 'pvpFact', react: true},
@@ -29,12 +52,10 @@ const withDependentActions = (PassedComponent) => {
         {key: 'iva', react: true},
       ];
       // call to service
-      const body = buildBody({ key, value, fields });
-      // TODO() at this point, we can add method and query attributes
-      return props.getCalculationForDependentFields({ id, body });
+      return doRequest({ id, key, getFormData, fields });
     }
 
-    const fireOnChangeCalculateMargin = ({ key, value }) => {
+    const fireOnChangeCalculateMargin = ({ key, getFormData }) => {
       const id = 'preusArticleCalcularPreusMargeAmbDescompte';
       const fields = [
         {key: 'article', react: true},
@@ -44,9 +65,7 @@ const withDependentActions = (PassedComponent) => {
         {key: 'marge', react: true},
       ];
       // call to service
-      const body = buildBody({ key, value, fields });
-      // TODO() at this point, we can add method and query attributes
-      return props.getCalculationForDependentFields({ id, body });
+      return doRequest({ id, key, getFormData, fields });
     }
 
     return <PassedComponent
@@ -55,21 +74,9 @@ const withDependentActions = (PassedComponent) => {
       {...props} />;
   }
 
-  const mapStateToProps = (state, props) => {
-    return {
-      getFormData: getFormDataByKey(state),
-    };
-  };
-
-  const mapDispatchToProps = (dispatch, props) => {
-    const actions = {
-      getCalculationForDependentFields: bindActionCreators(getCalculationForDependentFields, dispatch),
-    };
-    return actions;
-  };
-
   return compose(
-    connect(mapStateToProps,mapDispatchToProps),
+    withSnackbar,
+    injectIntl
   )(WrappedComponent);
 }
 
