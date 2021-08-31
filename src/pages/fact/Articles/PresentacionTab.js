@@ -64,8 +64,6 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
     ],
   });
 
-
-
   const formatCodeAndComercialName = (data) =>
     `${data.nomComercial} (${data.codi})`;
 
@@ -188,7 +186,8 @@ const PresentacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Subvención",
       }),
       type: "LOV",
-      key: "subvencions",
+      key: "subvencio",
+      id: "subvencions",
       breakpoints: {
         xs: 12,
         md: md,

@@ -124,7 +124,7 @@ const StockTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Factor de conversion entrada",
       }),
       type: "numeric",
-      required:true,
+      required: true,
       key: "factorConversioEntrada",
       breakpoints: {
         xs: 12,
@@ -142,7 +142,7 @@ const StockTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Factor de conversion salida",
       }),
       type: "numeric",
-      required:true,
+      required: true,
       key: "factorConversioSortida",
       breakpoints: {
         xs: 12,
@@ -300,33 +300,47 @@ const StockTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 4,
         },
+        validationType: "string",
+        validations: [...props.stringValidations.minMaxValidation(0, 30)],
       },
       {
         placeHolder: STOCKMIN,
-        type: "input",
+        type: "numeric",
         key: "estocMin",
         breakpoints: {
           xs: 12,
           md: 2,
         },
+        validationType: "number",
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 999999999999),
+        ],
       },
       {
         placeHolder: STOCKMAX,
-        type: "input",
+        type: "numeric",
         key: "estocMax",
         breakpoints: {
           xs: 12,
           md: 2,
         },
+        validationType: "number",
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 999999999999),
+        ],
       },
       {
         placeHolder: PRECIOCOSTEEXIST,
-        type: "input",
+        type: "numeric",
         key: "preuCostExistencies",
         breakpoints: {
           xs: 12,
           md: 3,
         },
+        validationType: "number",
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 999999999999),
+        ],
       },
       {
         placeHolder: DIAULTIMACOMPRA,
@@ -339,12 +353,16 @@ const StockTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       {
         placeHolder: ULTIMOPRECIOCOSTE,
-        type: "input",
+        type: "numeric",
         key: "ultimPreuCost",
         breakpoints: {
           xs: 12,
           md: 3,
         },
+        validationType: "number",
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 999999999999),
+        ],
       },
       {
         placeHolder: ULTIMOAJUSTEINVENT,
@@ -357,16 +375,20 @@ const StockTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       {
         placeHolder: ULTIMOPRECIOCOMPLEMENT,
-        type: "input",
+        type: "numeric",
         key: "ultimPreuComplement",
         breakpoints: {
           xs: 12,
           md: 3,
         },
+        validationType: "number",
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 9999999999999999),
+        ],
       },
       {
         placeHolder: ULTIMAIMPUTACIONPCOSTESCOMPLEMENT,
-        type: "input",
+        type: "date",
         key: "ultimaImputacioCostosComplements",
         breakpoints: {
           xs: 12,
@@ -375,57 +397,79 @@ const StockTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       {
         placeHolder: PRECIOCOSTEEXISTCOMPL,
-        type: "input",
+        type: "numeric",
         key: "preuCostExistenciesAmbComplements",
         breakpoints: {
           xs: 12,
           md: 3,
         },
+        validationType: "number",
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 999999999999),
+        ],
       },
       {
         placeHolder: DEMANDAMEDIAANUAL,
-        type: "input",
+        type: "numeric",
         key: "demandaMitjanaAnual",
         breakpoints: {
           xs: 12,
           md: 3,
         },
+        validationType: "number",
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 99999999999),
+        ],
       },
       {
         placeHolder: DIASESPERAPEDIDO,
-        type: "input",
+        type: "numeric",
         key: "diesEsperaDemanat",
         breakpoints: {
           xs: 12,
           md: 3,
         },
+        validationType: "number",
+        validations: [...props.numberValidations.minMaxValidation(0, 9999)],
       },
       {
         placeHolder: COSTEALMACENAMINETO,
-        type: "input",
+        type: "numeric",
         key: "costEmmagatzematge",
         breakpoints: {
           xs: 12,
           md: 3,
         },
+        validationType: "number",
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 9999999999999),
+        ],
       },
       {
         placeHolder: LOTEECONOMICO,
-        type: "input",
+        type: "numeric",
         key: "lotEconomic",
         breakpoints: {
           xs: 12,
           md: 3,
         },
+        validationType: "number",
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 9999999999999),
+        ],
       },
       {
         placeHolder: STOCKSEGURIDAD,
-        type: "input",
+        type: "numeric",
         key: "estocDeSeguretat",
         breakpoints: {
           xs: 12,
           md: 3,
         },
+        validationType: "number",
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 9999999999999),
+        ],
       },
     ],
   };
