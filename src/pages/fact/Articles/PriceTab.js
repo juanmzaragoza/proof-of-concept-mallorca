@@ -120,7 +120,9 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
     };
   };
 
-  const fireActionOnBlur = props.articles.fireOnChangePrice;
+  // const fireActionOnBlur = props.articles.fireOnChangePrice;
+  const fireActionOnBlurChange = props.articles.fireOnChangeUpdate;
+
   const iva = (md = 2) => [
     {
       placeHolder: props.intl.formatMessage({
@@ -135,7 +137,8 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: md,
       },
-      fireActionOnBlur,
+      // fireActionOnBlur,
+      fireActionOnBlurChange,
       validationType: "object",
       ...withRequiredValidation(),
       selector: {
@@ -252,6 +255,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
+      fireActionOnBlurChange,
       validationType: "number",
       validations: [
         ...props.numberValidations.minMaxValidation(0, 999999999999),
@@ -268,6 +272,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
+      fireActionOnBlurChange,
       validationType: "number",
       validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
@@ -282,6 +287,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
+      fireActionOnBlurChange,
       validationType: "number",
       validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
@@ -290,28 +296,30 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.precioCompraTeorico",
         defaultMessage: "Precio compra teórico",
       }),
-      type: "numeric",
+      type: "input",
       disabled: true,
       key: "preuCompraTeo",
       breakpoints: {
         xs: 12,
         md: 2,
       },
-      validationType: "number",
+      // fireActionOnBlur,
+      fireActionOnBlurChange,
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "Articulos.precio.precioCosteTeorico",
         defaultMessage: "Precio coste teórico",
       }),
-      type: "numeric",
+      type: "input",
       disabled: true,
       key: "preuCostTeo",
       breakpoints: {
         xs: 12,
         md: 2,
       },
-      validationType: "number",
+      // fireActionOnBlur,
+      fireActionOnBlurChange,
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -324,6 +332,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
+      fireActionOnBlurChange,
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -336,6 +345,8 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
+      // fireActionOnBlur,
+      fireActionOnBlurChange,
       validationType: "number",
     },
     {
@@ -348,9 +359,10 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
-      fireActionOnBlur,
+      // fireActionOnBlur,
+      fireActionOnBlurChange,
       validationType: "number",
       validations: [
         ...props.commonValidations.requiredValidation(),
@@ -368,7 +380,8 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlur,
+      // fireActionOnBlur,
+      fireActionOnBlurChange,
       validationType: "number",
       validations: [...props.numberValidations.minMaxValidation(0, 9)],
     },
@@ -382,9 +395,10 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "pvpFact",
       breakpoints: {
         xs: 12,
-        md: 1,
+        md: 2,
       },
-      fireActionOnBlur,
+      // fireActionOnBlur,
+      fireActionOnBlurChange,
       validationType: "number",
       validations: [...props.commonValidations.requiredValidation()],
     },
@@ -394,14 +408,15 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.precioCosteIva",
         defaultMessage: "Precio con IVA",
       }),
-      type: "numeric",
+      type: "input",
       key: "preuIva",
       breakpoints: {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlur,
-      validationType: "number",
+      // fireActionOnBlur,
+      fireActionOnBlurChange,
+      validationType: "string",
     },
     {
       placeHolder: props.intl.formatMessage({

@@ -42,18 +42,39 @@ const withDependentActions = (PassedComponent) => {
       });
     }
 
-    const fireOnChangePrice = ({ key, getFormData }) => {
-      const id = 'articlesCalcPrice';
+    // const fireOnChangePrice = ({ key, getFormData }) => {
+    //   const id = 'articlesCalcPrice';
+    //   const fields = [
+    //     {key: 'pvpFact', react: true},
+    //     {key: 'preuIva', react: true},
+    //     {key: 'decimalsPreuIva', react: true},
+    //     {key: 'decimalsPreu', react: true},
+    //     {key: 'iva', react: true},
+    //   ];
+    //   // call to service
+    //   return doRequest({ id, key, getFormData, fields });
+    // }
+
+    const fireOnChangeUpdate = ({ key, getFormData }) => {
+      const id = 'articlesUpdatePrice';
       const fields = [
+        {key: 'codi', react: true},
+        {key: 'preuCompra', react: true},
+        {key: 'dte1Compra', react: true},
+        {key: 'dte2Compra', react: true},
+        {key: 'preuCompraTeo', react: true},
+        {key: 'dataActualitzacioPreu', react: true},
         {key: 'pvpFact', react: true},
         {key: 'preuIva', react: true},
-        {key: 'decimalsPreuIva', react: true},
+        {key: 'preuCostTeo', react: true},
+        {key: 'marge', react: true},
         {key: 'decimalsPreu', react: true},
+        {key: 'decimalsPreuIva', react: true},
         {key: 'iva', react: true},
       ];
-      // call to service
-      return doRequest({ id, key, getFormData, fields });
-    }
+    // call to service
+    return doRequest({ id, key, getFormData, fields });
+  }
 
     const fireOnChangeCalculateMargin = ({ key, getFormData }) => {
       const id = 'preusArticleCalcularPreusMargeAmbDescompte';
@@ -69,7 +90,8 @@ const withDependentActions = (PassedComponent) => {
     }
 
     return <PassedComponent
-      articles={{ fireOnChangePrice }}
+      // articles={{ fireOnChangePrice, fireOnChangeUpdate }}
+      articles={{ fireOnChangeUpdate }}
       rates={{ fireOnChangeCalculateMargin }}
       {...props} />;
   }

@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
-import { withValidations } from "modules/wrappers";
+import { withValidations, withDependentActions } from "modules/wrappers";
 
 import { useTabForm } from "hooks/tab-form";
 
@@ -61,6 +61,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     { title: DESCRIPCIO, name: "descripcio" },
   ];
 
+  const fireActionOnBlurChange = props.articles.fireOnChangeUpdate;
+
   const generalConfig = [
     {
       placeHolder: CODE,
@@ -71,6 +73,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
+      fireActionOnBlurChange,
       validationType: "string",
       validations: [
         ...props.stringValidations.minMaxValidation(1, 15),
@@ -546,4 +549,4 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     </Grid>
   );
 };
-export default compose(React.memo, withValidations, injectIntl)(GeneralTab);
+export default compose(React.memo, withValidations, withDependentActions, injectIntl)(GeneralTab);

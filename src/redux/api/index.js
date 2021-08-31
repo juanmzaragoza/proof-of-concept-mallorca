@@ -283,6 +283,7 @@ export const comptesTraspasMagatzem = "api/fact/comptesTraspasMagatzem";
 export const liniesFinalFactura = `api/fact/liniesFinalFactura`;
 export const preuArticles = `api/fact/preusArticle`;
 export const preusArticleCalcularPreusMargeAmbDescompte = 'api/fact/preusArticle/calcularPreusMargeAmbDescompte';
+export const articlesUpdatePrice = 'api/fact/articles/actualitzarPreus';
 
 export const comptesClient = "api/fact/comptesClient";
 export const comptesProveidor = "api/fact/comptesProveidor";
@@ -292,7 +293,7 @@ export const familiesModel = "api/fact/familiesModel";
 export const areaNegocis = `api/fact/areaNegocis`;
 export const seriesAreaNegoci = `api/fact/seriesAreaNegoci`;
 
-export const articlesCalcPrice = `api/fact/articles/calcularPreus`;
+// export const articlesCalcPrice = `api/fact/articles/calcularPreus`;
 export const tarifaProveidor = `api/fact/tarifesProveidor`;
 export const liniesComandaProveidor = `api/fact/liniesComandaProveidor`;
 export const recollidaObjecte = `api/fact/recollidesObjecte`;
