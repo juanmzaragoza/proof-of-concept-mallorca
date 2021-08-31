@@ -315,3 +315,5 @@ export const articlesFactRae = `api/fact/articles`;
 export const liniesAlbaraClient = `api/fact/liniesAlbaraClient`;
 export const eas = `api/fact/eass`;
 export const lote = `api/fact/lots`;
+export const tarifesProveidorPressupost = `api/fact/tarifesProveidorPressupost`;
+export const costosPressupost = `api/fact/costosPressupost`;

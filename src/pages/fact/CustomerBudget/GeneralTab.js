@@ -13,7 +13,7 @@ import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
-import ExpandableGrid from "modules/ExpandableGrid";
+
 
 import { useTabForm } from "hooks/tab-form";
 
@@ -620,14 +620,14 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
 
     {
       placeHolder: props.intl.formatMessage({
-        id: "Presupuestos.desglose",
-        defaultMessage: "desglose",
+        id: "Presupuestos.desgloseCap",
+        defaultMessage: "desglose en cap.",
       }),
       type: "checkbox",
       key: "desglose",
       breakpoints: {
         xs: 12,
-        md: 1,
+        md: 2,
       },
     },
     {
@@ -639,7 +639,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "seguimentRecepcioMaterial",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
     },
     {

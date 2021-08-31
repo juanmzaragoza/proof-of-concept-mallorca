@@ -70,7 +70,7 @@ const EscandallosTab = ({ formData, setFormData, getFormData, ...props }) => {
     type: "numeric",
     key: "codi",
     placeHolder: CODE,
-    required: true,
+    disabled: true,
     breakpoints: {
       xs: 12,
       md: md,
@@ -100,7 +100,7 @@ const EscandallosTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "fabricacio",
       breakpoints: {
         xs: 12,
-        md: 2
+        md: 2,
       },
     },
   ];
@@ -135,7 +135,7 @@ const EscandallosTab = ({ formData, setFormData, getFormData, ...props }) => {
       { name: "pvpTotalAcumulatExtraField", title: PVPTOTAL },
     ],
     formComponents: [
-      code(2),
+     
       {
         placeHolder: UNIDADES,
         type: "numeric",
@@ -286,24 +286,20 @@ const EscandallosTab = ({ formData, setFormData, getFormData, ...props }) => {
   return (
     <Grid container>
       <Grid xs={12} item>
-    
-          <GenericForm
-            formComponents={checkboxConfig}
-            emptyPaper={true}
-            editMode={props.editMode}
-            getFormData={getFormData}
-            setFormData={setFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) =>
-              addValidity(CHECKBOX_SECTION_INDEX, value)
-            }
-            onBlur={(e) => handleTouched(CHECKBOX_SECTION_INDEX)}
-            {...props}
-          />
-    
+        <GenericForm
+          formComponents={checkboxConfig}
+          emptyPaper={true}
+          editMode={props.editMode}
+          getFormData={getFormData}
+          setFormData={setFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) => addValidity(CHECKBOX_SECTION_INDEX, value)}
+          onBlur={(e) => handleTouched(CHECKBOX_SECTION_INDEX)}
+          {...props}
+        />
       </Grid>
       <Grid xs={12} item>
         <OutlinedContainer>
