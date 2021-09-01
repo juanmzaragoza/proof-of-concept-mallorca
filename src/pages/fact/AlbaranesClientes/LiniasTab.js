@@ -401,7 +401,7 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         },
         suffix: "%",
         validationType: "number",
-        validations: [...props.stringValidations.minMaxValidation(0, 99)],
+        validations: [...props.numberValidations.minMaxValidation(0, 99)],
       },
 
       {
@@ -436,7 +436,7 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         },
         suffix: "%",
         validationType: "number",
-        validations: [...props.stringValidations.minMaxValidation(0, 99)],
+        validations: [...props.numberValidations.minMaxValidation(0, 99)],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -451,7 +451,7 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         },
         suffix: "%",
         validationType: "number",
-        validations: [...props.stringValidations.minMaxValidation(0, 99)],
+        validations: [...props.numberValidations.minMaxValidation(0, 99)],
       },
 
       {
