@@ -8,9 +8,13 @@ import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
 import { TIPO_INCIDENCIA_SELECTOR_VALUES } from "constants/selectors";
-import { Chip } from "@material-ui/core";
 
-const ComplementsTab = ({ formData, setFormData, getFormData, ...props }) => {
+const IncidenciaHistory = ({
+  formData,
+  setFormData,
+  getFormData,
+  ...props
+}) => {
   // warning!!! It's always valid because we haven't validations
   useEffect(() => {
     props.setIsValid(true);
@@ -262,4 +266,8 @@ const ComplementsTab = ({ formData, setFormData, getFormData, ...props }) => {
     </Grid>
   );
 };
-export default compose(React.memo, withValidations, injectIntl)(ComplementsTab);
+export default compose(
+  React.memo,
+  withValidations,
+  injectIntl
+)(IncidenciaHistory);
