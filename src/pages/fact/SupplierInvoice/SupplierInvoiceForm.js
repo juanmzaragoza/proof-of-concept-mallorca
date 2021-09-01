@@ -30,12 +30,14 @@ import AlbaranesTab from "./AlbaranesTab";
 import MovimientosCajaTab from "./MovimientosCajaTab";
 import ComplementsTab from "./ComplementsTab";
 import BasesVencimientoTab from "./BasesVencimientoTab";
+import IncidenceHistoryTab from "./IncidenceHistoryTab";
 
 const GENERAL_TAB_INDEX = 0;
 const COMPLEMENT_TAB_INDEX = 1;
 const BV_TAB_INDEX = 2;
 const ALBARAN_TAB_INDEX = 3;
 const MOVIMIENTOS_TAB_INDEX = 4;
+const HISTORIAL_INC_TAB_INDEX = 5;
 
 const SupplierInvoiceForm = React.memo(
   ({
@@ -56,6 +58,7 @@ const SupplierInvoiceForm = React.memo(
       [BV_TAB_INDEX]: false,
       [ALBARAN_TAB_INDEX]: false,
       [MOVIMIENTOS_TAB_INDEX]: false,
+      [HISTORIAL_INC_TAB_INDEX]: false,
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -90,8 +93,6 @@ const SupplierInvoiceForm = React.memo(
             });
       }
     };
-
-
 
     const getTranslations = (id, defaultMessage) => {
       return {
@@ -217,6 +218,33 @@ const SupplierInvoiceForm = React.memo(
               setTabIndexWithError({
                 ...tabIndexWithError,
                 [MOVIMIENTOS_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
+          />
+        ),
+      },
+      {
+        ...getTranslations(
+          "FacturasProveedor.historialIncidencias",
+          "Historial Incidencias"
+        ),
+        key: HISTORIAL_INC_TAB_INDEX,
+        error: tabHasError(HISTORIAL_INC_TAB_INDEX),
+        component: (
+          <IncidenceHistoryTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [HISTORIAL_INC_TAB_INDEX]: !value,
               })
             }
             editMode={editMode}

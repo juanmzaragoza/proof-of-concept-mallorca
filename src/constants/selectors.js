@@ -1177,3 +1177,17 @@ export const ACTUALIZAR_PRECIO_SELECTOR_VALUES = [
     label: "Si",
   },
 ];
+
+
+export const TIPO_INCIDENCIA_SELECTOR_VALUES = [
+  {
+    value: "CLIENT",
+    labelId: "Selector.cliente",
+    label: "Cliente",
+  },
+  {
+    value: "FACTURA",
+    labelId: "Selector.factura",
+    label: "factura",
+  },
+];
