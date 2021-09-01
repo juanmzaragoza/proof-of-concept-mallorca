@@ -626,7 +626,7 @@ const withConstants = (PassedComponent) => {
             path: "FAC_PROJEC",
             icon: <LocalMall />,
           },
-         
+
           {
             key: "FAC_TFO",
             title: props.intl.formatMessage({
@@ -888,6 +888,15 @@ const withConstants = (PassedComponent) => {
               defaultMessage: "Familia costes",
             }),
             path: "FAC_FAMCOS", // or has path or has children but not both
+            icon: <LocalMall />,
+          },
+          {
+            key: "FAC_COST",
+            title: props.intl.formatMessage({
+              id: "Costes.titulo",
+              defaultMessage: "Costes",
+            }),
+            path: "FAC_COST",
             icon: <LocalMall />,
           },
           {
