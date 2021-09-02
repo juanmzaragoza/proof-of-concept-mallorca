@@ -157,46 +157,46 @@ const GenericForm = ({ loading, ...props }) => {
       handleIsValid(formik);
     };
 
+    const handleFireActionOnBlur = () => {
+      if (fireActionOnBlur) {
+        setLoadingAction(true);
+        const firedAction = fireActionOnBlur({ key, getFormData: props.getFormData });
+        // I choose which processor I must execute to handle the action/s
+        let processor;
+        if(Array.isArray(firedAction)){
+          processor = (processData) => {
+            return Promise.all(firedAction).then(results => {
+              results.map(data => processData(data));
+              handleIsValid(formik);
+            });
+          }
+        } else{
+          processor = (processData) => {
+            return firedAction.then(data => {
+              processData(data);
+              handleIsValid(formik);
+            });
+          }
+        }
+        processor((data) => {
+            Object.keys(data).map(key => {
+              props.setFormData({ key, value: data[key]});
+            });
+          })
+          .catch(err => {
+            console.log(err);
+          })
+          .finally(() => {
+            setLoadingAction(false);
+          });
+      }
+    }
     const handleBlur = (e) => {
       formik.handleBlur(e);
       handleIsValid(formik);
       props.onBlur && props.onBlur(e);
 
-      if (fireActionOnBlur) {
-        setLoadingAction(true);
-        const firedAction = fireActionOnBlur({ key, getFormData: props.getFormData });
-        if(Array.isArray(firedAction)){
-          Promise.all(firedAction)
-            .then(results => {
-              results.map(data =>
-                Object.keys(data).map(key => {
-                  props.setFormData({ key, value: data[key]});
-                })
-              );
-              handleIsValid(formik);
-            })
-            .catch(err => {
-              console.log(err);
-            })
-            .finally(() => {
-              setLoadingAction(false);
-            });
-        } else{
-          firedAction
-            .then(data => {
-              Object.keys(data).map(key => {
-                props.setFormData({ key, value: data[key]});
-              });
-              handleIsValid(formik);
-            })
-            .catch(err => {
-              console.log(err);
-            })
-            .finally(() => {
-              setLoadingAction(false);
-            });
-        }
-      }
+      handleFireActionOnBlur();
     };
 
     switch (type) {
