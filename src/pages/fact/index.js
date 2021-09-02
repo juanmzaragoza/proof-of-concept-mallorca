@@ -100,6 +100,7 @@ import Aplicadores from "./Aplicadores";
 import Certifications from "./Certifications";
 import Delegation from "./Delegation";
 import Expedients from "./Expedients";
+import Costes from "./Costes";
 
 const component = [
   SuppliersFamily,
@@ -212,6 +213,7 @@ const component = [
   Certifications,
   Delegation,
   Expedients,
+  Costes
 ];
 
 export default component;

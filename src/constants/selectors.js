@@ -1084,7 +1084,7 @@ export const TIPO_DESTINO_SELECTOR_VALUES = [
   {
     value: "ENTREGADO",
     labelId: "Selector.entregado",
-    label: "Entregado"
+    label: "Entregado",
   },
   {
     value: "DEPOSITO",
@@ -1098,9 +1098,7 @@ export const TIPO_DESTINO_SELECTOR_VALUES = [
   },
 ];
 
-
 export const TIPO_ALBARAN_SELECTOR_VALUES = [
-
   {
     value: "DEPOSIT",
     labelId: "Selector.deposito",
@@ -1113,10 +1111,7 @@ export const TIPO_ALBARAN_SELECTOR_VALUES = [
   },
 ];
 
-
-
 export const TIPO_DOC_ALBARAN_SELECTOR_VALUES = [
-
   {
     value: "ALBARA",
     labelId: "Selector.albaran",
@@ -1129,9 +1124,7 @@ export const TIPO_DOC_ALBARAN_SELECTOR_VALUES = [
   },
 ];
 
-
 export const APLICADOR_TYPE_SELECTOR_VALUES = [
-
   {
     value: "BASICO",
     labelId: "Selector.basico",
@@ -1159,7 +1152,6 @@ export const APLICADOR_TYPE_SELECTOR_VALUES = [
   },
 ];
 
-
 export const CERTIFICATION_SELECTOR_VALUES = [
   {
     value: "N",
@@ -1171,8 +1163,31 @@ export const CERTIFICATION_SELECTOR_VALUES = [
     labelId: "Selector.si",
     label: "Si",
   },
-  
+];
+
+export const ACTUALIZAR_PRECIO_SELECTOR_VALUES = [
+  {
+    value: "false",
+    labelId: "Selector.no",
+    label: "No",
+  },
+  {
+    value: "true",
+    labelId: "Selector.si",
+    label: "Si",
+  },
 ];
 
 
-
+export const TIPO_INCIDENCIA_SELECTOR_VALUES = [
+  {
+    value: "CLIENT",
+    labelId: "Selector.cliente",
+    label: "Cliente",
+  },
+  {
+    value: "FACTURA",
+    labelId: "Selector.factura",
+    label: "factura",
+  },
+];

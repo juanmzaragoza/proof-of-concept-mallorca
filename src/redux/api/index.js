@@ -281,10 +281,10 @@ export const comptesFamiliaSerieCompra = "api/fact/comptesFamiliaSerieCompra";
 export const comptesTraspasMagatzem = "api/fact/comptesTraspasMagatzem";
 
 export const liniesFinalFactura = `api/fact/liniesFinalFactura`;
+
 export const preuArticles = `api/fact/preusArticle`;
 export const preusArticleCalcularPreusMargeAmbDescompte = 'api/fact/preusArticle/calcularPreusMargeAmbDescompte';
 export const articlesUpdatePrice = 'api/fact/articles/actualitzarPreus';
-
 export const comptesClient = "api/fact/comptesClient";
 export const comptesProveidor = "api/fact/comptesProveidor";
 export const familiesGamma = "api/fact/familiesGamma";
@@ -293,7 +293,6 @@ export const familiesModel = "api/fact/familiesModel";
 export const areaNegocis = `api/fact/areaNegocis`;
 export const seriesAreaNegoci = `api/fact/seriesAreaNegoci`;
 
-// export const articlesCalcPrice = `api/fact/articles/calcularPreus`;
 export const calcularPvpMargeDescompte = 'api/fact/articles/calcularPvpMargeDescompte';
 export const tarifaProveidor = `api/fact/tarifesProveidor`;
 export const liniesComandaProveidor = `api/fact/liniesComandaProveidor`;
@@ -311,7 +310,7 @@ export const projectesTarifaProveidor = `api/fact/projectesTarifaProveidor`;
 export const fullesObra = `api/fact/fullesObra`;
 export const pressupostLinia = `api/fact/pressupostosLinia`;
 export const finalFacturas = `api/fact/finalFactures`;
-export const instalacions =`api/fact/instalacions`;
+export const instalacions = `api/fact/instalacions`;
 export const tipusInstalacions = `api/fact/tipusInstalacions`;
 export const articleFact = `api/fact/articles`;
 export const articlesFactRae = `api/fact/articles`;
@@ -320,3 +319,4 @@ export const eas = `api/fact/eass`;
 export const lote = `api/fact/lots`;
 export const tarifesProveidorPressupost = `api/fact/tarifesProveidorPressupost`;
 export const costosPressupost = `api/fact/costosPressupost`;
+export const incidenciesFactura = `api/fact/incidenciesFactura`;

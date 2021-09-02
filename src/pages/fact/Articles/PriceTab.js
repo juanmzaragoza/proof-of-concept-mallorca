@@ -343,7 +343,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "marge",
       breakpoints: {
         xs: 12,
-        md: 1,
+        md: 2,
       },
       // fireActionOnBlur,
       fireActionOnBlurChange,
@@ -454,7 +454,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "dteMaxProvFix",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "number",
     },
@@ -467,7 +467,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "dteMaxProvTemp",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "number",
     },
@@ -814,15 +814,13 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         type: "numeric",
         key: "codi",
         placeHolder: CODE,
-        required: true,
         breakpoints: {
           xs: 12,
           md: 3,
         },
         validationType: "number",
         validations: [
-          ...props.commonValidations.requiredValidation(),
-          ...props.numberValidations.minMaxValidation(1, 4),
+          ...props.numberValidations.minMaxValidation(1, 999999999999),
         ],
       },
       {
@@ -830,6 +828,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         type: "numeric",
         key: "limitInferior",
         required: true,
+        noEditable: true,
         breakpoints: {
           xs: 12,
           md: 3,
@@ -839,8 +838,9 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       {
         placeHolder: SUPLIM,
-        type: "input",
+        type: "numeric",
         key: "limitSuperior",
+        noEditable: true,
         required: true,
         breakpoints: {
           xs: 12,
@@ -862,14 +862,115 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         validations: [...props.commonValidations.requiredValidation()],
       },
       {
-        placeHolder: APLDTO,
-        type: "checkbox",
-        key: "aplicaDescompte",
+        placeHolder: props.intl.formatMessage({
+          id: "Articulos.precio.preciosPorVolumen.precioArticuloEnvase",
+          defaultMessage: "Precio artículo envase",
+        }),
+        type: "LOV",
+        key: "preuArticleEnvas",
         breakpoints: {
           xs: 12,
           md: 3,
         },
+        selector: {
+          key: "preuArticleEnvases",
+          labelKey: (data) =>
+            `${data.article.description} ( ${data.envas.description} )`,
+          sort: "article",
+
+          creationComponents: [
+            {
+              placeHolder: props.intl.formatMessage({
+                id: "Presupuestos.articulo",
+                defaultMessage: "Artículo",
+              }),
+              type: "LOV",
+              key: "article",
+              id: "articlesFact",
+              required: true,
+              breakpoints: {
+                xs: 12,
+                md: 6,
+              },
+              selector: {
+                key: "articles",
+                labelKey: (data) => `${data.descripcioCurta} (${data.codi})`,
+                sort: "nom",
+                cannotCreate: true,
+              },
+              validationType: "object",
+              validations: [...props.commonValidations.requiredValidation()],
+            },
+
+            {
+              placeHolder: props.intl.formatMessage({
+                id: "PedidosProveedor.envase",
+                defaultMessage: "Envase",
+              }),
+              type: "LOV",
+              key: "envas",
+              id: "envasos",
+              breakpoints: {
+                xs: 12,
+                md: 6,
+              },
+              selector: {
+                key: "envases",
+                labelKey: (data) => `${data.descripcio} (${data.codi})`,
+                sort: "descripcio",
+                advancedSearchColumns: aSCodeAndDescription,
+                cannotCreate: true,
+              },
+            },
+            {
+              placeHolder: props.intl.formatMessage({
+                id: "Articulos.presentacion.unidadEnvase",
+                defaultMessage: "Unidades envase",
+              }),
+              type: "numeric",
+              required: true,
+              key: "unitatsEnvas",
+              breakpoints: {
+                xs: 12,
+                md: 4,
+              },
+              validationType: "number",
+              validations: [
+                ...props.commonValidations.requiredValidation(),
+                ...props.numberValidations.minMaxValidation(0, 999999999999),
+              ],
+            },
+            {
+              placeHolder: props.intl.formatMessage({
+                id: "PedidosProveedor.precioEnvase",
+                defaultMessage: "Precio Envase",
+              }),
+              type: "numeric",
+              key: "preuEnvas",
+              required: true,
+              breakpoints: {
+                xs: 12,
+                md: 4,
+              },
+              validationType: "number",
+              validations: [
+                ...props.commonValidations.requiredValidation(),
+                ...props.numberValidations.minMaxValidation(0, 999999999999),
+              ],
+            },
+          ],
+
+          advancedSearchColumns: aSArticleAndEnvas,
+        },
+        extraQuery: [
+          {
+            columnName: "article.id",
+            value: `"${articulosId}"`,
+            exact: true,
+          },
+        ],
       },
+
       {
         placeHolder: DTO1,
         type: "input",
@@ -889,41 +990,13 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         },
       },
       {
-        placeHolder: props.intl.formatMessage({
-          id: "Articulos.precio.preciosPorVolumen.precioArticuloEnvase",
-          defaultMessage: "Precio artículo envase",
-        }),
-        type: "LOV",
-        key: "preuArticleEnvas",
-        required: true,
+        placeHolder: APLDTO,
+        type: "checkbox",
+        key: "aplicaDescompte",
         breakpoints: {
           xs: 12,
           md: 3,
         },
-        selector: {
-          key: "preuArticleEnvases",
-          labelKey: (data) =>
-            `${data.article.description} ( ${data.envas.description} )`,
-          sort: "article",
-          cannotCreate: true,
-          relatedWith: [
-            {
-              name: "article",
-              filterBy: "article.id",
-              keyValue: "id",
-            },
-          ],
-          advancedSearchColumns: aSArticleAndEnvas,
-        },
-        extraQuery: [
-          {
-            columnName: "article.id",
-            value: `"${articulosId}"`,
-            exact: true,
-          },
-        ],
-        validationType: "object",
-        ...withRequiredValidation(),
       },
     ],
   };
