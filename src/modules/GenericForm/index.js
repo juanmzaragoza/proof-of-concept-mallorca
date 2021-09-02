@@ -141,7 +141,6 @@ const GenericForm = ({ loading, ...props }) => {
       suffix,
       extraQuery,
       format,
-      fireActionOnBlurChange,
       fireActionOnBlur,
     },
     formik
@@ -165,9 +164,6 @@ const GenericForm = ({ loading, ...props }) => {
 
       if (fireActionOnBlur) {
         fireActionOnBlur({ key, value: props.getFormData(key) });
-      }
-      if (fireActionOnBlurChange) {
-        fireActionOnBlurChange({ key, value: props.getFormData(key) });
       }
     };
 
@@ -606,7 +602,6 @@ GenericForm.propTypes = {
       ),
       // when it's defined, fire an action on blur
       fireActionOnBlur: PropTypes.func,
-      fireActionOnBlurChange: PropTypes.func,
     })
   ),
   
