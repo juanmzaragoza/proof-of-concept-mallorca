@@ -294,6 +294,7 @@ export const areaNegocis = `api/fact/areaNegocis`;
 export const seriesAreaNegoci = `api/fact/seriesAreaNegoci`;
 
 // export const articlesCalcPrice = `api/fact/articles/calcularPreus`;
+export const calcularPvpMargeDescompte = 'api/fact/articles/calcularPvpMargeDescompte';
 export const tarifaProveidor = `api/fact/tarifesProveidor`;
 export const liniesComandaProveidor = `api/fact/liniesComandaProveidor`;
 export const recollidaObjecte = `api/fact/recollidesObjecte`;

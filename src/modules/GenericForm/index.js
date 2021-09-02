@@ -116,7 +116,7 @@ const GenericForm = ({loading, ...props}) => {
                       id, type, variant, placeHolder, required,
                       key, noEditable, disabledCreating, selector, disabled,
                       text, prefix, suffix, extraQuery, format, fireActionOnBlurChange,
-                      // fireActionOnBlur, 
+                      fireActionOnBlur, 
                     }, formik) => {
     const noEnable = loading
       || (props.editMode && noEditable)
@@ -135,22 +135,22 @@ const GenericForm = ({loading, ...props}) => {
       handleIsValid(formik);
       props.onBlur && props.onBlur(e);
 
-      // if(fireActionOnBlur){
-      //   setLoadingAction(true);
-      //   fireActionOnBlur({key, getFormData: props.getFormData})
-      //     .then(data => {
-      //       Object.keys(data).map(key => {
-      //         props.setFormData({ key, value: data[key]});
-      //       });
-      //       handleIsValid(formik);
-      //     })
-      //     .catch(err => {
-      //       console.log(err);
-      //     })
-      //     .finally(() => {
-      //       setLoadingAction(false);
-      //     });
-      // }
+      if(fireActionOnBlur){
+        setLoadingAction(true);
+        fireActionOnBlur({key, getFormData: props.getFormData})
+          .then(data => {
+            Object.keys(data).map(key => {
+              props.setFormData({ key, value: data[key]});
+            });
+            handleIsValid(formik);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+          .finally(() => {
+            setLoadingAction(false);
+          });
+      }
       if(fireActionOnBlurChange){
         setLoadingAction(true);
         fireActionOnBlurChange({key, getFormData: props.getFormData})
@@ -509,7 +509,7 @@ GenericForm.propTypes = {
       exact: PropTypes.bool
     })),
     // when it's defined, fire an action on blur
-    // fireActionOnBlur: PropTypes.func,
+    fireActionOnBlur: PropTypes.func,
     fireActionOnBlurChange: PropTypes.func
   })),
   onSubmit: PropTypes.func,
