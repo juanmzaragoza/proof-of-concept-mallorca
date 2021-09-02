@@ -122,10 +122,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const fireActionOnBlur = props.articles.fireOnChangePrice;
   const fireArticlesPriceUpdate = props.articles.fireOnChangeUpdate;
-  const fireArticlesAndPvpPriceUpdate = (e) => {
-    fireActionOnBlur(e);
-    fireArticlesPriceUpdate(e);
-  }
+  const fireArticlesAndPvpPriceUpdate = (e) => [fireActionOnBlur(e), fireArticlesPriceUpdate(e)];
 
   const iva = (md = 2) => [
     {

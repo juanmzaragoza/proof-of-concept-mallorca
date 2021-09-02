@@ -145,11 +145,11 @@ const GenericForm = ({ loading, ...props }) => {
     },
     formik
   ) => {
-    const noEnable =
-      loading ||
-      (props.editMode && noEditable) ||
-      (!props.editMode && disabledCreating) ||
-      disabled;
+    const noEnable = loading
+      || (props.editMode && noEditable)
+      || (!props.editMode && disabledCreating)
+      || loadingAction
+      || disabled;
     const identification = id ? id : key;
 
     const handleChange = (e, value) => {
@@ -163,7 +163,39 @@ const GenericForm = ({ loading, ...props }) => {
       props.onBlur && props.onBlur(e);
 
       if (fireActionOnBlur) {
-        fireActionOnBlur({ key, value: props.getFormData(key) });
+        setLoadingAction(true);
+        const firedAction = fireActionOnBlur({ key, getFormData: props.getFormData });
+        if(Array.isArray(firedAction)){
+          Promise.all(firedAction)
+            .then(results => {
+              results.map(data =>
+                Object.keys(data).map(key => {
+                  props.setFormData({ key, value: data[key]});
+                })
+              );
+              handleIsValid(formik);
+            })
+            .catch(err => {
+              console.log(err);
+            })
+            .finally(() => {
+              setLoadingAction(false);
+            });
+        } else{
+          firedAction
+            .then(data => {
+              Object.keys(data).map(key => {
+                props.setFormData({ key, value: data[key]});
+              });
+              handleIsValid(formik);
+            })
+            .catch(err => {
+              console.log(err);
+            })
+            .finally(() => {
+              setLoadingAction(false);
+            });
+        }
       }
     };
 
