@@ -30,6 +30,7 @@ const GenericForm = ({ loading, ...props }) => {
   const formRef = useRef(null);
   const [isManualValidated, setIsManualValidated] = useState(false);
   const [initVal, setInitVal] = useState({});
+  const [loadingAction, setLoadingAction] = useState(false);
 
   /** Get initial value by component*/
   const initialValues = {
@@ -144,11 +145,11 @@ const GenericForm = ({ loading, ...props }) => {
     },
     formik
   ) => {
-    const noEnable =
-      loading ||
-      (props.editMode && noEditable) ||
-      (!props.editMode && disabledCreating) ||
-      disabled;
+    const noEnable = loading
+      || (props.editMode && noEditable)
+      || (!props.editMode && disabledCreating)
+      || loadingAction
+      || disabled;
     const identification = id ? id : key;
 
     const handleChange = (e, value) => {
@@ -156,13 +157,46 @@ const GenericForm = ({ loading, ...props }) => {
       handleIsValid(formik);
     };
 
+    const handleFireActionOnBlur = () => {
+      if (fireActionOnBlur) {
+        setLoadingAction(true);
+        const firedAction = fireActionOnBlur({ key, getFormData: props.getFormData });
+        // I choose which processor I must execute to handle the action/s
+        let processor;
+        if(Array.isArray(firedAction)){
+          processor = (processData) => {
+            return Promise.all(firedAction).then(results => {
+              results.map(data => processData(data));
+              handleIsValid(formik);
+            });
+          }
+        } else{
+          processor = (processData) => {
+            return firedAction.then(data => {
+              processData(data);
+              handleIsValid(formik);
+            });
+          }
+        }
+        processor((data) => {
+            Object.keys(data).map(key => {
+              props.setFormData({ key, value: data[key]});
+            });
+          })
+          .catch(err => {
+            console.log(err);
+          })
+          .finally(() => {
+            setLoadingAction(false);
+          });
+      }
+    }
     const handleBlur = (e) => {
       formik.handleBlur(e);
       handleIsValid(formik);
       props.onBlur && props.onBlur(e);
-      if (fireActionOnBlur) {
-        fireActionOnBlur({ key, value: props.getFormData(key) });
-      }
+
+      handleFireActionOnBlur();
     };
 
     switch (type) {
@@ -539,6 +573,7 @@ GenericForm.propTypes = {
   formComponents: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.any,
+      
       type: PropTypes.oneOf([
         "input",
         "select",
@@ -601,6 +636,7 @@ GenericForm.propTypes = {
       fireActionOnBlur: PropTypes.func,
     })
   ),
+  
   onSubmit: PropTypes.func,
   formDataLoaded: PropTypes.bool,
   setFormData: PropTypes.func,

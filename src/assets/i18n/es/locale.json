@@ -656,7 +656,7 @@
   "Articulos.precio.decimalesPrecioIva": "Decimales precio con IVA",
   "Articulos.precio.pvp": "P.V.P",
   "Articulos.precio.precioSinIva": "Precio sin IVA",
-  "Articulos.precio.precioCosteIva": "Precio coste con IVA",
+  "Articulos.precio.precioCosteIva": "Precio con IVA",
   "Articulos.precio.precioCosteExistencias": "Precio coste existencias",
   "Articulos.precio.precioMin": "Precio mínimo",
   "Articulos.precio.dtoMaxProFix": "Descuento máximo proveedor ( fijo )",
@@ -1158,7 +1158,6 @@
   "Idiomas.titulo": "Idiomas",
   "TraducionesFamilia.titulo": "Traducciones",
   "Configuracion.titulo": "Configuración",
-  "Facturacion.titulo": "Facturación",
   "Facturas.titulo": "Facturas",
   "Facturas.importe": "Importe",
   "Facutras.cliente": "Cliente",
@@ -1947,6 +1946,7 @@
   "Presupuestos.opcion3": "Descripción Opción 3",
   "Presupuestos.opcion4": "Descripción Opción 4",
   "Presupuestos.opcion5": "Descripción Opción 5",
+  
   "PedidosProveedor.cliente": "Cliente",
   "PedidosProveedor.subcliente": "SubCliente",
   "PedidosProveedor.dirección": "Dirección",
@@ -2031,6 +2031,19 @@
   "FacturasProveedor.historialIncidencias": "Historial Incidencias",
   "FacturasProveedor.tipoIncidencia":"Tipo Incidencia",
   "Selector.cliente":"Cliente",
-  "FacturasProveedor.tipo":"Tipo"
+  "FacturasProveedor.tipo":"Tipo",
 
+  "withDependentActions.onRequest.error": "No se pudo realizar el cálculo correctamente",
+  "Clientes.comercial.dirFinanciero":"Dir. financiero",
+  "Clientes.comercial.dirInformatica":"Dir. informática",
+  "Clientes.comercial.sistema":"Sistema Actual",
+  "Clientes.comercial.comentarios":"Comentarios",
+  "Clientes.comercial.numOperarios":"Num. Operarios",
+  "Clientes.comercial.numPcs":"Num. PC's",
+  "Clientes.comercial.probabilidad":"Probabilidad",
+  "Clientes.comercial.facturacion":"Facturación",
+  "Clientes.comercial.situacionCom":"Situación Comercial",
+  "Clientes.comercial.proximaVisita":"Próxima visita comercial",
+  "Clientes.general":"General",
+  "Clientes.informacionComercial":"Información Comercial"
 }
