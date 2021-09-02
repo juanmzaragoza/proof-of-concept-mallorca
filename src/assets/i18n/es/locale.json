@@ -656,7 +656,7 @@
   "Articulos.precio.decimalesPrecioIva": "Decimales precio con IVA",
   "Articulos.precio.pvp": "P.V.P",
   "Articulos.precio.precioSinIva": "Precio sin IVA",
-  "Articulos.precio.precioCosteIva": "Precio coste con IVA",
+  "Articulos.precio.precioCosteIva": "Precio con IVA",
   "Articulos.precio.precioCosteExistencias": "Precio coste existencias",
   "Articulos.precio.precioMin": "Precio mínimo",
   "Articulos.precio.dtoMaxProFix": "Descuento máximo proveedor ( fijo )",
