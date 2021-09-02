@@ -60,7 +60,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     { title: DESCRIPCIO, name: "descripcio" },
   ];
 
-  const fireActionOnBlurChange = props.articles.fireOnChangeUpdate;
+  const fireActionOnBlur = props.articles.fireOnChangeUpdate;
 
   const generalConfig = [
     {
@@ -72,7 +72,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlurChange,
+      fireActionOnBlur,
       validationType: "string",
       validations: [
         ...props.stringValidations.minMaxValidation(1, 15),

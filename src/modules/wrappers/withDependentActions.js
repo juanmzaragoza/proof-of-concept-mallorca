@@ -1,8 +1,11 @@
 import React from "react";
 import {bindActionCreators, compose} from "redux";
 import {connect} from "react-redux";
+
 import { getCalculationForDependentFields } from "../../redux/genericForm";
 import {getFormDataByKey} from "../../redux/genericForm/selectors";
+import * as API from "../../redux/api";
+import Axios, {errorTypes} from "../../Axios";
 
 const CAMP_DE_CANVI = 'campDeCanvi';
 
@@ -10,16 +13,37 @@ const withDependentActions = (PassedComponent) => {
 
   const WrappedComponent = (props) => {
 
-    const buildBody = ({ fields, key, value }) => {
+  const doRequest = ({ id, key, getFormData, fields }) => {
+    const buildBody = ({ fields }) => {
       const body =  {};
       fields.map((field) => {
-        body[field.key] = field.key === key? value:props.getFormData(field.key);
+        body[field.key] = getFormData(field.key);
       });
       body[CAMP_DE_CANVI] = key;
       return body;
     }
 
-	const fireOnChangePrice = ({ key, value }) => {
+    return new Promise((resolve, reject) => {
+      const body = buildBody({key, fields});
+      Axios.post(`${API[id]}`, body)
+        .then(({data}) => data)
+        .then((data) => {
+          resolve(data);
+        })
+        .catch((e) => {
+          const status = e.response?.status;
+          if(!errorTypes[status]) {
+            props.enqueueSnackbar(props.intl.formatMessage({
+              id: "withDependentActions.onRequest.error",
+              defaultMessage: "No se pudo realizar el cálculo correctamente"
+            }), {variant: 'error'});
+          }
+          reject(e);
+        });
+    });
+  }
+
+	const fireOnChangePrice = ({ key, getFormData }) => {
       const id = 'calcularPvpMargeDescompte';
       const fields = [
        {key: 'pvpFact', react: true},
@@ -42,12 +66,10 @@ const withDependentActions = (PassedComponent) => {
         {key: 'margeDteFab', react: true},
       ];
       // call to service
-      const body = buildBody({ key, value, fields });
-      // TODO() at this point, we can add method and query attributes
-      return props.getCalculationForDependentFields({ id, body });
+      return doRequest({ id, key, getFormData, fields });
     }
 
-    const fireOnChangeUpdate = ({ key, value }) => {
+    const fireOnChangeUpdate = ({ key, getFormData }) => {
       const id = 'articlesUpdatePrice';
       const fields = [
        {key: 'codi', react: true},
@@ -65,12 +87,10 @@ const withDependentActions = (PassedComponent) => {
         {key: 'iva', react: true},
       ];
       // call to service
-      const body = buildBody({ key, value, fields });
-      // TODO() at this point, we can add method and query attributes
-      return props.getCalculationForDependentFields({ id, body });
+      return doRequest({ id, key, getFormData, fields });
     }
 	
-	const fireOnChangeCalculateMargin = ({ key, value }) => {
+	const fireOnChangeCalculateMargin = ({ key, getFormData }) => {
       const id = 'preusArticleCalcularPreusMargeAmbDescompte';
       const fields = [
        {key: 'article', react: true},
@@ -80,14 +100,12 @@ const withDependentActions = (PassedComponent) => {
         {key: 'marge', react: true},
       ];
       // call to service
-      const body = buildBody({ key, value, fields });
-      // TODO() at this point, we can add method and query attributes
-      return props.getCalculationForDependentFields({ id, body });
+      return doRequest({ id, key, getFormData, fields });
     }
 
     return <PassedComponent
       articles={{ fireOnChangePrice, fireOnChangeUpdate }}
-	  rates={{ fireOnChangeCalculateMargin }}
+	    rates={{ fireOnChangeCalculateMargin }}
       {...props} />;
   }
 

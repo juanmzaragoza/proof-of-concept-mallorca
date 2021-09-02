@@ -121,7 +121,8 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
   };
 
   const fireActionOnBlur = props.articles.fireOnChangePrice;
-  const fireActionOnBlurChange = props.articles.fireOnChangeUpdate;
+  const fireArticlesPriceUpdate = props.articles.fireOnChangeUpdate;
+  const fireArticlesAndPvpPriceUpdate = (e) => [fireActionOnBlur(e), fireArticlesPriceUpdate(e)];
 
   const iva = (md = 2) => [
     {
@@ -137,7 +138,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: md,
       },
-      fireActionOnBlurChange,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "object",
       ...withRequiredValidation(),
       selector: {
@@ -254,7 +255,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlurChange,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "number",
       validations: [
         ...props.numberValidations.minMaxValidation(0, 999999999999),
@@ -271,7 +272,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlurChange,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "number",
       validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
@@ -286,7 +287,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlurChange,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "number",
       validations: [...props.numberValidations.minMaxValidation(0, 999)],
     },
@@ -302,8 +303,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlur,
-      fireActionOnBlurChange,
+      fireActionOnBlur: fireArticlesAndPvpPriceUpdate,
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -317,8 +317,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlur,
-      fireActionOnBlurChange,
+      fireActionOnBlur: fireArticlesAndPvpPriceUpdate,
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -331,7 +330,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlurChange,
+      fireActionOnBlur: fireArticlesPriceUpdate,
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -344,7 +343,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlurChange,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "number",
     },
     {
@@ -359,8 +358,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlur,
-      fireActionOnBlurChange,
+      fireActionOnBlur: fireArticlesAndPvpPriceUpdate,
       validationType: "number",
       validations: [
         ...props.commonValidations.requiredValidation(),
@@ -380,8 +378,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 3,
       },
-      fireActionOnBlur,
-      fireActionOnBlurChange,
+      fireActionOnBlur: fireArticlesAndPvpPriceUpdate,
       validationType: "number",
       validations: [...props.commonValidations.requiredValidation()],
     },
@@ -397,7 +394,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlurChange,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "number",
       validations: [...props.numberValidations.minMaxValidation(0, 9)],
     },
@@ -412,7 +409,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 3,
       },
-      fireActionOnBlurChange,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "string",
     },
     {
