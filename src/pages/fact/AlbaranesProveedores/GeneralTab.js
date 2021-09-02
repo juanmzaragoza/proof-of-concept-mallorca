@@ -67,8 +67,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   });
 
-
-
   const codeAndDescription = (mdCode = 6, mdDes = 6) => [
     code(mdCode),
     {
@@ -83,8 +81,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
-
- 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
   const formatCodeAndDescription = (data) =>
     `${data.descripcio} (${data.codi})`;
@@ -123,7 +119,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       validationType: "number",
       ...withRequiredValidation([
-        ...props.numberValidations.minMaxValidation(1, 9999999999),
+        ...props.numberValidations.minMaxValidation(0, 9999999999),
       ]),
     },
     {
@@ -263,7 +259,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         ],
       },
     },
-   
+
     {
       placeHolder: props.intl.formatMessage({
         id: "AlbaranesProveedor.serieCompra",
@@ -498,7 +494,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       selector: {
         key: "pressuposts",
-        labelKey: (data) => `${data.client.description} (${data.codi})`,
+        labelKey: (data) =>
+          `${data.serieVenda.pk.codi}/${data.numero}/${data.versio} (${data.codi})`,
         sort: "codi",
         cannotCreate: true,
         transform: {

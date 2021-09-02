@@ -1,7 +1,7 @@
 import React from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
-
+import { useParams } from "react-router-dom";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
@@ -37,6 +37,8 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
     setIsValid: props.setIsValid,
   });
 
+
+  const { id: clienteId } = useParams();
   const DESCRIPCIO = props.intl.formatMessage({
     id: "Comun.descripcion",
     defaultMessage: "Descripción",
@@ -372,7 +374,7 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         transform: {
           apply: (tipusVenciments) => tipusVenciments && tipusVenciments.codi,
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-        }
+        },
       },
       validationType: "string",
       ...withRequiredValidation(),
@@ -495,6 +497,13 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
           { title: DOMICILI, name: "domicili" },
         ],
       },
+      extraQuery: [
+        {
+          columnName: "client.id",
+          value: `"${clienteId}"`,
+          exact: true,
+        },
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -548,8 +557,7 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
       validationType: "string",
-      validations: [   ...props.stringValidations.emailValidation()],
-      
+      validations: [...props.stringValidations.emailValidation()],
     },
 
     {
@@ -564,7 +572,7 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
       validationType: "string",
-      validations: [  ...props.stringValidations.emailValidation()],
+      validations: [...props.stringValidations.emailValidation()],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -575,10 +583,10 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "emailCmp",
       breakpoints: {
         xs: 12,
-        md:4,
+        md: 4,
       },
       validationType: "string",
-      validations: [  ...props.stringValidations.emailValidation()],
+      validations: [...props.stringValidations.emailValidation()],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -592,7 +600,7 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
       validationType: "string",
-      validations: [  ...props.stringValidations.emailValidation()],
+      validations: [...props.stringValidations.emailValidation()],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -606,7 +614,7 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
       validationType: "string",
-      validations: [  ...props.stringValidations.emailValidation()],
+      validations: [...props.stringValidations.emailValidation()],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -620,7 +628,7 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 4,
       },
       validationType: "string",
-      validations: [  ...props.stringValidations.emailValidation()],
+      validations: [...props.stringValidations.emailValidation()],
     },
   ];
 
@@ -1084,7 +1092,9 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
             formErrors={props.formErrors}
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(FACTURACION_SECTION_INDEX, value)}
+            handleIsValid={(value) =>
+              addValidity(FACTURACION_SECTION_INDEX, value)
+            }
             onBlur={(e) => handleTouched(FACTURACION_SECTION_INDEX)}
             {...props}
           />

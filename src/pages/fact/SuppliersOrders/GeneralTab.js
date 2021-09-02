@@ -32,7 +32,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const getString = (key) => (getFormData(key) ? getFormData(key) : "");
 
   useEffect(() => {
-
     const getClient = getString("pressupostNomClientExtraField");
     const getCodiClient = getString("pressupostClientCodiExtraField");
     const getEstat = getString("pressupostEstatExtraField");
@@ -174,8 +173,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     };
   };
 
-
-  
   const datosGenerales = [
     {
       placeHolder: props.intl.formatMessage({
@@ -747,7 +744,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       selector: {
         key: "pressuposts",
-        labelKey: (data) => `${data.serieVenda.pk.codi}/${data.numero}/${data.versio} (${data.codi})`,
+        labelKey: (data) =>
+          `${data.serieVenda.pk.codi}/${data.numero}/${data.versio} (${data.codi})`,
         sort: "codi",
         cannotCreate: true,
         relatedWith: [
@@ -968,7 +966,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       selector: {
         key: "avarias",
-        labelKey: (data) => `${data.descripcioAvaria ? data.descripcioAvaria : ""} (${data.num})`,
+        labelKey: (data) =>
+          `${data.descripcioAvaria ? data.descripcioAvaria : ""} (${data.num})`,
         sort: "num",
         cannotCreate: true,
         advancedSearchColumns: [

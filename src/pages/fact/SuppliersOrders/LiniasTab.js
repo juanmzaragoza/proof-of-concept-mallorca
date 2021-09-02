@@ -50,13 +50,12 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
   const getString = (key) => (getFormData(key) ? getFormData(key) : "");
   useEffect(() => {
     const prov = getString("proveidor");
-  
+
     setFormData({
       key: "pedidoMinim",
       value: prov ? prov.comandaMinimaDivisa : "",
     });
   }, [getFormData("proveidor")]);
-
 
   const camposInformativos = [
     {
@@ -343,7 +342,7 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "Clasificaciones.sequencia",
           defaultMessage: "Sequencia",
         }),
-        type: "input",
+        type: "numeric",
         key: "sequencia",
         required: true,
         breakpoints: {
@@ -351,8 +350,11 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
           md: 2,
         },
         noEditable: true,
-        validationType: "string",
-        validations: [...props.commonValidations.requiredValidation()],
+        validationType: "number",
+        validations: [
+          ...props.commonValidations.requiredValidation(),
+          ...props.numberValidations.minMaxValidation(0, 9999999999),
+        ],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -678,7 +680,8 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         },
         selector: {
           key: "pressuposts",
-          labelKey: (data) => `${data.client.description} (${data.codi})`,
+          labelKey: (data) =>
+            `${data.serieVenda.pk.codi}/${data.numero}/${data.versio} (${data.codi})`,
           sort: "codi",
           cannotCreate: true,
           transform: {
