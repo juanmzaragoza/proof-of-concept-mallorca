@@ -348,7 +348,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
       fireActionOnBlur,
       validationType: "number",
@@ -357,21 +357,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         ...props.numberValidations.minMaxValidation(0, 9),
       ],
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Articulos.precio.decimalesPrecioIva",
-        defaultMessage: "Decimales precio con IVA",
-      }),
-      type: "numeric",
-      key: "decimalsPreuIva",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      fireActionOnBlur,
-      validationType: "number",
-      validations: [...props.numberValidations.minMaxValidation(0, 9)],
-    },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "Articulos.precio.precioSinIva",
@@ -382,13 +368,28 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "pvpFact",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
       fireActionOnBlur,
       validationType: "number",
       validations: [...props.commonValidations.requiredValidation()],
     },
     ...iva(2),
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.decimalesPrecioIva",
+        defaultMessage: "Decimales precio con IVA",
+      }),
+      type: "numeric",
+      key: "decimalsPreuIva",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      fireActionOnBlur,
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 9)],
+    },
     {
       placeHolder: props.intl.formatMessage({
         id: "Articulos.precio.precioCosteIva",
@@ -398,7 +399,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "preuIva",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
       fireActionOnBlur,
       validationType: "number",
