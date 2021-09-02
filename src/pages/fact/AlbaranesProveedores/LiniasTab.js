@@ -542,17 +542,25 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "PedidosProveedor.lote",
           defaultMessage: "Lote ",
         }),
-        type: "input",
+        type: "LOV",
         key: "lote",
         breakpoints: {
           xs: 12,
           md: 3,
         },
-        validationType: "string",
-        validations: [
-          ...props.numberValidations.minMaxValidation(0, 20),
-        ],
+        selector: {
+          key: "lots",
+          labelKey: (data) => `(${data.codi})`,
+          sort: "codi",
+          advancedSearchColumns: [{ title: CODE, name: "codi" }],
+          cannotCreate: true,
+          transform: {
+            apply: (lots) => lots && lots.codi,
+            reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+          },
+        },
       },
+
       {
         placeHolder: props.intl.formatMessage({
           id: "PedidosProveedor.largo",

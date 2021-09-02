@@ -192,7 +192,7 @@ const ProveedoresTab = ({ formData, setFormData, getFormData, ...props }) => {
         type: "LOV",
         key: "proveidor",
         id: "suppliers",
-        required:true,
+        required: true,
         breakpoints: {
           xs: 12,
           md: 4,
@@ -204,8 +204,8 @@ const ProveedoresTab = ({ formData, setFormData, getFormData, ...props }) => {
           cannotCreate: true,
           advancedSearchColumns: aSCodeAndComercialName,
         },
-        validationType:"object",
-        validations:[...props.commonValidations.requiredValidation()]
+        validationType: "object",
+        validations: [...props.commonValidations.requiredValidation()],
       },
       {
         placeHolder: CODARTPRO,
@@ -216,10 +216,7 @@ const ProveedoresTab = ({ formData, setFormData, getFormData, ...props }) => {
           md: 3,
         },
         validationType: "string",
-        validations: [
-  
-          ...props.stringValidations.minMaxValidation(1, 20),
-        ],
+        validations: [...props.stringValidations.minMaxValidation(1, 20)],
       },
       {
         placeHolder: DIVISA,
@@ -252,7 +249,7 @@ const ProveedoresTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "diesEsperaEntrega",
         breakpoints: {
           xs: 12,
-          md: 2,
+          md: 3,
         },
         validationType: "number",
       },
@@ -262,7 +259,7 @@ const ProveedoresTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "ultimDiaCompra",
         breakpoints: {
           xs: 12,
-          md: 2,
+          md: 3,
         },
       },
       {
@@ -291,7 +288,7 @@ const ProveedoresTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "ultimDescompte",
         breakpoints: {
           xs: 12,
-          md: 2,
+          md: 3,
         },
         validationType: "number",
       },
@@ -301,7 +298,7 @@ const ProveedoresTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "ultimDescomptePp",
         breakpoints: {
           xs: 12,
-          md: 2,
+          md: 3,
         },
         validationType: "number",
       },
@@ -311,10 +308,9 @@ const ProveedoresTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "ultimDiaCarrecComplements",
         breakpoints: {
           xs: 12,
-          md: 2,
+          md: 3,
         },
       },
-
 
       {
         placeHolder: PRECIONETO,
@@ -336,10 +332,7 @@ const ProveedoresTab = ({ formData, setFormData, getFormData, ...props }) => {
           md: 12,
         },
         validationType: "string",
-        validations: [
-         
-          ...props.stringValidations.minMaxValidation(1, 1000),
-        ],
+        validations: [...props.stringValidations.minMaxValidation(1, 1000)],
       },
     ],
   };

@@ -54,7 +54,7 @@ const Prices2 = ({ formData, setFormData, getFormData, ...props }) => {
         }),
       },
       {
-        name: "pvpFact",
+        name: "calculPreuPerTarifaExtraField",
         title: props.intl.formatMessage({
           id: "Articulos.precio",
           defaultMessage: "Precio",

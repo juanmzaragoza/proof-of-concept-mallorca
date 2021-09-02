@@ -190,11 +190,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
               labelKey: (data) => `${data.nom} (${data.codi})`,
               sort: "codi",
               cannotCreate: true,
-              relatedWith:[ {
-                name: "provincia",
-                filterBy: "pais.id",
-                keyValue: "id",
-              },],
+              relatedWith: [
+                {
+                  name: "provincia",
+                  filterBy: "pais.id",
+                  keyValue: "id",
+                },
+              ],
               advancedSearchColumns: aSCodeAndName,
             },
           },
@@ -939,6 +941,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           advancedSearchColumns: [
             { title: CODE, name: "codi" },
             { title: NOM, name: "nomFiscal" },
+          ],
+          relatedWith: [
+            {
+              name: "caixa",
+              filterBy: "empresa.id",
+              keyValue: "id",
+            },
           ],
         },
       },

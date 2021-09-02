@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
-import { withValidations } from "modules/wrappers";
+import { withValidations, withDependentActions } from "modules/wrappers";
 
 import { useTabForm } from "hooks/tab-form";
 
@@ -19,7 +19,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [GENERAL_SECTION_INDEX]: false,
-      [CATEGORIAS_SECTION_TAB_INDEX]: false,
       [ALTERNATIVO_SECTION_TAB_INDEX]: true,
       [CONTABILIDAD_SECTION_TAB_INDEX]: true,
     },
@@ -61,6 +60,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     { title: DESCRIPCIO, name: "descripcio" },
   ];
 
+  const fireActionOnBlur = props.articles.fireOnChangeUpdate;
+
   const generalConfig = [
     {
       placeHolder: CODE,
@@ -71,6 +72,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
+      fireActionOnBlur,
       validationType: "string",
       validations: [
         ...props.stringValidations.minMaxValidation(1, 15),
@@ -82,15 +84,50 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       ],
     },
     {
+      placeHolder: props.intl.formatMessage({
+        id: "FamiliaArticulos.titulo",
+        defaultMessage: "Familia",
+      }),
+      type: "LOV",
+      key: "familia",
+      id: "articleFamilia",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      selector: {
+        key: "articleFamilias",
+        labelKey: formatCodeAndDescription,
+        sort: "codi",
+        cannotCreate: true,
+        advancedSearchColumns: aSCodeAndDescription,
+      },
+      validationType: "object",
+      ...withRequiredValidation(),
+    },
+    {
       placeHolder: NOM,
       type: "input",
       key: "descripcioCurta",
       breakpoints: {
         xs: 12,
-        md: 5,
+        md: 6,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 60)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.bloqueado",
+        defaultMessage: "Bloqueado",
+      }),
+      type: "checkbox",
+      key: "bloquejat",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
     },
 
     {
@@ -109,16 +146,106 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.bloqueado",
-        defaultMessage: "Bloqueado",
+        id: "ArticulosModelo.titulo",
+        defaultMessage: "Modelo",
       }),
-      type: "checkbox",
-      key: "bloquejat",
+      type: "LOV",
+      key: "model",
+      id: "articlesModel",
+      required: false,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
+      },
+      selector: {
+        key: "articleModels",
+        labelKey: formatCodeAndDescription,
+        sort: "codi",
+        cannotCreate: true,
+        advancedSearchColumns: aSCodeAndDescription,
       },
     },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "ArticulosGama.titulo",
+        defaultMessage: "Gama",
+      }),
+      type: "LOV",
+      key: "gamma",
+      id: "articlesGama",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      selector: {
+        key: "articleGammas",
+        labelKey: formatCodeAndDescription,
+        sort: "codi",
+        cannotCreate: true,
+        advancedSearchColumns: aSCodeAndDescription,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "ArticulosMarca.titulo",
+        defaultMessage: "Marca",
+      }),
+      type: "LOV",
+      key: "marca",
+      id: "articlesMarca",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      selector: {
+        key: "articleMarcas",
+        labelKey: formatCodeAndDescription,
+        sort: "codi",
+        cannotCreate: true,
+        advancedSearchColumns: aSCodeAndDescription,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "FamiliaArticulos.empresa",
+        defaultMessage: "Empresas",
+      }),
+      type: "LOV",
+      key: "empresa",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      selector: {
+        key: "empresas",
+        labelKey: (data) => `${data.nomComercial} (${data.codi})`,
+        sort: "nomComercial",
+        cannotCreate: true,
+        advancedSearchColumns: [
+          { title: CODE, name: "codi" },
+          {
+            title: props.intl.formatMessage({
+              id: "Comun.nombre",
+              defaultMessage: "Nombre",
+            }),
+            name: "nomComercial",
+          },
+        ],
+        relatedWith: [
+          {
+            name: "projecte",
+            filterBy: "empresa.id",
+            keyValue: "id",
+          },
+          {
+            name: "delegacio",
+            filterBy: "empresa.id",
+            keyValue: "id",
+          },
+        ],
+      },
+    },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "FamiliaArticulos.proyecto",
@@ -128,7 +255,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "projecte",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
       selector: {
         key: "projectes",
@@ -137,7 +264,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndName,
       },
-      validationType: "object",
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -148,7 +274,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "delegacio",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
       selector: {
         key: "delegacios",
@@ -157,7 +283,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndName,
       },
-      validationType: "object",
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -168,7 +293,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "crearReferencies",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
     },
     {
@@ -193,7 +318,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 11,
       },
       text: {
-        multiline: 4,
+        multiline: 6,
       },
       validationType: "string",
       validations: [
@@ -201,6 +326,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         ...props.stringValidations.minMaxValidation(1, 2000),
       ],
     },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "FamiliaProveedores.observaciones",
@@ -212,96 +338,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-    },
-  ];
-
-  const categoria = [
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "FamiliaArticulos.titulo",
-        defaultMessage: "Familia",
-      }),
-      type: "LOV",
-      key: "familia",
-      id: "articleFamilia",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 6,
-      },
-      selector: {
-        key: "articleFamilias",
-        labelKey: formatCodeAndDescription,
-        sort: "codi",
-        cannotCreate: true,
-        advancedSearchColumns: aSCodeAndDescription,
-      },
-      validationType: "object",
-      ...withRequiredValidation(),
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "ArticulosModelo.titulo",
-        defaultMessage: "Modelo",
-      }),
-      type: "LOV",
-      key: "model",
-      id: "articlesModel",
-      required: false,
-      breakpoints: {
-        xs: 12,
-        md: 6,
-      },
-      selector: {
-        key: "articleModels",
-        labelKey: formatCodeAndDescription,
-        sort: "codi",
-        cannotCreate: true,
-        advancedSearchColumns: aSCodeAndDescription,
-      },
-      validationType: "object",
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "ArticulosGama.titulo",
-        defaultMessage: "Gama",
-      }),
-      type: "LOV",
-      key: "gamma",
-      id: "articlesGama",
-      breakpoints: {
-        xs: 12,
-        md: 6,
-      },
-      selector: {
-        key: "articleGammas",
-        labelKey: formatCodeAndDescription,
-        sort: "codi",
-        cannotCreate: true,
-        advancedSearchColumns: aSCodeAndDescription,
-      },
-      validationType: "object",
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "ArticulosMarca.titulo",
-        defaultMessage: "Marca",
-      }),
-      type: "LOV",
-      key: "marca",
-      id: "articlesMarca",
-      breakpoints: {
-        xs: 12,
-        md: 6,
-      },
-      selector: {
-        key: "articleMarcas",
-        labelKey: formatCodeAndName,
-        sort: "codi",
-        cannotCreate: true,
-        advancedSearchColumns: aSCodeAndName,
-      },
-      validationType: "object",
     },
   ];
 
@@ -431,14 +467,14 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       className: "general-tab-subtab",
       label: (
         <FormattedMessage
-          id={"Articulos.categorias"}
-          defaultMessage={"Categorías"}
+          id={"SerieVenta.datosContables"}
+          defaultMessage={"Datos Contables"}
         />
       ),
       key: 0,
       component: (
         <GenericForm
-          formComponents={categoria}
+          formComponents={contabilidad}
           emptyPaper={true}
           setFormData={setFormData}
           getFormData={getFormData}
@@ -447,13 +483,14 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           submitFromOutside={props.submitFromOutside}
           onSubmit={() => props.onSubmitTab(formData)}
           handleIsValid={(value) =>
-            addValidity(CATEGORIAS_SECTION_TAB_INDEX, value)
+            addValidity(CONTABILIDAD_SECTION_TAB_INDEX, value)
           }
-          onBlur={(e) => handleTouched(CATEGORIAS_SECTION_TAB_INDEX)}
+          onBlur={(e) => handleTouched(CONTABILIDAD_SECTION_TAB_INDEX)}
           {...props}
         />
       ),
     },
+
     {
       className: "general-tab-subtab",
       label: (
@@ -477,33 +514,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
             addValidity(ALTERNATIVO_SECTION_TAB_INDEX, value)
           }
           onBlur={(e) => handleTouched(ALTERNATIVO_SECTION_TAB_INDEX)}
-          {...props}
-        />
-      ),
-    },
-    {
-      className: "general-tab-subtab",
-      label: (
-        <FormattedMessage
-          id={"Articulos.contabilidad"}
-          defaultMessage={"Contabilidad"}
-        />
-      ),
-      key: 2,
-      component: (
-        <GenericForm
-          formComponents={contabilidad}
-          emptyPaper={true}
-          setFormData={setFormData}
-          getFormData={getFormData}
-          loading={props.loading}
-          formErrors={props.formErrors}
-          submitFromOutside={props.submitFromOutside}
-          onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) =>
-            addValidity(CONTABILIDAD_SECTION_TAB_INDEX, value)
-          }
-          onBlur={(e) => handleTouched(CONTABILIDAD_SECTION_TAB_INDEX)}
           {...props}
         />
       ),
@@ -546,4 +556,4 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     </Grid>
   );
 };
-export default compose(React.memo, withValidations, injectIntl)(GeneralTab);
+export default compose(React.memo, withValidations, withDependentActions, injectIntl)(GeneralTab);

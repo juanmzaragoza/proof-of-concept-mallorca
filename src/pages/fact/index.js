@@ -96,6 +96,11 @@ import SupplierInvoice from "./SupplierInvoice";
 import CustomerBudget from "./CustomerBudget";
 import Instalaciones from "./Instalaciones";
 import TipoInstalaciones from "./TipoInstalaciones";
+import Aplicadores from "./Aplicadores";
+import Certifications from "./Certifications";
+import Delegation from "./Delegation";
+import Expedients from "./Expedients";
+import Costes from "./Costes";
 
 const component = [
   SuppliersFamily,
@@ -203,7 +208,12 @@ const component = [
   SupplierInvoice,
   CustomerBudget,
   Instalaciones,
-  TipoInstalaciones
+  TipoInstalaciones,
+  Aplicadores,
+  Certifications,
+  Delegation,
+  Expedients,
+  Costes
 ];
 
 export default component;
