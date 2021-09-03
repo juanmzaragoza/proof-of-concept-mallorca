@@ -32,7 +32,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     setIsValid: props.setIsValid,
   });
 
-
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
     defaultMessage: "Código",
@@ -201,14 +200,19 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const getString = (key) => (getFormData(key) ? getFormData(key) : "");
 
-
   useEffect(() => {
     const getClient = getString("nomClient");
+    const getNif = getString("nif");
     const client = getString("client");
 
     setFormData({
       key: "nomClient",
       value: client?.nomComercial ? client.nomComercial : getClient,
+    });
+
+    setFormData({
+      key: "nif",
+      value:  client?.nif ?  client?.nif  : getNif,
     });
   }, [getFormData("client")]);
 
@@ -354,10 +358,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
       validationType: "string",
-      validations: [
-  
-        ...props.commonValidations.requiredValidation(),
-      ],
+      validations: [...props.commonValidations.requiredValidation()],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -845,7 +846,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           apply: (operari) => operari && operari.codi,
           reverse: (rows, codi) => rows.find((row) => row.codi === codi),
         },
-        cannotCreate:true,
+        cannotCreate: true,
         advancedSearchColumns: aSCodeAndName,
       },
       validationType: "string",
@@ -1004,8 +1005,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         />
       ),
     },
-   
-   
   ];
 
   return (
