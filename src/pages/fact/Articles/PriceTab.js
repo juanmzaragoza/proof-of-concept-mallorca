@@ -560,7 +560,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       disabled: true,
-      key: "pvpDte",
+      key: "pvp2Dte",
       breakpoints: {
         xs: 12,
         md: 1,
@@ -575,7 +575,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       disabled: true,
-      key: "margeDte",
+      key: "marge2Dte",
       breakpoints: {
         xs: 12,
         md: 1,
@@ -604,7 +604,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       disabled: true,
-      key: "pvpDte",
+      key: "pvp3Dte",
       breakpoints: {
         xs: 12,
         md: 1,
@@ -619,7 +619,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       disabled: true,
-      key: "margeDte",
+      key: "marge3Dte",
       breakpoints: {
         xs: 12,
         md: 1,
@@ -648,7 +648,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       disabled: true,
-      key: "pvpDte",
+      key: "pvp4Dte",
       breakpoints: {
         xs: 12,
         md: 1,
@@ -663,7 +663,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       disabled: true,
-      key: "margeDte",
+      key: "marge4Dte",
       breakpoints: {
         xs: 12,
         md: 1,
@@ -692,7 +692,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       disabled: true,
-      key: "pvpDte",
+      key: "pvp5Dte",
       breakpoints: {
         xs: 12,
         md: 1,
@@ -707,7 +707,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       disabled: true,
-      key: "margeDte",
+      key: "marge5Dte",
       breakpoints: {
         xs: 12,
         md: 1,
@@ -787,7 +787,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       disabled: true,
-      key: "pvpDteFab",
+      key: "pvp2DteFab",
       breakpoints: {
         xs: 12,
         md: 1,
@@ -802,7 +802,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       disabled: true,
-      key: "margeDteFab",
+      key: "marge2DteFab",
       breakpoints: {
         xs: 12,
         md: 1,
@@ -831,7 +831,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       disabled: true,
-      key: "pvpDteFab",
+      key: "pvp3DteFab",
       breakpoints: {
         xs: 12,
         md: 1,
@@ -846,7 +846,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       disabled: true,
-      key: "margeDteFab",
+      key: "marge3DteFab",
       breakpoints: {
         xs: 12,
         md: 1,
@@ -875,7 +875,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       disabled: true,
-      key: "pvpDteFab",
+      key: "pvp4DteFab",
       breakpoints: {
         xs: 12,
         md: 1,
@@ -890,7 +890,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       disabled: true,
-      key: "margeDteFab",
+      key: "marge4DteFab",
       breakpoints: {
         xs: 12,
         md: 1,
@@ -919,7 +919,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       disabled: true,
-      key: "pvpDteFab",
+      key: "pvp5DteFab",
       breakpoints: {
         xs: 12,
         md: 1,
@@ -934,7 +934,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       disabled: true,
-      key: "margeDteFab",
+      key: "marge5DteFab",
       breakpoints: {
         xs: 12,
         md: 1,
