@@ -283,6 +283,7 @@
   "Clientes.fact.alabaran.cliente": "Albarán cliente-subtipo",
   "Clientes.fact.emailAlb": "Email envio albarán",
   "Clientes.descuentos": "Descuentos",
+  "Clientes.descuentosFabricante":"Descuentos Farbicante",
   "Clientes.fact.tipoDescuentos": "Tipo descuentos",
   "Selector.primerDesc": "Primer descuento",
   "Selector.segundoDesc": "Segundo descuento",
@@ -2033,5 +2034,17 @@
   "Selector.cliente":"Cliente",
   "FacturasProveedor.tipo":"Tipo",
 
-  "withDependentActions.onRequest.error": "No se pudo realizar el cálculo correctamente"
+  "withDependentActions.onRequest.error": "No se pudo realizar el cálculo correctamente",
+  "Clientes.comercial.dirFinanciero":"Dir. financiero",
+  "Clientes.comercial.dirInformatica":"Dir. informática",
+  "Clientes.comercial.sistema":"Sistema Actual",
+  "Clientes.comercial.comentarios":"Comentarios",
+  "Clientes.comercial.numOperarios":"Num. Operarios",
+  "Clientes.comercial.numPcs":"Num. PC's",
+  "Clientes.comercial.probabilidad":"Probabilidad",
+  "Clientes.comercial.facturacion":"Facturación",
+  "Clientes.comercial.situacionCom":"Situación Comercial",
+  "Clientes.comercial.proximaVisita":"Próxima visita comercial",
+  "Clientes.general":"General",
+  "Clientes.informacionComercial":"Información Comercial"
 }
