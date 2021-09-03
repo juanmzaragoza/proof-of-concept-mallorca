@@ -27,6 +27,39 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
     setIsValid: props.setIsValid,
   });
 
+  const [oblig, setOblig] = useState(false);
+
+  const getString = (key) => (getFormData(key) ? getFormData(key) : "");
+
+  useEffect(() => {
+    const clase = getString("classeRetencio");
+    const tipo = getString("tipusRetencio");
+    const porcentaje = getString("percentatgeRetencio");
+
+    if (clase || tipo || porcentaje) {
+      setOblig(true);
+    } else {
+      setOblig(false);
+    }
+
+  }, [
+    getFormData("classeRetencio"),
+    getFormData("tipusRetencio"),
+    getFormData("percentatgeRetencio"),
+  ]);
+
+  useEffect(() => {
+    const clase = getString("classeRetencio");
+    const tipo = getString("tipusRetencio");
+    const porcentaje = getString("percentatgeRetencio");
+
+    if (clase || tipo || porcentaje) {
+      setOblig(true);
+    } else {
+      setOblig(false);
+    }
+  });
+
   const { id: clientId } = useParams();
 
   const CODE = props.intl.formatMessage({
@@ -64,8 +97,6 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
     defaultMessage: "Descripción",
   });
 
-  const getString = (key) => (getFormData(key) ? getFormData(key) : "");
-
   const code = (md = 6) => ({
     type: "input",
     key: "codi",
@@ -77,34 +108,6 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
       md: md,
     },
   });
-
-  const codeAndName = (mdCode = 6, mdName = 6) => [
-    code(mdCode),
-    {
-      type: "input",
-      key: "nom",
-      placeHolder: NOM,
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdName,
-      },
-    },
-  ];
-
-  const codeAndDescription = (mdCode = 6, mdDes = 6) => [
-    code(mdCode),
-    {
-      type: "input",
-      key: "descripcio",
-      placeHolder: DESCRIPCIO,
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdDes,
-      },
-    },
-  ];
 
   const codiPostal = (md = 6) => [
     {
@@ -234,10 +237,10 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Banco",
       }),
       type: "LOV",
-      key: "bancCodi",
+      key: "banc",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       selector: {
         key: "bancs",
@@ -251,10 +254,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
             keyValue: "id",
           },
         ],
-        transform: {
-          apply: (bancs) => bancs && bancs.codi,
-          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-        },
+        
       },
     },
     {
@@ -266,7 +266,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "oficinaBancaria",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       selector: {
         key: "oficinaBancarias",
@@ -351,7 +351,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
 
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 2)],
@@ -366,7 +366,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
 
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 12)],
@@ -716,6 +716,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "classeRetencio",
+      required: oblig,
       breakpoints: {
         xs: 12,
         md: 5,
@@ -727,6 +728,10 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndDescription,
       },
+      validationType: oblig ? "object" : "",
+      validations: oblig
+        ? [...props.commonValidations.requiredValidation()]
+        : [],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -734,27 +739,40 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Tipo retención",
       }),
       type: "select",
+      required: oblig,
       key: "tipusRetencio",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 5,
       },
       selector: {
         options: TIPO_RETENCION_SELECTOR_VALUES,
       },
+      validationType: oblig ? "string" : "",
+      validations: oblig
+        ? [...props.commonValidations.requiredValidation()]
+        : [],
     },
     {
       type: "numeric",
       key: "percentatgeRetencio",
+      required: oblig,
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.porcentaje.retencion",
-        defaultMessage: "Porcentaje retención",
+        id: "Clientes.retencion",
+        defaultMessage: "Retención",
       }),
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       suffix: "%",
+      validationType: "number",
+      validations: oblig
+        ? [
+            ...props.commonValidations.requiredValidation(),
+            ...props.numberValidations.minMaxValidation(0, 99),
+          ]:[]
+        // : [...props.numberValidations.minMaxValidation(0, 99)],
     },
   ];
 
@@ -770,6 +788,8 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 12,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 10)],
     },
     {
       type: "input",
@@ -782,6 +802,8 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 12,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 10)],
     },
   ];
 

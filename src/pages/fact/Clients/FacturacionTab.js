@@ -37,7 +37,6 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
     setIsValid: props.setIsValid,
   });
 
-
   const { id: clienteId } = useParams();
   const DESCRIPCIO = props.intl.formatMessage({
     id: "Comun.descripcion",
@@ -160,6 +159,42 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndDescription,
       },
     },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "FamiliaArticulos.empresa",
+        defaultMessage: "Empresas",
+      }),
+      type: "LOV",
+      key: "empresa",
+      // noEditable: true,
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      selector: {
+        key: "empresas",
+        labelKey: (data) => `${data.nomComercial} (${data.codi})`,
+        sort: "nomComercial",
+        cannotCreate: true,
+        advancedSearchColumns: [
+          { title: CODE, name: "codi" },
+          {
+            title: props.intl.formatMessage({
+              id: "Comun.nombre",
+              defaultMessage: "Nombre",
+            }),
+            name: "nomComercial",
+          },
+        ],
+        relatedWith: [
+          {
+            name: "serie",
+            filterBy: "empresa.id",
+            keyValue: "id",
+          },
+        ],
+      },
+    },
 
     {
       placeHolder: props.intl.formatMessage({
@@ -170,7 +205,7 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "serie",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       selector: {
         key: "serieVendas",
@@ -190,7 +225,7 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       selector: {
         key: "divisas",
@@ -219,11 +254,11 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.facturas_sinDescuento",
-        defaultMessage: "Imprimir facturas sin descuento",
+        id: "Clientes.fact.albaran_valorado",
+        defaultMessage: "Albarán valorado",
       }),
       type: "checkbox",
-      key: "facturesSenseDescompte",
+      key: "albaraValorat",
       breakpoints: {
         xs: 12,
         md: 2,
@@ -232,8 +267,8 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
 
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.tipoFactura",
-        defaultMessage: "Tipo factura",
+        id: "Clientes.fact.agrupacionAlb",
+        defaultMessage: "Agrupación Albarán",
       }),
       type: "select",
       key: "tipusFactura",
@@ -304,26 +339,26 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "string",
       ...withRequiredValidation(),
     },
-
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.paletsDevueltos",
-        defaultMessage: "No imprimir palets devueltos",
+        id: "Clientes.fact.facturas_sinDescuento",
+        defaultMessage: "Imprimir facturas sin descuento",
       }),
       type: "checkbox",
-      key: "noImprimirPaletsRetornats",
+      key: "facturesSenseDescompte",
       breakpoints: {
         xs: 12,
         md: 2,
       },
     },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "Proveedores.tvencimiento",
         defaultMessage: "Tipo Vencimiento",
       }),
       type: "LOV",
-      key: "tipusVencimentCodi",
+      key: "tipusVenciment",
       required: true,
       breakpoints: {
         xs: 12,
@@ -371,34 +406,71 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
           },
         ],
         advancedSearchColumns: aSCodeAndDescription,
-        transform: {
-          apply: (tipusVenciments) => tipusVenciments && tipusVenciments.codi,
-          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-        },
       },
-      validationType: "string",
+      validationType: "object",
       ...withRequiredValidation(),
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.alabaran.cliente",
-        defaultMessage: "albarán cliente-subtipo",
+        id: "Proveedores.tvencimiento2",
+        defaultMessage: "Tipo Vencimiento 2",
       }),
-      type: "select",
-      key: "albaraClientSubtipus",
+      type: "LOV",
+      key: "tipusVenciment1",
+      id: "tipusVencimentCodi",
       breakpoints: {
         xs: 12,
         md: 2,
       },
       selector: {
-        options: ALBARAN_CLIENT_SELECTOR_VALUES,
+        key: "tipusVenciments",
+        labelKey: formatCodeAndDescription,
+        sort: "descripcio",
+        cannotCreate: true,
+        creationComponents: [
+          {
+            type: "input",
+            key: "codi",
+            placeHolder: CODE,
+            required: true,
+            noEditable: true,
+            breakpoints: {
+              xs: 12,
+              md: 4,
+            },
+          },
+          {
+            type: "input",
+            key: "nom",
+            placeHolder: NOM,
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 4,
+            },
+          },
+          {
+            type: "input",
+            key: "tipus",
+            placeHolder: props.intl.formatMessage({
+              id: "TiposVencimiento.tipos",
+              defaultMessage: "Tipos",
+            }),
+            required: true,
+            breakpoints: {
+              xs: 12,
+              md: 4,
+            },
+          },
+        ],
+        advancedSearchColumns: aSCodeAndDescription,
       },
     },
 
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.docCobro",
-        defaultMessage: "Documento cobro",
+        id: "Clientes.fact.docPago",
+        defaultMessage: "Documento pago",
       }),
       type: "LOV",
       key: "documentPagament",
@@ -436,44 +508,34 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndName,
       },
     },
+
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.publicaDocumentos",
-        defaultMessage: "Publicar domumentos en la web",
+        id: "Clientes.fact.paletsDevueltos",
+        defaultMessage: "No imprimir palets devueltos",
       }),
       type: "checkbox",
-      key: "publicarDocumentsWeb",
+      key: "noImprimirPaletsRetornats",
       breakpoints: {
         xs: 12,
         md: 2,
       },
     },
+
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.numCopias",
-        defaultMessage: "Num copias a imprimir",
+        id: "Clientes.fact.alabaran.tipo",
+        defaultMessage: "Tipo albarán",
       }),
-      type: "input",
-      key: "copiesFactura",
+      type: "select",
+      key: "albaraClientSubtipus",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 4)],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.porcentajeFacturas",
-        defaultMessage: "Porcentaje facturas permitido",
-      }),
-      type: "numeric",
-      key: "percentatgePermesFacturesClase1",
-      breakpoints: {
-        xs: 12,
-        md: 2,
+      selector: {
+        options: ALBARAN_CLIENT_SELECTOR_VALUES,
       },
-      suffix: "%",
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -505,31 +567,36 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
         },
       ],
     },
+
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.observaciones",
-        defaultMessage: "Observaciones",
+        id: "Clientes.fact.numCopias",
+        defaultMessage: "Num copias a imprimir",
       }),
-      type: "observations",
-      key: "observacionsFactura",
+      type: "numeric",
+      key: "copiesFactura",
       breakpoints: {
         xs: 12,
         md: 1,
       },
+      validationType: "number",
+      validations: [...props.stringValidations.minMaxValidation(0, 99)],
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.albaran_valorado",
-        defaultMessage: "Albarán valorado",
+        id: "Clientes.porcentajeFacturas",
+        defaultMessage: "% Facturación",
       }),
-      type: "checkbox",
-      key: "albaraValorat",
+      type: "numeric",
+      key: "percentatgePermesFacturesClase1",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
+      suffix: "%",
+      validationType: "number",
+      validations: [...props.stringValidations.minMaxValidation(0, 99)],
     },
-
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.mostrarPorcentaje",
@@ -540,6 +607,80 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
       breakpoints: {
         xs: 12,
         md: 2,
+      },
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.fact.publicaDocumentos",
+        defaultMessage: "Publicar domumentos en la web",
+      }),
+      type: "checkbox",
+      key: "publicarDocumentsWeb",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.clienteFacturacion",
+        defaultMessage: "Cliente",
+      }),
+      type: "LOV",
+      key: "client",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      selector: {
+        key: "clients",
+        labelKey: (data) => `${data.nomComercial} (${data.codi})`,
+        sort: "descripcio",
+        cannotCreate: true,
+        advancedSearchColumns: [
+          { title: CODE, name: "codi" },
+          { title: NOM, name: "nomComercial" },
+        ],
+      },
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.generarAlbaranAbono",
+        defaultMessage: "Generar Albarán Abono",
+      }),
+      type: "checkbox",
+      key: "genalbabo",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.abonoCompleto",
+        defaultMessage: "Abono Completo",
+      }),
+      type: "checkbox",
+      key: "aboclt",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.observaciones",
+        defaultMessage: "Observaciones",
+      }),
+      type: "observations",
+      key: "observacionsFactura",
+      breakpoints: {
+        xs: 12,
+        md: 1,
       },
     },
   ];
@@ -642,7 +783,7 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "tipusDescompte",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       selector: {
         options: TIPO_DESCUENTO_SELECTOR_VALUES,
@@ -657,7 +798,7 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "tarifaDescompte",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       selector: {
         key: "tarifaDescomptes",
@@ -671,37 +812,43 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.fact.descFinal",
-        defaultMessage: "Descuento final factura al contado",
+        defaultMessage: "Descuento contado",
       }),
-      type: "input",
+      type: "numeric",
       key: "descompteFinalFacturesComptatClase1",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 1,
       },
+      suffix: "%",
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 100)],
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.fact.descTerminio",
-        defaultMessage: "Descuento final factura en terminio",
+        defaultMessage: "Descuento terminio",
       }),
-      type: "input",
+      type: "numeric",
       key: "descompteFinalFacturesTerminiClase1",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 1,
       },
+      suffix: "%",
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 100)],
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.tarifaDescuento",
-        defaultMessage: "Tarifa descuento",
+        id: "Clientes.fact.tarifaDescuento2",
+        defaultMessage: "Tarifa descuento 2",
       }),
       type: "LOV",
       key: "tarifaDescompte2",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       selector: {
         key: "tarifaDescomptes",
@@ -715,26 +862,32 @@ const FacturacionTab = ({ formData, setFormData, getFormData, ...props }) => {
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.fact.descFinal2",
-        defaultMessage: "Descuento final factura al contado",
+        defaultMessage: "Descuento contado 2",
       }),
-      type: "input",
+      type: "numeric",
       key: "descompteComptats",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 1,
       },
+      suffix: "%",
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 100)],
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.fact.descTerminio2",
-        defaultMessage: "Descuento final factura en terminio",
+        defaultMessage: "Descuento terminio 2",
       }),
-      type: "input",
+      type: "numeric",
       key: "descompteTermini",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 1,
       },
+      suffix: "%",
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 100)],
     },
 
     {

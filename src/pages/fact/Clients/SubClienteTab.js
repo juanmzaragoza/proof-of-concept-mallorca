@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { compose } from "redux";
 import { FormattedMessage, injectIntl } from "react-intl";
@@ -8,14 +8,16 @@ import { Chip } from "@material-ui/core";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
-import { TIPO_DESCUENTO_SELECTOR_VALUES } from "constants/selectors";
+import {
+  TIPO_DESCUENTO_SELECTOR_VALUES,
+  TIPO_RETENCION_SELECTOR_VALUES,
+} from "constants/selectors";
 
 const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
-
   // warning!!! It's always valid because we haven't validations
   useEffect(() => {
     props.setIsValid(true);
-  },[]);
+  }, []);
 
   const withRequiredValidation = (extraValidations = []) => {
     return {
@@ -122,11 +124,13 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
               labelKey: (data) => `${data.nom} (${data.codi})`,
               sort: "codi",
               cannotCreate: true,
-              relatedWith: [{
-                name: "provincia",
-                filterBy: "pais.id",
-                keyValue: "id",
-              },],
+              relatedWith: [
+                {
+                  name: "provincia",
+                  filterBy: "pais.id",
+                  keyValue: "id",
+                },
+              ],
               advancedSearchColumns: aSCodeAndName,
             },
           },
@@ -482,6 +486,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           advancedSearchColumns: aSCodeAndDescription,
         },
       },
+
       {
         placeHolder: props.intl.formatMessage({
           id: "Clientes.fact.tipoDescuentos",
@@ -497,25 +502,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
           options: TIPO_DESCUENTO_SELECTOR_VALUES,
         },
       },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.fact.tipoComision",
-          defaultMessage: "Tipo comisión",
-        }),
-        type: "LOV",
-        key: "tipusComissio",
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        selector: {
-          key: "tipusComissios",
-          labelKey: (data) => `${data.nom} (${data.codi})`,
-          sort: "codi",
-          cannotCreate: true,
-          advancedSearchColumns: aSCodeAndName,
-        },
-      },
+
       {
         placeHolder: props.intl.formatMessage({
           id: "Clientes.iva",
@@ -584,6 +571,97 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       {
         placeHolder: props.intl.formatMessage({
+          id: "Proveedores.tvencimiento2",
+          defaultMessage: "Tipo Vencimiento 2",
+        }),
+        type: "LOV",
+        key: "tipusVenciment1Codi",
+        id: "tipusVenciment",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "tipusVenciments",
+          labelKey: formatCodeAndDescription,
+          sort: "descripcio",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndDescription,
+          transform: {
+            apply: (tipusVenciments) => tipusVenciments && tipusVenciments.codi,
+            reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+          },
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Clientes.fact.tipoComision",
+          defaultMessage: "Tipo comisión",
+        }),
+        type: "LOV",
+        key: "tipusComissio",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "tipusComissios",
+          labelKey: (data) => `${data.nom} (${data.codi})`,
+          sort: "codi",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndName,
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Proyectos.encargado",
+          defaultMessage: "Encargado",
+        }),
+        type: "LOV",
+        key: "operariEncarregatCodi",
+        id: "operari",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "operaris",
+          labelKey: formatCodeAndName,
+          sort: "nom",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndName,
+          transform: {
+            apply: (operaris) => operaris && operaris.codi,
+            reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+          },
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Proyectos.responsable",
+          defaultMessage: "Responsable",
+        }),
+        type: "LOV",
+        key: "operariResponsableCodi",
+        id: "operariCodi",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "operaris",
+          labelKey: formatCodeAndName,
+          sort: "nom",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndName,
+          transform: {
+            apply: (operaris) => operaris && operaris.codi,
+            reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+          },
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
           id: "Proveedores.Contacto.zona",
           defaultMessage: "Zona",
         }),
@@ -623,6 +701,56 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
             { title: DOMICILI, name: "domicili" },
           ],
         },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Clientes.retenciones",
+          defaultMessage: "Retenciones",
+        }),
+        type: "LOV",
+        key: "classeRetencio",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          key: "classeRetencios",
+          labelKey: (data) => `${data.descripcio} (${data.codi})`,
+          sort: "codi",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndDescription,
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Clientes.tipoRetención",
+          defaultMessage: "Tipo retención",
+        }),
+        type: "select",
+
+        key: "tipusRetencio",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        selector: {
+          options: TIPO_RETENCION_SELECTOR_VALUES,
+        },
+      },
+      {
+        type: "numeric",
+        key: "percentatgeRetencio",
+        placeHolder: props.intl.formatMessage({
+          id: "Clientes.retencion",
+          defaultMessage: "Retención",
+        }),
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        suffix: "%",
+        validationType: "number",
+        validations: [...props.numberValidations.minMaxValidation(0, 99)],
       },
       {
         placeHolder: ACTIVIDAD,

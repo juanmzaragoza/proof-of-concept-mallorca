@@ -25,7 +25,6 @@ const ADDRESS_SECTION_TAB_INDEX = 1;
 const FACT_SECTION_TAB_INDEX = 2;
 const ACCOUNTING_OFFICE_SECTION_TAB_INDEX = 3;
 
-
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
@@ -33,7 +32,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       [ADDRESS_SECTION_TAB_INDEX]: false,
       [FACT_SECTION_TAB_INDEX]: true,
       [ACCOUNTING_OFFICE_SECTION_TAB_INDEX]: true,
-
     },
     setIsValid: props.setIsValid,
   });
@@ -138,6 +136,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     getFormData("porta"),
   ]);
 
+  
   useEffect(() => {
     const codiPostal = getString("codiPostal");
     setFormData({
@@ -145,6 +144,19 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       value: codiPostal ? codiPostal.poblacio : "",
     });
   }, [getFormData("codiPostal")]);
+
+
+  const fireActionOnBlur = () => {
+    const nomFiscal = getString("nomFiscal");
+    const nomComercial = getString("nomComercial");
+    if (!nomFiscal) {
+      setFormData({
+        key: "nomFiscal",
+        value: nomComercial ? nomComercial : "",
+      });
+    }
+    
+  }
 
   const code = (md = 6) => ({
     type: "input",
@@ -229,11 +241,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
               labelKey: (data) => `${data.nom} (${data.codi})`,
               sort: "codi",
               cannotCreate: true,
-              relatedWith: [{
-                name: "provincia",
-                filterBy: "pais.id",
-                keyValue: "id",
-              },],
+              relatedWith: [
+                {
+                  name: "provincia",
+                  filterBy: "pais.id",
+                  keyValue: "id",
+                },
+              ],
               advancedSearchColumns: aSCodeAndName,
             },
           },
@@ -310,6 +324,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     { title: DESCRIPCIO, name: "descripcio" },
   ];
 
+ 
   const generalTab = [
     {
       placeHolder: CODE,
@@ -321,12 +336,14 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 6),
+      validations: [
+        ...props.stringValidations.minMaxValidation(1, 6),
         ...props.stringValidations.fieldExistsValidation(
           "clientes",
           "codi",
           CODE
-        ),],
+        ),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -335,6 +352,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       key: "nomComercial",
+      fireActionOnBlur,
       required: true,
       breakpoints: {
         xs: 12,
@@ -352,15 +370,16 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       key: "nomFiscal",
+      fireActionOnBlur,
       required: true,
       breakpoints: {
         xs: 12,
         md: 4,
       },
       validationType: "string",
-      ...withRequiredValidation([
-        ...props.stringValidations.minMaxValidation(1, 40),
-      ]),
+      // ...withRequiredValidation([
+      //   ...props.stringValidations.minMaxValidation(1, 40),
+      // ]),
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -396,7 +415,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "País NIF",
       }),
       type: "LOV",
-      key: "paisNifCodi",
+      key: "paisNif",
       breakpoints: {
         xs: 12,
         md: 2,
@@ -405,10 +424,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "paisNifs",
         labelKey: formatCodeAndName,
         sort: "nom",
-        transform: {
-          apply: (paisNifs) => paisNifs && paisNifs.codi,
-          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-        },
         creationComponents: [
           ...codeAndName(6, 6),
           {
@@ -585,7 +600,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Comercial",
       }),
       type: "LOV",
-      key: "operariCodi",
+      key: "operari",
       breakpoints: {
         xs: 12,
         md: 4,
@@ -594,11 +609,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "operaris",
         labelKey: formatCodeAndName,
         sort: "nom",
-        transform: {
-          apply: (operaris) => operaris && operaris.codi,
-          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-        },
-
+       
         creationComponents: [
           ...codeAndName(),
           {
@@ -930,9 +941,21 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
 
         getCellValue: (row) =>
           row.direccionExclusivaEnvio && row.direccionExclusivaEnvio === "S" ? (
-            <Chip label={props.intl.formatMessage({id: "Comun.SI", defaultMessage: "SI"})} variant="outlined" />
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
           ) : (
-            <Chip label={props.intl.formatMessage({id: "Comun.NO", defaultMessage: "NO"})} variant="outlined" />
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
           ),
       },
       {
@@ -940,9 +963,21 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         title: DEFECTE,
         getCellValue: (row) =>
           row?.domiciliDefecte && row.domiciliDefecte === "S" ? (
-            <Chip label={props.intl.formatMessage({id: "Comun.SI", defaultMessage: "SI"})} variant="outlined" />
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
           ) : (
-            <Chip label={props.intl.formatMessage({id: "Comun.NO", defaultMessage: "NO"})} variant="outlined" />
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
           ),
       },
       {
@@ -950,9 +985,21 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         title: BLOQUEJAT,
         getCellValue: (row) =>
           row?.bloquejada && row.bloquejada === "S" ? (
-            <Chip label={props.intl.formatMessage({id: "Comun.SI", defaultMessage: "SI"})} variant="outlined" />
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
           ) : (
-            <Chip label={props.intl.formatMessage({id: "Comun.NO", defaultMessage: "NO"})} variant="outlined" />
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
           ),
       },
     ],
@@ -1167,6 +1214,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 8,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 10)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -1179,6 +1228,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 4,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 8)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -1191,6 +1242,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 12,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 60)],
     },
   ];
 
@@ -1206,6 +1259,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 8,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 10)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -1218,6 +1273,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 4,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 8)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -1230,6 +1287,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 12,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 60)],
     },
   ];
 
@@ -1245,6 +1304,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 8,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 10)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -1257,6 +1318,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 4,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 8)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -1269,6 +1332,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 12,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 60)],
     },
   ];
 
@@ -1350,7 +1415,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
                   handleIsValid={(value) =>
                     addValidity(ACCOUNTING_OFFICE_SECTION_TAB_INDEX, value)
                   }
-                  onBlur={(e) => handleTouched(ACCOUNTING_OFFICE_SECTION_TAB_INDEX)}
+                  onBlur={(e) =>
+                    handleTouched(ACCOUNTING_OFFICE_SECTION_TAB_INDEX)
+                  }
                   {...props}
                 />
               </OutlinedContainer>
@@ -1378,7 +1445,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
                   handleIsValid={(value) =>
                     addValidity(ACCOUNTING_OFFICE_SECTION_TAB_INDEX, value)
                   }
-                  onBlur={(e) => handleTouched(ACCOUNTING_OFFICE_SECTION_TAB_INDEX)}
+                  onBlur={(e) =>
+                    handleTouched(ACCOUNTING_OFFICE_SECTION_TAB_INDEX)
+                  }
                   {...props}
                 />
               </OutlinedContainer>
@@ -1406,7 +1475,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
                   handleIsValid={(value) =>
                     addValidity(ACCOUNTING_OFFICE_SECTION_TAB_INDEX, value)
                   }
-                  onBlur={(e) => handleTouched(ACCOUNTING_OFFICE_SECTION_TAB_INDEX)}
+                  onBlur={(e) =>
+                    handleTouched(ACCOUNTING_OFFICE_SECTION_TAB_INDEX)
+                  }
                   {...props}
                 />
               </OutlinedContainer>
