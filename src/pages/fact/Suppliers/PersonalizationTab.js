@@ -16,10 +16,46 @@ const PersonalizationTab = ({
   ...props
 }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { 0: true, 1: true },
+    fields: { 0: true, 1: true, 2: true },
     setIsValid: props.setIsValid,
   });
 
+  const initialConfig = [
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.emailContactoLOPD",
+        defaultMessage: "Email contacto LOPD",
+      }),
+      type: "input",
+      key: "emllop",
+      breakpoints: {
+        xs: 12,
+        md: 4,
+      },
+      validationType: "string",
+      validations: [
+        ...props.stringValidations.minMaxValidation(1, 64),
+        ...props.stringValidations.emailValidation(),
+      ],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.ultimaFirmaLOPD",
+        defaultMessage: "Última firma LOPD",
+      }),
+      type: "input",
+      key: "datfirlop",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "string",
+      validations: [
+        ...props.stringValidations.minMaxValidation(0, 7),
+      ],
+
+    },
+  ];
   const personalAlfConfig = [
     {
       placeHolder: props.intl.formatMessage({
@@ -148,16 +184,32 @@ const PersonalizationTab = ({
 
   return (
     <Grid container spacing={2}>
+      <Grid xs={12} item>
+        <GenericForm
+          formComponents={initialConfig}
+          emptyPaper={true}
+          editMode={props.editMode}
+          setFormData={setFormData}
+          getFormData={getFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) => addValidity(PERSONAL_SECTION_INDEX, value)}
+          onBlur={(e) => handleTouched(PERSONAL_SECTION_INDEX)}
+          {...props}
+        />
+      </Grid>
       <Grid xs={6} item>
-          <OutlinedContainer
-            className="contact-tab-container"
-            title={
-              <FormattedMessage
-                id={"Proveedores.personalizacion.alfanumericos"}
-                defaultMessage={"Parámetros Alfanuméricos"}
-              />
-            }
-          >
+        <OutlinedContainer
+          className="contact-tab-container"
+          title={
+            <FormattedMessage
+              id={"Proveedores.personalizacion.alfanumericos"}
+              defaultMessage={"Parámetros Alfanuméricos"}
+            />
+          }
+        >
           <GenericForm
             formComponents={personalAlfConfig}
             emptyPaper={true}
@@ -175,15 +227,15 @@ const PersonalizationTab = ({
             {...props}
           />
         </OutlinedContainer>
-        </Grid>
-        <Grid xs={6} item>
+      </Grid>
+      <Grid xs={6} item>
         <OutlinedContainer
           className="contact-tab-container"
           title={
             <FormattedMessage
-                id={"Proveedores.personalizacion.numericos"}
-                defaultMessage={"Parámetros Numéricos"}
-              />
+              id={"Proveedores.personalizacion.numericos"}
+              defaultMessage={"Parámetros Numéricos"}
+            />
           }
         >
           <GenericForm

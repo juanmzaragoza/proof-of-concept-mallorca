@@ -119,7 +119,7 @@
   "Proveedores.Facturacion.plazo_entrega": "Plazo de Entrega",
   "Proveedores.Facturacion.transportista": "Transportista",
   "Proveedores.Facturacion.portes": "Portes",
-  "Proveedores.Facturacion.cod_client": "Cod. Cliente",
+  "Proveedores.Facturacion.cod_client": "Código Cliente",
   "Proveedores.Facturacion.pedidos_automaticos": "Pedidos automáticos",
   "Proveedores.Facturacion.periodo": "Período de Facturación",
   "Proveedores.Facturacion.importe_servicio": "Importe de Servicio",
@@ -2061,6 +2061,11 @@
   "Presupuestos.emailEnvioFact":"Email envio Fact.",
   "Presupuestos.emailWeb":"Email Web",
   "Selector.segunCliente":"Según Cliente",
-  "Subcliente.publicarWeb":"Publicar Doc. web"
+  "Subcliente.publicarWeb":"Publicar Doc. web",
+  "Proveedores.exportarApp":"Exportar a App",
+  "Clientes.bban":"BBAN",
+  "Proveedores.emailContactoLOPD":"Email contacto LOPD",
+  "Proveedores.ultimaFirmaLOPD":"Última firma LOPD"
+
   
 }

@@ -146,7 +146,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   }, [getFormData("codiPostal")]);
 
 
-  const fireActionOnBlur = () => {
+  const actions = () => {
     const nomFiscal = getString("nomFiscal");
     const nomComercial = getString("nomComercial");
     if (!nomFiscal) {
@@ -352,7 +352,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       key: "nomComercial",
-      fireActionOnBlur,
+      fireActionOnBlurChange: actions,
       required: true,
       breakpoints: {
         xs: 12,
@@ -370,7 +370,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       key: "nomFiscal",
-      fireActionOnBlur,
+      fireActionOnBlurChange: actions,
       required: true,
       breakpoints: {
         xs: 12,

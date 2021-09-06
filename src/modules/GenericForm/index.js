@@ -142,14 +142,16 @@ const GenericForm = ({ loading, ...props }) => {
       extraQuery,
       format,
       fireActionOnBlur,
+      fireActionOnBlurChange,
     },
     formik
   ) => {
-    const noEnable = loading
-      || (props.editMode && noEditable)
-      || (!props.editMode && disabledCreating)
-      || loadingAction
-      || disabled;
+    const noEnable =
+      loading ||
+      (props.editMode && noEditable) ||
+      (!props.editMode && disabledCreating) ||
+      loadingAction ||
+      disabled;
     const identification = id ? id : key;
 
     const handleChange = (e, value) => {
@@ -160,37 +162,43 @@ const GenericForm = ({ loading, ...props }) => {
     const handleFireActionOnBlur = () => {
       if (fireActionOnBlur) {
         setLoadingAction(true);
-        const firedAction = fireActionOnBlur({ key, getFormData: props.getFormData });
+        const firedAction = fireActionOnBlur({
+          key,
+          getFormData: props.getFormData,
+        });
         // I choose which processor I must execute to handle the action/s
         let processor;
-        if(Array.isArray(firedAction)){
+        if (Array.isArray(firedAction)) {
           processor = (processData) => {
-            return Promise.all(firedAction).then(results => {
-              results.map(data => processData(data));
+            return Promise.all(firedAction).then((results) => {
+              results.map((data) => processData(data));
               handleIsValid(formik);
             });
-          }
-        } else{
+          };
+        } else {
           processor = (processData) => {
-            return firedAction.then(data => {
+            return firedAction.then((data) => {
               processData(data);
               handleIsValid(formik);
             });
-          }
+          };
         }
         processor((data) => {
-            Object.keys(data).map(key => {
-              props.setFormData({ key, value: data[key]});
-            });
-          })
-          .catch(err => {
+          Object.keys(data).map((key) => {
+            props.setFormData({ key, value: data[key] });
+          });
+        })
+          .catch((err) => {
             console.log(err);
           })
           .finally(() => {
             setLoadingAction(false);
           });
       }
-    }
+      if (fireActionOnBlurChange) {
+        fireActionOnBlurChange({ key, value: props.getFormData(key) });
+      }
+    };
     const handleBlur = (e) => {
       formik.handleBlur(e);
       handleIsValid(formik);
@@ -276,7 +284,6 @@ const GenericForm = ({ loading, ...props }) => {
           />
         );
       case "checkbox":
-  
         return (
           <FormControlLabel
             control={
@@ -573,7 +580,7 @@ GenericForm.propTypes = {
   formComponents: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.any,
-      
+
       type: PropTypes.oneOf([
         "input",
         "select",
@@ -634,9 +641,10 @@ GenericForm.propTypes = {
       ),
       // when it's defined, fire an action on blur
       fireActionOnBlur: PropTypes.func,
+      fireActionOnBlurChange: PropTypes.func,
     })
   ),
-  
+
   onSubmit: PropTypes.func,
   formDataLoaded: PropTypes.bool,
   setFormData: PropTypes.func,
