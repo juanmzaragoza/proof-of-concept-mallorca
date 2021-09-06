@@ -2057,6 +2057,10 @@
   "Proveedores.tvencimiento2":"Tipo Vencimiento 2",
   "Clientes.clienteFacturacion":"Cliente de Facturación",
   "Clientes.generarAlbaranAbono":"General Albarán Abonado",
-  "Clientes.abonoCompleto":"Abono Completo"
+  "Clientes.abonoCompleto":"Abono Completo",
+  "Presupuestos.emailEnvioFact":"Email envio Fact.",
+  "Presupuestos.emailWeb":"Email Web",
+  "Selector.segunCliente":"Según Cliente",
+  "Subcliente.publicarWeb":"Publicar Doc. web"
   
 }
