@@ -50,8 +50,7 @@ export const ExpandablePopup = ({
 
   useEffect(()=>{
     onChange(formData);
-   
-  },[formData]);
+  },[JSON.stringify(formData)]);
 
   const save = (e) => {
     setSubmitFromOutside(true);

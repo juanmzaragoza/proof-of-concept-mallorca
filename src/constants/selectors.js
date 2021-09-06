@@ -1191,3 +1191,22 @@ export const TIPO_INCIDENCIA_SELECTOR_VALUES = [
     label: "factura",
   },
 ];
+
+
+export const TIPO_PUBLICAR_WEB_SELECTOR_VALUES = [
+  {
+    value: "S",
+    labelId: "Selector.si",
+    label: "Si",
+  },
+  {
+    value: "N",
+    labelId: "Selector.no",
+    label: "No",
+  },
+  {
+    value: "",
+    labelId: "Selector.segunCliente",
+    label: "Según Cliente",
+  },
+];

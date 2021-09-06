@@ -72,7 +72,7 @@ const BillingTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
       selector: {
         key: "divisas",
@@ -121,6 +121,94 @@ const BillingTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
+        id: "Proveedores.Facturacion.periodo",
+        defaultMessage: "Período de Facturación",
+      }),
+      type: "numeric",
+      key: "periodeFacturacio",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+      validations: props.numberValidations.maxValidation(999),
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.Facturacion.importe_servicio",
+        defaultMessage: "Importe de Servicio",
+      }),
+      type: "numeric",
+      key: "importServeiProveidor",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+      validations: props.numberValidations.minMaxValidation(0, 99999999999.99),
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.Facturacion.descuento1",
+        defaultMessage: "Descuento 1",
+      }),
+      type: "numeric",
+      key: "descompteHabitual",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      suffix: "%",
+      validationType: "number",
+      validations: [...props.numberValidations.maxValidation(100)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.Facturacion.descuento2",
+        defaultMessage: "Descuento 2",
+      }),
+      type: "numeric",
+      key: "descomptePagamentRapid",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      suffix: "%",
+      validationType: "number",
+      validations: [...props.numberValidations.maxValidation(100)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.Facturacion.descuento_factura1",
+        defaultMessage: "Descuento Factura 1",
+      }),
+      type: "numeric",
+      key: "descompteFactura1",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      suffix: "%",
+      validationType: "number",
+      validations: [...props.numberValidations.maxValidation(100)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.Facturacion.descuento_factura2",
+        defaultMessage: "Descuento Factura 2",
+      }),
+      type: "numeric",
+      key: "descompteFactura2",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      suffix: "%",
+      validationType: "number",
+      validations: [...props.numberValidations.maxValidation(100)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
         id: "Proveedores.tvencimiento",
         defaultMessage: "Tipo Vencimiento",
       }),
@@ -129,7 +217,7 @@ const BillingTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
       selector: {
         key: "tipusVenciments",
@@ -186,7 +274,7 @@ const BillingTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
       selector: {
         key: "documentPagamentCobraments",
@@ -225,92 +313,30 @@ const BillingTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Facturacion.periodo",
-        defaultMessage: "Período de Facturación",
+        id: "Proveedores.Facturacion.vacaciones",
+        defaultMessage: "Vacaciones",
       }),
-      type: "numeric",
-      key: "periodeFacturacio",
+      type: "input",
+      key: "periodeVacances",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
-      validationType: "number",
-      validations: props.numberValidations.maxValidation(999),
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Facturacion.importe_servicio",
-        defaultMessage: "Importe de Servicio",
+        id: "Proveedores.Facturacion.horario",
+        defaultMessage: "Horario",
       }),
-      type: "numeric",
-      key: "importServeiProveidor",
+      type: "input",
+      key: "horariAtencio",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
-      validationType: "number",
-      validations: props.numberValidations.minMaxValidation(0, 99999999999.99),
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Facturacion.descuento1",
-        defaultMessage: "Descuento 1",
-      }),
-      type: "numeric",
-      key: "descompteHabitual",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      suffix: "%",
-      validationType: "number",
-      validations: [...props.numberValidations.maxValidation(100)],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Facturacion.descuento2",
-        defaultMessage: "Descuento 2",
-      }),
-      type: "numeric",
-      key: "descomptePagamentRapid",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      suffix: "%",
-      validationType: "number",
-      validations: [...props.numberValidations.maxValidation(100)],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Facturacion.descuento_factura1",
-        defaultMessage: "Descuento Factura 1",
-      }),
-      type: "numeric",
-      key: "descompteFactura1",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      suffix: "%",
-      validationType: "number",
-      validations: [...props.numberValidations.maxValidation(100)],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Facturacion.descuento_factura2",
-        defaultMessage: "Descuento Factura 2",
-      }),
-      type: "numeric",
-      key: "descompteFactura2",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      suffix: "%",
-      validationType: "number",
-      validations: [...props.numberValidations.maxValidation(100)],
-    },
+  
+    
   ];
 
   const ordersConfig = [
@@ -367,8 +393,9 @@ const BillingTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "comandaMinimaDivisa",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
+      suffix:"€",
       validationType: "number",
       validations: props.numberValidations.maxValidation(99999999999.99),
     },
@@ -381,15 +408,15 @@ const BillingTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "terminiEntrega",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md:4,
       },
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 2)],
+      validations: [...props.stringValidations.minMaxValidation(0, 60)],
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Facturacion.plazo_entrega",
-        defaultMessage: "Plazo de Entrega",
+        id: "Comun.observaciones",
+        defaultMessage: "Observaciones",
       }),
       type: "observations",
       key: "observacionsCom",
@@ -410,6 +437,7 @@ const BillingTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 4,
       },
+      
       selector: {
         key: "transportistas",
         labelKey: formatCodeAndName,
@@ -467,7 +495,7 @@ const BillingTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "codiClientQueTenimPelProveidor",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 30)],
@@ -484,33 +512,7 @@ const BillingTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
     },
-  ];
-
-  const variosConfig = [
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Facturacion.vacaciones",
-        defaultMessage: "Vacaciones",
-      }),
-      type: "input",
-      key: "periodeVacances",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Facturacion.horario",
-        defaultMessage: "Horario",
-      }),
-      type: "input",
-      key: "horariAtencio",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-    },
+   
   ];
 
   const expirationTypeConfig = {
@@ -644,32 +646,7 @@ const BillingTab = ({ formData, setFormData, getFormData, ...props }) => {
         />
       ),
     },
-    {
-      label: (
-        <FormattedMessage
-          id={"Proveedores.Facturacion.varios"}
-          defaultMessage={"Varios"}
-        />
-      ),
-      key: 2,
-      component: (
-        <GenericForm
-          formComponents={variosConfig}
-          emptyPaper={true}
-          setFormData={setFormData}
-          getFormData={getFormData}
-          loading={props.loading}
-          formErrors={props.formErrors}
-          submitFromOutside={props.submitFromOutside}
-          onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) =>
-            addValidity(VARIOUS_SECTION_TAB_INDEX, value)
-          }
-          onBlur={(e) => handleTouched(VARIOUS_SECTION_TAB_INDEX)}
-          {...props}
-        />
-      ),
-    },
+   
   ];
 
   return (

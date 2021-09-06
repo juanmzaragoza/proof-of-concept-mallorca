@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 import { compose } from "redux";
 import OutlinedContainer from "../../../modules/shared/OutlinedContainer";
@@ -7,6 +7,7 @@ import GenericForm from "../../../modules/GenericForm";
 import { withValidations } from "modules/wrappers";
 import { useTabForm } from "../../../hooks/tab-form";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
+import { useSelector } from "react-redux";
 
 const HEADER_TAB_INDEX = 0;
 const ALPHANUMERICS_SECTION_INDEX = 1;
@@ -24,6 +25,8 @@ const ComercialTab = ({ formData, setFormData, getFormData, ...props }) => {
     setIsValid: props.setIsValid,
   });
 
+  const [firstTime, setFirstTime] = useState(true);
+
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
     defaultMessage: "Código",
@@ -39,18 +42,49 @@ const ComercialTab = ({ formData, setFormData, getFormData, ...props }) => {
     { title: NOM, name: "nom" },
   ];
 
+  const getString = (key) => (getFormData(key) ? getFormData(key) : "");
+
+  useEffect(() => {
+    const operario = getString("operari");
+
+    setFormData({
+      key: "operario",
+      value: operario?.pk?.codi ? operario?.pk?.codi : operario.codi,
+    });
+    setFormData({
+      key: "operarioNombre",
+      value: operario?.description
+        ? operario?.description
+        : operario.nomCodiTxt,
+    });
+   
+  }, [getFormData("operari")]);
+
   const header = [
     {
       placeHolder: props.intl.formatMessage({
-        id: "Proveedores.comercial",
+        id: "Clientes.comercialCodigo",
         defaultMessage: "Comercial",
       }),
       type: "input",
-      key: "operariCodi",
+      key: "operario",
       disabled: true,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.comercialNombre",
+        defaultMessage: "Nombre Comercial",
+      }),
+      type: "input",
+      key: "operarioNombre",
+      disabled: true,
+      breakpoints: {
+        xs: 12,
+        md: 4,
       },
     },
     {
@@ -63,7 +97,7 @@ const ComercialTab = ({ formData, setFormData, getFormData, ...props }) => {
       id: "situacionsComercial",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
       selector: {
         key: "situacioComercials",

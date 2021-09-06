@@ -19,14 +19,16 @@ import {
 
 const PRECIO_SECTION_INDEX = 0;
 const DESCUENTOS_SECTION_INDEX = 1;
-const RAPPEL_SECTION_INDEX = 2;
-const PRECIO_VOLUMEN_SECTION_INDEX = 3;
+const DESCUENTOS_FAB_SECTION_INDEX = 2;
+const RAPPEL_SECTION_INDEX = 3;
+const PRECIO_VOLUMEN_SECTION_INDEX = 4;
 
 const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [PRECIO_SECTION_INDEX]: false,
       [DESCUENTOS_SECTION_INDEX]: true,
+      [DESCUENTOS_FAB_SECTION_INDEX]: true,
       [RAPPEL_SECTION_INDEX]: true,
       [PRECIO_VOLUMEN_SECTION_INDEX]: true,
     },
@@ -509,62 +511,6 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Articulos.precio.dte2",
-        defaultMessage: "Descuento 2",
-      }),
-      type: "numeric",
-      key: "dte2",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      fireActionOnBlur,
-      validationType: "number",
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Articulos.precio.dte3",
-        defaultMessage: "Descuento 3",
-      }),
-      type: "numeric",
-      key: "dte3",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      fireActionOnBlur,
-      validationType: "number",
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Articulos.precio.dte4",
-        defaultMessage: "Descuento 4",
-      }),
-      type: "numeric",
-      key: "dte4",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      fireActionOnBlur,
-      validationType: "number",
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Articulos.precio.dte5",
-        defaultMessage: "Descuento 5",
-      }),
-      type: "numeric",
-      key: "dte5",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      fireActionOnBlur,
-      validationType: "number",
-    },
-    {
-      placeHolder: props.intl.formatMessage({
         id: "Articulos.precio.pvpDescuento",
         defaultMessage: "P.V.P Dto",
       }),
@@ -595,67 +541,194 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.dte2",
+        defaultMessage: "Descuento 2",
+      }),
+      type: "numeric",
+      key: "dte2",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      fireActionOnBlur,
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.pvpDescuento",
+        defaultMessage: "P.V.P Dto",
+      }),
+      type: "input",
+      disabled: true,
+      key: "pvp2Dte",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      fireActionOnBlur,
+      validationType: "string",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.margen",
+        defaultMessage: "% Margen",
+      }),
+      type: "input",
+      disabled: true,
+      key: "marge2Dte",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      fireActionOnBlur,
+      validationType: "string",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.dte3",
+        defaultMessage: "Descuento 3",
+      }),
+      type: "numeric",
+      key: "dte3",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      fireActionOnBlur,
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.pvpDescuento",
+        defaultMessage: "P.V.P Dto",
+      }),
+      type: "input",
+      disabled: true,
+      key: "pvp3Dte",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      fireActionOnBlur,
+      validationType: "string",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.margen",
+        defaultMessage: "% Margen",
+      }),
+      type: "input",
+      disabled: true,
+      key: "marge3Dte",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      fireActionOnBlur,
+      validationType: "string",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.dte4",
+        defaultMessage: "Descuento 4",
+      }),
+      type: "numeric",
+      key: "dte4",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      fireActionOnBlur,
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.pvpDescuento",
+        defaultMessage: "P.V.P Dto",
+      }),
+      type: "input",
+      disabled: true,
+      key: "pvp4Dte",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      fireActionOnBlur,
+      validationType: "string",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.margen",
+        defaultMessage: "% Margen",
+      }),
+      type: "input",
+      disabled: true,
+      key: "marge4Dte",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      fireActionOnBlur,
+      validationType: "string",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.dte5",
+        defaultMessage: "Descuento 5",
+      }),
+      type: "numeric",
+      key: "dte5",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      fireActionOnBlur,
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.pvpDescuento",
+        defaultMessage: "P.V.P Dto",
+      }),
+      type: "input",
+      disabled: true,
+      key: "pvp5Dte",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      fireActionOnBlur,
+      validationType: "string",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.margen",
+        defaultMessage: "% Margen",
+      }),
+      type: "input",
+      disabled: true,
+      key: "marge5Dte",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      fireActionOnBlur,
+      validationType: "string",
+    },
+    {
+      breakpoints: {
+        md: 4,
+      },
+    },
+  ];
+  const descuentosFab = [
+    {
+      placeHolder: props.intl.formatMessage({
         id: "Articulos.precio.dte1Fab",
         defaultMessage: "Dto 1 fabricante",
       }),
       type: "numeric",
       key: "dte1Fab",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      fireActionOnBlur,
-      validationType: "number",
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Articulos.precio.dte2Fab",
-        defaultMessage: "Dto 2 fabricante",
-      }),
-      type: "numeric",
-      key: "dte2Fab",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      fireActionOnBlur,
-      validationType: "number",
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Articulos.precio.dte3Fab",
-        defaultMessage: "Dto 3 fabricante",
-      }),
-      type: "numeric",
-      key: "dte3Fab",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      fireActionOnBlur,
-      validationType: "number",
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Articulos.precio.dte4Fab",
-        defaultMessage: "Dto 4 fabricante",
-      }),
-      type: "numeric",
-      key: "dte4Fab",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      fireActionOnBlur,
-      validationType: "number",
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Articulos.precio.dte5Fab",
-        defaultMessage: "Dto 5 fabricante",
-      }),
-      type: "numeric",
-      key: "dte5Fab",
       breakpoints: {
         xs: 12,
         md: 2,
@@ -686,6 +759,182 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       type: "input",
       disabled: true,
       key: "margeDteFab",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      fireActionOnBlur,
+      validationType: "string",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.dte2Fab",
+        defaultMessage: "Dto 2 fabricante",
+      }),
+      type: "numeric",
+      key: "dte2Fab",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      fireActionOnBlur,
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.pvpDescuentoFab",
+        defaultMessage: "P.V.P con dto fabricante",
+      }),
+      type: "input",
+      disabled: true,
+      key: "pvp2DteFab",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      fireActionOnBlur,
+      validationType: "string",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.margen",
+        defaultMessage: "% Margen",
+      }),
+      type: "input",
+      disabled: true,
+      key: "marge2DteFab",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      fireActionOnBlur,
+      validationType: "string",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.dte3Fab",
+        defaultMessage: "Dto 3 fabricante",
+      }),
+      type: "numeric",
+      key: "dte3Fab",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      fireActionOnBlur,
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.pvpDescuentoFab",
+        defaultMessage: "P.V.P con dto fabricante",
+      }),
+      type: "input",
+      disabled: true,
+      key: "pvp3DteFab",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      fireActionOnBlur,
+      validationType: "string",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.margen",
+        defaultMessage: "% Margen",
+      }),
+      type: "input",
+      disabled: true,
+      key: "marge3DteFab",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      fireActionOnBlur,
+      validationType: "string",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.dte4Fab",
+        defaultMessage: "Dto 4 fabricante",
+      }),
+      type: "numeric",
+      key: "dte4Fab",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      fireActionOnBlur,
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.pvpDescuentoFab",
+        defaultMessage: "P.V.P con dto fabricante",
+      }),
+      type: "input",
+      disabled: true,
+      key: "pvp4DteFab",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      fireActionOnBlur,
+      validationType: "string",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.margen",
+        defaultMessage: "% Margen",
+      }),
+      type: "input",
+      disabled: true,
+      key: "marge4DteFab",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      fireActionOnBlur,
+      validationType: "string",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.dte5Fab",
+        defaultMessage: "Dto 5 fabricante",
+      }),
+      type: "numeric",
+      key: "dte5Fab",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      fireActionOnBlur,
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.pvpDescuentoFab",
+        defaultMessage: "P.V.P con dto fabricante",
+      }),
+      type: "input",
+      disabled: true,
+      key: "pvp5DteFab",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      fireActionOnBlur,
+      validationType: "string",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Articulos.precio.margen",
+        defaultMessage: "% Margen",
+      }),
+      type: "input",
+      disabled: true,
+      key: "marge5DteFab",
       breakpoints: {
         xs: 12,
         md: 1,
@@ -1027,11 +1276,38 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
       className: "general-tab-subtab",
       label: (
         <FormattedMessage
+          id={"Clientes.descuentosFabricante"}
+          defaultMessage={"Descuentos Farbicante"}
+        />
+      ),
+      key: 1,
+      component: (
+        <GenericForm
+          formComponents={descuentosFab}
+          emptyPaper={true}
+          setFormData={setFormData}
+          getFormData={getFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) =>
+            addValidity(DESCUENTOS_FAB_SECTION_INDEX, value)
+          }
+          onBlur={(e) => handleTouched(DESCUENTOS_FAB_SECTION_INDEX)}
+          {...props}
+        />
+      ),
+    },
+    {
+      className: "general-tab-subtab",
+      label: (
+        <FormattedMessage
           id={"Clientes.fact.rappel"}
           defaultMessage={"Rappel"}
         />
       ),
-      key: 1,
+      key: 2,
       component: (
         <GenericForm
           formComponents={rappel}
@@ -1050,7 +1326,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       label: TITLE,
-      key: 2,
+      key: 3,
       component: (
         <ExpandableGrid
           id="preusPerVolum"

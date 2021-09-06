@@ -75,14 +75,14 @@ const ClientsForm = React.memo(
     const getString = (key) => (getFormData(key) ? getFormData(key) : "");
 
     useEffect(() => {
-      const operariCodi = getString("operariCodi");
+      const operariCodi = getString("operari");
 
-      if (operariCodi) {
+      if (!operariCodi) {
         setOperari(true);
       } else {
         setOperari(false);
       }
-    }, [getFormData("operariCodi")]);
+    }, [getFormData("operari")]);
 
     const tabHasError = (index) => {
       return !!tabIndexWithError[index];
@@ -711,7 +711,7 @@ const ClientsForm = React.memo(
     /** Update HEADER */
     useEffect(() => {
       if (isEditable()) {
-        const nomComercial = getFormData("nomFiscal");
+        const nomComercial = getFormData("nomComercial");
         const nom = nomComercial
           ? nomComercial
           : `${props.intl.formatMessage({
@@ -730,7 +730,7 @@ const ClientsForm = React.memo(
           { title: "Modificar" },
         ]);
       }
-    }, [getFormData("nomFiscal")]);
+    }, [getFormData("nomComercial")]);
 
     useEffect(() => {
       if (submitFromOutside) {
@@ -751,7 +751,7 @@ const ClientsForm = React.memo(
     return (
       <div style={{ padding: "10px" }}>
         <ConfigurableTabs
-          tabs={operari ? tabsComercial : tabsNoComercial}
+          tabs={operari ? tabsNoComercial : tabsComercial}
           tabIndex={tabIndex}
           forceChange={forceTabChange}
         />

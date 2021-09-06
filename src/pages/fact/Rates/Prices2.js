@@ -13,11 +13,6 @@ const Prices2 = ({ formData, setFormData, getFormData, ...props }) => {
     props.setIsValid(true);
   }, []);
 
-  const formaCalcul = getFormData("formaCalcul");
-  const percentatgeMaObra = getFormData("percentatgeMaObra");
-  const percentatgeMaterial = getFormData("percentatgeMaterial");
-  const tarifaTipus = getFormData("tarifaTipus");
-
   const priceGenerals = {
     title: props.intl.formatMessage({
       id: "Articulos.titulo",

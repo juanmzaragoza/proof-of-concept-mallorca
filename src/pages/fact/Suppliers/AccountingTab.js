@@ -385,8 +385,8 @@ const AccountingTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.numeroCuentaNacional",
-        defaultMessage: "Num Cuenta Nacional",
+        id: "Clientes.bban",
+        defaultMessage: "BBAN",
       }),
       type: "input",
       key: "numeroContaNacional",
