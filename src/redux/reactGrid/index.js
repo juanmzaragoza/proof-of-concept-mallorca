@@ -164,11 +164,11 @@ const oneInitialState = {
   errors: {},
 };
 const initialState = {
-  [undefined]: oneInitialState
+  ['__default']: oneInitialState
 }
 
 export default (state = initialState, action) => {
-  const { gridId, ...rest } = action.payload?? {};
+  const { gridId = '__default', ...rest } = action.payload?? {};
   switch (action.type) {
     case ADD:
       return { ...state,
