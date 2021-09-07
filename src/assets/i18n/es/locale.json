@@ -1243,7 +1243,7 @@
   "Proveedores.Documentos.fecha": "Fecha",
   "Proveedores.Documentos.documento": "Documento",
   "Proveedores.Documentos.precioNeto": "Precio neto",
-  "Proveedores.Precios.articulo": "Artículo",
+  "Proveedores.Precios.articulo": "Descripción Artículo",
   "Proveedores.tabs.precioCoste": "Precio coste",
   "Proveedores.serieCompra": "Serie Compra",
   "Proveedores.tabs.seriesEmpresa": "Series Empresas",
@@ -2065,7 +2065,9 @@
   "Proveedores.exportarApp":"Exportar a App",
   "Clientes.bban":"BBAN",
   "Proveedores.emailContactoLOPD":"Email contacto LOPD",
-  "Proveedores.ultimaFirmaLOPD":"Última firma LOPD"
+  "Proveedores.ultimaFirmaLOPD":"Última firma LOPD",
+  "Proveedores.Facturacion.ImporteTotal":"Importe Total",
+  "Proveedores.Precios.codigoArt":"Código Artículo"
 
   
 }

@@ -948,37 +948,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     ],
     formComponents: [
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.empresas",
-          defaultMessage: "Empresas",
-        }),
-        type: "LOV",
-        key: "empresa",
-        noEditable: true,
-        required: true,
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        selector: {
-          key: "empresas",
-          labelKey: (data) => `${data.nomFiscal} (${data.codi})`,
-          sort: "nomFiscal",
-          cannotCreate: true,
-          advancedSearchColumns: [
-            { title: CODE, name: "codi" },
-            { title: NOM, name: "nomFiscal" },
-          ],
-          relatedWith: [
-            {
-              name: "caixa",
-              filterBy: "empresa.id",
-              keyValue: "id",
-            },
-          ],
-        },
-      },
+
       {
         placeHolder: props.intl.formatMessage({
           id: "Proveedores.cajas",

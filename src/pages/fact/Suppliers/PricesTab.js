@@ -34,8 +34,17 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
       {
         name: "article",
         title: props.intl.formatMessage({
+          id: "Proveedores.Precios.codigoArt",
+          defaultMessage: "Código Artículo",
+        }),
+        getCellValue: (row) =>
+          row.article.pk ? row.article?.pk.codi : "",
+      },
+      {
+        name: "article",
+        title: props.intl.formatMessage({
           id: "Proveedores.Precios.articulo",
-          defaultMessage: "Artículo",
+          defaultMessage: "Descripción Artículo",
         }),
         getCellValue: (row) =>
           row.article.description ? row.article?.description : "",
