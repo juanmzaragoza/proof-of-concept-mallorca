@@ -39,7 +39,7 @@ import LOVCellComponent from "./LOVCellComponent";
 
 import './styles.scss';
 
-const ReactGrid = ({ configuration, enqueueSnackbar,
+const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
                      rows, loading, pageSize, totalCount, errors,
                      extraQuery = [], onClickRow,
                      actions, ...props }) => {
@@ -114,7 +114,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
       }
     });
     setStore(customStore);
-  },[rows,totalCount]);
+  },[JSON.stringify(rows),totalCount]);
 
   const updateRow = (key, values) => {
     let changedRow = null;
@@ -213,7 +213,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
   return (
     <React.Fragment>
       <DataGrid
-        id='gridContainer'
+        id={`gridContainer_${props.id}`}
         ref={dataGrid}
         dataSource={store}
         showBorders={true}
@@ -278,7 +278,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
       {loading && <Loading />}
     </React.Fragment>
   )
-}
+}, (oldProps,newProps) => JSON.stringify(oldProps) === JSON.stringify(newProps))
 
 ReactGrid.propTypes = {
   id: PropTypes.string.isRequired,

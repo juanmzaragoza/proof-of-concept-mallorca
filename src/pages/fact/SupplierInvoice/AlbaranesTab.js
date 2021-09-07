@@ -1,25 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
 
-
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
-import ExpandableGrid from "modules/ExpandableGrid";
+import ReactGrid from "modules/ReactGrid";
+import * as API from "redux/api";
+import MasterDetailGrid from "modules/ReactGrid/MasterDetailGrid";
 
+const ContabilidadTab = ({ setFormData, getFormData, ...props }) => {
 
-
-const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
   useEffect(() => {
     props.setIsValid(true);
   }, []);
 
-
   const { id: facturaId } = useParams();
-
-
 
   const albaranConfig = {
     title: props.intl.formatMessage({
@@ -36,8 +33,6 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
     extraPostBody: {
         facturaProveidor: { id: facturaId },
     },
-
-
     columns: [
       {
         name: "numero",
@@ -101,10 +96,6 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Bultos",
         }),
       },
-
-    
-      
-     
       {
         name: "operariCodi",
         title: props.intl.formatMessage({
@@ -159,9 +150,47 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         hidden: true,
       },
     ],
-    formComponents: [],
+    URL: API.albaransProveidor,
+    listKey: "albaraProveidors",
+    disabledFiltering: true,
+    disabledActions: true,
+    enableInlineEdition: true,
+    enableExpandableContent: true
   };
 
+  const config = {
+    title: props.intl.formatMessage({
+      id: "Proveedores.titulo",
+      defaultMessage: "Proveedores"
+    }),
+    columns: [
+      {
+        name: 'nomComercial',
+        title: props.intl.formatMessage({
+          id: "Proveedores.nombre_comercial",
+          defaultMessage: "Nombre Comercial"
+        })
+      },
+      {
+        name: 'nif',
+        title: props.intl.formatMessage({
+          id: "Proveedores.nif",
+          defaultMessage: "NIF"
+        })
+      },
+      {
+        name: 'alias',
+        title: props.intl.formatMessage({
+          id: "Proveedores.alias",
+          defaultMessage: "Alias"
+        })
+      },
+    ],
+    URL: API.suppliers,
+    listKey: 'proveidors',
+    enableInlineEdition: true,
+    enableExpandableContent: false
+  };
 
   return (
     <Grid container spacing={2}>
@@ -175,13 +204,18 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
             />
           }
         >
-          <ExpandableGrid
-          id="albaransProveidor"
-          responseKey="albaraProveidors"
-          enabled={props.editMode}
-          configuration={albaranConfig}
-          readOnly={true}
-        />
+          <ReactGrid
+            id="albaransProveidor"
+            configuration={albaranConfig}
+          >
+            {expandedProps => {
+              return <MasterDetailGrid
+                id={"suppliers"}
+                extraQuery={[]}
+                configuration={config} />
+            }}
+          </ReactGrid>
+
         </OutlinedContainer>
       </Grid>
     </Grid>
