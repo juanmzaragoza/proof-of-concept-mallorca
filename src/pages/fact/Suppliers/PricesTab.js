@@ -38,10 +38,10 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
           defaultMessage: "Código Artículo",
         }),
         getCellValue: (row) =>
-          row.article.pk ? row.article?.pk.codi : "",
+          row.article.pk ? row.article?.pk?.codi : "",
       },
       {
-        name: "article",
+        name: "article.description",
         title: props.intl.formatMessage({
           id: "Proveedores.Precios.articulo",
           defaultMessage: "Descripción Artículo",
