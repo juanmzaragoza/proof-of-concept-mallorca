@@ -24,6 +24,7 @@ import "./styles.scss";
 import { Loading } from "../shared/Loading";
 import ExpandableContent from "./ExpandableContent";
 import { PopupEditing, ExpandablePopup } from "./ExpandablePopup";
+import { FormatSizeTwoTone } from "@material-ui/icons";
 
 const TableComponent = ({ ...restProps }) => (
   <Table.Table {...restProps} className="table-striped" />
@@ -36,6 +37,7 @@ const ExpandableGrid = ({
   configuration,
   rows,
   totalCount,
+  size,
   pageSize,
   loading,
   refreshData,
@@ -65,6 +67,7 @@ const ExpandableGrid = ({
     
     actions.loadData({
       apiId: id,
+      size: size,
       key: responseKey,
       method,
       body,
@@ -114,7 +117,7 @@ const ExpandableGrid = ({
         <PagingState
           currentPage={currentPage}
           onCurrentPageChange={setCurrentPage}
-          pageSize={pageSize}
+          pageSize={size ? size : pageSize}
         />
         <CustomPaging totalCount={totalCount} />
         <RowDetailState

@@ -740,6 +740,7 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
           enabled={props.editMode}
           configuration={factConfig}
           readOnly={true}
+          size={10}
         />
       ),
     },
@@ -759,6 +760,7 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
           enabled={props.editMode}
           configuration={albaranConfig}
           readOnly={true}
+          size={10}
         />
       ),
     },
@@ -778,6 +780,7 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
           enabled={props.editMode}
           configuration={presupuestoConfig}
           readOnly={true}
+          size={10}
         />
       ),
     },
@@ -797,6 +800,7 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
           enabled={props.editMode}
           configuration={reparacionesConfig}
           readOnly={true}
+          size={10}
         />
       ),
     },
@@ -816,6 +820,7 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
           enabled={props.editMode}
           configuration={movimientosCajaConfig}
           readOnly={true}
+          size={10}
         />
       ),
     },

@@ -983,6 +983,7 @@ const SubClienteTab = ({ formData, setFormData, getFormData, ...props }) => {
             responseKey="subClients"
             enabled={props.editMode}
             configuration={subClient}
+            size={10}
           />
         </OutlinedContainer>
       </Grid>
