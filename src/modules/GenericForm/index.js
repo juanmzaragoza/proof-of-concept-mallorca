@@ -292,7 +292,7 @@ const GenericForm = ({ loading, ...props }) => {
                 checked={
                   props.getFormData && props.getFormData(key)
                     ? props.getFormData(key)
-                    : ""
+                    : false
                 }
                 onChange={(e) =>
                   props.setFormData({ key, value: e.currentTarget.checked })
