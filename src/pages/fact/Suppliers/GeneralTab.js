@@ -274,6 +274,17 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     };
   };
 
+ const actions = () =>  {
+    const nomFiscal = getString("nomFiscal");
+    const nomComercial = getString("nomComercial");
+    if (!nomFiscal) {
+      setFormData({
+        key: "nomFiscal",
+        value: nomComercial ? nomComercial : "",
+      });
+    }
+  };
+
   const suppliersConfig = [
     {
       placeHolder: CODE,
@@ -303,6 +314,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       type: "input",
       key: "nomComercial",
       required: true,
+      fireActionOnBlurChange: actions,
       breakpoints: {
         xs: 12,
         md: 4,
@@ -319,15 +331,14 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       key: "nomFiscal",
+      fireActionOnBlurChange: actions,
       required: true,
       breakpoints: {
         xs: 12,
         md: 4,
       },
-      validationType: "string",
-      ...withRequiredValidation([
-        ...props.stringValidations.minMaxValidation(1, 40),
-      ]),
+      // validationType: "string",
+      // validations: [...props.stringValidations.minMaxValidation(1, 40)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -350,7 +361,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "alias",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 30)],
@@ -364,7 +375,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "paisNif",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
       selector: {
         key: "paisNifs",
@@ -443,11 +454,11 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Proveedores.sub_contratista",
-        defaultMessage: "SubContratista",
+        id: "Proveedores.censado_eat",
+        defaultMessage: "Censado en EAT",
       }),
       type: "checkbox",
-      key: "subcontratista",
+      key: "censatHisenda",
       breakpoints: {
         xs: 12,
         md: 2,
@@ -464,7 +475,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
       selector: {
         key: "familiaProveidors",
@@ -485,7 +496,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "operari",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
       selector: {
         key: "operaris",
@@ -545,31 +556,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Proveedores.censado_eat",
-        defaultMessage: "Censado en EAT",
-      }),
-      type: "checkbox",
-      key: "censatHisenda",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.deshomologado",
-        defaultMessage: "Deshomologado",
-      }),
-      type: "checkbox",
-      key: "dhm",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-    },
-
-    {
-      placeHolder: props.intl.formatMessage({
         id: "Proveedores.idioma",
         defaultMessage: "Idioma",
       }),
@@ -585,6 +571,42 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         sort: "descripcio",
         creationComponents: codeAndDescription(),
         advancedSearchColumns: aSCodeAndDescription,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.deshomologado",
+        defaultMessage: "Deshomologado",
+      }),
+      type: "checkbox",
+      key: "dhm",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.sub_contratista",
+        defaultMessage: "SubContratista",
+      }),
+      type: "checkbox",
+      key: "subcontratista",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.exportarApp",
+        defaultMessage: "Exportar a App ",
+      }),
+      type: "checkbox",
+      key: "comandesAutomatiques",
+      breakpoints: {
+        xs: 12,
+        md: 2,
       },
     },
 
@@ -841,7 +863,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   };
 
   const SuppliersTypeConfig = {
-    title: TITLE,
+    title:  props.intl.formatMessage({
+      id: "Proveedores.tipos_proveedor",
+      defaultMessage: "Tipos Proveedores",
+    }),
     query: [
       {
         columnName: "proveidor.id",
@@ -890,7 +915,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   };
 
   const boxesConfig = {
-    title: TITLE,
+    title: props.intl.formatMessage({
+      id: "Proveedores.cajas",
+      defaultMessage: "Cajas",
+    }),
     query: [
       {
         columnName: "proveidor.id",
@@ -920,37 +948,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     ],
     formComponents: [
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.empresas",
-          defaultMessage: "Empresas",
-        }),
-        type: "LOV",
-        key: "empresa",
-        noEditable: true,
-        required: true,
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        selector: {
-          key: "empresas",
-          labelKey: (data) => `${data.nomFiscal} (${data.codi})`,
-          sort: "nomFiscal",
-          cannotCreate: true,
-          advancedSearchColumns: [
-            { title: CODE, name: "codi" },
-            { title: NOM, name: "nomFiscal" },
-          ],
-          relatedWith: [
-            {
-              name: "caixa",
-              filterBy: "empresa.id",
-              keyValue: "id",
-            },
-          ],
-        },
-      },
+
       {
         placeHolder: props.intl.formatMessage({
           id: "Proveedores.cajas",

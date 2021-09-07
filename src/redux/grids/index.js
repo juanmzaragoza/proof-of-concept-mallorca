@@ -12,10 +12,10 @@ const UPDATE_ROW = "UPDATE_ROW_GRID";
 const ADD_ROW = "ADD_ROW_GRID";
 
 //Functions
-export const searchData = ({ apiId, key, method, body, page, query = [], sorting = [] }) => {
+export const searchData = ({ apiId, key, size = EXPANDABLE_GRID_LIMIT_PER_PAGE,  method, body, page, query = [], sorting = [] }) => {
   return async dispatch => {
     const formedURL = () => {
-      return getFormedURL({id: apiId, size: EXPANDABLE_GRID_LIMIT_PER_PAGE , page, sorting, query})
+      return getFormedURL({id: apiId, size : size , page, sorting, query})
     }
     const apiCall = () => {
       if(method && body){

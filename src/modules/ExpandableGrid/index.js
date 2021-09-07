@@ -12,6 +12,7 @@ import {
 } from "redux/grids/selectors";
 
 const mapStateToProps = (state, props) => {
+
   return {
     rows: getRowsByKey(state, props.id),
     totalCount: getTotalCountByKey(state, props.id),

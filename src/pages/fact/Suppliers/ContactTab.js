@@ -84,13 +84,11 @@ const ContactTab = ({ formData, setFormData, ...props }) => {
       }),
       type: "LOV",
       key: "codiPostal",
-      required: true,
       breakpoints: {
         xs: 12,
         md: md,
       },
-      validationType: "object",
-      ...withRequiredValidation(),
+
       selector: {
         key: "codiPostals",
         labelKey: (data) =>
@@ -176,10 +174,6 @@ const ContactTab = ({ formData, setFormData, ...props }) => {
       },
     },
   ];
-
-  const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
-  const formatCodeAndDescription = (data) =>
-    `${data.descripcio} (${data.codi})`;
 
   const aSCodeAndDescription = [
     { title: CODE, name: "codi" },
@@ -324,7 +318,7 @@ const ContactTab = ({ formData, setFormData, ...props }) => {
         defaultMessage: "DNI Representante",
       }),
       type: "input",
-      key: "dnirepresentant",
+      key: "dniRepresentant",
       breakpoints: {
         xs: 12,
         md: 6,
@@ -374,7 +368,19 @@ const ContactTab = ({ formData, setFormData, ...props }) => {
       },
     ],
     formComponents: [
-      code(1),
+      {
+        type: "input",
+        key: "codi",
+        placeHolder: CODE,
+        required: true,
+        noEditable: true,
+        breakpoints: {
+          xs: 12,
+          md: 1,
+        },
+        validationType:"string",
+        ...withRequiredValidation([...props.stringValidations.minMaxValidation(0,6)]),
+      },
       {
         placeHolder: NOM,
         type: "input",
@@ -385,92 +391,85 @@ const ContactTab = ({ formData, setFormData, ...props }) => {
           md: 5,
         },
         validationType: "string",
-        ...withRequiredValidation(),
+        ...withRequiredValidation([...props.stringValidations.minMaxValidation(0,30)]),
       },
       {
         placeHolder: TELEFON,
         type: "input",
         key: "telefon1",
-        required: true,
         breakpoints: {
           xs: 12,
           md: 3,
         },
         validationType: "string",
-        ...withRequiredValidation(),
+        validations:[...props.stringValidations.minMaxValidation(0,60)]
       },
       {
         placeHolder: TELEFON2,
         type: "input",
         key: "telefon2",
-        required: true,
         breakpoints: {
           xs: 12,
           md: 3,
         },
         validationType: "string",
-        ...withRequiredValidation(),
+        validations:[...props.stringValidations.minMaxValidation(0,60)]
       },
       {
         placeHolder: WWW,
         type: "input",
         key: "web",
-        required: true,
         breakpoints: {
           xs: 12,
           md: 3,
         },
         validationType: "string",
-        ...withRequiredValidation(),
+        validations:[...props.stringValidations.minMaxValidation(0,60)]
       },
       {
         placeHolder: EMAIL,
         type: "input",
         key: "email",
-        required: true,
         breakpoints: {
           xs: 12,
           md: 3,
         },
         validationType: "string",
-        ...withRequiredValidation(),
+        validations:[...props.stringValidations.minMaxValidation(0,60)]
       },
       {
         placeHolder: FAX,
         type: "input",
         key: "fax1",
-        required: true,
         breakpoints: {
           xs: 12,
           md: 3,
         },
         validationType: "string",
-        ...withRequiredValidation(),
+        validations:[...props.stringValidations.minMaxValidation(0,60)]
       },
       {
         placeHolder: FAX2,
         type: "input",
         key: "fax2",
-        required: true,
         breakpoints: {
           xs: 12,
           md: 3,
         },
-        validationType: "string",
-        ...withRequiredValidation(),
+        validationType: "string", 
+        validations:[...props.stringValidations.minMaxValidation(0,60)]
       },
 
       {
         placeHolder: DOMICILI,
         type: "input",
         key: "domicili",
-        required: true,
         breakpoints: {
           xs: 12,
           md: 6,
         },
         validationType: "string",
-        ...withRequiredValidation(),
+        validations:[...props.stringValidations.minMaxValidation(0,60)],
       },
       ...codiPostal(3),
 
@@ -481,15 +480,13 @@ const ContactTab = ({ formData, setFormData, ...props }) => {
         }),
         type: "input",
         key: "responsable",
-        required:true,
         breakpoints: {
           xs: 12,
           md: 3,
         },
         validationType: "string",
-        ...withRequiredValidation([
-          ...props.stringValidations.minMaxValidation(1, 60),
-        ]),
+        validations:[...props.stringValidations.minMaxValidation(0,60)]
+ 
       },
     ],
   };

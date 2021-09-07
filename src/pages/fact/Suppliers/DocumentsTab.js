@@ -482,6 +482,13 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
         }),
       },
       {
+        name: "importTotalExtraField",
+        title: props.intl.formatMessage({
+          id: "Proveedores.Facturacion.ImporteTotal",
+          defaultMessage: "Importe Total",
+        }),
+      },
+      {
         name: "divisa",
         title: props.intl.formatMessage({
           id: "Divisas.titulo",
@@ -495,6 +502,7 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
           id: "Presupuestos.valorDivisa",
           defaultMessage: "Valor divisa",
         }),
+        hidden:true,
       },
       {
         name: "magatzem",
@@ -555,6 +563,7 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
           enabled={props.editMode}
           configuration={factConfig}
           readOnly={true}
+          size={10}
         />
       ),
     },
@@ -574,6 +583,7 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
           enabled={props.editMode}
           configuration={albaranConfig}
           readOnly={true}
+          size={10}
         />
       ),
     },
@@ -593,6 +603,7 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
           enabled={props.editMode}
           configuration={pedidosConfig}
           readOnly={true}
+          size={10}
         />
       ),
     },
@@ -612,6 +623,7 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
           enabled={props.editMode}
           configuration={movimientosCajaConfig}
           readOnly={true}
+          size={10}
         />
       ),
     },
