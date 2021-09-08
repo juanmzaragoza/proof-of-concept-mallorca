@@ -165,29 +165,59 @@ const ContabilidadTab = ({ setFormData, getFormData, ...props }) => {
     }),
     columns: [
       {
-        name: 'nomComercial',
+        name: 'article',
         title: props.intl.formatMessage({
-          id: "Proveedores.nombre_comercial",
-          defaultMessage: "Nombre Comercial"
+          id: "FacturasProveedor.liniaAlbaran.articulo",
+          defaultMessage: "Artículo"
+        }),
+        getCellValue: (row) => row.article?.description,
+      },
+      {
+        name: 'descripcio',
+        title: props.intl.formatMessage({
+          id: "Comun.descripcion",
+          defaultMessage: "Descripción"
         })
       },
       {
-        name: 'nif',
+        name: 'unitats',
         title: props.intl.formatMessage({
-          id: "Proveedores.nif",
-          defaultMessage: "NIF"
+          id: "FacturasProveedor.liniaAlbaran.unidades",
+          defaultMessage: "Unidades"
         })
       },
       {
-        name: 'alias',
+        name: 'preu',
         title: props.intl.formatMessage({
-          id: "Proveedores.alias",
-          defaultMessage: "Alias"
+          id: "FacturasProveedor.liniaAlbaran.precio",
+          defaultMessage: "Precio"
+        })
+      },
+      {
+        name: 'iva',
+        title: props.intl.formatMessage({
+          id: "FacturasProveedor.liniaAlbaran.iva",
+          defaultMessage: "IVA"
+        }),
+        getCellValue: (row) => row.iva?.description,
+      },
+      {
+        name: 'imports',
+        title: props.intl.formatMessage({
+          id: "FacturasProveedor.liniaAlbaran.imports",
+          defaultMessage: "Importes"
+        })
+      },
+      {
+        name: 'descompte',
+        title: props.intl.formatMessage({
+          id: "FacturasProveedor.liniaAlbaran.descuento",
+          defaultMessage: "Descuento"
         })
       },
     ],
-    URL: API.suppliers,
-    listKey: 'proveidors',
+    URL: API.liniesAlbaraProveidor,
+    listKey: 'liniaAlbaraProveidors',
     enableInlineEdition: true,
     enableExpandableContent: false
   };
@@ -209,9 +239,16 @@ const ContabilidadTab = ({ setFormData, getFormData, ...props }) => {
             configuration={albaranConfig}
           >
             {expandedProps => {
+              const query = [
+                {
+                  columnName: 'albaraProveidor.id',
+                  value: `'${expandedProps.row.id}'`,
+                  exact: true
+                }
+              ]
               return <MasterDetailGrid
-                id={"suppliers"}
-                extraQuery={[]}
+                id={"liniesAlbaraProveidor"}
+                extraQuery={query}
                 configuration={config} />
             }}
           </ReactGrid>
