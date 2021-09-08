@@ -405,14 +405,14 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.precioCosteIva",
         defaultMessage: "Precio con IVA",
       }),
-      type: "input",
+      type: "numeric",
       key: "preuIva",
       breakpoints: {
         xs: 12,
         md: 3,
       },
       fireActionOnBlur: fireArticlesPriceUpdate,
-      validationType: "string",
+      validationType: "number",
     },
     {
       placeHolder: props.intl.formatMessage({
