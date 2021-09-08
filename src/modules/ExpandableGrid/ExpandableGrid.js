@@ -24,7 +24,6 @@ import "./styles.scss";
 import { Loading } from "../shared/Loading";
 import ExpandableContent from "./ExpandableContent";
 import { PopupEditing, ExpandablePopup } from "./ExpandablePopup";
-import { FormatSizeTwoTone } from "@material-ui/icons";
 
 const TableComponent = ({ ...restProps }) => (
   <Table.Table {...restProps} className="table-striped" />

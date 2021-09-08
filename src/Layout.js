@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import clsx from 'clsx';
-import {Redirect, Route, Switch, useHistory} from "react-router-dom";
+import {Route, Switch, useHistory} from "react-router-dom";
 import {connect} from "react-redux";
 import {bindActionCreators, compose} from 'redux';
 

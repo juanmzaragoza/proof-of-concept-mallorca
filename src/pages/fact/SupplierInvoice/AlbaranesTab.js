@@ -202,17 +202,17 @@ const ContabilidadTab = ({ setFormData, getFormData, ...props }) => {
         getCellValue: (row) => row.iva?.description,
       },
       {
-        name: 'imports',
-        title: props.intl.formatMessage({
-          id: "FacturasProveedor.liniaAlbaran.imports",
-          defaultMessage: "Importes"
-        })
-      },
-      {
         name: 'descompte',
         title: props.intl.formatMessage({
           id: "FacturasProveedor.liniaAlbaran.descuento",
           defaultMessage: "Descuento"
+        })
+      },
+      {
+        name: 'imports',
+        title: props.intl.formatMessage({
+          id: "FacturasProveedor.liniaAlbaran.imports",
+          defaultMessage: "Importes"
         })
       },
     ],
