@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import ReactGrid from "./index";
 
 /**
@@ -10,7 +10,21 @@ import ReactGrid from "./index";
  * @returns {JSX.Element}
  * @constructor
  */
-const MasterDetailGrid = React.memo(({id, extraQuery, configuration}) => {
+const MasterDetailGrid = React.memo((
+  {
+    id,
+    extraQuery,
+    configuration,
+    // ReactGrid
+    row,
+    onCancel = () => {},
+    onSuccess = () => {}
+  }) => {
+
+  // if none row is selected -> it closes all the expanded
+  useEffect(() => {
+    !row && onCancel();
+  },[row]);
 
   return <React.Fragment>
     <ReactGrid

@@ -239,6 +239,7 @@ const ContabilidadTab = ({ setFormData, getFormData, ...props }) => {
             configuration={albaranConfig}
           >
             {expandedProps => {
+              console.log(expandedProps)
               const query = [
                 {
                   columnName: 'albaraProveidor.id',
@@ -249,7 +250,10 @@ const ContabilidadTab = ({ setFormData, getFormData, ...props }) => {
               return <MasterDetailGrid
                 id={"liniesAlbaraProveidor"}
                 extraQuery={query}
-                configuration={config} />
+                configuration={config}
+                row={expandedProps.row}
+                onCancel={expandedProps.onCancel}
+                onSuccess={expandedProps.onSuccess} />
             }}
           </ReactGrid>
 
