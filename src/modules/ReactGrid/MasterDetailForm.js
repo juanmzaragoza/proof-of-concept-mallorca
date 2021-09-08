@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import GenericForm from "../GenericForm";
 import {withAbmServices} from "../wrappers";
 import {getLoading} from "redux/app/selectors";
+import PropTypes from "prop-types";
 
 const MasterDetailedForm = (
   {
@@ -75,6 +76,15 @@ const MasterDetailedForm = (
       </div>
     </Fragment>
   );
+};
+
+MasterDetailedForm.propTypes = {
+  // property from withAbmServices HOC -> necessary to update data
+  url: PropTypes.string.isRequired,
+  formComponents: PropTypes.array.isRequired,
+  row: PropTypes.any,
+  onCancel: PropTypes.func,
+  onSuccess: PropTypes.func,
 };
 
 const mapStateToProps = (state, props) => {

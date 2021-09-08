@@ -1,7 +1,7 @@
 import { get } from "lodash";
 
-export const getRows = (state) => get(state, `reactGrid.data`, []);
-export const getTotalCount = (state) => get(state, `reactGrid.totalCount`, 0);
-export const getLoading = (state) => get(state, `reactGrid.loading`, false);
-export const getPageSize = (state) => get(state, `reactGrid.pageSize`, 0);
-export const getErrors = (state) => get(state, `reactGrid.errors`, {});
+export const getRows = (state, gridId) => get(state, `reactGrid[${gridId}].data`, []);
+export const getTotalCount = (state, gridId) => get(state, `reactGrid[${gridId}].totalCount`, 0);
+export const getLoading = (state, gridId) => get(state, `reactGrid[${gridId}].loading`, false);
+export const getPageSize = (state, gridId) => get(state, `reactGrid[${gridId}].pageSize`, 0);
+export const getErrors = (state, gridId) => get(state, `reactGrid[${gridId}].errors`, {});

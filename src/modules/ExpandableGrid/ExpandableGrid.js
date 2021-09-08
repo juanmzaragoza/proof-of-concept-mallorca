@@ -36,6 +36,7 @@ const ExpandableGrid = ({
   configuration,
   rows,
   totalCount,
+  size,
   pageSize,
   loading,
   refreshData,
@@ -65,6 +66,7 @@ const ExpandableGrid = ({
     
     actions.loadData({
       apiId: id,
+      size: size,
       key: responseKey,
       method,
       body,
@@ -114,7 +116,7 @@ const ExpandableGrid = ({
         <PagingState
           currentPage={currentPage}
           onCurrentPageChange={setCurrentPage}
-          pageSize={pageSize}
+          pageSize={size ? size : pageSize}
         />
         <CustomPaging totalCount={totalCount} />
         <RowDetailState

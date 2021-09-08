@@ -30,19 +30,18 @@ import {
 } from "redux/reactGrid/selectors";
 import {
   deleteData,
-  reset,
+  resetGrid,
   searchData,
   updateData
 } from "redux/reactGrid";
 import {Loading} from "modules/shared/Loading";
 import LOVCellComponent from "./LOVCellComponent";
-import MasterDetailedForm from "./MasterDetailForm";
 
 import './styles.scss';
 
-const ReactGrid = ({ configuration, enqueueSnackbar,
+const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
                      rows, loading, pageSize, totalCount, errors,
-                     extraQuery, formComponents = [], onClickRow,
+                     extraQuery = [], onClickRow,
                      actions, ...props }) => {
 
   const history = useHistory();
@@ -67,8 +66,19 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
     actions.loadData({ apiId: props.id, method, body, key: configuration.listKey, page: currentPage, query, sorting});
   };
 
+  useEffect(() => {
+    return () => actions.reset();
+  },[]);
+
   // executed when mounts component and when vars change
-  useEffect(() => loadData(),[currentPage,sorting,filters,extraQuery]);
+  useEffect(() => {
+    loadData()
+  },[
+    currentPage,
+    JSON.stringify(sorting),
+    JSON.stringify(filters),
+    JSON.stringify(extraQuery)
+  ]);
 
   // if the filters change
   useEffect(() => {
@@ -104,7 +114,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
       }
     });
     setStore(customStore);
-  },[rows,totalCount]);
+  },[JSON.stringify(rows),totalCount]);
 
   const updateRow = (key, values) => {
     let changedRow = null;
@@ -157,7 +167,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
     }
   }
 
-  const isExpandableEnabled = formComponents.length > 0;
+  const isExpandableEnabled = !!configuration.enableExpandableContent;
   const expandableOptions = isExpandableEnabled?
     {
       onSelectionChanged: (e) => {
@@ -183,10 +193,27 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
     setExpandedRow(null);
   }, [dataGrid, expandedRow]);
 
+  /** This component is like a decorator that adds properties to children */
+  const ExpandableContent = () => {
+    return (
+      props.children({
+        ...props,
+        row: expandedData,
+        onCancel: () => {
+          collapseAllRows();
+        },
+        onSuccess: (updatedData) => {
+          collapseAllRows();
+          loadData();
+        }
+      })
+    )
+  }
+
   return (
     <React.Fragment>
       <DataGrid
-        id='gridContainer'
+        id={`gridContainer_${props.id}`}
         ref={dataGrid}
         dataSource={store}
         showBorders={true}
@@ -225,27 +252,17 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
         <Selection mode="single" />
         <MasterDetail
           enabled={isExpandableEnabled}
-          component={() => <MasterDetailedForm
-            formComponents={formComponents}
-            row={expandedData}
-            onCancel={(e) => {
-              collapseAllRows();
-            }}
-            onSuccess={(updatedData) => {
-              collapseAllRows();
-              loadData();
-            }}
-            {...props}
-          />}
+          component={() => isExpandableEnabled && <ExpandableContent />}
         />
 
         {configuration.enableInlineEdition && <Editing
           allowUpdating={true}
-          allowDeleting={true}
+          allowDeleting={!configuration.disabledActions}
           mode="cell" />}
 
         <Paging
-          defaultPageSize={pageSize}
+          pageSize={pageSize}
+          defaultPageSize={10}
           onPageIndexChange={setCurrentPage}  />
         <Pager
           visible={true}
@@ -261,7 +278,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
       {loading && <Loading />}
     </React.Fragment>
   )
-}
+}, (oldProps,newProps) => JSON.stringify(oldProps) === JSON.stringify(newProps))
 
 ReactGrid.propTypes = {
   id: PropTypes.string.isRequired,
@@ -277,6 +294,7 @@ ReactGrid.propTypes = {
     enableInlineEdition: PropTypes.bool,
     disabledActions: PropTypes.bool,
     disabledFiltering: PropTypes.bool,
+    enableExpandableContent: PropTypes.bool,
     method: PropTypes.oneOf(['post','put','patch']),
     body: PropTypes.object
   }),
@@ -284,17 +302,15 @@ ReactGrid.propTypes = {
     columnName: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired
   })),
-  formComponents: PropTypes.array,
-  url: PropTypes.string
 };
 
 const mapStateToProps = (state, props) => {
   return {
-    rows: getRows(state),
-    totalCount: getTotalCount(state),
-    loading: getLoading(state),
-    pageSize: getPageSize(state),
-    errors: getErrors(state),
+    rows: getRows(state, props.id),
+    totalCount: getTotalCount(state, props.id),
+    loading: getLoading(state, props.id),
+    pageSize: getPageSize(state, props.id),
+    errors: getErrors(state, props.id),
   };
 };
 
@@ -303,7 +319,7 @@ const mapDispatchToProps = (dispatch, props) => {
     updateData: bindActionCreators(updateData, dispatch),
     loadData: bindActionCreators(searchData, dispatch),
     deleteData: bindActionCreators(deleteData, dispatch),
-    reset: bindActionCreators(reset, dispatch),
+    reset: bindActionCreators(() => resetGrid({ gridId: props.id }), dispatch),
   };
   return { actions };
 };
