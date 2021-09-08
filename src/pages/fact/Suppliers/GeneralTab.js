@@ -829,23 +829,15 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           md: 6,
         },
       },
-      {
-        placeHolder: WWW,
-        type: "input",
-        key: "web",
-        breakpoints: {
-          xs: 12,
-          md: 6,
-        },
-      },
-      ...codiPostal(6),
+    
+      ...codiPostal(4),
       {
         placeHolder: DEFECTE,
         type: "checkbox",
         key: "defecte",
         breakpoints: {
           xs: 12,
-          md: 6,
+          md: 2,
         },
       },
       {
