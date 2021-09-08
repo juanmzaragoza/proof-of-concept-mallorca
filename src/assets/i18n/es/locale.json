@@ -2067,7 +2067,8 @@
   "Proveedores.emailContactoLOPD":"Email contacto LOPD",
   "Proveedores.ultimaFirmaLOPD":"Última firma LOPD",
   "Proveedores.Facturacion.ImporteTotal":"Importe Total",
-  "Proveedores.Precios.codigoArt":"Código Artículo"
+  "Proveedores.Precios.codigoArt":"Código Artículo",
+  "Comun.cancelar":"Cancelar"
 
   
 }
