@@ -16,14 +16,12 @@ import { useTabForm } from "hooks/tab-form";
 
 const CREATE_SECTION_INDEX = 0;
 const PERCENTAGES_SECTION_TAB_INDEX = 1;
-const VALIDITY_DATES_SECTION_TAB_INDEX = 2;
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [CREATE_SECTION_INDEX]: false,
       [PERCENTAGES_SECTION_TAB_INDEX]: false,
-      [VALIDITY_DATES_SECTION_TAB_INDEX]: true,
     },
     setIsValid: props.setIsValid,
   });
@@ -31,6 +29,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
     defaultMessage: "Código",
+  });
+  const NOM = props.intl.formatMessage({
+    id: "Comun.nombre",
+    defaultMessage: "Nombre",
   });
 
   const createConfiguration = [
@@ -44,7 +46,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
       noEditable: true,
       validationType: "string",
@@ -68,13 +70,38 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 6,
+        md: 4,
       },
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 30),
       ],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proyectos.proveedor",
+        defaultMessage: "Proveedor",
+      }),
+      type: "LOV",
+      required: true,
+      key: "proveidor",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      selector: {
+        key: "proveidors",
+        labelKey: (data) => `${data.descCodiNom} (${data.codi})`,
+        sort: "codi",
+        cannotCreate: true,
+        advancedSearchColumns: [
+          { title: CODE, name: "codi" },
+          { title: NOM, name: "nom" },
+        ],
+      },
+      validationType: "object",
+      validations: [...props.commonValidations.requiredValidation()],
     },
 
     {
@@ -84,6 +111,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "select",
       key: "tipusTarifa",
+      required: true,
       breakpoints: {
         xs: 12,
         md: 2,
@@ -91,6 +119,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       selector: {
         options: TIPO_TARIFA_PROVEEDOR_SELECTOR_VALUES,
       },
+      validationType: "string",
+      validations: [...props.commonValidations.requiredValidation()],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -118,7 +148,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      suffix:"%",
+      suffix: "%",
       validationType: "number",
       validations: [...props.numberValidations.minMaxValidation(0, 100)],
     },
@@ -152,18 +182,18 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      suffix:"%",
+      suffix: "%",
       validationType: "number",
       validations: [...props.numberValidations.minMaxValidation(0, 100)],
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Tarifa.tipoDescuento1",
-        defaultMessage: "Tipo Descuento",
+        id: "Tarifa.tipoDescuento2",
+        defaultMessage: "Tipo Descuento 2",
       }),
       type: "select",
       required: true,
-      key: "tipusDte1",
+      key: "tipusDte2",
       breakpoints: {
         xs: 12,
         md: 3,
@@ -186,7 +216,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      suffix:"%",
+      suffix: "%",
       validationType: "number",
       validations: [...props.numberValidations.minMaxValidation(0, 100)],
     },
