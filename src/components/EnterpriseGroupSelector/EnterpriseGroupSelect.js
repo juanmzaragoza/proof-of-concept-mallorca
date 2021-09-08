@@ -3,7 +3,7 @@ import {compose} from "redux";
 
 import {Autocomplete} from "@material-ui/lab";
 import {injectIntl} from "react-intl";
-import {Paper, TextField} from "@material-ui/core";
+import {TextField} from "@material-ui/core";
 import {Domain, Build} from "@material-ui/icons";
 
 import './_styles.scss';

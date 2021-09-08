@@ -53,29 +53,33 @@ const withAbmServices = (PassedComponent) => {
     };
 
     const update = (id, data) => {
-      // avoid multiple calls
-      if(props.isLoading) return;
-      const queryString = `${props.url}/${id}`;
-      props.resetError();
-      props.startLoading();
-      Axios.put(queryString, JSON.stringify(data), {
-        headers: new Headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }),
-      })
-        .then(({status, data, ...rest}) => {
-          props.finishLoading();
-          props.changeIsSubmitted(false);
-          props.enqueueSnackbar(props.intl.formatMessage({
-            id: "CreateUpdateForm.actualizacion_correcta",
-            defaultMessage: "Registro actualizado correctamente"
-          }), {variant: 'success'});
+      return new Promise((resolve, reject) => {
+        // avoid multiple calls
+        if(props.isLoading) return resolve();
+        const queryString = `${props.url}/${id}`;
+        props.resetError();
+        props.startLoading();
+        Axios.put(queryString, JSON.stringify(data), {
+          headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          }),
         })
-        .catch(error => {
-          props.finishLoading();
-          error.response && handlePersistError(error.response);
-        });
+          .then(({status, data, ...rest}) => {
+            props.finishLoading();
+            props.changeIsSubmitted(false);
+            props.enqueueSnackbar(props.intl.formatMessage({
+              id: "CreateUpdateForm.actualizacion_correcta",
+              defaultMessage: "Registro actualizado correctamente"
+            }), {variant: 'success'});
+            resolve({ status, data, ...rest });
+          })
+          .catch(error => {
+            props.finishLoading();
+            error.response && handlePersistError(error.response);
+            reject(error);
+          });
+      })
     }
 
     const getById = (id) => {
