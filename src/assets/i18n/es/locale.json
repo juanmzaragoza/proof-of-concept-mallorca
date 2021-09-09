@@ -2101,5 +2101,6 @@
   "PedidosAlmacen.operario": "Operario",
   "PedidosAlmacen.avisar":"Avisar",
   "PedidosAlmacen.hojaObra":"Hoja Obra",
-  "PedidosAlmacen.pedidoProveedor":"Pedido Proveedor"
+  "PedidosAlmacen.pedidoProveedor":"Pedido Proveedor",
+  "Presupuestos.tabs.capitulosPartidas":"Capítulos - Partidas"
 }
