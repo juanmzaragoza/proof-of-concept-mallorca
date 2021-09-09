@@ -14,6 +14,7 @@ import ExpandableGrid from "modules/ExpandableGrid";
 import { useTabForm } from "hooks/tab-form";
 import ButtonPopUp from "modules/ButtonPopUp";
 import ButtonHref from "modules/ButtonHref";
+import { paisNif } from "redux/api";
 
 const SUPPLIERS_SECTION_INDEX = 0;
 const ADDRESS_SECTION_TAB_INDEX = 1;
@@ -369,7 +370,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Proveedores.pais_nif",
+        id: "Clientes.pais_nif",
         defaultMessage: "País NIF",
       }),
       type: "LOV",
@@ -380,44 +381,12 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       selector: {
         key: "paisNifs",
-        labelKey: formatCodeAndName,
+        labelKey:  (data) =>
+        `${data.description === undefined ? data.nom : data.description} (${
+          data.id
+        })`,
         sort: "nom",
-        transform: {
-          apply: (pais) => pais && pais.codi,
-          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-        },
-        creationComponents: [
-          ...codeAndName(6, 6),
-          {
-            placeHolder: props.intl.formatMessage({
-              id: "Proveedores.tamanyNif",
-              defaultMessage: "tamanyNif",
-            }),
-            type: "input",
-            key: "tamanyNif",
-            breakpoints: {
-              xs: 12,
-              md: 6,
-            },
-            validationType: "string",
-            validations: [...props.stringValidations.minMaxValidation(1, 30)],
-          },
-          {
-            placeHolder: props.intl.formatMessage({
-              id: "Proveedores.tipoDoc",
-              defaultMessage: "Tipo Documento",
-            }),
-            type: "select",
-            key: "tipusNif",
-            breakpoints: {
-              xs: 12,
-              md: 6,
-            },
-            selector: {
-              options: TDOC_SELECTOR_VALUES,
-            },
-          },
-        ],
+        cannotCreate: true,
         advancedSearchColumns: aSCodeAndName,
       },
     },
@@ -829,7 +798,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           md: 6,
         },
       },
-    
+
       ...codiPostal(4),
       {
         placeHolder: DEFECTE,

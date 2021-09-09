@@ -136,7 +136,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     getFormData("porta"),
   ]);
 
-  
   useEffect(() => {
     const codiPostal = getString("codiPostal");
     setFormData({
@@ -144,7 +143,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       value: codiPostal ? codiPostal.poblacio : "",
     });
   }, [getFormData("codiPostal")]);
-
 
   const actions = () => {
     const nomFiscal = getString("nomFiscal");
@@ -155,8 +153,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         value: nomComercial ? nomComercial : "",
       });
     }
-    
-  }
+  };
 
   const code = (md = 6) => ({
     type: "input",
@@ -324,8 +321,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     { title: DESCRIPCIO, name: "descripcio" },
   ];
 
- 
- const fireActionOnBlur = props.clients.fireOnChangePaisNif;
+  const fireActionOnBlur = props.clients.fireOnChangePaisNif;
 
   const generalTab = [
     {
@@ -405,7 +401,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "alias",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 30)],
@@ -420,12 +416,15 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "paisNif",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
-      fireActionOnBlur,
+      // fireActionOnBlur,
       selector: {
         key: "paisNifs",
-        labelKey: formatCodeAndName,
+        labelKey: (data) =>
+          `${data.description === undefined ? data.nom : data.description} (${
+            data.id
+          })`,
         sort: "nom",
         creationComponents: [
           ...codeAndName(6, 6),
@@ -494,7 +493,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlur,
+      // fireActionOnBlur,
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -613,7 +612,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "operaris",
         labelKey: formatCodeAndName,
         sort: "nom",
-       
+
         creationComponents: [
           ...codeAndName(),
           {
@@ -1558,4 +1557,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     </Grid>
   );
 };
-export default compose(React.memo, withValidations, withDependentActions, injectIntl)(GeneralTab);
+export default compose(
+  React.memo,
+  withValidations,
+  withDependentActions,
+  injectIntl
+)(GeneralTab);
