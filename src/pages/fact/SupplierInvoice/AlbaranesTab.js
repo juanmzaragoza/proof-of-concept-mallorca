@@ -11,7 +11,6 @@ import * as API from "redux/api";
 import MasterDetailGrid from "modules/ReactGrid/MasterDetailGrid";
 
 const ContabilidadTab = ({ setFormData, getFormData, ...props }) => {
-
   useEffect(() => {
     props.setIsValid(true);
   }, []);
@@ -31,7 +30,7 @@ const ContabilidadTab = ({ setFormData, getFormData, ...props }) => {
       },
     ],
     extraPostBody: {
-        facturaProveidor: { id: facturaId },
+      facturaProveidor: { id: facturaId },
     },
     columns: [
       {
@@ -54,7 +53,7 @@ const ContabilidadTab = ({ setFormData, getFormData, ...props }) => {
           id: "Proyectos.referencia",
           defaultMessage: "Referencia",
         }),
-        hidden:true,
+        hidden: true,
       },
       {
         name: "cls",
@@ -62,7 +61,7 @@ const ContabilidadTab = ({ setFormData, getFormData, ...props }) => {
           id: "FacturasProveedor.clase",
           defaultMessage: "CLase",
         }),
-        hidden:true,
+        hidden: true,
       },
       {
         name: "dia",
@@ -80,7 +79,6 @@ const ContabilidadTab = ({ setFormData, getFormData, ...props }) => {
           defaultMessage: "Proyecto",
         }),
         getCellValue: (row) => row.projecte && row.projecte?.description,
-     
       },
       {
         name: "kilos",
@@ -129,13 +127,12 @@ const ContabilidadTab = ({ setFormData, getFormData, ...props }) => {
           defaultMessage: "Serie",
         }),
         getCellValue: (row) => row.serieCompra && row.serieCompra?.description,
-        hidden:true,
-
+        hidden: true,
       },
       {
         name: "proveidor",
         title: props.intl.formatMessage({
-          id:"FacturasProveedor.proveedor",
+          id: "FacturasProveedor.proveedor",
           defaultMessage: "proveedor",
         }),
         getCellValue: (row) => row.proveidor && row.proveidor?.description,
@@ -155,71 +152,71 @@ const ContabilidadTab = ({ setFormData, getFormData, ...props }) => {
     disabledFiltering: true,
     disabledActions: true,
     enableInlineEdition: true,
-    enableExpandableContent: true
+    enableExpandableContent: true,
   };
 
   const config = {
     title: props.intl.formatMessage({
       id: "Proveedores.titulo",
-      defaultMessage: "Proveedores"
+      defaultMessage: "Proveedores",
     }),
     columns: [
       {
-        name: 'article',
+        name: "article",
         title: props.intl.formatMessage({
           id: "FacturasProveedor.liniaAlbaran.articulo",
-          defaultMessage: "Artículo"
+          defaultMessage: "Artículo",
         }),
         getCellValue: (row) => row.article?.description,
       },
       {
-        name: 'descripcio',
+        name: "descripcio",
         title: props.intl.formatMessage({
           id: "Comun.descripcion",
-          defaultMessage: "Descripción"
-        })
+          defaultMessage: "Descripción",
+        }),
       },
       {
-        name: 'unitats',
+        name: "unitats",
         title: props.intl.formatMessage({
           id: "FacturasProveedor.liniaAlbaran.unidades",
-          defaultMessage: "Unidades"
-        })
+          defaultMessage: "Unidades",
+        }),
       },
       {
-        name: 'preu',
+        name: "preu",
         title: props.intl.formatMessage({
           id: "FacturasProveedor.liniaAlbaran.precio",
-          defaultMessage: "Precio"
-        })
+          defaultMessage: "Precio",
+        }),
       },
       {
-        name: 'iva',
+        name: "iva",
         title: props.intl.formatMessage({
           id: "FacturasProveedor.liniaAlbaran.iva",
-          defaultMessage: "IVA"
+          defaultMessage: "IVA",
         }),
         getCellValue: (row) => row.iva?.description,
       },
       {
-        name: 'descompte',
+        name: "descompte",
         title: props.intl.formatMessage({
           id: "FacturasProveedor.liniaAlbaran.descuento",
-          defaultMessage: "Descuento"
-        })
+          defaultMessage: "Descuento",
+        }),
       },
       {
-        name: 'imports',
+        name: "imports",
         title: props.intl.formatMessage({
           id: "FacturasProveedor.liniaAlbaran.imports",
-          defaultMessage: "Importes"
-        })
+          defaultMessage: "Importes",
+        }),
       },
     ],
     URL: API.liniesAlbaraProveidor,
-    listKey: 'liniaAlbaraProveidors',
+    listKey: "liniaAlbaraProveidors",
     enableInlineEdition: true,
-    enableExpandableContent: false
+    enableExpandableContent: false,
   };
 
   return (
@@ -237,26 +234,33 @@ const ContabilidadTab = ({ setFormData, getFormData, ...props }) => {
           <ReactGrid
             id="albaransProveidor"
             configuration={albaranConfig}
+            extraQuery={[{
+              columnName: "facturaProveidor.id",
+              value: `"${facturaId}"`,
+              exact: true,
+            }]}
           >
-            {expandedProps => {
-              console.log(expandedProps)
+            {(expandedProps) => {
+              console.log(expandedProps);
               const query = [
                 {
-                  columnName: 'albaraProveidor.id',
+                  columnName: "albaraProveidor.id",
                   value: `'${expandedProps.row.id}'`,
-                  exact: true
-                }
-              ]
-              return <MasterDetailGrid
-                id={"liniesAlbaraProveidor"}
-                extraQuery={query}
-                configuration={config}
-                row={expandedProps.row}
-                onCancel={expandedProps.onCancel}
-                onSuccess={expandedProps.onSuccess} />
+                  exact: true,
+                },
+              ];
+              return (
+                <MasterDetailGrid
+                  id={"liniesAlbaraProveidor"}
+                  extraQuery={query}
+                  configuration={config}
+                  row={expandedProps.row}
+                  onCancel={expandedProps.onCancel}
+                  onSuccess={expandedProps.onSuccess}
+                />
+              );
             }}
           </ReactGrid>
-
         </OutlinedContainer>
       </Grid>
     </Grid>

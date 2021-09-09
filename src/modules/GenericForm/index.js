@@ -294,14 +294,14 @@ const GenericForm = ({ loading, ...props }) => {
                     ? props.getFormData(key)
                     : false
                 }
-                onChange={(e) =>
+                onChange={(e) => {
+                  handleChange(e, e.currentTarget.checked);
                   props.setFormData({ key, value: e.currentTarget.checked })
-                }
+                }}
                 name={key}
                 disabled={noEnable}
                 color="primary"
                 required={required}
-                onBlur={(e) => handleBlur(e, key)}
               />
             }
             label={placeHolder}

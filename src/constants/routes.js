@@ -140,3 +140,5 @@ export const CERTIFIACTION_FACT_URL = "/fact/certificaciones";
 export const DELEGATION_TYPE_FACT_URL = "/fact/delegaciones";
 export const EXPEDIENT_FACT_URL = "/fact/expedientes";
 export const COSTS_FACT_URL = "/fact/costes";
+export const SUPPLIERS_RATES_FACT_URL = "/fact/tarifas-proveedor";
+export const STORE_ORDERS_FACT_URL = "/fact/pedidos-almacen";

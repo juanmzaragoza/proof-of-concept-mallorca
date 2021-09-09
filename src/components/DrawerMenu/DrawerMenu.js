@@ -124,6 +124,22 @@ const DrawerMenu = ({loading, functionalities, selectedModule, constants, getter
     const classes = useStyles();
     const [open, setOpen] = useState(false);
 
+    useEffect(()=>{
+      const shouldOpen = ({route}) => {
+        // first level
+        if(route.children){
+          return shouldOpen({route: route.children});
+        } else if(Array.isArray(route) && !route[0].key) { // second level no-leaf
+          return some(route,
+            (r) => shouldOpen({route: r.children}));
+        } else { // third level leaf
+          return some(route,
+            (r) => history.location.pathname === r.path);
+        }
+      }
+      setOpen(shouldOpen({route}));
+    },[route]);
+
     const handleOnClick = (e) => {
       setOpen(!open);
     }

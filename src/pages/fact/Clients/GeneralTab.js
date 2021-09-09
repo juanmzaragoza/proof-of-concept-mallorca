@@ -8,7 +8,7 @@ import { Chip } from "@material-ui/core";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
-import { withValidations } from "modules/wrappers";
+import { withValidations, withDependentActions } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
 import {
   TIPO_CLIENTE_SELECTOR_VALUES,
@@ -136,7 +136,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     getFormData("porta"),
   ]);
 
-  
   useEffect(() => {
     const codiPostal = getString("codiPostal");
     setFormData({
@@ -144,7 +143,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       value: codiPostal ? codiPostal.poblacio : "",
     });
   }, [getFormData("codiPostal")]);
-
 
   const actions = () => {
     const nomFiscal = getString("nomFiscal");
@@ -155,8 +153,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         value: nomComercial ? nomComercial : "",
       });
     }
-    
-  }
+  };
 
   const code = (md = 6) => ({
     type: "input",
@@ -324,7 +321,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     { title: DESCRIPCIO, name: "descripcio" },
   ];
 
- 
+  const fireActionOnBlur = props.clients.fireOnChangePaisNif;
+
   const generalTab = [
     {
       placeHolder: CODE,
@@ -403,7 +401,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "alias",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 30)],
@@ -418,11 +416,15 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "paisNif",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
+      // fireActionOnBlur,
       selector: {
         key: "paisNifs",
-        labelKey: formatCodeAndName,
+        labelKey: (data) =>
+          `${data.description === undefined ? data.nom : data.description} (${
+            data.id
+          })`,
         sort: "nom",
         creationComponents: [
           ...codeAndName(6, 6),
@@ -491,6 +493,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
+      // fireActionOnBlur,
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -609,7 +612,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "operaris",
         labelKey: formatCodeAndName,
         sort: "nom",
-       
+
         creationComponents: [
           ...codeAndName(),
           {
@@ -1554,4 +1557,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     </Grid>
   );
 };
-export default compose(React.memo, withValidations, injectIntl)(GeneralTab);
+export default compose(
+  React.memo,
+  withValidations,
+  withDependentActions,
+  injectIntl
+)(GeneralTab);

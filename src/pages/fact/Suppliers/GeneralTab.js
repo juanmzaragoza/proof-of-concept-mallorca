@@ -11,8 +11,9 @@ import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
-
 import { useTabForm } from "hooks/tab-form";
+import ButtonHref from "modules/ButtonHref";
+import { paisNif } from "redux/api";
 
 const SUPPLIERS_SECTION_INDEX = 0;
 const ADDRESS_SECTION_TAB_INDEX = 1;
@@ -274,7 +275,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     };
   };
 
- const actions = () =>  {
+  const actions = () => {
     const nomFiscal = getString("nomFiscal");
     const nomComercial = getString("nomComercial");
     if (!nomFiscal) {
@@ -368,7 +369,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Proveedores.pais_nif",
+        id: "Clientes.pais_nif",
         defaultMessage: "País NIF",
       }),
       type: "LOV",
@@ -379,44 +380,12 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       selector: {
         key: "paisNifs",
-        labelKey: formatCodeAndName,
+        labelKey:  (data) =>
+        `${data.description === undefined ? data.nom : data.description} (${
+          data.id
+        })`,
         sort: "nom",
-        transform: {
-          apply: (pais) => pais && pais.codi,
-          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-        },
-        creationComponents: [
-          ...codeAndName(6, 6),
-          {
-            placeHolder: props.intl.formatMessage({
-              id: "Proveedores.tamanyNif",
-              defaultMessage: "tamanyNif",
-            }),
-            type: "input",
-            key: "tamanyNif",
-            breakpoints: {
-              xs: 12,
-              md: 6,
-            },
-            validationType: "string",
-            validations: [...props.stringValidations.minMaxValidation(1, 30)],
-          },
-          {
-            placeHolder: props.intl.formatMessage({
-              id: "Proveedores.tipoDoc",
-              defaultMessage: "Tipo Documento",
-            }),
-            type: "select",
-            key: "tipusNif",
-            breakpoints: {
-              xs: 12,
-              md: 6,
-            },
-            selector: {
-              options: TDOC_SELECTOR_VALUES,
-            },
-          },
-        ],
+        cannotCreate: true,
         advancedSearchColumns: aSCodeAndName,
       },
     },
@@ -828,23 +797,15 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           md: 6,
         },
       },
-      {
-        placeHolder: WWW,
-        type: "input",
-        key: "web",
-        breakpoints: {
-          xs: 12,
-          md: 6,
-        },
-      },
-      ...codiPostal(6),
+
+      ...codiPostal(4),
       {
         placeHolder: DEFECTE,
         type: "checkbox",
         key: "defecte",
         breakpoints: {
           xs: 12,
-          md: 6,
+          md: 2,
         },
       },
       {
@@ -863,7 +824,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   };
 
   const SuppliersTypeConfig = {
-    title:  props.intl.formatMessage({
+    title: props.intl.formatMessage({
       id: "Proveedores.tipos_proveedor",
       defaultMessage: "Tipos Proveedores",
     }),
@@ -948,7 +909,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     ],
     formComponents: [
-
       {
         placeHolder: props.intl.formatMessage({
           id: "Proveedores.cajas",
@@ -1082,6 +1042,21 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           <ConfigurableTabs tabs={tabs} />
         </OutlinedContainer>
       </Grid>
+      {/* <ButtonPopUp
+        title={"Tarifas PopUp"}
+        configuration={commercialAddressesConfig}
+        id="adresaComercials"
+        responseKey="adresaComercials"
+        enabled={props.editMode}
+        size={5}
+      /> */}
+      <ButtonHref
+        title={props.intl.formatMessage({
+          id: "Tarifa.titulo",
+          defaultMessage: "Tarifas",
+        })}
+        href={`/fact/tarifas-proveedor?proveedor=${getString("codi")}`}
+      />
     </Grid>
   );
 };
