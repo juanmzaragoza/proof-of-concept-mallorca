@@ -8,7 +8,7 @@ import { Chip } from "@material-ui/core";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
-import { withValidations } from "modules/wrappers";
+import { withValidations, withDependentActions } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
 import {
   TIPO_CLIENTE_SELECTOR_VALUES,
@@ -325,6 +325,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   ];
 
  
+ const fireActionOnBlur = props.clients.fireOnChangePaisNif;
+
   const generalTab = [
     {
       placeHolder: CODE,
@@ -420,6 +422,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
+      fireActionOnBlur,
       selector: {
         key: "paisNifs",
         labelKey: formatCodeAndName,
@@ -491,6 +494,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
+      fireActionOnBlur,
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -1554,4 +1558,4 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     </Grid>
   );
 };
-export default compose(React.memo, withValidations, injectIntl)(GeneralTab);
+export default compose(React.memo, withValidations, withDependentActions, injectIntl)(GeneralTab);

@@ -103,9 +103,20 @@ const withDependentActions = (PassedComponent) => {
       return doRequest({ id, key, getFormData, fields });
     }
 
+    const fireOnChangePaisNif = ({ key, getFormData }) => {
+      const id = 'validarNif';
+      const fields = [
+       {key: 'paisNif', react: true},
+        {key: 'nif', react: true},
+      ];
+      // call to service
+      return doRequest({ id, key, getFormData, fields });
+    }
+
     return <PassedComponent
       articles={{ fireOnChangePrice, fireOnChangeUpdate }}
 	    rates={{ fireOnChangeCalculateMargin }}
+      clients={{ fireOnChangePaisNif }}
       {...props} />;
   }
 

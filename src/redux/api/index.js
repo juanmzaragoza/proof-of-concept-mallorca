@@ -320,3 +320,5 @@ export const lote = `api/fact/lots`;
 export const tarifesProveidorPressupost = `api/fact/tarifesProveidorPressupost`;
 export const costosPressupost = `api/fact/costosPressupost`;
 export const incidenciesFactura = `api/fact/incidenciesFactura`;
+
+export const validarNif = 'api/fact/clients/validarNif';
