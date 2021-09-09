@@ -1,25 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
 
-
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
-import ExpandableGrid from "modules/ExpandableGrid";
+import ReactGrid from "modules/ReactGrid";
+import * as API from "redux/api";
+import MasterDetailGrid from "modules/ReactGrid/MasterDetailGrid";
 
+const ContabilidadTab = ({ setFormData, getFormData, ...props }) => {
 
-
-const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
   useEffect(() => {
     props.setIsValid(true);
   }, []);
 
-
   const { id: facturaId } = useParams();
-
-
 
   const albaranConfig = {
     title: props.intl.formatMessage({
@@ -36,8 +33,6 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
     extraPostBody: {
         facturaProveidor: { id: facturaId },
     },
-
-
     columns: [
       {
         name: "numero",
@@ -101,10 +96,6 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Bultos",
         }),
       },
-
-    
-      
-     
       {
         name: "operariCodi",
         title: props.intl.formatMessage({
@@ -159,9 +150,77 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         hidden: true,
       },
     ],
-    formComponents: [],
+    URL: API.albaransProveidor,
+    listKey: "albaraProveidors",
+    disabledFiltering: true,
+    disabledActions: true,
+    enableInlineEdition: true,
+    enableExpandableContent: true
   };
 
+  const config = {
+    title: props.intl.formatMessage({
+      id: "Proveedores.titulo",
+      defaultMessage: "Proveedores"
+    }),
+    columns: [
+      {
+        name: 'article',
+        title: props.intl.formatMessage({
+          id: "FacturasProveedor.liniaAlbaran.articulo",
+          defaultMessage: "Artículo"
+        }),
+        getCellValue: (row) => row.article?.description,
+      },
+      {
+        name: 'descripcio',
+        title: props.intl.formatMessage({
+          id: "Comun.descripcion",
+          defaultMessage: "Descripción"
+        })
+      },
+      {
+        name: 'unitats',
+        title: props.intl.formatMessage({
+          id: "FacturasProveedor.liniaAlbaran.unidades",
+          defaultMessage: "Unidades"
+        })
+      },
+      {
+        name: 'preu',
+        title: props.intl.formatMessage({
+          id: "FacturasProveedor.liniaAlbaran.precio",
+          defaultMessage: "Precio"
+        })
+      },
+      {
+        name: 'iva',
+        title: props.intl.formatMessage({
+          id: "FacturasProveedor.liniaAlbaran.iva",
+          defaultMessage: "IVA"
+        }),
+        getCellValue: (row) => row.iva?.description,
+      },
+      {
+        name: 'descompte',
+        title: props.intl.formatMessage({
+          id: "FacturasProveedor.liniaAlbaran.descuento",
+          defaultMessage: "Descuento"
+        })
+      },
+      {
+        name: 'imports',
+        title: props.intl.formatMessage({
+          id: "FacturasProveedor.liniaAlbaran.imports",
+          defaultMessage: "Importes"
+        })
+      },
+    ],
+    URL: API.liniesAlbaraProveidor,
+    listKey: 'liniaAlbaraProveidors',
+    enableInlineEdition: true,
+    enableExpandableContent: false
+  };
 
   return (
     <Grid container spacing={2}>
@@ -175,13 +234,29 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
             />
           }
         >
-          <ExpandableGrid
-          id="albaransProveidor"
-          responseKey="albaraProveidors"
-          enabled={props.editMode}
-          configuration={albaranConfig}
-          readOnly={true}
-        />
+          <ReactGrid
+            id="albaransProveidor"
+            configuration={albaranConfig}
+          >
+            {expandedProps => {
+              console.log(expandedProps)
+              const query = [
+                {
+                  columnName: 'albaraProveidor.id',
+                  value: `'${expandedProps.row.id}'`,
+                  exact: true
+                }
+              ]
+              return <MasterDetailGrid
+                id={"liniesAlbaraProveidor"}
+                extraQuery={query}
+                configuration={config}
+                row={expandedProps.row}
+                onCancel={expandedProps.onCancel}
+                onSuccess={expandedProps.onSuccess} />
+            }}
+          </ReactGrid>
+
         </OutlinedContainer>
       </Grid>
     </Grid>

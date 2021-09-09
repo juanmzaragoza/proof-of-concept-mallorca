@@ -69,7 +69,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       value: proveedor?.nif ? proveedor.nif : getNifProveedor,
     });
 
-    console.log(getProveedor,proveedor)
   }, [getFormData("proveidor")]);
 
   const code = (md = 6) => ({
