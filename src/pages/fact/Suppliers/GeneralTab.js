@@ -11,8 +11,9 @@ import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
-
 import { useTabForm } from "hooks/tab-form";
+import ButtonPopUp from "modules/ButtonPopUp";
+import ButtonHref from "modules/ButtonHref";
 
 const SUPPLIERS_SECTION_INDEX = 0;
 const ADDRESS_SECTION_TAB_INDEX = 1;
@@ -274,7 +275,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     };
   };
 
- const actions = () =>  {
+  const actions = () => {
     const nomFiscal = getString("nomFiscal");
     const nomComercial = getString("nomComercial");
     if (!nomFiscal) {
@@ -828,23 +829,15 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           md: 6,
         },
       },
-      {
-        placeHolder: WWW,
-        type: "input",
-        key: "web",
-        breakpoints: {
-          xs: 12,
-          md: 6,
-        },
-      },
-      ...codiPostal(6),
+    
+      ...codiPostal(4),
       {
         placeHolder: DEFECTE,
         type: "checkbox",
         key: "defecte",
         breakpoints: {
           xs: 12,
-          md: 6,
+          md: 2,
         },
       },
       {
@@ -863,7 +856,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   };
 
   const SuppliersTypeConfig = {
-    title:  props.intl.formatMessage({
+    title: props.intl.formatMessage({
       id: "Proveedores.tipos_proveedor",
       defaultMessage: "Tipos Proveedores",
     }),
@@ -948,7 +941,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     ],
     formComponents: [
-
       {
         placeHolder: props.intl.formatMessage({
           id: "Proveedores.cajas",
@@ -1082,6 +1074,21 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           <ConfigurableTabs tabs={tabs} />
         </OutlinedContainer>
       </Grid>
+      {/* <ButtonPopUp
+        title={"Tarifas PopUp"}
+        configuration={commercialAddressesConfig}
+        id="adresaComercials"
+        responseKey="adresaComercials"
+        enabled={props.editMode}
+        size={5}
+      /> */}
+      <ButtonHref
+        title={props.intl.formatMessage({
+          id: "Tarifa.titulo",
+          defaultMessage: "Tarifas",
+        })}
+        href={`/fact/tarifas-proveedor?proveedor=${getString("codi")}`}
+      />
     </Grid>
   );
 };

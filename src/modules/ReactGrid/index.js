@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import PropTypes from "prop-types";
 import {withSnackbar} from "notistack";
 import {injectIntl} from "react-intl";
@@ -9,14 +9,15 @@ import {isEmpty, unionBy} from "lodash";
 import Promise from "lodash/_Promise";
 import DataGrid,
 {
-  Scrolling,
   Pager,
   Paging,
   HeaderFilter,
   FilterRow,
   Column,
   Editing,
-  Button
+  Button,
+  MasterDetail,
+  Selection
 } from 'devextreme-react/data-grid';
 import CustomStore from "devextreme/data/custom_store";
 
@@ -29,24 +30,30 @@ import {
 } from "redux/reactGrid/selectors";
 import {
   deleteData,
-  reset,
+  resetGrid,
   searchData,
   updateData
 } from "redux/reactGrid";
 import {Loading} from "modules/shared/Loading";
 import LOVCellComponent from "./LOVCellComponent";
+
 import './styles.scss';
 
-const ReactGrid = ({ configuration, enqueueSnackbar,
+const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
                      rows, loading, pageSize, totalCount, errors,
-                     extraQuery, onClickRow,
+                     extraQuery = [], onClickRow,
                      actions, ...props }) => {
 
   const history = useHistory();
+  const dataGrid = useRef(null);
   const [columns] = useState(configuration.columns);
   const [currentPage, setCurrentPage] = useState(0);
   const [sorting, setSorting] = useState([]);
   const [filters, setFilters] = useState([]);
+  const [expandedRow, setExpandedRow] = useState(null);
+
+  const [expandedData, setExpandedData] = useState({});
+  const [store, setStore] = useState(null);
 
   const deleteData = (row) => {
     actions.deleteData({ key: props.id, id: row.id });
@@ -59,13 +66,24 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
     actions.loadData({ apiId: props.id, method, body, key: configuration.listKey, page: currentPage, query, sorting});
   };
 
+  useEffect(() => {
+    return () => actions.reset();
+  },[]);
+
   // executed when mounts component and when vars change
-  useEffect(() => loadData(),[currentPage,sorting,filters,extraQuery]);
+  useEffect(() => {
+    loadData()
+  },[
+    currentPage,
+    JSON.stringify(sorting),
+    JSON.stringify(filters),
+    JSON.stringify(extraQuery)
+  ]);
 
   // if the filters change
   useEffect(() => {
     setCurrentPage(0);
-  },[extraQuery]);
+  },[filters, extraQuery]);
 
   useEffect(()=>{
     if(!isEmpty(errors)){
@@ -76,24 +94,36 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
     }
   },[errors]);
 
-  const store = new CustomStore({
-    key: 'id',
-    load: (loadOptions) => {
-      return new Promise((resolve, reject) => {
-        resolve({
-          data: rows,
-          totalCount: totalCount,
+  useEffect(()=>{
+    const customStore = new CustomStore({
+      key: 'id',
+      load: (loadOptions) => {
+        return new Promise((resolve, reject) => {
+          resolve({
+            data: rows,
+            totalCount: totalCount,
+          })
         })
-      })
-    },
-    update: (key, values) => {
-      const row = rows.find(row => row.id === key);
-      if(row){
-        const changedRow = { ...row, ...values };
-        actions.updateData({ key: props.id, id: row.id, data: changedRow });
+      },
+      update: (key, values) => {
+        const changedRow = updateRow(key,values);
+        if(changedRow){
+          actions.updateData({ key: props.id, id: changedRow.id, data: changedRow });
+          expandedData && setExpandedData(changedRow);
+        }
       }
+    });
+    setStore(customStore);
+  },[JSON.stringify(rows),totalCount]);
+
+  const updateRow = (key, values) => {
+    let changedRow = null;
+    const row = rows.find(row => row.id === key);
+    if(row){
+      changedRow = { ...row, ...values };
     }
-  });
+    return changedRow;
+  }
 
   /**
    * Handler to filter and sorting
@@ -137,11 +167,54 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
     }
   }
 
+  const isExpandableEnabled = !!configuration.enableExpandableContent;
+  const expandableOptions = isExpandableEnabled?
+    {
+      onSelectionChanged: (e) => {
+        e.component.collapseAll(-1);
+      },
+      onFocusedRowChanged: (e) => {
+        e.component.collapseAll(-1);
+        if(e.row && !expandedRow) {
+          e.component.expandRow(e.row.key);
+          setExpandedData(e.row.data);
+          setExpandedRow(e.row.key);
+        } else{
+          setExpandedRow(null);
+        }
+      },
+      onRowCollapsed: (e) => {
+        setExpandedRow(null);
+      }
+    }:{};
+
+  const collapseAllRows = useCallback(() => {
+    dataGrid.current.instance.collapseAll(-1);
+    setExpandedRow(null);
+  }, [dataGrid, expandedRow]);
+
+  /** This component is like a decorator that adds properties to children */
+  const ExpandableContent = () => {
+    return (
+      props.children({
+        ...props,
+        row: expandedData,
+        onCancel: () => {
+          collapseAllRows();
+        },
+        onSuccess: (updatedData) => {
+          collapseAllRows();
+          loadData();
+        }
+      })
+    )
+  }
+
   return (
     <React.Fragment>
       <DataGrid
-        id='gridContainer'
-        keyExpr="id"
+        id={`gridContainer_${props.id}`}
+        ref={dataGrid}
         dataSource={store}
         showBorders={true}
         columnAutoWidth={true}
@@ -150,6 +223,8 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
         showRowLines={true}
         focusedRowEnabled={true}
         onOptionChanged={handleOptionChanged}
+        repaintChangesOnly={true}
+        {...expandableOptions}
       >
         {!configuration.disabledFiltering && <HeaderFilter visible={false} />}
         {!configuration.disabledFiltering && <FilterRow visible={true} />}
@@ -174,15 +249,20 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
           <Button icon="edit" onClick={e => history.push(`${history.location.pathname}/${e.row.data.id}`)}/>
           <Button icon="trash" onClick={e => deleteData(e.row.data)} />
         </Column>}
+        <Selection mode="single" />
+        <MasterDetail
+          enabled={isExpandableEnabled}
+          component={() => isExpandableEnabled && <ExpandableContent />}
+        />
 
         {configuration.enableInlineEdition && <Editing
           allowUpdating={true}
-          allowDeleting={true}
+          allowDeleting={!configuration.disabledActions}
           mode="cell" />}
 
-        <Scrolling rowRenderingMode='virtual'></Scrolling>
         <Paging
-          defaultPageSize={pageSize}
+          pageSize={pageSize}
+          defaultPageSize={10}
           onPageIndexChange={setCurrentPage}  />
         <Pager
           visible={true}
@@ -198,7 +278,7 @@ const ReactGrid = ({ configuration, enqueueSnackbar,
       {loading && <Loading />}
     </React.Fragment>
   )
-}
+}, (oldProps,newProps) => JSON.stringify(oldProps) === JSON.stringify(newProps))
 
 ReactGrid.propTypes = {
   id: PropTypes.string.isRequired,
@@ -214,22 +294,23 @@ ReactGrid.propTypes = {
     enableInlineEdition: PropTypes.bool,
     disabledActions: PropTypes.bool,
     disabledFiltering: PropTypes.bool,
+    enableExpandableContent: PropTypes.bool,
     method: PropTypes.oneOf(['post','put','patch']),
     body: PropTypes.object
   }),
   extraQuery: PropTypes.arrayOf(PropTypes.shape({
     columnName: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired
-  }))
+  })),
 };
 
 const mapStateToProps = (state, props) => {
   return {
-    rows: getRows(state),
-    totalCount: getTotalCount(state),
-    loading: getLoading(state),
-    pageSize: getPageSize(state),
-    errors: getErrors(state),
+    rows: getRows(state, props.id),
+    totalCount: getTotalCount(state, props.id),
+    loading: getLoading(state, props.id),
+    pageSize: getPageSize(state, props.id),
+    errors: getErrors(state, props.id),
   };
 };
 
@@ -238,7 +319,7 @@ const mapDispatchToProps = (dispatch, props) => {
     updateData: bindActionCreators(updateData, dispatch),
     loadData: bindActionCreators(searchData, dispatch),
     deleteData: bindActionCreators(deleteData, dispatch),
-    reset: bindActionCreators(reset, dispatch),
+    reset: bindActionCreators(() => resetGrid({ gridId: props.id }), dispatch),
   };
   return { actions };
 };
