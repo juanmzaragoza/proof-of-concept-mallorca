@@ -16,6 +16,13 @@ import {SUPPLIERS_FACT_URL} from "constants/routes";
 const URL = SUPPLIERS_FACT_URL;
 
 // suppliers list
+const mapStateToProps = (state, props) => {
+  return {
+    detailedComponent: SuppliersFormWithUrl,
+    url: API.suppliers
+  };
+};
+
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
     setListingConfig: bindActionCreators(setListingConfig, dispatch),
@@ -26,7 +33,7 @@ const mapDispatchToProps = (dispatch, props) => {
 
 const SuppliersListIntl = compose(
   injectIntl,
-  connect(null,mapDispatchToProps)
+  connect(mapStateToProps,mapDispatchToProps)
 )(SuppliersList);
 
 // suppliers form

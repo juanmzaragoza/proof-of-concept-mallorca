@@ -1210,3 +1210,31 @@ export const TIPO_PUBLICAR_WEB_SELECTOR_VALUES = [
     label: "Según Cliente",
   },
 ];
+
+export const TIPO_TARIFA_PROVEEDOR_SELECTOR_VALUES = [
+  {
+    value: "GENERAL",
+    labelId: "Selector.general",
+    label: "General",
+  },
+  {
+    value: "BASICA",
+    labelId: "Selector.basica",
+    label: "Básica",
+  },
+ 
+];
+
+export const TIPO_DESC_PROVEEDOR_SELECTOR_VALUES = [
+  {
+    value: "FIJO",
+    labelId: "Selector.fijo",
+    label: "FIJO",
+  },
+  {
+    value: "SEGON_ARTICLE",
+    labelId: "Selector.segunArticulo",
+    label: "Según Artículo",
+  },
+ 
+];
