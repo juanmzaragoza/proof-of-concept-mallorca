@@ -12,7 +12,6 @@ import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
 import { useTabForm } from "hooks/tab-form";
-import ButtonPopUp from "modules/ButtonPopUp";
 import ButtonHref from "modules/ButtonHref";
 import { paisNif } from "redux/api";
 
