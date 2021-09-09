@@ -102,6 +102,7 @@ import Delegation from "./Delegation";
 import Expedients from "./Expedients";
 import Costes from "./Costes";
 import SupplierRates from "./SupplierRates";
+import StoreOrders from "./StoreOrders";
 
 const component = [
   SuppliersFamily,
@@ -215,7 +216,8 @@ const component = [
   Delegation,
   Expedients,
   Costes,
-  SupplierRates
+  SupplierRates,
+  StoreOrders
 ];
 
 export default component;

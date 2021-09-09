@@ -2092,5 +2092,14 @@
   "Tarifa.tipoDescuento1": "Tipo Descuento 1",
   "Tarifa.tipoDescuento2": "Tipo Descuento 2",
   "Selector.segunArticulo": "Según Artículo",
-  "Selector.fijo": "Fijo"
+  "Selector.fijo": "Fijo",
+  "PedidosAlmacen.titulo": "Pedidos Almacén",
+  "PedidosAlmacen.almacen": "Almacén",
+  "PedidosAlmacen.cliente": "Cliente",
+  "Clientes.fact.dirComercial": "Dirección Comercial",
+  "PedidosAlmacen.encargado": "Encargado",
+  "PedidosAlmacen.operario": "Operario",
+  "PedidosAlmacen.avisar":"Avisar",
+  "PedidosAlmacen.hojaObra":"Hoja Obra",
+  "PedidosAlmacen.pedidoProveedor":"Pedido Proveedor"
 }

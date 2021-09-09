@@ -283,8 +283,9 @@ export const comptesTraspasMagatzem = "api/fact/comptesTraspasMagatzem";
 export const liniesFinalFactura = `api/fact/liniesFinalFactura`;
 
 export const preuArticles = `api/fact/preusArticle`;
-export const preusArticleCalcularPreusMargeAmbDescompte = 'api/fact/preusArticle/calcularPreusMargeAmbDescompte';
-export const articlesUpdatePrice = 'api/fact/articles/actualitzarPreus';
+export const preusArticleCalcularPreusMargeAmbDescompte =
+  "api/fact/preusArticle/calcularPreusMargeAmbDescompte";
+export const articlesUpdatePrice = "api/fact/articles/actualitzarPreus";
 export const comptesClient = "api/fact/comptesClient";
 export const comptesProveidor = "api/fact/comptesProveidor";
 export const familiesGamma = "api/fact/familiesGamma";
@@ -293,7 +294,8 @@ export const familiesModel = "api/fact/familiesModel";
 export const areaNegocis = `api/fact/areaNegocis`;
 export const seriesAreaNegoci = `api/fact/seriesAreaNegoci`;
 
-export const calcularPvpMargeDescompte = 'api/fact/articles/calcularPvpMargeDescompte';
+export const calcularPvpMargeDescompte =
+  "api/fact/articles/calcularPvpMargeDescompte";
 export const tarifaProveidor = `api/fact/tarifesProveidor`;
 export const liniesComandaProveidor = `api/fact/liniesComandaProveidor`;
 export const recollidaObjecte = `api/fact/recollidesObjecte`;
@@ -321,4 +323,6 @@ export const tarifesProveidorPressupost = `api/fact/tarifesProveidorPressupost`;
 export const costosPressupost = `api/fact/costosPressupost`;
 export const incidenciesFactura = `api/fact/incidenciesFactura`;
 
-export const validarNif = 'api/fact/clients/validarNif';
+export const validarNif = "api/fact/clients/validarNif";
+export const comandesMagatzem = "api/fact/cmgs";
+export const liniesComandaMagatzem = `api/fact/liniesComandaMagatzem`;
