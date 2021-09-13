@@ -3,6 +3,10 @@ import * as API from "redux/api";
 import AdvancedFilters from "modules/AdvancedFilters";
 import ReactGrid from "modules/ReactGrid";
 import MasterDetailedForm from "../../../modules/ReactGrid/MasterDetailForm";
+import {compose} from "redux";
+import {injectIntl} from "react-intl";
+import {connect} from "react-redux";
+import {withAbmServices, withValidations} from "../../../modules/wrappers";
 
 const SuppliersList = ({actions, ...props}) => {
   const [filters, setFilters] = useState([]);
@@ -194,9 +198,10 @@ const SuppliersList = ({actions, ...props}) => {
         md: 4,
       },
       validationType: "string",
-      /*...withRequiredValidation([
+      validations: [
+        ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 40),
-      ]),*/
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -211,9 +216,10 @@ const SuppliersList = ({actions, ...props}) => {
         md: 4,
       },
       validationType: "string",
-      /*...withRequiredValidation([
+      validations: [
+        ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 40),
-      ]),*/
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -239,7 +245,9 @@ const SuppliersList = ({actions, ...props}) => {
         md: 4,
       },
       validationType: "string",
-      //validations: [...props.stringValidations.minMaxValidation(1, 30)],
+      validations: [
+        ...props.stringValidations.minMaxValidation(1, 30)
+      ],
     },
   ];
 
@@ -257,4 +265,5 @@ const SuppliersList = ({actions, ...props}) => {
   )
 };
 
-export default SuppliersList;
+const component = compose(withValidations)(SuppliersList);
+export default component;
