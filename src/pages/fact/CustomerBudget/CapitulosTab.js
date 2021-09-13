@@ -7,7 +7,9 @@ import OutlinedContainer from "modules/shared/OutlinedContainer";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
-import { TIPO_DESCUENTO_SELECTOR_VALUES } from "constants/selectors";
+import ReactGrid from "modules/ReactGrid";
+import * as API from "redux/api";
+import MasterDetailGrid from "modules/ReactGrid/MasterDetailGrid";
 
 const CapitulosTab = ({ formData, setFormData, getFormData, ...props }) => {
   // warning!!! It's always valid because we haven't validations
@@ -51,6 +53,7 @@ const CapitulosTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true,
       },
       {
         name: "descripcio",
@@ -79,6 +82,7 @@ const CapitulosTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "Presupuestos.gestor",
           defaultMessage: "Gestor",
         }),
+        inlineEditionDisabled: true,
       },
       {
         name: "seriaVendaCodi",
@@ -87,6 +91,7 @@ const CapitulosTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "serie Venta",
         }),
         hidden: true,
+        inlineEditionDisabled: true,
       },
 
       {
@@ -262,6 +267,12 @@ const CapitulosTab = ({ formData, setFormData, getFormData, ...props }) => {
         },
       },
     ],
+    URL: API.capitol,
+    listKey: "capitols",
+    disabledFiltering: true,
+    disabledActions: true,
+    enableInlineEdition: true,
+    enableExpandableContent: true,
   };
 
   const partidasConfig = {
@@ -287,6 +298,7 @@ const CapitulosTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true,
       },
       {
         name: "descripcio",
@@ -302,6 +314,7 @@ const CapitulosTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Capítulo",
         }),
         getCellValue: (row) => row.capitol?.description ?? "",
+        inlineEditionDisabled: true,
       },
 
       {
@@ -319,6 +332,7 @@ const CapitulosTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Gestor",
         }),
         hidden: true,
+        inlineEditionDisabled: true,
       },
       {
         name: "seriaVendaCodi",
@@ -327,6 +341,7 @@ const CapitulosTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "serie Venta",
         }),
         hidden: true,
+        inlineEditionDisabled: true,
       },
 
       {
@@ -600,6 +615,10 @@ const CapitulosTab = ({ formData, setFormData, getFormData, ...props }) => {
         },
       },
     ],
+    URL: API.partida,
+    listKey: "partidas",
+    enableInlineEdition: true,
+    enableExpandableContent: false,
   };
 
   return (
@@ -609,20 +628,53 @@ const CapitulosTab = ({ formData, setFormData, getFormData, ...props }) => {
           className="general-tab-container"
           title={
             <FormattedMessage
-              id={"Presupuestos.tabs.capitulos"}
-              defaultMessage={"Capítulos"}
+              id={"Presupuestos.tabs.capitulosPartidas"}
+              defaultMessage={"Capítulos - Partidas"}
             />
           }
         >
-          <ExpandableGrid
+          <ReactGrid
+            id="capitol"
+            configuration={capitulosConfig}
+            extraQuery={[
+              {
+                columnName: "pressupostCodi",
+                value: `"${presupuestoCodigo}"`,
+                exact: true,
+              },
+            ]}
+          >
+            {(expandedProps) => {
+              console.log(expandedProps);
+              const query = [
+                {
+                  columnName: "capitol.id",
+                  value: `'${expandedProps.row.id}'`,
+                  exact: true,
+                },
+              ];
+              return (
+                <MasterDetailGrid
+                  id={"partida"}
+                  extraQuery={query}
+                  configuration={partidasConfig}
+                  row={expandedProps.row}
+                  onCancel={expandedProps.onCancel}
+                  onSuccess={expandedProps.onSuccess}
+                />
+              );
+            }}
+          </ReactGrid>
+
+          {/* <ExpandableGrid
             id="capitol"
             responseKey="capitols"
             enabled={props.editMode}
             configuration={capitulosConfig}
-          />
+          /> */}
         </OutlinedContainer>
       </Grid>
-      <Grid xs={12} item>
+      {/* <Grid xs={12} item>
         <OutlinedContainer
           className="general-tab-container"
           title={
@@ -639,7 +691,7 @@ const CapitulosTab = ({ formData, setFormData, getFormData, ...props }) => {
             configuration={partidasConfig}
           />
         </OutlinedContainer>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };
