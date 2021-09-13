@@ -310,12 +310,12 @@ export const TIPO_VENCIMIENTO_SELECTOR_VALUES = [
   {
     value: "IMPORT_PORCENTUAL",
     labelId: "Selector.importePorcentual",
-    label: "Importe Porcentual",
+    label: "Importe Porcentual/Días",
   },
   {
     value: "PAGAMENT_TERMINIS",
     labelId: "Selector.pagoTerminio",
-    label: "Pago Terminio",
+    label: "Importe días fijo",
   },
   {
     value: "ESCALAT",
@@ -371,15 +371,16 @@ export const TIPO_MES_SELECTOR_VALUES = [
     label: "Septiembre",
   },
   {
-    value: "NOVEMBRE",
-    labelId: "Selector.mes.noviembre",
-    label: "Noviembre",
-  },
-  {
     value: "OCTUBRE",
     labelId: "Selector.mes.octubre",
     label: "Octubre",
   },
+  {
+    value: "NOVEMBRE",
+    labelId: "Selector.mes.noviembre",
+    label: "Noviembre",
+  },
+  
   {
     value: "DESEMBRE",
     labelId: "Selector.mes.diciembre",
