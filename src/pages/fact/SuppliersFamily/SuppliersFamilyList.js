@@ -67,12 +67,13 @@ const SuppliersFamilyList = ({ actions, ...props }) => {
         }),
       },
       {
-        name: "dricmp",
+        name: "driprfcmp",
         title: props.intl.formatMessage({
           id: "FamiliaProveedores.driprfcmp",
           defaultMessage: "Diario Prof.",
         }),
       },
+
       {
         name: "observacions",
         title: props.intl.formatMessage({
