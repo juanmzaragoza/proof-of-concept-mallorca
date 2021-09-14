@@ -73,7 +73,7 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
 
   // executed when mounts component and when vars change
   useEffect(() => {
-    loadData()
+    loadData();
   },[
     currentPage,
     JSON.stringify(sorting),
@@ -84,7 +84,10 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
   // if the filters change
   useEffect(() => {
     setCurrentPage(0);
-  },[filters, extraQuery]);
+  },[
+    JSON.stringify(filters),
+    JSON.stringify(extraQuery)
+  ]);
 
   useEffect(()=>{
     if(!isEmpty(errors)){
