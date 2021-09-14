@@ -2106,6 +2106,8 @@
   "TiposVencimiento.mesPropuesto":"Mes propuesto",
   "TiposVencimiento.diaPropuesto":"Día propuesto",
   "TiposVencimiento.escalado":"Escalado",
-  "TiposVencimiento.errorPorcentaje": "La suma de todos los % ha de ser igual a 100."
+  "TiposVencimiento.errorPorcentaje": "La suma de todos los % ha de ser igual a 100.",
+  "PrecioArticulos.articulosFamCliente":"Artículos Familia Cliente",
+  "PrecioArticulos.titulo":"Precio Artículos"
   
 }

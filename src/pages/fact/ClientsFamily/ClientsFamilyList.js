@@ -158,6 +158,13 @@ const ClientsFamilyList = ({ actions, ...props }) => {
         getCellValue: (row) => row.tarifaDescompte?.description ?? "",
         field: tarifaDescompte,
       },
+      {
+        name: "observacions",
+        title: props.intl.formatMessage({
+          id: "Comun.observaciones",
+          defaultMessage: "Observaciones",
+        }),
+      },
     ],
     URL: API.familiaClient,
     listKey: "familiaClients",
