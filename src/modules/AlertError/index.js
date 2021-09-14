@@ -8,7 +8,7 @@ import { Grid } from "@material-ui/core";
 
 const AlertError = ({ description, type, cols = 12, ...props }) => {
   return (
-    <Grid item md={6}>
+    <Grid item md={cols}>
       {" "}
       <Alert severity={type}>{description}</Alert>
     </Grid>

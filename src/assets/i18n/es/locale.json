@@ -896,7 +896,7 @@
   "Selector.importeFijo": "Importe Fijo",
   "Selector.importePorcentual": "Importe Porcentual",
   "Selector.escalado": "Escalado",
-  "Selector.pagoTerminio": "Pago terminio",
+  "Selector.pagoTerminio": "Pago plazos",
   "TipusVencimiento.generarCobro": "Generación cobro/pago",
   "TiposVencimiento.mesPago": "Mes pago",
   "TiposVencimiento.mesCierre": "Mes cierre",
