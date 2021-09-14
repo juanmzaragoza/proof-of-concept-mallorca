@@ -298,7 +298,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.precioCompraTeorico",
         defaultMessage: "Precio compra teórico",
       }),
-      type: "input",
+      type: "numeric",
       disabled: true,
       key: "preuCompraTeo",
       breakpoints: {
@@ -312,7 +312,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.precioCosteTeorico",
         defaultMessage: "Precio coste teórico",
       }),
-      type: "input",
+      type: "numeric",
       disabled: true,
       key: "preuCostTeo",
       breakpoints: {
