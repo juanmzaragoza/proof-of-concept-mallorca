@@ -124,7 +124,6 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const fireActionOnBlur = props.articles.fireOnChangePrice;
   const fireArticlesPriceUpdate = props.articles.fireOnChangeUpdate;
-  const fireArticlesAndPvpPriceUpdate = (e) => [fireActionOnBlur(e), fireArticlesPriceUpdate(e)];
 
   const iva = (md = 2) => [
     {
@@ -298,28 +297,28 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Articulos.precio.precioCompraTeorico",
         defaultMessage: "Precio compra teórico",
       }),
-      type: "input",
+      type: "numeric",
       disabled: true,
       key: "preuCompraTeo",
       breakpoints: {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlur: fireArticlesAndPvpPriceUpdate,
+      fireActionOnBlur: fireArticlesPriceUpdate,
     },
     {
       placeHolder: props.intl.formatMessage({
         id: "Articulos.precio.precioCosteTeorico",
         defaultMessage: "Precio coste teórico",
       }),
-      type: "input",
+      type: "numeric",
       disabled: true,
       key: "preuCostTeo",
       breakpoints: {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlur: fireArticlesAndPvpPriceUpdate,
+      fireActionOnBlur: fireArticlesPriceUpdate,
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -360,7 +359,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlur: fireArticlesAndPvpPriceUpdate,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "number",
       validations: [
         ...props.commonValidations.requiredValidation(),
@@ -380,7 +379,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 3,
       },
-      fireActionOnBlur: fireArticlesAndPvpPriceUpdate,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "number",
       validations: [...props.commonValidations.requiredValidation()],
     },
@@ -506,7 +505,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "number",
     },
     {
@@ -521,7 +520,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "string",
     },
     {
@@ -536,7 +535,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "string",
     },
     {
@@ -550,7 +549,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "number",
     },
     {
@@ -565,7 +564,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "string",
     },
     {
@@ -580,7 +579,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "string",
     },
     {
@@ -594,7 +593,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "number",
     },
     {
@@ -609,7 +608,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "string",
     },
     {
@@ -624,7 +623,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "string",
     },
     {
@@ -638,7 +637,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "number",
     },
     {
@@ -653,7 +652,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "string",
     },
     {
@@ -668,7 +667,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "string",
     },
     {
@@ -682,7 +681,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "number",
     },
     {
@@ -697,7 +696,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "string",
     },
     {
@@ -712,7 +711,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "string",
     },
     {
@@ -733,7 +732,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "number",
     },
     {
@@ -748,7 +747,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "string",
     },
     {
@@ -763,7 +762,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "string",
     },
     {
@@ -777,7 +776,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "number",
     },
     {
@@ -792,7 +791,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "string",
     },
     {
@@ -807,7 +806,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "string",
     },
     {
@@ -821,7 +820,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "number",
     },
     {
@@ -836,7 +835,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "string",
     },
     {
@@ -851,7 +850,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "string",
     },
     {
@@ -865,7 +864,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "number",
     },
     {
@@ -880,7 +879,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "string",
     },
     {
@@ -895,7 +894,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "string",
     },
     {
@@ -909,7 +908,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 2,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "number",
     },
     {
@@ -924,7 +923,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "string",
     },
     {
@@ -939,7 +938,7 @@ const PriceTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 1,
       },
-      fireActionOnBlur,
+      fireActionOnBlur: fireArticlesPriceUpdate,
       validationType: "string",
     },
   ];

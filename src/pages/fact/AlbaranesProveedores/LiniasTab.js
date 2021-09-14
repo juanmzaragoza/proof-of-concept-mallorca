@@ -177,7 +177,6 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
       },
 
-
       {
         name: "lote",
         title: props.intl.formatMessage({
@@ -615,8 +614,7 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Presupuesto",
         }),
         type: "LOV",
-        key: "pressupostCodi",
-        id: "pressupost",
+        key: "pressupost",
         breakpoints: {
           xs: 12,
           md: 4,
@@ -626,15 +624,12 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
           labelKey: (data) => `${data.client.description} (${data.codi})`,
           sort: "codi",
           cannotCreate: true,
-          transform: {
-            apply: (pressuposts) => pressuposts && pressuposts.codi,
-            reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-          },
+
           relatedWith: [
             {
               name: "capitol",
-              filterBy: "pressupostCodi",
-              keyValue: "codi",
+              filterBy: "pressupost.id",
+              keyValue: "id",
             },
           ],
         },
@@ -699,6 +694,7 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
           ...props.numberValidations.minMaxValidation(0, 999999999999),
         ],
       },
+
       {
         placeHolder: props.intl.formatMessage({
           id: "AlbaranesProveedor.fechaFabricación/Cad",
@@ -710,7 +706,6 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
           xs: 12,
           md: 3,
         },
-    
       },
       {
         placeHolder: props.intl.formatMessage({

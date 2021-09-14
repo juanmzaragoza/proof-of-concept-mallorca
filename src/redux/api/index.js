@@ -326,3 +326,4 @@ export const incidenciesFactura = `api/fact/incidenciesFactura`;
 export const validarNif = "api/fact/clients/validarNif";
 export const comandesMagatzem = "api/fact/cmgs";
 export const liniesComandaMagatzem = `api/fact/liniesComandaMagatzem`;
+export const escalatsTipusVenciment = `api/fact/escalatsTipusVenciment`;

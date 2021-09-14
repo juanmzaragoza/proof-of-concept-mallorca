@@ -43,32 +43,6 @@ const withDependentActions = (PassedComponent) => {
     });
   }
 
-	const fireOnChangePrice = ({ key, getFormData }) => {
-      const id = 'calcularPvpMargeDescompte';
-      const fields = [
-       {key: 'pvpFact', react: true},
-        {key: 'preuCompraTeo', react: true},
-        {key: 'preuCostTeo', react: true},
-        {key: 'decimalsPreu', react: true},
-        {key: 'dte1', react: true},
-        {key: 'dte2', react: true},
-        {key: 'dte3', react: true},
-        {key: 'dte4', react: true},
-        {key: 'dte5', react: true},
-        {key: 'pvpDte', react: true},
-        {key: 'margeDte', react: true},
-        {key: 'dte1Fab', react: true},
-        {key: 'dte2Fab', react: true},
-        {key: 'dte3Fab', react: true},
-        {key: 'dte4Fab', react: true},
-        {key: 'dte5Fab', react: true},
-        {key: 'pvpDteFab', react: true},
-        {key: 'margeDteFab', react: true},
-      ];
-      // call to service
-      return doRequest({ id, key, getFormData, fields });
-    }
-
     const fireOnChangeUpdate = ({ key, getFormData }) => {
       const id = 'articlesUpdatePrice';
       const fields = [
@@ -85,6 +59,20 @@ const withDependentActions = (PassedComponent) => {
         {key: 'decimalsPreu', react: true},
         {key: 'decimalsPreuIva', react: true},
         {key: 'iva', react: true},
+        {key: 'dte1', react: true},
+        {key: 'dte2', react: true},
+        {key: 'dte3', react: true},
+        {key: 'dte4', react: true},
+        {key: 'dte5', react: true},
+        {key: 'pvpDte', react: true},
+        {key: 'margeDte', react: true},
+        {key: 'dte1Fab', react: true},
+        {key: 'dte2Fab', react: true},
+        {key: 'dte3Fab', react: true},
+        {key: 'dte4Fab', react: true},
+        {key: 'dte5Fab', react: true},
+        {key: 'pvpDteFab', react: true},
+        {key: 'margeDteFab', react: true},
       ];
       // call to service
       return doRequest({ id, key, getFormData, fields });
@@ -114,7 +102,7 @@ const withDependentActions = (PassedComponent) => {
     }
 
     return <PassedComponent
-      articles={{ fireOnChangePrice, fireOnChangeUpdate }}
+      articles={{ fireOnChangeUpdate }}
 	    rates={{ fireOnChangeCalculateMargin }}
       clients={{ fireOnChangePaisNif }}
       {...props} />;
