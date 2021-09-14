@@ -23,8 +23,8 @@ const ButtonHref = ({ title, href, ...props }) => {
 };
 
 Button.propTypes = {
-  title: PropTypes.string.isRequired,
-  href: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  href: PropTypes.string,
 };
 
 export default compose(withSnackbar, injectIntl)(ButtonHref);
