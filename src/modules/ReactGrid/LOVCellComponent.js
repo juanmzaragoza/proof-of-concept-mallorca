@@ -1,6 +1,6 @@
 import LOVAutocomplete from "../GenericForm/LOVAutocomplete";
 
-const LOVCellComponent = ({ field, data, index}) => {
+const LOVCellComponent = ({ field, data }) => {
 
   const handleChange = value => {
     data.setValue(value);
@@ -19,7 +19,7 @@ const LOVCellComponent = ({ field, data, index}) => {
       e.stopPropagation();
       handleChange(v);
     }}
-    value={row[key]}
+    value={row.data[key]}
     options={selector.options}
     variant={variant}
     //disabled={disabled}
