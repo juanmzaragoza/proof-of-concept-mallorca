@@ -2126,6 +2126,10 @@
   "Transportistas.precioMañana": "Precio Mañana",
   "Transportistas.precioTarde": "Precio Tarde",
   "Transportistas.precioFestivo": "Precio Festivo",
-  "Transportistas.precioPalet": "Precio Por Palet"
-
+  "Transportistas.precioPalet": "Precio Por Palet",
+  "Iva.tipoRegimen": "Tipo Régimen IVA",
+  "RegimenIva.clavesExpedida": "Clave Facturas Expedidas",
+  "RegimenIva.clavesRecibida": "Clave Facturas Recibidas",
+  "RegimenIva.clavesExpedidaForm": " Clave de régimen especial o transcendencia en facturas expedidas",
+  "RegimenIva.clavesRecibidaForm": "Clave de régimen especial o trascendencia en facturas recibidas"
 }

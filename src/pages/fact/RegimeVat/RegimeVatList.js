@@ -8,7 +8,6 @@ import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
 const RegimeVatList = ({ actions, ...props }) => {
-
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
@@ -35,7 +34,7 @@ const RegimeVatList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
-        inlineEditionDisabled: true
+        inlineEditionDisabled: true,
       },
       {
         name: "descripcio",
@@ -52,16 +51,38 @@ const RegimeVatList = ({ actions, ...props }) => {
         }),
       },
       {
+        name: "tip",
+        title: props.intl.formatMessage({
+          id: "Iva.tipoRegimen",
+          defaultMessage: "Tipo Régimen IVA ",
+        }),
+        inlineEditionDisabled: true,
+      },
+      {
         name: "codiFacturaElectronica",
         title: props.intl.formatMessage({
           id: "RegimenIva.codigoFact",
           defaultMessage: "Código factura electrónica",
         }),
       },
+      {
+        name: "sitCodClaExd",
+        title: props.intl.formatMessage({
+          id: "RegimenIva.clavesExpedida",
+          defaultMessage: "Claves factura expedida",
+        }),
+      },
+      {
+        name: "sitCodClaReb",
+        title: props.intl.formatMessage({
+          id: "RegimenIva.clavesRecibida",
+          defaultMessage: "Claves recibida",
+        }),
+      },
     ],
     URL: API.regimsIva,
     listKey: "regimIvas",
-    enableInlineEdition: true
+    enableInlineEdition: true,
   };
   return <ReactGrid id="regimsIva" configuration={listConfiguration} />;
 };
