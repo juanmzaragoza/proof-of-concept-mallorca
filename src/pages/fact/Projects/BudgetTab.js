@@ -94,8 +94,8 @@ const BudgetTab = ({ formData, setFormData, getFormData, ...props }) => {
           cannotCreate: true,
           relatedWith:[ {
             name: "capitol",
-            filterBy: "pressupostCodi",
-            keyValue: "codi",
+            filterBy: "pressupost.id",
+            keyValue: "id",
           },],
         },
       },
@@ -115,33 +115,33 @@ const BudgetTab = ({ formData, setFormData, getFormData, ...props }) => {
           labelKey: (data) => `${data.descripcio} (${data.codi})`,
           sort: "nom",
           cannotCreate: true,
-          relatedWith: [{
-            name: "partida",
-            filterBy: "capitol.id",
-            keyValue: "id",
-          },],
+          // relatedWith: [{
+          //   name: "partida",
+          //   filterBy: "capitol.id",
+          //   keyValue: "id",
+          // },],
         },
       
       },
       
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Proyectos.partida",
-          defaultMessage: "Partida",
-        }),
-        type: "LOV",
-        key: "partida",
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        selector: {
-          key: "partidas",
-          labelKey: (data) => `${data.descripcio} (${data.codi})`,
-          sort: "descripcio",
-          cannotCreate: true,
-        },
-      },
+      // {
+      //   placeHolder: props.intl.formatMessage({
+      //     id: "Proyectos.partida",
+      //     defaultMessage: "Partida",
+      //   }),
+      //   type: "LOV",
+      //   key: "partida",
+      //   breakpoints: {
+      //     xs: 12,
+      //     md: 3,
+      //   },
+      //   selector: {
+      //     key: "partidas",
+      //     labelKey: (data) => `${data.descripcio} (${data.codi})`,
+      //     sort: "descripcio",
+      //     cannotCreate: true,
+      //   },
+      // },
       {
         placeHolder: props.intl.formatMessage({
           id: "Proyectos.importe",

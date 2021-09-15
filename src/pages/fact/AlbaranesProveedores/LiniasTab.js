@@ -248,7 +248,7 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         name: "pressupost",
         title: props.intl.formatMessage({
           id: "Presupuestos.titulo",
-          defaultMessage: "titulo",
+          defaultMessage: "Presupuestos",
         }),
         getCellValue: (row) => row.pressupost && row.pressupost?.description,
         hidden: true,
@@ -256,23 +256,21 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
       {
         name: "capitol",
         title: props.intl.formatMessage({
-          id: "Presupuestos.capitulo",
+          id: "Proyectos.capitulos",
           defaultMessage: "Capitulo",
         }),
         getCellValue: (row) => row.capitol && row.capitol?.description,
         hidden: true,
       },
-      {
-        name: "partida",
-        title: props.intl.formatMessage({
-          id: "Presupuestos.partida",
-          defaultMessage: "Partida",
-        }),
-        getCellValue: (row) => row.partida && row.partida?.description,
-        hidden: true,
-      },
-      
-
+      // {
+      //   name: "partida",
+      //   title: props.intl.formatMessage({
+      //     id: "Proyectos.partida",
+      //     defaultMessage: "Partida",
+      //   }),
+      //   getCellValue: (row) => row.partida && row.partida?.description,
+      //   hidden: true,
+      // },
 
       {
         name: "observacions",
@@ -644,7 +642,7 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         type: "LOV",
         key: "pressupost",
-      
+
         breakpoints: {
           xs: 12,
           md: 3,
@@ -655,15 +653,13 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
             `${data.serieVenda.pk.codi}/${data.numero}/${data.versio} (${data.codi})`,
           sort: "codi",
           cannotCreate: true,
-         
+
           relatedWith: [
             {
               name: "capitol",
               filterBy: "pressupost.id",
               keyValue: "id",
             },
-         
-            
           ],
         },
       },
@@ -683,34 +679,34 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
           labelKey: (data) => `${data.descripcio} (${data.codi})`,
           sort: "nom",
           cannotCreate: true,
-          relatedWith: [
-            {
-              name: "partida",
-              filterBy: "pressupostCodi",
-              keyValue: "id",
-            },
-          ],
+          // relatedWith: [
+          //   {
+          //     name: "partida",
+          //     filterBy: "capitol.id",
+          //     keyValue: "id",
+          //   },
+          // ],
         },
       },
-  
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Proyectos.partida",
-          defaultMessage: "Partida",
-        }),
-        type: "LOV",
-        key: "partida",
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        selector: {
-          key: "partidas",
-          labelKey: (data) => `${data.descripcio} (${data.codi})`,
-          sort: "descripcio",
-          cannotCreate: true,
-        },
-      },
+
+      // {
+      //   placeHolder: props.intl.formatMessage({
+      //     id: "Proyectos.partida",
+      //     defaultMessage: "Partida",
+      //   }),
+      //   type: "LOV",
+      //   key: "partida",
+      //   breakpoints: {
+      //     xs: 12,
+      //     md: 3,
+      //   },
+      //   selector: {
+      //     key: "partidas",
+      //     labelKey: (data) => `${data.descripcio} (${data.codi})`,
+      //     sort: "descripcio",
+      //     cannotCreate: true,
+      //   },
+      // },
       {
         placeHolder: props.intl.formatMessage({
           id: "AlbaranesProveedor.movimientosStock",

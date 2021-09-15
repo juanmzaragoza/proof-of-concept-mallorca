@@ -63,7 +63,7 @@ const StoreOrdersList = ({ actions, ...props }) => {
       
     ],
     URL: API.comandesMagatzem,
-    listKey: "cmgs",
+    listKey: "comandaMagatzems",
   };
 
   return (

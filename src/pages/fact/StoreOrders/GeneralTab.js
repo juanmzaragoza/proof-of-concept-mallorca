@@ -480,14 +480,14 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     }),
     query: [
       {
-        columnName: "cmg.id",
+        columnName: "comandaMagatzem.id",
         value: `"${pedidoAlmId}"`,
         exact: true,
       },
     ],
 
     extraPostBody: {
-      cmg: { id: `${pedidoAlmId}` },
+      comandaMagatzem: { id: `${pedidoAlmId}` },
     },
 
     columns: [
@@ -668,38 +668,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         ],
       },
 
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Presupuestos.titulo",
-          defaultMessage: "Presupuesto",
-        }),
-        type: "LOV",
-        key: "pressupostCodi",
-        id: "pressupost",
-        noEditable: true,
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        selector: {
-          key: "pressuposts",
-          labelKey: (data) =>
-            `${data.serieVenda.pk.codi}/${data.numero}/${data.versio} (${data.codi})`,
-          sort: "codi",
-          cannotCreate: true,
-          transform: {
-            apply: (pressuposts) => pressuposts && pressuposts.codi,
-            reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-          },
-          relatedWith: [
-            {
-              name: "capitol",
-              filterBy: "pressupostCodi",
-              keyValue: "codi",
-            },
-          ],
-        },
-      },
+     
       {
         placeHolder: props.intl.formatMessage({
           id: "PedidosAlmacen.avisar",
@@ -721,34 +690,60 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "comandaProveidor",
         breakpoints: {
           xs: 12,
-          md: 3,
+          md: 2,
         },
       },
-      // {
-      //   placeHolder: props.intl.formatMessage({
-      //     id: "Proyectos.capitulos",
-      //     defaultMessage: "Capítulos",
-      //   }),
-      //   type: "LOV",
-      //   key: "capitol",
-      //   breakpoints: {
-      //     xs: 12,
-      //     md: 4,
-      //   },
-      //   selector: {
-      //     key: "capitols",
-      //     labelKey: (data) => `${data.descripcio} (${data.codi})`,
-      //     sort: "nom",
-      //     cannotCreate: true,
-      //     relatedWith: [
-      //       {
-      //         name: "partida",
-      //         filterBy: "capitol.id",
-      //         keyValue: "id",
-      //       },
-      //     ],
-      //   },
-      // },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.titulo",
+          defaultMessage: "Presupuesto",
+        }),
+        type: "LOV",
+        key: "pressupost",
+        breakpoints: {
+          xs: 12,
+          md: 4,
+        },
+        selector: {
+          key: "pressuposts",
+          labelKey: (data) =>
+            `${data.serieVenda.pk.codi}/${data.numero}/${data.versio} (${data.codi})`,
+          sort: "codi",
+          cannotCreate: true,
+          relatedWith: [
+            {
+              name: "capitol",
+              filterBy: "pressupost.id",
+              keyValue: "id",
+            },
+          ],
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Proyectos.capitulos",
+          defaultMessage: "Capítulos",
+        }),
+        type: "LOV",
+        key: "capitol",
+        breakpoints: {
+          xs: 12,
+          md: 4,
+        },
+        selector: {
+          key: "capitols",
+          labelKey: (data) => `${data.descripcio} (${data.codi})`,
+          sort: "nom",
+          cannotCreate: true,
+          // relatedWith: [
+          //   {
+          //     name: "partida",
+          //     filterBy: "capitol.id",
+          //     keyValue: "id",
+          //   },
+          // ],
+        },
+      },
 
       // {
       //   placeHolder: props.intl.formatMessage({
