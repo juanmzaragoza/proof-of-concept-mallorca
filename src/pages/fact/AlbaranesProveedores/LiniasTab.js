@@ -244,6 +244,35 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         hidden: true,
       },
+      {
+        name: "pressupost",
+        title: props.intl.formatMessage({
+          id: "Presupuestos.titulo",
+          defaultMessage: "titulo",
+        }),
+        getCellValue: (row) => row.pressupost && row.pressupost?.description,
+        hidden: true,
+      },
+      {
+        name: "capitol",
+        title: props.intl.formatMessage({
+          id: "Presupuestos.capitulo",
+          defaultMessage: "Capitulo",
+        }),
+        getCellValue: (row) => row.capitol && row.capitol?.description,
+        hidden: true,
+      },
+      {
+        name: "partida",
+        title: props.intl.formatMessage({
+          id: "Presupuestos.partida",
+          defaultMessage: "Partida",
+        }),
+        getCellValue: (row) => row.partida && row.partida?.description,
+        hidden: true,
+      },
+      
+
 
       {
         name: "observacions",
@@ -615,22 +644,26 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         type: "LOV",
         key: "pressupost",
+      
         breakpoints: {
           xs: 12,
-          md: 4,
+          md: 3,
         },
         selector: {
           key: "pressuposts",
-          labelKey: (data) => `${data.client.description} (${data.codi})`,
+          labelKey: (data) =>
+            `${data.serieVenda.pk.codi}/${data.numero}/${data.versio} (${data.codi})`,
           sort: "codi",
           cannotCreate: true,
-
+         
           relatedWith: [
             {
               name: "capitol",
               filterBy: "pressupost.id",
               keyValue: "id",
             },
+         
+            
           ],
         },
       },
@@ -643,7 +676,7 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "capitol",
         breakpoints: {
           xs: 12,
-          md: 4,
+          md: 3,
         },
         selector: {
           key: "capitols",
@@ -653,13 +686,13 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
           relatedWith: [
             {
               name: "partida",
-              filterBy: "capitol.id",
+              filterBy: "pressupostCodi",
               keyValue: "id",
             },
           ],
         },
       },
-
+  
       {
         placeHolder: props.intl.formatMessage({
           id: "Proyectos.partida",
@@ -669,7 +702,7 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "partida",
         breakpoints: {
           xs: 12,
-          md: 4,
+          md: 3,
         },
         selector: {
           key: "partidas",

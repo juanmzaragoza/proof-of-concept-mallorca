@@ -505,8 +505,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         relatedWith: [
           {
             name: "capitol",
-            filterBy: "pressupostCodi",
-            keyValue: "codi",
+            filterBy: "pressupost.id",
+            keyValue: "id",
           },
         ],
       },
