@@ -449,7 +449,7 @@
   "Iva.texto": "Texto",
   "Iva.porcentajeRecargo": "Recargo equivalencia",
   "Iva.codigoCont": "Código contabilidad",
-  "Iva.codigoRecCont": "Código recargo contabilidad",
+  "Iva.codigoRecCont": "Código Contabilidad Recargo",
   "RegimenIva.titulo": "Régimen IVA",
   "RegimenIva.codigoFact": "Código factura electrónica",
   "Clientes.SubClientes": "Subclientes",
@@ -2131,5 +2131,7 @@
   "RegimenIva.clavesExpedida": "Clave Facturas Expedidas",
   "RegimenIva.clavesRecibida": "Clave Facturas Recibidas",
   "RegimenIva.clavesExpedidaForm": " Clave de régimen especial o transcendencia en facturas expedidas",
-  "RegimenIva.clavesRecibidaForm": "Clave de régimen especial o trascendencia en facturas recibidas"
+  "RegimenIva.clavesRecibidaForm": "Clave de régimen especial o trascendencia en facturas recibidas",
+  "Iva.porcentaje":"Porcentaje",
+  "Iva.recargo":"Recargo"
 }

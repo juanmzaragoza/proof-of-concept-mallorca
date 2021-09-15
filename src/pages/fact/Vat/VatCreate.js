@@ -18,7 +18,7 @@ const VatCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       noEditable: true,
       validationType: "string",
@@ -37,86 +37,12 @@ const VatCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 5,
       },
       validationType: "string",
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 40),
-      ],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Iva.porcentajeIva",
-        defaultMessage: "Porcentaje IVA",
-      }),
-      type: "numeric",
-      key: "percentatgeIva",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      suffix: "%",
-      validationType: "number",
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...props.numberValidations.minMaxValidation(0, 99),
-      ],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Iva.porcentajeRecargo",
-        defaultMessage: "Porcentaje recargo equivalencia",
-      }),
-      type: "numeric",
-      key: "percentatgeRecarrecEquivalencia",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      validationType: "number",
-      suffix: "%",
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...props.numberValidations.minMaxValidation(0, 99),
-      ],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Iva.codigoCont",
-        defaultMessage: "Código Contabilidad",
-      }),
-      type: "input",
-      key: "codiComptabilitat",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      validationType: "string",
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 4),
-      ],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Iva.codigoRecCont",
-        defaultMessage: "Código recargo contabilidad",
-      }),
-      type: "input",
-      key: "codiRecarrecComptabilitat",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      validationType: "string",
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 4),
       ],
     },
     {
@@ -136,6 +62,85 @@ const VatCreate = (props) => {
     },
     {
       placeHolder: props.intl.formatMessage({
+        id: "Iva.porcentaje",
+        defaultMessage: "Porcentaje IVA",
+      }),
+      type: "numeric",
+      key: "percentatgeIva",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      suffix: "%",
+      decimalScale: 2,
+      fixedDecimalScale: true,
+      validationType: "number",
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+        ...props.numberValidations.minMaxValidation(0, 100),
+      ],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Iva.recargo",
+        defaultMessage: "recargo ",
+      }),
+      type: "numeric",
+      key: "percentatgeRecarrecEquivalencia",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      validationType: "number",
+      decimalScale: 2,
+      fixedDecimalScale: true,
+      suffix: "%",
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+        ...props.numberValidations.minMaxValidation(0, 100),
+      ],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Iva.codigoCont",
+        defaultMessage: "Código Contabilidad",
+      }),
+      type: "input",
+      key: "codiComptabilitat",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "string",
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+        ...props.stringValidations.minMaxValidation(1, 4),
+      ],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Iva.codigoRecCont",
+        defaultMessage: "Código recargo contabilidad",
+      }),
+      type: "input",
+      key: "codiRecarrecComptabilitat",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "string",
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+        ...props.stringValidations.minMaxValidation(1, 4),
+      ],
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
         id: "Clientes.notCreApu",
         defaultMessage: "No crear apunte sin importe 0",
       }),
@@ -143,10 +148,11 @@ const VatCreate = (props) => {
       key: "notCreApu",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
     },
   ];
+
   return (
     <CreateUpdateForm
       title={props.intl.formatMessage({

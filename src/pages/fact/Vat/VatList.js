@@ -8,7 +8,6 @@ import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
 const VatList = ({ actions, ...props }) => {
-
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
@@ -35,7 +34,7 @@ const VatList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
-        inlineEditionDisabled: true
+        inlineEditionDisabled: true,
       },
       {
         name: "descripcio",
@@ -45,24 +44,61 @@ const VatList = ({ actions, ...props }) => {
         }),
       },
       {
-        name: "percentatgeIva",
-        title: props.intl.formatMessage({
-          id: "Iva.porcentajeIva",
-          defaultMessage: "Porcentaje Iva",
-        }),
-      },
-      {
         name: "text",
         title: props.intl.formatMessage({
           id: "Iva.texto",
           defaultMessage: "Texto",
         }),
       },
-
+      {
+        name: "percentatgeIva",
+        title: props.intl.formatMessage({
+          id: "Iva.porcentaje",
+          defaultMessage: "Porcentaje",
+        }),
+      },
+      {
+        name: "percentatgeRecarrecEquivalencia",
+        title: props.intl.formatMessage({
+          id: "Iva.recargo",
+          defaultMessage: "Recargo",
+        }),
+      },
+      {
+        name: "codiComptabilitat",
+        title: props.intl.formatMessage({
+          id: "Iva.codigoCont",
+          defaultMessage: "Código Contabilidad",
+        }),
+      },
+      {
+        name: "codiRecarrecComptabilitat",
+        title: props.intl.formatMessage({
+          id: "Iva.codigoRecCont",
+          defaultMessage: "Código recargo contabilidad",
+        }),
+      },
+      {
+        name: "notCreApu",
+        title: props.intl.formatMessage({
+          id: "Clientes.notCreApu",
+          defaultMessage: "No crear apunte sin importe 0",
+        }),
+        getCellValue: (row) =>
+          row.notCreApu && row.notCreApu === true
+            ? `${props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}`
+            : `${props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}`,
+      },
     ],
     URL: API.ives,
-    listKey: "ivas", 
-    enableInlineEdition: true
+    listKey: "ivas",
+    enableInlineEdition: true,
   };
   return <ReactGrid id="ives" configuration={listConfiguration} />;
 };
@@ -75,7 +111,4 @@ const mapDispatchToProps = (dispatch, props) => {
   return { actions };
 };
 
-export default compose(
-  injectIntl,
-  connect(null, mapDispatchToProps)
-)(VatList);
+export default compose(injectIntl, connect(null, mapDispatchToProps))(VatList);
