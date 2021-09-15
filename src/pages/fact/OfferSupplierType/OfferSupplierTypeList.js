@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import { bindActionCreators, compose } from "redux";
@@ -8,25 +8,7 @@ import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
 const OfferSupplierList = ({ actions, ...props }) => {
-  useEffect(() => {
-    actions.setListingConfig({
-      title: props.intl.formatMessage({
-        id: "TipoOfertaProv.titulo",
-        defaultMessage: "Tipo Oferta Proveedor",
-      }),
-    });
-    actions.setBreadcrumbHeader([
-      {
-        title: props.intl.formatMessage({
-          id: "TipoOfertaProv.titulo",
-          defaultMessage: "Tipo Oferta Proveedor",
-        }),
-        href: "/fact/tipo-oferta-proveedor",
-      },
-    ]);
-  }, []);
-
-  const listConfiguration = {
+  const [listConfig, setListConfig] = useState({
     columns: [
       {
         name: "codi",
@@ -47,9 +29,35 @@ const OfferSupplierList = ({ actions, ...props }) => {
     URL: API.tipusOfertesProveidor,
     listKey: "tipusOfertaProveidors",
     enableInlineEdition: true
-  };
+  });
+
+  useEffect(() => {
+    actions.setListingConfig({
+      title: props.intl.formatMessage({
+        id: "TipoOfertaProv.titulo",
+        defaultMessage: "Tipo Oferta Proveedor",
+      }),
+    });
+    actions.setBreadcrumbHeader([
+      {
+        title: props.intl.formatMessage({
+          id: "TipoOfertaProv.titulo",
+          defaultMessage: "Tipo Oferta Proveedor",
+        }),
+        href: "/fact/tipo-oferta-proveedor",
+      },
+    ]);
+    // validations
+    const columns = listConfig.columns.map(column => {
+      const field = props.fields.find(field => field.key === column.name);
+      if(field) column.field = field;
+      return column;
+    });
+    setListConfig({...listConfig, columns });
+  }, []);
+
   return (
-    <ReactGrid id="tipusOfertesProveidor" configuration={listConfiguration} />
+    <ReactGrid id="tipusOfertesProveidor" configuration={listConfig} />
   );
 };
 
