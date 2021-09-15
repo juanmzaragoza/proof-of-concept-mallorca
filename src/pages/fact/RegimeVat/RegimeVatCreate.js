@@ -8,7 +8,6 @@ import * as API from "redux/api";
 import { TIPO_REG_IVA_SELECTOR_VALUES } from "constants/selectors";
 
 const RegimeVatCreate = (props) => {
-
   const createConfiguration = [
     {
       placeHolder: props.intl.formatMessage({
@@ -20,7 +19,7 @@ const RegimeVatCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 1,
       },
       noEditable: true,
       validationType: "string",
@@ -39,7 +38,7 @@ const RegimeVatCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       validationType: "string",
       validations: [
@@ -47,83 +46,79 @@ const RegimeVatCreate = (props) => {
         ...props.stringValidations.minMaxValidation(1, 40),
       ],
     },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Iva.codigoCont",
-          defaultMessage: "Código Contabilidad",
-        }),
-        type: "input",
-        key: "codiComptabilitat",
-  
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        validationType: "string",
-        validations: [
-          ...props.stringValidations.minMaxValidation(1, 2),
-        ],
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Iva.codigoCont",
+        defaultMessage: "Código Contabilidad",
+      }),
+      type: "input",
+      key: "codiComptabilitat",
+
+      breakpoints: {
+        xs: 12,
+        md: 2,
       },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "RegimenIva.codigoFact",
-          defaultMessage: "Código factura electrónica",
-        }),
-        type: "input",
-        key: "codiFacturaElectronica",
-  
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        validationType: "string",
-        validations: [
-          ...props.stringValidations.minMaxValidation(1, 2),
-        ],
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "RegimenIva.codigoFact",
+        defaultMessage: "Código factura electrónica",
+      }),
+      type: "input",
+      key: "codiFacturaElectronica",
+
+      breakpoints: {
+        xs: 12,
+        md: 2,
       },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "RegimenIva.tipoReg",
-          defaultMessage: "Tipo Régimen IVA"
-        }),
-        type: 'select',
-        key: 'tip',
-        breakpoints: {
-          xs: 12,
-          md: 3
-        },
-        selector: {
-          options: TIPO_REG_IVA_SELECTOR_VALUES
-        },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "RegimenIva.tipoReg",
+        defaultMessage: "Tipo Régimen IVA",
+      }),
+      type: "select",
+      key: "tip",
+      breakpoints: {
+        xs: 12,
+        md: 3,
       },
-      {
-        type: "input",
-        key: "sitCodClaExd",
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.re.expedida",
-          defaultMessage: "Régimen especial fact expedida",
-        }),
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        validationType: "string",
-        validations: [...props.stringValidations.minMaxValidation(1, 2)],
+      selector: {
+        options: TIPO_REG_IVA_SELECTOR_VALUES,
       },
-      {
-        type: "input",
-        key: "sitCodClaReb",
-        placeHolder: props.intl.formatMessage({
-          id: "Clientes.re.recibida",
-          defaultMessage: "Régimen especial fact recibida",
-        }),
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        validationType: "string",
-        validations: [...props.stringValidations.minMaxValidation(1, 2)],
+    },
+    {
+      type: "input",
+      key: "sitCodClaExd",
+      placeHolder: props.intl.formatMessage({
+        id: "RegimenIva.clavesExpedidaForm",
+        defaultMessage: "Claves fact expedida",
+      }),
+      breakpoints: {
+        xs: 12,
+        md: 4,
       },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
+    },
+    {
+      type: "input",
+      key: "sitCodClaReb",
+      placeHolder: props.intl.formatMessage({
+        id: "RegimenIva.clavesRecibidaForm",
+        defaultMessage: "Claves fact recibida",
+      }),
+      breakpoints: {
+        xs: 12,
+        md: 4,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
+    },
   ];
   return (
     <CreateUpdateForm

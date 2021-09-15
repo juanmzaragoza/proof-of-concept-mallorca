@@ -389,7 +389,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       disabled: disabledImporte,
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 6,
       },
       suffix: "€",
       validationType: "number",
@@ -399,6 +399,19 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
             ...props.numberValidations.minMaxValidation(0, 99999999),
           ]
         : [...props.numberValidations.minMaxValidation(0, 99999999)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "TiposVencimiento.terminioAMesesCompletos",
+        defaultMessage: "Meses completos",
+      }),
+      type: "checkbox",
+      key: "terminiAMesosComplets",
+      disabled: disabledImporte,
+      breakpoints: {
+        xs: 12,
+        md: 6,
+      },
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -414,7 +427,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         disabledCampoImportePlazos,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
       validationType: "number",
       validations: requiredDiaPlazos
@@ -424,19 +437,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           ]
         : [...props.numberValidations.minMaxValidation(0, 31)],
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "TiposVencimiento.terminioAMesesCompletos",
-        defaultMessage: "Meses completos",
-      }),
-      type: "checkbox",
-      key: "terminiAMesosComplets",
-      disabled: disabledImporte,
-      breakpoints: {
-        xs: 12,
-        md: 4,
-      },
-    },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "TiposVencimiento.dia2Terminio",
@@ -450,7 +451,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         disabledCampoImportePlazos,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
       validationType: "number",
       validations: [...props.numberValidations.minMaxValidation(1, 31)],
@@ -466,7 +467,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       disabled: disabledImporte || disabledCampoImporteFijo,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
       validationType: "number",
       validations: [...props.numberValidations.minMaxValidation(1, 72)],
@@ -482,7 +483,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       disabled: disabledImporte,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
       validationType: "number",
       validations: [...props.numberValidations.minMaxValidation(0, 999)],
@@ -501,7 +502,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       suffix: "%",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
       validationType: "number",
       validations: [...props.numberValidations.minMaxValidation(0, 100)],
@@ -517,7 +518,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: requiredDia1,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
       validationType: "number",
       validations: requiredDia1
@@ -538,7 +539,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       disabled: disabledPlazos,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
       validationType: "number",
       validations: [...props.numberValidations.minMaxValidation(0, 100)],
@@ -554,7 +555,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: requiredDia2,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
       validationType: "number",
       validations: requiredDia2
@@ -575,7 +576,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       disabled: disabledPlazos,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
       validationType: "number",
       validations: [...props.numberValidations.minMaxValidation(0, 100)],
@@ -591,7 +592,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: requiredDia3,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
       validationType: "number",
       validations: requiredDia3
@@ -612,7 +613,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       disabled: disabledPlazos,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
       validationType: "number",
       validations: [...props.numberValidations.minMaxValidation(0, 100)],
@@ -628,7 +629,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: requiredDia4,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
       validationType: "number",
       validations: requiredDia4
@@ -649,7 +650,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       disabled: disabledPlazos,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
       validationType: "number",
       validations: [...props.numberValidations.minMaxValidation(0, 100)],
@@ -666,7 +667,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       disabled: disabledPlazos,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
       validationType: "number",
       validations: requiredDia5
@@ -678,169 +679,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
-  const EscaladosConfig = {
-    title: props.intl.formatMessage({
-      id: "TiposVencimiento.escalado",
-      defaultMessage: "Escalado",
-    }),
-    query: [
-      {
-        columnName: "tipusVenciment.id",
-        value: `"${tipusVencimentId}"`,
-        exact: true,
-      },
-    ],
-    extraPostBody: {
-      tipusVenciment: { id: tipusVencimentId },
-    },
-    columns: [
-      {
-        name: "tipusVenciment000",
-        title: props.intl.formatMessage({
-          id: "TiposVencimiento.titulo",
-          defaultMessage: "Tipos Vencimiento",
-        }),
-      },
-      {
-        name: "tipusVenciment",
-        title: props.intl.formatMessage({
-          id: "TiposVencimiento.tipo",
-          defaultMessage: "Tipo",
-        }),
-        getCellValue: (row) =>
-          row.tipusVenciment && row.tipusVenciment?.description,
-      },
-      {
-        name: "imports",
-        title: props.intl.formatMessage({
-          id: "TiposVencimiento.importe",
-          defaultMessage: "Importe",
-        }),
-      },
-    ],
-
-    formComponents: [
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Proveedores.tvencimiento",
-          defaultMessage: "Tipo Vencimiento",
-        }),
-        type: "LOV",
-        key: "tipusVenciment000",
-        id: "tipusVenciment",
-        required: true,
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        selector: {
-          key: "tipusVenciments",
-          labelKey: formatCodeAndDescription,
-          sort: "descripcio",
-          creationComponents: [
-            {
-              type: "input",
-              key: "codi",
-              placeHolder: CODE,
-              required: true,
-              noEditable: true,
-              breakpoints: {
-                xs: 12,
-                md: 4,
-              },
-            },
-            {
-              type: "input",
-              key: "nom",
-              placeHolder: NOM,
-              required: true,
-              breakpoints: {
-                xs: 12,
-                md: 4,
-              },
-            },
-            {
-              type: "input",
-              key: "tipus",
-              placeHolder: props.intl.formatMessage({
-                id: "TiposVencimiento.tipos",
-                defaultMessage: "Tipos",
-              }),
-              required: true,
-              breakpoints: {
-                xs: 12,
-                md: 4,
-              },
-            },
-          ],
-          advancedSearchColumns: aSCodeAndDescription,
-          transform: {
-            apply: (tipusVenciments) => tipusVenciments && tipusVenciments.codi,
-            reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-          },
-        },
-        extraQuery: [
-          {
-            columnName: "tipus",
-            value: `"ESCALAT"`,
-            exact: true,
-          },
-        ],
-        validationType: "string",
-        validations: [...props.commonValidations.requiredValidation()],
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "TiposVencimiento.importe",
-          defaultMessage: "Importe",
-        }),
-        type: "numeric",
-        key: "imports",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-        validationType: "number",
-        validations: [
-          ...props.numberValidations.minMaxValidation(0, 999999999999),
-        ],
-      },
-    ],
-  };
-
-  const tabs = [
-    {
-      className: "general-tab-subtab",
-      label: (
-        <FormattedMessage
-          id={"TiposVencimiento.escalado"}
-          defaultMessage={"Escalado"}
-        />
-      ),
-      key: 0,
-      component: (
-        <ExpandableGrid
-          id="escalatsTipusVenciment"
-          responseKey="escalatTipusVenciments"
-          enabled={props.editMode}
-          configuration={EscaladosConfig}
-        />
-      ),
-    },
-  ];
-
   return (
     <Grid container spacing={2}>
       <Grid xs={12} item>
-        <OutlinedContainer
-          className="general-tab-container"
-          title={
-            <FormattedMessage
-              id={"TiposVencimiento.titulo"}
-              defaultMessage={"Tarifas"}
-            />
-          }
-        >
+     
           <GenericForm
             formComponents={createConfiguration}
             emptyPaper={true}
@@ -855,9 +697,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
             onBlur={(e) => handleTouched(CREATE_SECTION_INDEX)}
             {...props}
           />
-        </OutlinedContainer>
+      
       </Grid>
-      <Grid xs={5} item>
+      <Grid xs={4} item>
         <OutlinedContainer
           className="general-tab-container"
           title={
@@ -885,7 +727,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           />
         </OutlinedContainer>
       </Grid>
-      <Grid xs={7} item>
+      <Grid xs={4} item>
         <OutlinedContainer
           className="general-tab-container"
           title={
@@ -905,7 +747,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
                     defaultMessage={"Error Porcentaje"}
                   />
                 }
-                cols={6}
+                cols={12}
               />
             ) : (
               ""
@@ -919,7 +761,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
                     defaultMessage={"Error Porcentaje"}
                   />
                 }
-                cols={6}
+                cols={12}
               />
             ) : (
               ""
@@ -941,13 +783,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           />
         </OutlinedContainer>
       </Grid>
-      {disabledEscalado && (
-        <Grid xs={12} item>
-          <OutlinedContainer>
-            <ConfigurableTabs tabs={tabs} />
-          </OutlinedContainer>
-        </Grid>
-      )}
     </Grid>
   );
 };

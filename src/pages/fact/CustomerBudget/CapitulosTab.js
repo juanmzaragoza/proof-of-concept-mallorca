@@ -19,7 +19,7 @@ const CapitulosTab = ({ formData, setFormData, getFormData, ...props }) => {
 
   const { id: presupuestoId } = useParams();
 
-  const presupuestoCodigo = getFormData("codi");
+
 
   const withRequiredValidation = (extraValidations = []) => {
     return {
@@ -37,13 +37,13 @@ const CapitulosTab = ({ formData, setFormData, getFormData, ...props }) => {
     }),
     query: [
       {
-        columnName: "pressupostCodi",
-        value: `"${presupuestoCodigo}"`,
+        columnName: "pressupost.id",
+        value: `"${presupuestoId}"`,
         exact: true,
       },
     ],
     extraPostBody: {
-      pressupostCodi: `${presupuestoCodigo}`,
+      pressupost: `${presupuestoId}`,
       empresaCodi: "",
     },
     columns: [
@@ -282,13 +282,13 @@ const CapitulosTab = ({ formData, setFormData, getFormData, ...props }) => {
     }),
     query: [
       {
-        columnName: "pressupostCodi",
-        value: `"${presupuestoCodigo}"`,
+        columnName: "pressupost.id",
+        value: `"${presupuestoId}"`,
         exact: true,
       },
     ],
     extraPostBody: {
-      pressupostCodi: `${presupuestoCodigo}`,
+      pressupost: `${presupuestoId}`,
       empresaCodi: "",
     },
     columns: [
@@ -412,8 +412,8 @@ const CapitulosTab = ({ formData, setFormData, getFormData, ...props }) => {
         },
         extraQuery: [
           {
-            columnName: "pressupostCodi",
-            value: `"${presupuestoCodigo}"`,
+            columnName: "pressupost.id",
+            value: `"${presupuestoId}"`,
             exact: true,
           },
         ],
@@ -638,8 +638,8 @@ const CapitulosTab = ({ formData, setFormData, getFormData, ...props }) => {
             configuration={capitulosConfig}
             extraQuery={[
               {
-                columnName: "pressupostCodi",
-                value: `"${presupuestoCodigo}"`,
+                columnName: "pressupost.id",
+                value: `"${presupuestoId}"`,
                 exact: true,
               },
             ]}

@@ -17,7 +17,7 @@ const SuppliersFamilyCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 1,
       },
       noEditable: true,
       validationType: "string",
@@ -44,7 +44,7 @@ const SuppliersFamilyCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
       validationType: "string",
       validations: [
@@ -61,7 +61,7 @@ const SuppliersFamilyCreate = (props) => {
       key: "ctacprcmp",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 2,
       },
       validationType: "string",
       validations: props.stringValidations.minMaxValidation(1, 10),
@@ -75,7 +75,7 @@ const SuppliersFamilyCreate = (props) => {
       key: "tipasicmp",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 2,
       },
       validationType: "string",
       validations: props.stringValidations.minMaxValidation(1, 2),
@@ -89,7 +89,7 @@ const SuppliersFamilyCreate = (props) => {
       key: "dricmp",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 2,
       },
       validationType: "string",
       validations: props.stringValidations.minMaxValidation(1, 2),
@@ -103,7 +103,7 @@ const SuppliersFamilyCreate = (props) => {
       key: "driprfcmp",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 2,
       },
       validationType: "string",
       validations: props.stringValidations.minMaxValidation(1, 2),

@@ -6,8 +6,6 @@ import { useParams } from "react-router-dom";
 import { some, min, pickBy, cloneDeep } from "lodash";
 
 import GeneralTab from "./GeneralTab";
-import VehiclesTab from "./VehiclesTab";
-
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
 import {
@@ -27,17 +25,11 @@ import {
 
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
-import PreciosTab from "./PreciosTab";
-import AplicacionTab from "./AplicacionTab";
-import PrecioGammaTab from "./PrecioGammaTab";
 
 const GENERAL_TAB_INDEX = 0;
-const VEHICLES_TAB_INDEX = 1;
-const PRICES_TAB_INDEX = 2;
-const APP_TAB_INDEX = 3;
-const GAMA_TAB_INDEX = 4;
 
-const CarrierForm = React.memo(
+
+const CustomerAddressForm = React.memo(
   ({
     actions,
     allFormData,
@@ -53,10 +45,7 @@ const CarrierForm = React.memo(
     /** step 2 */
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [GENERAL_TAB_INDEX]: false,
-      [VEHICLES_TAB_INDEX]: false,
-      [PRICES_TAB_INDEX]: false,
-      [APP_TAB_INDEX]: false,
-      [GAMA_TAB_INDEX]: false,
+
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -128,102 +117,7 @@ const CarrierForm = React.memo(
           />
         ),
       },
-      {
-        ...getTranslations("Vehiculos.titulo", "Vehiculos"),
-        key: VEHICLES_TAB_INDEX,
-        error: tabHasError(VEHICLES_TAB_INDEX),
-        component: (
-          <VehiclesTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [VEHICLES_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-            isSubmitted={props.isSubmitted}
-          />
-        ),
-      },
-      {
-        ...getTranslations("Transportistas.precioPorZona", "Precios por Zona"),
-        key: PRICES_TAB_INDEX,
-        error: tabHasError(PRICES_TAB_INDEX),
-        component: (
-          <PreciosTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [PRICES_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-            isSubmitted={props.isSubmitted}
-          />
-        ),
-      },
-      {
-        ...getTranslations("Transportistas.aplicaciones", "aplicaciones"),
-        key: APP_TAB_INDEX,
-        error: tabHasError(APP_TAB_INDEX),
-        component: (
-          <AplicacionTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [APP_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-            isSubmitted={props.isSubmitted}
-          />
-        ),
-      },
-      {
-        ...getTranslations("Transportistas.precioGamma", "Precios Gama"),
-        key: GAMA_TAB_INDEX,
-        error: tabHasError(GAMA_TAB_INDEX),
-        component: (
-          <PrecioGammaTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [GAMA_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-            isSubmitted={props.isSubmitted}
-          />
-        ),
-      },
+
     ];
 
     const { id } = useParams();
@@ -244,10 +138,10 @@ const CarrierForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "Transportistas.titulo",
-              defaultMessage: "Transportistas",
+              id: "FamiliaClientes.titulo",
+              defaultMessage: "Familia Clientes",
             }),
-            href: "/fact/transportistas",
+            href: "/fact/familia-clientes",
           },
           {
             title: props.intl.formatMessage({
@@ -279,12 +173,12 @@ const CarrierForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "Transportistas.titulo",
-              defaultMessage: "Transportistas",
+              id: "FamiliaClientes.titulo",
+              defaultMessage: "Familia Clientes",
             }),
-            href: "/fact/transportistas",
+            href: "/fact/familia-clientes",
           },
-          { title: nom, href: "/fact/transportistas" },
+          { title: nom, href: "/fact/familia-clientes" },
           { title: nameSelectedTab },
         ]);
       }
@@ -350,5 +244,5 @@ const component = compose(
   injectIntl,
   connect(mapStateToProps, mapDispatchToProps),
   withAbmServices
-)(CarrierForm);
+)(CustomerAddressForm);
 export default component;

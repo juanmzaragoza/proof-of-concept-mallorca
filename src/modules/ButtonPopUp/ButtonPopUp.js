@@ -215,8 +215,8 @@ const ButtonPopUp = ({
 
 Button.propTypes = {
   title: PropTypes.string,
-  id: PropTypes.string.isRequired,
-  responseKey: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  responseKey: PropTypes.string,
   enabled: PropTypes.bool,
   configuration: PropTypes.shape({
     title: PropTypes.string,

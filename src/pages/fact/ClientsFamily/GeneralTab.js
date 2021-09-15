@@ -1,12 +1,29 @@
-import CreateUpdateForm from "../../../modules/ReactGrid/CreateUpdateForm";
-import { injectIntl } from "react-intl";
-import React from "react";
-import { compose } from "redux";
-import { withValidations } from "../../../modules/wrappers";
-import * as API from "redux/api";
-import { useParams } from "react-router";
+import React, { useEffect, useState } from "react";
 
-const ClientsFamilyCreate = (props) => {
+import { FormattedMessage, injectIntl } from "react-intl";
+import Grid from "@material-ui/core/Grid/Grid";
+
+import OutlinedContainer from "modules/shared/OutlinedContainer";
+import GenericForm from "modules/GenericForm";
+
+import { compose } from "redux";
+import { withValidations } from "modules/wrappers";
+
+import { useTabForm } from "../../../hooks/tab-form";
+import { TIPO_DIR_COMERCIALES_SELECTOR_VALUES } from "constants/selectors";
+import { useParams } from "react-router";
+import ButtonPopUp from "modules/ButtonPopUp";
+
+const CUSTOMER_SECTION_INDEX = 0;
+
+const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
+  const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
+    fields: {
+      [CUSTOMER_SECTION_INDEX]: false,
+    },
+    setIsValid: props.setIsValid,
+  });
+
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
     defaultMessage: "Código",
@@ -14,6 +31,32 @@ const ClientsFamilyCreate = (props) => {
   const DESCRIPCIO = props.intl.formatMessage({
     id: "Comun.descripcion",
     defaultMessage: "Descripción",
+  });
+  const DOMICILI = props.intl.formatMessage({
+    id: "Proveedores.Direccion.domicilio",
+    defaultMessage: "Domicilio",
+  });
+  const NOM = props.intl.formatMessage({
+    id: "Comun.nombre",
+    defaultMessage: "Nombre",
+  });
+  const OBS = props.intl.formatMessage({
+    id: "FamiliaProveedores.observaciones",
+    defaultMessage: "Observaciones",
+  });
+
+  const DEFECTE = props.intl.formatMessage({
+    id: "Proveedores.DireccionComercial.defecto",
+    defaultMessage: "Defecto",
+  });
+
+  const DIR_EXCLUSIVA = props.intl.formatMessage({
+    id: "DireccionesClientes.dreccion_exclusiva",
+    defaultMessage: "Dir. exclusiva",
+  });
+  const BLOQUEJAT = props.intl.formatMessage({
+    id: "Clientes.bloqueado",
+    defaultMessage: "Bloqueado",
   });
 
   const code = (md = 6) => ({
@@ -173,90 +216,117 @@ const ClientsFamilyCreate = (props) => {
 
   const { id: familiaClient } = useParams();
 
-  const boxesConfig = {
-    title: props.intl.formatMessage({
-      id: "Proveedores.cajas",
-      defaultMessage: "Cajas",
-    }),
-
-    columns: [
-      {
-        name: "empresa",
-        title: props.intl.formatMessage({
-          id: "Clientes.empresas",
-          defaultMessage: "Empresas",
-        }),
-        getCellValue: (row) => row.empresa?.description ?? "",
-      },
-      {
-        name: "caixa",
-        title: props.intl.formatMessage({
-          id: "Proveedores.cajas",
-          defaultMessage: "Cajas",
-        }),
-        getCellValue: (row) => row.caixa?.description ?? "",
-      },
-    ],
-    formComponents: [
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Proveedores.cajas",
-          defaultMessage: "Cajas",
-        }),
-        type: "LOV",
-        key: "caixa",
-        required: true,
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        selector: {
-          key: "caixas",
-          labelKey: formatCodeAndDescription,
-          sort: "descripcio",
-          creationComponents: codeAndDescription(),
-          advancedSearchColumns: aSCodeAndDescription,
-        },
-  
-      },
-    ],
-  };
-
-  const commercialAddressesConfig = {
+  const preciosArticulos = {
     title: props.intl.formatMessage({
       id: "PrecioArticulos.articulosFamCliente",
       defaultMessage: "Artículos Familia Cliente",
     }),
     query: [
       {
-        columnName: "familiaCliente.id",
+        columnName: "familiaClient.id",
         value: `"${familiaClient}"`,
         exact: true,
       },
     ],
     extraPostBody: {
-      proveidor: { id: familiaClient },
+      familiaClient: { id: familiaClient },
     },
     columns: [
-      { name: "codi", title: CODE },
-      { name: "codi", title: CODE },
+      {
+        name: "article",
+        title: props.intl.formatMessage({
+          id: "Presupuestos.articulo",
+          defaultMessage: "Artículo",
+        }),
+        getCellValue: (row) =>
+          row.article && `${row.article?.description}(${row.article?.pk.codi})`,
+      },
+      {
+        name: "pru",
+        title: props.intl.formatMessage({
+          id: "Presupuestos.precio",
+          defaultMessage: "Precio",
+        }),
+      },
     ],
-    formComponents: [],
+    formComponents: [
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.articulo",
+          defaultMessage: "Artículo",
+        }),
+        type: "LOV",
+        key: "article",
+        id: "articlesFact",
+        noEditable: true,
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 7,
+        },
+        selector: {
+          key: "articles",
+          labelKey: (data) => `${data.descripcioCurta} (${data.codi})`,
+          sort: "nom",
+          cannotCreate: true,
+          advancedSearchColumns: [
+            { title: CODE, name: "codi" },
+            { title: NOM, name: "descripcioCurta" },
+          ],
+        },
+        validationType: "object",
+        validations: [...props.commonValidations.requiredValidation()],
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Presupuestos.precio",
+          defaultMessage: "Precio",
+        }),
+        type: "numeric",
+        key: "pru",
+
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        validationType: "number",
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 999999999999),
+        ],
+      },
+    ],
   };
 
   return (
- 
-      <CreateUpdateForm
-        title={props.intl.formatMessage({
-          id: "FamiliaClientes.titulo",
-          defaultMessage: "Familias cliente",
-        })}
-        formConfiguration={createConfiguration}
-        url={API.familiaClient}
-      />
-     
+    <Grid container>
+      <Grid xs={12} item>
+        <GenericForm
+          formComponents={createConfiguration}
+          emptyPaper={true}
+          editMode={props.editMode}
+          getFormData={getFormData}
+          setFormData={setFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) => addValidity(CUSTOMER_SECTION_INDEX, value)}
+          onBlur={(e) => handleTouched(CUSTOMER_SECTION_INDEX)}
+          {...props}
+        />
 
+        <ButtonPopUp
+          title={props.intl.formatMessage({
+            id: "PrecioArticulos.titulo",
+            defaultMessage: "Precio Artículos",
+          })}
+          configuration={preciosArticulos}
+          id="afcs"
+          responseKey="afcs"
+          enabled={props.editMode}
+        />
+      </Grid>
+    </Grid>
   );
 };
-
-export default compose(withValidations, injectIntl)(ClientsFamilyCreate);
+export default compose(React.memo, withValidations, injectIntl)(GeneralTab);

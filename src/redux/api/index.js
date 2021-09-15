@@ -324,6 +324,10 @@ export const costosPressupost = `api/fact/costosPressupost`;
 export const incidenciesFactura = `api/fact/incidenciesFactura`;
 
 export const validarNif = "api/fact/clients/validarNif";
-export const comandesMagatzem = "api/fact/cmgs";
+export const comandesMagatzem = "api/fact/comandesMagatzem";
 export const liniesComandaMagatzem = `api/fact/liniesComandaMagatzem`;
 export const escalatsTipusVenciment = `api/fact/escalatsTipusVenciment`;
+export const afcs = `api/fact/afcs`;
+export const preusPerZona = `api/fact/preusPerZona`;
+export const aplicacionsTransportista = `api/fact/aplicacionsTransportista`;
+export const preusPerGamma = `api/fact/preusPerGamma`;

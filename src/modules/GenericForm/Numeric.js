@@ -7,7 +7,8 @@ const NumberFormatCustom = (props) => {
   const [enableChanges, setEnableChanges] = useState(false);
   const { inputRef, onChange, format, ...other } = props;
 
-  return (
+
+  return  (
     <NumberFormat
       {...other}
       format={format || null}
@@ -27,6 +28,8 @@ const NumberFormatCustom = (props) => {
       }}
       thousandSeparator={'.'}
       decimalSeparator={','}
+      decimalScale={props.decimalScale}
+      fixedDecimalScale={props.fixedDecimalScale}
     />
   );
 };
@@ -37,7 +40,7 @@ const Numeric = ({ id,
                    required = false,
                    value, label, error, helperText, disabled,
                    prefix, suffix, format,
-                   onChange, onBlur }) => {
+                   onChange, onBlur, decimalScale = 5 , fixedDecimalScale = false}) => {
 
   const handleChange = (event) => {
     onChange(event, event.target.value);
@@ -61,8 +64,12 @@ const Numeric = ({ id,
       inputComponent: NumberFormatCustom,
       startAdornment: prefix && <InputAdornment position="start">{prefix}</InputAdornment>,
       endAdornment: suffix && <InputAdornment position="end">{suffix}</InputAdornment>,
-      inputProps: { format }
+      inputProps: { format , decimalScale , fixedDecimalScale},
+
+      
     }}
+  
+   
   />
 };
 

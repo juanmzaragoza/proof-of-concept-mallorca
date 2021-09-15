@@ -10,7 +10,13 @@ import { useParams } from "react-router-dom";
 import ExpandableGrid from "modules/ExpandableGrid";
 import { Chip } from "@material-ui/core";
 
-const VehicleTab = ({ formData, setFormData, getFormData, ...props }) => {
+const VehicleTab = ({
+  formData,
+  setFormData,
+  getFormData,
+
+  ...props
+}) => {
   useEffect(() => {
     props.setIsValid(true);
   }, []);
@@ -63,10 +69,38 @@ const VehicleTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
       },
       {
+        name: "nif",
+        title: props.intl.formatMessage({
+          id: "Vehiculos.dni",
+          defaultMessage: "dni",
+        }),
+      },
+      {
+        name: "conductorHabitual",
+        title: props.intl.formatMessage({
+          id: "Vehiculos.conductorHabitual",
+          defaultMessage: "Conductor Habitual",
+        }),
+      },
+      {
         name: "matricula",
         title: props.intl.formatMessage({
-          id: "Vehiculos.matricula",
-          defaultMessage: "Matrícula ",
+          id: "Vehiculos.matricula1",
+          defaultMessage: "Matrícula 1",
+        }),
+      },
+      {
+        name: "matriculaRemolc",
+        title: props.intl.formatMessage({
+          id: "Vehiculos.matricula2",
+          defaultMessage: "Matrícula 2",
+        }),
+      },
+      {
+        name: "tara",
+        title: props.intl.formatMessage({
+          id: "Vehiculos.tara",
+          defaultMessage: "tara",
         }),
       },
       {
@@ -92,27 +126,12 @@ const VehicleTab = ({ formData, setFormData, getFormData, ...props }) => {
             />
           ),
       },
-      {
-        name: "conductorHabitual",
-        title: props.intl.formatMessage({
-          id: "Vehiculos.conductor",
-          defaultMessage: "Conductor",
-        }),
-      },
 
       {
-        name: "matriculaRemolc",
+        name: "pesMaxim",
         title: props.intl.formatMessage({
-          id: "Vehiculos.remolque",
-          defaultMessage: "remolque",
-        }),
-        hidden: true,
-      },
-      {
-        name: "nif",
-        title: props.intl.formatMessage({
-          id: "Vehiculos.dni",
-          defaultMessage: "dni",
+          id: "Vehiculos.pesoMaximo",
+          defaultMessage: "Peso Máximo",
         }),
         hidden: true,
       },
@@ -141,37 +160,12 @@ const VehicleTab = ({ formData, setFormData, getFormData, ...props }) => {
         hidden: true,
       },
       {
-        name: "tara",
-        title: props.intl.formatMessage({
-          id: "Vehiculos.tara",
-          defaultMessage: "tara",
-        }),
-        hidden: true,
-      },
-      {
-        name: "pesMaxim",
-        title: props.intl.formatMessage({
-          id: "Vehiculos.pesoMaximo",
-          defaultMessage: "Peso Máximo",
-        }),
-        hidden: true,
-      },
-      {
         name: "projecteNum",
         title: props.intl.formatMessage({
           id: "FamiliaArticulos.proyecto",
           defaultMessage: "Proyecto",
         }),
 
-        hidden: true,
-      },
-
-      {
-        name: "empresaCodi",
-        title: props.intl.formatMessage({
-          id: "PieDocumento.empresa",
-          defaultMessage: "Empresa",
-        }),
         hidden: true,
       },
       {
@@ -210,59 +204,13 @@ const VehicleTab = ({ formData, setFormData, getFormData, ...props }) => {
         required: true,
         breakpoints: {
           xs: 12,
-          md: 9,
+          md: 5,
         },
         validationType: "string",
         validations: [
           ...props.commonValidations.requiredValidation(),
           ...props.stringValidations.minMaxValidation(1, 60),
         ],
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Vehiculos.activo",
-          defaultMessage: "Activo ",
-        }),
-        type: "checkbox",
-        key: "actiu",
-        breakpoints: {
-          xs: 12,
-          md: 1,
-        },
-      },
-
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Vehiculos.matricula",
-          defaultMessage: "Matrícula",
-        }),
-        type: "input",
-        key: "matricula",
-        required: true,
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        validationType: "string",
-        validations: [
-          ...props.commonValidations.requiredValidation(),
-          ...props.stringValidations.minMaxValidation(1, 10),
-        ],
-      },
-
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Vehiculos.remolque",
-          defaultMessage: "Remolque",
-        }),
-        type: "input",
-        key: "matriculaRemolc",
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        validationType: "string",
-        validations: [...props.stringValidations.minMaxValidation(1, 10)],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -273,24 +221,58 @@ const VehicleTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "nif",
         breakpoints: {
           xs: 12,
-          md: 4,
+          md: 2,
         },
         validationType: "string",
         validations: [...props.stringValidations.minMaxValidation(1, 12)],
       },
       {
         placeHolder: props.intl.formatMessage({
-          id: "Vehiculos.conductor",
-          defaultMessage: "Conductor",
+          id: "Vehiculos.conductorHabitual",
+          defaultMessage: "Conductor Habitual",
         }),
         type: "input",
         key: "conductorHabitual",
         breakpoints: {
           xs: 12,
-          md: 4,
+          md: 3,
         },
         validationType: "string",
         validations: [...props.stringValidations.minMaxValidation(1, 30)],
+      },
+
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Vehiculos.matricula1",
+          defaultMessage: "Matrícula 1",
+        }),
+        type: "input",
+        key: "matricula",
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 2,
+        },
+        validationType: "string",
+        validations: [
+          ...props.commonValidations.requiredValidation(),
+          ...props.stringValidations.minMaxValidation(1, 10),
+        ],
+      },
+
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Vehiculos.matricula2",
+          defaultMessage: "Matrícula 2",
+        }),
+        type: "input",
+        key: "matriculaRemolc",
+        breakpoints: {
+          xs: 12,
+          md: 2,
+        },
+        validationType: "string",
+        validations: [...props.stringValidations.minMaxValidation(1, 10)],
       },
 
       {
@@ -302,23 +284,7 @@ const VehicleTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "tara",
         breakpoints: {
           xs: 12,
-          md: 4,
-        },
-        validationType: "number",
-        validations: [
-          ...props.numberValidations.minMaxValidation(0, 9999999999),
-        ],
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Vehiculos.pesoMaximo",
-          defaultMessage: "Peso Máximo",
-        }),
-        type: "numeric",
-        key: "pesMaxim",
-        breakpoints: {
-          xs: 12,
-          md: 4,
+          md: 2,
         },
         validationType: "number",
         validations: [
@@ -328,55 +294,33 @@ const VehicleTab = ({ formData, setFormData, getFormData, ...props }) => {
 
       {
         placeHolder: props.intl.formatMessage({
-          id: "Vehiculos.codigoMaquina",
-          defaultMessage: "Código Máquina",
+          id: "Vehiculos.pesoMaximo",
+          defaultMessage: "Peso Máximo",
         }),
-        type: "input",
-        key: "maquinaCodi",
+        type: "numeric",
+        key: "pesMaxim",
         breakpoints: {
           xs: 12,
-          md: 3,
+          md: 2,
         },
-        validationType: "string",
-        validations: [...props.stringValidations.minMaxValidation(1, 15)],
+        validationType: "number",
+        validations: [
+          ...props.numberValidations.minMaxValidation(0, 9999999999),
+        ],
       },
       {
         placeHolder: props.intl.formatMessage({
-          id: "Vehiculos.pwd",
-          defaultMessage: "PWD",
+          id: "Vehiculos.clave",
+          defaultMessage: "Clave",
         }),
         type: "input",
         key: "pwd",
         breakpoints: {
           xs: 12,
-          md: 5,
+          md: 4,
         },
         validationType: "string",
         validations: [...props.stringValidations.minMaxValidation(1, 60)],
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Vehiculos.vhEmpresa",
-          defaultMessage: "Vehículo Empresa",
-        }),
-        type: "checkbox",
-        key: "vehicleEmpresa",
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "FamiliaProveedores.observaciones",
-          defaultMessage: "Observaciones",
-        }),
-        type: "observations",
-        key: "observacions",
-        breakpoints: {
-          xs: 12,
-          md: 1,
-        },
       },
 
       {
@@ -464,7 +408,7 @@ const VehicleTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         type: "LOV",
         key: "delegacio",
-        noEditable: true,
+
         breakpoints: {
           xs: 12,
           md: 4,
@@ -481,6 +425,43 @@ const VehicleTab = ({ formData, setFormData, getFormData, ...props }) => {
               name: "nom",
             },
           ],
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Vehiculos.activo",
+          defaultMessage: "Activo ",
+        }),
+        type: "checkbox",
+        key: "actiu",
+        breakpoints: {
+          xs: 12,
+          md: 2,
+        },
+      },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Vehiculos.vhEmpresa",
+          defaultMessage: "Vehículo Empresa",
+        }),
+        type: "checkbox",
+        key: "vehicleEmpresa",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+      },
+
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "FamiliaProveedores.observaciones",
+          defaultMessage: "Observaciones",
+        }),
+        type: "observations",
+        key: "observacions",
+        breakpoints: {
+          xs: 12,
+          md: 1,
         },
       },
     ],

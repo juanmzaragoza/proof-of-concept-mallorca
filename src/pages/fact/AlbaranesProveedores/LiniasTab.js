@@ -244,6 +244,33 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         hidden: true,
       },
+      {
+        name: "pressupost",
+        title: props.intl.formatMessage({
+          id: "Presupuestos.titulo",
+          defaultMessage: "Presupuestos",
+        }),
+        getCellValue: (row) => row.pressupost && row.pressupost?.description,
+        hidden: true,
+      },
+      {
+        name: "capitol",
+        title: props.intl.formatMessage({
+          id: "Proyectos.capitulos",
+          defaultMessage: "Capitulo",
+        }),
+        getCellValue: (row) => row.capitol && row.capitol?.description,
+        hidden: true,
+      },
+      // {
+      //   name: "partida",
+      //   title: props.intl.formatMessage({
+      //     id: "Proyectos.partida",
+      //     defaultMessage: "Partida",
+      //   }),
+      //   getCellValue: (row) => row.partida && row.partida?.description,
+      //   hidden: true,
+      // },
 
       {
         name: "observacions",
@@ -615,13 +642,15 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         type: "LOV",
         key: "pressupost",
+
         breakpoints: {
           xs: 12,
-          md: 4,
+          md: 3,
         },
         selector: {
           key: "pressuposts",
-          labelKey: (data) => `${data.client.description} (${data.codi})`,
+          labelKey: (data) =>
+            `${data.serieVenda.pk.codi}/${data.numero}/${data.versio} (${data.codi})`,
           sort: "codi",
           cannotCreate: true,
 
@@ -643,41 +672,41 @@ const LiniasTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "capitol",
         breakpoints: {
           xs: 12,
-          md: 4,
+          md: 3,
         },
         selector: {
           key: "capitols",
           labelKey: (data) => `${data.descripcio} (${data.codi})`,
           sort: "nom",
           cannotCreate: true,
-          relatedWith: [
-            {
-              name: "partida",
-              filterBy: "capitol.id",
-              keyValue: "id",
-            },
-          ],
+          // relatedWith: [
+          //   {
+          //     name: "partida",
+          //     filterBy: "capitol.id",
+          //     keyValue: "id",
+          //   },
+          // ],
         },
       },
 
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Proyectos.partida",
-          defaultMessage: "Partida",
-        }),
-        type: "LOV",
-        key: "partida",
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        selector: {
-          key: "partidas",
-          labelKey: (data) => `${data.descripcio} (${data.codi})`,
-          sort: "descripcio",
-          cannotCreate: true,
-        },
-      },
+      // {
+      //   placeHolder: props.intl.formatMessage({
+      //     id: "Proyectos.partida",
+      //     defaultMessage: "Partida",
+      //   }),
+      //   type: "LOV",
+      //   key: "partida",
+      //   breakpoints: {
+      //     xs: 12,
+      //     md: 3,
+      //   },
+      //   selector: {
+      //     key: "partidas",
+      //     labelKey: (data) => `${data.descripcio} (${data.codi})`,
+      //     sort: "descripcio",
+      //     cannotCreate: true,
+      //   },
+      // },
       {
         placeHolder: props.intl.formatMessage({
           id: "AlbaranesProveedor.movimientosStock",

@@ -34,13 +34,20 @@ const ZoneList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
-        inlineEditionDisabled: true
+        inlineEditionDisabled: true,
       },
       {
         name: "nom",
         title: props.intl.formatMessage({
           id: "Comun.nombre",
           defaultMessage: "Nombre",
+        }),
+      },
+      {
+        name: "radioKm",
+        title: props.intl.formatMessage({
+          id: "Zona.radioKm",
+          defaultMessage: "Radio km",
         }),
       },
       {
@@ -51,18 +58,16 @@ const ZoneList = ({ actions, ...props }) => {
         }),
       },
       {
-        name: "radioKm",
+        name: "descripcio",
         title: props.intl.formatMessage({
-          id: "Zona.radioKm",
-          defaultMessage: "Radio km",
+          id: "Comun.comentarios",
+          defaultMessage: "Comentarios",
         }),
       },
-    
-  
     ],
     URL: API.zona,
     listKey: "zonas",
-    enableInlineEdition: true
+    enableInlineEdition: true,
   };
   return <ReactGrid id="zona" configuration={listConfiguration} />;
 };
@@ -75,7 +80,4 @@ const mapDispatchToProps = (dispatch, props) => {
   return { actions };
 };
 
-export default compose(
-  injectIntl,
-  connect(null, mapDispatchToProps)
-)(ZoneList);
+export default compose(injectIntl, connect(null, mapDispatchToProps))(ZoneList);

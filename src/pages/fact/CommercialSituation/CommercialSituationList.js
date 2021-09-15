@@ -8,7 +8,6 @@ import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
 const CommercialSituationList = ({ actions, ...props }) => {
-
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
@@ -35,7 +34,7 @@ const CommercialSituationList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
-        inlineEditionDisabled: true
+        inlineEditionDisabled: true,
       },
       {
         name: "nom",
@@ -44,12 +43,21 @@ const CommercialSituationList = ({ actions, ...props }) => {
           defaultMessage: "Nombre",
         }),
       },
+      {
+        name: "observacions",
+        title: props.intl.formatMessage({
+          id: "Comun.observaciones",
+          defaultMessage: "Observaciones",
+        }),
+      },
     ],
     URL: API.situacionsComercial,
     listKey: "situacioComercials",
-    enableInlineEdition: true
+    enableInlineEdition: true,
   };
-  return <ReactGrid id="situacionsComercial" configuration={listConfiguration} />;
+  return (
+    <ReactGrid id="situacionsComercial" configuration={listConfiguration} />
+  );
 };
 
 const mapDispatchToProps = (dispatch, props) => {

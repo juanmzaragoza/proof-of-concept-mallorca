@@ -462,8 +462,8 @@ const LiniesTab = ({ formData, setFormData, getFormData, ...props }) => {
         },
         extraQuery: [
           {
-            columnName: "pressupostCodi",
-            value: `"${pressupostCodi}"`,
+            columnName: "pressupost.id",
+            value: `"${budgetId}"`,
             exact: true,
           },
         ],
