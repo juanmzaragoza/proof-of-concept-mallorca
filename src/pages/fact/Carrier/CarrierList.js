@@ -2,89 +2,90 @@ import React, { useEffect } from "react";
 import * as API from "../../../redux/api";
 import ReactGrid from "../../../modules/ReactGrid";
 import { bindActionCreators, compose } from "redux";
-import { setBreadcrumbHeader, setListingConfig } from "../../../redux/pageHeader";
+import {
+  setBreadcrumbHeader,
+  setListingConfig,
+} from "../../../redux/pageHeader";
 import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
 
 const CarrierList = ({ actions, ...props }) => {
-
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
         id: "Transportistas.titulo",
-        defaultMessage: " Transportistas"
+        defaultMessage: " Transportistas",
       }),
     });
     actions.setBreadcrumbHeader([
-      { title: "Transportistas", href: "/fact/transportistas" }
+      { title: "Transportistas", href: "/fact/transportistas" },
     ]);
   }, []);
 
   const listConfiguration = {
     title: props.intl.formatMessage({
       id: "Transportistas.titulo",
-      defaultMessage: "Transportistas"
+      defaultMessage: "Transportistas",
     }),
     columns: [
       {
-        name: 'codi',
+        name: "codi",
         title: props.intl.formatMessage({
           id: "Comun.codigo",
-          defaultMessage: "Código"
-        })
+          defaultMessage: "Código",
+        }),
       },
       {
-        name: 'nom',
+        name: "nom",
         title: props.intl.formatMessage({
           id: "Comun.nombre",
-          defaultMessage: "Nombre"
-        })
+          defaultMessage: "Nombre",
+        }),
       },
-  
+
       {
-        name: 'nif',
+        name: "nif",
         title: props.intl.formatMessage({
           id: "Proveedores.nif",
-          defaultMessage: "NIF"
+          defaultMessage: "NIF",
         }),
       },
       {
-        name: 'divisa.description',
+        name: "divisa.description",
         title: props.intl.formatMessage({
           id: "Divisa.titulo",
-          defaultMessage: "Divisa"
+          defaultMessage: "Divisa",
         }),
-        getCellValue: row => row.divisa?.description ? row.divisa.description : ""
+        getCellValue: (row) =>
+          row.divisa?.description ? row.divisa.description : "",
       },
       {
-        name: 'codiPostal.description',
+        name: "codiPostal.description",
         title: props.intl.formatMessage({
           id: "Clientes.fact.codigoPostal",
-          defaultMessage: "Código Postal"
+          defaultMessage: "Código Postal",
         }),
-        getCellValue: row => row.codiPostal?.description ? row.codiPostal.description : ""
+        getCellValue: (row) =>
+          row.codiPostal?.description ? row.codiPostal.description : "",
       },
     ],
     URL: API.transportista,
-    listKey: 'transportistas'
+    listKey: "transportistas",
   };
-
 
   return (
     <>
-      <ReactGrid id='transportista'
-                 configuration={listConfiguration} />
+      <ReactGrid id="transportista" configuration={listConfiguration} />
     </>
-  )
+  );
 };
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
     setListingConfig: bindActionCreators(setListingConfig, dispatch),
-    setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch)
+    setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch),
   };
   return { actions };
 };
-
 
 export default compose(
   injectIntl,
