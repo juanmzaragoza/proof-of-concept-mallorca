@@ -2108,6 +2108,7 @@
   "TiposVencimiento.escalado":"Escalado",
   "TiposVencimiento.errorPorcentaje": "La suma de todos los % ha de ser igual a 100.",
   "PrecioArticulos.articulosFamCliente":"Artículos Familia Cliente",
-  "PrecioArticulos.titulo":"Precio Artículos"
+  "PrecioArticulos.titulo":"Precio Artículos",
+  "Comun.comentarios":"Comentarios"
   
 }
