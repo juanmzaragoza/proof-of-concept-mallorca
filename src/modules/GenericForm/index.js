@@ -143,6 +143,8 @@ const GenericForm = ({ loading, ...props }) => {
       format,
       fireActionOnBlur,
       fireActionOnBlurChange,
+      decimalScale,
+      fixedDecimalScale,
     },
     formik
   ) => {
@@ -235,6 +237,7 @@ const GenericForm = ({ loading, ...props }) => {
           />
         );
       case "numeric":
+  
         return (
           <Numeric
             id={identification}
@@ -258,6 +261,8 @@ const GenericForm = ({ loading, ...props }) => {
             prefix={prefix}
             suffix={suffix}
             format={format}
+            decimalScale={decimalScale}
+            fixedDecimalScale={fixedDecimalScale}
           />
         );
       case "select":
@@ -296,7 +301,7 @@ const GenericForm = ({ loading, ...props }) => {
                 }
                 onChange={(e) => {
                   handleChange(e, e.currentTarget.checked);
-                  props.setFormData({ key, value: e.currentTarget.checked })
+                  props.setFormData({ key, value: e.currentTarget.checked });
                 }}
                 name={key}
                 disabled={noEnable}
