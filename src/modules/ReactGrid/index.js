@@ -32,7 +32,8 @@ import {
   deleteData,
   resetGrid,
   searchData,
-  updateData
+  updateData,
+  createData
 } from "redux/reactGrid";
 import {Loading} from "modules/shared/Loading";
 import LOVCellComponent from "./LOVCellComponent";
@@ -46,7 +47,7 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
 
   const history = useHistory();
   const dataGrid = useRef(null);
-  const [columns] = useState(configuration.columns);
+  const [columns, setColumns] = useState(configuration.columns);
   const [currentPage, setCurrentPage] = useState(0);
   const [sorting, setSorting] = useState([]);
   const [filters, setFilters] = useState([]);
@@ -72,7 +73,7 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
 
   // executed when mounts component and when vars change
   useEffect(() => {
-    loadData()
+    loadData();
   },[
     currentPage,
     JSON.stringify(sorting),
@@ -83,7 +84,10 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
   // if the filters change
   useEffect(() => {
     setCurrentPage(0);
-  },[filters, extraQuery]);
+  },[
+    JSON.stringify(filters),
+    JSON.stringify(extraQuery)
+  ]);
 
   useEffect(()=>{
     if(!isEmpty(errors)){
@@ -111,6 +115,9 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
           actions.updateData({ key: props.id, id: changedRow.id, data: changedRow });
           expandedData && setExpandedData(changedRow);
         }
+      },
+      insert: (values) => {
+        actions.createData({ key: props.id, data: values });
       }
     });
     setStore(customStore);
@@ -224,6 +231,16 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
         focusedRowEnabled={true}
         onOptionChanged={handleOptionChanged}
         repaintChangesOnly={true}
+        onInitNewRow={e => {
+          // on init creation: disable field for creation
+          const cols = configuration.columns.map(column => ({...column, inlineEditionDisabled: !!column.inlineCreationDisabled}));
+          setColumns(cols);
+        }}
+        onSaved={e => {
+          // on finish creation: disable field for edition
+          const cols = configuration.columns.map(column => ({...column, inlineEditionDisabled: !!column.inlineEditionDisabled}));
+          setColumns(cols);
+        }}
         {...expandableOptions}
       >
         {!configuration.disabledFiltering && <HeaderFilter visible={false} />}
@@ -256,6 +273,7 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
         />
 
         {configuration.enableInlineEdition && <Editing
+          allowAdding={true}
           allowUpdating={true}
           allowDeleting={!configuration.disabledActions}
           mode="cell" />}
@@ -288,6 +306,7 @@ ReactGrid.propTypes = {
       title: PropTypes.string,
       getCellValue: PropTypes.func,
       inlineEditionDisabled: PropTypes.bool,
+      inlineCreationDisabled: PropTypes.bool,
       field: PropTypes.any
     })),
     listKey: PropTypes.string.isRequired,
@@ -316,6 +335,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
+    createData: bindActionCreators(createData, dispatch),
     updateData: bindActionCreators(updateData, dispatch),
     loadData: bindActionCreators(searchData, dispatch),
     deleteData: bindActionCreators(deleteData, dispatch),

@@ -8,6 +8,7 @@ import { getFormedURL } from "../common";
 const ADD = "ADD_TO_REACT_GRID";
 const REPLACE = "REPLACE_DATA_TO_REACT_GRID";
 const REMOVE = "REMOVE_TO_REACT_GRID";
+const APPEND = "APPEND_TO_REACT_GRID";
 const RESET = "RESET_REACT_GRID";
 const RESET_SPECIFIC_REACT_GRID = "RESET_SPECIFIC_REACT_GRID";
 
@@ -107,6 +108,28 @@ export const updateData = ({ key, id, data }) => {
   };
 };
 
+export const createData = ({ key, data}) => {
+  const gridId = key;
+  return async (dispatch) => {
+    try {
+      dispatch(add({ gridId, loading: true }));
+      const queryString = API[key];
+      Axios.post(queryString, JSON.stringify(data))
+        .then(({ status, data, ...rest }) => {
+          dispatch(append({ gridId, ...data }));
+          dispatch(add({ gridId, loading: false }));
+        })
+        .catch((error) => {
+          dispatch(add({ gridId, loading: false }));
+          error.response && handlePersistError({gridId, ...error.response})(dispatch);
+        });
+    } catch (error) {
+      dispatch(add({ gridId, loading: false }));
+      dispatch(add({ gridId, errors: error }));
+    }
+  };
+}
+
 const handlePersistError = ({ gridId, status, data }) => {
   return async (dispatch) => {
     if (status === 400 && data.errors) {
@@ -154,6 +177,13 @@ export const remove = (payload) => {
   };
 };
 
+export const append = (payload) => {
+  return {
+    type: APPEND,
+    payload,
+  };
+};
+
 //Reducers
 const oneInitialState = {
   data: [],
@@ -192,6 +222,14 @@ export default (state = initialState, action) => {
           totalCount: state[gridId].totalCount - 1,
           data: removeFrom(state[gridId].data, (row) => row.id !== id),
       }};
+    case APPEND:
+      state[gridId].data.pop();
+      const data = [rest].concat(state[gridId].data);
+      return { ...state,
+        [gridId]: {
+          ...state[gridId],
+          data: data
+        }};
     case RESET_SPECIFIC_REACT_GRID:
       gridId && delete state[gridId];
       return state;
