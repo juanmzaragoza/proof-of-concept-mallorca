@@ -739,7 +739,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     listKey: 'adresaComercials',
     enableInlineEdition: true,
     enableExpandableContent: true,
-    disabledActions: true,
+    disabledUpdate: true,
   };
   const commercialAddressesFormConfig = [
     code(),
