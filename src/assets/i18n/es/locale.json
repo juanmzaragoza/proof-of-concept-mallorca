@@ -2138,6 +2138,9 @@
   "Selector.precio-":"Precio / (1 - pte * 0.01)",
   "Comun.descripcionCorta":"Descripción Corta",
   "Comun.SoloAlTotal":"Solo al total",
-  "Comun.todosLosIvas":"Todos los ivas"
+  "Comun.todosLosIvas":"Todos los ivas",
+  "ComplementosFactura.distribuirCos":"Distrib. cos art.",
+  "ComplementosFactura.aplicarDtoCorto":"Aplicar Dto.",
+  "ComplementosFactura.familiaArticulos":"Familia Artículos"
 
 }
