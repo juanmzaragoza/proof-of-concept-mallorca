@@ -8,6 +8,7 @@ import { compose } from "redux";
 import { withValidations, withDependentActions } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
 
+
 const Prices = ({ formData, setFormData, getFormData, ...props }) => {
   const { id: tarifaId } = useParams();
 
@@ -15,7 +16,12 @@ const Prices = ({ formData, setFormData, getFormData, ...props }) => {
 
   useEffect(() => {
     props.setIsValid(true);
+   
   }, []);
+
+ 
+
+ 
 
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
@@ -118,6 +124,8 @@ const Prices = ({ formData, setFormData, getFormData, ...props }) => {
         type: "numeric",
         key: "preuArticleTarifa",
         required: true,
+        decimalScale: 4,
+        fixedDecimalScale: true,
         breakpoints: {
           xs: 12,
           md: 4,
@@ -133,6 +141,8 @@ const Prices = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         type: "numeric",
         key: "descompte",
+        decimalScale: 2,
+        fixedDecimalScale: true,
         suffix: "%",
         breakpoints: {
           xs: 12,
@@ -140,7 +150,7 @@ const Prices = ({ formData, setFormData, getFormData, ...props }) => {
         },
         fireActionOnBlur,
         validationType: "number",
-        validations: [...props.numberValidations.minMaxValidation(0, 99)],
+        validations: [...props.numberValidations.minMaxValidation(0, 100)],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -150,13 +160,15 @@ const Prices = ({ formData, setFormData, getFormData, ...props }) => {
         type: "numeric",
         key: "descompte002",
         suffix: "%",
+        decimalScale: 2,
+        fixedDecimalScale: true,
         breakpoints: {
           xs: 12,
           md: 2,
         },
         fireActionOnBlur,
         validationType: "number",
-        validations: [...props.numberValidations.minMaxValidation(0, 99)],
+        validations: [...props.numberValidations.minMaxValidation(0, 100)],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -166,11 +178,13 @@ const Prices = ({ formData, setFormData, getFormData, ...props }) => {
         type: "numeric",
         key: "marge",
         disabledCreating: true,
+        decimalScale: 2,
+        fixedDecimalScale: true,
         breakpoints: {
           xs: 12,
           md: 2,
         },
-        fireActionOnBlur
+        fireActionOnBlur,
       },
     ],
   };

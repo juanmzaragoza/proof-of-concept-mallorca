@@ -11,7 +11,11 @@ import { useTabForm } from "hooks/tab-form";
 import ExpandableGrid from "modules/ExpandableGrid";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
-import {TIPO_DIR_COMERCIALES_SELECTOR_VALUES} from "constants/selectors"
+import {
+  TIPO_DIR_COMERCIALES_SELECTOR_VALUES,
+  CNCFACTURA_SELECTOR_VALUE,
+  APLICAR_A_SELECTOR_VALUE,
+} from "constants/selectors";
 
 const FINAL_FACTURA_SECTION_INDEX = 0;
 const LINEAS_SECTION_INDEX = 1;
@@ -158,15 +162,15 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           row.aplicaTotal && row.aplicaTotal === "S" ? (
             <Chip
               label={props.intl.formatMessage({
-                id: "Comun.SI",
-                defaultMessage: "SI",
+                id: "Comun.SoloAlTotal",
+                defaultMessage: "Solo Al Total",
               })}
             />
           ) : (
             <Chip
               label={props.intl.formatMessage({
-                id: "Comun.NO",
-                defaultMessage: "NO",
+                id: "Comun.todosLosIvas",
+                defaultMessage: "Todos Los Ivas",
               })}
             />
           ),
@@ -177,6 +181,33 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "FinalFacturas.cncFactura",
           defaultMessage: "Campo de la Factura",
         }),
+        getCellValue: (row) =>
+          row.cncFactura
+            ? (row.cncFactura === "1" && (
+                <Chip
+                  label={props.intl.formatMessage({
+                    id: "Facturas.baseImponible",
+                    defaultMessage: "Base Imponible",
+                  })}
+                />
+              )) ||
+              (row.cncFactura === "2" && (
+                <Chip
+                  label={props.intl.formatMessage({
+                    id: "Clientes.iva",
+                    defaultMessage: "IVA",
+                  })}
+                />
+              )) ||
+              (row.cncFactura === "3" && (
+                <Chip
+                  label={props.intl.formatMessage({
+                    id: "Proyectos.total",
+                    defaultMessage: "Total",
+                  })}
+                />
+              ))
+            : "",
       },
       {
         name: "imprimir",
@@ -274,8 +305,11 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "FinalFacturas.cncFactura",
           defaultMessage: "Campo de la Factura",
         }),
-        type: "input",
+        type: "select",
         key: "cncFactura",
+        selector: {
+          options: CNCFACTURA_SELECTOR_VALUE,
+        },
         breakpoints: {
           xs: 12,
           md: 3,
@@ -292,7 +326,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "formula",
         breakpoints: {
           xs: 12,
-          md: 10,
+          md: 8,
         },
         validationType: "string",
         validations: [...props.numberValidations.minMaxValidation(0, 250)],
@@ -304,20 +338,17 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Imprimir",
         }),
         type: "select",
-        required:true,
+        required: true,
         key: "imprimir",
         breakpoints: {
           xs: 12,
           md: 2,
         },
-        selector:{
-            options: TIPO_DIR_COMERCIALES_SELECTOR_VALUES
+        selector: {
+          options: TIPO_DIR_COMERCIALES_SELECTOR_VALUES,
         },
         validationType: "string",
-        validations: [
-          ...props.commonValidations.requiredValidation(),
-        ],
-   
+        validations: [...props.commonValidations.requiredValidation()],
       },
 
       {
@@ -325,14 +356,17 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "FinalFacturas.aplicarTotal",
           defaultMessage: "Aplicar Total",
         }),
-        type: "switch",
+        type: "select",
         key: "aplicaTotal",
+        selector: {
+          options: APLICAR_A_SELECTOR_VALUE,
+        },
         breakpoints: {
           xs: 12,
           md: 2,
         },
       },
-  
+
       {
         placeHolder: props.intl.formatMessage({
           id: "FinalFacturas.importeFacturado",

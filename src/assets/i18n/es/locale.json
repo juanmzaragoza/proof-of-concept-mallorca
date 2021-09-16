@@ -461,9 +461,9 @@
   "Selector.contabilizar": "Contabilizar",
   "Selector.soloVencimento": "Solo vencimiento",
   "Selector.contabilizarMasVEnc": "Contabilizar más vencimiento",
-  "Retenciones.tipo1": "Tipo 1",
-  "Retenciones.tipo2": "Tipo 2",
-  "Retenciones.tipo3": "Tipo 3",
+  "Retenciones.tipo1": "Antes de Base",
+  "Retenciones.tipo2": "Sobre Base",
+  "Retenciones.tipo3": "Sobre Base + IVA",
 
   "Organización.gerente": "Gerente",
   "Organizacion.contacto": "Contacto",
@@ -1756,7 +1756,7 @@
   "FinalFacturas.formula": "Fórmula",
   "FinalFacturas.lineas": "Línias",
   "FinalFacturas.importeFacturado": "Importe Facturado",
-  "FinalFacturas.aplicarTotal": "Aplicar Total",
+  "FinalFacturas.aplicarTotal": "Aplicar a",
   "FinalFacturas.imprimir": "Imprimir",
   "FinalFacturas.cncFactura": "Campo de la Factura",
   "Articulos.precioArticulo": "Precio Artículo",
@@ -2133,5 +2133,11 @@
   "RegimenIva.clavesExpedidaForm": " Clave de régimen especial o transcendencia en facturas expedidas",
   "RegimenIva.clavesRecibidaForm": "Clave de régimen especial o trascendencia en facturas recibidas",
   "Iva.porcentaje":"Porcentaje",
-  "Iva.recargo":"Recargo"
+  "Iva.recargo":"Recargo",
+  "Selector.precio+":"Precio * (1 + pte * 0.01)",
+  "Selector.precio-":"Precio / (1 - pte * 0.01)",
+  "Comun.descripcionCorta":"Descripción Corta",
+  "Comun.SoloAlTotal":"Solo al total",
+  "Comun.todosLosIvas":"Todos los ivas"
+
 }

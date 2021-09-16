@@ -164,7 +164,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         validationType: "number",
         validations: [
           ...props.commonValidations.requiredValidation(),
-          ...props.numberValidations.minMaxValidation(1,9999999999),
+          ...props.numberValidations.minMaxValidation(1, 9999999999),
         ],
       },
       {
@@ -196,6 +196,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         type: "LOV",
         key: "articleFamilia",
         required: true,
+        disabled: true,
         breakpoints: {
           xs: 12,
           md: 5,
@@ -220,8 +221,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           md: 2,
         },
         suffix: "%",
+        decimalScale: 2,
+        fixedDecimalScale: true,
         validationType: "number",
-        validations: [...props.numberValidations.minMaxValidation(0, 999)],
+        validations: [...props.numberValidations.minMaxValidation(0, 100)],
       },
       {
         placeHolder: props.intl.formatMessage({
@@ -235,8 +238,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           md: 2,
         },
         suffix: "%",
+        decimalScale: 2,
+        fixedDecimalScale: true,
         validationType: "number",
-        validations: [...props.numberValidations.minMaxValidation(0, 999)],
+        validations: [...props.numberValidations.minMaxValidation(0, 100)],
       },
     ],
   };

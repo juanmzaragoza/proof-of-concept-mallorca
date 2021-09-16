@@ -8,7 +8,6 @@ import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
 const RetentionList = ({ actions, ...props }) => {
-
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
@@ -35,8 +34,7 @@ const RetentionList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
-        inlineEditionDisabled: true
-        
+        inlineEditionDisabled: true,
       },
       {
         name: "descripcio",
@@ -46,12 +44,20 @@ const RetentionList = ({ actions, ...props }) => {
         }),
       },
       {
+        name: "tipusComptabilitzacio",
+        title: props.intl.formatMessage({
+          id: "Retenciones.tipoContab",
+          defaultMessage: "Tipo contabilización",
+        }),
+      },
+      {
         name: "compteVentes",
         title: props.intl.formatMessage({
           id: "Retenciones.cuentaVentas",
           defaultMessage: "Cuenta Ventas",
         }),
       },
+
       {
         name: "compteCompres",
         title: props.intl.formatMessage({
@@ -60,10 +66,34 @@ const RetentionList = ({ actions, ...props }) => {
         }),
       },
 
+      {
+        name: "tipus1",
+        title: props.intl.formatMessage({
+          id: "Retenciones.tipo1",
+          defaultMessage: "Tipo 1",
+        }),
+        getCellValue: (row) => (row.tipus1 ? row.tipus1 : false),
+      },
+      {
+        name: "tipus2",
+        title: props.intl.formatMessage({
+          id: "Retenciones.tipo2",
+          defaultMessage: "Tipo 2",
+        }),
+        getCellValue: (row) => (row.tipus2 ? row.tipus2 : false),
+      },
+      {
+        name: "tipus3",
+        title: props.intl.formatMessage({
+          id: "Retenciones.tipo3",
+          defaultMessage: "Tipo 3",
+        }),
+        getCellValue: (row) => (row.tipus3 ? row.tipus3 : false),
+      },
     ],
     URL: API.classeRetencio,
     listKey: "classeRetencios",
-    enableInlineEdition: true
+    enableInlineEdition: true,
   };
   return <ReactGrid id="classeRetencio" configuration={listConfiguration} />;
 };

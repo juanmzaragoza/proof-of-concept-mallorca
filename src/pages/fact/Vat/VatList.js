@@ -84,16 +84,8 @@ const VatList = ({ actions, ...props }) => {
           id: "Clientes.notCreApu",
           defaultMessage: "No crear apunte sin importe 0",
         }),
-        getCellValue: (row) =>
-          row.notCreApu && row.notCreApu === true
-            ? `${props.intl.formatMessage({
-                id: "Comun.SI",
-                defaultMessage: "SI",
-              })}`
-            : `${props.intl.formatMessage({
-                id: "Comun.NO",
-                defaultMessage: "NO",
-              })}`,
+
+        getCellValue: (row) => (row.notCreApu ? row.notCreApu : false),
       },
     ],
     URL: API.ives,

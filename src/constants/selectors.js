@@ -380,7 +380,7 @@ export const TIPO_MES_SELECTOR_VALUES = [
     labelId: "Selector.mes.noviembre",
     label: "Noviembre",
   },
-  
+
   {
     value: "DESEMBRE",
     labelId: "Selector.mes.diciembre",
@@ -696,13 +696,13 @@ export const TIPO_TARIFA_SELECTOR_VALUES = [
 export const FORMA_CALCULO_SELECTOR_VALUES = [
   {
     value: "COST",
-    labelId: "Selector.coste",
-    label: "Coste",
+    labelId: "Selector.precio+",
+    label: "Precio * (1 + pte * 0.01)",
   },
   {
     value: "VENDA",
-    labelId: "Selector.venta",
-    label: "Venta",
+    labelId: "Selector.precio-",
+    label: "Precio / (1 - pte * 0.01)",
   },
 ];
 
@@ -1179,7 +1179,6 @@ export const ACTUALIZAR_PRECIO_SELECTOR_VALUES = [
   },
 ];
 
-
 export const TIPO_INCIDENCIA_SELECTOR_VALUES = [
   {
     value: "CLIENT",
@@ -1192,7 +1191,6 @@ export const TIPO_INCIDENCIA_SELECTOR_VALUES = [
     label: "factura",
   },
 ];
-
 
 export const TIPO_PUBLICAR_WEB_SELECTOR_VALUES = [
   {
@@ -1223,7 +1221,6 @@ export const TIPO_TARIFA_PROVEEDOR_SELECTOR_VALUES = [
     labelId: "Selector.basica",
     label: "Básica",
   },
- 
 ];
 
 export const TIPO_DESC_PROVEEDOR_SELECTOR_VALUES = [
@@ -1237,5 +1234,35 @@ export const TIPO_DESC_PROVEEDOR_SELECTOR_VALUES = [
     labelId: "Selector.segunArticulo",
     label: "Según Artículo",
   },
- 
+];
+
+export const CNCFACTURA_SELECTOR_VALUE = [
+  {
+    value: "1",
+    labelId: "Facturas.baseImponible",
+    label: "Base imponible",
+  },
+  {
+    value: "2",
+    labelId: "Clientes.iva",
+    label: "IVA",
+  },
+  {
+    value: "3",
+    labelId: "Proyectos.total",
+    label: "Total",
+  },
+];
+
+export const APLICAR_A_SELECTOR_VALUE = [
+  {
+    value: "S",
+    labelId: "Comun.SoloAlTotal",
+    label: "Solo al total",
+  },
+  {
+    value: "N",
+    labelId: "Comun.todosLosIvas",
+    label: "Todos los ivas",
+  },
 ];
