@@ -47,7 +47,7 @@ const ProjectTypeList = ({ actions, ...props }) => {
       {
         name: "descripcio",
         title: props.intl.formatMessage({
-          id: "Comun.descripción",
+          id: "Comun.descripcion",
           defaultMessage: "Descripción",
         }),
       },
