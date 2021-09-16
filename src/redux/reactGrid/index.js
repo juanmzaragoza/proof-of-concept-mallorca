@@ -108,7 +108,7 @@ export const updateData = ({ key, id, data }) => {
   };
 };
 
-export const createData = ({ key, data}) => {
+export const createData = ({ key, data }) => {
   const gridId = key;
   return async (dispatch) => {
     try {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -13,7 +13,9 @@ import { withValidations } from "modules/wrappers";
 import ExpandableGrid from "modules/ExpandableGrid";
 import { useTabForm } from "hooks/tab-form";
 import ButtonHref from "modules/ButtonHref";
-import { paisNif } from "redux/api";
+import ReactGrid from "modules/ReactGrid";
+import MasterDetailedForm from "modules/ReactGrid/MasterDetailForm";
+import * as API from "redux/api";
 
 const SUPPLIERS_SECTION_INDEX = 0;
 const ADDRESS_SECTION_TAB_INDEX = 1;
@@ -712,8 +714,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       {
         name: "defecte",
         title: DEFECTE,
-        getCellValue: (row) =>
-          row.defecte && row.defecte === true ? (
+        getCellValue: (cell) =>{
+          const { column: { name }, data } = cell;
+          return data[name] && data[name] === true ? (
             <Chip
               label={props.intl.formatMessage({
                 id: "Comun.SI",
@@ -729,99 +732,103 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
               })}
               variant="outlined"
             />
-          ),
+          )},
       },
       { name: "observacions", title: OBS, hidden: true },
     ],
-    formComponents: [
-      code(),
-      {
-        placeHolder: NOM,
-        type: "input",
-        key: "nomAdresaComercial",
-        breakpoints: {
-          xs: 12,
-          md: 6,
-        },
-      },
-      {
-        placeHolder: DOMICILI,
-        type: "input",
-        key: "domicili",
-        breakpoints: {
-          xs: 12,
-          md: 6,
-        },
-        required: true,
-        validationType: "string",
-        ...withRequiredValidation([
-          ...props.stringValidations.minMaxValidation(1, 30),
-        ]),
-      },
-      {
-        placeHolder: CONTACTE,
-        type: "input",
-        key: "contacte",
-        breakpoints: {
-          xs: 12,
-          md: 6,
-        },
-      },
-      {
-        placeHolder: TELEFON,
-        type: "input",
-        key: "telefon",
-        breakpoints: {
-          xs: 12,
-          md: 6,
-        },
-        required: true,
-        validationType: "string",
-        ...withRequiredValidation(),
-      },
-      {
-        placeHolder: FAX,
-        type: "input",
-        key: "fax",
-        breakpoints: {
-          xs: 12,
-          md: 6,
-        },
-      },
-      {
-        placeHolder: EMAIL,
-        type: "input",
-        key: "email",
-        breakpoints: {
-          xs: 12,
-          md: 6,
-        },
-      },
-
-      ...codiPostal(4),
-      {
-        placeHolder: DEFECTE,
-        type: "checkbox",
-        key: "defecte",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-      },
-      {
-        placeHolder: OBS,
-        type: "input",
-        key: "observacions",
-        breakpoints: {
-          xs: 12,
-          md: 12,
-        },
-        text: {
-          multiline: 6,
-        },
-      },
-    ],
+    listKey: 'adresaComercials',
+    enableInlineEdition: true,
+    enableExpandableContent: true,
+    disabledActions: true,
   };
+  const commercialAddressesFormConfig = [
+    code(),
+    {
+      placeHolder: NOM,
+      type: "input",
+      key: "nomAdresaComercial",
+      breakpoints: {
+        xs: 12,
+        md: 6,
+      },
+    },
+    {
+      placeHolder: DOMICILI,
+      type: "input",
+      key: "domicili",
+      breakpoints: {
+        xs: 12,
+        md: 6,
+      },
+      required: true,
+      validationType: "string",
+      ...withRequiredValidation([
+        ...props.stringValidations.minMaxValidation(1, 30),
+      ]),
+    },
+    {
+      placeHolder: CONTACTE,
+      type: "input",
+      key: "contacte",
+      breakpoints: {
+        xs: 12,
+        md: 6,
+      },
+    },
+    {
+      placeHolder: TELEFON,
+      type: "input",
+      key: "telefon",
+      breakpoints: {
+        xs: 12,
+        md: 6,
+      },
+      required: true,
+      validationType: "string",
+      ...withRequiredValidation(),
+    },
+    {
+      placeHolder: FAX,
+      type: "input",
+      key: "fax",
+      breakpoints: {
+        xs: 12,
+        md: 6,
+      },
+    },
+    {
+      placeHolder: EMAIL,
+      type: "input",
+      key: "email",
+      breakpoints: {
+        xs: 12,
+        md: 6,
+      },
+    },
+
+    ...codiPostal(4),
+    {
+      placeHolder: DEFECTE,
+      type: "checkbox",
+      key: "defecte",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+    },
+    {
+      placeHolder: OBS,
+      type: "input",
+      key: "observacions",
+      breakpoints: {
+        xs: 12,
+        md: 12,
+      },
+      text: {
+        multiline: 6,
+      },
+    },
+  ]
 
   const SuppliersTypeConfig = {
     title: props.intl.formatMessage({
@@ -966,12 +973,21 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       label: TITLE,
       key: 1,
       component: (
-        <ExpandableGrid
+        <ReactGrid
           id="adresaComercials"
-          responseKey="adresaComercials"
-          enabled={props.editMode}
+          extraQuery={[
+            {
+              columnName: "proveidor.id",
+              value: `"${supplierId}"`,
+              exact: true,
+            },
+          ]}
           configuration={commercialAddressesConfig}
-        />
+        >
+          {properties => <MasterDetailedForm
+            url={API.adresaComercials}
+            formComponents={commercialAddressesFormConfig} {...properties} />}
+        </ReactGrid>
       ),
     },
     {
@@ -1042,14 +1058,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           <ConfigurableTabs tabs={tabs} />
         </OutlinedContainer>
       </Grid>
-      {/* <ButtonPopUp
-        title={"Tarifas PopUp"}
-        configuration={commercialAddressesConfig}
-        id="adresaComercials"
-        responseKey="adresaComercials"
-        enabled={props.editMode}
-        size={5}
-      /> */}
       <ButtonHref
         title={props.intl.formatMessage({
           id: "Tarifa.titulo",
