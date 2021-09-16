@@ -10,10 +10,14 @@ import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 
 const GENERAL_SECTION_INDEX = 0;
+const DATOS_CONTABLES_SECTION_INDEX = 0;
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
-    fields: { [GENERAL_SECTION_INDEX]: false },
+    fields: {
+      [GENERAL_SECTION_INDEX]: false,
+      [DATOS_CONTABLES_SECTION_INDEX]: false,
+    },
     setIsValid: props.setIsValid,
   });
 
@@ -116,55 +120,24 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 2,
       },
     },
-
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.codigoBanco",
-        defaultMessage: "Código Banco",
+        id: "DocumentosPago.naturalezaPago",
+        defaultMessage: "Naturaleza pago",
       }),
       type: "LOV",
-      key: "bancCodi",
+      key: "naturalesaPagamentCobrament",
+      id: "naturalesaPagoCobro",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       selector: {
-        key: "bancs",
-        labelKey: formatCodeAndName,
-        sort: "nom",
+        key: "naturalesaPagamentCobraments",
+        labelKey: (data) => `${data.descripcio} (${data.codi})`,
+        sort: "codi",
         cannotCreate: true,
-        transform: {
-          apply: (bancCodi) => bancCodi && bancCodi.codi,
-          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-        },
-        advancedSearchColumns: aSCodeAndName,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "OficinasBancarias.titulo",
-        defaultMessage: "Oficinas Bancarias",
-      }),
-      type: "LOV",
-      key: "oficinaBancariaCodi",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      selector: {
-        key: "oficinaBancarias",
-        labelKey: (data) => `${data.domicili} (${data.codi})`,
-        sort: "domicili",
-        cannotCreate: true,
-        transform: {
-          apply: (oficinaBancariaCodi) =>
-            oficinaBancariaCodi && oficinaBancariaCodi.codi,
-          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-        },
-        advancedSearchColumns: [
-          { title: CODE, name: "codi" },
-          { title: DOMICILI, name: "domicili" },
-        ],
+        advancedSearchColumns: aSCodeAndDescription,
       },
     },
     {
@@ -204,9 +177,197 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "aplicarDescuentosProntoPago",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
     },
+  ];
+
+  const datosContables = [
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "DocumentosPago.traspasar",
+        defaultMessage: "Traspasar",
+      }),
+      type: "checkbox",
+      key: "transpasar",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "DocumentosPago.asientoCompuesto",
+        defaultMessage: "Asiento compuesto",
+      }),
+      type: "checkbox",
+      key: "asientoCompuesto",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "DocumentosPago.codigoContable",
+        defaultMessage: "Código contable",
+      }),
+      type: "input",
+      key: "codigoContable",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 4)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "DocumentosPago.codigoFactura",
+        defaultMessage: "Código factura electónica",
+      }),
+      type: "input",
+      key: "codigoFacturaElectronica",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.Documentos.cantidadIva",
+        defaultMessage: "IVA",
+      }),
+      type: "LOV",
+      key: "iva",
+      id: "ivaFact",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      selector: {
+        key: "ivas",
+        labelKey: (data) => `${data.descripcio} (${data.codi})`,
+        sort: "codi",
+        cannotCreate: true,
+        advancedSearchColumns: aSCodeAndDescription,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.regimen.iva",
+        defaultMessage: "Régimen IVA",
+      }),
+      type: "LOV",
+      key: "regimIva",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      selector: {
+        key: "regimIvas",
+        labelKey: (data) => `${data.descripcio} (${data.codi})`,
+        sort: "codi",
+        cannotCreate: true,
+        advancedSearchColumns: aSCodeAndDescription,
+      },
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "DocumentosPago.porcentajeComision",
+        defaultMessage: "Porcentaje comisión",
+      }),
+      type: "numeric",
+      key: "percentatgeComisio",
+      suffix: "%",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      validationType: "number",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "DocumentosPago.cuentaContableComision",
+        defaultMessage: "Cuenta contable comisión",
+      }),
+      type: "input",
+      key: "compteContableComissio",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 64)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "DocumentosPago.conceptoContable",
+        defaultMessage: "Concepto contable",
+      }),
+      type: "input",
+      key: "concepteContable",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 10)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.codigoBanco",
+        defaultMessage: "Código Banco",
+      }),
+      type: "LOV",
+      key: "bancCodi",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      selector: {
+        key: "bancs",
+        labelKey: formatCodeAndName,
+        sort: "nom",
+        cannotCreate: true,
+        transform: {
+          apply: (bancCodi) => bancCodi && bancCodi.codi,
+          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+        },
+        advancedSearchColumns: aSCodeAndName,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "OficinasBancarias.titulo",
+        defaultMessage: "Oficinas Bancarias",
+      }),
+      type: "LOV",
+      key: "oficinaBancariaCodi",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      selector: {
+        key: "oficinaBancarias",
+        labelKey: (data) => `${data.domicili} (${data.codi})`,
+        sort: "domicili",
+        cannotCreate: true,
+        transform: {
+          apply: (oficinaBancariaCodi) =>
+            oficinaBancariaCodi && oficinaBancariaCodi.codi,
+          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+        },
+        advancedSearchColumns: [
+          { title: CODE, name: "codi" },
+          { title: DOMICILI, name: "domicili" },
+        ],
+      },
+    },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "DocumentosPago.ibcIban",
@@ -258,7 +419,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "dcc",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 2)],
@@ -272,48 +433,102 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "ibndcc",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
       validationType: "number",
       validations: [...props.numberValidations.minMaxValidation(0, 99)],
     },
+  ];
+
+  const Ingresos = [
     {
       placeHolder: props.intl.formatMessage({
-        id: "DocumentosPago.naturaleza",
-        defaultMessage: "Naturaleza pago/cobro",
+        id: "DocumentosPago.cuentaContableOrigen",
+        defaultMessage: "Cuenta contable origen",
       }),
-      type: "LOV",
-      key: "naturalesaPagamentCobrament",
-      id: "naturalesaPagoCobro",
+      type: "input",
+      key: "compteContableOrigenIngressos",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
-      selector: {
-        key: "naturalesaPagamentCobraments",
-        labelKey: (data) => `${data.descripcio} (${data.codi})`,
-        sort: "codi",
-        cannotCreate: true,
-        advancedSearchColumns: aSCodeAndDescription,
-      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 10)],
     },
-   
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "DocumentosPago.tipoAsiento",
+        defaultMessage: "Tipo Asiento",
+      }),
+      type: "input",
+      key: "tipusSeientIngressos",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "DocumentosPago.diarioContable",
+        defaultMessage: "Diario contable",
+      }),
+      type: "input",
+      key: "diariContableIngressos",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "DocumentosPago.diarioContable2",
+        defaultMessage: "Diario contable 2",
+      }),
+      type: "input",
+      key: "diariContableIngressos2",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
+    },
   ];
 
   return (
     <Grid container>
       <Grid xs={12} item>
+        <GenericForm
+          formComponents={createConfiguration}
+          emptyPaper={true}
+          editMode={props.editMode}
+          getFormData={getFormData}
+          setFormData={setFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) => addValidity(GENERAL_SECTION_INDEX, value)}
+          onBlur={(e) => handleTouched(GENERAL_SECTION_INDEX)}
+          {...props}
+        />
+      </Grid>
+      <Grid xs={12} item>
         <OutlinedContainer
           className="general-tab-container"
           title={
             <FormattedMessage
-              id={"DocumentosPago.titulo"}
-              defaultMessage={"Presupuestos"}
+              id={"Clientes.tabs.datosContables"}
+              defaultMessage={"Datos contables"}
             />
           }
         >
           <GenericForm
-            formComponents={createConfiguration}
+            formComponents={datosContables}
             emptyPaper={true}
             editMode={props.editMode}
             getFormData={getFormData}
@@ -322,8 +537,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
             formErrors={props.formErrors}
             submitFromOutside={props.submitFromOutside}
             onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) => addValidity(GENERAL_SECTION_INDEX, value)}
-            onBlur={(e) => handleTouched(GENERAL_SECTION_INDEX)}
+            handleIsValid={(value) =>
+              addValidity(DATOS_CONTABLES_SECTION_INDEX, value)
+            }
+            onBlur={(e) => handleTouched(DATOS_CONTABLES_SECTION_INDEX)}
             {...props}
           />
         </OutlinedContainer>

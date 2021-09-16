@@ -954,7 +954,7 @@
   "DocumentosPago.controlarEfectos": "Controlar efectos",
   "DocumentosPago.datosContables": "Datos contables",
   "DocumentosPago.codigoContable": "Código contable",
-  "DocumentosPago.codigoFactura": "Código factura electónica",
+  "DocumentosPago.codigoFactura": "Cód.E Factura",
   "DocumentosPago.traspasar": "Traspasar",
   "DocumentosPago.asientoCompuesto": "Asiento compuesto",
   "DocumentosPago.porcentajeComision": "Porcentaje comisión",
@@ -2144,6 +2144,7 @@
   "ComplementosFactura.familiaArticulos":"Familia Artículos",
   "Rappels.escalados":"Rappels Escalados",
   "PaisesProvincias.titulo":"Países y Provincias",
-  "Provincias.titulo":"Provincias"
+  "Provincias.titulo":"Provincias",
+  "DocumentosPago.naturalezaPago":"Naturaleza Pago"
 
 }
