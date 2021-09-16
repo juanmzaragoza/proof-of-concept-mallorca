@@ -696,13 +696,13 @@ export const TIPO_TARIFA_SELECTOR_VALUES = [
 export const FORMA_CALCULO_SELECTOR_VALUES = [
   {
     value: "COST",
-    labelId: "Selector.coste",
-    label: "Coste",
+    labelId: "Selector.precio+",
+    label: "Precio * (1 + pte * 0.01)",
   },
   {
     value: "VENDA",
-    labelId: "Selector.venta",
-    label: "Venta",
+    labelId: "Selector.precio-",
+    label: "Precio / (1 - pte * 0.01)",
   },
 ];
 

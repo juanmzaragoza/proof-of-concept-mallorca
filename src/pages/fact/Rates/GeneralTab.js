@@ -33,6 +33,23 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     defaultMessage: "Código",
   });
 
+  const [disabledCheckbox, setDisabledCheckbox] = useState(false);
+
+  useEffect(() => {
+
+    const tipus = getFormData("tarifaTipus");
+
+    if (
+      tipus === "TARIFA_GENERAL_SOBRE_COST" ||
+      tipus === "TARIFA_GENERAL_SOBRE_PVP"
+    ) {
+      setDisabledCheckbox(true);
+    } else {
+      setDisabledCheckbox(false);
+    }
+    
+  }, [getFormData("tarifaTipus")]);
+
   const createConfiguration = [
     {
       placeHolder: props.intl.formatMessage({
@@ -113,6 +130,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Actualizar precio",
       }),
       type: "checkbox",
+      disabled: disabledCheckbox,
       key: "actualitzarPreu",
       breakpoints: {
         xs: 12,
@@ -126,6 +144,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Descuentos generales",
       }),
       type: "checkbox",
+      disabled: disabledCheckbox,
       key: "descomptesGenerals",
       breakpoints: {
         xs: 12,
@@ -138,6 +157,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Tarifa oferta",
       }),
       type: "checkbox",
+      disabled: disabledCheckbox,
       key: "tarifaOferta",
       breakpoints: {
         xs: 12,
@@ -156,6 +176,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "percentatgeMaterial",
       required: true,
       suffix: "%",
+      decimalScale: 2,
+      fixedDecimalScale: true,
       breakpoints: {
         xs: 12,
         md: 6,
@@ -163,7 +185,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "number",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.numberValidations.minMaxValidation(0, 99),
+        ...props.numberValidations.minMaxValidation(-100, 100),
       ],
     },
     {
@@ -175,6 +197,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "percentatgeMaObra",
       suffix: "%",
       required: true,
+      decimalScale: 2,
+      fixedDecimalScale: true,
       breakpoints: {
         xs: 12,
         md: 6,
@@ -182,7 +206,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "number",
       validations: [
         ...props.commonValidations.requiredValidation(),
-        ...props.numberValidations.minMaxValidation(0, 99),
+        ...props.numberValidations.minMaxValidation(-100, 100),
       ],
     },
   ];

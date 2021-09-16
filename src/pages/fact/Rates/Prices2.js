@@ -19,12 +19,12 @@ const Prices2 = ({ formData, setFormData, getFormData, ...props }) => {
       defaultMessage: "Artículos",
     }),
     size: 10,
-    method: 'post',
+    method: "post",
     body: {
-      "tarifaTipus": getFormData('tarifaTipus'),
-      "formaCalcul": getFormData('formaCalcul'),
-      "percentatgeMaterial": getFormData('percentatgeMaterial'),
-      "percentatgeMaObra": getFormData('percentatgeMaObra'),
+      tarifaTipus: getFormData("tarifaTipus"),
+      formaCalcul: getFormData("formaCalcul"),
+      percentatgeMaterial: getFormData("percentatgeMaterial"),
+      percentatgeMaObra: getFormData("percentatgeMaObra"),
     },
     columns: [
       {
@@ -37,8 +37,8 @@ const Prices2 = ({ formData, setFormData, getFormData, ...props }) => {
       {
         name: "descripcioCurta",
         title: props.intl.formatMessage({
-          id: "Comun.nombre",
-          defaultMessage: "Nombre",
+          id: "Comun.descripcionCorta",
+          defaultMessage: "Descripción Corta",
         }),
       },
       {
@@ -47,6 +47,15 @@ const Prices2 = ({ formData, setFormData, getFormData, ...props }) => {
           id: "Articulos.alias",
           defaultMessage: "Alias",
         }),
+      },
+      {
+        name: "familia",
+        title: props.intl.formatMessage({
+          id: "Articulos.familia",
+          defaultMessage: "Familia",
+        }),
+        getCellValue: (row) =>
+          row.familia?.description ? row.familia?.description : "",
       },
       {
         name: "calculPreuPerTarifaExtraField",

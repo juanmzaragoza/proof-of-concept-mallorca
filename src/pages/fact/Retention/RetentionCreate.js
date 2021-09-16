@@ -84,7 +84,7 @@ const RetentionCreate = (props) => {
 
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 10)],
@@ -99,7 +99,7 @@ const RetentionCreate = (props) => {
 
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 10)],
@@ -115,7 +115,7 @@ const RetentionCreate = (props) => {
 
       breakpoints: {
         xs: 12,
-        md: 1,
+        md: 2,
       },
     },
     {
@@ -128,7 +128,7 @@ const RetentionCreate = (props) => {
 
       breakpoints: {
         xs: 12,
-        md: 1,
+        md: 2,
       },
     },
     {
@@ -141,7 +141,7 @@ const RetentionCreate = (props) => {
 
       breakpoints: {
         xs: 12,
-        md: 1,
+        md: 2,
       },
     },
   ];
