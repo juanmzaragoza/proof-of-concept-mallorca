@@ -8,7 +8,6 @@ import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
 const VatList = ({ actions, ...props }) => {
-
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
@@ -35,7 +34,7 @@ const VatList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
-        inlineEditionDisabled: true
+        inlineEditionDisabled: true,
       },
       {
         name: "descripcio",
@@ -44,13 +43,7 @@ const VatList = ({ actions, ...props }) => {
           defaultMessage: "Descripción",
         }),
       },
-      {
-        name: "percentatge",
-        title: props.intl.formatMessage({
-          id: "Rappel.porcentaje",
-          defaultMessage: "Porcentaje",
-        }),
-      },
+
       {
         name: "limitInferior",
         title: props.intl.formatMessage({
@@ -65,12 +58,33 @@ const VatList = ({ actions, ...props }) => {
           defaultMessage: "Límite Superior",
         }),
       },
+      {
+        name: "percentatge",
+        title: props.intl.formatMessage({
+          id: "Rappel.porcentaje",
+          defaultMessage: "Porcentaje",
+        }),
+      },
+      {
+        title: props.intl.formatMessage({
+          id: "Rappel.escalado",
+          defaultMessage: "Escalado",
+        }),
 
-
+        name: "escalat",
+      },
+      {
+        title: props.intl.formatMessage({
+          id: "Rappel.absoluto",
+          defaultMessage: "Absoluto",
+        }),
+        name: "absolut",
+      },
+     
     ],
     URL: API.rappel,
     listKey: "rappels",
-    enableInlineEdition: true
+    enableInlineEdition: true,
   };
   return <ReactGrid id="rappel" configuration={listConfiguration} />;
 };
@@ -83,7 +97,4 @@ const mapDispatchToProps = (dispatch, props) => {
   return { actions };
 };
 
-export default compose(
-  injectIntl,
-  connect(null, mapDispatchToProps)
-)(VatList);
+export default compose(injectIntl, connect(null, mapDispatchToProps))(VatList);

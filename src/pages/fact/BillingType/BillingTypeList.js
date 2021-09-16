@@ -2,13 +2,12 @@ import React, { useEffect } from "react";
 import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import { bindActionCreators, compose } from "redux";
-
+import { Chip } from "@material-ui/core";
 import ReactGrid from "modules/ReactGrid";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
 const BillingTypeList = ({ actions, ...props }) => {
-
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
@@ -35,7 +34,7 @@ const BillingTypeList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
-        inlineEditionDisabled: true
+        inlineEditionDisabled: true,
       },
       {
         name: "descripcio",
@@ -44,10 +43,18 @@ const BillingTypeList = ({ actions, ...props }) => {
           defaultMessage: "Descripción",
         }),
       },
+      {
+        name: "concedimCredit",
+        title: props.intl.formatMessage({
+          id: "TiposFacturacion.obligarFacturar",
+          defaultMessage: "Obligar a Facturar los Albaranes",
+        }),
+        getCellValue: (row) => (row.concedimCredit ? row.concedimCredit : false),
+      },
     ],
     URL: API.tipusFacturacio,
     listKey: "tipusFacturacios",
-    enableInlineEdition: true
+    enableInlineEdition: true,
   };
   return <ReactGrid id="tipusFacturacio" configuration={listConfiguration} />;
 };

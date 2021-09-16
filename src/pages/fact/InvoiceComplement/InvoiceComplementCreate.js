@@ -53,7 +53,7 @@ const InvoiceComplementCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
       noEditable: true,
       validationType: "string",
@@ -73,36 +73,12 @@ const InvoiceComplementCreate = (props) => {
       key: "descripcio",
       breakpoints: {
         xs: 12,
-        md: 6,
+        md: 3,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 30)],
     },
 
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "ComplementosFactura.incrementarFactura",
-        defaultMessage: "Incrementar Factura",
-      }),
-      type: "checkbox",
-      key: "incrementarFactura",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "ComplementosFactura.incrementarBase",
-        defaultMessage: "Incrementar Base",
-      }),
-      type: "checkbox",
-      key: "incrementarBaseImposable",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-    },
     {
       placeHolder: props.intl.formatMessage({
         id: "Proveedores.familia",
@@ -112,7 +88,7 @@ const InvoiceComplementCreate = (props) => {
       key: "articleFamilia",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       selector: {
         key: "articleFamilias",
@@ -129,7 +105,7 @@ const InvoiceComplementCreate = (props) => {
       }),
       type: "LOV",
       key: "iva",
-      id:"ivaFact",
+      id: "ivaFact",
       breakpoints: {
         xs: 12,
         md: 2,
@@ -265,6 +241,7 @@ const InvoiceComplementCreate = (props) => {
         ],
       },
     },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "Articulos.costes.tipoCoste",
@@ -274,7 +251,7 @@ const InvoiceComplementCreate = (props) => {
       key: "tipusCost",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       selector: {
         key: "tipusCosts",
@@ -282,30 +259,6 @@ const InvoiceComplementCreate = (props) => {
         sort: "codi",
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndType,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "ComplementosFactura.distribuirCostes",
-        defaultMessage: "distribuir Costes entre Artículos",
-      }),
-      type: "checkbox",
-      key: "distribuirCostosEntreArticles",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "ComplementosFactura.aplicarDto",
-        defaultMessage: "Aplicar Descuento",
-      }),
-      type: "checkbox",
-      key: "aplicarDescompte",
-      breakpoints: {
-        xs: 12,
-        md: 2,
       },
     },
 
@@ -318,10 +271,59 @@ const InvoiceComplementCreate = (props) => {
       key: "compteContable",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 10)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "ComplementosFactura.incrementarFactura",
+        defaultMessage: "Incrementar Factura",
+      }),
+      type: "checkbox",
+      key: "incrementarFactura",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "ComplementosFactura.incrementarBase",
+        defaultMessage: "Incrementar Base",
+      }),
+      type: "checkbox",
+      key: "incrementarBaseImposable",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+    },
+   
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "ComplementosFactura.aplicarDto",
+        defaultMessage: "Aplicar Descuento",
+      }),
+      type: "checkbox",
+      key: "aplicarDescompte",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "ComplementosFactura.distribuirCostes",
+        defaultMessage: "distribuir Costes entre Artículos",
+      }),
+      type: "checkbox",
+      key: "distribuirCostosEntreArticles",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
     },
   ];
   return (

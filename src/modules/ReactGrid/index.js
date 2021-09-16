@@ -276,7 +276,7 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
             key={key}
             caption={column.title}
             dataField={column.name}
-            calculateCellValue={column.getCellValue}
+            cellRender={column.getCellValue}
             filterOperations={['contains']}
             allowEditing={!column.inlineEditionDisabled}
             {...extraProps}

@@ -7,7 +7,6 @@ import { some, min, pickBy, cloneDeep } from "lodash";
 
 import GeneralTab from "./GeneralTab";
 
-
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
 import {
@@ -28,15 +27,9 @@ import {
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
 
-/**
- * Documento Pago/Cobro form module
- * If you want add a new tab, follow the next steps
- **/
-/** step 1 */
 const GENERAL_TAB_INDEX = 0;
-const DATOS_CONTABLES_TAB_INDEX = 1;
 
-const DocumentoPagoCobroForm = React.memo(
+const CountryForm = React.memo(
   ({
     actions,
     allFormData,
@@ -52,7 +45,6 @@ const DocumentoPagoCobroForm = React.memo(
     /** step 2 */
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [GENERAL_TAB_INDEX]: false,
-      [DATOS_CONTABLES_TAB_INDEX]: false,
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -101,7 +93,7 @@ const DocumentoPagoCobroForm = React.memo(
     /** step 3 */
     const tabs = [
       {
-        ...getTranslations("Proveedores.tabs.general", "General"),
+        ...getTranslations("Paises.titol", "Países"),
         key: GENERAL_TAB_INDEX,
         error: tabHasError(GENERAL_TAB_INDEX),
         component: (
@@ -124,9 +116,7 @@ const DocumentoPagoCobroForm = React.memo(
           />
         ),
       },
-    
     ];
-
     const { id } = useParams();
 
     const isEditable = () => {
@@ -145,10 +135,10 @@ const DocumentoPagoCobroForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "DocumentosPago.titulo",
-              defaultMessage: "Documentos pago/cobro",
+              id: "PaisesProvincias.titulo",
+              defaultMessage: "Paises Provincias",
             }),
-            href: "/fact/documentos-pago-cobro",
+            href: "/fact/paises",
           },
           {
             title: props.intl.formatMessage({
@@ -170,9 +160,9 @@ const DocumentoPagoCobroForm = React.memo(
     /** Update HEADER */
     useEffect(() => {
       if (isEditable()) {
-        const descripcio = getFormData("descripcio");
-        const desc = descripcio
-          ? descripcio
+        const nomComercial = getFormData("nom");
+        const nom = nomComercial
+          ? nomComercial
           : `${props.intl.formatMessage({
               id: "Comun.cargando",
               defaultMessage: "Cargando",
@@ -180,16 +170,16 @@ const DocumentoPagoCobroForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "DocumentosPago.titulo",
-              defaultMessage: "Documentos pago/cobro",
+              id: "PaisesProvincias.titulo",
+              defaultMessage: "Paises",
             }),
-            href: "/fact/documentos-pago-cobro",
+            href: "/fact/paises",
           },
-          { title: desc, href: "/fact/documentos-pago-cobro" },
+          { title: nom, href: "/fact/paises" },
           { title: nameSelectedTab },
         ]);
       }
-    }, [getFormData("descripcio"), nameSelectedTab]);
+    }, [getFormData("nom"), nameSelectedTab]);
 
     useEffect(() => {
       if (submitFromOutside) {
@@ -251,5 +241,5 @@ const component = compose(
   injectIntl,
   connect(mapStateToProps, mapDispatchToProps),
   withAbmServices
-)(DocumentoPagoCobroForm);
+)(CountryForm);
 export default component;

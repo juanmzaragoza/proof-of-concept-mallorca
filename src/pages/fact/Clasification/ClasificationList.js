@@ -45,14 +45,7 @@ const ClasificationList = ({ actions, ...props }) => {
 
   const listConfiguration = {
     columns: [
-      {
-        name: "sequencia",
-        title: props.intl.formatMessage({
-          id: "Clasificaciones.sequencia",
-          defaultMessage: "Sequencia",
-        }),
-        inlineEditionDisabled: true,
-      },
+   
       {
         name: "codiClassificacio",
         title: props.intl.formatMessage({

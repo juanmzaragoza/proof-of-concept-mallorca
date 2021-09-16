@@ -8,7 +8,6 @@ import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
 const RiskTypeList = ({ actions, ...props }) => {
-
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
@@ -35,7 +34,7 @@ const RiskTypeList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
-        inlineEditionDisabled: true
+        inlineEditionDisabled: true,
       },
       {
         name: "descripcio",
@@ -58,11 +57,40 @@ const RiskTypeList = ({ actions, ...props }) => {
           defaultMessage: "Pendiente Facturar",
         }),
       },
+      {
+        name: "tri_vtopennotvnt",
+        title: props.intl.formatMessage({
+          id: "TipoRiesgo.vpNoVencidos",
+          defaultMessage: "Vencimientos Pendientes No Vencidos",
+        }),
+      },
 
+      {
+        name: "tri_vtopenvnt",
+        title: props.intl.formatMessage({
+          id: "TipoRiesgo.vpVencidos",
+          defaultMessage: "Vencimientos Pendientes Vencidos",
+        }),
+      },
+      {
+        name: "tri_efeneg",
+        title: props.intl.formatMessage({
+          id: "TipoRiesgo.vEfectosNegociados",
+          defaultMessage: "Vencimientos Efectos Negociados",
+        }),
+      },
+      {
+        name: "tri_nifigu",
+        title: props.intl.formatMessage({
+          id: "TipoRiesgo.nifCoincidentes",
+          defaultMessage: "NIF Coincidentes",
+        }),
+        getCellValue: (row) => (row.tri_nifigu ? row.tri_nifigu : false),
+      },
     ],
     URL: API.tipusRisc,
     listKey: "tipusRiscs",
-    enableInlineEdition: true
+    enableInlineEdition: true,
   };
   return <ReactGrid id="tipusRisc" configuration={listConfiguration} />;
 };

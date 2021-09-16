@@ -44,6 +44,13 @@ const ProjectTypeList = ({ actions, ...props }) => {
           defaultMessage: "Nombre",
         }),
       },
+      {
+        name: "descripcio",
+        title: props.intl.formatMessage({
+          id: "Comun.descripcion",
+          defaultMessage: "Descripción",
+        }),
+      },
     ],
     URL: API.projectesTipo,
     listKey: "projecteTipuses",

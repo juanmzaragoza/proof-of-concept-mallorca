@@ -4,7 +4,10 @@ import { connect } from "react-redux";
 
 import ReactGrid from "../../../modules/ReactGrid";
 import { bindActionCreators, compose } from "redux";
-import { setBreadcrumbHeader, setListingConfig } from "../../../redux/pageHeader";
+import {
+  setBreadcrumbHeader,
+  setListingConfig,
+} from "../../../redux/pageHeader";
 import * as API from "redux/api";
 
 const CurrencyList = ({ actions, ...props }) => {
@@ -34,7 +37,7 @@ const CurrencyList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
-        inlineEditionDisabled: true
+        inlineEditionDisabled: true,
       },
       {
         name: "nom",
@@ -57,12 +60,32 @@ const CurrencyList = ({ actions, ...props }) => {
           defaultMessage: "Valor euros",
         }),
       },
-    
-  
+
+      {
+        title: props.intl.formatMessage({
+          id: "Divisa.decimalesPrecio",
+          defaultMessage: "Decimales Precios",
+        }),
+        name: "decimalsPreus",
+      },
+      {
+        title: props.intl.formatMessage({
+          id: "Divisa.decimalesImporte",
+          defaultMessage: "Decimales Importe",
+        }),
+        name: "decimalsImports",
+      },
+      {
+        title: props.intl.formatMessage({
+          id: "Divisa.codigoContab",
+          defaultMessage: "Código contabilidad",
+        }),
+        name: "codiComptabilitat",
+      },
     ],
     URL: API.divisa,
     listKey: "divisas",
-    enableInlineEdition: true
+    enableInlineEdition: true,
   };
   return <ReactGrid id="divisa" configuration={listConfiguration} />;
 };

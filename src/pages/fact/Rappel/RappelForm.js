@@ -28,15 +28,9 @@ import {
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
 
-/**
- * Documento Pago/Cobro form module
- * If you want add a new tab, follow the next steps
- **/
-/** step 1 */
 const GENERAL_TAB_INDEX = 0;
-const DATOS_CONTABLES_TAB_INDEX = 1;
 
-const DocumentoPagoCobroForm = React.memo(
+const RappelForm = React.memo(
   ({
     actions,
     allFormData,
@@ -52,7 +46,6 @@ const DocumentoPagoCobroForm = React.memo(
     /** step 2 */
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [GENERAL_TAB_INDEX]: false,
-      [DATOS_CONTABLES_TAB_INDEX]: false,
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -124,9 +117,7 @@ const DocumentoPagoCobroForm = React.memo(
           />
         ),
       },
-    
     ];
-
     const { id } = useParams();
 
     const isEditable = () => {
@@ -145,10 +136,10 @@ const DocumentoPagoCobroForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "DocumentosPago.titulo",
-              defaultMessage: "Documentos pago/cobro",
+              id: "Proveedores.titulo",
+              defaultMessage: "Proveedores",
             }),
-            href: "/fact/documentos-pago-cobro",
+            href: "/fact/proveedores",
           },
           {
             title: props.intl.formatMessage({
@@ -170,9 +161,9 @@ const DocumentoPagoCobroForm = React.memo(
     /** Update HEADER */
     useEffect(() => {
       if (isEditable()) {
-        const descripcio = getFormData("descripcio");
-        const desc = descripcio
-          ? descripcio
+        const nomComercial = getFormData("descripcio");
+        const nom = nomComercial
+          ? nomComercial
           : `${props.intl.formatMessage({
               id: "Comun.cargando",
               defaultMessage: "Cargando",
@@ -180,12 +171,12 @@ const DocumentoPagoCobroForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "DocumentosPago.titulo",
-              defaultMessage: "Documentos pago/cobro",
+              id: "Rappels.titulo",
+              defaultMessage: "Rappels",
             }),
-            href: "/fact/documentos-pago-cobro",
+            href: "/fact/rappels",
           },
-          { title: desc, href: "/fact/documentos-pago-cobro" },
+          { title: nom, href: "/fact/rappels" },
           { title: nameSelectedTab },
         ]);
       }
@@ -251,5 +242,5 @@ const component = compose(
   injectIntl,
   connect(mapStateToProps, mapDispatchToProps),
   withAbmServices
-)(DocumentoPagoCobroForm);
+)(RappelForm);
 export default component;
