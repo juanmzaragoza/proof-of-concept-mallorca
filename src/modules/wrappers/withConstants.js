@@ -389,21 +389,21 @@ const withConstants = (PassedComponent) => {
               {
                 key: "FAC_PAIS", // not mandatory for routes with children
                 title: props.intl.formatMessage({
-                  id: "Paises.titol",
-                  defaultMessage: "Paises",
+                  id:  "PaisesProvincias.titulo",
+                  defaultMessage: "Paises y Provincias",
                 }),
                 path: "FAC_PAIS", // or has path or has children but not both
                 icon: <LocalMall />,
               },
-              {
-                key: "FAC_PROVIN", // not mandatory for routes with children
-                title: props.intl.formatMessage({
-                  id: "Provincias.titol",
-                  defaultMessage: "Provincias",
-                }),
-                path: "FAC_PROVIN", // or has path or has children but not both
-                icon: <LocalMall />,
-              },
+              // {
+              //   key: "FAC_PROVIN", // not mandatory for routes with children
+              //   title: props.intl.formatMessage({
+              //     id: "Provincias.titol",
+              //     defaultMessage: "Provincias",
+              //   }),
+              //   path: "FAC_PROVIN", // or has path or has children but not both
+              //   icon: <LocalMall />,
+              // },
               {
                 key: "FAC_CP", // not mandatory for routes with children
                 title: props.intl.formatMessage({

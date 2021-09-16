@@ -2142,6 +2142,8 @@
   "ComplementosFactura.distribuirCos":"Distrib. cos art.",
   "ComplementosFactura.aplicarDtoCorto":"Aplicar Dto.",
   "ComplementosFactura.familiaArticulos":"Familia Artículos",
-  "Rappels.escalados":"Rappels Escalados"
+  "Rappels.escalados":"Rappels Escalados",
+  "PaisesProvincias.titulo":"Países y Provincias",
+  "Provincias.titulo":"Provincias"
 
 }
