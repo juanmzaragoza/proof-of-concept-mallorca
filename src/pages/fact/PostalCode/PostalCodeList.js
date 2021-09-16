@@ -27,15 +27,73 @@ const PostalCodeList = ({ actions, ...props }) => {
       },
     ]);
   }, []);
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
+  const NOM = props.intl.formatMessage({
+    id: "Comun.nombre",
+    defaultMessage: "Nombre",
+  });
+  const aSCodeAndName = [
+    { title: CODE, name: "codi" },
+    { title: NOM, name: "nom" },
+  ];
+
+  const provincia = {
+    placeHolder: props.intl.formatMessage({
+      id: "CodigoPostal.provincia",
+      defaultMessage: "Provincia",
+    }),
+    type: "LOV",
+    key: "provincia",
+    required: true,
+    breakpoints: {
+      xs: 12,
+      md: 6,
+    },
+    selector: {
+      key: "provincias",
+      labelKey: (data) => `${data.nom} (${data.codi})`,
+      sort: "codi",
+      cannotCreate: true,
+      advancedSearchColumns: aSCodeAndName,
+    },
+  };
+
+  const pais = {
+    placeHolder: props.intl.formatMessage({
+      id: "CodigoPostal.pais",
+      defaultMessage: "País",
+    }),
+    type: "LOV",
+    key: "pais",
+    required: true,
+    breakpoints: {
+      xs: 12,
+      md: 6,
+    },
+    selector: {
+      key: "paises",
+      labelKey: (data) => `${data.nom} (${data.codi})`,
+      sort: "codi",
+      cannotCreate: true,
+      relatedWith: [
+        {
+          name: "provincia",
+          filterBy: "pais.id",
+          keyValue: "id",
+        },
+      ],
+      advancedSearchColumns: aSCodeAndName,
+    },
+  };
 
   const listConfiguration = {
     columns: [
       {
         name: "codi",
-        title: props.intl.formatMessage({
-          id: "Comun.codigo",
-          defaultMessage: "Código",
-        }),
+        title: CODE,
         inlineEditionDisabled: true,
       },
       {
@@ -52,15 +110,7 @@ const PostalCodeList = ({ actions, ...props }) => {
           defaultMessage: "Municipio",
         }),
       },
-      {
-        name: "pais",
-        title: props.intl.formatMessage({
-          id: "Paises.titol",
-          defaultMessage: "País",
-        }),
-        getCellValue: (row) => row.pais?.description ?? "",
-        inlineEditionDisabled: true,
-      },
+
       {
         name: "provincia",
         title: props.intl.formatMessage({
@@ -68,7 +118,16 @@ const PostalCodeList = ({ actions, ...props }) => {
           defaultMessage: "Provincia",
         }),
         getCellValue: (row) => row.provincia?.description ?? "",
-        inlineEditionDisabled: true,
+        field: provincia,
+      },
+      {
+        name: "pais",
+        title: props.intl.formatMessage({
+          id: "Paises.titol",
+          defaultMessage: "País",
+        }),
+        getCellValue: (row) => row.pais?.description ?? "",
+        field: pais,
       },
     ],
     URL: API.codiPostal,
