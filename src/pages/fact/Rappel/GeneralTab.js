@@ -1,15 +1,34 @@
-import { injectIntl } from "react-intl";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { FormattedMessage, injectIntl } from "react-intl";
+import Grid from "@material-ui/core/Grid/Grid";
+import OutlinedContainer from "modules/shared/OutlinedContainer";
+import GenericForm from "modules/GenericForm";
 import { compose } from "redux";
-
-import CreateUpdateForm from "../../../modules/ReactGrid/CreateUpdateForm";
 import { withValidations } from "modules/wrappers";
-import * as API from "redux/api";
+import ExpandableGrid from "modules/ExpandableGrid";
+import { useTabForm } from "hooks/tab-form";
 
-const VatCreate = (props) => {
+const RAPPEL_SECTION_INDEX = 0;
+
+const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
+  const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
+    fields: {
+      [RAPPEL_SECTION_INDEX]: false,
+    },
+    setIsValid: props.setIsValid,
+  });
+
+  const [mostrarEscalat, setMostrarEscalat] = useState(false);
+
   useEffect(() => {
-    console.log(props);
-  }, []);
+    const escalat = getFormData("escalat");
+    if (escalat === undefined) {
+      setMostrarEscalat(false);
+    } else {
+      setMostrarEscalat(escalat);
+    }
+  }, [getFormData("escalat")]);
 
   const createConfiguration = [
     {
@@ -144,16 +163,47 @@ const VatCreate = (props) => {
       },
     },
   ];
+
+  const rappelEscalados = "Falda ExpandedGrid Rappels Escalados (Pendiente BackEnd)";
+
   return (
-    <CreateUpdateForm
-      title={props.intl.formatMessage({
-        id: "Rappel.titulo",
-        defaultMessage: "Rappel",
-      })}
-      formConfiguration={createConfiguration}
-      url={API.rappel}
-    />
+    <Grid container>
+      <Grid xs={12} item>
+        <GenericForm
+          formComponents={createConfiguration}
+          emptyPaper={true}
+          editMode={props.editMode}
+          getFormData={getFormData}
+          setFormData={setFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) => addValidity(RAPPEL_SECTION_INDEX, value)}
+          onBlur={(e) => handleTouched(RAPPEL_SECTION_INDEX)}
+          {...props}
+        />
+
+        {mostrarEscalat ? (
+          <OutlinedContainer
+            className="general-tab-container"
+            title={
+              <FormattedMessage
+                id={"Rappels.escalados"}
+                defaultMessage={"Rappels Escalados"}
+              />
+            }
+          >
+            <Grid container spacig={5} padding={5}>
+              {" "}
+              {rappelEscalados}
+            </Grid>
+          </OutlinedContainer>
+        ) : (
+          ""
+        )}
+      </Grid>
+    </Grid>
   );
 };
-
-export default compose(withValidations, injectIntl)(VatCreate);
+export default compose(React.memo, withValidations, injectIntl)(GeneralTab);
