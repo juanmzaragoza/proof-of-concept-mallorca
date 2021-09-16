@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { some, min, pickBy, cloneDeep } from "lodash";
 
 import GeneralTab from "./GeneralTab";
-import DatosContablesTab from "./DatosContablesTab";
+
 
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
@@ -124,30 +124,7 @@ const DocumentoPagoCobroForm = React.memo(
           />
         ),
       },
-      {
-        ...getTranslations("DocumentosPago.datosContables", "Datos contables"),
-        key: DATOS_CONTABLES_TAB_INDEX,
-        error: tabHasError(DATOS_CONTABLES_TAB_INDEX),
-        component: (
-          <DatosContablesTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [DATOS_CONTABLES_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-            isSubmitted={props.isSubmitted}
-          />
-        ),
-      },
+    
     ];
 
     const { id } = useParams();
