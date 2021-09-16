@@ -43,6 +43,23 @@ const FinalesFacturasList = ({ actions, ...props }) => {
           defaultMessage: "Nombre",
         }),
       },
+      {
+        name: "descripcio",
+        title: props.intl.formatMessage({
+          id: "Comun.descripcion",
+          defaultMessage: "Descripción",
+        }),
+      },
+      {
+        name: "actiu",
+        title:props.intl.formatMessage({
+          id: "FinalFacturas.activo",
+          defaultMessage: "Activo",
+        }),
+        getCellValue: (row) => (row.actiu ? row.actiu : false),
+      },
+
+      
     ],
     URL: API.finalFactura,
     listKey: "finalFacturas",

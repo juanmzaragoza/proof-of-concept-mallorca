@@ -65,8 +65,10 @@ const RiskTypeCreate = (props) => {
         xs: 12,
         md: 2,
       },
+      decimalScale: 2,
+      fixedDecimalScale: true,
       validationType: "number",
-      validations: [ ...props.numberValidations.minMaxValidation(0, 999),],
+      validations: [...props.numberValidations.minMaxValidation(0, 1000)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -79,8 +81,10 @@ const RiskTypeCreate = (props) => {
         xs: 12,
         md: 2,
       },
+      decimalScale: 2,
+      fixedDecimalScale: true,
       validationType: "number",
-      validations: [ ...props.numberValidations.minMaxValidation(0, 999)],
+      validations: [...props.numberValidations.minMaxValidation(0, 1000)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -91,10 +95,12 @@ const RiskTypeCreate = (props) => {
       key: "tri_vtopennotvnt",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
+      decimalScale: 2,
+      fixedDecimalScale: true,
       validationType: "number",
-      validations: [ ...props.numberValidations.minMaxValidation(0, 999)],
+      validations: [...props.numberValidations.minMaxValidation(0, 1000)],
     },
 
     {
@@ -106,10 +112,12 @@ const RiskTypeCreate = (props) => {
       key: "tri_vtopenvnt",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
+      decimalScale: 2,
+      fixedDecimalScale: true,
       validationType: "number",
-      validations: [ ...props.numberValidations.minMaxValidation(0, 999)],
+      validations: [...props.numberValidations.minMaxValidation(0, 1000)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -118,12 +126,14 @@ const RiskTypeCreate = (props) => {
       }),
       type: "numeric",
       key: "tri_efeneg",
+      decimalScale: 2,
+      fixedDecimalScale: true,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "number",
-      validations: [ ...props.numberValidations.minMaxValidation(0, 999)],
+      validations: [...props.numberValidations.minMaxValidation(0, 1000)],
     },
     {
       placeHolder: props.intl.formatMessage({

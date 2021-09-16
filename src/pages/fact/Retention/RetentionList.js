@@ -72,6 +72,7 @@ const RetentionList = ({ actions, ...props }) => {
           id: "Retenciones.tipo1",
           defaultMessage: "Tipo 1",
         }),
+        getCellValue: (row) => (row.tipus1 ? row.tipus1 : false),
       },
       {
         name: "tipus2",
@@ -79,6 +80,7 @@ const RetentionList = ({ actions, ...props }) => {
           id: "Retenciones.tipo2",
           defaultMessage: "Tipo 2",
         }),
+        getCellValue: (row) => (row.tipus2 ? row.tipus2 : false),
       },
       {
         name: "tipus3",
@@ -86,6 +88,7 @@ const RetentionList = ({ actions, ...props }) => {
           id: "Retenciones.tipo3",
           defaultMessage: "Tipo 3",
         }),
+        getCellValue: (row) => (row.tipus3 ? row.tipus3 : false),
       },
     ],
     URL: API.classeRetencio,

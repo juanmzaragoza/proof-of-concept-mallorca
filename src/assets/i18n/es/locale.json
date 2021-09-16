@@ -1756,7 +1756,7 @@
   "FinalFacturas.formula": "Fórmula",
   "FinalFacturas.lineas": "Línias",
   "FinalFacturas.importeFacturado": "Importe Facturado",
-  "FinalFacturas.aplicarTotal": "Aplicar Total",
+  "FinalFacturas.aplicarTotal": "Aplicar a",
   "FinalFacturas.imprimir": "Imprimir",
   "FinalFacturas.cncFactura": "Campo de la Factura",
   "Articulos.precioArticulo": "Precio Artículo",
@@ -2136,5 +2136,8 @@
   "Iva.recargo":"Recargo",
   "Selector.precio+":"Precio * (1 + pte * 0.01)",
   "Selector.precio-":"Precio / (1 - pte * 0.01)",
-  "Comun.descripcionCorta":"Descripción Corta"
+  "Comun.descripcionCorta":"Descripción Corta",
+  "Comun.SoloAlTotal":"Solo al total",
+  "Comun.todosLosIvas":"Todos los ivas"
+
 }
