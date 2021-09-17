@@ -43,6 +43,13 @@ const PaymentNatureList = ({ actions, ...props }) => {
           defaultMessage: "Descripción",
         }),
       },
+      {
+        name: "observacions",
+        title: props.intl.formatMessage({
+          id: "Comun.observaciones",
+          defaultMessage: "observaciones",
+        }),
+      },
     ],
     URL: API.naturalesaPagamentCobrament,
     listKey: "naturalesaPagamentCobraments",

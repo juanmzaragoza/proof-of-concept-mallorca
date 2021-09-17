@@ -954,7 +954,7 @@
   "DocumentosPago.controlarEfectos": "Controlar efectos",
   "DocumentosPago.datosContables": "Datos contables",
   "DocumentosPago.codigoContable": "Código contable",
-  "DocumentosPago.codigoFactura": "Código factura electónica",
+  "DocumentosPago.codigoFactura": "Cód.E Factura",
   "DocumentosPago.traspasar": "Traspasar",
   "DocumentosPago.asientoCompuesto": "Asiento compuesto",
   "DocumentosPago.porcentajeComision": "Porcentaje comisión",
@@ -2138,6 +2138,13 @@
   "Selector.precio-":"Precio / (1 - pte * 0.01)",
   "Comun.descripcionCorta":"Descripción Corta",
   "Comun.SoloAlTotal":"Solo al total",
-  "Comun.todosLosIvas":"Todos los ivas"
+  "Comun.todosLosIvas":"Todos los ivas",
+  "ComplementosFactura.distribuirCos":"Distrib. cos art.",
+  "ComplementosFactura.aplicarDtoCorto":"Aplicar Dto.",
+  "ComplementosFactura.familiaArticulos":"Familia Artículos",
+  "Rappels.escalados":"Rappels Escalados",
+  "PaisesProvincias.titulo":"Países y Provincias",
+  "Provincias.titulo":"Provincias",
+  "DocumentosPago.naturalezaPago":"Naturaleza Pago"
 
 }

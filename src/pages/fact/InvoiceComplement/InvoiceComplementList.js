@@ -44,6 +44,16 @@ const InvoiceComplementList = ({ actions, ...props }) => {
     { title: DESCRIPTION, name: "descripcio" },
   ];
 
+  const TYPE = props.intl.formatMessage({
+    id: "TiposVencimiento.tipo",
+    defaultMessage: "Tipo",
+  });
+
+  const aSCodeAndType = [
+    { title: CODE, name: "codi" },
+    { title: TYPE, name: "tipus" },
+  ];
+
   const articleFamilia = {
     placeHolder: props.intl.formatMessage({
       id: "Proveedores.familia",
@@ -64,6 +74,47 @@ const InvoiceComplementList = ({ actions, ...props }) => {
     },
   };
 
+  const tipusCost = {
+    placeHolder: props.intl.formatMessage({
+      id: "Articulos.costes.tipoCoste",
+      defaultMessage: "Tipo coste",
+    }),
+    type: "LOV",
+    key: "tipusCost",
+    breakpoints: {
+      xs: 12,
+      md: 3,
+    },
+    selector: {
+      key: "tipusCosts",
+      labelKey: (data) => `${data.tipus} (${data.codi})`,
+      sort: "codi",
+      cannotCreate: true,
+      advancedSearchColumns: aSCodeAndType,
+    },
+  };
+
+  const iva = {
+    placeHolder: props.intl.formatMessage({
+      id: "Clientes.iva",
+      defaultMessage: "IVA",
+    }),
+    type: "LOV",
+    key: "iva",
+    id: "ivaFact",
+    breakpoints: {
+      xs: 12,
+      md: 2,
+    },
+    selector: {
+      key: "ivas",
+      labelKey: (data) => `${data.descripcio} (${data.codi})`,
+      sort: "descripcio",
+      advancedSearchColumns: aSCodeAndDescription,
+      cannotCreate: true,
+    },
+  };
+
   const listConfiguration = {
     title: props.intl.formatMessage({
       id: "ComplementosFactura.titulo",
@@ -76,7 +127,7 @@ const InvoiceComplementList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
-        inlineEditionDisabled: true
+        inlineEditionDisabled: true,
       },
       {
         name: "descripcio",
@@ -86,15 +137,72 @@ const InvoiceComplementList = ({ actions, ...props }) => {
         }),
       },
       {
+        title: props.intl.formatMessage({
+          id: "ComplementosFactura.incrementarFactura",
+          defaultMessage: "Incrementar Factura",
+        }),
+
+        name: "incrementarFactura",
+      },
+      {
+        title: props.intl.formatMessage({
+          id: "ComplementosFactura.incrementarBase",
+          defaultMessage: "Incrementar Base",
+        }),
+        name: "incrementarBaseImposable",
+      },
+      {
+        title: props.intl.formatMessage({
+          id: "ComplementosFactura.distribuirCos",
+          defaultMessage: "distribuir Costes entre Artículos",
+        }),
+
+        name: "distribuirCostosEntreArticles",
+      },
+      {
+        title: props.intl.formatMessage({
+          id: "ComplementosFactura.aplicarDtoCorto",
+          defaultMessage: "Aplicar Dto",
+        }),
+
+        name: "aplicarDescompte",
+      },
+      {
+        tittle: props.intl.formatMessage({
+          id: "Articulos.costes.tipoCoste",
+          defaultMessage: "Tipo coste",
+        }),
+
+        name: "tipusCost",
+        breakpoints: {
+          xs: 12,
+          md: 3,
+        },
+        getCellValue: (row) =>
+          row.tipusCost?.description ? row.tipusCost?.description : "",
+        field: tipusCost,
+      },
+      {
         name: "articleFamilia",
         title: props.intl.formatMessage({
-          id: "Almacen.articulo",
-          defaultMessage: "Artículo",
+          id: "ComplementosFactura.familiaArticulos",
+          defaultMessage: "Familia Articulos",
         }),
         getCellValue: (row) =>
-          row.articleFamilia?.description ? row.articleFamilia?.description : "",
-          field:articleFamilia
-
+          row.articleFamilia?.description
+            ? row.articleFamilia?.description
+            : "",
+        field: articleFamilia,
+      },
+      {
+        name: "iva",
+        title: props.intl.formatMessage({
+          id: "Clientes.iva",
+          defaultMessage: "IVA",
+        }),
+        getCellValue: (row) =>
+          row.iva?.description ? row.iva?.description : "",
+        field: iva,
       },
       {
         name: "compteContable",
@@ -103,11 +211,10 @@ const InvoiceComplementList = ({ actions, ...props }) => {
           defaultMessage: "Cuenta contable",
         }),
       },
-      
     ],
     URL: API.complementsFactura,
     listKey: "complementFacturas",
-    enableInlineEdition: true
+    enableInlineEdition: true,
   };
 
   return (

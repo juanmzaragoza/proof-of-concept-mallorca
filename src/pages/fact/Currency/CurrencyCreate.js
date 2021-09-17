@@ -24,7 +24,7 @@ const CurrencyCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
       noEditable: true,
       validationType: "string",
@@ -49,7 +49,7 @@ const CurrencyCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 6,
+        md: 4,
       },
       validationType: "string",
       validations: [
@@ -67,12 +67,10 @@ const CurrencyCreate = (props) => {
       key: "abreviatura",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
-      validationType:"string",
-      validations: [
-   
-        ...props.stringValidations.minMaxValidation(0, 5),],
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 5)],
     },
 
     {
@@ -82,12 +80,11 @@ const CurrencyCreate = (props) => {
       }),
       type: "numeric",
       key: "valorEuros",
-      required:true,
+      required: true,
       breakpoints: {
         xs: 12,
         md: 2,
       },
-      suffix: "€",
       validationType: "number",
       validations: [
         ...props.commonValidations.requiredValidation(),
@@ -105,12 +102,10 @@ const CurrencyCreate = (props) => {
 
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
       validationType: "number",
-      validations: [
-        ...props.numberValidations.minMaxValidation(0, 2),
-      ],
+      validations: [...props.numberValidations.minMaxValidation(0, 2)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -122,13 +117,10 @@ const CurrencyCreate = (props) => {
 
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
       validationType: "number",
-      validations: [
-
-        ...props.numberValidations.minMaxValidation(0, 5),
-      ],
+      validations: [...props.numberValidations.minMaxValidation(0, 5)],
     },
     {
       placeHolder: props.intl.formatMessage({

@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {Fragment, useCallback, useEffect, useRef, useState} from 'react';
 import PropTypes from "prop-types";
 import {withSnackbar} from "notistack";
 import {injectIntl} from "react-intl";
@@ -276,7 +276,10 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
             key={key}
             caption={column.title}
             dataField={column.name}
-            calculateCellValue={column.getCellValue}
+            cellRender={(cell) => {
+              const { column: { name }, data } = cell;
+              return (<Fragment>{column.getCellValue? column.getCellValue(data):data[name]}</Fragment>);
+            }}
             filterOperations={['contains']}
             allowEditing={!column.inlineEditionDisabled}
             {...extraProps}
@@ -284,10 +287,13 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
             <AsyncRule validationCallback={handleValidation} />
           </Column>
         })}
-        {!configuration.disabledActions && <Column type="buttons" width={90}>
-          <Button icon="edit" onClick={e => history.push(`${history.location.pathname}/${e.row.data.id}`)}/>
-          <Button icon="trash" onClick={e => deleteData(e.row.data)} />
-        </Column>}
+        {
+          !configuration.disabledActions &&
+            <Column type="buttons" width={90}>
+              {!configuration.disabledUpdate && <Button icon="edit" onClick={e => history.push(`${history.location.pathname}/${e.row.data.id}`)}/>}
+              {!configuration.disabledDelete && <Button icon="trash" onClick={e => deleteData(e.row.data)} />}
+            </Column>
+        }
         <Selection mode="single" />
         <MasterDetail
           enabled={isExpandableEnabled}
@@ -296,8 +302,8 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
 
         {configuration.enableInlineEdition && <Editing
           allowAdding={true}
-          allowUpdating={true}
-          allowDeleting={!configuration.disabledActions}
+          allowUpdating={!configuration.disabledUpdate}
+          allowDeleting={!configuration.disabledDelete}
           mode="cell" />}
 
         <Paging
@@ -333,7 +339,11 @@ ReactGrid.propTypes = {
     })),
     listKey: PropTypes.string.isRequired,
     enableInlineEdition: PropTypes.bool,
+    // it disables all the actions
     disabledActions: PropTypes.bool,
+    // it disables each independent action
+    disabledUpdate: PropTypes.bool,
+    disabledDelete: PropTypes.bool,
     disabledFiltering: PropTypes.bool,
     enableExpandableContent: PropTypes.bool,
     method: PropTypes.oneOf(['post','put','patch']),
