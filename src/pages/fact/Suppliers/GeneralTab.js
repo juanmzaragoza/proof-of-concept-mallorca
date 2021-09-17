@@ -714,9 +714,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       {
         name: "defecte",
         title: DEFECTE,
-        getCellValue: (cell) =>{
-          const { column: { name }, data } = cell;
-          return data[name] && data[name] === true ? (
+        getCellValue: (row) =>{
+          return row.defecte && row.defecte === true ? (
             <Chip
               label={props.intl.formatMessage({
                 id: "Comun.SI",
