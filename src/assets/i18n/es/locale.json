@@ -2145,6 +2145,13 @@
   "Rappels.escalados":"Rappels Escalados",
   "PaisesProvincias.titulo":"Países y Provincias",
   "Provincias.titulo":"Provincias",
-  "DocumentosPago.naturalezaPago":"Naturaleza Pago"
+  "DocumentosPago.naturalezaPago":"Naturaleza Pago",
+  "DocumentosPago.codContable":"Cód.Contable",
+  "Clientes.entidad":"Entidad",
+  "DocumentosPago.oficina":"Oficina",
+  "DocumentosPago.dc":"DC",
+  "DocumentosPago.cuenta":"Cuenta",
+  "DocumentosPago.pais":"País",
+  "DocumentosPago.bic":"BIC"
 
 }

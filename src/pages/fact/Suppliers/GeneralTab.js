@@ -714,32 +714,32 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       {
         name: "defecte",
         title: DEFECTE,
-        getCellValue: (cell) =>{
-          const { column: { name }, data } = cell;
-          return data[name] && data[name] === true ? (
-            <Chip
-              label={props.intl.formatMessage({
-                id: "Comun.SI",
-                defaultMessage: "SI",
-              })}
-              variant="outlined"
-            />
-          ) : (
-            <Chip
-              label={props.intl.formatMessage({
-                id: "Comun.NO",
-                defaultMessage: "NO",
-              })}
-              variant="outlined"
-            />
-          )},
+        // getCellValue: (cell) =>{
+        //   const { column: { name }, data } = cell;
+        //   return data[name] && data[name] === true ? (
+        //     <Chip
+        //       label={props.intl.formatMessage({
+        //         id: "Comun.SI",
+        //         defaultMessage: "SI",
+        //       })}
+        //       variant="outlined"
+        //     />
+        //   ) : (
+        //     <Chip
+        //       label={props.intl.formatMessage({
+        //         id: "Comun.NO",
+        //         defaultMessage: "NO",
+        //       })}
+        //       variant="outlined"
+        //     />
+        //   )},
       },
       { name: "observacions", title: OBS, hidden: true },
     ],
     listKey: 'adresaComercials',
     enableInlineEdition: true,
     enableExpandableContent: true,
-    disabledUpdate: true,
+    // disabledUpdate: true,
   };
   const commercialAddressesFormConfig = [
     code(),
