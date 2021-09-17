@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {Fragment, useCallback, useEffect, useRef, useState} from 'react';
 import PropTypes from "prop-types";
 import {withSnackbar} from "notistack";
 import {injectIntl} from "react-intl";
@@ -256,7 +256,10 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
             key={key}
             caption={column.title}
             dataField={column.name}
-            cellRender={column.getCellValue}
+            cellRender={(cell) => {
+              const { column: { name }, data } = cell;
+              return (<Fragment>{column.getCellValue? column.getCellValue(data):data[name]}</Fragment>);
+            }}
             filterOperations={['contains']}
             allowEditing={!column.inlineEditionDisabled}
             {...extraProps}
