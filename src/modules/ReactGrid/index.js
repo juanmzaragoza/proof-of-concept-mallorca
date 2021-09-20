@@ -17,7 +17,8 @@ import DataGrid,
   Editing,
   Button,
   MasterDetail,
-  Selection
+  Selection,
+  AsyncRule
 } from 'devextreme-react/data-grid';
 import CustomStore from "devextreme/data/custom_store";
 
@@ -39,6 +40,8 @@ import {Loading} from "modules/shared/Loading";
 import LOVCellComponent from "./LOVCellComponent";
 
 import './styles.scss';
+import createYupSchema from "../GenericForm/yupSchemaCreator";
+import * as yup from "yup";
 
 const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
                      rows, loading, pageSize, totalCount, errors,
@@ -217,6 +220,23 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
     )
   }
 
+  const handleValidation = (params) => {
+    const { value, column: { name } } = params;
+    //TODO(): i'm not very sure about how it's implemented
+    const component = columns.map(column => column.field).find(comp => comp.key === name);
+    const schema = createYupSchema({}, {...component, id: component.key});
+    const validateSchema = yup.object().shape(schema);
+
+    return new Promise((resolve, reject) => {
+      validateSchema.validate({[component.key]: value})
+        .then((value) => {
+          resolve(value)
+        }).catch(e => {
+        reject(e.errors.join(" | "))
+      })
+    });
+  }
+
   return (
     <React.Fragment>
       <DataGrid
@@ -266,7 +286,9 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
             filterOperations={['contains']}
             allowEditing={!column.inlineEditionDisabled}
             {...extraProps}
-          />
+          >
+            <AsyncRule validationCallback={handleValidation} />
+          </Column>
         })}
         {
           !configuration.disabledActions &&
@@ -360,5 +382,5 @@ const mapDispatchToProps = (dispatch, props) => {
 export default compose(
   withSnackbar,
   injectIntl,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps),
 )(ReactGrid);
