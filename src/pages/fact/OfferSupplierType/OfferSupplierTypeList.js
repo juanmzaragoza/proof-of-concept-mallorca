@@ -7,6 +7,8 @@ import ReactGrid from "modules/ReactGrid";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
+import { creationFields } from "./configuration";
+
 const OfferSupplierList = ({ actions, ...props }) => {
   const [listConfig, setListConfig] = useState({
     columns: [
@@ -49,7 +51,7 @@ const OfferSupplierList = ({ actions, ...props }) => {
     ]);
     // validations
     const columns = listConfig.columns.map(column => {
-      const field = props.fields.find(field => field.key === column.name);
+      const field = creationFields(props).find(field => field.key === column.name);
       if(field) column.field = field;
       return column;
     });

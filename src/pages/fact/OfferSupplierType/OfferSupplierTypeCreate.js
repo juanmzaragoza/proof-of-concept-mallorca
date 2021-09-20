@@ -6,6 +6,8 @@ import CreateUpdateForm from "modules/ReactGrid/CreateUpdateForm";
 import { withValidations } from "modules/wrappers";
 import * as API from "redux/api";
 
+import { creationFields } from "./configuration";
+
 const OfferSupplierTypeCreate = (props) => {
   return (
     <CreateUpdateForm
@@ -13,7 +15,7 @@ const OfferSupplierTypeCreate = (props) => {
         id: "TipoOfertaProv.titulo",
         defaultMessage: "Tipo Ofertas Prov",
       })}
-      formConfiguration={props.fields}
+      formConfiguration={creationFields(props)}
       url={API.tipusOfertesProveidor}
     />
   );
