@@ -18,18 +18,14 @@ import { withValidations } from "modules/wrappers";
 
 import { useTabForm } from "hooks/tab-form";
 
-
-
 const COMPANY_SECTION_INDEX = 0;
 const ADDRESS_SECTION_TAB_INDEX = 1;
-
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [COMPANY_SECTION_INDEX]: false,
       [ADDRESS_SECTION_TAB_INDEX]: true,
-     
     },
     setIsValid: props.setIsValid,
   });
@@ -90,8 +86,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
-
-
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
 
   const aSCodeAndDescription = [
@@ -110,6 +104,28 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         ...extraValidations,
       ],
     };
+  };
+
+  const getString = (key) => (getFormData(key) ? getFormData(key) : "");
+  const actions = () => {
+    const nomFiscal = getString("nomFiscal");
+    const nomComercial = getString("nomComercial");
+    if (!nomFiscal) {
+      setFormData({
+        key: "nomFiscal",
+        value: nomComercial ? nomComercial : "",
+      });
+    }
+  };
+  const actionsDirection = () => {
+    const domFiscal = getString("domiciliFiscal");
+    const domComercial = getString("domiciliComercial");
+    if (!domFiscal) {
+      setFormData({
+        key: "domiciliFiscal",
+        value: domComercial ? domComercial : "",
+      });
+    }
   };
 
   const companyConfig = [
@@ -148,9 +164,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "string",
     },
 
-
-
-
     {
       placeHolder: props.intl.formatMessage({
         id: "Proveedores.divisa",
@@ -188,7 +201,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "object",
       ...withRequiredValidation(),
     },
-   
 
     // {
     //   placeHolder: props.intl.formatMessage({
@@ -217,7 +229,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     //   },
 
     // },
-
   ];
 
   const datosComerciales = [
@@ -228,7 +239,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       key: "nomComercial",
-
+      fireActionOnBlurChange: actions,
       required: true,
       breakpoints: {
         xs: 12,
@@ -247,6 +258,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       type: "input",
       required: true,
       key: "domiciliComercial",
+      fireActionOnBlurChange: actionsDirection,
       breakpoints: {
         xs: 12,
         md: 12,
@@ -295,6 +307,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "Proveedores.nombre_fiscal",
         defaultMessage: "Nombre Fiscal",
       }),
+      fireActionOnBlurChange: actions,
       type: "input",
       key: "nomFiscal",
       required: true,
@@ -303,9 +316,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 7,
       },
       validationType: "string",
-      ...withRequiredValidation([
-        ...props.stringValidations.minMaxValidation(1, 40),
-      ]),
+      validations: [...props.stringValidations.minMaxValidation(1, 40)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -332,13 +343,14 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       type: "input",
       required: true,
       key: "domiciliFiscal",
+      fireActionOnBlurChange: actionsDirection,
       breakpoints: {
         xs: 12,
         md: 12,
       },
       validationType: "string",
       validations: [
-        ...props.commonValidations.requiredValidation(),
+    
         ...props.stringValidations.minMaxValidation(1, 60),
       ],
     },
@@ -687,8 +699,30 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         </Grid>
       </Grid>
       <Grid xs={12} item>
-        <OutlinedContainer>
-          <ConfigurableTabs tabs={tabs} />
+        <OutlinedContainer
+          className="general-tab-container"
+          title={
+            <FormattedMessage
+              id={"Empresas.masDatos"}
+              defaultMessage={"Más Datos"}
+            />
+          }
+        >
+          <GenericForm
+            formComponents={masDatosConfig}
+            emptyPaper={true}
+            setFormData={setFormData}
+            getFormData={getFormData}
+            loading={props.loading}
+            formErrors={props.formErrors}
+            submitFromOutside={props.submitFromOutside}
+            onSubmit={() => props.onSubmitTab(formData)}
+            handleIsValid={(value) =>
+              addValidity(ADDRESS_SECTION_TAB_INDEX, value)
+            }
+            onBlur={(e) => handleTouched(ADDRESS_SECTION_TAB_INDEX)}
+            {...props}
+          />
         </OutlinedContainer>
       </Grid>
     </Grid>

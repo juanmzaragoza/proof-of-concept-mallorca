@@ -1164,8 +1164,8 @@
   "Selector.alta": "Alta",
   "Selector.alta_modificacion": "Alta modificación",
   "Selector.tratarTranspasos": "Tratar en transpaso factura",
-  "Empresas.contabilidadProv": "Cotabilidad Proveedor",
-  "Empresas.contabilidadClientes": "Contabilidad Clientes",
+  "Empresas.contabilidadProv": "Proveedores Cotabilidad",
+  "Empresas.contabilidadClientes": "Clientes Cotabilidad",
   "Empresas.logo": "Ruta logo",
   "Empresas.imprimirLogo": "Imprimir Logo",
 
@@ -1204,7 +1204,7 @@
   "Empresas.diarioFact": "Diario Facturación Prov.",
   "Empresas.diarioProf": "Diario Proformas Prov.",
   "Empresas.fechaCierre": "Fecha Cierre",
-  "Empresas.contabCodigo": "Código Contabilidad",
+  "Empresas.contabCodigo": "Código Contable",
   "Empresas.contabAsiento": "Contabilidad Asiento Tipo",
   "Empresas.partida": "Partida",
   "Empresas.ApiUrl": "Url API",
@@ -2152,6 +2152,9 @@
   "DocumentosPago.dc":"DC",
   "DocumentosPago.cuenta":"Cuenta",
   "DocumentosPago.pais":"País",
-  "DocumentosPago.bic":"BIC"
-
+  "DocumentosPago.bic":"BIC",
+  "Empresas.tipoAsiento":"Tipo Asiento Facturas Proveedores",
+  "Empresas.diarioFacturas":"Diario Facturas Proveedores",
+  "Empresas.diarioProformas":"Diario Proformas Proveedores",
+  "Empresas.sii":"Tipo Factura(SII Recibidas)"
 }

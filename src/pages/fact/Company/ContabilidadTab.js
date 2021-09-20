@@ -91,7 +91,8 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "numeric",
       key: "valorFacturacio",
-
+      decimalScale:0,
+      fixedDecimalScale:true,
       breakpoints: {
         xs: 12,
         md: 12,
@@ -174,7 +175,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
 
     {
       placeHolder: props.intl.formatMessage({
-        id: "Empresas.contabAsiento",
+        id: "Empresas.tipoAsiento",
         defaultMessage: "Contabilidad asiento tipo",
       }),
       type: "input",
@@ -190,7 +191,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
 
     {
       placeHolder: props.intl.formatMessage({
-        id: "Empresas.diarioFact",
+        id: "Empresas.diarioFacturas",
         defaultMessage: "Diario Facturación Prov.",
       }),
       type: "input",
@@ -205,7 +206,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Empresas.diarioProf",
+        id: "Empresas.diarioProformas",
         defaultMessage: "Diario Prof. Prov.",
       }),
       type: "input",
@@ -221,7 +222,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
 
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.tipoFact",
+        id: "Empresas.sii",
         defaultMessage: "Tipo Facturación",
       }),
       type: "select",
@@ -250,6 +251,7 @@ const ContabilidadTab = ({ formData, setFormData, getFormData, ...props }) => {
         md: 3,
       },
     },
+   
   ];
 
   return (

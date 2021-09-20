@@ -120,10 +120,7 @@ const ContactTab = ({ formData, setFormData, ...props }) => {
       validations: props.stringValidations.minMaxValidation(1, 20),
     },
     {
-      placeHolder: props.intl.formatMessage({
-        id: "Empresas.registroMercantil2",
-        defaultMessage: "registro Mercantil 2",
-      }),
+      placeHolder: REGISTRO,
       type: "input",
       key: "registreMercantil2",
       breakpoints: {
