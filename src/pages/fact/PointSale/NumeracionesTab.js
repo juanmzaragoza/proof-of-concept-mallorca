@@ -42,6 +42,7 @@ const NumeracionesTab = ({ formData, setFormData, getFormData, ...props }) => {
         exact: true,
       },
     ],
+    sort: [{ columnName: "dia", direction: "desc" }],
 
     extraPostBody: {
       puntVenda: { id: `${PointSaleId}` },
@@ -286,6 +287,7 @@ const NumeracionesTab = ({ formData, setFormData, getFormData, ...props }) => {
           responseKey="numeracioTpvs"
           enabled={props.editMode}
           configuration={otraAplicacion}
+          readOnly={true}
         />
       </Grid>
     </Grid>

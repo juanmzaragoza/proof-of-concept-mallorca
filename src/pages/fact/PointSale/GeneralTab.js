@@ -6,9 +6,9 @@ import {
   TIPO_IMPRESION_PUNT_VENTA_VALUES,
   TIPO_ENUM_PUNT_VENTA_VALUES,
 } from "constants/selectors";
-import OutlinedContainer from "modules/shared/OutlinedContainer";
+
 import GenericForm from "modules/GenericForm";
-import ConfigurableTabs from "modules/shared/ConfigurableTabs";
+
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 import { getObjectFrom } from "helper/storage";
@@ -16,15 +16,13 @@ import { ENTERPRISE_GROUP_VALUE_LOCALSTORAGE_KEY } from "../../../constants";
 import { useTabForm } from "hooks/tab-form";
 
 const POINT_SALE_SECTION_INDEX = 0;
-const ENUM_SECTION_TAB_INDEX = 1;
-const TICKET_SECTION_TAB_INDEX = 2;
+
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [POINT_SALE_SECTION_INDEX]: false,
-      [ENUM_SECTION_TAB_INDEX]: false,
-      [TICKET_SECTION_TAB_INDEX]: true,
+
     },
     setIsValid: props.setIsValid,
   });
@@ -151,7 +149,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
       selector: {
         key: "clients",
@@ -205,7 +203,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       selector: {
         key: "magatzems",
@@ -230,28 +228,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 15)],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Presupuestos.documentoPago",
-        defaultMessage: "Documento pago/cobro",
-      }),
-      type: "LOV",
-      key: "documentPagamentCobrament",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 4,
-      },
-      selector: {
-        key: "documentPagamentCobraments",
-        labelKey: formatCodeAndDescription,
-        sort: "descripcio",
-        cannotCreate: true,
-        advancedSearchColumns: aSCodeAndDescription,
-      },
-      validationType: "object",
-      validations: [...props.commonValidations.requiredValidation()],
     },
 
     {
@@ -299,6 +275,29 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "object",
       validations: [...props.commonValidations.requiredValidation()],
     },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Presupuestos.documentoPago",
+        defaultMessage: "Documento pago/cobro",
+      }),
+      type: "LOV",
+      key: "documentPagamentCobrament",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 4,
+      },
+      selector: {
+        key: "documentPagamentCobraments",
+        labelKey: formatCodeAndDescription,
+        sort: "descripcio",
+        cannotCreate: true,
+        advancedSearchColumns: aSCodeAndDescription,
+      },
+      validationType: "object",
+      validations: [...props.commonValidations.requiredValidation()],
+    },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "PuntoVenta.ultimoAZ",
@@ -355,7 +354,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "PuntoVenta.tipoImpresion",
+        id: "PuntoVenta.impresionDelTicket",
         defaultMessage: "Tipo impresión",
       }),
       type: "select",
@@ -445,35 +444,19 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       validations: [...props.stringValidations.minMaxValidation(0, 80)],
     },
 
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "PuntoVenta.fechaImpresion",
-        defaultMessage: "Fecha impresión",
-      }),
-      type: "date",
-      key: "dataImp",
+    // {
+    //   placeHolder: props.intl.formatMessage({
+    //     id: "PuntoVenta.fechaImpresion",
+    //     defaultMessage: "Fecha impresión",
+    //   }),
+    //   type: "date",
+    //   key: "dataImp",
 
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "PuntoVenta.ticketIva",
-        defaultMessage: "Ticket IVA incluido",
-      }),
-      type: "checkbox",
-      key: "ticketIvaInclos",
-
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-    },
-  ];
-
-  const enumConfig = [
+    //   breakpoints: {
+    //     xs: 12,
+    //     md: 2,
+    //   },
+    // },
     {
       placeHolder: props.intl.formatMessage({
         id: "PuntoVenta.enumeracionTipo",
@@ -492,20 +475,30 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "string",
       validations: [...props.commonValidations.requiredValidation()],
     },
-  ];
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "PuntoVenta.ticketIva",
+        defaultMessage: "Ticket IVA incluido",
+      }),
+      type: "checkbox",
+      key: "ticketIvaInclos",
 
-  const ticketPieHeaderConfig = [
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+    },
     {
       placeHolder: props.intl.formatMessage({
         id: "PuntoVenta.cabezera",
         defaultMessage: "Cabezera ticket",
       }),
-      type: "input",
+      type: "observations",
       key: "ticketCapçalera",
 
       breakpoints: {
         xs: 12,
-        md: 6,
+        md: 1,
       },
       text: {
         multiline: 6,
@@ -519,73 +512,18 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         id: "PuntoVenta.pie",
         defaultMessage: "Pie del ticket",
       }),
-      type: "input",
+      type: "observations",
       key: "ticketPeu",
 
       breakpoints: {
         xs: 12,
-        md: 6,
+        md: 1,
       },
       text: {
         multiline: 6,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 1000)],
-    },
-  ];
-
-  const tabs = [
-    {
-      className: "general-tab-subtab",
-      label: (
-        <FormattedMessage
-          id={"PuntoVenta.enumeracion"}
-          defaultMessage={"Enumeración"}
-        />
-      ),
-      key: 0,
-      component: (
-        <GenericForm
-          formComponents={enumConfig}
-          emptyPaper={true}
-          setFormData={setFormData}
-          getFormData={getFormData}
-          loading={props.loading}
-          formErrors={props.formErrors}
-          submitFromOutside={props.submitFromOutside}
-          onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) => addValidity(ENUM_SECTION_TAB_INDEX, value)}
-          onBlur={(e) => handleTouched(ENUM_SECTION_TAB_INDEX)}
-          {...props}
-        />
-      ),
-    },
-    {
-      className: "general-tab-subtab",
-      label: (
-        <FormattedMessage
-          id={"PuntoVenta.ticketPie"}
-          defaultMessage={"Cabezera/Pie Ticket"}
-        />
-      ),
-      key: 1,
-      component: (
-        <GenericForm
-          formComponents={ticketPieHeaderConfig}
-          emptyPaper={true}
-          setFormData={setFormData}
-          getFormData={getFormData}
-          loading={props.loading}
-          formErrors={props.formErrors}
-          submitFromOutside={props.submitFromOutside}
-          onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) =>
-            addValidity(TICKET_SECTION_TAB_INDEX, value)
-          }
-          onBlur={(e) => handleTouched(TICKET_SECTION_TAB_INDEX)}
-          {...props}
-        />
-      ),
     },
   ];
 
@@ -608,11 +546,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           onBlur={(e) => handleTouched(POINT_SALE_SECTION_INDEX)}
           {...props}
         />
-      </Grid>
-      <Grid xs={12} item>
-        <OutlinedContainer>
-          <ConfigurableTabs tabs={tabs} />
-        </OutlinedContainer>
       </Grid>
     </Grid>
   );

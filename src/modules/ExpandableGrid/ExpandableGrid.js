@@ -49,21 +49,21 @@ const ExpandableGrid = ({
   );
   const [expandedRowIds, setExpandedRowIds] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [sorting, setSorting] = useState([]);
+  const [sorting, setSorting] = useState(configuration.sort);
   const [enabled, setEnabled] = useState(false);
   const [query, setQuery] = useState([]);
-  const [method,setMethod]=useState("");
-  const [body,setBody]=useState([]);
+  const [method, setMethod] = useState("");
+  const [body, setBody] = useState([]);
 
   useEffect(() => {
     setEnabled(props.enabled);
     setQuery(configuration.query);
     setMethod(configuration.method);
     setBody(configuration.body);
+ 
   }, [props.enabled, configuration.query]);
 
   const doRequest = () => {
-    
     actions.loadData({
       apiId: id,
       size: size,
