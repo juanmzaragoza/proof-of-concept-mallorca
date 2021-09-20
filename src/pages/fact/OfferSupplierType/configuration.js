@@ -1,4 +1,4 @@
-import intl from "./helper/intl-function";
+import intl from "helper/intl-function";
 
 const CODE = intl.formatMessage({
   id: "Comun.codigo",
