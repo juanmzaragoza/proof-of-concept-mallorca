@@ -26,9 +26,13 @@ import {
 
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
+import OpcionesTab from "./OpcionesTab";
+import SiiTab from "./SiiTab";
 
 /** step 1 */
 const SALES_SERIES_TAB_INDEX = 0;
+const OPCIONES_SERIES_TAB_INDEX = 1;
+const SII_SERIES_TAB_INDEX = 2;
 
 const SalesSeriesForm = React.memo(
   ({
@@ -46,6 +50,8 @@ const SalesSeriesForm = React.memo(
     /** step 2 */
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [SALES_SERIES_TAB_INDEX]: false,
+      [OPCIONES_SERIES_TAB_INDEX]:true,
+      [SII_SERIES_TAB_INDEX]:false
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -117,6 +123,56 @@ const SalesSeriesForm = React.memo(
           />
         ),
       },
+      {
+        ...getTranslations("SerieVenta.opciones",  "Opciones"),
+        key: OPCIONES_SERIES_TAB_INDEX,
+        error: tabHasError(OPCIONES_SERIES_TAB_INDEX),
+        component: (
+          <OpcionesTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [OPCIONES_SERIES_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
+          />
+        ),
+      },
+      { 
+        ...getTranslations("SerieVenta.sii",  "SII"),
+        key: SII_SERIES_TAB_INDEX,
+        error: tabHasError(SII_SERIES_TAB_INDEX),
+        component: (
+          <SiiTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [SII_SERIES_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
+          />
+        ),
+      },
+
+  
     ];
 
     const { id } = useParams();
