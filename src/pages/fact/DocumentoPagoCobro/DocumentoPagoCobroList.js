@@ -89,8 +89,24 @@ const DocumentoPagoCobroList = ({ actions, ...props }) => {
         }),
 
         name: "controlarEfectes",
-        getCellValue: (row) =>
-          row.controlarEfectes ? row.controlarEfectes : false,
+        getCellValue: (row) =>{
+          return row.controlarEfectes && row.controlarEfectes === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          )},
       },
       {
         title: props.intl.formatMessage({
@@ -98,8 +114,24 @@ const DocumentoPagoCobroList = ({ actions, ...props }) => {
           defaultMessage: "Agrupar vencimiento en remesas",
         }),
         name: "agruparVencimentsRemeses",
-        getCellValue: (row) =>
-          row.agruparVencimentsRemeses ? row.agruparVencimentsRemeses : false,
+        getCellValue: (row) =>{
+          return row.agruparVencimentsRemeses && row.agruparVencimentsRemeses === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          )},
       },
 
       {
@@ -135,10 +167,24 @@ const DocumentoPagoCobroList = ({ actions, ...props }) => {
           defaultMessage: "Aplicar descuentos pronto pago",
         }),
         name: "aplicarDescuentosProntoPago",
-        getCellValue: (row) =>
-          row.aplicarDescuentosProntoPago
-            ? row.aplicarDescuentosProntoPago
-            : false,
+        getCellValue: (row) =>{
+          return row.aplicarDescuentosProntoPago && row.aplicarDescuentosProntoPago === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          )},
       },
     ],
     URL: API.documentPagament,

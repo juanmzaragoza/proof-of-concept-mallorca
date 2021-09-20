@@ -49,7 +49,25 @@ const BillingTypeList = ({ actions, ...props }) => {
           id: "TiposFacturacion.obligarFacturar",
           defaultMessage: "Obligar a Facturar los Albaranes",
         }),
-        getCellValue: (row) => (row.concedimCredit ? row.concedimCredit : false),
+        getCellValue: (row) =>{
+          return row.concedimCredit && row.concedimCredit === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          )},
+
       },
     ],
     URL: API.tipusFacturacio,

@@ -143,6 +143,25 @@ const InvoiceComplementList = ({ actions, ...props }) => {
         }),
 
         name: "incrementarFactura",
+        getCellValue: (row) =>{
+          return row.incrementarFactura && row.incrementarFactura === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          )},
+
       },
       {
         title: props.intl.formatMessage({
@@ -150,6 +169,25 @@ const InvoiceComplementList = ({ actions, ...props }) => {
           defaultMessage: "Incrementar Base",
         }),
         name: "incrementarBaseImposable",
+        getCellValue: (row) =>{
+          return row.incrementarBaseImposable && row.incrementarBaseImposable === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          )},
+
       },
       {
         title: props.intl.formatMessage({
@@ -158,6 +196,25 @@ const InvoiceComplementList = ({ actions, ...props }) => {
         }),
 
         name: "distribuirCostosEntreArticles",
+        getCellValue: (row) =>{
+          return row.distribuirCostosEntreArticles && row.distribuirCostosEntreArticles === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          )},
+
       },
       {
         title: props.intl.formatMessage({
@@ -166,6 +223,25 @@ const InvoiceComplementList = ({ actions, ...props }) => {
         }),
 
         name: "aplicarDescompte",
+        getCellValue: (row) =>{
+          return row.aplicarDescompte && row.aplicarDescompte === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          )},
+
       },
       {
         tittle: props.intl.formatMessage({
