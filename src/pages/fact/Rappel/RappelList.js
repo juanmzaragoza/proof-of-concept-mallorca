@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import { bindActionCreators, compose } from "redux";
-
+import { Chip } from "@material-ui/core";
 import ReactGrid from "modules/ReactGrid";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
@@ -72,6 +72,24 @@ const VatList = ({ actions, ...props }) => {
         }),
 
         name: "escalat",
+        getCellValue: (row) =>{
+          return row.escalat && row.escalat === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          )},
       },
       {
         title: props.intl.formatMessage({
@@ -79,6 +97,24 @@ const VatList = ({ actions, ...props }) => {
           defaultMessage: "Absoluto",
         }),
         name: "absolut",
+        getCellValue: (row) =>{
+          return row.absolut && row.absolut === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          )},
       },
      
     ],

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import { bindActionCreators, compose } from "redux";
-
+import { Chip } from "@material-ui/core";
 import ReactGrid from "modules/ReactGrid";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
@@ -84,8 +84,25 @@ const VatList = ({ actions, ...props }) => {
           id: "Clientes.notCreApu",
           defaultMessage: "No crear apunte sin importe 0",
         }),
+        getCellValue: (row) =>{
+          return row.notCreApu && row.notCreApu === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          )},
 
-        getCellValue: (row) => (row.notCreApu ? row.notCreApu : false),
       },
     ],
     URL: API.ives,

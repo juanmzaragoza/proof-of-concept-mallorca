@@ -1,72 +1,195 @@
-import React, {useEffect} from "react";
-import {injectIntl} from "react-intl";
-import {connect} from "react-redux";
+import React, { useEffect } from "react";
+import { injectIntl } from "react-intl";
+import { connect } from "react-redux";
 
 import ReactGrid from "../../../modules/ReactGrid";
-import {bindActionCreators,compose} from "redux";
-import {setBreadcrumbHeader, setListingConfig} from "../../../redux/pageHeader";
+import { bindActionCreators, compose } from "redux";
+import {
+  setBreadcrumbHeader,
+  setListingConfig,
+} from "../../../redux/pageHeader";
 import * as API from "../../../redux/api";
+import { Chip } from "@material-ui/core";
 
 const DocumentoPagoCobroList = ({ actions, ...props }) => {
-
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
         id: "DocumentosPago.titulo",
-        defaultMessage: "Documentos pago/cobro"
+        defaultMessage: "Documentos pago/cobro",
       }),
     });
     actions.setBreadcrumbHeader([
-      {title: props.intl.formatMessage({
-        id: "DocumentosPago.titulo",
-        defaultMessage: "Documentos pago/cobro"
-        }), href:"/fact/documentos-pago-cobro"}
+      {
+        title: props.intl.formatMessage({
+          id: "DocumentosPago.titulo",
+          defaultMessage: "Documentos pago/cobro",
+        }),
+        href: "/fact/documentos-pago-cobro",
+      },
     ]);
-  },[]);
+  }, []);
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
+
+  const DESCRIPTION = props.intl.formatMessage({
+    id: "Comun.descripcion",
+    defaultMessage: "Descripción",
+  });
+
+  const aSCodeAndDescription = [
+    { title: CODE, name: "codi" },
+    { title: DESCRIPTION, name: "descripcio" },
+  ];
+
+  const naturalesaPagamentCobrament = {
+    placeHolder: props.intl.formatMessage({
+      id: "DocumentosPago.naturalezaPago",
+      defaultMessage: "Naturaleza pago",
+    }),
+    type: "LOV",
+    key: "naturalesaPagamentCobrament",
+    id: "naturalesaPagoCobro",
+    breakpoints: {
+      xs: 12,
+      md: 4,
+    },
+    selector: {
+      key: "naturalesaPagamentCobraments",
+      labelKey: (data) => `${data.descripcio} (${data.codi})`,
+      sort: "codi",
+      cannotCreate: true,
+      advancedSearchColumns: aSCodeAndDescription,
+    },
+  };
 
   const listConfiguration = {
     columns: [
       {
-         name: 'codi',
+        name: "codi",
         title: props.intl.formatMessage({
           id: "Comun.codigo",
-          defaultMessage: "Código"
-        })
+          defaultMessage: "Código",
+        }),
+        inlineEditionDisabled: true,
       },
-      { 
-        name: 'descripcio',
+      {
+        name: "descripcio",
         title: props.intl.formatMessage({
           id: "Comun.descripcion",
-          defaultMessage: "Descripción"
-        })
+          defaultMessage: "Descripción",
+        }),
       },
-      { 
-        name: 'naturalesaPagamentCobrament',
+      {
+        title: props.intl.formatMessage({
+          id: "DocumentosPago.controlarEfectos",
+          defaultMessage: "Controlar efectos",
+        }),
+
+        name: "controlarEfectes",
+        getCellValue: (row) =>{
+          return row.controlarEfectes && row.controlarEfectes === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          )},
+      },
+      {
+        title: props.intl.formatMessage({
+          id: "DocumentosPago.agruparVencimiento",
+          defaultMessage: "Agrupar vencimiento en remesas",
+        }),
+        name: "agruparVencimentsRemeses",
+        getCellValue: (row) =>{
+          return row.agruparVencimentsRemeses && row.agruparVencimentsRemeses === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          )},
+      },
+
+      {
+        name: "naturalesaPagamentCobrament",
         title: props.intl.formatMessage({
           id: "DocumentosPago.naturaleza",
-          defaultMessage: "Naturaleza pago/cobro"
+          defaultMessage: "Naturaleza pago/cobro",
         }),
-        getCellValue: row => row.naturalesaPagamentCobrament?.description ?? ""
+        getCellValue: (row) =>
+          row.naturalesaPagamentCobrament
+            ? row.naturalesaPagamentCobrament.description
+            : "",
+        field: naturalesaPagamentCobrament,
       },
-      { 
-        name: 'iva',
+      {
         title: props.intl.formatMessage({
-          id: "Proveedores.Documentos.cantidadIva",
-          defaultMessage: "IVA"
+          id: "DocumentosPago.numeroDias",
+          defaultMessage: "Número días valoración",
         }),
-        getCellValue: row => row.iva?.description ?? ""
+
+        name: "numeroDias",
       },
-      { 
-        name: 'regimIva',
+      {
         title: props.intl.formatMessage({
-          id: "Clientes.regimen.iva",
-          defaultMessage: "Régimen IVA"
+          id: "DocumentosPago.diasEfectosNegociados",
+          defaultMessage: "Días para efectos negociados",
         }),
-        getCellValue: row => row.regimIva?.description ?? ""
+        name: "diaEfectosNegociados",
+      },
+      {
+        title: props.intl.formatMessage({
+          id: "DocumentosPago.aplicarDescuentos",
+          defaultMessage: "Aplicar descuentos pronto pago",
+        }),
+        name: "aplicarDescuentosProntoPago",
+        getCellValue: (row) =>{
+          return row.aplicarDescuentosProntoPago && row.aplicarDescuentosProntoPago === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          )},
       },
     ],
     URL: API.documentPagament,
-    listKey: 'documentPagamentCobraments'
+    listKey: "documentPagamentCobraments",
+    enableInlineEdition: true,
   };
   return <ReactGrid id="documentPagament" configuration={listConfiguration} />;
 };
@@ -74,12 +197,12 @@ const DocumentoPagoCobroList = ({ actions, ...props }) => {
 const mapDispatchToProps = (dispatch, props) => {
   const actions = {
     setListingConfig: bindActionCreators(setListingConfig, dispatch),
-    setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch)
+    setBreadcrumbHeader: bindActionCreators(setBreadcrumbHeader, dispatch),
   };
   return { actions };
 };
 
 export default compose(
   injectIntl,
-  connect(null,mapDispatchToProps)
+  connect(null, mapDispatchToProps)
 )(DocumentoPagoCobroList);

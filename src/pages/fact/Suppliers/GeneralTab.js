@@ -732,13 +732,14 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
               variant="outlined"
             />
           )},
+
       },
       { name: "observacions", title: OBS, hidden: true },
     ],
     listKey: 'adresaComercials',
     enableInlineEdition: true,
     enableExpandableContent: true,
-    disabledUpdate: true,
+    // disabledUpdate: true,
   };
   const commercialAddressesFormConfig = [
     code(),

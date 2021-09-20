@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import { bindActionCreators, compose } from "redux";
-
+import { Chip } from "@material-ui/core";
 import ReactGrid from "modules/ReactGrid";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
@@ -85,7 +85,25 @@ const RiskTypeList = ({ actions, ...props }) => {
           id: "TipoRiesgo.nifCoincidentes",
           defaultMessage: "NIF Coincidentes",
         }),
-        getCellValue: (row) => (row.tri_nifigu ? row.tri_nifigu : false),
+        getCellValue: (row) =>{
+          return row.tri_nifigu && row.tri_nifigu === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          )},
+
       },
     ],
     URL: API.tipusRisc,

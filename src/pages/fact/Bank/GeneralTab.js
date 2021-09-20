@@ -290,7 +290,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         required: true,
         breakpoints: {
           xs: 12,
-          md: 2,
+          md: 1,
         },
         noEditable: true,
         validationType: "string",
@@ -314,7 +314,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         required: true,
         breakpoints: {
           xs: 12,
-          md: 7,
+          md: 6,
         },
         validationType: "string",
         validations: [
@@ -322,7 +322,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           ...props.stringValidations.minMaxValidation(1, 60),
         ],
       },
-      ...codiPostal(3),
+      ...codiPostal(5),
 
       {
         placeHolder: props.intl.formatMessage({

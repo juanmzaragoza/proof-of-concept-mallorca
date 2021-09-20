@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import { bindActionCreators, compose } from "redux";
-
+import { Chip } from "@material-ui/core";
 import ReactGrid from "modules/ReactGrid";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
@@ -72,15 +72,49 @@ const RetentionList = ({ actions, ...props }) => {
           id: "Retenciones.tipo1",
           defaultMessage: "Tipo 1",
         }),
-        getCellValue: (row) => (row.tipus1 ? row.tipus1 : false),
+        getCellValue: (row) =>{
+          return row.tipus1 && row.tipus1 === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          )},
+
       },
       {
         name: "tipus2",
         title: props.intl.formatMessage({
           id: "Retenciones.tipo2",
           defaultMessage: "Tipo 2",
-        }),
-        getCellValue: (row) => (row.tipus2 ? row.tipus2 : false),
+        }), getCellValue: (row) =>{
+          return row.tipus2 && row.tipus2 === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          )},
       },
       {
         name: "tipus3",
@@ -88,7 +122,24 @@ const RetentionList = ({ actions, ...props }) => {
           id: "Retenciones.tipo3",
           defaultMessage: "Tipo 3",
         }),
-        getCellValue: (row) => (row.tipus3 ? row.tipus3 : false),
+        getCellValue: (row) =>{
+          return row.tipus3 && row.tipus3 === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          )},
       },
     ],
     URL: API.classeRetencio,

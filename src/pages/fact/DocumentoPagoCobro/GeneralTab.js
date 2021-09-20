@@ -21,6 +21,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     setIsValid: props.setIsValid,
   });
 
+  const [active, setActive] = useState(false);
+  const [activeRegimIva, setActiveRegimIva] = useState(false);
+
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
     defaultMessage: "Código",
@@ -52,6 +55,26 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     { title: CODE, name: "codi" },
     { title: NOM, name: "nom" },
   ];
+  const getNumber = (key) => (getFormData(key) ? getFormData(key) : 0);
+  const getString = (key) => (getFormData(key) ? getFormData(key) : "");
+
+  useEffect(() => {
+    const porcentaje = getNumber("percentatgeComisio");
+    if (porcentaje === 0) {
+      setActive(true);
+    } else {
+      setActive(false);
+    }
+  }, [getFormData("percentatgeComisio")]);
+
+  useEffect(() => {
+    const iva = getString("iva");
+    if (iva) {
+      setActiveRegimIva(false);
+    } else {
+      setActiveRegimIva(true);
+    }
+  }, [getFormData("iva")]);
 
   const createConfiguration = [
     {
@@ -209,7 +232,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "DocumentosPago.codigoContable",
+        id: "DocumentosPago.codContable",
         defaultMessage: "Código contable",
       }),
       type: "input",
@@ -262,6 +285,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "LOV",
       key: "regimIva",
+      disabled: activeRegimIva,
       breakpoints: {
         xs: 12,
         md: 2,
@@ -283,11 +307,14 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       type: "numeric",
       key: "percentatgeComisio",
       suffix: "%",
+      decimalScale: 2,
+      fixedDecimalScale: true,
       breakpoints: {
         xs: 12,
         md: 1,
       },
       validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 100)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -296,12 +323,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       }),
       type: "input",
       key: "compteContableComissio",
+      disabled: active,
       breakpoints: {
         xs: 12,
         md: 3,
       },
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(1, 64)],
+      validations: [...props.stringValidations.minMaxValidation(4, 10)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -319,8 +347,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "Clientes.codigoBanco",
-        defaultMessage: "Código Banco",
+        id: "Clientes.entidad",
+        defaultMessage: "Entidad",
       }),
       type: "LOV",
       key: "bancCodi",
@@ -342,8 +370,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "OficinasBancarias.titulo",
-        defaultMessage: "Oficinas Bancarias",
+        id: "DocumentosPago.oficina",
+        defaultMessage: "Oficina",
       }),
       type: "LOV",
       key: "oficinaBancariaCodi",
@@ -367,53 +395,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         ],
       },
     },
-
     {
       placeHolder: props.intl.formatMessage({
-        id: "DocumentosPago.ibcIban",
-        defaultMessage: "Ibc iban",
-      }),
-      type: "input",
-      key: "ibnibc",
-      breakpoints: {
-        xs: 12,
-        md: 1,
-      },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(0, 2)],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "DocumentosPago.paisIban",
-        defaultMessage: "País iban",
-      }),
-      type: "input",
-      key: "ibnpai",
-      breakpoints: {
-        xs: 12,
-        md: 1,
-      },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(0, 2)],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "DocumentosPago.numeroCuentaCorriente",
-        defaultMessage: "Número de cuenta corriente",
-      }),
-      type: "numeric",
-      key: "ccr",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      validationType: "number",
-      validations: [...props.numberValidations.minMaxValidation(0, 9999)],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "DocumentosPago.digitosControl",
-        defaultMessage: "Dígitos de control",
+        id: "DocumentosPago.dc",
+        defaultMessage: "DC",
       }),
       type: "input",
       key: "dcc",
@@ -424,19 +409,65 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 2)],
     },
+
     {
       placeHolder: props.intl.formatMessage({
-        id: "DocumentosPago.digitosControlIban",
-        defaultMessage: "Dígitos de control iban",
+        id: "DocumentosPago.cuenta",
+        defaultMessage: "cuenta",
       }),
       type: "numeric",
+      key: "ccr",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+      validations: [
+        ...props.numberValidations.minMaxValidation(0, 99999999999),
+      ],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "DocumentosPago.pais",
+        defaultMessage: "País",
+      }),
+      type: "input",
+      key: "ibnpai",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 2)],
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "DocumentosPago.dc",
+        defaultMessage: "DC",
+      }),
+      type: "input",
       key: "ibndcc",
       breakpoints: {
         xs: 12,
         md: 1,
       },
-      validationType: "number",
-      validations: [...props.numberValidations.minMaxValidation(0, 99)],
+      validationType: "string",
+      validations: [...props.numberValidations.minMaxValidation(0, 2)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "DocumentosPago.bic",
+        defaultMessage: "BIC",
+      }),
+      type: "input",
+      key: "ibnibc",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 2)],
     },
   ];
 
@@ -450,7 +481,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "compteContableOrigenIngressos",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 10)],
@@ -464,7 +495,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "tipusSeientIngressos",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 2)],
@@ -499,6 +530,64 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
+  const Pagos = [
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "DocumentosPago.cuentaContableDestino",
+        defaultMessage: "Cuenta contable destino",
+      }),
+      type: "input",
+      key: "compteContableDestiPagos",
+      breakpoints: {
+        xs: 12,
+        md: 4,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 10)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "DocumentosPago.tipoAsiento",
+        defaultMessage: "Tipo Asiento",
+      }),
+      type: "input",
+      key: "tipusSeientPagos",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "DocumentosPago.diarioContable",
+        defaultMessage: "Diario contable",
+      }),
+      type: "input",
+      key: "diariContablePagos",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "DocumentosPago.diarioContable2",
+        defaultMessage: "Diario contable 2",
+      }),
+      type: "input",
+      key: "diariContablePagos2",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 2)],
+    },
+  ];
   return (
     <Grid container>
       <Grid xs={12} item>
@@ -517,7 +606,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           {...props}
         />
       </Grid>
-      <Grid xs={12} item>
+      <Grid xs={12} item >
         <OutlinedContainer
           className="general-tab-container"
           title={
@@ -543,6 +632,64 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
             onBlur={(e) => handleTouched(DATOS_CONTABLES_SECTION_INDEX)}
             {...props}
           />
+          <Grid container spacing={4}>
+            <Grid xs={6} item  >
+              <OutlinedContainer
+                className="general-tab-container"
+                title={
+                  <FormattedMessage
+                    id={"DocumentosPago.ingresos"}
+                    defaultMessage={"Ingresos"}
+                  />
+                }
+              >
+                <GenericForm
+                  formComponents={Ingresos}
+                  emptyPaper={true}
+                  editMode={props.editMode}
+                  getFormData={getFormData}
+                  setFormData={setFormData}
+                  loading={props.loading}
+                  formErrors={props.formErrors}
+                  submitFromOutside={props.submitFromOutside}
+                  onSubmit={() => props.onSubmitTab(formData)}
+                  handleIsValid={(value) =>
+                    addValidity(DATOS_CONTABLES_SECTION_INDEX, value)
+                  }
+                  onBlur={(e) => handleTouched(DATOS_CONTABLES_SECTION_INDEX)}
+                  {...props}
+                />
+              </OutlinedContainer>
+            </Grid>
+            <Grid xs={6} item>
+              <OutlinedContainer
+                className="general-tab-container"
+                title={
+                  <FormattedMessage
+                    id={"DocumentosPago.pagos"}
+                    defaultMessage={"Pagos"}
+                  />
+                }
+              >
+                <GenericForm
+                  formComponents={Pagos}
+                  emptyPaper={true}
+                  editMode={props.editMode}
+                  getFormData={getFormData}
+                  setFormData={setFormData}
+                  loading={props.loading}
+                  formErrors={props.formErrors}
+                  submitFromOutside={props.submitFromOutside}
+                  onSubmit={() => props.onSubmitTab(formData)}
+                  handleIsValid={(value) =>
+                    addValidity(DATOS_CONTABLES_SECTION_INDEX, value)
+                  }
+                  onBlur={(e) => handleTouched(DATOS_CONTABLES_SECTION_INDEX)}
+                  {...props}
+                />
+              </OutlinedContainer>
+            </Grid>
+          </Grid>
         </OutlinedContainer>
       </Grid>
     </Grid>
