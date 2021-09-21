@@ -711,7 +711,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         name: "codiPostal",
         title: CODI_POSTAL,
         field: codiPostal(),
-        getCellValue: (row) => row.codiPostal?.description ?? "",
+        // take description when is populated from addressa -> getById()
+        // or take descPostNomCodi when is populated for inline creation
+        getCellValue: (row) => row.codiPostal?.description ?? (row.codiPostal?.descPostNomCodi ?? "")
       },
       {
         name: "defecte",
