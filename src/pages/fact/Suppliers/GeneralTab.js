@@ -152,12 +152,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
-  const codiPostal = (md = 6) => [
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.Direccion.codPostal",
-        defaultMessage: "Código Postal",
-      }),
+  const CODI_POSTAL = props.intl.formatMessage({
+    id: "Proveedores.Direccion.codPostal",
+    defaultMessage: "Código Postal",
+  });
+  const codiPostal = (md = 6) =>
+    ({
+      placeHolder: CODI_POSTAL,
       type: "LOV",
       key: "codiPostal",
       required: true,
@@ -252,8 +253,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         ],
         advancedSearchColumns: aSCodeAndDescription,
       },
-    },
-  ];
+    });
 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
   const formatCodeAndDescription = (data) =>
@@ -689,7 +689,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 60)],
     },
-    ...codiPostal(4),
+    codiPostal(4),
   ];
 
   const commercialAddressesConfig = {
@@ -707,10 +707,12 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     columns: [
       { name: "codi", title: CODE },
       { name: "domicili", title: DOMICILI },
-      { name: "telefon", title: TELEFON },
-      { name: "fax", title: FAX },
-      { name: "email", title: EMAIL },
-      { name: "contacte", title: CONTACTE },
+      {
+        name: "codiPostal",
+        title: CODI_POSTAL,
+        field: codiPostal(),
+        getCellValue: (row) => row.codiPostal?.description ?? "",
+      },
       {
         name: "defecte",
         title: DEFECTE,
@@ -734,12 +736,11 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           )},
 
       },
-      { name: "observacions", title: OBS, hidden: true },
     ],
     listKey: 'adresaComercials',
     enableInlineEdition: true,
     enableExpandableContent: true,
-    // disabledUpdate: true,
+    disabledUpdate: true,
   };
   const commercialAddressesFormConfig = [
     code(),
@@ -751,20 +752,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         xs: 12,
         md: 6,
       },
-    },
-    {
-      placeHolder: DOMICILI,
-      type: "input",
-      key: "domicili",
-      breakpoints: {
-        xs: 12,
-        md: 6,
-      },
-      required: true,
-      validationType: "string",
-      ...withRequiredValidation([
-        ...props.stringValidations.minMaxValidation(1, 30),
-      ]),
     },
     {
       placeHolder: CONTACTE,
@@ -803,17 +790,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       breakpoints: {
         xs: 12,
         md: 6,
-      },
-    },
-
-    ...codiPostal(4),
-    {
-      placeHolder: DEFECTE,
-      type: "checkbox",
-      key: "defecte",
-      breakpoints: {
-        xs: 12,
-        md: 2,
       },
     },
     {
@@ -984,9 +960,12 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           ]}
           configuration={commercialAddressesConfig}
         >
-          {properties => <MasterDetailedForm
-            url={API.adresaComercials}
-            formComponents={commercialAddressesFormConfig} {...properties} />}
+          {
+            properties => <MasterDetailedForm
+              url={API.adresaComercials}
+              formComponents={commercialAddressesFormConfig}
+              {...properties} />
+          }
         </ReactGrid>
       ),
     },
