@@ -315,7 +315,7 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
 
         {configuration.enableInlineEdition && <Editing
           allowAdding={true}
-          allowUpdating={!configuration.disabledUpdate}
+          allowUpdating={true}
           allowDeleting={!configuration.disabledDelete}
           mode="cell" />}
 
