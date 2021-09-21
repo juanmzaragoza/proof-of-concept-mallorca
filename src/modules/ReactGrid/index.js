@@ -120,7 +120,7 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
         }
       },
       insert: (values) => {
-        actions.createData({ key: props.id, data: values });
+        actions.createData({ key: props.id, data: {...values, ...(configuration.extraPostBody || {})} });
       }
     });
     setStore(customStore);
@@ -223,17 +223,22 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
   const handleValidation = (params) => {
     const { value, column: { name } } = params;
     //TODO(): i'm not very sure about how it's implemented
-    const component = columns.map(column => column.field).find(comp => comp.key === name);
-    const schema = createYupSchema({}, {...component, id: component.key});
-    const validateSchema = yup.object().shape(schema);
+    const component = columns.map(column => column.field).find(comp => comp && comp.key === name);
+    if(component){
+      const schema = createYupSchema({}, {...component, id: component.key});
+      const validateSchema = yup.object().shape(schema);
 
+      return new Promise((resolve, reject) => {
+        validateSchema.validate({[component.key]: value})
+          .then((value) => {
+            resolve(value)
+          }).catch(e => {
+          reject(e.errors.join(" | "))
+        })
+      });
+    }
     return new Promise((resolve, reject) => {
-      validateSchema.validate({[component.key]: value})
-        .then((value) => {
-          resolve(value)
-        }).catch(e => {
-        reject(e.errors.join(" | "))
-      })
+      resolve(true);
     });
   }
 
@@ -350,7 +355,8 @@ ReactGrid.propTypes = {
     disabledFiltering: PropTypes.bool,
     enableExpandableContent: PropTypes.bool,
     method: PropTypes.oneOf(['post','put','patch']),
-    body: PropTypes.object
+    body: PropTypes.object,
+    extraPostBody: PropTypes.object
   }),
   extraQuery: PropTypes.arrayOf(PropTypes.shape({
     columnName: PropTypes.string.isRequired,
