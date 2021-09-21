@@ -178,30 +178,34 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
   }
 
   const isExpandableEnabled = !!configuration.enableExpandableContent;
+  const changeExpanded = (key = null, data = {}) => {
+    setExpandedData(data);
+    setExpandedRow(key);
+  }
   const expandableOptions = isExpandableEnabled?
     {
       onSelectionChanged: (e) => {
         e.component.collapseAll(-1);
+        changeExpanded();
       },
       onFocusedRowChanged: (e) => {
         e.component.collapseAll(-1);
         if(e.row && !expandedRow) {
           e.component.expandRow(e.row.key);
-          setExpandedData(e.row.data);
-          setExpandedRow(e.row.key);
+          changeExpanded(e.row.key,e.row.data);
         } else{
-          setExpandedRow(null);
+          changeExpanded();
         }
       },
       onRowCollapsed: (e) => {
-        setExpandedRow(null);
+        changeExpanded();
       }
     }:{};
 
   const collapseAllRows = useCallback(() => {
     dataGrid.current.instance.collapseAll(-1);
-    setExpandedRow(null);
-  }, [dataGrid, expandedRow]);
+    changeExpanded();
+  }, [dataGrid, expandedRow,expandedData]);
 
   /** This component is like a decorator that adds properties to children */
   const ExpandableContent = () => {
@@ -214,6 +218,7 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
         },
         onSuccess: (updatedData) => {
           collapseAllRows();
+          setExpandedData(updatedData);
           loadData();
         }
       })
