@@ -39,9 +39,11 @@ import {
 import {Loading} from "modules/shared/Loading";
 import LOVCellComponent from "./LOVCellComponent";
 
+
 import './styles.scss';
 import createYupSchema from "../GenericForm/yupSchemaCreator";
 import * as yup from "yup";
+
 
 const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
                      rows, loading, pageSize, totalCount, errors,
@@ -113,11 +115,13 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
         })
       },
       update: (key, values) => {
+  
         const changedRow = updateRow(key,values);
         if(changedRow){
           actions.updateData({ key: props.id, id: changedRow.id, data: changedRow });
           expandedData && setExpandedData(changedRow);
         }
+       
       },
       insert: (values) => {
         actions.createData({ key: props.id, data: {...values, ...(configuration.extraPostBody || {})} });
@@ -282,6 +286,7 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
             const LOVCellComponentWithField = (props) => <LOVCellComponent field={column.field} {...props} />;
             extraProps['editCellComponent'] = LOVCellComponentWithField;
           }
+    
           return <Column
             key={key}
             caption={column.title}
@@ -292,8 +297,12 @@ const ReactGrid = React.memo(({ configuration, enqueueSnackbar,
             }}
             filterOperations={['contains']}
             allowEditing={!column.inlineEditionDisabled}
+            dataType={column.field?.type === "date" ? "date" : ""}
+            allowFiltering={column.allowFilter === undefined ? true : column.allowFilter}
+            
             {...extraProps}
           >
+            {/* {column.field?.type === "date" &&   <HeaderFilter allowSearch={false} />} */}
             <AsyncRule validationCallback={handleValidation} />
           </Column>
         })}
