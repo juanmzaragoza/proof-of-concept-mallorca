@@ -2172,6 +2172,7 @@
   "Proveedores.fechaFin":"Fecha Fin",
   "Proveedores.fechaPrevistaFin":"Fecha Prevista Fin",
   "Proveedores.estado":"Estado",
-  "Proveedores.destinatario2":"Destinatario 2"
+  "Proveedores.destinatario2":"Destinatario 2",
+  "Proveedores.numPedido":"Num Pedido"
 
 }
