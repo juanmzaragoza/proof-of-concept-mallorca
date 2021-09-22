@@ -1,13 +1,21 @@
+import {useEffect, useState} from "react";
 import LOVAutocomplete from "../GenericForm/LOVAutocomplete";
 
 const LOVCellComponent = ({ field, data }) => {
 
+  const {id, key, selector, placeHolder, variant, extraQuery, disabled, onBlur} = field;
+  const [value, setValue] = useState(data.data[key]);
+
+  useEffect(()=>{
+    setValue(data.data[key]);
+  },[data]);
+
   const handleChange = value => {
+    setValue(value);
     data.setValue(value);
+    data.component.updateDimensions();
   };
 
-  const {id, key, selector, placeHolder, variant, extraQuery, disabled, onBlur} = field;
-  const {row, value} = data;
   const identification = id? id:key;
   return <LOVAutocomplete
     id={identification}
@@ -19,7 +27,7 @@ const LOVCellComponent = ({ field, data }) => {
       e.stopPropagation();
       handleChange(v);
     }}
-    value={row.data[key]}
+    value={value}
     options={selector.options}
     variant={variant}
     //disabled={disabled}

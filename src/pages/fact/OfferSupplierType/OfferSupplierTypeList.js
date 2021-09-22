@@ -8,6 +8,7 @@ import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
 import { creationFields } from "./configuration";
+import {withValidations} from "../../../modules/wrappers";
 
 const OfferSupplierList = ({ actions, ...props }) => {
   const [listConfig, setListConfig] = useState({
@@ -72,6 +73,7 @@ const mapDispatchToProps = (dispatch, props) => {
 };
 
 export default compose(
+  withValidations,
   injectIntl,
   connect(null, mapDispatchToProps)
 )(OfferSupplierList);
