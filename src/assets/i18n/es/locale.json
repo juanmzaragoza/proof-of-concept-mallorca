@@ -161,7 +161,7 @@
   "Proveedores.tamanyNif": "tamanyNif",
   "Proveedores.Contacto.zona": "Zona",
   "Proveedores.Contacto.contacto": "Contacto",
-  "Proveedores.Contacto.telefono": "Telefóno",
+  "Proveedores.Contacto.telefono": "Teléfono",
   "Proveedores.Contacto.fax": "Fax",
   "Proveedores.Contacto.email": "E-mail",
   "Proveedores.Contacto.web": "WWW",
@@ -1494,7 +1494,7 @@
 
   "Subclientes.preciosVolumen": "Precios por volumen",
   "Proveedores.Contacto.emailFactura": "Email Factura",
-  "Proveedores.Contacto.telefonoFactura": "Telefono Factura",
+  "Proveedores.Contacto.telefonoFactura": "Teléfono Factura",
   "Clientes.tabs.facturacion": "Facturación",
   "Proveedores.tabs.contabilidadFact": "Contabilidad y Facturación",
   "Departamentos.titulo": "Departamentos",

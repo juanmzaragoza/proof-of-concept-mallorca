@@ -21,4 +21,7 @@ const OfferSupplierTypeCreate = (props) => {
   );
 };
 
-export default compose(withValidations, injectIntl)(OfferSupplierTypeCreate);
+export default compose(
+  withValidations,
+  injectIntl
+)(OfferSupplierTypeCreate);

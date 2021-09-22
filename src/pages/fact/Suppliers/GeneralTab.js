@@ -49,7 +49,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   });
   const TELEFON = props.intl.formatMessage({
     id: "Proveedores.Contacto.telefono",
-    defaultMessage: "Telefóno",
+    defaultMessage: "Teléfono",
   });
   const FAX = props.intl.formatMessage({
     id: "Proveedores.Contacto.fax",
@@ -716,6 +716,23 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           row.codiPostal?.description ?? row.codiPostal?.descPostNomCodi ?? "",
       },
       {
+        name: "telefon",
+        title: TELEFON,
+        field: {
+          placeHolder: TELEFON,
+          type: "input",
+          key: "telefon",
+          breakpoints: {
+            xs: 12,
+            md: 6,
+          },
+          required: true,
+          validationType: "string",
+          ...withRequiredValidation(),
+        }
+      },
+      { name: "email", title: EMAIL },
+      {
         name: "defecte",
         title: DEFECTE,
         getCellValue: (row) => {
@@ -735,8 +752,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
               })}
               variant="outlined"
             />
+
           );
         },
+
       },
     ],
     listKey: "adresaComercials",
@@ -765,30 +784,9 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
     },
     {
-      placeHolder: TELEFON,
-      type: "input",
-      key: "telefon",
-      breakpoints: {
-        xs: 12,
-        md: 6,
-      },
-      required: true,
-      validationType: "string",
-      ...withRequiredValidation(),
-    },
-    {
       placeHolder: FAX,
       type: "input",
       key: "fax",
-      breakpoints: {
-        xs: 12,
-        md: 6,
-      },
-    },
-    {
-      placeHolder: EMAIL,
-      type: "input",
-      key: "email",
       breakpoints: {
         xs: 12,
         md: 6,
