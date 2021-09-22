@@ -2161,5 +2161,17 @@
   "SerieVenta.tituloFactura":"Título Factura",
   "SerieVenta.validoDesde":"Válida Desde",
   "SerieVenta.hasta":"Hasta",
-  "SerieVenta.rectificativa":"Rectificativa"
+  "SerieVenta.rectificativa":"Rectificativa",
+  "Proveedores.numero":"Numero",
+  "Proveedores.avisos":"Avisos",
+  "Proveedores.fechaEntrada":"Fecha Entrada",
+  "Proveedores.tipoAviso":"Tipo Aviso",
+  "Proveedores.descripcionCorta":"Descripción Corta",
+  "Proveedores.emisor":"Emisor",
+  "Proveedores.destinatario":"Destinatario",
+  "Proveedores.fechaFin":"Fecha Fin",
+  "Proveedores.fechaPrevistaFin":"Fecha Prevista Fin",
+  "Proveedores.estado":"Estado",
+  "Proveedores.destinatario2":"Destinatario 2"
+
 }

@@ -33,6 +33,7 @@ import PersonalizationTab from "./PersonalizationTab";
 import DocumentsTab from "./DocumentsTab";
 import PricesTab from "./PricesTab";
 import SerieTab from "./SerieTab";
+import AvisosTab from "./AvisosTab";
 
 /**
  * Suppliers form module
@@ -47,6 +48,7 @@ const PERSONAL_TAB_INDEX = 4;
 const DOCUMENTS_TAB_INDEX = 5;
 const PRICE_TAB_INDEX = 6;
 const SERIE_TAB_INDEX = 7;
+const AVISOS_TAB_INDEX = 8;
 
 const SuppliersForm = React.memo(
   ({
@@ -71,6 +73,7 @@ const SuppliersForm = React.memo(
       [DOCUMENTS_TAB_INDEX]: false,
       [PRICE_TAB_INDEX]: false,
       [SERIE_TAB_INDEX]: false,
+      [AVISOS_TAB_INDEX]: false,
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -319,6 +322,30 @@ const SuppliersForm = React.memo(
           />
         ),
       },
+      {
+        ...getTranslations("Proveedores.avisos", "Avisos"),
+        key: AVISOS_TAB_INDEX,
+        error: tabHasError(AVISOS_TAB_INDEX),
+        component: (
+          <AvisosTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [AVISOS_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
+          />
+        ),
+      },
     ];
 
     const { id } = useParams();
@@ -427,7 +454,7 @@ const mapStateToProps = (state, props) => {
     allFormData: getFormData(state),
     getFormData: getFormDataByKey(state),
     formDataLoaded: getIsDataLoaded(state),
-    isSubmitted: getIsSubmitted(state)
+    isSubmitted: getIsSubmitted(state),
   };
 };
 

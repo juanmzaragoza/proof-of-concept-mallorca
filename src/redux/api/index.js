@@ -331,3 +331,5 @@ export const afcs = `api/fact/afcs`;
 export const preusPerZona = `api/fact/preusPerZona`;
 export const aplicacionsTransportista = `api/fact/aplicacionsTransportista`;
 export const preusPerGamma = `api/fact/preusPerGamma`;
+export const avisos = `api/fact/avisos`;
+export const tipusAviso = `api/fact/tipusAvisos`;
