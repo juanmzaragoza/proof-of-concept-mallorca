@@ -8,7 +8,6 @@ import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
 const PurchaseSeriesList = ({ actions, ...props }) => {
-
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
@@ -27,6 +26,39 @@ const PurchaseSeriesList = ({ actions, ...props }) => {
     ]);
   }, []);
 
+  const CODE = props.intl.formatMessage({
+    id: "Comun.codigo",
+    defaultMessage: "Código",
+  });
+
+  const NOM = props.intl.formatMessage({
+    id: "Comun.nombre",
+    defaultMessage: "Nombre",
+  });
+
+  const magatzem =   {
+    placeHolder:props.intl.formatMessage({
+      id: "Articulos.stock.descuentos.almacen",
+      defaultMessage: "Almacén",
+    }),
+    type: "LOV",
+    key: "magatzem",
+    breakpoints: {
+      xs: 12,
+      md: 3,
+    },
+    selector: {
+      key: "magatzems",
+      labelKey: (data) => `${data.nom} (${data.codi})`,
+      sort: "codi",
+      cannotCreate: true,
+      advancedSearchColumns: [
+        { title: CODE, name: "codi" },
+        { title: NOM, name: "nom" },
+      ],
+    },
+  };
+
   const listConfiguration = {
     columns: [
       {
@@ -35,7 +67,7 @@ const PurchaseSeriesList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
-        inlineEditionDisabled: true
+        inlineEditionDisabled: true,
       },
       {
         name: "descripcio",
@@ -45,16 +77,18 @@ const PurchaseSeriesList = ({ actions, ...props }) => {
         }),
       },
       {
-        name: "tipusSeientComptable",
+        name: "magatzem",
         title: props.intl.formatMessage({
-          id: "SerieVenta.tipoAsientoContable",
-          defaultMessage: "Tipo asiento contable",
+          id: "Articulos.stock.descuentos.almacen",
+          defaultMessage: "Almacén",
         }),
+        getCellValue: (row) => row?.magatzem?.description ?? "",
+        field: magatzem
       },
     ],
     URL: API.serieCompras,
     listKey: "serieCompras",
-    enableInlineEdition: true
+    enableInlineEdition: true,
   };
   return <ReactGrid id="serieCompras" configuration={listConfiguration} />;
 };

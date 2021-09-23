@@ -657,14 +657,14 @@
 
   "SerieVenta.cuentasCompras": "Cuentas de Compras",
   "SerieVenta.cuentasContablesProforma": "Cuenta contable proformas",
-  "SerieVenta.cuentasContablesComprasProforma": "Cuenta contable compras proformas",
+  "SerieVenta.cuentasContablesComprasProforma": "Cuenta compras proformas",
 
   "SerieVenta.ultimosNumeros": "Últimos numeros",
   "SerieVenta.datosContables": "Datos contables",
   "SerieVenta.opciones": "Opciones",
   "SerieVenta.sii": "SII",
 
-  "SerieCompra.cuentaContableCompras": "Cuenta contable compras",
+  "SerieCompra.cuentaContableCompras": "Cuenta Compras",
   "SerieCompra.validoDesde": "Válido desde",
   "SerieCompra.validoHasta": "Válido hasta",
   "SerieCompra.codigoSituacionRectificativa": "Código situación rectificativa",
@@ -2173,6 +2173,7 @@
   "Proveedores.fechaPrevistaFin":"Fecha Prevista Fin",
   "Proveedores.estado":"Estado",
   "Proveedores.destinatario2":"Destinatario 2",
-  "Proveedores.numPedido":"Num Pedido"
+  "Proveedores.numPedido":"Num Pedido",
+  "SeriesCompras.periodoValidez":"Período Validez"
 
 }

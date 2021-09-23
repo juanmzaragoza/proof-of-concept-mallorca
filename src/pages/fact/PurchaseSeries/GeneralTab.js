@@ -1,12 +1,24 @@
-import React from "react";
-import { injectIntl } from "react-intl";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { FormattedMessage, injectIntl } from "react-intl";
+import Grid from "@material-ui/core/Grid/Grid";
+import OutlinedContainer from "modules/shared/OutlinedContainer";
+import GenericForm from "modules/GenericForm";
 import { compose } from "redux";
-
-import CreateUpdateForm from "modules/ReactGrid/CreateUpdateForm";
 import { withValidations } from "modules/wrappers";
-import * as API from "redux/api";
+import ExpandableGrid from "modules/ExpandableGrid";
+import { useTabForm } from "hooks/tab-form";
 
-const PurchaseSeriesCreate = (props) => {
+const GENERAL_SECTION_INDEX = 0;
+
+const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
+  const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
+    fields: {
+      [GENERAL_SECTION_INDEX]: false,
+    },
+    setIsValid: props.setIsValid,
+  });
+
   const CODE = props.intl.formatMessage({
     id: "Comun.codigo",
     defaultMessage: "Código",
@@ -50,22 +62,6 @@ const PurchaseSeriesCreate = (props) => {
   const VALIDOHASTA = props.intl.formatMessage({
     id: "SerieCompra.validoHasta",
     defaultMessage: "Válido hasta",
-  });
-  const SITCODFAC = props.intl.formatMessage({
-    id: "SerieCompra.codigoSituacionFactura",
-    defaultMessage: "Código situación factura",
-  });
-  const SITCODRCT = props.intl.formatMessage({
-    id: "SerieCompra.codigoSituacionRectificativa",
-    defaultMessage: "Código situación rectificativa",
-  });
-  const OPEDESC = props.intl.formatMessage({
-    id: "SerieCompra.descripcionOperario",
-    defaultMessage: "Descripción operario",
-  });
-  const SITCODCLA = props.intl.formatMessage({
-    id: "SerieCompra.codigoSituacionRegimenEspecial",
-    defaultMessage: "Código situación régimen especial",
   });
   const DESGIVA = props.intl.formatMessage({
     id: "SerieVenta.desglosarIva",
@@ -165,58 +161,6 @@ const PurchaseSeriesCreate = (props) => {
         md: 2,
       },
     },
-
-    // {
-    //   placeHolder: SITCODFAC,
-    //   type: "input",
-    //   key: "sitCodFac",
-    //   breakpoints: {
-    //     xs: 12,
-    //     md: 2,
-    //   },
-    //   validationType: "string",
-    //   validations: [...props.stringValidations.minMaxValidation(1, 2)],
-    // },
-    // {
-    //   placeHolder: SITCODRCT,
-    //   type: "input",
-    //   key: "sitCodRct",
-    //   breakpoints: {
-    //     xs: 12,
-    //     md: 2,
-    //   },
-    //   validationType: "string",
-    //   validations: [...props.stringValidations.minMaxValidation(1, 2)],
-    // },
-    // {
-    //   placeHolder: SITCODCLA,
-    //   type: "input",
-    //   key: "sitCodCla",
-    //   breakpoints: {
-    //     xs: 12,
-    //     md: 2,
-    //   },
-    //   validationType: "string",
-    //   validations: [...props.stringValidations.minMaxValidation(1, 2)],
-    // },
-
-    // {
-    //   placeHolder: OPEDESC,
-    //   type: "input",
-    //   key: "desope",
-    //   breakpoints: {
-    //     xs: 12,
-    //     md: 12,
-    //   },
-    //   text: {
-    //     multiline: 3,
-    //   },
-    //   validationType: "string",
-    //   validations: [
-
-    //     ...props.stringValidations.minMaxValidation(1, 500),
-    //   ],
-    // },
   ];
 
   const datosContables = [
@@ -226,7 +170,7 @@ const PurchaseSeriesCreate = (props) => {
       key: "tipusSeientComptable",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 2)],
@@ -237,7 +181,7 @@ const PurchaseSeriesCreate = (props) => {
       key: "diariComptable",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 2)],
@@ -248,7 +192,7 @@ const PurchaseSeriesCreate = (props) => {
       key: "compteComptableCompres",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 10)],
@@ -259,7 +203,7 @@ const PurchaseSeriesCreate = (props) => {
       key: "compteComptableCompresProformes",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 10)],
@@ -270,7 +214,7 @@ const PurchaseSeriesCreate = (props) => {
       key: "diariComptableProformes",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 2)],
@@ -284,7 +228,7 @@ const PurchaseSeriesCreate = (props) => {
       key: "validDesde",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
     {
@@ -293,20 +237,84 @@ const PurchaseSeriesCreate = (props) => {
       key: "validFins",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
   ];
+
   return (
-    <CreateUpdateForm
-      title={props.intl.formatMessage({
-        id: "Proveedores.serieCompra",
-        defaultMessage: "Serie Compra",
-      })}
-      formConfiguration={createConfiguration}
-      url={API.serieCompras}
-    />
+    <Grid container>
+      <Grid xs={12} item>
+        <GenericForm
+          formComponents={createConfiguration}
+          emptyPaper={true}
+          editMode={props.editMode}
+          getFormData={getFormData}
+          setFormData={setFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) => addValidity(GENERAL_SECTION_INDEX, value)}
+          onBlur={(e) => handleTouched(GENERAL_SECTION_INDEX)}
+          {...props}
+        />
+      </Grid>
+      <Grid container spacing={2}>
+      <Grid item xs={8}>
+        <OutlinedContainer
+          className="general-tab-container"
+          title={
+            <FormattedMessage
+              id={"SerieVenta.datosContables"}
+              defaultMessage={"Datos Contables"}
+            />
+          }
+        >
+          <GenericForm
+            formComponents={datosContables}
+            emptyPaper={true}
+            editMode={props.editMode}
+            getFormData={getFormData}
+            setFormData={setFormData}
+            loading={props.loading}
+            formErrors={props.formErrors}
+            submitFromOutside={props.submitFromOutside}
+            onSubmit={() => props.onSubmitTab(formData)}
+            handleIsValid={(value) => addValidity(GENERAL_SECTION_INDEX, value)}
+            onBlur={(e) => handleTouched(GENERAL_SECTION_INDEX)}
+            {...props}
+          />
+        </OutlinedContainer>
+      </Grid>
+      <Grid item xs={4}>
+        <OutlinedContainer
+          className="general-tab-container"
+          title={
+            <FormattedMessage
+              id={"SeriesCompras.periodoValidez"}
+              defaultMessage={"Período Validez"}
+            />
+          }
+        >
+          <GenericForm
+            formComponents={validez}
+            emptyPaper={true}
+            editMode={props.editMode}
+            getFormData={getFormData}
+            setFormData={setFormData}
+            loading={props.loading}
+            formErrors={props.formErrors}
+            submitFromOutside={props.submitFromOutside}
+            onSubmit={() => props.onSubmitTab(formData)}
+            handleIsValid={(value) => addValidity(GENERAL_SECTION_INDEX, value)}
+            onBlur={(e) => handleTouched(GENERAL_SECTION_INDEX)}
+            {...props}
+          />
+        </OutlinedContainer>
+      </Grid>
+      </Grid>
+    </Grid>
   );
 };
-
-export default compose(withValidations, injectIntl)(PurchaseSeriesCreate);
+export default compose(React.memo, withValidations, injectIntl)(GeneralTab);
