@@ -122,30 +122,7 @@ const AreasNegocioForm = React.memo(
           />
         ),
       },
-      {
-        ...getTranslations("AreasNegocio.tabs.series", "Series del área"),
-        key: SERIES_TAB_INDEX,
-        error: tabHasError(SERIES_TAB_INDEX),
-        component: (
-          <SeriesTab
-            setIsValid={(value) =>
-              setTabIndexWithError({
-                ...tabIndexWithError,
-                [SERIES_TAB_INDEX]: !value,
-              })
-            }
-            editMode={editMode}
-            getFormData={getFormData}
-            setFormData={actions.setFormData}
-            submitFromOutside={submitFromOutside}
-            onSubmitTab={handleSubmitTab}
-            formErrors={props.formErrors}
-            loading={props.loading}
-            formDataLoaded={props.formDataLoaded}
-            isSubmitted={props.isSubmitted}
-          />
-        ),
-      },
+    
     
     ];
 
