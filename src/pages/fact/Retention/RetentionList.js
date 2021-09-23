@@ -6,6 +6,8 @@ import { Chip } from "@material-ui/core";
 import ReactGrid from "modules/ReactGrid";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
+import { TIPO_CONTABILIZACION_SELECTOR_VALUES } from "constants/selectors";
+
 
 const RetentionList = ({ actions, ...props }) => {
   useEffect(() => {
@@ -25,6 +27,22 @@ const RetentionList = ({ actions, ...props }) => {
       },
     ]);
   }, []);
+
+  const tipoCont = {
+    placeHolder: props.intl.formatMessage({
+      id: "Retenciones.tipoContab",
+      defaultMessage: "Tipo contabilización",
+    }),
+    type: "select",
+    key: "tipusComptabilitzacio",
+    breakpoints: {
+      xs: 12,
+      md: 3,
+    },
+    selector: {
+      options: TIPO_CONTABILIZACION_SELECTOR_VALUES,
+    },
+  };
 
   const listConfiguration = {
     columns: [
@@ -49,6 +67,28 @@ const RetentionList = ({ actions, ...props }) => {
           id: "Retenciones.tipoContab",
           defaultMessage: "Tipo contabilización",
         }),
+        getCellValue: (row) => {
+          if (row.tipusComptabilitzacio) {
+            if (row.tipusComptabilitzacio === "COMPTABILITZAR") {
+              return props.intl.formatMessage({
+                id: "Selector.contabilizar",
+                defaultMessage: "Contabilizar",
+              });
+            } else if (row.tipusComptabilitzacio === "NOMES_VENCIMENT") {
+              return props.intl.formatMessage({
+                id: "Selector.soloVencimento",
+                defaultMessage: "Solo Vencimento",
+              });
+            } else {
+              return props.intl.formatMessage({
+                id: "Selector.contabilizarMasVEnc",
+                defaultMessage: "Contabilizar más vencimiento",
+              });
+            }
+          }
+        },
+        field: tipoCont,
+        allowFilter:false
       },
       {
         name: "compteVentes",
