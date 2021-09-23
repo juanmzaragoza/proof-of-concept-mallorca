@@ -161,7 +161,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Diario Contable 2",
       }),
       type: "input",
-      key: "diariComptable",
+      key: "diariComptable2",
       breakpoints: {
         xs: 12,
         md: 2,
@@ -175,7 +175,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Cuenta Contable 2",
       }),
       type: "input",
-      key: "compteComptable",
+      key: "compteComptable2",
       breakpoints: {
         xs: 12,
         md: 2,
@@ -210,7 +210,34 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
 
     {
       placeHolder: props.intl.formatMessage({
-        id: "Proveedores.comercial",
+        id: "Clientes.empresas",
+        defaultMessage: "Empresas",
+      }),
+      type: "LOV",
+      key: "empresa",
+      required: true,
+      noEditable: true,
+      breakpoints: {
+        xs: 12,
+        md: 4,
+      },
+      selector: {
+        key: "empresas",
+        labelKey: (data) => `${data.nomFiscal} (${data.codi})`,
+        sort: "nomFiscal",
+        cannotCreate: true,
+        advancedSearchColumns: [
+          { title: CODE, name: "codi" },
+          { title: NOM, name: "nomFiscal" },
+        ],
+      },
+      validationType: "object",
+      ...withRequiredValidation([]),
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Presupuestos.operario",
         defaultMessage: "Comercial",
       }),
       type: "LOV",
@@ -280,32 +307,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndName,
       },
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.empresas",
-        defaultMessage: "Empresas",
-      }),
-      type: "LOV",
-      key: "empresa",
-      required: true,
-      noEditable: true,
-      breakpoints: {
-        xs: 12,
-        md: 4,
-      },
-      selector: {
-        key: "empresas",
-        labelKey: (data) => `${data.nomFiscal} (${data.codi})`,
-        sort: "nomFiscal",
-        cannotCreate: true,
-        advancedSearchColumns: [
-          { title: CODE, name: "codi" },
-          { title: NOM, name: "nomFiscal" },
-        ],
-      },
-      validationType: "object",
-      ...withRequiredValidation([]),
-    },
+  
     {
       placeHolder: props.intl.formatMessage({
         id: "Cajas.bloqueada",
