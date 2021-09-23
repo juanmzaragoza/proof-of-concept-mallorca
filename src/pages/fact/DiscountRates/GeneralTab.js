@@ -155,7 +155,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
 
         type: "numeric",
         key: "codi",
-        required: true,
         breakpoints: {
           xs: 12,
           md: 2,
@@ -163,7 +162,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         noEditable: true,
         validationType: "number",
         validations: [
-          ...props.commonValidations.requiredValidation(),
           ...props.numberValidations.minMaxValidation(1, 9999999999),
         ],
       },
