@@ -45,7 +45,32 @@ const MaturityTypeList = ({ actions, ...props }) => {
         title: props.intl.formatMessage({
           id: "Clientes.tipo",
           defaultMessage: "tipo"
-        })
+        }),
+        getCellValue: (row) => {
+          if (row.tipus) {
+            if (row.tipus === "IMPORT_FIXE") {
+              return props.intl.formatMessage({
+                id: "Selector.importeFijo",
+                defaultMessage: "Importe Fijo",
+              });
+            } else if (row.tipus === "IMPORT_PORCENTUAL") {
+              return props.intl.formatMessage({
+                id: "Selector.importePorcentual",
+                defaultMessage: "Importe Porcentual",
+              });
+            }else if(row.tipus === "PAGAMENT_TERMINIS"){
+              return props.intl.formatMessage({
+                id: "Selector.pagoTerminio",
+                defaultMessage: "Pago Plazos",
+              });
+            } else {
+              return props.intl.formatMessage({
+                id: "Selector.escalat",
+                defaultMessage: "Escalado",
+              });
+            }
+          }
+        }
       },
       { 
         name: 'importTermini',
