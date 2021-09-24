@@ -234,9 +234,7 @@ const ReactGrid = React.memo(
               changeExpanded();
             }
           },
-          onRowCollapsed: (e) => {
-            changeExpanded();
-          },
+          //onRowCollapsed: (e) => {},
         }
       : {};
 
