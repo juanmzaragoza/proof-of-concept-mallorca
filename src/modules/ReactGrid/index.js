@@ -12,7 +12,6 @@ import { bindActionCreators, compose } from "redux";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { isEmpty, unionBy } from "lodash";
-import Promise from "lodash/_Promise";
 import DataGrid, {
   Pager,
   Paging,
@@ -25,6 +24,7 @@ import DataGrid, {
   Selection,
   AsyncRule,
   Lookup,
+  LoadPanel
 } from "devextreme-react/data-grid";
 import CustomStore from "devextreme/data/custom_store";
 
@@ -44,11 +44,12 @@ import {
 } from "redux/reactGrid";
 import { Loading } from "modules/shared/Loading";
 import LOVCellComponent from "./LOVCellComponent";
-import SelectCellComponent from "./SelectCellComponents";
 
 import "./styles.scss";
 import createYupSchema from "../GenericForm/yupSchemaCreator";
 import * as yup from "yup";
+
+const loadPanelPosition = { of: '#gridContainer' };
 
 const ReactGrid = React.memo(
   ({
@@ -233,9 +234,7 @@ const ReactGrid = React.memo(
               changeExpanded();
             }
           },
-          onRowCollapsed: (e) => {
-            changeExpanded();
-          },
+          //onRowCollapsed: (e) => {},
         }
       : {};
 
@@ -289,10 +288,43 @@ const ReactGrid = React.memo(
       });
     };
 
+    const onSaving = React.useCallback((e) => {
+      if(e.changes[0].type === 'insert'){
+        const data = e.changes[0].data;
+        e.cancel = true;
+        e.promise = saveMiddleware( {
+          id: props.id,
+          data: {...data, ...(configuration.extraPostBody || {})},
+        });
+      }
+    }, []);
+    const saveMiddleware = async ({ id, data }) => {
+      try {
+        const result = await actions.createData({ key: id, data });
+        dataGrid.current.instance.cancelEditData();
+        return result;
+      } catch ({ response: {status, data: body}}) {
+        if (status === 400 && body.errors) {
+          const errors = [];
+          for (const err of body.errors) {
+            errors.push(`${err.field}: ${err.defaultMessage}`)
+          }
+          throw props.intl.formatMessage({
+            id: "Comun.error.revise_campos",
+            defaultMessage: "Revise estos campos. ",
+          })+errors.join(', ');
+        }
+      }
+    }
+
     return (
       <React.Fragment>
+        <LoadPanel
+          position={loadPanelPosition}
+          visible={loading}
+        />
         <DataGrid
-          id={`gridContainer_${props.id}`}
+          id={`gridContainer`}
           ref={dataGrid}
           dataSource={store}
           showBorders={true}
@@ -319,6 +351,7 @@ const ReactGrid = React.memo(
             }));
             setColumns(cols);
           }}
+          onSaving={onSaving}
           {...expandableOptions}
         >
           {!configuration.disabledFiltering && <HeaderFilter visible={false} />}
