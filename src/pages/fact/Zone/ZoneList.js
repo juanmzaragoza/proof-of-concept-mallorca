@@ -60,8 +60,8 @@ const ZoneList = ({ actions, ...props }) => {
       {
         name: "descripcio",
         title: props.intl.formatMessage({
-          id: "Comun.comentarios",
-          defaultMessage: "Comentarios",
+          id: "Comun.descripcion",
+          defaultMessage: "Descripción",
         }),
       },
     ],
