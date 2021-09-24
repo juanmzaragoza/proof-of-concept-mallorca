@@ -239,7 +239,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "codigoContable",
       breakpoints: {
         xs: 12,
-        md: 1,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 4)],
@@ -253,7 +253,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "codigoFacturaElectronica",
       breakpoints: {
         xs: 12,
-        md: 1,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 2)],
@@ -268,7 +268,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       id: "ivaFact",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
       selector: {
         key: "ivas",
@@ -288,7 +288,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       disabled: activeRegimIva,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
       selector: {
         key: "regimIvas",
@@ -354,7 +354,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "bancCodi",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
       selector: {
         key: "bancs",
@@ -377,7 +377,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "oficinaBancariaCodi",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 3,
       },
       selector: {
         key: "oficinaBancarias",

@@ -104,10 +104,10 @@ export const TIPO_REG_IVA_SELECTOR_VALUES = [
   {
     value: "INTRACOMUNITARI_O_INV_SUBJ_PASSIU",
     labelId: "Selector.intercomunitario",
-    label: "intercomunitario o sujeto pasivo",
+    label: "Intercomunitario",
   },
   { value: "AGRARI", labelId: "Selector.agrario", label: "Agrario" },
-  { value: "GENERAL", labelId: "Selector.general", label: "Generals" },
+  { value: "GENERAL", labelId: "Selector.general", label: "General" },
 ];
 
 export const TIPO_RETENCION_SELECTOR_VALUES = [
@@ -1266,3 +1266,6 @@ export const APLICAR_A_SELECTOR_VALUE = [
     label: "Todos los ivas",
   },
 ];
+
+
+

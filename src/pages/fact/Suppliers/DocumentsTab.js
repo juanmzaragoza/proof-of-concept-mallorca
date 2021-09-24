@@ -563,7 +563,7 @@ const DocumentsTab = ({ formData, setFormData, ...props }) => {
           enabled={props.editMode}
           configuration={factConfig}
           readOnly={true}
-          size={10}
+          size={20}
         />
       ),
     },

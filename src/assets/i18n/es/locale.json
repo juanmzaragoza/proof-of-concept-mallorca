@@ -87,6 +87,7 @@
   "Comun.error.servidor_fuera_servicio": "Servidor fuera de servicio",
   "Comun.error.sin_permisos": "No posee los permisos suficientes ;(",
   "Comun.error.entidad_no_econtrada": "El elemento consultado no existe en la base de datos",
+  "Comun.error.revise_campos": "Revise estos campos. ",
   "Comun.acciones": "Acciones",
   "Comun.SI": "SI",
   "Comun.NO": "NO",
@@ -657,14 +658,14 @@
 
   "SerieVenta.cuentasCompras": "Cuentas de Compras",
   "SerieVenta.cuentasContablesProforma": "Cuenta contable proformas",
-  "SerieVenta.cuentasContablesComprasProforma": "Cuenta contable compras proformas",
+  "SerieVenta.cuentasContablesComprasProforma": "Cuenta compras proformas",
 
   "SerieVenta.ultimosNumeros": "Últimos numeros",
   "SerieVenta.datosContables": "Datos contables",
   "SerieVenta.opciones": "Opciones",
   "SerieVenta.sii": "SII",
 
-  "SerieCompra.cuentaContableCompras": "Cuenta contable compras",
+  "SerieCompra.cuentaContableCompras": "Cuenta Compras",
   "SerieCompra.validoDesde": "Válido desde",
   "SerieCompra.validoHasta": "Válido hasta",
   "SerieCompra.codigoSituacionRectificativa": "Código situación rectificativa",
@@ -2161,5 +2162,19 @@
   "SerieVenta.tituloFactura":"Título Factura",
   "SerieVenta.validoDesde":"Válida Desde",
   "SerieVenta.hasta":"Hasta",
-  "SerieVenta.rectificativa":"Rectificativa"
+  "SerieVenta.rectificativa":"Rectificativa",
+  "Proveedores.numero":"Numero",
+  "Proveedores.avisos":"Avisos",
+  "Proveedores.fechaEntrada":"Fecha Entrada",
+  "Proveedores.tipoAviso":"Tipo Aviso",
+  "Proveedores.descripcionCorta":"Descripción Corta",
+  "Proveedores.emisor":"Emisor",
+  "Proveedores.destinatario":"Destinatario",
+  "Proveedores.fechaFin":"Fecha Fin",
+  "Proveedores.fechaPrevistaFin":"Fecha Prevista Fin",
+  "Proveedores.estado":"Estado",
+  "Proveedores.destinatario2":"Destinatario 2",
+  "Proveedores.numPedido":"Num Pedido",
+  "SeriesCompras.periodoValidez":"Período Validez"
+
 }

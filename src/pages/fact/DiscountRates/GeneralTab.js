@@ -8,7 +8,9 @@ import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
-import ExpandableGrid from "modules/ExpandableGrid";
+import ReactGrid from "modules/ReactGrid";
+import MasterDetailedForm from "modules/ReactGrid/MasterDetailForm";
+import * as API from "redux/api";
 
 import { useTabForm } from "hooks/tab-form";
 
@@ -93,6 +95,48 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
+  const articulo = {
+    placeHolder: props.intl.formatMessage({
+      id: "ArticulosUbicacion.articulo.titulo",
+      defaultMessage: "Articulo",
+    }),
+    type: "LOV",
+    key: "article",
+    id: "articlesFact",
+    breakpoints: {
+      xs: 12,
+      md: 5,
+    },
+    selector: {
+      key: "articles",
+      labelKey: (data) => `${data.descripcioCurta} (${data.codi})`,
+      sort: "codi",
+      cannotCreate: true,
+      advancedSearchColumns: aSCodeAndDescription,
+    },
+  };
+
+  const familia = {
+    placeHolder: props.intl.formatMessage({
+      id: "FamiliaArticulos.titulo",
+      defaultMessage: "Familia",
+    }),
+    type: "LOV",
+    key: "articleFamilia",
+    required: true,
+    breakpoints: {
+      xs: 12,
+      md: 5,
+    },
+    selector: {
+      key: "articleFamilias",
+      labelKey: (data) => `${data.descripcio} (${data.codi})`,
+      sort: "codi",
+      cannotCreate: true,
+      advancedSearchColumns: aSCodeAndDescription,
+    },
+  };
+
   const valoresConfig = {
     title: props.intl.formatMessage({
       id: "TarifaDescuentos.tabs.valores",
@@ -117,6 +161,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true,
       },
       {
         name: "article",
@@ -125,6 +170,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Artículo",
         }),
         getCellValue: (row) => row.article?.description ?? "",
+        field: articulo,
       },
       {
         name: "articleFamilia",
@@ -133,6 +179,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           defaultMessage: "Familia",
         }),
         getCellValue: (row) => row.articleFamilia?.description ?? "",
+        field: familia,
       },
       {
         name: "descompte001",
@@ -149,102 +196,62 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
       },
     ],
-    formComponents: [
-      {
-        placeHolder: CODE,
-
-        type: "numeric",
-        key: "codi",
-        required: true,
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-        noEditable: true,
-        validationType: "number",
-        validations: [
-          ...props.commonValidations.requiredValidation(),
-          ...props.numberValidations.minMaxValidation(1, 9999999999),
-        ],
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "ArticulosUbicacion.articulo.titulo",
-          defaultMessage: "Articulo",
-        }),
-        type: "LOV",
-        key: "article",
-        id: "articlesFact",
-        breakpoints: {
-          xs: 12,
-          md: 5,
-        },
-        selector: {
-          key: "articles",
-          labelKey: (data) => `${data.descripcioCurta} (${data.codi})`,
-          sort: "codi",
-          cannotCreate: true,
-          advancedSearchColumns: aSCodeAndDescription,
-        },
-      },
-
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "FamiliaArticulos.titulo",
-          defaultMessage: "Familia",
-        }),
-        type: "LOV",
-        key: "articleFamilia",
-        required: true,
-        disabled: true,
-        breakpoints: {
-          xs: 12,
-          md: 5,
-        },
-        selector: {
-          key: "articleFamilias",
-          labelKey: (data) => `${data.descripcio} (${data.codi})`,
-          sort: "codi",
-          cannotCreate: true,
-          advancedSearchColumns: aSCodeAndDescription,
-        },
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "TarifasDescuento.desc1",
-          defaultMessage: "DEscuento 1",
-        }),
-        type: "numeric",
-        key: "descompte001",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-        suffix: "%",
-        decimalScale: 2,
-        fixedDecimalScale: true,
-        validationType: "number",
-        validations: [...props.numberValidations.minMaxValidation(0, 100)],
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "TarifasDescuento.desc2",
-          defaultMessage: "DEscuento 2",
-        }),
-        type: "numeric",
-        key: "descompte002",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-        suffix: "%",
-        decimalScale: 2,
-        fixedDecimalScale: true,
-        validationType: "number",
-        validations: [...props.numberValidations.minMaxValidation(0, 100)],
-      },
-    ],
+    listKey: "valorTarifaDescomptes",
+    enableInlineEdition: true,
+    enableExpandableContent: true,
   };
+
+  const formComponents = [
+    {
+      placeHolder: CODE,
+
+      type: "numeric",
+      key: "codi",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      noEditable: true,
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(1, 9999999999)],
+    },
+    articulo,
+    familia,
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "TarifasDescuento.desc1",
+        defaultMessage: "DEscuento 1",
+      }),
+      type: "numeric",
+      key: "descompte001",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      suffix: "%",
+      decimalScale: 2,
+      fixedDecimalScale: true,
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 100)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "TarifasDescuento.desc2",
+        defaultMessage: "DEscuento 2",
+      }),
+      type: "numeric",
+      key: "descompte002",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      suffix: "%",
+      decimalScale: 2,
+      fixedDecimalScale: true,
+      validationType: "number",
+      validations: [...props.numberValidations.minMaxValidation(0, 100)],
+    },
+  ];
 
   const tabs = [
     {
@@ -256,12 +263,25 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       ),
       key: 0,
       component: (
-        <ExpandableGrid
+        <ReactGrid
           id="valorsTarifaDescompte"
-          responseKey="valorTarifaDescomptes"
-          enabled={props.editMode}
+          extraQuery={[
+            {
+              columnName: "tarifaDescompte.id",
+              value: `'${tarifaID}'`,
+              exact: true,
+            },
+          ]}
           configuration={valoresConfig}
-        />
+        >
+          {(properties) => (
+            <MasterDetailedForm
+              url={API.valorsTarifaDescompte}
+              formComponents={formComponents}
+              {...properties}
+            />
+          )}
+        </ReactGrid>
       ),
     },
   ];

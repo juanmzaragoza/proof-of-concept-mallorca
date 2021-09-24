@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
 import { Chip } from "@material-ui/core";
-
+import ExpandableGrid from "modules/ExpandableGrid";
 import { TDOC_SELECTOR_VALUES } from "constants/selectors";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
@@ -11,6 +11,7 @@ import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 
 import { useTabForm } from "hooks/tab-form";
+import { useParams } from "react-router";
 
 const AREA_NEGOCIO_SECTION_INDEX = 0;
 
@@ -33,6 +34,22 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     defaultMessage: "Nombre",
   });
 
+  const { id: areaId } = useParams();
+
+ 
+  const DESCRIPCIO = props.intl.formatMessage({
+    id: "Comun.descripcion",
+    defaultMessage: "Descripción",
+  });
+
+  const formatCodeAndDescription = (data) =>
+    `${data.descripcio} (${data.codi})`;
+
+  const aSCodeAndDescription = [
+    { title: CODE, name: "codi" },
+    { title: DESCRIPCIO, name: "descripcio" },
+  ];
+
 
   const withRequiredValidation = (extraValidations = []) => {
     return {
@@ -52,7 +69,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       noEditable: true,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
       validationType: "string",
       ...withRequiredValidation([
@@ -70,7 +87,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "nom",
       breakpoints: {
         xs: 12,
-        md: 5,
+        md: 3,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 30)],
@@ -98,7 +115,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "comptabilitatCompteExistencies",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(1, 10)],
@@ -169,25 +186,82 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "compteObraExecutada",
         breakpoints: {
           xs: 12,
-          md: 4,
+          md: 3,
         },
         validationType: "string",
         validations: [...props.stringValidations.minMaxValidation(1, 10)],
       },
   ];
 
+  const seriesConfig = {
+    title: props.intl.formatMessage({
+      id: "AreasNegocio.tabs.series",
+      defaultMessage: "Series del Área",
+    }),
+    query: [
+      {
+        columnName: "areaNegoci.id",
+        value: `"${areaId}"`,
+        exact: true,
+      },
+    ],
+
+    extraPostBody: {
+      areaNegoci: { id: `${areaId}` },
+    },
+
+    columns: [
+      {
+        name: "serieVenda.pk.codi",
+        title: props.intl.formatMessage({
+          id: "Presupuestos.codigoSerieVenta",
+          defaultMessage: "Código Serie Venta",
+        }),
+        getCellValue: (row) => row?.serieVenda?.pk.codi || "",
+      },
+      {
+        name: "serieVenda.description",
+        title: props.intl.formatMessage({
+          id: "Presupuestos.serieVenta",
+          defaultMessage: "Serie Venta",
+        }),
+        getCellValue: (row) => row?.serieVenda?.description || "",
+      },
+
+    ],
+
+    formComponents: [
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Clientes.fact.serie",
+          defaultMessage: "Serie",
+        }),
+        type: "LOV",
+        key: "serieVenda",
+        id:"serie",
+        noEditable:true,
+        required: true,
+        breakpoints: {
+          xs: 12,
+          md: 6,
+        },
+        selector: {
+          key: "serieVendas",
+          labelKey: formatCodeAndDescription,
+          sort: "descripcio",
+          cannotCreate: true,
+          advancedSearchColumns: aSCodeAndDescription,
+        },
+        validationType: "object",
+        validations: [...props.commonValidations.requiredValidation()],
+      },
+    ],
+  };
+
   return (
     <Grid container>
       <Grid xs={12} item>
-        <OutlinedContainer
-          className="general-tab-container"
-          title={
-            <FormattedMessage
-              id={"AreasNegocio.titulo"}
-              defaultMessage={"Areas Negocio"}
-            />
-          }
-        >
+
           <GenericForm
             formComponents={areasConfig}
             emptyPaper={true}
@@ -203,6 +277,23 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
             }
             onBlur={(e) => handleTouched(AREA_NEGOCIO_SECTION_INDEX)}
             {...props}
+          />
+
+
+        <OutlinedContainer
+          className="general-tab-container"
+          title={
+            <FormattedMessage
+              id={"AreasNegocio.tabs.series"}
+              defaultMessage={"Series"}
+            />
+          }
+        >
+          <ExpandableGrid
+            id="seriesAreaNegoci"
+            responseKey="serieAreaNegocis"
+            enabled={props.editMode}
+            configuration={seriesConfig}
           />
         </OutlinedContainer>
       </Grid>

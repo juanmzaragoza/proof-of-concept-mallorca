@@ -40,7 +40,7 @@ const SeriesIntracomunitariasCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 1,
       },
       noEditable: true,
       validationType: "string",
@@ -61,7 +61,7 @@ const SeriesIntracomunitariasCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 6,
+        md: 5,
       },
       validationType: "string",
       validations: [
@@ -75,7 +75,7 @@ const SeriesIntracomunitariasCreate = (props) => {
       key: "ultimaFactura",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 2,
       },
       validationType: "number",
       validations: [...props.numberValidations.minMaxValidation(0,9999999999)],
@@ -87,7 +87,7 @@ const SeriesIntracomunitariasCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 2,
       },
       validationType: "string",
       validations: [...props.commonValidations.requiredValidation()],
@@ -100,7 +100,7 @@ const SeriesIntracomunitariasCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 2,
       },
       validationType: "string",
       validations: [
@@ -114,7 +114,7 @@ const SeriesIntracomunitariasCreate = (props) => {
       key: "serieDefecto",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 2,
       },
     },
   ];

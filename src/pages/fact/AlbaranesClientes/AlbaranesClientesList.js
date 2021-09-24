@@ -70,43 +70,27 @@ const AlbaranesClientesList = ({ actions, ...props }) => {
           id: "AlbaranesCliente.facturable",
           defaultMessage: "facturable",
         }),
-        getCellValue: (row) =>
-          row.facturable && row.facturable === true ? (
-            `${props.intl.formatMessage({
-              id: "Comun.SI",
-              defaultMessage: "SI",
-            })}`
+        getCellValue: (row) => {
+          return row.facturable && row.facturable === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
           ) : (
-            `${props.intl.formatMessage({
-              id: "Comun.NO",
-              defaultMessage: "NO",
-            })}`
-           
-          ),
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          );
+        },
       },
-      // {
-      //   name: "facturable",
-      //   title: props.intl.formatMessage({
-      //     id: "AlbaranesCliente.facturable",
-      //     defaultMessage: "facturable",
-      //   }),
-      //   getCellValue: (row) =>
-      //     row.facturable && row.facturable === true ? (
-      //       <Chip
-      //         label={props.intl.formatMessage({
-      //           id: "Comun.SI",
-      //           defaultMessage: "SI",
-      //         })}
-      //       />
-      //     ) : (
-      //       <Chip
-      //         label={props.intl.formatMessage({
-      //           id: "Comun.NO",
-      //           defaultMessage: "NO",
-      //         })}
-      //       />
-      //     ),
-      // },
+  
     ],
     URL: API.albarans,
     listKey: "albaras",

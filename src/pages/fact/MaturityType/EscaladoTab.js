@@ -6,7 +6,9 @@ import Grid from "@material-ui/core/Grid/Grid";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
-import ExpandableGrid from "modules/ExpandableGrid";
+import ReactGrid from "modules/ReactGrid";
+import MasterDetailedForm from "modules/ReactGrid/MasterDetailForm";
+import * as API from "redux/api";
 const EscaladoTab = ({ formData, setFormData, getFormData, ...props }) => {
   // warning!!! It's always valid because we haven't validations
   useEffect(() => {
@@ -36,6 +38,76 @@ const EscaladoTab = ({ formData, setFormData, getFormData, ...props }) => {
     { title: DESCRIPTION, name: "descripcio" },
   ];
 
+  const tipusV = {
+    placeHolder: props.intl.formatMessage({
+      id: "Proveedores.tvencimiento",
+      defaultMessage: "Tipo Vencimiento",
+    }),
+    type: "LOV",
+    key: "tipusVenciment000",
+    id: "tipusVenciment",
+    required: true,
+    breakpoints: {
+      xs: 12,
+      md: 3,
+    },
+    selector: {
+      key: "tipusVenciments",
+      labelKey: formatCodeAndDescription,
+      sort: "descripcio",
+      creationComponents: [
+        {
+          type: "input",
+          key: "codi",
+          placeHolder: CODE,
+          required: true,
+          noEditable: true,
+          breakpoints: {
+            xs: 12,
+            md: 4,
+          },
+        },
+        {
+          type: "input",
+          key: "nom",
+          placeHolder: NOM,
+          required: true,
+          breakpoints: {
+            xs: 12,
+            md: 4,
+          },
+        },
+        {
+          type: "input",
+          key: "tipus",
+          placeHolder: props.intl.formatMessage({
+            id: "TiposVencimiento.tipos",
+            defaultMessage: "Tipos",
+          }),
+          required: true,
+          breakpoints: {
+            xs: 12,
+            md: 4,
+          },
+        },
+      ],
+      advancedSearchColumns: aSCodeAndDescription,
+      transform: {
+        apply: (tipusVenciments) => tipusVenciments && tipusVenciments.codi,
+        reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+      },
+    },
+    extraQuery: [
+      {
+        columnName: "tipus",
+        value: `"ESCALAT"`,
+        diference: true,
+      },
+    ],
+    validationType: "string",
+    validations: [...props.commonValidations.requiredValidation()],
+  };
+
   const EscaladosConfig = {
     title: props.intl.formatMessage({
       id: "TiposVencimiento.escalado",
@@ -58,6 +130,7 @@ const EscaladoTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "TiposVencimiento.titulo",
           defaultMessage: "Tipos Vencimiento",
         }),
+        field: tipusV,
       },
       {
         name: "tipusVenciment",
@@ -67,6 +140,8 @@ const EscaladoTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
         getCellValue: (row) =>
           row.tipusVenciment && row.tipusVenciment?.description,
+        inlineEditionDisabled: true,
+        inlineCreationDisabled: true,
       },
       {
         name: "imports",
@@ -76,95 +151,30 @@ const EscaladoTab = ({ formData, setFormData, getFormData, ...props }) => {
         }),
       },
     ],
-
-    formComponents: [
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Proveedores.tvencimiento",
-          defaultMessage: "Tipo Vencimiento",
-        }),
-        type: "LOV",
-        key: "tipusVenciment000",
-        id: "tipusVenciment",
-        required: true,
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        selector: {
-          key: "tipusVenciments",
-          labelKey: formatCodeAndDescription,
-          sort: "descripcio",
-          creationComponents: [
-            {
-              type: "input",
-              key: "codi",
-              placeHolder: CODE,
-              required: true,
-              noEditable: true,
-              breakpoints: {
-                xs: 12,
-                md: 4,
-              },
-            },
-            {
-              type: "input",
-              key: "nom",
-              placeHolder: NOM,
-              required: true,
-              breakpoints: {
-                xs: 12,
-                md: 4,
-              },
-            },
-            {
-              type: "input",
-              key: "tipus",
-              placeHolder: props.intl.formatMessage({
-                id: "TiposVencimiento.tipos",
-                defaultMessage: "Tipos",
-              }),
-              required: true,
-              breakpoints: {
-                xs: 12,
-                md: 4,
-              },
-            },
-          ],
-          advancedSearchColumns: aSCodeAndDescription,
-          transform: {
-            apply: (tipusVenciments) => tipusVenciments && tipusVenciments.codi,
-            reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-          },
-        },
-        extraQuery: [
-          {
-            columnName: "tipus",
-            value: `"ESCALAT"`,
-            diference: true,
-          },
-        ],
-        validationType: "string",
-        validations: [...props.commonValidations.requiredValidation()],
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "TiposVencimiento.importe",
-          defaultMessage: "Importe",
-        }),
-        type: "numeric",
-        key: "imports",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-        validationType: "number",
-        validations: [
-          ...props.numberValidations.minMaxValidation(0, 999999999999),
-        ],
-      },
-    ],
+    listKey: "escalatTipusVenciments",
+    enableInlineEdition: true,
+    enableExpandableContent: true,
   };
+
+  const formComponents = [
+    tipusV,
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "TiposVencimiento.importe",
+        defaultMessage: "Importe",
+      }),
+      type: "numeric",
+      key: "imports",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+      validations: [
+        ...props.numberValidations.minMaxValidation(0, 999999999999),
+      ],
+    },
+  ];
 
   return (
     <Grid container spacing={2}>
@@ -178,12 +188,25 @@ const EscaladoTab = ({ formData, setFormData, getFormData, ...props }) => {
             />
           }
         >
-          <ExpandableGrid
+          <ReactGrid
             id="escalatsTipusVenciment"
-            responseKey="escalatTipusVenciments"
-            enabled={props.editMode}
+            extraQuery={[
+              {
+                columnName: "tipusVenciment.id",
+                value: `"${tipusVencimentId}"`,
+                exact: true,
+              },
+            ]}
             configuration={EscaladosConfig}
-          />
+          >
+            {(properties) => (
+              <MasterDetailedForm
+                url={API.escalatsTipusVenciment}
+                formComponents={formComponents}
+                {...properties}
+              />
+            )}
+          </ReactGrid>
         </OutlinedContainer>
       </Grid>
     </Grid>

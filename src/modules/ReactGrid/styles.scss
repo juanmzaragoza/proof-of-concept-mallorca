@@ -16,3 +16,29 @@
   background-color: rgba(63, 126, 128, 1);
   color: #fff;
 }
+
+.dx-calendar-navigator-previous-month.dx-button .dx-icon, .dx-calendar-navigator-previous-view.dx-button .dx-icon {
+  color: #3a9198;
+}
+
+.dx-calendar-navigator .dx-calendar-caption-button.dx-button .dx-button-content{
+  color: #3a9198;
+}
+
+.dx-calendar-navigator-next-month.dx-button .dx-icon, .dx-calendar-navigator-next-view.dx-button .dx-icon {
+  color: #3a9198;
+}
+
+.dx-calendar-cell.dx-calendar-selected-date.dx-calendar-contoured-date, .dx-calendar-cell.dx-calendar-selected-date.dx-calendar-today.dx-calendar-contoured-date {
+  background-color: rgba(63, 126, 128, 1);
+  box-shadow: inset 0 0 0 1px #bebebe, inset 0 0 0 1000px #3a9198;
+}
+
+
+.dx-dropdowneditor-icon {
+
+  color: #3a9198;
+  
+}
+
+

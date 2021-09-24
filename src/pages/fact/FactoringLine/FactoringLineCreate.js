@@ -32,36 +32,7 @@ const FactoringLineCreate = (props) => {
     },
   });
 
-  const codeAndName = (mdCode = 6, mdName = 6) => [
-    code(mdCode),
-    {
-      type: "input",
-      key: "nom",
-      placeHolder: NOM,
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdName,
-      },
-    },
-  ];
 
-  const codeAndDescription = (mdCode = 6, mdDes = 6) => [
-    code(mdCode),
-    {
-      type: "input",
-      key: "descripcio",
-      placeHolder: props.intl.formatMessage({
-        id: "Comun.descripcion",
-        defaultMessage: "Descripción",
-      }),
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdDes,
-      },
-    },
-  ];
   const codiPostal = (md = 6) => [
     {
       placeHolder: props.intl.formatMessage({
@@ -162,18 +133,6 @@ const FactoringLineCreate = (props) => {
     },
   ];
 
-  const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
-  const formatCodeAndDescription = (data) =>
-    `${data.descripcio} (${data.codi})`;
-
-  const withRequiredValidation = (extraValidations = []) => {
-    return {
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...extraValidations,
-      ],
-    };
-  };
 
   const aSCodeAndName = [
     { title: CODE, name: "codi" },

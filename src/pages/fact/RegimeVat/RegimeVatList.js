@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import { bindActionCreators, compose } from "redux";
-
+import { TIPO_REG_IVA_SELECTOR_VALUES } from "constants/selectors";
 import ReactGrid from "modules/ReactGrid";
 import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
+import { Chip } from "@material-ui/core";
 
 const RegimeVatList = ({ actions, ...props }) => {
   useEffect(() => {
@@ -25,6 +26,22 @@ const RegimeVatList = ({ actions, ...props }) => {
       },
     ]);
   }, []);
+
+  const tipo = {
+    placeHolder: props.intl.formatMessage({
+      id: "RegimenIva.tipoReg",
+      defaultMessage: "Tipo Régimen IVA",
+    }),
+    type: "select",
+    key: "tip",
+    breakpoints: {
+      xs: 12,
+      md: 3,
+    },
+    selector: {
+      options: TIPO_REG_IVA_SELECTOR_VALUES,
+    },
+  };
 
   const listConfiguration = {
     columns: [
@@ -56,7 +73,29 @@ const RegimeVatList = ({ actions, ...props }) => {
           id: "Iva.tipoRegimen",
           defaultMessage: "Tipo Régimen IVA ",
         }),
-        inlineEditionDisabled: true,
+        getCellValue: (row) => {
+          if (row.tip) {
+            if (row.tip === "AGRARI") {
+              return props.intl.formatMessage({
+                id: "Selector.agrario",
+                defaultMessage: "Agrario",
+              });
+            } else if (row.tip === "GENERAL") {
+              return props.intl.formatMessage({
+                id: "Selector.general",
+                defaultMessage: "General",
+              });
+            } else {
+              return props.intl.formatMessage({
+                id: "Selector.intercomunitario",
+                defaultMessage: "Intercomunitario",
+              });
+            }
+          }
+        },
+
+        field: tipo,
+        allowFilter: false,
       },
       {
         name: "codiFacturaElectronica",

@@ -45,21 +45,27 @@ const BoxList = ({ actions, ...props }) => {
           id: "Cajas.apunteContable",
           defaultMessage: "Apunte Contable",
         }),
-        getCellValue: (row) =>
-          row.ferApuntComptable && row.ferApuntComptable === true ? (
-            `${props.intl.formatMessage({
-              id: "Comun.SI",
-              defaultMessage: "SI",
-            })}`
+        getCellValue: (row) => {
+          return row.ferApuntComptable && row.ferApuntComptable === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
           ) : (
-            `${props.intl.formatMessage({
-              id: "Comun.NO",
-              defaultMessage: "NO",
-            })}`
-           
-          ),
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          );
+        },
       },
-     
+
       {
         name: "tipusAssentamentComptable",
         title: props.intl.formatMessage({
@@ -81,16 +87,85 @@ const BoxList = ({ actions, ...props }) => {
           defaultMessage: "Cuenta Contable",
         }),
       },
+
+      {
+        title: props.intl.formatMessage({
+          id: "Cajas.diarioContable2",
+          defaultMessage: "Diario Contable 2",
+        }),
+
+        name: "diariComptable2",
+      },
+      {
+        title: props.intl.formatMessage({
+          id: "Cajas.cuentaCajas2",
+          defaultMessage: "Cuenta Contable 2",
+        }),
+        name: "compteComptable2",
+      },
       {
         name: "dataSaldoInicial",
         title: props.intl.formatMessage({
           id: "Cajas.fechaSaldo",
           defaultMessage: "Fecha Saldo Inicial",
         }),
-        getCellValue: row => row.dataSaldoInicial ? new Date(row.dataSaldoInicial).toLocaleDateString() : ""
+        getCellValue: (row) =>
+          row.dataSaldoInicial
+            ? new Date(row.dataSaldoInicial).toLocaleDateString()
+            : "",
       },
-
-     
+      {
+        name: "datval",
+        title: props.intl.formatMessage({
+          id: "Cajas.fechaValoracion",
+          defaultMessage: "Fecha Valoración",
+        }),
+        getCellValue: (row) => {
+          return row.datval && row.datval === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          );
+        },
+      },
+      {
+        name: "bloquejat",
+        title:  props.intl.formatMessage({
+          id: "Cajas.bloqueada",
+          defaultMessage: "Bloqueada",
+        }),
+        getCellValue: (row) => {
+          return row.bloquejat && row.bloquejat === true ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          );
+        },
+      },
     ],
     URL: API.caixa,
     listKey: "caixas",

@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { some, min, pickBy, cloneDeep } from "lodash";
 
 import GeneralTab from "./GeneralTab";
-import SeriesTab from "./SeriesTab";
+
 
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
@@ -28,12 +28,9 @@ import {
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
 
-
 const GENERAL_TAB_INDEX = 0;
-const SERIES_TAB_INDEX = 1;
 
-
-const AreasNegocioForm = React.memo(
+const PurchaseSerieForm = React.memo(
   ({
     actions,
     allFormData,
@@ -49,8 +46,6 @@ const AreasNegocioForm = React.memo(
     /** step 2 */
     const [tabIndexWithError, setTabIndexWithError] = useState({
       [GENERAL_TAB_INDEX]: false,
-      [SERIES_TAB_INDEX]: false,
-
     });
     const [forceTabChange, setForceTabChange] = useState(false);
 
@@ -122,10 +117,7 @@ const AreasNegocioForm = React.memo(
           />
         ),
       },
-    
-    
     ];
-
     const { id } = useParams();
 
     const isEditable = () => {
@@ -144,10 +136,10 @@ const AreasNegocioForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "AreasNegocio.titulo",
-              defaultMessage: "Areas Negocio",
+              id: "Proveedores.serieCompra",
+              defaultMessage: "Series Compra",
             }),
-            href: "/fact/areas-negocio",
+            href: "/fact/series-compras",
           },
           {
             title: props.intl.formatMessage({
@@ -169,7 +161,7 @@ const AreasNegocioForm = React.memo(
     /** Update HEADER */
     useEffect(() => {
       if (isEditable()) {
-        const nomComercial = getFormData("nom");
+        const nomComercial = getFormData("descripcio");
         const nom = nomComercial
           ? nomComercial
           : `${props.intl.formatMessage({
@@ -179,16 +171,16 @@ const AreasNegocioForm = React.memo(
         actions.setBreadcrumbHeader([
           {
             title: props.intl.formatMessage({
-              id: "AreasNegocio.titulo",
-              defaultMessage: "Areas Negocio",
+              id:"Proveedores.serieCompra",
+              defaultMessage: "Series Compra",
             }),
-            href: "/fact/areas-negocio",
+            href: "/fact/series-compras",
           },
-          { title: nom, href: "/fact/areas-negocio" },
+          { title: nom, href: "/fact/series-compras" },
           { title: nameSelectedTab },
         ]);
       }
-    }, [getFormData("nom"), nameSelectedTab]);
+    }, [getFormData("descripcio"), nameSelectedTab]);
 
     useEffect(() => {
       if (submitFromOutside) {
@@ -232,7 +224,7 @@ const mapStateToProps = (state, props) => {
     allFormData: getFormData(state),
     getFormData: getFormDataByKey(state),
     formDataLoaded: getIsDataLoaded(state),
-    isSubmitted: getIsSubmitted(state)
+    isSubmitted: getIsSubmitted(state),
   };
 };
 
@@ -250,5 +242,5 @@ const component = compose(
   injectIntl,
   connect(mapStateToProps, mapDispatchToProps),
   withAbmServices
-)(AreasNegocioForm);
+)(PurchaseSerieForm);
 export default component;

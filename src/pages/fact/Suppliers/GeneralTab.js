@@ -156,104 +156,103 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     id: "Proveedores.Direccion.codPostal",
     defaultMessage: "Código Postal",
   });
-  const codiPostal = (md = 6) =>
-    ({
-      placeHolder: CODI_POSTAL,
-      type: "LOV",
-      key: "codiPostal",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: md,
-      },
-      validationType: "object",
-      ...withRequiredValidation(),
-      selector: {
-        key: "codiPostals",
-        labelKey: (data) =>
-          `${data.poblacio} ${data.municipi ? ` - ${data.municipi}` : ""} (${
-            data.codi
-          })`,
-        sort: "codi",
-        creationComponents: [
-          code(4),
-          {
-            placeHolder: props.intl.formatMessage({
-              id: "CodigoPostal.pais",
-              defaultMessage: "País",
-            }),
-            type: "LOV",
-            key: "pais",
-            required: false,
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-            selector: {
-              key: "paises",
-              labelKey: (data) => `${data.nom} (${data.codi})`,
-              sort: "codi",
-              cannotCreate: true,
-              relatedWith: [
-                {
-                  name: "provincia",
-                  filterBy: "pais.id",
-                  keyValue: "id",
-                },
-              ],
-              advancedSearchColumns: aSCodeAndName,
-            },
+  const codiPostal = (md = 6) => ({
+    placeHolder: CODI_POSTAL,
+    type: "LOV",
+    key: "codiPostal",
+    required: true,
+    breakpoints: {
+      xs: 12,
+      md: md,
+    },
+    validationType: "object",
+    ...withRequiredValidation(),
+    selector: {
+      key: "codiPostals",
+      labelKey: (data) =>
+        `${data.poblacio} ${data.municipi ? ` - ${data.municipi}` : ""} (${
+          data.codi
+        })`,
+      sort: "codi",
+      creationComponents: [
+        code(4),
+        {
+          placeHolder: props.intl.formatMessage({
+            id: "CodigoPostal.pais",
+            defaultMessage: "País",
+          }),
+          type: "LOV",
+          key: "pais",
+          required: false,
+          breakpoints: {
+            xs: 12,
+            md: 4,
           },
-          {
-            placeHolder: props.intl.formatMessage({
-              id: "CodigoPostal.provincia",
-              defaultMessage: "Provincia",
-            }),
-            type: "LOV",
-            key: "provincia",
-            required: false,
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-            selector: {
-              key: "provincias",
-              labelKey: (data) => `${data.nom} (${data.codi})`,
-              sort: "codi",
-              cannotCreate: true,
-              advancedSearchColumns: aSCodeAndName,
-            },
+          selector: {
+            key: "paises",
+            labelKey: (data) => `${data.nom} (${data.codi})`,
+            sort: "codi",
+            cannotCreate: true,
+            relatedWith: [
+              {
+                name: "provincia",
+                filterBy: "pais.id",
+                keyValue: "id",
+              },
+            ],
+            advancedSearchColumns: aSCodeAndName,
           },
-          {
-            type: "input",
-            key: "municipi",
-            placeHolder: props.intl.formatMessage({
-              id: "CodigoPostal.municipio",
-              defaultMessage: "Municipio",
-            }),
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 6,
-            },
+        },
+        {
+          placeHolder: props.intl.formatMessage({
+            id: "CodigoPostal.provincia",
+            defaultMessage: "Provincia",
+          }),
+          type: "LOV",
+          key: "provincia",
+          required: false,
+          breakpoints: {
+            xs: 12,
+            md: 4,
           },
-          {
-            type: "input",
-            key: "poblacio",
-            placeHolder: props.intl.formatMessage({
-              id: "CodigoPostal.poblacion",
-              defaultMessage: "Población",
-            }),
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 6,
-            },
+          selector: {
+            key: "provincias",
+            labelKey: (data) => `${data.nom} (${data.codi})`,
+            sort: "codi",
+            cannotCreate: true,
+            advancedSearchColumns: aSCodeAndName,
           },
-        ],
-        advancedSearchColumns: aSCodeAndDescription,
-      },
-    });
+        },
+        {
+          type: "input",
+          key: "municipi",
+          placeHolder: props.intl.formatMessage({
+            id: "CodigoPostal.municipio",
+            defaultMessage: "Municipio",
+          }),
+          required: true,
+          breakpoints: {
+            xs: 12,
+            md: 6,
+          },
+        },
+        {
+          type: "input",
+          key: "poblacio",
+          placeHolder: props.intl.formatMessage({
+            id: "CodigoPostal.poblacion",
+            defaultMessage: "Población",
+          }),
+          required: true,
+          breakpoints: {
+            xs: 12,
+            md: 6,
+          },
+        },
+      ],
+      advancedSearchColumns: aSCodeAndDescription,
+    },
+  });
 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
   const formatCodeAndDescription = (data) =>
@@ -293,21 +292,21 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       placeHolder: CODE,
       type: "input",
       key: "codi",
-      required: true,
+
       noEditable: true,
       breakpoints: {
         xs: 12,
         md: 2,
       },
       validationType: "string",
-      ...withRequiredValidation([
+      validations: [
         ...props.stringValidations.minMaxValidation(1, 6),
         ...props.stringValidations.fieldExistsValidation(
           "suppliers",
           "codi",
           CODE
         ),
-      ]),
+      ],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -382,10 +381,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       selector: {
         key: "paisNifs",
-        labelKey:  (data) =>
-        `${data.description === undefined ? data.nom : data.description} (${
-          data.id
-        })`,
+        labelKey: (data) =>
+          `${data.description === undefined ? data.nom : data.description} (${
+            data.id
+          })`,
         sort: "nom",
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndName,
@@ -705,7 +704,11 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       proveidor: { id: supplierId },
     },
     columns: [
-      { name: "codi", title: CODE },
+      {
+        name: "codi",
+        title: CODE,
+        inlineEditionDisabled: true
+      },
       { name: "domicili", title: DOMICILI },
       {
         name: "codiPostal",
@@ -713,7 +716,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         field: codiPostal(),
         // take description when is populated from addressa -> getById()
         // or take descPostNomCodi when is populated for inline creation
-        getCellValue: (row) => row.codiPostal?.description ?? (row.codiPostal?.descPostNomCodi ?? "")
+        getCellValue: (row) =>
+          row.codiPostal?.description ?? row.codiPostal?.descPostNomCodi ?? "",
       },
       {
         name: "telefon",
@@ -735,7 +739,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       {
         name: "defecte",
         title: DEFECTE,
-        getCellValue: (row) =>{
+        getCellValue: (row) => {
           return row.defecte && row.defecte === true ? (
             <Chip
               label={props.intl.formatMessage({
@@ -752,10 +756,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
               })}
               variant="outlined"
             />
-          )},
+
+          );
+        },
+
       },
     ],
-    listKey: 'adresaComercials',
+    listKey: "adresaComercials",
     enableInlineEdition: true,
     enableExpandableContent: true,
     disabledUpdate: true,
@@ -801,7 +808,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         multiline: 6,
       },
     },
-  ]
+  ];
 
   const SuppliersTypeConfig = {
     title: props.intl.formatMessage({
@@ -957,12 +964,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           ]}
           configuration={commercialAddressesConfig}
         >
-          {
-            properties => <MasterDetailedForm
+          {(properties) => (
+            <MasterDetailedForm
               url={API.adresaComercials}
               formComponents={commercialAddressesFormConfig}
-              {...properties} />
-          }
+              {...properties}
+            />
+          )}
         </ReactGrid>
       ),
     },
