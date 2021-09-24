@@ -43,6 +43,32 @@ const RatesList = ({ actions, ...props }) => {
           id: "Tarifa.tarifaTipo",
           defaultMessage: "Tipo de tarifa"
         }),
+        getCellValue: (row) => {
+          if (row.tarifaTipus) {
+            if (row.tarifaTipus === "TARIFA_GENERAL_SOBRE_COST") {
+              return props.intl.formatMessage({
+                id: "Selector.tarifaGeneralSobreCoste",
+                defaultMessage: "Tarifa General Sobre Coste",
+              });
+            } else if (row.tarifaTipus === "TARIFA_GENERAL_SOBRE_PVP") {
+              return props.intl.formatMessage({
+                id: "Selector.tarifaGeneralSobrePvp",
+                defaultMessage: "Tarifa General Sobre Pvp",
+              });
+            } else if (row.tarifaTipus === "TARIFA_PARTICULAR_SOBRE_COST") {
+              return props.intl.formatMessage({
+                id: "Selector.tarifaParticularSobreCoste",
+                defaultMessage: "Tarifa Particular Sobre Coste",
+              });
+              
+            } else {
+              return props.intl.formatMessage({
+                id: "Selector.tarifaParticularSobrePvp",
+                defaultMessage: "Tarifa Particular Sobre Pvp",
+              });
+            }
+          }
+        },
       },
     ],
     URL: API.tarifas,
