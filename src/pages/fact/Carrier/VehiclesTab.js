@@ -5,9 +5,11 @@ import { FormattedMessage, injectIntl } from "react-intl";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 
 import { withValidations } from "modules/wrappers";
+import ReactGrid from "modules/ReactGrid";
+import MasterDetailedForm from "modules/ReactGrid/MasterDetailForm";
+import * as API from "redux/api";
 
 import { useParams } from "react-router-dom";
-import ExpandableGrid from "modules/ExpandableGrid";
 import { Chip } from "@material-ui/core";
 
 const VehicleTab = ({
@@ -36,7 +38,8 @@ const VehicleTab = ({
 
   const { id: transpId } = useParams();
 
-  const vehicleConfig = {
+
+  const vehiclesConfig = {
     title: props.intl.formatMessage({
       id: "Vehiculos.titulo",
       defaultMessage: "Vehículos",
@@ -52,7 +55,6 @@ const VehicleTab = ({
     extraPostBody: {
       transportista: { id: `${transpId}` },
     },
-
     columns: [
       {
         name: "codi",
@@ -60,6 +62,7 @@ const VehicleTab = ({
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
       {
         name: "descripcio",
@@ -116,6 +119,7 @@ const VehicleTab = ({
                 id: "Comun.SI",
                 defaultMessage: "SI",
               })}
+              variant="outlined"
             />
           ) : (
             <Chip
@@ -123,349 +127,357 @@ const VehicleTab = ({
                 id: "Comun.NO",
                 defaultMessage: "NO",
               })}
+              variant="outlined"
             />
           ),
       },
 
-      {
-        name: "pesMaxim",
-        title: props.intl.formatMessage({
-          id: "Vehiculos.pesoMaximo",
-          defaultMessage: "Peso Máximo",
-        }),
-        hidden: true,
-      },
-      {
-        name: "vehicleEmpresa",
-        title: props.intl.formatMessage({
-          id: "Vehiculos.vhEmpresa",
-          defaultMessage: "Vehículo Empresa",
-        }),
-        getCellValue: (row) =>
-          row.vehicleEmpresa && row.vehicleEmpresa === true ? (
-            <Chip
-              label={props.intl.formatMessage({
-                id: "Comun.SI",
-                defaultMessage: "SI",
-              })}
-            />
-          ) : (
-            <Chip
-              label={props.intl.formatMessage({
-                id: "Comun.NO",
-                defaultMessage: "NO",
-              })}
-            />
-          ),
-        hidden: true,
-      },
-      {
-        name: "projecteNum",
-        title: props.intl.formatMessage({
-          id: "FamiliaArticulos.proyecto",
-          defaultMessage: "Proyecto",
-        }),
+      // {
+      //   name: "pesMaxim",
+      //   title: props.intl.formatMessage({
+      //     id: "Vehiculos.pesoMaximo",
+      //     defaultMessage: "Peso Máximo",
+      //   }),
+      //   hidden: true,
+      // },
+      // {
+      //   name: "vehicleEmpresa",
+      //   title: props.intl.formatMessage({
+      //     id: "Vehiculos.vhEmpresa",
+      //     defaultMessage: "Vehículo Empresa",
+      //   }),
+      //   getCellValue: (row) =>
+      //     row.vehicleEmpresa && row.vehicleEmpresa === true ? (
+      //       <Chip
+      //         label={props.intl.formatMessage({
+      //           id: "Comun.SI",
+      //           defaultMessage: "SI",
+      //         })}
+      //         variant="outlined"
+      //       />
+      //     ) : (
+      //       <Chip
+      //         label={props.intl.formatMessage({
+      //           id: "Comun.NO",
+      //           defaultMessage: "NO",
+      //         })}
+      //         variant="outlined"
+      //       />
+      //     ),
+      //   hidden: true,
+      // },
+      // {
+      //   name: "projecteNum",
+      //   title: props.intl.formatMessage({
+      //     id: "FamiliaArticulos.proyecto",
+      //     defaultMessage: "Proyecto",
+      //   }),
 
-        hidden: true,
-      },
-      {
-        name: "delegacio",
-        title: props.intl.formatMessage({
-          id: "FamiliaArticulos.delegacion",
-          defaultMessage: "Delegacion",
-        }),
-        getCellValue: (row) =>
-          row.delegacio?.description ? row.delegacio.description : "",
-        hidden: true,
-      },
+      //   hidden: true,
+      // },
+      // {
+      //   name: "delegacio",
+      //   title: props.intl.formatMessage({
+      //     id: "FamiliaArticulos.delegacion",
+      //     defaultMessage: "Delegacion",
+      //   }),
+      //   getCellValue: (row) =>
+      //     row.delegacio?.description ? row.delegacio.description : "",
+      //   hidden: true,
+      // },
     ],
+    listKey: "vehicles",
+    enableInlineEdition: true,
+    enableExpandableContent: true,
 
-    formComponents: [
-      {
-        placeHolder: CODE,
-        type: "input",
-        key: "codi",
-        required: true,
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-        noEditable: true,
-        validationType: "string",
-        validations: [
-          ...props.commonValidations.requiredValidation(),
-          ...props.stringValidations.minMaxValidation(1, 10),
-        ],
-      },
-      {
-        placeHolder: DESCRIPCIO,
-        type: "input",
-        key: "descripcio",
-        required: true,
-        breakpoints: {
-          xs: 12,
-          md: 5,
-        },
-        validationType: "string",
-        validations: [
-          ...props.commonValidations.requiredValidation(),
-          ...props.stringValidations.minMaxValidation(1, 60),
-        ],
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Vehiculos.dni",
-          defaultMessage: "DNI",
-        }),
-        type: "input",
-        key: "nif",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-        validationType: "string",
-        validations: [...props.stringValidations.minMaxValidation(1, 12)],
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Vehiculos.conductorHabitual",
-          defaultMessage: "Conductor Habitual",
-        }),
-        type: "input",
-        key: "conductorHabitual",
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-        validationType: "string",
-        validations: [...props.stringValidations.minMaxValidation(1, 30)],
-      },
-
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Vehiculos.matricula1",
-          defaultMessage: "Matrícula 1",
-        }),
-        type: "input",
-        key: "matricula",
-        required: true,
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-        validationType: "string",
-        validations: [
-          ...props.commonValidations.requiredValidation(),
-          ...props.stringValidations.minMaxValidation(1, 10),
-        ],
-      },
-
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Vehiculos.matricula2",
-          defaultMessage: "Matrícula 2",
-        }),
-        type: "input",
-        key: "matriculaRemolc",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-        validationType: "string",
-        validations: [...props.stringValidations.minMaxValidation(1, 10)],
-      },
-
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Vehiculos.tara",
-          defaultMessage: "Tara",
-        }),
-        type: "numeric",
-        key: "tara",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-        validationType: "number",
-        validations: [
-          ...props.numberValidations.minMaxValidation(0, 9999999999),
-        ],
-      },
-
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Vehiculos.pesoMaximo",
-          defaultMessage: "Peso Máximo",
-        }),
-        type: "numeric",
-        key: "pesMaxim",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-        validationType: "number",
-        validations: [
-          ...props.numberValidations.minMaxValidation(0, 9999999999),
-        ],
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Vehiculos.clave",
-          defaultMessage: "Clave",
-        }),
-        type: "input",
-        key: "pwd",
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        validationType: "string",
-        validations: [...props.stringValidations.minMaxValidation(1, 60)],
-      },
-
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "FamiliaArticulos.proyecto",
-          defaultMessage: "Proyecto",
-        }),
-        type: "LOV",
-        key: "projecteNum",
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        selector: {
-          key: "projectes",
-          labelKey: (data) => `${data.nom} (${data.codi})`,
-          sort: "codi",
-          cannotCreate: true,
-          transform: {
-            apply: (projectes) => projectes && projectes.codi,
-            reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-          },
-          advancedSearchColumns: [
-            {
-              title: props.intl.formatMessage({
-                id: "Comun.codigo",
-                defaultMessage: "Código",
-              }),
-              name: "codi",
-            },
-            {
-              title: props.intl.formatMessage({
-                id: "Comun.nombre",
-                defaultMessage: "Nombre",
-              }),
-              name: "nom",
-            },
-          ],
-        },
-        validationType: "string",
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "PieDocumento.empresa",
-          defaultMessage: "Empresa",
-        }),
-        type: "LOV",
-        key: "empresaCodi",
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        selector: {
-          key: "empresas",
-          labelKey: (data) => `${data.nomComercial} (${data.codi})`,
-          sort: "nomComercial",
-          cannotCreate: true,
-          transform: {
-            apply: (empresa) => empresa && empresa.codi,
-            reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-          },
-          relatedWith: [
-            {
-              name: "delegacio",
-              filterBy: "empresa.id",
-              keyValue: "id",
-            },
-          ],
-          advancedSearchColumns: [
-            { title: CODE, name: "codi" },
-            {
-              title: props.intl.formatMessage({
-                id: "Proveedores.nombre_comercial",
-                defaultMessage: "Nombre Comercial",
-              }),
-              name: "nomComercial",
-            },
-          ],
-        },
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "FamiliaArticulos.delegacion",
-          defaultMessage: "Delegación",
-        }),
-        type: "LOV",
-        key: "delegacio",
-
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        selector: {
-          key: "delegacios",
-          labelKey: (data) => `${data.nom} (${data.codi})`,
-          sort: "nom",
-          cannotCreate: true,
-          advancedSearchColumns: [
-            { title: CODE, name: "codi" },
-            {
-              title: NOM,
-              name: "nom",
-            },
-          ],
-        },
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Vehiculos.activo",
-          defaultMessage: "Activo ",
-        }),
-        type: "checkbox",
-        key: "actiu",
-        breakpoints: {
-          xs: 12,
-          md: 2,
-        },
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Vehiculos.vhEmpresa",
-          defaultMessage: "Vehículo Empresa",
-        }),
-        type: "checkbox",
-        key: "vehicleEmpresa",
-        breakpoints: {
-          xs: 12,
-          md: 3,
-        },
-      },
-
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "FamiliaProveedores.observaciones",
-          defaultMessage: "Observaciones",
-        }),
-        type: "observations",
-        key: "observacions",
-        breakpoints: {
-          xs: 12,
-          md: 1,
-        },
-      },
-    ],
   };
+  const vehiclesFormConfig = [
+    {
+      placeHolder: CODE,
+      type: "input",
+      key: "codi",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      noEditable: true,
+      validationType: "string",
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+        ...props.stringValidations.minMaxValidation(1, 10),
+      ],
+    },
+    {
+      placeHolder: DESCRIPCIO,
+      type: "input",
+      key: "descripcio",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 5,
+      },
+      validationType: "string",
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+        ...props.stringValidations.minMaxValidation(1, 60),
+      ],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Vehiculos.dni",
+        defaultMessage: "DNI",
+      }),
+      type: "input",
+      key: "nif",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 12)],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Vehiculos.conductorHabitual",
+        defaultMessage: "Conductor Habitual",
+      }),
+      type: "input",
+      key: "conductorHabitual",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 30)],
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Vehiculos.matricula1",
+        defaultMessage: "Matrícula 1",
+      }),
+      type: "input",
+      key: "matricula",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "string",
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+        ...props.stringValidations.minMaxValidation(1, 10),
+      ],
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Vehiculos.matricula2",
+        defaultMessage: "Matrícula 2",
+      }),
+      type: "input",
+      key: "matriculaRemolc",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 10)],
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Vehiculos.tara",
+        defaultMessage: "Tara",
+      }),
+      type: "numeric",
+      key: "tara",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+      validations: [
+        ...props.numberValidations.minMaxValidation(0, 9999999999),
+      ],
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Vehiculos.pesoMaximo",
+        defaultMessage: "Peso Máximo",
+      }),
+      type: "numeric",
+      key: "pesMaxim",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+      validationType: "number",
+      validations: [
+        ...props.numberValidations.minMaxValidation(0, 9999999999),
+      ],
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Vehiculos.clave",
+        defaultMessage: "Clave",
+      }),
+      type: "input",
+      key: "pwd",
+      breakpoints: {
+        xs: 12,
+        md: 4,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(1, 60)],
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "FamiliaArticulos.proyecto",
+        defaultMessage: "Proyecto",
+      }),
+      type: "LOV",
+      key: "projecteNum",
+      breakpoints: {
+        xs: 12,
+        md: 4,
+      },
+      selector: {
+        key: "projectes",
+        labelKey: (data) => `${data.nom} (${data.codi})`,
+        sort: "codi",
+        cannotCreate: true,
+        transform: {
+          apply: (projectes) => projectes && projectes.codi,
+          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+        },
+        advancedSearchColumns: [
+          {
+            title: props.intl.formatMessage({
+              id: "Comun.codigo",
+              defaultMessage: "Código",
+            }),
+            name: "codi",
+          },
+          {
+            title: props.intl.formatMessage({
+              id: "Comun.nombre",
+              defaultMessage: "Nombre",
+            }),
+            name: "nom",
+          },
+        ],
+      },
+      validationType: "string",
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "PieDocumento.empresa",
+        defaultMessage: "Empresa",
+      }),
+      type: "LOV",
+      key: "empresaCodi",
+      breakpoints: {
+        xs: 12,
+        md: 4,
+      },
+      selector: {
+        key: "empresas",
+        labelKey: (data) => `${data.nomComercial} (${data.codi})`,
+        sort: "nomComercial",
+        cannotCreate: true,
+        transform: {
+          apply: (empresa) => empresa && empresa.codi,
+          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+        },
+        relatedWith: [
+          {
+            name: "delegacio",
+            filterBy: "empresa.id",
+            keyValue: "id",
+          },
+        ],
+        advancedSearchColumns: [
+          { title: CODE, name: "codi" },
+          {
+            title: props.intl.formatMessage({
+              id: "Proveedores.nombre_comercial",
+              defaultMessage: "Nombre Comercial",
+            }),
+            name: "nomComercial",
+          },
+        ],
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "FamiliaArticulos.delegacion",
+        defaultMessage: "Delegación",
+      }),
+      type: "LOV",
+      key: "delegacio",
+
+      breakpoints: {
+        xs: 12,
+        md: 4,
+      },
+      selector: {
+        key: "delegacios",
+        labelKey: (data) => `${data.nom} (${data.codi})`,
+        sort: "nom",
+        cannotCreate: true,
+        advancedSearchColumns: [
+          { title: CODE, name: "codi" },
+          {
+            title: NOM,
+            name: "nom",
+          },
+        ],
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Vehiculos.activo",
+        defaultMessage: "Activo ",
+      }),
+      type: "checkbox",
+      key: "actiu",
+      breakpoints: {
+        xs: 12,
+        md: 2,
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Vehiculos.vhEmpresa",
+        defaultMessage: "Vehículo Empresa",
+      }),
+      type: "checkbox",
+      key: "vehicleEmpresa",
+      breakpoints: {
+        xs: 12,
+        md: 3,
+      },
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "FamiliaProveedores.observaciones",
+        defaultMessage: "Observaciones",
+      }),
+      type: "observations",
+      key: "observacions",
+      breakpoints: {
+        xs: 12,
+        md: 1,
+      },
+    },
+  ];
+
+  
 
   return (
     <Grid container>
@@ -479,12 +491,25 @@ const VehicleTab = ({
             />
           }
         >
-          <ExpandableGrid
-            id="vehicles"
-            responseKey="vehicles"
-            enabled={props.editMode}
-            configuration={vehicleConfig}
-          />
+        <ReactGrid
+          id="vehicles"
+          extraQuery={[
+            {
+              columnName: "transportista.id",
+              value: `"${transpId}"`,
+              exact: true,
+            },
+          ]}
+          configuration={vehiclesConfig}
+        >
+          {(properties) => (
+            <MasterDetailedForm
+              url={API.vehicles}
+              formComponents={vehiclesFormConfig}
+              {...properties}
+            />
+          )}
+        </ReactGrid>
         </OutlinedContainer>
       </Grid>
     </Grid>

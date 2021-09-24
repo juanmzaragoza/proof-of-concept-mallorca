@@ -5,9 +5,11 @@ import { FormattedMessage, injectIntl } from "react-intl";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 
 import { withValidations } from "modules/wrappers";
-
+import ReactGrid from "modules/ReactGrid";
+import MasterDetailedForm from "modules/ReactGrid/MasterDetailForm";
+import * as API from "redux/api";
 import { useParams } from "react-router-dom";
-import ExpandableGrid from "modules/ExpandableGrid";
+
 
 const AplicacionTab = ({
   formData,
@@ -46,19 +48,22 @@ const AplicacionTab = ({
 
     columns: [
       {
-        name: "aplicacio",
-        title: props.intl.formatMessage({
-          id: "Transportistas.aplicacion",
-          defaultMessage: "Aplicación",
-        }),
-      },
-      {
         name: "codi",
         title: props.intl.formatMessage({
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
+        inlineEditionDisabled: true
       },
+      {
+        name: "aplicacio",
+        title: props.intl.formatMessage({
+          id: "Transportistas.aplicacion",
+          defaultMessage: "Aplicación",
+        }),
+        inlineEditionDisabled: true
+      },
+      
       {
         name: "observacions",
         title: props.intl.formatMessage({
@@ -67,8 +72,12 @@ const AplicacionTab = ({
         }),
       },
     ],
+    listKey: "aplicacioTransportistas",
+    enableInlineEdition: true,
+    enableExpandableContent: true,
+  };
 
-    formComponents: [
+    const formComponents = [
       {
         placeHolder: CODE,
         type: "input",
@@ -116,8 +125,7 @@ const AplicacionTab = ({
           md: 7,
         },
       },
-    ],
-  };
+    ];
 
   return (
     <Grid container>
@@ -131,12 +139,26 @@ const AplicacionTab = ({
             />
           }
         >
-          <ExpandableGrid
-            id="aplicacionsTransportista"
-            responseKey="aplicacioTransportistas"
-            enabled={props.editMode}
-            configuration={preciosConfig}
-          />
+           <ReactGrid
+          id="aplicacionsTransportista"
+          extraQuery={[
+            {
+              columnName: "transportista.id",
+              value: `"${transpId}"`,
+              exact: true,
+            },
+          ]}
+          configuration={preciosConfig}
+        >
+          {(properties) => (
+            <MasterDetailedForm
+              url={API.aplicacionsTransportista}
+              formComponents={formComponents}
+              {...properties}
+            />
+          )}
+        </ReactGrid>
+        
         </OutlinedContainer>
       </Grid>
     </Grid>

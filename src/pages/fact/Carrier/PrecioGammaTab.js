@@ -5,10 +5,11 @@ import { FormattedMessage, injectIntl } from "react-intl";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 
 import { withValidations } from "modules/wrappers";
-
+import ReactGrid from "modules/ReactGrid";
+import MasterDetailedForm from "modules/ReactGrid/MasterDetailForm";
+import * as API from "redux/api";
 import { useParams } from "react-router-dom";
-import ExpandableGrid from "modules/ExpandableGrid";
-import { Chip } from "@material-ui/core";
+
 
 const PricesTab = ({
   formData,
@@ -36,6 +37,28 @@ const PricesTab = ({
   ];
   const { id: transpId } = useParams();
 
+  const gamma = {
+    placeHolder: props.intl.formatMessage({
+      id: "ArticulosGama.titulo",
+      defaultMessage: "Gama",
+    }),
+    type: "LOV",
+    key: "gamma",
+    id: "articlesGama",
+    noEditable:true,
+    breakpoints: {
+      xs: 12,
+      md: 4,
+    },
+    selector: {
+      key: "articleGammas",
+      labelKey: (data) => `${data.descripcio} (${data.codi})`,
+      sort: "codi",
+      cannotCreate: true,
+      advancedSearchColumns: aSCodeAndDescription,
+    },
+  };
+
   const preciosConfig = {
     title: props.intl.formatMessage({
       id: "Transportistas.precioGamma",
@@ -61,6 +84,8 @@ const PricesTab = ({
           defaultMessage: "gamma",
         }),
         getCellValue: (row) => (row.gamma ? row.gamma?.description : ""),
+        inlineEditionDisabled: true,
+        field:gamma
       },
       {
         name: "preu1",
@@ -91,28 +116,13 @@ const PricesTab = ({
         }),
       },
     ],
+    listKey: "preuPerGammas",
+    enableInlineEdition: true,
+    enableExpandableContent: true,
+  };
 
-    formComponents: [
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "ArticulosGama.titulo",
-          defaultMessage: "Gama",
-        }),
-        type: "LOV",
-        key: "gamma",
-        id: "articlesGama",
-        breakpoints: {
-          xs: 12,
-          md: 4,
-        },
-        selector: {
-          key: "articleGammas",
-          labelKey: (data) => `${data.descripcio} (${data.codi})`,
-          sort: "codi",
-          cannotCreate: true,
-          advancedSearchColumns: aSCodeAndDescription,
-        },
-      },
+    const formComponents = [
+      gamma,
       {
         placeHolder: props.intl.formatMessage({
           id: "Transportistas.precioMañana",
@@ -177,8 +187,8 @@ const PricesTab = ({
           ...props.numberValidations.minMaxValidation(0, 999999999999999),
         ],
       },
-    ],
-  };
+    ];
+  
 
   return (
     <Grid container>
@@ -192,12 +202,26 @@ const PricesTab = ({
             />
           }
         >
-          <ExpandableGrid
-            id="preusPerGamma"
-            responseKey="preuPerGammas"
-            enabled={props.editMode}
-            configuration={preciosConfig}
-          />
+            <ReactGrid
+          id="preusPerGamma"
+          extraQuery={[
+            {
+              columnName: "transportista.id",
+              value: `"${transpId}"`,
+              exact: true,
+            },
+          ]}
+          configuration={preciosConfig}
+        >
+          {(properties) => (
+            <MasterDetailedForm
+              url={API.preusPerGamma}
+              formComponents={formComponents}
+              {...properties}
+            />
+          )}
+        </ReactGrid>
+       
         </OutlinedContainer>
       </Grid>
     </Grid>
