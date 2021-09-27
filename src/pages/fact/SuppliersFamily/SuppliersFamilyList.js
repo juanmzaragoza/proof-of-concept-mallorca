@@ -46,6 +46,7 @@ const SuppliersFamilyList = ({ actions, ...props }) => {
           id: "FamiliaProveedores.nombre",
           defaultMessage: "Nombre",
         }),
+        width: 280
       },
       {
         name: "ctacprcmp",
