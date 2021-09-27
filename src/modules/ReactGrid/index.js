@@ -383,12 +383,12 @@ const ReactGrid = React.memo(
               extraProps["editCellComponent"] = LOVCellComponentWithField;
             }
 
-
             return (
               <Column
                 key={key}
                 caption={column.title}
                 dataField={column.name}
+                width={column.width}
                 cellRender={(cell) => {
                   const {
                     column: { name },
@@ -484,6 +484,7 @@ ReactGrid.propTypes = {
       PropTypes.shape({
         name: PropTypes.string,
         title: PropTypes.string,
+        width: PropTypes.number,
         getCellValue: PropTypes.func,
         inlineEditionDisabled: PropTypes.bool,
         inlineCreationDisabled: PropTypes.bool,
