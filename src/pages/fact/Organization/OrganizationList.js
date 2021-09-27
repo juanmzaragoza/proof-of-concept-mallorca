@@ -212,30 +212,30 @@ const OrganizationList = ({ actions, ...props }) => {
   };
 
   const formComponents = [
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "FamiliaProveedores.codigo",
-        defaultMessage: "Código",
-      }),
-      type: "input",
-      key: "codi",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 1,
-      },
-      noEditable: true,
-      validationType: "string",
-      validations: [
-        ...props.stringValidations.fieldExistsValidation(
-          "organitzacio",
-          "codi",
-          CODE
-        ),
-        ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.minMaxValidation(1, 6),
-      ],
-    },
+    // {
+    //   placeHolder: props.intl.formatMessage({
+    //     id: "FamiliaProveedores.codigo",
+    //     defaultMessage: "Código",
+    //   }),
+    //   type: "input",
+    //   key: "codi",
+    //   required: true,
+    //   breakpoints: {
+    //     xs: 12,
+    //     md: 1,
+    //   },
+    //   noEditable: true,
+    //   validationType: "string",
+    //   validations: [
+    //     ...props.stringValidations.fieldExistsValidation(
+    //       "organitzacio",
+    //       "codi",
+    //       CODE
+    //     ),
+    //     ...props.commonValidations.requiredValidation(),
+    //     ...props.stringValidations.minMaxValidation(1, 6),
+    //   ],
+    // },
     {
       placeHolder: props.intl.formatMessage({
         id: "FamiliaProveedores.nombre",
@@ -275,7 +275,7 @@ const OrganizationList = ({ actions, ...props }) => {
       key: "domicili",
       breakpoints: {
         xs: 12,
-        md: 5,
+        md: 6,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 60)],
