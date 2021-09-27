@@ -8,7 +8,7 @@ import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 import { TIPO_DIR_COMERCIALES_SELECTOR_VALUES } from "constants/selectors";
 import { withValidations } from "modules/wrappers";
-
+import { Chip } from "@material-ui/core";
 
 const FactoringLineList = ({ actions, ...props }) => {
   useEffect(() => {
@@ -193,6 +193,25 @@ const FactoringLineList = ({ actions, ...props }) => {
     },
   };
 
+  const recurso = {
+    placeHolder: props.intl.formatMessage({
+      id: "LiniasFactoring.recurso",
+      defaultMessage: "Recurso",
+    }),
+    type: "select",
+    key: "recursSiONo",
+    required: true,
+    breakpoints: {
+      xs: 12,
+      md: 2,
+    },
+    selector: {
+      options: TIPO_DIR_COMERCIALES_SELECTOR_VALUES,
+    },
+    validationType: "string",
+    validations: [...props.commonValidations.requiredValidation()],
+  };
+
   const listConfiguration = {
     columns: [
       {
@@ -233,41 +252,72 @@ const FactoringLineList = ({ actions, ...props }) => {
           defaultMessage: "Importe Límite",
         }),
       },
+      {
+        name: "recursSiONo",
+        title: props.intl.formatMessage({
+          id: "LiniasFactoring.recurso",
+          defaultMessage: "Recurso",
+        }),
+          getCellValue: (row) => {
+            if (row.recursSiONo) {
+              if (row.recursSiONo === "S") {
+                return    <Chip
+                label={props.intl.formatMessage({
+                  id: "Comun.SI",
+                  defaultMessage: "Si",
+                })}
+                variant="outlined"
+              />
+              } else {
+                return    <Chip
+                label={props.intl.formatMessage({
+                  id: "Comun.NO",
+                  defaultMessage: "NO",
+                })}
+                variant="outlined"
+              />
+              }
+            }
+          },
+          field: recurso,
+          allowFilter: false,
+      
+      },
     ],
     URL: API.liniaFactoring,
     listKey: "liniaFactorings",
     enableInlineEdition: true,
-    enableExpandableContent: true
+    enableExpandableContent: true,
   };
 
   const createConfiguration = [
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "LiniasFactoring.numContrato",
-        defaultMessage: "Num. Contrato",
-      }),
-      type: "input",
-      key: "contracteNumero",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      noEditable: true,
-      validationType: "string",
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...props.stringValidations.fieldExistsValidation(
-          "liniaFactoring",
-          "contracteNumero",
-          props.intl.formatMessage({
-            id: "LiniasFactoring.numContrato",
-            defaultMessage: "Num. Contrato",
-          })
-        ),
-        ...props.stringValidations.minMaxValidation(0, 20),
-      ],
-    },
+    // {
+    //   placeHolder: props.intl.formatMessage({
+    //     id: "LiniasFactoring.numContrato",
+    //     defaultMessage: "Num. Contrato",
+    //   }),
+    //   type: "input",
+    //   key: "contracteNumero",
+    //   required: true,
+    //   breakpoints: {
+    //     xs: 12,
+    //     md: 2,
+    //   },
+    //   noEditable: true,
+    //   validationType: "string",
+    //   validations: [
+    //     ...props.commonValidations.requiredValidation(),
+    //     ...props.stringValidations.fieldExistsValidation(
+    //       "liniaFactoring",
+    //       "contracteNumero",
+    //       props.intl.formatMessage({
+    //         id: "LiniasFactoring.numContrato",
+    //         defaultMessage: "Num. Contrato",
+    //       })
+    //     ),
+    //     ...props.stringValidations.minMaxValidation(0, 20),
+    //   ],
+    // },
     {
       placeHolder: props.intl.formatMessage({
         id: "LiniasFactoring.bancCodi",
@@ -277,7 +327,7 @@ const FactoringLineList = ({ actions, ...props }) => {
       key: "banc",
       breakpoints: {
         xs: 12,
-        md: 5,
+        md: 3,
       },
       required: true,
       selector: {
@@ -305,7 +355,7 @@ const FactoringLineList = ({ actions, ...props }) => {
       key: "bancNom",
       breakpoints: {
         xs: 12,
-        md: 5,
+        md: 3,
       },
       validationType: "string",
       validations: [...props.commonValidations.requiredValidation()],
@@ -371,24 +421,7 @@ const FactoringLineList = ({ actions, ...props }) => {
       validations: [...props.numberValidations.minMaxValidation(0, 9999)],
     },
 
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "LiniasFactoring.recurso",
-        defaultMessage: "Recurso",
-      }),
-      type: "select",
-      key: "recursSiONo",
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      selector: {
-        options: TIPO_DIR_COMERCIALES_SELECTOR_VALUES,
-      },
-      validationType: "string",
-      validations: [...props.commonValidations.requiredValidation()],
-    },
+    recurso,
 
     {
       placeHolder: props.intl.formatMessage({
@@ -399,7 +432,7 @@ const FactoringLineList = ({ actions, ...props }) => {
       key: "divisa",
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 3,
       },
       selector: {
         key: "divisas",
@@ -409,7 +442,7 @@ const FactoringLineList = ({ actions, ...props }) => {
         advancedSearchColumns: aSCodeAndName,
       },
     },
-    ...codiPostal(4),
+    ...codiPostal(3),
     {
       placeHolder: props.intl.formatMessage({
         id: "Clientes.observaciones",

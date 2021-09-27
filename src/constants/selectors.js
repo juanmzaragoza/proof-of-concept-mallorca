@@ -1268,4 +1268,23 @@ export const APLICAR_A_SELECTOR_VALUE = [
 ];
 
 
+export const ESTADO_AVISO_SELECTOR_VALUE = [
+  {
+    value: "PENDENT",
+    labelId: "Selector.pendiente",
+    label: "Pendiente",
+  },
+  {
+    value: "EN_CURS",
+    labelId: "Selector.enCurso",
+    label: "En curso",
+  },
+  {
+    value: "FINALITZAT",
+    labelId: "Selector.finalizado",
+    label: "Finalizado",
+  },
+];
+
+
 

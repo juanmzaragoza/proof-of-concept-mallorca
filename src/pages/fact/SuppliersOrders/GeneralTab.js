@@ -8,21 +8,17 @@ import {
 } from "constants/selectors";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
-import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 import { useTabForm } from "hooks/tab-form";
 
 const SUPPLIERS_ORDERS_SECTION_INDEX = 0;
-const PRESSUPUESTO_SECTION_INDEX = 2;
-const OTROS_SECTION_INDEX = 1;
+
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [SUPPLIERS_ORDERS_SECTION_INDEX]: false,
-      [OTROS_SECTION_INDEX]: false,
-      [PRESSUPUESTO_SECTION_INDEX]: true,
     },
     setIsValid: props.setIsValid,
   });
@@ -173,7 +169,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     };
   };
 
-  const datosGenerales = [
+  const cabezera = [
     {
       placeHolder: props.intl.formatMessage({
         id: "PedidosProveedor.numero",
@@ -185,61 +181,12 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       noEditable: true,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       validationType: "number",
       ...withRequiredValidation([
         ...props.numberValidations.minMaxValidation(1, 999999999),
       ]),
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.serieCompra",
-        defaultMessage: "Serie compra",
-      }),
-      type: "LOV",
-      key: "serieCompra",
-
-      breakpoints: {
-        xs: 12,
-        md: 4,
-      },
-      selector: {
-        key: "serieCompras",
-        labelKey: (data) => `${data.descripcio} (${data.codi})`,
-        sort: "descripcio",
-        cannotCreate: true,
-        advancedSearchColumns: [
-          {
-            title: props.intl.formatMessage({
-              id: "Comun.codigo",
-              defaultMessage: "Código",
-            }),
-            name: "codi",
-          },
-          {
-            title: props.intl.formatMessage({
-              id: "Comun.descripcion",
-              defaultMessage: "Descripción",
-            }),
-            name: "descripcio",
-          },
-        ],
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "PedidosProveedor.referencia",
-        defaultMessage: "Referencia",
-      }),
-      type: "input",
-      key: "referencia",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(0, 20)],
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -293,30 +240,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "PedidosProveedor.direccionComercial",
-        defaultMessage: "Dirección Comercial",
-      }),
-      type: "LOV",
-      key: "adresaComercial",
-      id: "adresaComercials",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      selector: {
-        key: "adresaComercials",
-        labelKey: (data) => `${data.domicili} (${data.codi})`,
-        sort: "codi",
-        creationComponents: [...codeAndDescription(6, 6)],
-        advancedSearchColumns: [
-          { title: CODE, name: "codi" },
-          { title: DOMICILI, name: "domicili" },
-        ],
-      },
-    },
-
-    {
-      placeHolder: props.intl.formatMessage({
         id: "Presupuestos.divisa",
         defaultMessage: "Divisa",
       }),
@@ -325,7 +248,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 2,
       },
       selector: {
         key: "divisas",
@@ -336,45 +259,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       },
       validationType: "object",
       validations: [...props.commonValidations.requiredValidation()],
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Cajas.valorDivisa",
-        defaultMessage: "Valor Divisa",
-      }),
-      type: "numeric",
-      suffix: "€",
-      required: true,
-      key: "valorDivisaEuros",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      validationType: "number",
-      validations: [
-        ...props.commonValidations.requiredValidation(),
-        ...props.numberValidations.minMaxValidation(0, 999999999999999),
-      ],
-    },
-
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.tarifaProv",
-        defaultMessage: "Tarifa Proveedor ",
-      }),
-      type: "LOV",
-      key: "tarifaProveidor",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      selector: {
-        key: "tarifaProveidors",
-        labelKey: formatCodeAndDescription,
-        sort: "descripcio",
-        creationComponents: [...codeAndDescription(6, 6)],
-        advancedSearchColumns: aSCodeAndDescription,
-      },
     },
     {
       placeHolder: props.intl.formatMessage({
@@ -395,6 +279,140 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         advancedSearchColumns: aSCodeAndName,
       },
     },
+  ];
+
+  const datosGenerales = [
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Proveedores.serieCompra",
+        defaultMessage: "Serie compra",
+      }),
+      type: "LOV",
+      key: "serieCompra",
+
+      breakpoints: {
+        xs: 12,
+        md: 4,
+      },
+      selector: {
+        key: "serieCompras",
+        labelKey: (data) => `${data.descripcio} (${data.codi})`,
+        sort: "descripcio",
+        cannotCreate: true,
+        advancedSearchColumns: [
+          {
+            title: props.intl.formatMessage({
+              id: "Comun.codigo",
+              defaultMessage: "Código",
+            }),
+            name: "codi",
+          },
+          {
+            title: props.intl.formatMessage({
+              id: "Comun.descripcion",
+              defaultMessage: "Descripción",
+            }),
+            name: "descripcio",
+          },
+        ],
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "PedidosProveedor.referencia",
+        defaultMessage: "Referencia",
+      }),
+      type: "input",
+      key: "referencia",
+      breakpoints: {
+        xs: 12,
+        md: 4,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 20)],
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "PedidosProveedor.direccionComercial",
+        defaultMessage: "Dirección Comercial",
+      }),
+      type: "LOV",
+      key: "adresaComercial",
+      id: "adresaComercials",
+      breakpoints: {
+        xs: 12,
+        md: 4,
+      },
+      selector: {
+        key: "adresaComercials",
+        labelKey: (data) => `${data.domicili} (${data.codi})`,
+        sort: "codi",
+        creationComponents: [...codeAndDescription(6, 6)],
+        advancedSearchColumns: [
+          { title: CODE, name: "codi" },
+          { title: DOMICILI, name: "domicili" },
+        ],
+      },
+    },
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "PedidosProveedor.estado",
+        defaultMessage: "Estado",
+      }),
+      type: "select",
+      key: "estat",
+      required: true,
+      breakpoints: {
+        xs: 12,
+        md: 4,
+      },
+      selector: {
+        options: ESTADO_PEDIDO_PROV_SELECTOR_VALUES,
+      },
+      validationType: "string",
+      validations: [...props.commonValidations.requiredValidation()],
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Cajas.valorDivisa",
+        defaultMessage: "Valor Divisa",
+      }),
+      type: "numeric",
+      suffix: "€",
+      required: true,
+      key: "valorDivisaEuros",
+      breakpoints: {
+        xs: 12,
+        md: 4,
+      },
+      validationType: "number",
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+        ...props.numberValidations.minMaxValidation(0, 999999999999999),
+      ],
+    },
+
+    {
+      placeHolder: props.intl.formatMessage({
+        id: "Clientes.fact.tarifaProv",
+        defaultMessage: "Tarifa Proveedor ",
+      }),
+      type: "LOV",
+      key: "tarifaProveidor",
+      breakpoints: {
+        xs: 12,
+        md: 4,
+      },
+      selector: {
+        key: "tarifaProveidors",
+        labelKey: formatCodeAndDescription,
+        sort: "descripcio",
+        creationComponents: [...codeAndDescription(6, 6)],
+        advancedSearchColumns: aSCodeAndDescription,
+      },
+    },
 
     {
       placeHolder: props.intl.formatMessage({
@@ -406,7 +424,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       id: "ivaFact",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 4,
       },
       selector: {
         key: "ivas",
@@ -425,7 +443,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "percentatgeDescompte1",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 4,
       },
       suffix: "%",
       validationType: "number",
@@ -440,7 +458,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "percentatgeDescompte2",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 4,
       },
       suffix: "%",
       validationType: "number",
@@ -456,7 +474,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "transportista",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       selector: {
         key: "transportistas",
@@ -500,43 +518,40 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
     {
       placeHolder: props.intl.formatMessage({
-        id: "PedidosProveedor.vehiculo",
-        defaultMessage: "Vehículo",
-      }),
-      type: "LOV",
-      key: "vehicle",
-      id: "vehicles",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      selector: {
-        key: "vehicles",
-        labelKey: formatCodeAndDescription,
-        sort: "descripcio",
-        cannotCreate: true,
-        advancedSearchColumns: aSCodeAndDescription,
-      },
-    },
-
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "PedidosProveedor.estado",
-        defaultMessage: "Estado",
+        id: "PedidosProveedores.tipoTransporte",
+        defaultMessage: "Tipo transporte",
       }),
       type: "select",
-      key: "estat",
-      required: true,
+      key: "tipusTransport",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 4,
       },
       selector: {
-        options: ESTADO_PEDIDO_PROV_SELECTOR_VALUES,
+        options: TIPO_TRANSPORTE_SELECTOR_VALUES,
       },
-      validationType: "string",
-      validations: [...props.commonValidations.requiredValidation()],
     },
+    // {
+    //   placeHolder: props.intl.formatMessage({
+    //     id: "PedidosProveedor.vehiculo",
+    //     defaultMessage: "Vehículo",
+    //   }),
+    //   type: "LOV",
+    //   key: "vehicle",
+    //   id: "vehicles",
+    //   breakpoints: {
+    //     xs: 12,
+    //     md: 3,
+    //   },
+    //   selector: {
+    //     key: "vehicles",
+    //     labelKey: formatCodeAndDescription,
+    //     sort: "descripcio",
+    //     cannotCreate: true,
+    //     advancedSearchColumns: aSCodeAndDescription,
+    //   },
+    // },
+
     {
       placeHolder: props.intl.formatMessage({
         id: "Proveedores.Facturacion.portes",
@@ -546,112 +561,98 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "portes",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 4,
       },
       selector: {
         options: PORTES_PEDIDO_SELECTOR_VALUES,
       },
     },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "PedidosProveedores.tipoTransporte",
-        defaultMessage: "Tipo transporte",
-      }),
-      type: "select",
-      key: "tipusTransport",
-      breakpoints: {
-        xs: 12,
-        md: 2,
-      },
-      selector: {
-        options: TIPO_TRANSPORTE_SELECTOR_VALUES,
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Proveedores.tvencimiento",
-        defaultMessage: "Tipo Vencimiento",
-      }),
-      type: "LOV",
-      key: "tveCodi",
-      id: "tipusVenciment",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      selector: {
-        key: "tipusVenciments",
-        labelKey: formatCodeAndDescription,
-        sort: "descripcio",
-        cannotCreate: true,
-        creationComponents: [
-          {
-            type: "input",
-            key: "codi",
-            placeHolder: CODE,
-            required: true,
-            noEditable: true,
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-          },
-          {
-            type: "input",
-            key: "nom",
-            placeHolder: NOM,
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-          },
-          {
-            type: "input",
-            key: "tipus",
-            placeHolder: props.intl.formatMessage({
-              id: "TiposVencimiento.tipos",
-              defaultMessage: "Tipos",
-            }),
-            required: true,
-            breakpoints: {
-              xs: 12,
-              md: 4,
-            },
-          },
-        ],
-        advancedSearchColumns: aSCodeAndDescription,
-        transform: {
-          apply: (tipusVenciments) => tipusVenciments && tipusVenciments.codi,
-          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-        },
-      },
-    },
-    {
-      placeHolder: props.intl.formatMessage({
-        id: "Clientes.fact.docCobro",
-        defaultMessage: "Documento cobro",
-      }),
-      type: "LOV",
-      key: "documentPagamentCodi",
-      id: "documentPagamentCobrament",
-      breakpoints: {
-        xs: 12,
-        md: 3,
-      },
-      selector: {
-        key: "documentPagamentCobraments",
-        labelKey: formatCodeAndDescription,
-        sort: "descripcio",
-        advancedSearchColumns: aSCodeAndDescription,
-        cannotCreate: true,
-        transform: {
-          apply: (documentPagamentCobraments) =>
-            documentPagamentCobraments && documentPagamentCobraments.codi,
-          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-        },
-      },
-    },
+
+    // {
+    //   placeHolder: props.intl.formatMessage({
+    //     id: "Proveedores.tvencimiento",
+    //     defaultMessage: "Tipo Vencimiento",
+    //   }),
+    //   type: "LOV",
+    //   key: "tveCodi",
+    //   id: "tipusVenciment",
+    //   breakpoints: {
+    //     xs: 12,
+    //     md: 3,
+    //   },
+    //   selector: {
+    //     key: "tipusVenciments",
+    //     labelKey: formatCodeAndDescription,
+    //     sort: "descripcio",
+    //     cannotCreate: true,
+    //     creationComponents: [
+    //       {
+    //         type: "input",
+    //         key: "codi",
+    //         placeHolder: CODE,
+    //         required: true,
+    //         noEditable: true,
+    //         breakpoints: {
+    //           xs: 12,
+    //           md: 4,
+    //         },
+    //       },
+    //       {
+    //         type: "input",
+    //         key: "nom",
+    //         placeHolder: NOM,
+    //         required: true,
+    //         breakpoints: {
+    //           xs: 12,
+    //           md: 4,
+    //         },
+    //       },
+    //       {
+    //         type: "input",
+    //         key: "tipus",
+    //         placeHolder: props.intl.formatMessage({
+    //           id: "TiposVencimiento.tipos",
+    //           defaultMessage: "Tipos",
+    //         }),
+    //         required: true,
+    //         breakpoints: {
+    //           xs: 12,
+    //           md: 4,
+    //         },
+    //       },
+    //     ],
+    //     advancedSearchColumns: aSCodeAndDescription,
+    //     transform: {
+    //       apply: (tipusVenciments) => tipusVenciments && tipusVenciments.codi,
+    //       reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+    //     },
+    //   },
+    // },
+    // {
+    //   placeHolder: props.intl.formatMessage({
+    //     id: "Clientes.fact.docCobro",
+    //     defaultMessage: "Documento cobro",
+    //   }),
+    //   type: "LOV",
+    //   key: "documentPagamentCodi",
+    //   id: "documentPagamentCobrament",
+    //   breakpoints: {
+    //     xs: 12,
+    //     md: 3,
+    //   },
+    //   selector: {
+    //     key: "documentPagamentCobraments",
+    //     labelKey: formatCodeAndDescription,
+    //     sort: "descripcio",
+    //     advancedSearchColumns: aSCodeAndDescription,
+    //     cannotCreate: true,
+    //     transform: {
+    //       apply: (documentPagamentCobraments) =>
+    //         documentPagamentCobraments && documentPagamentCobraments.codi,
+    //       reverse: (rows, codi) => rows.find((row) => row.codi === codi),
+    //     },
+    //   },
+    // },
 
     {
       placeHolder: props.intl.formatMessage({
@@ -662,7 +663,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "diaPrevistEntrega",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 4,
       },
       validationType: "string",
     },
@@ -676,7 +677,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "horaPrevistaRecepcio",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 4,
       },
       validationType: "string",
     },
@@ -689,10 +690,13 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "horaRebut",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 4,
       },
       validationType: "string",
     },
+  ];
+
+  const observaciones = [
     {
       placeHolder: props.intl.formatMessage({
         id: "PedidosProveedor.piePedido",
@@ -703,7 +707,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       id: "peusDocument",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 10,
       },
       selector: {
         key: "peuDocuments",
@@ -740,7 +744,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "pressupost",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
       selector: {
         key: "pressuposts",
@@ -767,7 +771,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       disabled: true,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
     },
     {
@@ -780,7 +784,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       disabled: true,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
     },
     {
@@ -793,7 +797,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       disabled: true,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
     },
     {
@@ -806,7 +810,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       disabled: true,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
     },
 
@@ -819,7 +823,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "capitol",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
       selector: {
         key: "capitols",
@@ -845,7 +849,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "partida",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
       selector: {
         key: "partidas",
@@ -863,7 +867,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "projecte",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
       selector: {
         key: "projectes",
@@ -887,7 +891,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 4,
+        md: 6,
       },
       selector: {
         key: "operaris",
@@ -962,7 +966,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       id: "avaries",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
       selector: {
         key: "avarias",
@@ -985,7 +989,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "tipusIncidenciaFactura",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
       selector: {
         key: "tipusIncidenciaFacturas",
@@ -1004,71 +1008,34 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "mantenirCostsArticle",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 6,
       },
     },
   ];
 
-  const tabs = [
+  const totalPedido = [
     {
-      className: "general-tab-subtab",
-      label: (
-        <FormattedMessage
-          id={"PedidosProveedor.tabs.otros"}
-          defaultMessage={"Otros"}
-        />
-      ),
-      key: 0,
-      component: (
-        <GenericForm
-          formComponents={otrosConfig}
-          emptyPaper={true}
-          setFormData={setFormData}
-          getFormData={getFormData}
-          loading={props.loading}
-          formErrors={props.formErrors}
-          submitFromOutside={props.submitFromOutside}
-          onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) => addValidity(OTROS_SECTION_INDEX, value)}
-          onBlur={(e) => handleTouched(OTROS_SECTION_INDEX)}
-          {...props}
-        />
-      ),
+      placeHolder: props.intl.formatMessage({
+        id: "PedidosProveedor.importeBruto",
+        defaultMessage: "Importe Bruto",
+      }),
+      type: "numeric",
+      
+      disabled:true,
+      key: "importTotalExtraField",
+      breakpoints: {
+        xs: 12,
+        md: 6,
+      },
     },
-    {
-      className: "general-tab-subtab",
-      label: (
-        <FormattedMessage
-          id={"PedidosProveedor.tabs.presupuestos"}
-          defaultMessage={"Presupuestos"}
-        />
-      ),
-      key: 1,
-      component: (
-        <GenericForm
-          formComponents={presupostConfig}
-          emptyPaper={true}
-          setFormData={setFormData}
-          getFormData={getFormData}
-          loading={props.loading}
-          formErrors={props.formErrors}
-          submitFromOutside={props.submitFromOutside}
-          onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) =>
-            addValidity(PRESSUPUESTO_SECTION_INDEX, value)
-          }
-          onBlur={(e) => handleTouched(PRESSUPUESTO_SECTION_INDEX)}
-          {...props}
-        />
-      ),
-    },
+
   ];
 
   return (
-    <Grid container>
+    <Grid container spacing={2}>
       <Grid xs={12} item>
         <GenericForm
-          formComponents={datosGenerales}
+          formComponents={cabezera}
           emptyPaper={true}
           editMode={props.editMode}
           getFormData={getFormData}
@@ -1084,9 +1051,146 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           {...props}
         />
       </Grid>
-      <Grid xs={12} item>
-        <OutlinedContainer>
-          <ConfigurableTabs tabs={tabs} />
+      <Grid xs={7} item>
+        <OutlinedContainer
+          className="general-tab-container"
+          title={
+            <FormattedMessage
+              id={"Proyectos.datosGenerales"}
+              defaultMessage={"Datos Generales"}
+            />
+          }
+        >
+          <GenericForm
+            formComponents={datosGenerales}
+            emptyPaper={true}
+            editMode={props.editMode}
+            getFormData={getFormData}
+            setFormData={setFormData}
+            loading={props.loading}
+            formErrors={props.formErrors}
+            submitFromOutside={props.submitFromOutside}
+            onSubmit={() => props.onSubmitTab(formData)}
+            handleIsValid={(value) =>
+              addValidity(SUPPLIERS_ORDERS_SECTION_INDEX, value)
+            }
+            onBlur={(e) => handleTouched(SUPPLIERS_ORDERS_SECTION_INDEX)}
+            {...props}
+          />
+        </OutlinedContainer>
+        <Grid container spacing={2}>
+          <Grid xs={6} item>
+          <OutlinedContainer
+          className="general-tab-container"
+          title={
+            <FormattedMessage
+              id={"Comun.observaciones"}
+              defaultMessage={"Observaciones"}
+            />
+          }
+        >
+          <GenericForm
+            formComponents={observaciones}
+            emptyPaper={true}
+            editMode={props.editMode}
+            getFormData={getFormData}
+            setFormData={setFormData}
+            loading={props.loading}
+            formErrors={props.formErrors}
+            submitFromOutside={props.submitFromOutside}
+            onSubmit={() => props.onSubmitTab(formData)}
+            handleIsValid={(value) =>
+              addValidity(SUPPLIERS_ORDERS_SECTION_INDEX, value)
+            }
+            onBlur={(e) => handleTouched(SUPPLIERS_ORDERS_SECTION_INDEX)}
+            {...props}
+          />
+        </OutlinedContainer>
+      </Grid>
+      <Grid xs={6} item>
+          <OutlinedContainer
+          className="general-tab-container"
+          title={
+            <FormattedMessage
+              id={"PedidosProveedor.totalesPedido"}
+              defaultMessage={"Totales Pedido"}
+            />
+          }
+        >
+          <GenericForm
+            formComponents={totalPedido}
+            emptyPaper={true}
+            editMode={props.editMode}
+            getFormData={getFormData}
+            setFormData={setFormData}
+            loading={props.loading}
+            formErrors={props.formErrors}
+            submitFromOutside={props.submitFromOutside}
+            onSubmit={() => props.onSubmitTab(formData)}
+            handleIsValid={(value) =>
+              addValidity(SUPPLIERS_ORDERS_SECTION_INDEX, value)
+            }
+            onBlur={(e) => handleTouched(SUPPLIERS_ORDERS_SECTION_INDEX)}
+            {...props}
+          />
+        </OutlinedContainer>
+      </Grid>
+          </Grid>
+        </Grid>
+       
+
+      <Grid xs={5} item>
+        <OutlinedContainer
+          className="general-tab-container"
+          title={
+            <FormattedMessage
+              id={"PedidosProveedor.tabs.presupuestos"}
+              defaultMessage={"Presupuestos"}
+            />
+          }
+        >
+          <GenericForm
+            formComponents={presupostConfig}
+            emptyPaper={true}
+            editMode={props.editMode}
+            getFormData={getFormData}
+            setFormData={setFormData}
+            loading={props.loading}
+            formErrors={props.formErrors}
+            submitFromOutside={props.submitFromOutside}
+            onSubmit={() => props.onSubmitTab(formData)}
+            handleIsValid={(value) =>
+              addValidity(SUPPLIERS_ORDERS_SECTION_INDEX, value)
+            }
+            onBlur={(e) => handleTouched(SUPPLIERS_ORDERS_SECTION_INDEX)}
+            {...props}
+          />
+        </OutlinedContainer>
+        <OutlinedContainer
+          className="general-tab-container"
+          title={
+            <FormattedMessage
+              id={"PedidosProveedor.tabs.otros"}
+              defaultMessage={"Otros"}
+            />
+          }
+        >
+          <GenericForm
+            formComponents={otrosConfig}
+            emptyPaper={true}
+            editMode={props.editMode}
+            getFormData={getFormData}
+            setFormData={setFormData}
+            loading={props.loading}
+            formErrors={props.formErrors}
+            submitFromOutside={props.submitFromOutside}
+            onSubmit={() => props.onSubmitTab(formData)}
+            handleIsValid={(value) =>
+              addValidity(SUPPLIERS_ORDERS_SECTION_INDEX, value)
+            }
+            onBlur={(e) => handleTouched(SUPPLIERS_ORDERS_SECTION_INDEX)}
+            {...props}
+          />
         </OutlinedContainer>
       </Grid>
     </Grid>

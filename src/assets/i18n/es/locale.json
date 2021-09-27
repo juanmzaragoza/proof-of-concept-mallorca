@@ -1046,7 +1046,7 @@
   "Proyectos.fechasProyecto": "Fechas proyecto",
   "Proyectos.datosTecnicos": "Datos técnicos",
   "Proyectos.datosCliente": "Datos cliente",
-  "Proyectos.datosGenerales": "Datos generales",
+  "Proyectos.datosGenerales": "Datos Generales",
   "Proyectos.facturaFinal": "Factura final",
   "Proyectos.areaNegocio": "Área negocio",
   "Proyectos.codigoContabilidad": "Código contabilidad",
@@ -2175,6 +2175,13 @@
   "Proveedores.estado":"Estado",
   "Proveedores.destinatario2":"Destinatario 2",
   "Proveedores.numPedido":"Num Pedido",
-  "SeriesCompras.periodoValidez":"Período Validez"
+  "SeriesCompras.periodoValidez":"Período Validez",
+  "Selector.enCurso":"En curso",
+  "Selector.finalizado":"Finalizado",
+  "PedidosProveedor.importeTotal":"Importe Total",
+  "Articulos.familia":"Familia",
+  "PedidosProveedor.datosPedido":"Datos Pedido",
+  "PedidosProveedor.totalesPedido":"Totales Pedido"
+
 
 }

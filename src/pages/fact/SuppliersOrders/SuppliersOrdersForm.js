@@ -99,7 +99,7 @@ const SuppliersOrdersForm = React.memo(
     /** step 3 */
     const tabs = [
       {
-        ...getTranslations("Proveedores.tabs.general", "General"),
+        ...getTranslations("PedidosProveedor.datosPedido", "Datos Pedido"),
         key: GENERAL_TAB_INDEX,
         error: tabHasError(GENERAL_TAB_INDEX),
         component: (

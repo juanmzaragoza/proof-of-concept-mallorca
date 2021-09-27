@@ -76,6 +76,8 @@ const ReactGrid = React.memo(
     const [expandedData, setExpandedData] = useState({});
     const [store, setStore] = useState(null);
 
+    const [columnNameChanged, setColumnNameChanged] = useState(null);
+
     const deleteData = (row) => {
       actions.deleteData({ key: props.id, id: row.id });
     };
@@ -173,7 +175,9 @@ const ReactGrid = React.memo(
      */
     const OPERATION_INDEX = 1;
     const REGEX_COLUMN_INDEX = 0;
-    const filterValues = ({ column: { name: columnName }, value }) => {
+    const filterValues = (e) => {
+      const { column: { name: columnName }, value } = e;
+      setColumnNameChanged(columnName);
       if (!value) {
         setFilters(
           filters.filter((filter) => filter.columnName !== columnName)
@@ -317,6 +321,7 @@ const ReactGrid = React.memo(
       }
     }
 
+    let editorElement = undefined;
     return (
       <React.Fragment>
         <LoadPanel
@@ -352,6 +357,18 @@ const ReactGrid = React.memo(
             setColumns(cols);
           }}
           onSaving={onSaving}
+          // focus when filtering
+          // ref: https://supportcenter.devexpress.com/ticket/details/t357309/dxdatagrid-how-to-focus-filter-row-cell-after-create-grid#
+          onCellPrepared={(e) => {
+            const hasChanged = e.column.name === columnNameChanged;
+            if (e.rowType === "filter" && hasChanged) {
+              const cellElement = e.cellElement;
+              editorElement = cellElement.querySelector(".dx-texteditor-input");
+            }
+          }}
+          onContentReady={(e)=>{
+            editorElement && editorElement.focus();
+          }}
           {...expandableOptions}
         >
           {!configuration.disabledFiltering && <HeaderFilter visible={false} />}
