@@ -8,6 +8,8 @@ import { useTabForm } from "../../../hooks/tab-form";
 import ReactGrid from "modules/ReactGrid";
 import MasterDetailedForm from "modules/ReactGrid/MasterDetailForm";
 import * as API from "redux/api";
+import { ESTADO_AVISO_SELECTOR_VALUE } from "constants/selectors";
+
 
 const AvisosTab = ({ formData, setFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
@@ -136,6 +138,24 @@ const AvisosTab = ({ formData, setFormData, ...props }) => {
     },
   ];
 
+  const tipoEstat = {
+    placeHolder: props.intl.formatMessage({
+      id: "Proveedores.estado",
+      defaultMessage: "Estado",
+    }),
+    type: "select",
+    key: "estado",
+    breakpoints: {
+      xs: 12,
+      md: 3,
+    },
+    selector: {
+      options: ESTADO_AVISO_SELECTOR_VALUE,
+    },
+  };
+
+  
+
   const codiPostal = (md = 6) => [
     {
       placeHolder: props.intl.formatMessage({
@@ -244,7 +264,7 @@ const AvisosTab = ({ formData, setFormData, ...props }) => {
       defaultMessage: "Encargado",
     }),
     type: "LOV",
-    key: "operariCodi1",
+    key: "operariReb",
     id: "operari",
     breakpoints: {
       xs: 12,
@@ -254,10 +274,7 @@ const AvisosTab = ({ formData, setFormData, ...props }) => {
       key: "operaris",
       labelKey: formatCodeAndName,
       sort: "nom",
-      transform: {
-        apply: (operaris) => operaris && operaris.codi,
-        reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-      },
+    
       cannotCreate: true,
       advancedSearchColumns: aSCodeAndName,
     },
@@ -269,7 +286,8 @@ const AvisosTab = ({ formData, setFormData, ...props }) => {
       defaultMessage: "Encargado",
     }),
     type: "LOV",
-    key: "operariCodi",
+    key: "operariDti",
+    id:"operariCodi",
     breakpoints: {
       xs: 12,
       md: 3,
@@ -278,10 +296,7 @@ const AvisosTab = ({ formData, setFormData, ...props }) => {
       key: "operaris",
       labelKey: formatCodeAndName,
       sort: "nom",
-      transform: {
-        apply: (operaris) => operaris && operaris.codi,
-        reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-      },
+     
       cannotCreate: true,
       advancedSearchColumns: aSCodeAndName,
     },
@@ -314,8 +329,8 @@ const AvisosTab = ({ formData, setFormData, ...props }) => {
       defaultMessage: "Sección",
     }),
     type: "LOV",
-    key: "seccioCodi",
-    id: "seccio",
+    key: "seccio",
+
     required: true,
     breakpoints: {
       xs: 12,
@@ -327,12 +342,9 @@ const AvisosTab = ({ formData, setFormData, ...props }) => {
       sort: "codi",
       cannotCreate: true,
       advancedSearchColumns: aSCodeAndName,
-      transform: {
-        apply: (seccios) => seccios && seccios.codi,
-        reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-      },
+     
     },
-    validationType: "string",
+    validationType: "object",
     ...withRequiredValidation(),
   };
 
@@ -361,12 +373,12 @@ const AvisosTab = ({ formData, setFormData, ...props }) => {
         inlineEditionDisabled: true,
       },
       {
-        name: "seccioCodi",
+        name: "seccio",
         title: props.intl.formatMessage({
           id: "SeccionEmpresa.seccion",
           defaultMessage: "Sección",
         }),
-
+        getCellValue: (row) => row.seccio?.description,
         field: seccio,
       },
 
@@ -396,19 +408,21 @@ const AvisosTab = ({ formData, setFormData, ...props }) => {
         title: DESCRIPCIO,
       },
       {
-        name: "operariCodiReb",
+        name: "operariReb",
         title: props.intl.formatMessage({
           id: "Proveedores.emisor",
           defaultMessage: "Emisor",
         }),
+        getCellValue: (row) => row.operariReb?.description,
         field: emisor,
       },
       {
-        name: "operariCodiDti",
+        name: "operariDti",
         title: props.intl.formatMessage({
           id: "Proveedores.destinatario",
           defaultMessage: "Destinatario",
         }),
+        getCellValue: (row) => row.operariDti?.description,
         field: destinatario,
       },
 
@@ -441,6 +455,28 @@ const AvisosTab = ({ formData, setFormData, ...props }) => {
           id: "Proveedores.estado",
           defaultMessage: "Estado",
         }),
+        getCellValue: (row) => {
+          if (row.estado) {
+            if (row.estado === "PENDENT") {
+              return props.intl.formatMessage({
+                id: "Selector.pendiente",
+                defaultMessage: "Pendiente",
+              });
+            } else if (row.estado === "EN_CURS") {
+              return props.intl.formatMessage({
+                id: "Selector.enCurso",
+                defaultMessage: "En Curso",
+              });
+            } else {
+              return props.intl.formatMessage({
+                id: "Selector.finalizado",
+                defaultMessage: "Finalizado",
+              });
+            }
+          }
+        },
+        field:tipoEstat,
+        allowFilter: false,
       },
     ],
     listKey: "avisoes",
@@ -455,7 +491,7 @@ const AvisosTab = ({ formData, setFormData, ...props }) => {
         defaultMessage: "Destinatario 2",
       }),
       type: "LOV",
-      key: "operariCodiDti2",
+      key: "operariDti2",
       id: "operari",
       breakpoints: {
         xs: 12,
@@ -465,10 +501,7 @@ const AvisosTab = ({ formData, setFormData, ...props }) => {
         key: "operaris",
         labelKey: formatCodeAndName,
         sort: "nom",
-        transform: {
-          apply: (operaris) => operaris && operaris.codi,
-          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-        },
+       
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndName,
       },

@@ -2175,6 +2175,8 @@
   "Proveedores.estado":"Estado",
   "Proveedores.destinatario2":"Destinatario 2",
   "Proveedores.numPedido":"Num Pedido",
-  "SeriesCompras.periodoValidez":"Período Validez"
+  "SeriesCompras.periodoValidez":"Período Validez",
+  "Selector.enCurso":"En curso",
+  "Selector.finalizado":"Finalizado"
 
 }
