@@ -704,7 +704,11 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       proveidor: { id: supplierId },
     },
     columns: [
-      { name: "codi", title: CODE },
+      {
+        name: "codi",
+        title: CODE,
+        inlineEditionDisabled: true
+      },
       { name: "domicili", title: DOMICILI },
       {
         name: "codiPostal",

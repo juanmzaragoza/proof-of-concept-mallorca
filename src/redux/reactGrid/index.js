@@ -111,22 +111,28 @@ export const updateData = ({ key, id, data }) => {
 export const createData = ({ key, data }) => {
   const gridId = key;
   return async (dispatch) => {
-    try {
-      dispatch(add({ gridId, loading: true }));
-      const queryString = API[key];
-      Axios.post(queryString, JSON.stringify(data))
-        .then(({ status, data, ...rest }) => {
-          dispatch(append({ gridId, ...data }));
-          dispatch(add({ gridId, loading: false }));
-        })
-        .catch((error) => {
-          dispatch(add({ gridId, loading: false }));
-          error.response && handlePersistError({gridId, ...error.response})(dispatch);
-        });
-    } catch (error) {
-      dispatch(add({ gridId, loading: false }));
-      dispatch(add({ gridId, errors: error }));
-    }
+    return new Promise((resolve,reject) => {
+      try {
+        dispatch(add({ gridId, loading: true }));
+        dispatch(add({ gridId, errors: {} }));
+        const queryString = API[key];
+        Axios.post(queryString, JSON.stringify(data))
+          .then(({ status, data, ...rest }) => {
+            dispatch(append({ gridId, ...data }));
+            dispatch(add({ gridId, loading: false }));
+            resolve({ status, data });
+          })
+          .catch((error) => {
+            dispatch(add({ gridId, loading: false }));
+            error.response && handlePersistError({gridId, ...error.response})(dispatch);
+            reject(error);
+          });
+      } catch (error) {
+        dispatch(add({ gridId, loading: false }));
+        dispatch(add({ gridId, errors: error }));
+        reject(error);
+      }
+    })
   };
 }
 
