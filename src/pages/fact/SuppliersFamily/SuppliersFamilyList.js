@@ -108,14 +108,14 @@ const SuppliersFamilyList = ({ actions, ...props }) => {
       validations: [
         ...props.commonValidations.requiredValidation(),
         ...props.stringValidations.minMaxValidation(1, 4),
-        ...props.stringValidations.fieldExistsValidation(
-          "familiaProveidor",
-          "codi",
-          props.intl.formatMessage({
-            id: "FamiliaProveedores.codigo",
-            defaultMessage: "Código",
-          })
-        ),
+        // ...props.stringValidations.fieldExistsValidation(
+        //   "familiaProveidor",
+        //   "codi",
+        //   props.intl.formatMessage({
+        //     id: "FamiliaProveedores.codigo",
+        //     defaultMessage: "Código",
+        //   })
+        // ),
       ],
     },
     {
