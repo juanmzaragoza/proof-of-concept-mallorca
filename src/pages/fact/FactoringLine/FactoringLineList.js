@@ -8,6 +8,7 @@ import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 import { TIPO_DIR_COMERCIALES_SELECTOR_VALUES } from "constants/selectors";
 import { withValidations } from "modules/wrappers";
+import { Chip } from "@material-ui/core";
 
 const FactoringLineList = ({ actions, ...props }) => {
   useEffect(() => {
@@ -260,15 +261,21 @@ const FactoringLineList = ({ actions, ...props }) => {
           getCellValue: (row) => {
             if (row.recursSiONo) {
               if (row.recursSiONo === "S") {
-                return props.intl.formatMessage({
-                  id: "Comun.si",
+                return    <Chip
+                label={props.intl.formatMessage({
+                  id: "Comun.SI",
                   defaultMessage: "Si",
-                });
+                })}
+                variant="outlined"
+              />
               } else {
-                return props.intl.formatMessage({
-                  id: "Comun.no",
-                  defaultMessage: "No",
-                });
+                return    <Chip
+                label={props.intl.formatMessage({
+                  id: "Comun.NO",
+                  defaultMessage: "NO",
+                })}
+                variant="outlined"
+              />
               }
             }
           },
