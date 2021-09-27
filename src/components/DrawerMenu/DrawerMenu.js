@@ -23,6 +23,7 @@ import {Loading} from "../../modules/shared/Loading";
 
 import {drawerWidth} from "../../constants/styles";
 import {ErrorOutline} from "@material-ui/icons";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -56,6 +57,10 @@ const useStyles = makeStyles((theme) => ({
   },
   noModules: {
     fontStyle: 'italic'
+  },
+  listSelected: {
+    backgroundColor: `${theme.palette.primary.main}!important`,
+    color: theme.palette.primary.contrastText
   }
 }));
 
@@ -150,7 +155,7 @@ const DrawerMenu = ({loading, functionalities, selectedModule, constants, getter
           <ListItemIcon>
             {route.icon}
           </ListItemIcon>
-          <ListItemText primary={route.title} />
+          <ListItemText primary={getMenuText(route.title)} />
           {open ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit className={classes.nested}>
@@ -162,12 +167,20 @@ const DrawerMenu = ({loading, functionalities, selectedModule, constants, getter
     )
   }
 
+  const getMenuText = (value) => <Typography type="h1" style={
+    {
+      fontWeight: 510,
+      fontSize: '0.8rem',
+      lineHeight: 1.2
+    }}> {value} </Typography>;
+
   const processRoute = (route) => (
     <ListItem selected={history.location.pathname === route.path}
               button key={route.key}
-              onClick={() => history.push(route.path)}>
+              onClick={() => history.push(route.path)}
+              classes={{ selected: classes.listSelected }}>
       <ListItemIcon>{route.icon}</ListItemIcon>
-      <ListItemText primary={route.title} />
+      <ListItemText primary={getMenuText(route.title)} />
     </ListItem>
   );
 
