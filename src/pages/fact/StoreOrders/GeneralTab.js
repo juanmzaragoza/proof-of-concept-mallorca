@@ -20,7 +20,7 @@ const SUPPLIERS_ORDERS_SECTION_INDEX = 0;
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
-      [SUPPLIERS_ORDERS_SECTION_INDEX]: false,
+      [SUPPLIERS_ORDERS_SECTION_INDEX]: true,
     },
     setIsValid: props.setIsValid,
   });
@@ -32,10 +32,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const DESCRIPCIO = props.intl.formatMessage({
     id: "Comun.descripcion",
     defaultMessage: "Descripción",
-  });
-  const DOMICILI = props.intl.formatMessage({
-    id: "Proveedores.Direccion.domicilio",
-    defaultMessage: "Domicilio",
   });
 
   const NOM = props.intl.formatMessage({
@@ -295,7 +291,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Operario",
       }),
       type: "LOV",
-      key: "operariCodi",
+      key: "operari",
       required: true,
       breakpoints: {
         xs: 12,
@@ -305,14 +301,11 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "operaris",
         labelKey: formatCodeAndName,
         sort: "nom",
-        transform: {
-          apply: (operaris) => operaris && operaris.codi,
-          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-        },
+      
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndName,
       },
-      validationType: "string",
+      validationType: "object",
       validations: [...props.commonValidations.requiredValidation()],
     },
     {
@@ -321,8 +314,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         defaultMessage: "Encargado",
       }),
       type: "LOV",
-      key: "operariCodi1",
-      id: "operari",
+      key: "operariEncarregat",
+      id: "operariCodi",
       breakpoints: {
         xs: 12,
         md: 3,
@@ -331,10 +324,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "operaris",
         labelKey: formatCodeAndName,
         sort: "nom",
-        transform: {
-          apply: (operaris) => operaris && operaris.codi,
-          reverse: (rows, codi) => rows.find((row) => row.codi === codi),
-        },
+       
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndName,
       },
