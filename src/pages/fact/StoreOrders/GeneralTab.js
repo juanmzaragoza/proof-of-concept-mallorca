@@ -11,6 +11,9 @@ import { withValidations } from "modules/wrappers";
 import { useTabForm } from "hooks/tab-form";
 import { Chip } from "@material-ui/core";
 import ExpandableGrid from "modules/ExpandableGrid";
+import ReactGrid from "modules/ReactGrid";
+import MasterDetailedForm from "modules/ReactGrid/MasterDetailForm";
+import * as API from "redux/api";
 
 const SUPPLIERS_ORDERS_SECTION_INDEX = 0;
 
@@ -46,46 +49,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   });
 
   const { id: pedidoAlmId } = useParams();
-
-  const code = (md = 6) => ({
-    type: "input",
-    key: "codi",
-    placeHolder: CODE,
-    required: true,
-    noEditable: true,
-    breakpoints: {
-      xs: 12,
-      md: md,
-    },
-  });
-
-  const codeAndName = (mdCode = 6, mdName = 6) => [
-    code(mdCode),
-    {
-      type: "input",
-      key: "nom",
-      placeHolder: NOM,
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdName,
-      },
-    },
-  ];
-
-  const codeAndDescription = (mdCode = 6, mdDes = 6) => [
-    code(mdCode),
-    {
-      type: "input",
-      key: "descripcio",
-      placeHolder: DESCRIPCIO,
-      required: true,
-      breakpoints: {
-        xs: 12,
-        md: mdDes,
-      },
-    },
-  ];
 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
   const formatCodeAndDescription = (data) =>
@@ -473,6 +436,33 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
+  const article =  {
+    placeHolder: props.intl.formatMessage({
+      id: "Presupuestos.articulo",
+      defaultMessage: "Artículo",
+    }),
+    type: "LOV",
+    key: "article",
+    id: "articlesFact",
+    required: true,
+    breakpoints: {
+      xs: 12,
+      md: 4,
+    },
+    selector: {
+      key: "articles",
+      labelKey: (data) => `${data.descripcioCurta} (${data.codi})`,
+      sort: "nom",
+      cannotCreate: true,
+      advancedSearchColumns: [
+        { title: CODE, name: "codi" },
+        { title: NOM, name: "descripcioCurta" },
+      ],
+    },
+    validationType: "object",
+    validations: [...props.commonValidations.requiredValidation()],
+  };
+
   const liniasPedidosConfig = {
     title: props.intl.formatMessage({
       id: "PedidosProveedor.tabs.liniasPedido",
@@ -511,16 +501,10 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           id: "Presupuestos.articulo",
           defaultMessage: "Artículo",
         }),
-        getCellValue: (row) => row.article && row.article?.pk.codi,
+        getCellValue: (row) => row.article && row.article.description,
+        field:article,
       },
-      {
-        name: "article.descripton",
-        title: props.intl.formatMessage({
-          id: "PedidosProveedor.descripcionArticulo",
-          defaultMessage: "Descripción Artículo",
-        }),
-        getCellValue: (row) => row.article && row.article?.description,
-      },
+     
       {
         name: "descripcio",
         title: props.intl.formatMessage({
@@ -544,17 +528,14 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         hidden: true,
       },
 
-      {
-        name: "observacions",
-        title: props.intl.formatMessage({
-          id: "Comun.observaciones",
-          defaultMessage: "Observaciones",
-        }),
-        hidden: true,
-      },
     ],
+    listKey: "liniaComandaMagatzems",
+    enableInlineEdition: true,
+    enableExpandableContent: true,
 
-    formComponents: [
+  };
+
+  const formComponents = [
       {
         placeHolder: props.intl.formatMessage({
           id: "PedidosProveedor.numero",
@@ -565,7 +546,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         key: "numero",
         breakpoints: {
           xs: 12,
-          md: 2,
+          md: 1,
         },
         validationType: "number",
         validations: [
@@ -583,7 +564,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         required: true,
         breakpoints: {
           xs: 12,
-          md: 2,
+          md: 1,
         },
         noEditable: true,
         validationType: "number",
@@ -592,33 +573,25 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           ...props.numberValidations.minMaxValidation(0, 9999999999),
         ],
       },
+     article,
       {
         placeHolder: props.intl.formatMessage({
-          id: "Presupuestos.articulo",
-          defaultMessage: "Artículo",
+          id: "Comun.descripcion",
+          defaultMessage: "Decripción",
         }),
-        type: "LOV",
-        key: "article",
-        id: "articlesFact",
+        type: "input",
         required: true,
+        key: "descripcio",
         breakpoints: {
           xs: 12,
-          md: 4,
+          md: 6,
         },
-        selector: {
-          key: "articles",
-          labelKey: (data) => `${data.descripcioCurta} (${data.codi})`,
-          sort: "nom",
-          cannotCreate: true,
-          advancedSearchColumns: [
-            { title: CODE, name: "codi" },
-            { title: NOM, name: "descripcioCurta" },
-          ],
-        },
-        validationType: "object",
-        validations: [...props.commonValidations.requiredValidation()],
+        validationType: "string",
+        validations: [
+          ...props.commonValidations.requiredValidation(),
+          ...props.stringValidations.minMaxValidation(0, 2000),
+        ],
       },
-
       {
         placeHolder: props.intl.formatMessage({
           id: "PedidosProveedor.unidades",
@@ -649,26 +622,8 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         validationType: "number",
         validations: [...props.commonValidations.requiredValidation()],
       },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "Comun.descripcion",
-          defaultMessage: "Decripción",
-        }),
-        type: "input",
-        required: true,
-        key: "descripcio",
-        breakpoints: {
-          xs: 12,
-          md: 8,
-        },
-        validationType: "string",
-        validations: [
-          ...props.commonValidations.requiredValidation(),
-          ...props.stringValidations.minMaxValidation(0, 2000),
-        ],
-      },
+      
 
-     
       {
         placeHolder: props.intl.formatMessage({
           id: "PedidosAlmacen.avisar",
@@ -735,34 +690,34 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           labelKey: (data) => `${data.descripcio} (${data.codi})`,
           sort: "nom",
           cannotCreate: true,
-          // relatedWith: [
-          //   {
-          //     name: "partida",
-          //     filterBy: "capitol.id",
-          //     keyValue: "id",
-          //   },
-          // ],
+          relatedWith: [
+            {
+              name: "partida",
+              filterBy: "capitol.id",
+              keyValue: "id",
+            },
+          ],
         },
       },
 
-      // {
-      //   placeHolder: props.intl.formatMessage({
-      //     id: "Proyectos.partida",
-      //     defaultMessage: "Partida",
-      //   }),
-      //   type: "LOV",
-      //   key: "partida",
-      //   breakpoints: {
-      //     xs: 12,
-      //     md: 4,
-      //   },
-      //   selector: {
-      //     key: "partidas",
-      //     labelKey: (data) => `${data.descripcio} (${data.codi})`,
-      //     sort: "descripcio",
-      //     cannotCreate: true,
-      //   },
-      // },
+      {
+        placeHolder: props.intl.formatMessage({
+          id: "Proyectos.partida",
+          defaultMessage: "Partida",
+        }),
+        type: "LOV",
+        key: "partida",
+        breakpoints: {
+          xs: 12,
+          md: 4,
+        },
+        selector: {
+          key: "partidas",
+          labelKey: (data) => `${data.descripcio} (${data.codi})`,
+          sort: "descripcio",
+          cannotCreate: true,
+        },
+      },
 
       {
         placeHolder: props.intl.formatMessage({
@@ -778,29 +733,29 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         validationType: "string",
         validations: [...props.stringValidations.minMaxValidation(0, 1000)],
       },
-    ],
-  };
+    ];
 
-  const tabs = [
-    {
-      className: "general-tab-subtab",
-      label: (
-        <FormattedMessage
-          id={"PedidosProveedor.tabs.liniasPedido"}
-          defaultMessage={"linias Pedido"}
-        />
-      ),
-      key: 0,
-      component: (
-        <ExpandableGrid
-          id="liniesComandaMagatzem"
-          responseKey="liniaComandaMagatzems"
-          enabled={props.editMode}
-          configuration={liniasPedidosConfig}
-        />
-      ),
-    },
-  ];
+
+  // const tabs = [
+  //   {
+  //     className: "general-tab-subtab",
+  //     label: (
+  //       <FormattedMessage
+  //         id={"PedidosProveedor.tabs.liniasPedido"}
+  //         defaultMessage={"linias Pedido"}
+  //       />
+  //     ),
+  //     key: 0,
+  //     component: (
+  //       <ExpandableGrid
+  //         id="liniesComandaMagatzem"
+  //         responseKey="liniaComandaMagatzems"
+  //         enabled={props.editMode}
+  //         configuration={liniasPedidosConfig}
+  //       />
+  //     ),
+  //   },
+  // ];
 
   return (
     <Grid container>
@@ -823,8 +778,34 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         />
       </Grid>
       <Grid xs={12} item>
-        <OutlinedContainer>
-          <ConfigurableTabs tabs={tabs} />
+        <OutlinedContainer
+          className="general-tab-container"
+          title={
+            <FormattedMessage
+              id={"PedidosProveedor.tabs.liniasPedido"}
+              defaultMessage={"Linias Pedido"}
+            />
+          }
+        >
+          <ReactGrid
+            id="liniesComandaMagatzem"
+            extraQuery={[
+              {
+                columnName: "comandaMagatzem.id",
+                value: `"${pedidoAlmId}"`,
+                exact: true,
+              },
+            ]}
+            configuration={liniasPedidosConfig}
+          >
+            {(properties) => (
+              <MasterDetailedForm
+                url={API.liniesComandaMagatzem}
+                formComponents={formComponents}
+                {...properties}
+              />
+            )}
+          </ReactGrid>
         </OutlinedContainer>
       </Grid>
     </Grid>
