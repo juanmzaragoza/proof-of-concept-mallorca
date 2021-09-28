@@ -8,7 +8,6 @@ import { setBreadcrumbHeader, setListingConfig } from "redux/pageHeader";
 import * as API from "redux/api";
 
 const LocationList = ({ actions, ...props }) => {
-
   useEffect(() => {
     actions.setListingConfig({
       title: props.intl.formatMessage({
@@ -35,7 +34,7 @@ const LocationList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
-        inlineEditionDisabled: true
+        inlineEditionDisabled: true,
       },
       {
         name: "descripcio",
@@ -45,18 +44,25 @@ const LocationList = ({ actions, ...props }) => {
         }),
       },
       {
+        title: props.intl.formatMessage({
+          id: "Ubicacion.codigoExterno",
+          defaultMessage: "Código externo",
+        }),
+        name: "codiExtern",
+      },
+      {
         name: "magatzem",
         title: props.intl.formatMessage({
           id: "Presupuestos.almacen",
           defaultMessage: "Almacén",
         }),
-        getCellValue: row => row.magatzem?.description ?? "",
-        inlineEditionDisabled: true
+        getCellValue: (row) => row.magatzem?.description ?? "",
+        inlineEditionDisabled: true,
       },
     ],
     URL: API.ubicacios,
     listKey: "ubicacios",
-    enableInlineEdition: true
+    enableInlineEdition: true,
   };
   return <ReactGrid id="ubicacios" configuration={listConfiguration} />;
 };
