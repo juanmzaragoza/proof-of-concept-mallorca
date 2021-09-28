@@ -19,13 +19,22 @@ const OfferSupplierList = ({ actions, ...props }) => {
           id: "Comun.codigo",
           defaultMessage: "Código",
         }),
-        inlineEditionDisabled: true
+        inlineEditionDisabled: true,
+        width: 100,
       },
       {
         name: "descripcioTipusOfertesProveidors",
         title: props.intl.formatMessage({
           id: "Comun.descripcion",
           defaultMessage: "Descripción",
+        }),
+        width: 350,
+      },
+      {
+        name: "observacions",
+        title: props.intl.formatMessage({
+          id: "Comun.observaciones",
+          defaultMessage: "Observaciones",
         }),
       },
     ],
