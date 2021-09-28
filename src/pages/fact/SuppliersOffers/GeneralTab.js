@@ -2,23 +2,19 @@ import React from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
 import { ESTADO_OFERTA_PROV_SELECTOR_VALUES } from "constants/selectors";
-import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
-import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 import { useTabForm } from "hooks/tab-form";
 
 const SUPPLIERS_ORDERS_SECTION_INDEX = 0;
-const TEXTO_SECTION_INDEX = 2;
-const CONTRATO_SECTION_INDEX = 1;
+
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [SUPPLIERS_ORDERS_SECTION_INDEX]: false,
-      [CONTRATO_SECTION_INDEX]:true,
-      [TEXTO_SECTION_INDEX]:true,
+
     },
     setIsValid: props.setIsValid,
   });
@@ -37,7 +33,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     defaultMessage: "Nombre",
   });
 
-
   const code = (md = 6) => ({
     type: "input",
     key: "codi",
@@ -49,8 +44,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       md: md,
     },
   });
-
-  
 
   const formatCodeAndName = (data) => `${data.nom} (${data.codi})`;
   const formatCodeAndDescription = (data) =>
@@ -324,11 +317,12 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
 
     {
-      placeHolder:  props.intl.formatMessage({
+      placeHolder: props.intl.formatMessage({
         id: "OfertaProveedores.concepto",
         defaultMessage: "Concepto",
       }),
       type: "input",
+      required: true,
       key: "concepteOferta",
       breakpoints: {
         xs: 12,
@@ -338,194 +332,50 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         multiline: 5,
       },
       validationType: "string",
-      validations: [...props.stringValidations.minMaxValidation(0, 500)],
+      validations: [
+        ...props.commonValidations.requiredValidation(),
+        ...props.stringValidations.minMaxValidation(0, 500),
+      ],
     },
     {
-        placeHolder: props.intl.formatMessage({
-          id: "OfertaProveedores.condiciones",
-          defaultMessage: "Condiciones Ejecución",
-        }),
-        type: "input",
-        key: "condicionsExecucio",
-        breakpoints: {
-          xs: 12,
-          md: 6,
-        },
-        text: {
-          multiline: 5,
-        },
-        validationType: "string",
-        validations: [...props.stringValidations.minMaxValidation(0, 1000)],
+      placeHolder: props.intl.formatMessage({
+        id: "OfertaProveedores.condiciones",
+        defaultMessage: "Condiciones Ejecución",
+      }),
+      type: "input",
+      key: "condicionsExecucio",
+      breakpoints: {
+        xs: 12,
+        md: 6,
       },
-  ];
-
-  const textosConfig = [
-     {
-        placeHolder: props.intl.formatMessage({
-          id: "OfertaProveedores.texto1",
-          defaultMessage: "Texto 1 ",
-        }),
-        type: "input",
-        key: "texte1",
-        breakpoints: {
-          xs: 12,
-          md: 6,
-        },
-        text: {
-          multiline: 5,
-        },
-        validationType: "string",
-        validations: [...props.stringValidations.minMaxValidation(0, 1000)],
+      text: {
+        multiline: 5,
       },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "OfertaProveedores.texto2",
-          defaultMessage: "Texto 2 ",
-        }),
-        type: "input",
-        key: "texte2",
-        breakpoints: {
-          xs: 12,
-          md: 6,
-        },
-        text: {
-          multiline: 5,
-        },
-        validationType: "string",
-        validations: [...props.stringValidations.minMaxValidation(0, 1000)],
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "OfertaProveedores.texto3",
-          defaultMessage: "Texto 3 ",
-        }),
-        type: "input",
-        key: "texte3",
-        breakpoints: {
-          xs: 12,
-          md: 6,
-        },
-        text: {
-          multiline: 5,
-        },
-        validationType: "string",
-        validations: [...props.stringValidations.minMaxValidation(0, 1000)],
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "OfertaProveedores.texto4",
-          defaultMessage: "Texto 4 ",
-        }),
-        type: "input",
-        key: "texte4",
-        breakpoints: {
-          xs: 12,
-          md: 6,
-        },
-        text: {
-          multiline: 5,
-        },
-        validationType: "string",
-        validations: [...props.stringValidations.minMaxValidation(0, 1000)],
-      },
-      {
-        placeHolder: props.intl.formatMessage({
-          id: "OfertaProveedores.texto5",
-          defaultMessage: "Texto 5 ",
-        }),
-        type: "input",
-        key: "texte5",
-        breakpoints: {
-          xs: 12,
-          md: 6,
-        },
-        text: {
-          multiline: 5,
-        },
-        validationType: "string",
-        validations: [...props.stringValidations.minMaxValidation(0, 1000)],
-      },
-  ];
-
-  const contratoConfig = [
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 1000)],
+    },
     {
-        placeHolder: props.intl.formatMessage({
-          id: "OfertaProveedores.contrato",
-          defaultMessage: "Contrato ",
-        }),
-        type: "input",
-        key: "contracte",
-        breakpoints: {
-          xs: 12,
-          md: 12,
-        },
-        text: {
-          multiline: 5,
-        },
-        validationType: "string",
-        validations: [...props.stringValidations.minMaxValidation(0, 1000)],
+      placeHolder: props.intl.formatMessage({
+        id: "OfertaProveedores.contrato",
+        defaultMessage: "Contrato ",
+      }),
+      type: "input",
+      key: "contracte",
+      breakpoints: {
+        xs: 12,
+        md: 12,
       },
-  
+      text: {
+        multiline: 5,
+      },
+      validationType: "string",
+      validations: [...props.stringValidations.minMaxValidation(0, 1000)],
+    },
   ];
 
-  const tabs = [
 
-    {
-        className: "general-tab-subtab",
-        label: (
-          <FormattedMessage
-            id={"OfertaProveedores.contrato"}
-            defaultMessage={"Contrato"}
-          />
-        ),
-        key: 0,
-        component: (
-          <GenericForm
-            formComponents={contratoConfig}
-            emptyPaper={true}
-            setFormData={setFormData}
-            getFormData={getFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) =>
-              addValidity(CONTRATO_SECTION_INDEX, value)
-            }
-            onBlur={(e) => handleTouched(CONTRATO_SECTION_INDEX)}
-            {...props}
-          />
-        ),
-      },
-    {
-        className: "general-tab-subtab",
-        label: (
-          <FormattedMessage
-            id={"OfertaProveedores.textos"}
-            defaultMessage={"Textos"}
-          />
-        ),
-        key: 1,
-        component: (
-          <GenericForm
-            formComponents={textosConfig}
-            emptyPaper={true}
-            setFormData={setFormData}
-            getFormData={getFormData}
-            loading={props.loading}
-            formErrors={props.formErrors}
-            submitFromOutside={props.submitFromOutside}
-            onSubmit={() => props.onSubmitTab(formData)}
-            handleIsValid={(value) =>
-              addValidity(TEXTO_SECTION_INDEX, value)
-            }
-            onBlur={(e) => handleTouched(TEXTO_SECTION_INDEX)}
-            {...props}
-          />
-        ),
-      },
-  ];
 
+ 
   return (
     <Grid container>
       <Grid xs={12} item>
@@ -546,11 +396,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
           {...props}
         />
       </Grid>
-      <Grid xs={12} item>
-        <OutlinedContainer>
-          <ConfigurableTabs tabs={tabs} />
-        </OutlinedContainer>
-      </Grid>
+
     </Grid>
   );
 };
