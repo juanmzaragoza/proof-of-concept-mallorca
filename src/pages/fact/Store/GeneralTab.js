@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
-import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
@@ -13,15 +12,13 @@ import { VALORACION_INVENTARIO_TRABAJO_SELECTOR_VALUES } from "constants/selecto
 import { useTabForm } from "../../../hooks/tab-form";
 
 const STORE_SECTION_INDEX = 0;
-const CONTACT_SECTION_TAB_INDEX = 1;
-const CONTAB_SECTION_TAB_INDEX = 2;
+
 
 const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [STORE_SECTION_INDEX]: false,
-      [CONTACT_SECTION_TAB_INDEX]: true,
-      [CONTAB_SECTION_TAB_INDEX]: true,
+
     },
     setIsValid: props.setIsValid,
   });
@@ -326,7 +323,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "telefon",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
       validationType: "string",
       validations: props.stringValidations.minMaxValidation(1, 60),
@@ -337,7 +334,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "fax",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
     },
 
@@ -347,7 +344,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "email",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
       validationType: "string",
       validations: [
@@ -361,7 +358,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "responsable",
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 6,
       },
     },
   ];
@@ -376,7 +373,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "tipusAssentamentComptable",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 4,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 2)],
@@ -390,7 +387,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "diariComptableTraspassos1",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 4,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 2)],
@@ -404,7 +401,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
       key: "diariComptableTraspassos2",
       breakpoints: {
         xs: 12,
-        md: 2,
+        md: 4,
       },
       validationType: "string",
       validations: [...props.stringValidations.minMaxValidation(0, 2)],
@@ -425,63 +422,7 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
-  const tabs = [
-    {
-      className: "general-tab-subtab",
-      label: (
-        <FormattedMessage
-          id={"Proveedores.Contacto.contacto"}
-          defaultMessage={"Contacto"}
-        />
-      ),
-      key: 0,
-      component: (
-        <GenericForm
-          formComponents={contactsConfig}
-          emptyPaper={true}
-          setFormData={setFormData}
-          getFormData={getFormData}
-          loading={props.loading}
-          formErrors={props.formErrors}
-          submitFromOutside={props.submitFromOutside}
-          onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) =>
-            addValidity(CONTACT_SECTION_TAB_INDEX, value)
-          }
-          onBlur={(e) => handleTouched(CONTACT_SECTION_TAB_INDEX)}
-          {...props}
-        />
-      ),
-    },
-    {
-      className: "general-tab-subtab",
-      label: (
-        <FormattedMessage
-          id={"Almacen.datosContables"}
-          defaultMessage={"Datos Contables"}
-        />
-      ),
-      key: 1,
-      component: (
-        <GenericForm
-          formComponents={contabConfig}
-          emptyPaper={true}
-          setFormData={setFormData}
-          getFormData={getFormData}
-          loading={props.loading}
-          formErrors={props.formErrors}
-          submitFromOutside={props.submitFromOutside}
-          onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) =>
-            addValidity(CONTAB_SECTION_TAB_INDEX, value)
-          }
-          onBlur={(e) => handleTouched(CONTAB_SECTION_TAB_INDEX)}
-          {...props}
-        />
-      ),
-    },
-  ];
-
+  
   return (
     <Grid container spacing={2}>
       <Grid xs={7} item>
@@ -496,6 +437,30 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         >
           <GenericForm
             formComponents={StoreConfig}
+            emptyPaper={true}
+            editMode={props.editMode}
+            getFormData={getFormData}
+            setFormData={setFormData}
+            loading={props.loading}
+            formErrors={props.formErrors}
+            submitFromOutside={props.submitFromOutside}
+            onSubmit={() => props.onSubmitTab(formData)}
+            handleIsValid={(value) => addValidity(STORE_SECTION_INDEX, value)}
+            onBlur={(e) => handleTouched(STORE_SECTION_INDEX)}
+            {...props}
+          />
+        </OutlinedContainer>
+        <OutlinedContainer
+          className="general-tab-container"
+          title={
+            <FormattedMessage
+              id={"Proveedores.Contacto.contacto"}
+              defaultMessage={"Contacto"}
+            />
+          }
+        >
+          <GenericForm
+            formComponents={contactsConfig}
             emptyPaper={true}
             editMode={props.editMode}
             getFormData={getFormData}
@@ -535,12 +500,32 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
             {...props}
           />
         </OutlinedContainer>
-      </Grid>
-      <Grid xs={12} item>
-        <OutlinedContainer>
-          <ConfigurableTabs tabs={tabs} />
+        <OutlinedContainer
+          className="general-tab-container"
+          title={
+            <FormattedMessage
+              id={"Almacen.datosContables"}
+              defaultMessage={"Datos Contables"}
+            />
+          }
+        >
+          <GenericForm
+            formComponents={contabConfig}
+            emptyPaper={true}
+            editMode={props.editMode}
+            getFormData={getFormData}
+            setFormData={setFormData}
+            loading={props.loading}
+            formErrors={props.formErrors}
+            submitFromOutside={props.submitFromOutside}
+            onSubmit={() => props.onSubmitTab(formData)}
+            handleIsValid={(value) => addValidity(STORE_SECTION_INDEX, value)}
+            onBlur={(e) => handleTouched(STORE_SECTION_INDEX)}
+            {...props}
+          />
         </OutlinedContainer>
       </Grid>
+      
     </Grid>
   );
 };
