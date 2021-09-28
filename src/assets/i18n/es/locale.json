@@ -2185,7 +2185,8 @@
   "Rappels.titulo":"Rappels",
   "Talleres.tabs.operariosTaller":"Operarios Taller",
   "CuentasCorrientes.oficina":"Oficina",
-  "CuentasCorrientes.cuentaCorriente":"Cuenta Corriente"
+  "CuentasCorrientes.cuentaCorriente":"Cuenta Corriente",
+  "Cajas.saldosIniciales":"Saldos Iniciales"
 
 
 }

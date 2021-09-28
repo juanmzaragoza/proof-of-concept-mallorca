@@ -82,7 +82,7 @@ const CommercialRegisterCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 3,
+        md: 4,
       },
       validationType: "string",
       validations: [
@@ -100,7 +100,7 @@ const CommercialRegisterCreate = (props) => {
       required: true,
       breakpoints: {
         xs: 12,
-        md: 3
+        md: 2
       },
       selector: {
         options: TIPO_REGISTRO_COMERCIAL_SELECTOR_VALUES
