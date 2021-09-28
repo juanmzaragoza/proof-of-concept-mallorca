@@ -31,10 +31,13 @@ const WorkShopList = ({ actions, ...props }) => {
       {
         name: "codi",
         title: CODE,
+        width:100,
       },
+      
       {
         name: "nom",
         title: NOM,
+   
       },
       {
         name: "direccio",

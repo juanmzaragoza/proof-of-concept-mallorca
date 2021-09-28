@@ -2182,7 +2182,8 @@
   "Articulos.familia":"Familia",
   "PedidosProveedor.datosPedido":"Datos Pedido",
   "PedidosProveedor.totalesPedido":"Totales Pedido",
-  "Rappels.titulo":"Rappels"
+  "Rappels.titulo":"Rappels",
+  "Talleres.tabs.operariosTaller":"Operarios Taller"
 
 
 }
