@@ -2183,7 +2183,9 @@
   "PedidosProveedor.datosPedido":"Datos Pedido",
   "PedidosProveedor.totalesPedido":"Totales Pedido",
   "Rappels.titulo":"Rappels",
-  "Talleres.tabs.operariosTaller":"Operarios Taller"
+  "Talleres.tabs.operariosTaller":"Operarios Taller",
+  "CuentasCorrientes.oficina":"Oficina",
+  "CuentasCorrientes.cuentaCorriente":"Cuenta Corriente"
 
 
 }
