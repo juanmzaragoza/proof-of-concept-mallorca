@@ -97,6 +97,7 @@ const SeriesIntracomunitariasList = ({ actions, ...props }) => {
         getCellValue: (row) =>
         row.dia1 ? new Date(row.dia1).toLocaleDateString() : "",
         field: dia1,
+        allowFilter:false,
       },
 
       {
@@ -105,6 +106,7 @@ const SeriesIntracomunitariasList = ({ actions, ...props }) => {
         getCellValue: (row) =>
         row.dia2 ? new Date(row.dia2).toLocaleDateString() : "",
         field: dia2,
+        allowFilter:false,
       },
       {
         title: SERDEF,

@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
 
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
-import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 
 import { useTabForm } from "hooks/tab-form";
 
 const CREATE_SECTION_INDEX = 0;
-const CHECKBOX_SECTION_TAB_INDEX = 1;
 
 
 const DocumentFooterTab = ({
@@ -23,7 +21,6 @@ const DocumentFooterTab = ({
   const [touched, handleTouched, addValidity, formIsValid] = useTabForm({
     fields: {
       [CREATE_SECTION_INDEX]: false,
-      [CHECKBOX_SECTION_TAB_INDEX]: true,
 
     },
     setIsValid: props.setIsValid,
@@ -296,70 +293,7 @@ const DocumentFooterTab = ({
   ];
 
 
-  // const familyClientsSuppliersConfiguration = [
-  //   {
-  //     placeHolder: props.intl.formatMessage({
-  //       id: "PieDocumento.familiaClienteProveedor",
-  //       defaultMessage: "Familia Cliente/Proveedor",
-  //     }),
-  //     type: "checkbox",
-  //     key: "familiaCliProv",
-  //     breakpoints: {
-  //       xs: 6,
-  //       md: 6,
-  //     },
-  //   },
-  // ];
 
-
-
-  const tabs = [
-    {
-      className: "general-tab-subtab",
-      label: (
-        <FormattedMessage
-          id={"PieDocumento.imprimirEn"}
-          defaultMessage={"Imprimir en..."}
-        />
-      ),
-      key: 0,
-      component: (
-        <GenericForm
-          formComponents={checkConfiguration}
-          emptyPaper={true}
-          setFormData={setFormData}
-          getFormData={getFormData}
-          loading={props.loading}
-          formErrors={props.formErrors}
-          submitFromOutside={props.submitFromOutside}
-          onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) =>
-            addValidity(CHECKBOX_SECTION_TAB_INDEX, value)
-          }
-          onBlur={(e) => handleTouched(CHECKBOX_SECTION_TAB_INDEX)}
-          {...props}
-        />
-      ),
-
-    },
-    
-    // {
-    //   className: "general-tab-subtab",
-    //   label: <FormattedMessage id={"Proveedores.familia"} defaultMessage={"Familia"}/>,
-    //   key: 1,
-    //   component: <GenericForm formComponents={familyClientsSuppliersConfiguration}
-    //                           emptyPaper={true}
-    //                           setFormData={setFormData}
-    //                           getFormData={getFormData}
-    //                           loading={props.loading}
-    //                           formErrors={props.formErrors}
-    //                           submitFromOutside={props.submitFromOutside}
-    //                           onSubmit={() => props.onSubmitTab(formData)}
-    //                           handleIsValid={value => addValidity(FAMILY_CLIENTS_SUPPLIERS_SECTION_TAB_INDEX,value)}
-    //                           onBlur={(e) => handleTouched(FAMILY_CLIENTS_SUPPLIERS_SECTION_TAB_INDEX)}
-    //                           {...props} />
-    // },
-  ];
 
   return (
     <Grid container>
@@ -388,12 +322,32 @@ const DocumentFooterTab = ({
             {...props}
           />
         </OutlinedContainer>
-      </Grid>
-      <Grid xs={12} item>
-        <OutlinedContainer>
-          <ConfigurableTabs tabs={tabs} />
+        <OutlinedContainer
+          className="general-tab-container"
+          title={
+            <FormattedMessage
+              id={"PieDocumento.imprimirEn"}
+              defaultMessage={"Imprimir en..."}
+            />
+          }
+        >
+          <GenericForm
+            formComponents={checkConfiguration}
+            emptyPaper={true}
+            editMode={props.editMode}
+            getFormData={getFormData}
+            setFormData={setFormData}
+            loading={props.loading}
+            formErrors={props.formErrors}
+            submitFromOutside={props.submitFromOutside}
+            onSubmit={() => props.onSubmitTab(formData)}
+            handleIsValid={(value) => addValidity(CREATE_SECTION_INDEX, value)}
+            onBlur={(e) => handleTouched(CREATE_SECTION_INDEX)}
+            {...props}
+          />
         </OutlinedContainer>
       </Grid>
+    
     </Grid>
   );
 };

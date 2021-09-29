@@ -15,7 +15,6 @@ const SuppliersOrdersList = ({ actions, ...props }) => {
     ]);
   }, []);
 
-
   const listConfiguration = {
     title: props.intl.formatMessage({
       id: "PedidosProveedores.titulo",
@@ -42,6 +41,36 @@ const SuppliersOrdersList = ({ actions, ...props }) => {
           id: "PedidosProveedor.estado",
           defaultMessage: "Estado ",
         }),
+        getCellValue: (row) => {
+          if (row.estat) {
+            if (row.estat === "ACEPTADA") {
+              return props.intl.formatMessage({
+                id: "Selector.aceptado",
+                defaultMessage: "Aceptado",
+              });
+            } else if (row.estat === "PENDENT") {
+              return props.intl.formatMessage({
+                id: "Selector.pendiente",
+                defaultMessage: "Pendiente ",
+              });
+            } else if (row.estat === "TANCADA") {
+              return props.intl.formatMessage({
+                id: "Selector.cerrado",
+                defaultMessage: "Cerrado",
+              });
+            } else if (row.estat === "RETENIDA") {
+              return props.intl.formatMessage({
+                id: "Selector.retenido",
+                defaultMessage: "Retenido",
+              });
+            } else {
+              return props.intl.formatMessage({
+                id: "Selector.prevision",
+                defaultMessage: "Previsión",
+              });
+            }
+          }
+        },
       },
 
       {
@@ -60,7 +89,6 @@ const SuppliersOrdersList = ({ actions, ...props }) => {
         }),
         getCellValue: (row) => (row.projecte ? row.projecte.description : ""),
       },
-      
     ],
     URL: API.comandesProveidor,
     listKey: "comandaProveidors",

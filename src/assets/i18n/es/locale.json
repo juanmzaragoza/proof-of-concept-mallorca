@@ -2181,7 +2181,12 @@
   "PedidosProveedor.importeTotal":"Importe Total",
   "Articulos.familia":"Familia",
   "PedidosProveedor.datosPedido":"Datos Pedido",
-  "PedidosProveedor.totalesPedido":"Totales Pedido"
+  "PedidosProveedor.totalesPedido":"Totales Pedido",
+  "Rappels.titulo":"Rappels",
+  "Talleres.tabs.operariosTaller":"Operarios Taller",
+  "CuentasCorrientes.oficina":"Oficina",
+  "CuentasCorrientes.cuentaCorriente":"Cuenta Corriente",
+  "Cajas.saldosIniciales":"Saldos Iniciales"
 
 
 }

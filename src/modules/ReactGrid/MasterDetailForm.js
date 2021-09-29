@@ -3,15 +3,16 @@ import {compose} from "redux";
 import {connect} from "react-redux";
 import {FormattedMessage, injectIntl} from "react-intl";
 import {withSnackbar} from "notistack";
+import PropTypes from "prop-types";
+import {isEqual} from "lodash";
 
 import Button from "@material-ui/core/Button";
 
 import GenericForm from "../GenericForm";
 import {withAbmServices} from "../wrappers";
 import {getLoading} from "redux/app/selectors";
-import PropTypes from "prop-types";
 
-const MasterDetailedForm = (
+const MasterDetailedForm = React.memo((
   {
     formComponents,
     row,
@@ -76,7 +77,7 @@ const MasterDetailedForm = (
       </div>
     </Fragment>
   );
-};
+}, (prevProps, newProps) => isEqual(prevProps, newProps));
 
 MasterDetailedForm.propTypes = {
   // property from withAbmServices HOC -> necessary to update data

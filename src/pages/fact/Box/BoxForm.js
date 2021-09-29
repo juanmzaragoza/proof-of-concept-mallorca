@@ -151,9 +151,9 @@ const BoxForm = React.memo(
         ),
       },
       {
-        ...getTranslations("Cajas.situacionesIniciales", "Situaciones Iniciales"),
+        ...getTranslations("Cajas.saldosIniciales", "Saldos Iniciales"),
         key: INITIAL_SITU_TAB_INDEX,
-        component: "Situaciones Iniciales (Pendiente BackEnd)"
+        component: "Saldos Iniciales (Pendiente BackEnd)"
       },
       
     ];

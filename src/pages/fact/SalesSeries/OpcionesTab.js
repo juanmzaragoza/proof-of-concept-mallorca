@@ -181,6 +181,13 @@ const OptionsTab = ({ formData, setFormData, getFormData, ...props }) => {
         sort: "codi",
         cannotCreate: true,
         advancedSearchColumns: aSCodeAndComercialName,
+        relatedWith: [
+          {
+            name: "departament",
+            filterBy: "empresa.id",
+            keyValue: "id",
+          },
+        ],
       },
       validationType: "object",
       validations: [...props.commonValidations.requiredValidation()],

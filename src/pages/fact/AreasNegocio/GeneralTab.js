@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
-import { Chip } from "@material-ui/core";
 import ExpandableGrid from "modules/ExpandableGrid";
-import { TDOC_SELECTOR_VALUES } from "constants/selectors";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
 import GenericForm from "modules/GenericForm";
-import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { compose } from "redux";
 import { withValidations } from "modules/wrappers";
 

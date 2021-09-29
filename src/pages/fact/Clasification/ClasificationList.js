@@ -67,6 +67,23 @@ const ClasificationList = ({ actions, ...props }) => {
           id: "Clasificaciones.clasificacion",
           defaultMessage: "Clasificación",
         }),
+        getCellValue: (row) => {
+          if (row.tipus) {
+            if (row.tipus === "OBRES") {
+              return props.intl.formatMessage({
+                id: "Selector.obras",
+                defaultMessage: "Obras",
+              });
+        
+            } else {
+              return props.intl.formatMessage({
+                id: "Selector.servicios",
+                defaultMessage: "Servicios",
+              });
+              
+            }
+          }
+        },
         field:tipoClasificacion
       },
       {

@@ -11,7 +11,11 @@ import { injectIntl } from "react-intl";
 import { bindActionCreators, compose } from "redux";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { isEmpty, unionBy } from "lodash";
+import {
+  isEmpty,
+  isEqual,
+  unionBy
+} from "lodash";
 import DataGrid, {
   Pager,
   Paging,
@@ -76,7 +80,7 @@ const ReactGrid = React.memo(
     const [expandedData, setExpandedData] = useState({});
     const [store, setStore] = useState(null);
 
-    const [columnNameChanged, setColumnNameChanged] = useState(null);
+    const [filterIndexColumn, setFilterIndexColumn] = useState(null);
 
     const deleteData = (row) => {
       actions.deleteData({ key: props.id, id: row.id });
@@ -177,7 +181,6 @@ const ReactGrid = React.memo(
     const REGEX_COLUMN_INDEX = 0;
     const filterValues = (e) => {
       const { column: { name: columnName }, value } = e;
-      setColumnNameChanged(columnName);
       if (!value) {
         setFilters(
           filters.filter((filter) => filter.columnName !== columnName)
@@ -215,6 +218,10 @@ const ReactGrid = React.memo(
         const column = columns[indexColumn];
         const value = e.value;
         operations[operation] && operations[operation]({ column, value });
+        // set filter to focus
+        setFilterIndexColumn(indexColumn);
+      } else{
+        setFilterIndexColumn(null);
       }
     };
 
@@ -248,7 +255,7 @@ const ReactGrid = React.memo(
     }, [dataGrid, expandedRow, expandedData]);
 
     /** This component is like a decorator that adds properties to children */
-    const ExpandableContent = () => {
+    const ExpandableContent = React.memo(() => {
       return props.children({
         ...props,
         row: expandedData,
@@ -261,7 +268,7 @@ const ReactGrid = React.memo(
           loadData();
         },
       });
-    };
+    }, (prevProps, newProps) => isEqual(prevProps,newProps));
 
     const handleValidation = (params) => {
       const {
@@ -321,7 +328,6 @@ const ReactGrid = React.memo(
       }
     }
 
-    let editorElement = undefined;
     return (
       <React.Fragment>
         <LoadPanel
@@ -357,17 +363,13 @@ const ReactGrid = React.memo(
             setColumns(cols);
           }}
           onSaving={onSaving}
-          // focus when filtering
-          // ref: https://supportcenter.devexpress.com/ticket/details/t357309/dxdatagrid-how-to-focus-filter-row-cell-after-create-grid#
-          onCellPrepared={(e) => {
-            const hasChanged = e.column.name === columnNameChanged;
-            if (e.rowType === "filter" && hasChanged) {
-              const cellElement = e.cellElement;
-              editorElement = cellElement.querySelector(".dx-texteditor-input");
-            }
-          }}
           onContentReady={(e)=>{
-            editorElement && editorElement.focus();
+            // focus when filtering
+            // ref: https://supportcenter.devexpress.com/ticket/details/t357309/dxdatagrid-how-to-focus-filter-row-cell-after-create-grid#
+            if(filterIndexColumn != null){
+              const editorElement = e.element.querySelectorAll(".dx-texteditor-input")[filterIndexColumn];
+              editorElement.focus();
+            }
           }}
           {...expandableOptions}
         >

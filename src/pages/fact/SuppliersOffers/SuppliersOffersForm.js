@@ -27,9 +27,11 @@ import {
 
 import { setFormDataByKey } from "../../../redux/genericForm";
 import { getLoading } from "../../../redux/app/selectors";
+import TextosTab from "./TextosTab";
 
 const GENERAL_TAB_INDEX = 0;
-const LINIAS_OFERTA_TAB_INDEX = 1;
+const TEXTOS_TAB_INDEX = 1;
+const LINIAS_OFERTA_TAB_INDEX = 2;
 
 const SuppliersOffersForm = React.memo(
   ({
@@ -46,7 +48,7 @@ const SuppliersOffersForm = React.memo(
 
     /** step 2 */
     const [tabIndexWithError, setTabIndexWithError] = useState({
-      [GENERAL_TAB_INDEX]: false,[LINIAS_OFERTA_TAB_INDEX]:false
+      [GENERAL_TAB_INDEX]: false,[TEXTOS_TAB_INDEX]:false,[LINIAS_OFERTA_TAB_INDEX]:false
 
     });
     const [forceTabChange, setForceTabChange] = useState(false);
@@ -105,6 +107,30 @@ const SuppliersOffersForm = React.memo(
               setTabIndexWithError({
                 ...tabIndexWithError,
                 [GENERAL_TAB_INDEX]: !value,
+              })
+            }
+            editMode={editMode}
+            getFormData={getFormData}
+            setFormData={actions.setFormData}
+            submitFromOutside={submitFromOutside}
+            onSubmitTab={handleSubmitTab}
+            formErrors={props.formErrors}
+            loading={props.loading}
+            formDataLoaded={props.formDataLoaded}
+            isSubmitted={props.isSubmitted}
+          />
+        ),
+      },
+      {
+        ...getTranslations(  "OfertaProveedores.textos", "Textos"),
+        key: TEXTOS_TAB_INDEX,
+        error: tabHasError(TEXTOS_TAB_INDEX),
+        component: (
+          <TextosTab
+            setIsValid={(value) =>
+              setTabIndexWithError({
+                ...tabIndexWithError,
+                [TEXTOS_TAB_INDEX]: !value,
               })
             }
             editMode={editMode}

@@ -5,6 +5,8 @@ import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import { bindActionCreators, compose } from "redux";
 import {setBreadcrumbHeader, setListingConfig} from "../../../redux/pageHeader";
+import MasterDetailedForm from "../../../modules/ReactGrid/MasterDetailForm";
+import { withValidations } from "modules/wrappers";
 
 const InstalacionesList = ({actions, ...props}) => {
 
@@ -55,7 +57,7 @@ const InstalacionesList = ({actions, ...props}) => {
     key: "codiPostal",
     breakpoints: {
       xs: 12,
-      md: 6,
+      md: 3,
     },
     selector: {
       key: "codiPostals",
@@ -145,7 +147,82 @@ const InstalacionesList = ({actions, ...props}) => {
       advancedSearchColumns: aSCodeAndDescription,
     },
   };
-  
+
+
+
+  const formComponents = [ {
+    placeHolder: CODE,
+
+    type: "input",
+    key: "codi",
+    required: true,
+    breakpoints: {
+      xs: 12,
+      md: 2,
+    },
+    noEditable: true,
+    validationType: "string",
+    validations: [
+      ...props.commonValidations.requiredValidation(),
+      ...props.stringValidations.minMaxValidation(1, 15),
+      ...props.stringValidations.fieldExistsValidation(
+        "instalacions",
+        "codi",
+        CODE
+      ),
+    ],
+  },
+  {
+    placeHolder: props.intl.formatMessage({
+      id: "Instalaciones.direccion",
+      defaultMessage: "Dirección",
+    }),
+
+    type: "input",
+    key: "direccio",
+    breakpoints: {
+      xs: 12,
+      md: 5,
+    },
+    validationType: "string",
+    validations: [...props.stringValidations.minMaxValidation(0, 60)],
+  },
+  {
+    placeHolder: DESCRIPCIO,
+
+    type: "input",
+    key: "descripcio",
+    required: true,
+    breakpoints: {
+      xs: 12,
+      md: 5,
+    },
+    validationType: "string",
+    validations: [
+      ...props.commonValidations.requiredValidation(),
+      ...props.stringValidations.minMaxValidation(1, 60),
+    ],
+  },
+
+  CP_FIELD,
+
+  {
+    placeHolder: props.intl.formatMessage({
+      id: "FamiliaProveedores.observaciones",
+      defaultMessage: "Observaciones",
+    }),
+    type: "input",
+    key: "observacions",
+    breakpoints: {
+      xs: 12,
+      md: 12,
+    },
+    text: {
+      multiline: 5,
+    },
+    validationType: "string",
+    validations: [...props.stringValidations.minMaxValidation(1, 1000)],
+  },];
 
   const listConfiguration = {
     title: props.intl.formatMessage({
@@ -156,7 +233,8 @@ const InstalacionesList = ({actions, ...props}) => {
       {
         name: 'codi',
         title:CODE,
-        inlineEditionDisabled: true
+        inlineEditionDisabled: true,
+        width:250,
       },
       {
         name: 'direccio',
@@ -179,21 +257,33 @@ const InstalacionesList = ({actions, ...props}) => {
           defaultMessage: "Código Postal"
         }),
         getCellValue: row => row.codiPostal? row.codiPostal.description:"",
-        field: CP_FIELD
+        field: CP_FIELD,
+        width:300,
   
       },
+      
       
     ],
     URL: API.instalacions,
     listKey: 'instalacios',
-    enableInlineEdition: true
+    enableInlineEdition: true,
+    enableExpandableContent: true
   };
 
 
   return (
     
-      <ReactGrid id='instalacions'
-                 configuration={listConfiguration} />
+      // <ReactGrid id='instalacions'
+      //            configuration={listConfiguration} />
+                 <ReactGrid id="instalacions" configuration={listConfiguration}>
+      {(props) => (
+        <MasterDetailedForm
+          url={API.instalacions}
+          formComponents={formComponents}
+          {...props}
+        />
+      )}
+    </ReactGrid>
  
   )
 };
@@ -208,6 +298,7 @@ const mapDispatchToProps = (dispatch, props) => {
 };
 
 export default compose(
+  withValidations,
   injectIntl,
   connect(null, mapDispatchToProps)
 )(InstalacionesList);

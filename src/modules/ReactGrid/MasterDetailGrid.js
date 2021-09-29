@@ -1,4 +1,6 @@
 import React, {useEffect} from "react";
+import {isEqual} from "lodash";
+
 import ReactGrid from "./index";
 
 /**
@@ -32,6 +34,6 @@ const MasterDetailGrid = React.memo((
       extraQuery={extraQuery}
       configuration={configuration} />
   </React.Fragment>
-})
+}, (prevProps, newProps) => isEqual(prevProps, newProps))
 
 export default MasterDetailGrid;

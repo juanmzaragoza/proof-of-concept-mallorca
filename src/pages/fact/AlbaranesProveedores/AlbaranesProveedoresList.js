@@ -69,19 +69,25 @@ const AlbaranesProveedoresList = ({ actions, ...props }) => {
           id: "AlbaranesProveedor.conformado",
           defaultMessage: "Conformado",
         }),
-        getCellValue: (row) =>
-          row.conformat && row.conformat === "S" ? (
-            `${props.intl.formatMessage({
-              id: "Comun.SI",
-              defaultMessage: "SI",
-            })}`
+        getCellValue: (row) => {
+          return row.conformat && row.conformat === "S" ? (
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.SI",
+                defaultMessage: "SI",
+              })}
+              variant="outlined"
+            />
           ) : (
-            `${props.intl.formatMessage({
-              id: "Comun.NO",
-              defaultMessage: "NO",
-            })}`
-           
-          ),
+            <Chip
+              label={props.intl.formatMessage({
+                id: "Comun.NO",
+                defaultMessage: "NO",
+              })}
+              variant="outlined"
+            />
+          );
+        },
       },
     ],
     URL: API.albaransProveidor,

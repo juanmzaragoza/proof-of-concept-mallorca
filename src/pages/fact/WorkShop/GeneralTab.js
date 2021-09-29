@@ -4,8 +4,8 @@ import { FormattedMessage, injectIntl } from "react-intl";
 import Grid from "@material-ui/core/Grid/Grid";
 import { Chip } from "@material-ui/core";
 
-import { VALORACION_INVENTARIO_TRABAJO_SELECTOR_VALUES } from "constants/selectors";
 import OutlinedContainer from "modules/shared/OutlinedContainer";
+import { VALORACION_INVENTARIO_TRABAJO_SELECTOR_VALUES } from "constants/selectors";
 import GenericForm from "modules/GenericForm";
 import ConfigurableTabs from "modules/shared/ConfigurableTabs";
 import { compose } from "redux";
@@ -527,39 +527,6 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
     },
   ];
 
-  const tabs = [
-    {
-      className: "general-tab-subtab",
-      label: (
-        <FormattedMessage
-          id={"Talleres.ContabAnalitica"}
-          defaultMessage={"Contabilidad - Analítica"}
-        />
-      ),
-      key: 0,
-      component: (
-        <GenericForm
-          formComponents={contabAnaliticaConfig}
-          emptyPaper={true}
-          setFormData={setFormData}
-          getFormData={getFormData}
-          loading={props.loading}
-          formErrors={props.formErrors}
-          submitFromOutside={props.submitFromOutside}
-          onSubmit={() => props.onSubmitTab(formData)}
-          handleIsValid={(value) => addValidity(CONTAB_SECTION_INDEX, value)}
-          onBlur={(e) => handleTouched(CONTAB_SECTION_INDEX)}
-          {...props}
-        />
-      ),
-    },
-    {
-      className: "general-tab-subtab",
-      label: "OPERARIOS TALLER",
-      key: 1,
-      component: "Operarios Taller (Pendiente Backend)",
-    },
-  ];
 
   return (
     <Grid container>
@@ -580,10 +547,33 @@ const GeneralTab = ({ formData, setFormData, getFormData, ...props }) => {
         />
       </Grid>
       <Grid xs={12} item>
-        <OutlinedContainer>
-          <ConfigurableTabs tabs={tabs} />
+      <OutlinedContainer
+          className="general-tab-container"
+          title={
+            <FormattedMessage
+            id={"Talleres.ContabAnalitica"}
+            defaultMessage={"Contabilidad - Analítica"}
+          />
+          }
+        >
+        <GenericForm
+          formComponents={contabAnaliticaConfig}
+          emptyPaper={true}
+          editMode={props.editMode}
+          getFormData={getFormData}
+          setFormData={setFormData}
+          loading={props.loading}
+          formErrors={props.formErrors}
+          submitFromOutside={props.submitFromOutside}
+          onSubmit={() => props.onSubmitTab(formData)}
+          handleIsValid={(value) => addValidity(WORKSHOP_SECTION_INDEX, value)}
+          onBlur={(e) => handleTouched(WORKSHOP_SECTION_INDEX)}
+          {...props}
+        />
         </OutlinedContainer>
       </Grid>
+      
+    
     </Grid>
   );
 };

@@ -116,6 +116,14 @@ const WorkShopForm = React.memo(
           />
         ),
       },
+      {
+        ...getTranslations("Talleres.tabs.operariosTaller", "Operarios Taller"),
+        key: 1,
+        component: (
+          "Operarios Taller (Pendiente Backend)"
+        ),
+       
+      },
     ];
 
     const { id } = useParams();

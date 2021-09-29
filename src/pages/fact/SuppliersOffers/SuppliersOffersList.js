@@ -15,15 +15,6 @@ const SuppliersOffersList = ({ actions, ...props }) => {
     ]);
   }, []);
 
-  const CODE = props.intl.formatMessage({
-    id: "Comun.codigo",
-    defaultMessage: "Código",
-  });
-  const NOM = props.intl.formatMessage({
-    id: "Comun.nombre",
-    defaultMessage: "Nombre",
-  });
-
   const listConfiguration = {
     title: props.intl.formatMessage({
       id: "OfertaProveedores.titulo",
@@ -50,6 +41,26 @@ const SuppliersOffersList = ({ actions, ...props }) => {
           id: "OfertaProveedores.estat",
           defaultMessage: "NIF",
         }),
+        getCellValue: (row) => {
+          if (row.estat) {
+            if (row.estat === "ANULADA") {
+              return props.intl.formatMessage({
+                id: "Selector.anulada",
+                defaultMessage: "Anulada",
+              });
+            } else if (row.estat === "PENDENT") {
+              return props.intl.formatMessage({
+                id: "Selector.pendiente",
+                defaultMessage: "Pendiente",
+              });
+            } else {
+              return props.intl.formatMessage({
+                id: "Selector.asignada",
+                defaultMessage: "Asignada",
+              });
+            }
+          }
+        },
       },
       {
         name: "divisa.description",
