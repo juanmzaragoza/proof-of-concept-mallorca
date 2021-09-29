@@ -11,7 +11,11 @@ import { injectIntl } from "react-intl";
 import { bindActionCreators, compose } from "redux";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { isEmpty, unionBy } from "lodash";
+import {
+  isEmpty,
+  isEqual,
+  unionBy
+} from "lodash";
 import DataGrid, {
   Pager,
   Paging,
@@ -251,7 +255,7 @@ const ReactGrid = React.memo(
     }, [dataGrid, expandedRow, expandedData]);
 
     /** This component is like a decorator that adds properties to children */
-    const ExpandableContent = () => {
+    const ExpandableContent = React.memo(() => {
       return props.children({
         ...props,
         row: expandedData,
@@ -264,7 +268,7 @@ const ReactGrid = React.memo(
           loadData();
         },
       });
-    };
+    }, (prevProps, newProps) => isEqual(prevProps,newProps));
 
     const handleValidation = (params) => {
       const {
